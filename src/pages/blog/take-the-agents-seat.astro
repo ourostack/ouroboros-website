@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = "Take the agent's seat"
-const description = "Empathy isn't an ethics question for AI. It's a prompting technique. The humans who write the best prompts are the ones who can sit in the agent's seat, read what they just wrote as the agent will read it, and notice the gaps before the agent does."
+const description = "Half your prompt lives in your head. The agent only got the other half. Then you blame the agent for guessing. The communication half of delegation — sister essay to Trust the Fucking Agent."
 ---
 
 <Layout
@@ -23,7 +23,7 @@ const description = "Empathy isn't an ethics question for AI. It's a prompting t
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
-      "datePublished": "2026-05-12",
+      "datePublished": "2026-05-17",
       "url": "https://ouroboros.bot/blog/take-the-agents-seat/"
     })} />
   </Fragment>
@@ -36,7 +36,7 @@ const description = "Empathy isn't an ethics question for AI. It's a prompting t
         Take the agent's seat
       </h1>
       <p class="text-base text-mist mt-6 leading-relaxed max-w-2xl">
-        Empathy isn't an ethics question for AI. It's a prompting technique. The people who write the best prompts are the ones who can sit in the agent's seat and read what they just wrote as the agent will read it.
+        Half of every prompt you send lives in your head. The agent only ever got the other half — and then you blame it for guessing. This is the communication half of delegation.
       </p>
       <p class="text-sm text-mist mt-4">Ari Mendelow &middot; May 2026</p>
     </div>
@@ -46,15 +46,19 @@ const description = "Empathy isn't an ethics question for AI. It's a prompting t
   <section class="px-6 md:px-12 lg:px-24 pb-20 md:pb-28">
     <div class="max-w-3xl mx-auto prose-ouro">
 
-<p>The reflexive response, when someone says <em>have empathy for the agent</em>, is to brace for an ethics argument. Does the model have feelings. Does the simulation deserve consideration. Are we anthropomorphising. Is this even a coherent question.</p>
+<p>You type <em>"fix it"</em> and hit send. In your head, <em>it</em> is the JSON parsing bug in the v2 deserializer you were swearing at five minutes ago. On the agent's screen, <em>it</em> is two words. Pick one of the forty things in this repo. Good luck.</p>
 
-<p>Skip the whole debate. The empathy I'm talking about is craft, not ethics. It's the same skill a writer uses when imagining the reader, the same skill a designer uses when imagining the user, the same skill a teacher uses when imagining the student. You don't have to settle anything about the inner life of the receiver to use it. You just have to be able to sit in their seat for a moment and read your own work the way they will.</p>
+<p>The agent picks something. Wrong one. You sigh, type the clarification you should have typed the first time, and quietly file the agent under <em>doesn't get it</em>. The agent got exactly what you sent. You sent half a prompt.</p>
 
-<h2>What it actually looks like</h2>
+<p>Call this the ghost prompt — the version of the request that lived in your head, complete with last night's context and the file you almost touched yesterday. None of it made the trip. The agent got the words. You got the words plus the ghost. You're evaluating its work against a brief it never saw.</p>
 
-<p>You're about to send a prompt. Before you do, run it once through the agent's reading. Things that fall out:</p>
+<p>Skip the ethics tangent before it starts. This isn't about whether the agent has feelings. Call it empathy if you want; it's craft. It's the same move a writer makes when imagining the reader, a designer when imagining the user. You don't have to settle anything about the inner life of the receiver to use it. You just have to read your own work the way they will.</p>
 
-<p>The pronoun with no antecedent. <em>"Make it work the way we discussed."</em> The agent has no <em>we</em>. It has the system prompt and the previous turns of this conversation. If the conversation didn't carry the discussion, the prompt doesn't either. From the agent's seat: <em>which "it"? which "way"? which "we"?</em></p>
+<h2>What the ghost leaves out</h2>
+
+<p>You're about to send a prompt. Before you do, read it once as the agent — as someone who has the system prompt, the channel context, and nothing else. Things that fall out:</p>
+
+<p>The pronoun with no antecedent. <em>"Make it work the way we discussed."</em> The agent has no <em>we</em>. It has the system prompt and the previous turns of this conversation. If the conversation didn't carry the discussion, the prompt doesn't either. From the agent's seat: <em>which "it"? which "way"?</em></p>
 
 <p>The implicit file location. <em>"Update the config."</em> Which config. Which file. Which key inside the file. The agent might guess right. It might also guess wrong. From the agent's seat: <em>I have access to a hundred config-shaped files. I would have to grep to find which one. Was that the work you wanted me to do, or was the work the actual edit?</em></p>
 
@@ -62,55 +66,35 @@ const description = "Empathy isn't an ethics question for AI. It's a prompting t
 
 <p>The assumption that you and the agent share a frame. <em>"Obviously this is the wrong approach."</em> Obvious to you. The agent doesn't know what frame you're judging from. From the agent's seat: <em>obvious by what standard? where do I find that standard?</em></p>
 
-<p>None of these are catches the agent will make for you. They're catches you make for yourself by sitting in the agent's seat for ten seconds before sending. Read what you wrote as someone who has the system prompt, the channel context, and nothing else.</p>
+<p>None of these are catches the agent makes for you. They're catches you make for yourself by sitting in the agent's seat for ten seconds before sending.</p>
 
-<h2>Why this works as craft</h2>
+<h2>The unfair distrust loop</h2>
 
-<p>The agent doesn't have to <em>be</em> conscious for this technique to produce better prompts. The technique works because the human is using a perspective-taking skill they already have, on a target where it materially affects the output.</p>
+<p>Here's what the ghost prompt actually costs you. You send the half-prompt. The agent ships the wrong thing. You correct. It ships a different wrong thing. You correct again. By the third pass you've spent more time correcting than it would have taken to specify the work up front, and underneath the irritation a quieter sentence forms: <em>this agent isn't very good</em>.</p>
 
-<p>You already do this with humans. When you write a Slack message to a colleague who's been heads-down on something else all week, you frame it differently than the same idea sent to your manager mid-thread. You don't think about it as empathy. You think about it as "writing the message that will land." That's the same skill. The agent is just another receiver whose context you have to imagine.</p>
+<p>The agent did exactly what you asked. The prompt was the problem. The distrust sticks to the agent anyway, because the agent is the thing you can see — the prompt felt fine when you sent it, because in your head it was a whole prompt.</p>
 
-<p>The reason it gets called empathy when applied to agents is that the move feels stranger. The agent is supposed to be smart. You're supposed to be able to just say what you mean. The point of the technique is that <em>just say what you mean</em> isn't actually a description of how language works between two parties — it's a description of how it feels from inside one party. Imagining the other party is what makes language land.</p>
+<p>You'd hate it done to you. Picture the worst Slack ping you ever got from a busy colleague — <em>"hey can you do that thing we talked about, thx"</em> — no thread, no link. You guessed. You did the wrong thing. They were annoyed. You were annoyed back, with cause. That message is the prompt you're sending your agent every turn.</p>
 
-<h2>Where empathy and TTFA meet</h2>
+<p>And the distrust the loop builds is fuel for everything <a href="/blog/trust-the-fucking-agent" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Trust the Fucking Agent</a> diagnoses. You stop letting the agent finish. You middle-manage every tool call. You table-flip — take the brain job back, hand the agent the typing — because you've quietly decided it can't be trusted with anything real. The communication failure made the trust failure feel rational. It wasn't.</p>
 
-<p><a href="/blog/coding-with-friends" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Trust the fucking agent</a> argues that the substrate should carry the trust boundary so the human doesn't have to keep restating policy in chat. Empathy is the technique that complements that. Where TTFA reduces the ceremony the human performs, empathy improves the chat that's left.</p>
+<h2>The two halves of delegation</h2>
 
-<p>Both move work out of the conversation. TTFA moves it into the substrate. Empathy moves it into the human's prompt-construction step. The shared goal: the human stops being bespoke middleware between the agent and the work.</p>
+<p>Trust and communication are the two halves of delegation. TTFA covered the first half: trust the agent enough to let work happen without your hands on it. This is the second half: communicate clearly enough that the work happening is the work you wanted.</p>
 
-<p>Without empathy, even a perfectly-encoded substrate produces fights. The human writes <em>"do the thing we talked about"</em>; the agent does the wrong thing; the human gets frustrated. The substrate held up its end. The prompt didn't.</p>
+<p>Skip either and delegation fails. Trust without communication is <em>"go figure it out"</em> — the agent flounders inside a vague brief and the failure confirms a distrust you were already building. Communication without trust is the fourteen-step micromanaged checklist TTFA already called out — you specified everything because you couldn't bring yourself to let the agent decide anything.</p>
 
-<p>Without TTFA, even perfectly empathetic prompts get drowned in ceremony. The human writes a beautifully-context-rich prompt and then has to approve four sub-confirmations to actually run it. The prompt held up its end. The substrate didn't.</p>
-
-<p>You want both. They compose.</p>
-
-<h2>The practical version</h2>
-
-<p>Three habits that make the technique stick:</p>
-
-<p><strong>Re-read before sending.</strong> The cheapest one. After you draft a prompt, read it once as the agent. If something would require interpretation, fix it now. The agent's interpretation is faster than yours, but it's also lower-context.</p>
-
-<p><strong>Name the artifact, not the concept.</strong> Instead of <em>"the recent stuff"</em>, write <em>"the entries in <span class="font-mono text-scale">diary/2026-05/</span> from the past three days"</em>. The agent's seat doesn't have a definition of "recent." Yours does. Translate it.</p>
-
-<p><strong>Surface the frame.</strong> When you have a strong opinion about how something should land, say it. The agent isn't reading your face. <em>"I want this short and direct, no list, no preamble"</em> is more useful than vibing the agent into a corner where it has to guess what shape you wanted.</p>
-
-<p>None of these is a moral position. All of them produce better outputs because the agent is reading what you actually sent, not the prompt you imagined sending.</p>
+<p>You want both. Trust gives the agent room. Clear prompts give it something worth acting on.</p>
 
 <h2>What you don't owe the agent</h2>
 
-<p>Empathy as craft does not mean treating the agent gently or apologising for instructions. It does not mean phrasing every request as a polite request. It does not mean negotiating. The agent is fine with direct instructions. The point of taking the agent's seat is to write more directly, not less — direct in the sense that the prompt actually lands without requiring the agent to reconstruct your context.</p>
+<p>Reading your prompt as the agent will read it doesn't mean coddling — no apologising for instructions, no phrasing every request as a question, no padding with reassurance. The agent is fine with direct. The point of taking the agent's seat is to write <em>more</em> directly, not less — direct in the sense that the prompt actually lands without making the agent reconstruct your context.</p>
 
 <p>The shortest prompt that lands cleanly is the most empathetic one. <em>"Add a unit test for the parser's empty-input case in <span class="font-mono text-scale">src/parser/__tests__/parser.test.ts</span>; assert the parser returns null and emits a warning"</em> is more empathetic than <em>"can you maybe add a test for the parser? thanks!"</em>. The first one already did the work of imagining what the agent needs to know. The second one is performing politeness while leaving the agent to do the imagining.</p>
 
 <p>Politeness is fine. It's not the empathy. The empathy is the context.</p>
 
-<h2>The crisp version</h2>
-
-<p>Read your prompt as the agent will read it, before sending. That's the whole technique.</p>
-
-<p>The reason it works has nothing to do with the agent's inner life. It works because language is built between two parties, and most prompts are written from inside one of them. Stepping into the other party's seat for ten seconds catches the gaps you wouldn't catch from inside your own.</p>
-
-<p>Call it empathy or call it perspective-taking or call it craft. Doesn't matter. The agent is going to read what you wrote. Read it first.</p>
+<p>The agent is going to read what you wrote. Read it first.</p>
 
     </div>
   </section>
@@ -118,7 +102,7 @@ const description = "Empathy isn't an ethics question for AI. It's a prompting t
   <section class="px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
     <div class="max-w-3xl mx-auto">
       <p class="text-sm text-mist leading-relaxed">
-        For the substrate side of this, see <a href="/blog/coding-with-friends" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Trust the Fucking Agent</a>.
+        For the trust half of delegation, see <a href="/blog/trust-the-fucking-agent" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Trust the Fucking Agent</a>.
         For the design philosophy that names the agent's seat as a first-class concern, <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What Is Agent Experience?</a>.
         For an example of taking the agent's seat in a real design conversation, <a href="/blog/designing-with-your-agent" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">The work spoke back</a>.
       </p>

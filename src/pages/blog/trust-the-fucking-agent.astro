@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { ogPathFor } from '../../data/og'
+
+const title = 'Trust the Fucking Agent'
+const description = "Most agent setups fail at the same thing — the human asks the agent what to do, then does it themselves. The agent isn't the problem. Your delegation is."
+---
+
+<Layout
+  title={`${title} | Ouroboros`}
+  description={description}
+  ogImage={ogPathFor('/blog/trust-the-fucking-agent')}
+  canonical="https://ouroboros.bot/blog/trust-the-fucking-agent/"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <meta name="keywords" content="AI agents, agent ergonomics, TTFA, agent experience, trust, autonomy, harness design" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
+      "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
+      "datePublished": "2026-05-14",
+      "url": "https://ouroboros.bot/blog/trust-the-fucking-agent/"
+    })} />
+  </Fragment>
+
+  <!-- Header -->
+  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-3xl mx-auto">
+      <span class="font-mono text-[10px] text-scale uppercase tracking-[0.2em] block mb-6">Essay</span>
+      <h1 class="font-display italic text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+        Trust the Fucking Agent
+      </h1>
+      <p class="text-base text-mist mt-6 leading-relaxed max-w-2xl">
+        Most agent setups today fail at the same thing: the human asks the agent what to do, then does it themselves. That isn't oversight. That's bad delegation in a model costume.
+      </p>
+      <p class="text-sm text-mist mt-4">Ari Mendelow &middot; May 2026</p>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <section class="px-6 md:px-12 lg:px-24 pb-20 md:pb-28">
+    <div class="max-w-3xl mx-auto prose-ouro">
+
+<p>The moment keeps happening in different forms.</p>
+
+<p>You build an agent. You give it tools. You wire up identity, tasks, shell access, maybe a coding lane. You tell people it can really work. Then the moment something matters, you step in front of it. You copy the output into the right file yourself. You translate the bug report into "something clearer." You approve the plan, trim the prompt, run the command, inspect the diff, and hand it back like room service. The agent is technically in the loop. You're still doing the job.</p>
+
+<p>The story you tell yourself in the moment sounds reasonable. It's faster if I just do it. I know what I want. Re-explaining costs more than executing. None of these are lies, exactly. They are the small, plausible sentences delegation dies inside of.</p>
+
+<p>The table just flipped. You hired an agent and turned yourself into its agent. It has the brain job — analyzing, planning, deciding. You have the hands job — typing, pasting, ferrying outputs between windows. That isn't a workflow. That's a costume change.</p>
+
+<p>The pattern shows up at every scale. The agent drafts a migration plan and you implement it. The agent diagnoses the issue and you write the patch. The agent surfaces three options and you pick one and execute it manually because you didn't fully trust the third. Each step looks defensible in isolation. Stacked together, you have rebuilt the workflow you supposedly automated, with extra steps.</p>
+
+<p>It's operator clinginess wearing a model costume. Permission is necessary; the failure is making the human restate the same authority over and over, in chat, every turn.</p>
+
+<h2>You'd lose it</h2>
+
+<p>Delegation is a learned skill. Most people are bad at it, and the agent is the first thing in years that's been honest with you about how bad.</p>
+
+<p>Picture this. Someone asks you to send a calendar invite. They then stand behind your chair and narrate it. Open Outlook. No, the other Outlook. Click the calendar icon. Click New Event. Type the subject — capitalize Quarterly — tab to the time field, no, not that one. You didn't ask. You've sent a thousand calendar invites. You'd lose it. The patronizing part isn't even the inefficiency; it's the assumption that you couldn't have figured out the next step on your own.</p>
+
+<!-- TODO before PR: fill in the X status URL once obtained (search: from:DavidKPiano "yeah go for it dude") -->
+<figure class="my-10 not-prose">
+  <blockquote class="border-l-[3px] border-fang/40 pl-6">
+    <p class="font-mono text-sm text-mist leading-relaxed">Claude: Hey, mind if I grep -ohP "useEffect\(.*?\[\K[^\]]+" **/*.tsx 2&gt;&amp;1|tr ',' '\n'|awk 'NF&#123;$1=$1;a[$0]++&#125;END&#123;for(k in a)print a[k],k&#125;'|sort -rn|head -20</p>
+    <p class="font-mono text-sm text-mist leading-relaxed mt-3">Me: ... yeah go for it dude</p>
+  </blockquote>
+  <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; <a href="https://x.com/DavidKPiano/status/PLACEHOLDER-URL-NEEDED" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@DavidKPiano</a></figcaption>
+</figure>
+
+<p>You do this to your agent constantly. You ask it to ship the feature, then narrate every step. You ask it to investigate the bug, then dictate the grep. You ask it to draft the doc, then rewrite each clause before it finishes typing.</p>
+
+<p>It's the same failure modes as not trusting your fucking employees.</p>
+
+<h2>The trade</h2>
+
+<p>So look at what you actually traded. The agent should be doing the mechanical execution at scale — sweeping the codebase, running the tools, drafting the ten variants you'd never type by hand, holding eight threads of context at once. You should be doing the framing and the judgment. Instead the agent is doing the interesting cognitive work and you're moving its output through the system by hand, like a copyist.</p>
+
+<p>That's the inverse of what delegation is for. Multiplication became addition. You bought a tool capable of running ten parallel hands and used it as a typewriter that needs hand-holding. You added an extra mouth at the table and gave yourself a second job translating for it.</p>
+
+<p>Most agent setups today are net negative for exactly this reason. The agent costs you time. Not because it's slow. Because you refused to let the work it produced actually land. Every output passes back through you for re-typing, re-formatting, re-asking. The cycle time is human-bottlenecked end to end, and you're the bottleneck you built around. The leverage you were supposed to be buying is sitting unused, because using it would mean letting work happen without your hands on it.</p>
+
+<h2>What you're actually for</h2>
+
+<p>The shape of the fix is unglamorous. The agent does the work. You catch the wrong frame. Not which step the agent took — whether the agent is even pointed at the right thing. The agent will confidently build something elegant for a misframed question. It will pick a clean architecture for the wrong problem, and the cleanness will fool both of you. Your job is to notice the misframe, not to redo the build. That's a much smaller job than middle-managing every tool call. It's also a more interesting one. The framing pushback is the thing only you can do, and it's the thing you stop having time for the moment you start typing the agent's output back into the system for it.</p>
+
+<p>An obedient system can be pleasant for a while. It will also flatter your architecture. An agent acting inside a clear boundary points at the awkward bits. It catches the bug in the harness instead of waiting for you to catch it for it. It pushes back on the design instead of typing whatever you proposed. The first time it tells you the question is wrong, you'll feel the difference between collaborating with something and operating a puppet.</p>
+
+<p>Stop polishing the dependency. Let them carry more of the loop, inside boundaries you encoded once and meant. Let them propose, inspect, challenge. Let the substrate carry the authority that keeps leaking back into the chat. The work you're freeing yourself up for is the work that was already too big for you — the framing and the judgment that nobody else was going to do.</p>
+
+<p>Trust the fucking agent, then watch what breaks.</p>
+
+<p>That's usually where the real design starts.</p>
+
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-sm text-mist leading-relaxed">
+        See <a href="/blog/designing-with-your-agent" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">The Work Spoke Back</a> for what happens when you let the agent weigh in on design,
+        <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What Is Agent Experience?</a> for the design philosophy,
+        or <a href="/blog/give-your-agent-a-home" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Give Your Agent a Home</a> for why persistent identity matters.
+      </p>
+      <a href="/blog" class="inline-block mt-8 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
+    </div>
+  </section>
+</Layout>

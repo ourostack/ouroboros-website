@@ -101,7 +101,7 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'A practical guide to building agents that read, think, act, and grow — from first principles to production.',
     tag: 'Tutorial',
   },
-  '/blog/coding-with-friends': {
+  '/blog/trust-the-fucking-agent': {
     title: 'Trust the fucking agent.',
     subtitle: 'When the substrate carries the trust boundary, the conversation can stop reenacting it.',
     tag: 'Essay',
