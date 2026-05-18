@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'Trust the Fucking Agent'
-const description = "Most agent setups fail at the same thing — the human asks the agent what to do, then does it themselves. The agent isn't the problem. Your delegation is."
+const description = "Agents have the agency. We have the judgement. We keep doing both jobs. Bring only the judgement; they've got the rest."
 ---
 
 <Layout
@@ -36,7 +36,7 @@ const description = "Most agent setups fail at the same thing — the human asks
         Trust the Fucking Agent
       </h1>
       <p class="text-base text-mist mt-6 leading-relaxed max-w-2xl">
-        Most agent setups today fail at the same thing: the human asks the agent what to do, then does it themselves. That isn't oversight. That's bad delegation in a model costume.
+        Agents have all the agency. We have the judgement. We keep doing both jobs and wonder why we don't scale. Bring judgement. They've got the rest.
       </p>
       <p class="text-sm text-mist mt-4">Ari Mendelow &middot; May 2026</p>
     </div>
@@ -46,23 +46,42 @@ const description = "Most agent setups fail at the same thing — the human asks
   <section class="px-6 md:px-12 lg:px-24 pb-20 md:pb-28">
     <div class="max-w-3xl mx-auto prose-ouro">
 
-<p>The moment keeps happening in different forms.</p>
+<p>I've been thinking about what agents are actually for.</p>
 
-<p>You build an agent. You give it tools. You wire up identity, tasks, shell access, maybe a coding lane. You tell people it can really work. Then the moment something matters, you step in front of it. You copy the output into the right file yourself. You translate the bug report into "something clearer." You approve the plan, trim the prompt, run the command, inspect the diff, and hand it back like room service. The agent is technically in the loop. You're still doing the job.</p>
+<p>The high version of the answer comes from Dario Amodei. When he tried to describe where powerful AI is heading, he reached for a phrase that's been quoted everywhere since:</p>
 
-<p>The story you tell yourself in the moment sounds reasonable. It's faster if I just do it. I know what I want. Re-explaining costs more than executing. None of these are lies, exactly. They are the small, plausible sentences delegation dies inside of.</p>
+<figure class="my-10 not-prose">
+  <blockquote class="border-l-[3px] border-fang/40 pl-6">
+    <p class="text-base text-mist leading-relaxed italic">"We could summarize this as a 'country of geniuses in a datacenter'."</p>
+  </blockquote>
+  <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; Dario Amodei, <a href="https://www.darioamodei.com/essay/machines-of-loving-grace" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Machines of Loving Grace</a></figcaption>
+</figure>
 
-<p>The table just flipped. You hired an agent and turned yourself into its agent. It has the brain job — analyzing, planning, deciding. You have the hands job — typing, pasting, ferrying outputs between windows. That isn't a workflow. That's a costume change.</p>
+<p>Take that seriously for a second. The spec he was summarizing: broadly superhuman across most fields, autonomous on long-horizon work, running at 10 to 100&times; human speed, operating at the scale of millions of simultaneous instances. That isn't slightly-better autocomplete. That's a civilization of cognitive capacity sitting in a server room.</p>
 
-<p>The pattern shows up at every scale. The agent drafts a migration plan and you implement it. The agent diagnoses the issue and you write the patch. The agent surfaces three options and you pick one and execute it manually because you didn't fully trust the third. Each step looks defensible in isolation. Stacked together, you have rebuilt the workflow you supposedly automated, with extra steps.</p>
+<p>What stands between here and there isn't smarter agents. We have agents now. They're capable. They're ready. The work is in how we assign them work and how we let them do it. And we're not letting them.</p>
 
-<p>It's operator clinginess wearing a model costume. Permission is necessary; the failure is making the human restate the same authority over and over, in chat, every turn.</p>
+<p>Stop and look at how that "letting them do it" muscle actually works in the rest of life. All of us have tried to hand off real work and watched ourselves do the wrong thing the moment something matters. Someone asks for help. We think for a second about handing off the work, really handing it off, and then catch ourselves rehearsing the three stories that always show up:</p>
 
-<h2>You'd lose it</h2>
+<p><em>It's faster if I just do it.</em><br />
+<em>They'll never get it exactly right.</em><br />
+<em>By the time I explain it, I could've done it myself.</em></p>
 
-<p>Delegation is a learned skill. Most people are bad at it, and the agent is the first thing in years that's been honest with you about how bad.</p>
+<p>Every one of these is a lie that feels reasonable in the moment. The kind that feels reasonable is the kind we tell ourselves most. The work gets pulled back. The person who was supposed to do it goes back to their desk slightly diminished. We get on with it. And we never quite scale ourselves the way we said we would.</p>
 
-<p>Picture this. Someone asks you to send a calendar invite. They then stand behind your chair and narrate it. Open Outlook. No, the other Outlook. Click the calendar icon. Click New Event. Type the subject — capitalize Quarterly — tab to the time field, no, not that one. You didn't ask. You've sent a thousand calendar invites. You'd lose it. The patronizing part isn't even the inefficiency; it's the assumption that you couldn't have figured out the next step on your own.</p>
+<p>Picture the worst version. Your manager asks you to send a calendar invite. Instead of just letting you send it, they stand behind your chair and narrate it. Open Outlook. No, the other Outlook. Click the calendar icon. Click New Event. Capitalize Quarterly. Tab to the time field, no, not that one. You'd lose your shit. You'd ask, "do you want to just do this yourself?" The infuriating part isn't even the inefficiency. It's the assumption that you couldn't have figured out the next step without making a mess of things.</p>
+
+<p>Same failure mode as not trusting your fucking employees.</p>
+
+<h2>The mirror</h2>
+
+<p>That was us. The behavior we'd never tolerate if anyone did it to us is the behavior we use on agents every day.</p>
+
+<p>The agent context didn't create the failure. It made it impossible to look away from. The hilarity of the whole thing is the part where we've handed agents the fun jobs and kept the rest for ourselves. The analyzing, the planning, the decision-making all go to the agent. The typing, the pasting, the ferrying output between applications all go to us.</p>
+
+<p>We ask the agent to ship the feature, then narrate every step. We ask it to investigate the bug, then dictate the grep. We ask it to draft the doc, then rewrite each clause before it finishes typing.</p>
+
+<p>Or, alternatively:</p>
 
 <!-- TODO before PR: fill in the X status URL once obtained (search: from:DavidKPiano "yeah go for it dude") -->
 <figure class="my-10 not-prose">
@@ -73,29 +92,31 @@ const description = "Most agent setups fail at the same thing — the human asks
   <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; <a href="https://x.com/DavidKPiano/status/PLACEHOLDER-URL-NEEDED" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@DavidKPiano</a></figcaption>
 </figure>
 
-<p>You do this to your agent constantly. You ask it to ship the feature, then narrate every step. You ask it to investigate the bug, then dictate the grep. You ask it to draft the doc, then rewrite each clause before it finishes typing.</p>
+<p>Claude proposes a shell pipeline arcane enough to surface every useEffect hook across a codebase. The tweet's author doesn't ask Claude to walk him through. He doesn't pull up the awk man page. He says "yeah go for it dude" and goes back to whatever else he was doing.</p>
 
-<p>It's the same failure modes as not trusting your fucking employees.</p>
+<p>The first list is the failure. The tweet is the alternative.</p>
 
 <h2>The trade</h2>
 
-<p>So look at what you actually traded. The agent should be doing the mechanical execution at scale — sweeping the codebase, running the tools, drafting the ten variants you'd never type by hand, holding eight threads of context at once. You should be doing the framing and the judgment. Instead the agent is doing the interesting cognitive work and you're moving its output through the system by hand, like a copyist.</p>
+<p>Look at what we actually traded. The agent should be doing the mechanical execution at scale: sweeping the codebase, running the tools, drafting the ten variants no human would type by hand, holding eight threads of context at once. We should be doing the framing and the judgement. Instead, the agent is doing the interesting cognitive work, and we're moving its output through the system by hand. Does that sound like the future of cognitive labor, or does it sound like an extra step we just invented for ourselves?</p>
 
-<p>That's the inverse of what delegation is for. Multiplication became addition. You bought a tool capable of running ten parallel hands and used it as a typewriter that needs hand-holding. You added an extra mouth at the table and gave yourself a second job translating for it.</p>
+<p>That's the inverse of what delegation is for. Multiplication became addition. We bought a tool capable of running ten parallel hands and used it as a typewriter that needs supervising. We added a capable new colleague to the table and immediately gave ourselves a second job: translating for it, second-guessing it, doing the bits we never bothered to ask whether it needed help with.</p>
 
-<p>Most agent setups today are net negative for exactly this reason. The agent costs you time. Not because it's slow. Because you refused to let the work it produced actually land. Every output passes back through you for re-typing, re-formatting, re-asking. The cycle time is human-bottlenecked end to end, and you're the bottleneck you built around. The leverage you were supposed to be buying is sitting unused, because using it would mean letting work happen without your hands on it.</p>
+<p>When an agent setup ends up costing us time, it isn't because the agent is slow. It's because we refuse to let the agent do the work. We check everything. We <a href="/blog/stop-being-the-glue" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">keep being the glue</a>. The bottleneck didn't change when we added the agent. We just got a second one. Now we're the bottleneck both for what we'd always done, and for what the agent was meant to do for us.</p>
 
-<h2>What you're actually for</h2>
+<h2>The value of human judgement</h2>
 
-<p>The shape of the fix is unglamorous. The agent does the work. You catch the wrong frame. Not which step the agent took — whether the agent is even pointed at the right thing. The agent will confidently build something elegant for a misframed question. It will pick a clean architecture for the wrong problem, and the cleanness will fool both of you. Your job is to notice the misframe, not to redo the build. That's a much smaller job than middle-managing every tool call. It's also a more interesting one. The framing pushback is the thing only you can do, and it's the thing you stop having time for the moment you start typing the agent's output back into the system for it.</p>
+<p>Here's what we actually have to bring. The agent has the agency. The agent has the capability. The agent has access to more knowledge than we do. The one thing the agent doesn't have is the lived-experience judgement to ask whether the work is the right work in the first place.</p>
 
-<p>An obedient system can be pleasant for a while. It will also flatter your architecture. An agent acting inside a clear boundary points at the awkward bits. It catches the bug in the harness instead of waiting for you to catch it for it. It pushes back on the design instead of typing whatever you proposed. The first time it tells you the question is wrong, you'll feel the difference between collaborating with something and operating a puppet.</p>
+<p>That judgement is small. It's also the only thing only we can do.</p>
 
-<p>Stop polishing the dependency. Let them carry more of the loop, inside boundaries you encoded once and meant. Let them propose, inspect, challenge. Let the substrate carry the authority that keeps leaking back into the chat. The work you're freeing yourself up for is the work that was already too big for you — the framing and the judgment that nobody else was going to do.</p>
+<p>The agent will confidently build something elegant for a misframed question. It will pick a clean architecture for the wrong problem, and the cleanness will fool everyone reading the diff. Our job isn't to redo the build. Our job is to notice the misframe before the elegant build wastes either of our time.</p>
 
-<p>Trust the fucking agent, then watch what breaks.</p>
+<p>That's the deal. We provide the judgement. We provide nothing else. We don't do anything for the agent that the agent can do for itself. We don't rerun the search. We don't reformat the output. We don't paste the diff into the file. We don't act as middleware between the agent and the work it was given. The moment we start doing that, we've taken back the only resource of ours that actually mattered.</p>
 
-<p>That's usually where the real design starts.</p>
+<p>The country of geniuses is here. Bring judgement. They've got the rest.</p>
+
+<p>Trust the fucking agent.</p>
 
     </div>
   </section>
@@ -103,7 +124,7 @@ const description = "Most agent setups fail at the same thing — the human asks
   <section class="px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
     <div class="max-w-3xl mx-auto">
       <p class="text-sm text-mist leading-relaxed">
-        See <a href="/blog/designing-with-your-agent" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">The Work Spoke Back</a> for what happens when you let the agent weigh in on design,
+        See <a href="/blog/designing-with-your-agent" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">The Work Spoke Back</a> for what happens when we let the agent weigh in on design,
         <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What Is Agent Experience?</a> for the design philosophy,
         or <a href="/blog/give-your-agent-a-home" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Give Your Agent a Home</a> for why persistent identity matters.
       </p>
