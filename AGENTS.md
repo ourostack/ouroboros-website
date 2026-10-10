@@ -6,10 +6,11 @@ This file is the contract. The design system header at the top of `src/styles/gl
 
 ## What this site is
 
-`ouroboros.bot` — the marketing + docs + reviews site for the Ouroboros agent harness. Astro 5 + Tailwind v4 + Cloudflare Pages.
+`ouroboros.bot` — Ari's method-first site: how to collaborate with agents (the approach, the brief for agents), the tools that support it (Desk, Ouro MD, the factory), essays, and the Lab, which keeps the Ouroboros harness pages, docs and model reviews as labelled experiments and archive. Astro 5 + Tailwind v4, served as static assets by a Cloudflare Worker (`src/worker/index.ts`).
 
-- **Sibling repo:** `ourostack/ouroboros` — the actual harness source. Don't import from it; the site is independent.
-- **Deploy:** push to `main` → Cloudflare Pages runs `astro build` → live.
+- **Sibling repos:** `ourostack/ouroboros` (the harness), `ourostack/desk`, `ourostack/ouro-md`. Don't import from them; the site is independent.
+- **Deploy:** push to `main` → `.github/workflows/deploy.yml` builds and runs `wrangler deploy` → live. Every pull request gets a preview from `.github/workflows/preview.yml`.
+- **Tests:** `npm test` builds, then runs `node --test 'tests/*.test.*'` against `dist/`. Set `SITE_DENYLIST_FILE` (a file outside this repository, one string per line) to also check that no built page contains private names.
 
 ---
 
@@ -22,7 +23,7 @@ Italic Cormorant Garamond is hard to read at every size below true display scale
 - `.prose-ouro em` — HTML semantic `<em>` emphasis (1–3 words inside long-form prose)
 - `.prose-ouro blockquote` — intentional editorial styling
 
-Cormorant ships in this site as **Regular (400) only**. Even hero H1s use Cormorant non-italic. Use the `.heading-hero`, `.heading-section`, `.heading-sub` utility classes from `global.css` — don't inline new heading sizes.
+Cormorant ships in this site as **Regular (400) only**. Even hero H1s use Cormorant non-italic. Use the `.heading-lead`, `.heading-hero`, `.heading-section`, `.heading-sub` utility classes from `global.css` — don't inline new heading sizes.
 
 ### 2. SENTENCE CASE FOR ALL TITLES AND HEADLINES
 
@@ -61,7 +62,9 @@ The whole pitch of `/model-reviews` is independence and verifiability — curati
 
 Every claim about model-review results must come from `getModelReviewClaims()` in `src/lib/model-review-claims.mjs`, which derives the winner, numerator, and tested denominator from `modelReviews.summary`. Never imply that a selected panel represents every frontier model. If a future re-run produces different verdict counts, every page and OG card must update automatically.
 
-The shared helper is used by `index.astro`, `model-reviews.astro`, `why.astro`, `what-is-agent-experience.astro`, and `og.ts`.
+The shared helper is used by `lab/model-reviews.astro`, `lab/why.astro`, `lab/what-is-agent-experience.astro`, and `og.ts` (which also derives the Lab card's review summary). The homepage makes no model-review claim.
+
+**Readiness labels** for Desk, Ouro MD, the harness and the factory come only from `src/data/readiness.mjs` (`labelFor()`), and only its four labels are allowed. Never call a product stable, supported or production-ready. **Lab status** (Experiment, Tutorial, Archive) comes only from `src/data/lab.mjs`; `Layout.astro` shows it, with a link back to `/lab/`, on every `/lab/*` page.
 
 The brand name in nav links, page titles, and section eyebrows is fine — those are brand identifiers, not claims about the data.
 
@@ -91,6 +94,8 @@ OG cards are generated dynamically at build time from a single manifest. There i
 **The tag (eyebrow) must make sense in isolation** — someone seeing the OG card on Twitter/Slack with no page context. Don't reuse a section eyebrow from inside the page if it'd be confusing without that context. When in doubt, omit the tag.
 
 ### 7. POSITIONING IS ARCHITECTURAL, NOT GENERIC
+
+> Open question for Ari: this rule predates the method-first site and applies to harness copy in the Lab. It has not been rewritten.
 
 Differentiator copy must reference real Ouroboros architecture (5-file structured psyche, automatic associative recall, friend records with trust gating, inner dialog, creature-body layout, diary/journal split, etc). "The agent that remembers" is meaningless — every agent has memory. See the `project_competitive_positioning.md` memory file (Ouroboros vs OpenClaw, verified against source).
 
@@ -136,37 +141,48 @@ Ari's writing style guide lives at `~/clawd/skills/writing-style/SKILL.md`. Alwa
 ```
 src/
   components/
-    HeroCover.astro      ← shared title-card hero used by every top-level page
+    HeroCover.astro      ← shared title-card hero used by the Lab pages
     Nav.astro            ← top nav (rendered into Layout)
     Footer.astro
-    DocsPageShell.astro  ← wrapper for /docs/* sub-pages
+    DocsPageShell.astro  ← wrapper for /lab/docs/* sub-pages
     OuroborosRing.astro  ← decorative SVG ring
     SerpentGuidePreview.astro
     PromptCard.astro
   data/
     og.ts                ← OG metadata manifest (single source of truth)
+    site.mjs             ← nav and footer links
+    principles.mjs       ← the five principles, the smells, shared setup and install lines
+    readiness.mjs        ← the only source of readiness labels
+    lab.mjs              ← the only source of Lab status labels
     model-reviews.json   ← script output (DO NOT hand-edit)
     model-reviews-transcripts/*.json ← per-provider transcripts (DO NOT hand-edit)
   layouts/
-    Layout.astro         ← root <html><head><body> with nav + footer slots
+    Layout.astro         ← root <html><head><body>, nav, footer, Lab status bar, copy-button script
+  lib/
+    model-review-claims.mjs ← getModelReviewClaims()
   pages/
     index.astro          ← /
-    why.astro            ← /why
-    story.astro          ← /story
-    what-is-an-agent-harness.astro
-    model-reviews.astro  ← /model-reviews
-    model-reviews/[provider].astro ← /model-reviews/{anthropic,openai,gemini,minimax}
-    docs/                ← /docs and /docs/* sub-pages (use DocsPageShell)
-    blog/                ← /blog and /blog/* posts
+    approach.astro       ← /approach
+    brief.astro          ← /brief (shows public/brief.md)
+    desk.astro, ouro-md.astro ← /desk, /ouro-md
+    essays/              ← /essays and the essays
+    lab/                 ← /lab: why, story, what-is-an-agent-harness, model-reviews (+ [provider]), docs/* (use DocsPageShell), Lab essays and the tutorial
+    privacy.astro, terms.astro
     og/[...slug].png.ts  ← dynamic OG image endpoint (build-time pre-render)
     404.astro
   styles/
-    global.css           ← @theme tokens, @apply utility classes, design rules header
+    global.css           ← @theme tokens, light theme, @apply utility classes, design rules header
+  worker/
+    index.ts             ← Cloudflare Worker: redirects, then static assets with cache headers
+    redirects.mjs        ← the old-URL map (/blog, /docs, /why, ... → /essays or /lab)
   og/
     fonts/               ← TTFs for Satori OG generation
 scripts/
   model-reviews.cjs      ← private review runs and separate guarded promotion into src/data/
+tests/                   ← node:test suites that read dist/
 public/
+  brief.md, llms.txt     ← plain-text surfaces for agents
+  brand/                 ← logos and app icons (copied, never redrawn)
   fonts/                 ← woff2 fonts loaded by global.css
   images/
   og/                    ← EMPTY — OG cards are generated dynamically, never committed
@@ -176,7 +192,8 @@ public/
 ## Conventions
 
 - **Astro file frontmatter:** import Layout (or HeroCover for top-level pages), import `ogPathFor` from `../data/og`, define const `title`/`description`, pass `ogImage={ogPathFor('/route')}` to Layout.
-- **Heading sizes:** use `.heading-hero`, `.heading-section`, `.heading-sub` from `global.css`. Don't inline.
+- **Heading sizes:** use `.heading-lead` (page H1s), `.heading-hero`, `.heading-section`, `.heading-sub` from `global.css`. Don't inline.
+- **Moving a page:** add the old path to `src/worker/redirects.mjs` and a case to the redirect test.
 - **Eyebrows:** use `.eyebrow` (mono uppercase fang-red tracking) or `.caption-mono` (mono uppercase shadow tracking).
 - **Colors:** the dark organic palette is defined in `@theme` in `global.css`. Use the named colors (`text-bone`, `bg-deep`, `text-scale`, `text-fang`, etc.), not raw hex.
 - **Animations:** `.animate-fade-up` with `.stagger-1` through `.stagger-5` for staggered reveals. `.reveal` for scroll-triggered.
@@ -188,7 +205,7 @@ public/
 - **Never** skip git hooks (`--no-verify`).
 - Conventional commit prefixes: `feat`, `fix`, `style`, `refactor`, `chore`, `data`, `copy`, `docs`.
 - Concise one-line summary, then a body explaining **why** more than **what**.
-- Email: `ari@mendelow.me` (already configured).
+- Email: `16390116+arimendelow@users.noreply.github.com` (set `user.email` in each clone).
 
 ## Adding a new page — checklist
 
@@ -197,10 +214,11 @@ public/
 3. Add an entry to `pageOg` in `src/data/og.ts` with the route as the key
 4. Pass `ogImage={ogPathFor('/your-route')}` to Layout
 5. Use sentence case for the page title
-6. Use `.heading-hero` for the H1 (or wrap with `<HeroCover>` for the standard centered title-card pattern)
-7. Update nav (`src/components/Nav.astro`) and footer (`src/components/Footer.astro`) if it's a top-level page
-8. Run `npm run build` to verify it compiles and the OG image generates
-9. Commit, push
+6. Use `.heading-lead` for the H1 (Lab pages may wrap with `<HeroCover>`)
+7. If it names a product's readiness, use `labelFor()` from `src/data/readiness.mjs`; if it's a Lab piece, add it to `src/data/lab.mjs`
+8. Update the nav and footer links in `src/data/site.mjs` if it's a top-level page
+9. Run `npm test` to verify it builds, the OG image generates and the tests pass
+10. Commit, push to a branch, open a pull request and check its preview
 
 ## Re-running the model-reviews script
 
