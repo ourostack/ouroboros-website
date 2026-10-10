@@ -31,6 +31,7 @@ test('llms.txt points agents at the method pages', () => {
   }
   assert.doesNotMatch(llms, /<[a-z][^>]*>/i);
   assert.doesNotMatch(llms, /Every page is written for people and for the agents/);
+  assert.doesNotMatch(llms, /a real prompt and an agent note for each principle/, 'Principle 3 has an exhibit, not a prompt');
   assert.doesNotMatch(llms, /give your agent/i, 'llms.txt speaks to the agent, not about it');
 });
 

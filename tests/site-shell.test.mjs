@@ -138,6 +138,21 @@ const approachQuotes = [
   '36 minutes is insane! what is it doing that takes so long? feels like the correct first question, no?',
 ];
 
+test('a filled button inside prose keeps the button colours, not the link green', async () => {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const dir = path.join(process.cwd(), 'dist', '_astro');
+  const css = fs.readdirSync(dir).filter((f) => f.endsWith('.css')).map((f) => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n');
+  const rule = css.match(/\.prose-ouro a\.bg-bone(?::hover)?(?:,\.prose-ouro a\.bg-bone(?::hover)?)*\{([^}]*)\}/);
+  assert.ok(rule, 'Missing the .prose-ouro a.bg-bone rule');
+  assert.match(rule[1], /color:var\(--color-void\)/);
+  assert.match(rule[1], /text-decoration:none/);
+  // The rule must come after the prose link rules so it wins on equal specificity.
+  assert.ok(css.indexOf('.prose-ouro a.bg-bone') > css.indexOf('.prose-ouro a:hover'), 'Button rule must follow the prose link rules');
+  const html = readDist('approach/index.html');
+  assert.match(html, /<a href="\/brief\/" class="[^"]*\bbg-bone\b[^"]*\btext-void\b/, 'The approach call to action is a filled button');
+});
+
 test('approach page has its own heading, not the homepage question', () => {
   const html = readDist('approach/index.html');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
@@ -251,6 +266,19 @@ test('tag text and card details pass WCAG AA in both themes', async () => {
   const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
 
   assert.match(css, /\.tag\s*\{[^}]*color:\s*var\(--color-bone\)/, 'Tag text must be bone, not the tone colour');
+  // Small text that uses a token directly: links, numbers, eyebrows and captions on cards.
+  for (const [name, theme, tokens] of [['dark', dark, ['scale', 'shadow', 'mist', 'amber']], ['light', light, ['scale', 'shadow', 'mist', 'amber']]]) {
+    for (const surface of ['void', 'deep', 'undergrowth']) {
+      for (const token of tokens) {
+        const r = ratio(rgb(theme[token]), rgb(theme[surface]));
+        assert.ok(r >= 4.5, `${name}: ${token} text on ${surface} is ${r.toFixed(2)}:1`);
+      }
+    }
+    const amberCard = mix(rgb(theme.amber), rgb(theme.deep), 0.1);
+    assert.ok(ratio(rgb(theme.amber), amberCard) >= 4.5, `${name}: amber label on the amber-tinted card`);
+    const button = ratio(rgb(theme.void), rgb(theme.bone));
+    assert.ok(button >= 4.5, `${name}: button text (void on bone) is ${button.toFixed(2)}:1`);
+  }
   for (const [name, theme] of [['dark', dark], ['light', light]]) {
     for (const surface of ['void', 'deep']) {
       for (const tone of ['scale', 'amber', 'shadow', 'fang', 'mist']) {
@@ -300,5 +328,23 @@ test('the Lab model-review card states the method before the result', () => {
   assert.match(text, /We gave frontier models \d+ public agent harnesses and asked which they'd choose to work inside\./);
   for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) {
     assert.match(readDist(`lab/model-reviews/${provider}/index.html`), /og:image" content="https:\/\/ouroboros\.bot\/og\/og-lab-model-reviews\.png"/);
+  }
+});
+
+test('the homepage and the approach use one word for where Act 2 stands, and the factory claim names the one desk', () => {
+  const home = textOf(readDist('index.html'));
+  const approach = textOf(readDist('approach/index.html'));
+  for (const text of [home, approach]) {
+    assert.doesNotMatch(text, /solidifying/);
+    assert.match(text, /settling/);
+  }
+  assert.match(home, /Designed for many, proven on one desk so far\./);
+});
+
+test('the May essays say when they were written and when they were published', () => {
+  for (const [file, created] of [['essays/trust-the-agent/index.html', '2026-05-14'], ['essays/take-the-agents-seat/index.html', '2026-05-17']]) {
+    const ld = JSON.parse(readDist(file).match(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema\.org","@type":"(?:Blog|)?Article"[\s\S]*?)<\/script>/)[1]);
+    assert.equal(ld.dateCreated, created, `${file} dateCreated`);
+    assert.ok(ld.datePublished > ld.dateCreated, `${file} datePublished must be the release date, not the writing date`);
   }
 });

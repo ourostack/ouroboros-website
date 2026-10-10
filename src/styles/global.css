@@ -145,12 +145,12 @@
   --color-deep: #0D1F13;
   --color-undergrowth: #152A1C;
   --color-canopy: #1E3D28;
-  --color-scale: #2D9447;
+  --color-scale: #36A452;
   --color-glow: #4AE36C;
   --color-fang: #D3483D;
   --color-bone: #EDF2EE;
   --color-mist: #9AAE9F;
-  --color-shadow: #6A7E6F;
+  --color-shadow: #82968A;
   --color-amber: #E2B44D;
 
   /* Expo-out easing from Griflan */
@@ -181,7 +181,7 @@ html {
     --color-bone: #15201A;
     --color-mist: #3D4A42;
     --color-shadow: #5A675F;
-    --color-amber: #8A6410;
+    --color-amber: #80590C;
   }
 }
 
@@ -360,6 +360,9 @@ p, li, dd, figcaption { text-wrap: pretty; }
   transition: color 0.2s;
 }
 .prose-ouro a:hover { color: var(--color-glow); }
+/* A filled button inside prose keeps its own text colour, not the link green. */
+.prose-ouro a.bg-bone,
+.prose-ouro a.bg-bone:hover { color: var(--color-void); text-decoration: none; }
 .prose-ouro blockquote {
   border-left: 2px solid var(--color-canopy);
   padding-left: 1.25rem;

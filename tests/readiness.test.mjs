@@ -75,9 +75,14 @@ test('the Ouro MD page shows only the app icon, no screenshots or animations', (
   assert.doesNotMatch(text, /principles 3 and 5/);
 });
 
-test('each tool page ends by asking the visitor to have their agent file an issue', () => {
-  for (const [file, repo] of [['desk/index.html', 'desk'], ['ouro-md/index.html', 'ouro-md']]) {
-    const text = textOf(readDist(file)).replace(/\s+([.,])/g, '$1');
-    assert.ok(text.includes(`Found a problem? Ask your agent to file an issue on github.com/ourostack/${repo}.`), `${file} is missing the issue line`);
-  }
+test('each tool page has exactly one way to report a problem through your agent', () => {
+  // Desk: the support block is the only support line (no duplicate below it).
+  const desk = textOf(readDist('desk/index.html')).replace(/\s+([.,])/g, '$1');
+  assert.ok(desk.includes('Support goes through your agent'), 'Desk page is missing the support block');
+  assert.ok(desk.includes('file a GitHub issue on ourostack/desk'), 'Desk support prompt must name the repository');
+  assert.doesNotMatch(desk, /Found a problem\?/, 'Desk page repeats the support line');
+  // Ouro MD: one plain line.
+  const md = textOf(readDist('ouro-md/index.html')).replace(/\s+([.,])/g, '$1');
+  assert.equal((md.match(/ask your agent to file an issue on github\.com\/ourostack\/ouro-md\./gi) || []).length, 1);
+  assert.doesNotMatch(md, /Found a problem\?/);
 });
