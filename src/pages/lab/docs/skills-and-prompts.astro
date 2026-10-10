@@ -1,15 +1,15 @@
 ---
-import DocsPageShell from '../../components/DocsPageShell.astro'
-import PromptCard from '../../components/PromptCard.astro'
-import { ogPathFor } from '../../data/og'
+import DocsPageShell from '../../../components/DocsPageShell.astro'
+import PromptCard from '../../../components/PromptCard.astro'
+import { ogPathFor } from '../../../data/og'
 ---
 
 <DocsPageShell
   title="Skills vs prompts — when to use each"
   description="Use prompts for straightforward live questions. Use skills when you want your agent to follow a repeatable operator flow."
   eyebrow="Operator guide"
-  ogImage={ogPathFor('/docs/skills-and-prompts')}
-  canonical="https://ouroboros.bot/docs/skills-and-prompts/"
+  ogImage={ogPathFor('/lab/docs/skills-and-prompts')}
+  canonical="https://ouroboros.bot/lab/docs/skills-and-prompts/"
   intro="Simple questions can stop at a prompt. If the job has a repeatable sequence and common failure modes, point your agent at a skill instead."
 >
   <PromptCard
@@ -39,10 +39,10 @@ import { ogPathFor } from '../../data/og'
 
   <!-- Exit links -->
   <div class="pt-6 border-t border-canopy/30 space-y-3">
-    <a href="/docs" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/docs" class="group block text-sm text-mist hover:text-bone transition-colors">
       See all the guides. <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
-    <a href="/blog/build-ai-agent-from-scratch" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/build-ai-agent-from-scratch" class="group block text-sm text-mist hover:text-bone transition-colors">
       Understand the primitive underneath. <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
   </div>

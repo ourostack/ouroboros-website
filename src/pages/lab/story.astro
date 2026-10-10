@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import HeroCover from '../components/HeroCover.astro'
-import { ogPathFor } from '../data/og'
+import Layout from '../../layouts/Layout.astro'
+import HeroCover from '../../components/HeroCover.astro'
+import { ogPathFor } from '../../data/og'
 
 const title = 'Code a model can use — the Ouroboros origin story'
 const description = 'How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.'
@@ -56,7 +56,7 @@ const entries = [
     label: 'The tutorial',
     color: 'scale',
     content: `<p>Around the same time, I started writing a guide. I wanted to explain what an agent loop actually is — not the marketing version, the mechanical version.</p>
-<p><a href="/blog/build-ai-agent-from-scratch"><em>Just Give the Model a Keyboard</em></a> walks through building an agent from scratch in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, the agentic loop.</p>
+<p><a href="/lab/build-ai-agent-from-scratch"><em>Just Give the Model a Keyboard</em></a> walks through building an agent from scratch in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, the agentic loop.</p>
 <p>Then the handoff — you stop talking to your coding agent and start talking to your creation.</p>
 <p>I wrote it as a teaching tool. A way to demystify the primitive.</p>
 <p class="note">Then I followed my own guide.</p>`,
@@ -91,8 +91,8 @@ const entries = [
 <Layout
   title={title}
   description={description}
-  ogImage={ogPathFor('/story')}
-  canonical="https://ouroboros.bot/story/"
+  ogImage={ogPathFor('/lab/story')}
+  canonical="https://ouroboros.bot/lab/story/"
   ogType="article"
 >
   <Fragment slot="head">
@@ -104,7 +104,7 @@ const entries = [
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "datePublished": "2026-03-01",
-      "url": "https://ouroboros.bot/story/"
+      "url": "https://ouroboros.bot/lab/story/"
     })} />
   </Fragment>
 
@@ -189,7 +189,7 @@ const entries = [
           isn't configuring — it's collaborating.
         </p>
         <p>
-          That's what the <a href="/why">structured psyche, agent-driven memory, and cross-session bridges</a> are for — not features bolted on, but the architecture of self-recovery.
+          That's what the <a href="/lab/why">structured psyche, agent-driven memory, and cross-session bridges</a> are for — not features bolted on, but the architecture of self-recovery.
         </p>
         <p>
           The model isn't your user. The model is your roommate. Build the house accordingly.
@@ -198,10 +198,10 @@ const entries = [
 
       <div class="mt-16 space-y-4">
         <p class="text-sm text-mist leading-relaxed">
-          The architecture that emerged from this — the <a href="/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">psyche, the memory, the bridges</a> — is the subject of a longer argument.
+          The architecture that emerged from this — the <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">psyche, the memory, the bridges</a> — is the subject of a longer argument.
         </p>
         <p class="text-sm text-mist leading-relaxed">
-          Or skip the argument and <a href="/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">start building</a>. The serpent guide takes about three minutes. If you want to understand the primitive first, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
+          Or skip the argument and <a href="/lab/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">start building</a>. The serpent guide takes about three minutes. If you want to understand the primitive first, <a href="/lab/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
         </p>
       </div>
     </div>

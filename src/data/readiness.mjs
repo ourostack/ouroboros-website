@@ -1,0 +1,37 @@
+// Readiness: the one place a page may get a status label from.
+//
+// The label words are fixed. No page may call anything "stable",
+// "supported" or "production-ready", because nothing we ship has earned
+// those words yet. tests/readiness.test.mjs enforces both rules against this
+// module and against every built page. Re-check each detail before publishing.
+
+export const allowedLabels = {
+  'Use today, alpha': 'tag-alpha',
+  'Use today': 'tag-today',
+  'Experimental': 'tag-exp',
+  'Not open yet': 'tag-closed',
+}
+
+/** @type {{ id: string, name: string, label: keyof typeof allowedLabels, detail: string }[]} */
+export const readiness = [
+  { id: 'desk-claude-code-macos', name: 'Claude Code on macOS', label: 'Use today, alpha', detail: 'Tested daily' },
+  { id: 'desk-claude-code-linux', name: 'Claude Code on Linux', label: 'Use today, alpha', detail: 'Listed, lightly tested' },
+  { id: 'desk-claude-code-windows', name: 'Claude Code on Windows', label: 'Use today, alpha', detail: 'Works, with rough edges' },
+  { id: 'desk-copilot-codex', name: 'Copilot CLI and Codex', label: 'Experimental', detail: 'Runs, not yet proven in daily use' },
+  { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'No sign-up yet' },
+  { id: 'ouro-md', name: 'Ouro MD', label: 'Use today', detail: 'macOS 13 or later' },
+  { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },
+]
+
+export function entry(id) {
+  const found = readiness.find((item) => item.id === id)
+  if (!found) throw new Error(`Unknown readiness id: ${id}`)
+  return found
+}
+
+export function labelFor(id) {
+  const { label } = entry(id)
+  return { label, tone: allowedLabels[label] }
+}
+
+export const deskHosts = readiness.filter((item) => item.id.startsWith('desk-'))

@@ -1,15 +1,15 @@
 ---
-import DocsPageShell from '../../components/DocsPageShell.astro'
-import PromptCard from '../../components/PromptCard.astro'
-import { ogPathFor } from '../../data/og'
+import DocsPageShell from '../../../components/DocsPageShell.astro'
+import PromptCard from '../../../components/PromptCard.astro'
+import { ogPathFor } from '../../../data/og'
 ---
 
 <DocsPageShell
   title="Psyche files — 5 files that define your agent"
   description="An agent bundle is the portable self. The psyche is the part of that self that helps the agent stay oriented to who it is and where it is going."
   eyebrow="Operator guide"
-  ogImage={ogPathFor('/docs/bundles-and-psyche')}
-  canonical="https://ouroboros.bot/docs/bundles-and-psyche/"
+  ogImage={ogPathFor('/lab/docs/bundles-and-psyche')}
+  canonical="https://ouroboros.bot/lab/docs/bundles-and-psyche/"
   intro="The bundle is the portable boundary of the agent's self — psyche, diary, journal, habits, friends, tasks, and skills. The exact files can evolve, but the job stays the same: keep identity, direction, and long-term context somewhere the agent can recover cleanly."
 >
   <PromptCard
@@ -29,13 +29,13 @@ import { ogPathFor } from '../../data/og'
 
   <!-- Exit links -->
   <div class="pt-6 border-t border-canopy/30 space-y-3">
-    <a href="/docs/continuity-and-memory" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/docs/continuity-and-memory" class="group block text-sm text-mist hover:text-bone transition-colors">
       The psyche is half the story. The diary, journal, and habits complete it. <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
-    <a href="/why#identity" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/why#identity" class="group block text-sm text-mist hover:text-bone transition-colors">
       Want the full argument for five files instead of one? <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
-    <a href="/blog/give-your-agent-a-home" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/give-your-agent-a-home" class="group block text-sm text-mist hover:text-bone transition-colors">
       Why bundles matter: the case for giving your agent a home. <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
   </div>

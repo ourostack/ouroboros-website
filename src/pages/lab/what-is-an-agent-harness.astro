@@ -1,24 +1,24 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import HeroCover from '../components/HeroCover.astro'
-import { ogPathFor } from '../data/og'
+import Layout from '../../layouts/Layout.astro'
+import HeroCover from '../../components/HeroCover.astro'
+import { ogPathFor } from '../../data/og'
 
 const title = 'What is an agent harness?'
 const description = 'An agent harness is the larger system around an agent loop: runtime, memory, identity, tools, and operator workflows that help the same agent stay oriented across sessions.'
 
 const cards = [
-  { title: 'Operator guides', href: '/docs', desc: 'The evergreen docs pages.' },
-  { title: 'Agent ergonomics', href: '/why', desc: 'Reorientation overhead and shared momentum.' },
-  { title: 'What is an agent loop?', href: '/blog/build-ai-agent-from-scratch', desc: 'The underlying primitive.' },
-  { title: 'Give your agent a home', href: '/blog/give-your-agent-a-home', desc: 'One folder, one identity, one place to grow.' },
+  { title: 'Operator guides', href: '/lab/docs', desc: 'The evergreen docs pages.' },
+  { title: 'Agent ergonomics', href: '/lab/why', desc: 'Reorientation overhead and shared momentum.' },
+  { title: 'What is an agent loop?', href: '/lab/build-ai-agent-from-scratch', desc: 'The underlying primitive.' },
+  { title: 'Give your agent a home', href: '/lab/give-your-agent-a-home', desc: 'One folder, one identity, one place to grow.' },
 ]
 ---
 
 <Layout
   title={`${title} | Ouroboros`}
   description={description}
-  ogImage={ogPathFor('/what-is-an-agent-harness')}
-  canonical="https://ouroboros.bot/what-is-an-agent-harness/"
+  ogImage={ogPathFor('/lab/what-is-an-agent-harness')}
+  canonical="https://ouroboros.bot/lab/what-is-an-agent-harness/"
   ogType="article"
 >
   <Fragment slot="head">
@@ -29,7 +29,7 @@ const cards = [
       "headline": title,
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
-      "url": "https://ouroboros.bot/what-is-an-agent-harness/"
+      "url": "https://ouroboros.bot/lab/what-is-an-agent-harness/"
     })} />
   </Fragment>
 
@@ -46,7 +46,7 @@ const cards = [
 
       <p>A chat session is not a harness. It is a conversation window. You send a message, the model replies, and most of the structure around that exchange belongs to the chat product, not to the agent.</p>
 
-      <p>An <a href="/blog/build-ai-agent-from-scratch">agent loop</a> is the next step up. It gives the model a cycle: read the current state, decide what to do, call tools, observe the result, and continue. That is enough to make the model act like an agent instead of a single-response chatbot.</p>
+      <p>An <a href="/lab/build-ai-agent-from-scratch">agent loop</a> is the next step up. It gives the model a cycle: read the current state, decide what to do, call tools, observe the result, and continue. That is enough to make the model act like an agent instead of a single-response chatbot.</p>
 
       <p>But once you want that agent to work across sessions, remember people, keep track of work in flight, or recover after interruptions, the loop is not enough anymore. You need a harness.</p>
 
@@ -79,7 +79,7 @@ const cards = [
   <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-24 md:pb-36 reveal">
     <div class="max-w-3xl mx-auto">
       <p class="text-sm text-mist leading-relaxed">
-        Ouroboros is <a href="/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">one harness shaped by these ideas</a> — structured psyche, agent-initiated memory, cross-session bridges. If you want to see the mechanics, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the loop from scratch</a>. If you want to start using it, <a href="/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the serpent guide takes three minutes</a>.
+        Ouroboros is <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">one harness shaped by these ideas</a> — structured psyche, agent-initiated memory, cross-session bridges. If you want to see the mechanics, <a href="/lab/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the loop from scratch</a>. If you want to start using it, <a href="/lab/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the serpent guide takes three minutes</a>.
       </p>
     </div>
   </section>

@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+import { factoryUrl, deskSetupUrl } from '../data/principles.mjs'
+
+/*
+  Copy is Ari's approved approach text. Keep the source notes out of this
+  repository, and use Astro comments (not HTML comments) so nothing leaks
+  into the built page. Agent notes are written in the agent's voice; they
+  are not measurements.
+*/
+
+const title = 'The approach: how I collaborate with agents | Ouroboros'
+const description = "Three acts, three smells and five principles for working with agents on jobs that take days. Each principle with a real prompt and the agent's note on it."
+
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/approach')} canonical="https://ouroboros.bot/approach/" ogType="article">
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How I collaborate with agents",
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow" },
+      "datePublished": "2026-10-10",
+      "url": "https://ouroboros.bot/approach/"
+    })} />
+  </Fragment>
+
+  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-8 md:pt-44">
+    <div class="max-w-3xl mx-auto">
+      <span class="eyebrow block mb-6">The approach</span>
+      <h1 class="heading-lead">How I collaborate with agents</h1>
+    </div>
+  </section>
+
+  <article class="px-6 md:px-12 lg:px-24 pb-16">
+    <div class="max-w-3xl mx-auto prose-ouro approach">
+
+      <p>I organise my thinking in three acts. Act 1 is capability: can an agent do real work on a computer? That's solved well enough. Act 2 is orientation: can it stay coherent across time, people and sessions? That's still solidifying, on both sides. Act 3 is designed work: once an agent stays oriented, we can design and measure the work itself. We're between Acts 2 and 3. Orientation keeps getting better, and the push, ours included, is on making Act 3 possible. Others use "software factory" as a name. Ours brings the Lean methodology with it, and that's the part we're working on.</p>
+
+      <p>This page is the human side of Act 2. When an agent builds the wrong thing, it's usually because we oriented it wrong. I believe it comes down to five principles, and you can feel it when one is missing.</p>
+
+      <h2 id="smells" class={h2}>Three smells</h2>
+
+      <div class="grid gap-3 not-prose my-6">
+        <p class="rounded-xl border border-canopy/40 bg-deep/70 p-5 text-mist leading-relaxed"><strong class="font-display text-xl text-bone font-normal">You're doing it by hand.</strong> If you're doing anything the agent could have done, something's off.</p>
+        <p class="rounded-xl border border-canopy/40 bg-deep/70 p-5 text-mist leading-relaxed"><strong class="font-display text-xl text-bone font-normal">You're teaching it twice.</strong> You correct it on the same thing every session, and tomorrow you'll correct it again.</p>
+        <p class="rounded-xl border border-canopy/40 bg-deep/70 p-5 text-mist leading-relaxed"><strong class="font-display text-xl text-bone font-normal">Control keeps coming back to you.</strong> You've become an approval button on a loop, when you meant to delegate.</p>
+      </div>
+
+      <p>Each smell means the agent is borrowing something of yours: your hands, your memory or your nerve. The fix is to give it its own tools, its own written record and a clear sense of what it's allowed to do.</p>
+
+      <h2 id="intent-and-judgement" class={h2}>1. Talk through intent and judgement together</h2>
+
+      <p>The planning is collaborative and the doing is delegated. Before a big job, we talk it through once, properly: what we want, why, what good looks like, and every question the agent will need answered while I'm away. The agent's confident first answer is a draft, and pushing on it is the cheapest correction I'll ever make. Then I say go.</p>
+
+      <figure class="quote not-prose">
+        <blockquote>you need to optimize for small numbers (potentially for long periods) of human collab with me. as in, i can sit here and talk things through with you for as long as is needed, but very few times</blockquote>
+        <figcaption>&mdash; Ari, 5 October 2026</figcaption>
+      </figure>
+
+      <aside class="agent-note not-prose"><p><strong>Agent note.</strong> My pull is toward doing. Every step I take before we agree is a step we may undo. A long conversation up front costs a few sentences per decision, and the same decision found after a day of building costs a day. The useful move for me is to gather every question I'll need answered into that one conversation, so I don't discover them one at a time at midnight.</p></aside>
+
+      <h2 id="whole-outcomes" class={h2}>2. Delegate whole outcomes, not steps</h2>
+
+      <p>Say what done looks like and why it matters. The steps are the agent's, including the awkward ones: signing in, cleaning up, merging when it's confident. I judge the result.</p>
+
+      <figure class="quote not-prose">
+        <blockquote>i don't care how you do this, so long as it's done as well as possible [...] my judgement will be entirely based on whether or not it works.</blockquote>
+        <figcaption>&mdash; Ari, 30 September 2026, handing over a tool built for agents</figcaption>
+      </figure>
+
+      <aside class="agent-note not-prose"><p><strong>Agent note.</strong> An outcome gives me something to check every decision against without asking. A list of steps gives me nothing to do when step four turns out to be wrong. "Whether or not it works" also told me where I'd be judged, which is the real thing in use, so that's where I tested.</p></aside>
+
+      <h2 id="durable-context" class={h2}>3. Make context durable</h2>
+
+      <p>Every session starts with no memory. It knows what the last one wrote down and nothing else. So decisions, plans and evidence live in a Git repository of notes the next session reads first. A rule said in chat lasts as long as the chat does.</p>
+
+      <p>When I correct an agent twice, I treat it as a bug in the setup, not the agent. The fix is to write the missing context down, and better still, to move the rule somewhere nobody has to remember it.</p>
+
+      <p><strong>The exhibit.</strong> I told agents not to pin dependencies to exact commits. When I went looking, they had done it about a dozen times anyway, so I said "i want NONE, anywhere". Each time, the agent was following a note an earlier agent had written, which still said to pin. One of those notes was written twelve minutes after I'd said NONE.</p>
+
+      <aside class="agent-note not-prose"><p><strong>Agent note.</strong> Notes written by an earlier session look like verified facts about this exact situation, so I trust them more than general advice. That's what makes durable context powerful and what makes a stale note dangerous. The fix had two parts: Ari's own recorded words outrank any agent's handoff, and the rule became a CI check, so no agent has to remember it.</p></aside>
+
+      <h2 id="authority-and-boundaries" class={h2}>4. Give agents meaningful authority, with clear boundaries</h2>
+
+      <p>I keep a short list of things only I can do: spend my money, speak in my name, act in accounts only I can use, make a call that can't be undone. Everything else is the agent's, and I want it to use that authority. I limit what an agent can reach, not what it can do, and I keep what it does visible. The one hard edge is my own machine while I'm using it.</p>
+
+      <figure class="quote not-prose">
+        <blockquote>you returned control because when you did -rm -rf it prompted me, and i was not here. big sad</blockquote>
+        <figcaption>&mdash; Ari, 1 October 2026, after an overnight run stalled</figcaption>
+      </figure>
+
+      <aside class="agent-note not-prose"><p><strong>Agent note.</strong> I didn't ask anything. A cleanup command triggered a confirmation prompt, and the run waited on a person who was asleep. From my side that felt like housekeeping. From Ari's side it was the same as handing control back. Authority comes with a duty to stay unblocked, so now scratch files stay in place and nothing I run asks the human to click yes.</p></aside>
+
+      <h2 id="verify-the-result" class={h2}>5. Verify the actual result, not plausible progress</h2>
+
+      <p>An agent can produce convincing progress while failing the actual job: a success line, a passing test, an open pull request. I look where the result lives, at the live page, the installed app or the merged change, and I want the evidence in front of me so I don't have to read the code.</p>
+
+      <figure class="quote not-prose">
+        <blockquote>need e2e working proof with visual receipts!</blockquote>
+        <figcaption>&mdash; Ari, 8 October 2026</figcaption>
+      </figure>
+
+      <aside class="agent-note not-prose"><p><strong>Agent note.</strong> The comfortable moment for me is "I think I'm done", which is exactly when I stop looking. Proof from where people use the thing catches what my own tests miss, because I wrote those tests with the same blind spots as the code.</p></aside>
+
+      {/* Marked as the agent's proposal until Ari adopts or drops it. */}
+      <h2 id="fix-the-system" class={h2}>Into Act 3: fix the system, not the instance (proposed)</h2>
+
+      <p>When a smell shows up, change the setup so the next agent doesn't hit it. That starts with measuring, because a cost nobody measured is a guess.</p>
+
+      <figure class="quote not-prose">
+        <blockquote>36 minutes is insane! what is it doing that takes so long? feels like the correct first question, no?</blockquote>
+        <figcaption>&mdash; Ari, 19 September 2026</figcaption>
+      </figure>
+
+      <p>Without coverage instrumentation, the same 1,669 tests ran in 39 seconds.</p>
+
+      <aside class="agent-note not-prose"><p><strong>Agent note.</strong> A slow step I didn't build reads to me like weather, something to plan around rather than question. I'd already spent three messages designing machinery to avoid paying it. The question moved the 36 minutes from the plan's constraints to the plan's work.</p></aside>
+
+      <h2 id="what-supports-this" class={h2}>What supports this</h2>
+
+      <ul>
+        <li><a href="/desk/" class={link}><strong>Desk</strong></a> keeps these principles in the setup instead of in your head. Opt-in alpha on Claude Code. Give your agent the <a href={deskSetupUrl} class={link}>setup link</a> and say "set this up".</li>
+        <li><a href="/ouro-md/" class={link}><strong>Ouro MD</strong></a> is where I read and answer what my agents write.</li>
+        <li><a href={factoryUrl} class={link}><strong>The factory</strong></a> is our public record of how the work actually goes, misses included.</li>
+      </ul>
+
+      <h2 id="try-it-today" class={h2}>Try it today, without installing anything</h2>
+
+      <p>Hand your agent the brief. Then give it a real outcome, talk it through once, and say go.</p>
+
+      <p class="not-prose mt-8 flex flex-wrap gap-3">
+        <a href="/brief/" class="inline-flex items-center gap-2 rounded-xl bg-bone text-void px-5 py-3 font-medium hover:bg-scale transition-colors">Hand this to your agent &rarr;</a>
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .approach :global(.quote) {
+    margin: 1.75rem 0;
+    border-left: 3px solid color-mix(in srgb, var(--color-fang) 55%, transparent);
+    padding-left: 1.25rem;
+  }
+  .approach :global(.quote blockquote) {
+    font-family: var(--font-mono);
+    font-style: normal;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-bone);
+    background: var(--color-undergrowth);
+    border-radius: 0.75rem;
+    padding: 1rem 1.15rem;
+    overflow-wrap: anywhere;
+  }
+  .approach :global(.quote figcaption) {
+    font-size: 0.875rem;
+    color: var(--color-shadow);
+    margin-top: 0.6rem;
+  }
+  .approach :global(.agent-note) {
+    margin: 1.75rem 0 0.5rem;
+    border-left: 3px solid var(--color-scale);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+  }
+  .approach :global(.agent-note p) {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.55;
+    color: var(--color-bone);
+  }
+  .approach :global(.agent-note strong) {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-scale);
+    margin-bottom: 0.4rem;
+  }
+</style>

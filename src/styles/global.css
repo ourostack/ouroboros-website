@@ -151,6 +151,7 @@
   --color-bone: #EDF2EE;
   --color-mist: #9AAE9F;
   --color-shadow: #6A7E6F;
+  --color-amber: #E2B44D;
 
   /* Expo-out easing from Griflan */
   --ease-expo: cubic-bezier(.19, 1, .22, 1);
@@ -158,6 +159,89 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* ── Light theme ──
+   The serpent palette above is the dark theme. Visitors whose system asks
+   for light get the calm reading surface from the 2026-10 method-first
+   pitch: the same token names, remapped, so every utility (text-bone,
+   bg-void, border-canopy/15 …) follows automatically. Keep contrast at
+   WCAG AA for mist and shadow text on void. */
+:root { color-scheme: dark; }
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --color-void: #F4F5F0;
+    --color-deep: #FCFCF9;
+    --color-undergrowth: #E9EDE4;
+    --color-canopy: #B7C2B4;
+    --color-scale: #23753F;
+    --color-glow: #18592F;
+    --color-fang: #B8402F;
+    --color-bone: #15201A;
+    --color-mist: #3D4A42;
+    --color-shadow: #5A675F;
+    --color-amber: #8A6410;
+  }
+}
+
+/* ── Marks ──
+   The badge and silhouette paint with currentColor. An <img> cannot inherit
+   the text colour, so draw them as a mask filled with currentColor:
+     <span class="mark-mask" style="--mark:url(/brand/ouro-badge.svg)"></span>
+   The Desk icon is a white tile; .mark-tile gives it an edge so it holds on
+   the light theme and does not glare on the dark one. */
+.mark-mask {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--mark) center / contain no-repeat;
+  mask: var(--mark) center / contain no-repeat;
+}
+.mark-tile {
+  border-radius: 22%;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-bone) 22%, transparent);
+}
+
+/* ── Readiness tags ──
+   Labels come only from src/data/readiness.mjs. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+/* The label text is always bone so it passes WCAG AA on every tint; the
+   tone shows in the dot and the tinted background. */
+.tag { color: var(--color-bone); background: color-mix(in srgb, var(--tag-tone) 14%, transparent); }
+.tag::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--tag-tone); }
+.tag-today  { --tag-tone: var(--color-scale); }
+.tag-alpha  { --tag-tone: var(--color-amber); }
+.tag-exp    { --tag-tone: var(--color-shadow); }
+.tag-closed { --tag-tone: var(--color-fang); }
+.tag-plain  { --tag-tone: var(--color-mist); }
+
+/* ── Copyable text for agents ──
+   Long URLs must wrap at 375px; never scroll the page sideways. */
+.agent-text {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  color: var(--color-bone);
+  background: var(--color-undergrowth);
+  border-radius: 0.75rem;
+  padding: 1.1rem 1.25rem;
+  margin: 0;
 }
 
 /* ── Typography ── */
@@ -322,6 +406,18 @@ p, li, dd, figcaption { text-wrap: pretty; }
   @media (min-width: 640px) { .heading-hero { font-size: 3.5rem; } }
   @media (min-width: 768px) { .heading-hero { font-size: 5rem; } }
   @media (min-width: 1024px) { .heading-hero { font-size: 6.5rem; } }
+
+  /* Lead question (h1 on the method pages). Smaller than .heading-hero
+     because the method pages open on a full sentence, not a slogan. */
+  .heading-lead {
+    font-family: var(--font-display);
+    color: var(--color-bone);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    font-size: 2.6rem;
+  }
+  @media (min-width: 640px) { .heading-lead { font-size: 3.4rem; } }
+  @media (min-width: 1024px) { .heading-lead { font-size: 4.4rem; } }
 
   /* Section headline (h2) */
   .heading-section {

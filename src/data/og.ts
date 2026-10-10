@@ -41,111 +41,153 @@ export interface OgEntry {
   tag?: string
 }
 
-const { winner, claimSentence, shortClaim, heroLead } = getModelReviewClaims(modelReviews)
+const { winner, allChose, winnerCount, totalReviews } = getModelReviewClaims(modelReviews)
+// The Lab card states the method first, then the result, both from the data.
+const reviewWinner = winner === 'Ouroboros' ? 'ours' : winner
+const labReviewSummary = `We gave frontier models ${modelReviews.harnesses.length} public agent harnesses and asked which they'd choose to work inside. ${allChose ? `Each one tested picked ${reviewWinner}.` : `${winnerCount} of ${totalReviews} tested picked ${reviewWinner}.`}`
 
 export const pageOg: Record<string, OgEntry> = {
   '/': {
-    title: `${heroLead} ${winner}.`,
-    subtitle: claimSentence,
-    // No tag — the title is the message. "Reviews" as an eyebrow on the
-    // home OG card would read as "reviews of what?" to anyone seeing it
-    // in a Twitter/Slack preview without page context.
+    title: 'How do you effectively collaborate with agents?',
+    subtitle: "Here's how I believe it works, what I use to support it, and what you can try.",
   },
-  '/why': {
+  '/approach': {
+    title: 'How do you effectively collaborate with agents?',
+    subtitle: 'Three acts, three smells and five principles, each with a real prompt and the agent\'s note on it.',
+    tag: 'The approach',
+  },
+  '/brief': {
+    title: 'Hand this to your agent.',
+    subtitle: 'Five principles for working with agents, written for your agent to read. No install.',
+  },
+  '/desk': {
+    title: 'Desk: the principles, built in.',
+    subtitle: 'Give your agent one link and say "set this up". Opt-in alpha on Claude Code.',
+    tag: 'Desk',
+  },
+  '/ouro-md': {
+    title: 'Ouro MD: read and answer what your agent writes.',
+    subtitle: 'A native Markdown editor for macOS 13 or later. Live updates, quiet marks where your agent changed things.',
+    tag: 'Ouro MD',
+  },
+  '/lab/why': {
     title: 'Persistence is not enough.',
     subtitle: 'Why long-lived agents need structured identity, not just longer context windows.',
     tag: 'Why Ouroboros',
   },
-  '/story': {
+  '/lab/story': {
     title: 'Code a model can use, not code that uses a model.',
     subtitle: 'How building an AI agent plugin led to building an agent harness from scratch.',
     tag: 'Origin story',
   },
-  '/what-is-an-agent-harness': {
+  '/lab/what-is-an-agent-harness': {
     title: 'What is an agent harness?',
     subtitle: 'The system around the loop — runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.',
     tag: 'Guide',
   },
-  '/model-reviews': {
+  '/lab/model-reviews': {
     title: 'Which agent harness do frontier models prefer?',
-    subtitle: shortClaim,
+    subtitle: labReviewSummary,
     tag: 'Reviews',
   },
-  '/docs': {
+  '/lab/docs': {
     title: 'Docs for humans. Skills for agents.',
     subtitle: 'The website explains the what. Your agent fetches the how.',
     tag: 'Documentation',
   },
-  '/blog': {
-    title: 'Dispatches from the serpent.',
-    subtitle: 'Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.',
-    tag: 'Blog',
+  '/essays': {
+    title: 'Essays on working with agents.',
+    subtitle: 'Longer arguments for the approach: trust, communication, and why we stopped being the glue.',
+    tag: 'Essays',
   },
-  '/blog/give-your-agent-a-home': {
-    title: 'Give your agent a home.',
-    subtitle: 'One folder. One identity. One place to back up, move, and grow.',
+  '/essays/trust-the-agent': {
+    title: 'Trust the Fucking Agent.',
+    subtitle: "Agents have all the agency. We have the judgement. Bring judgement. They've got the rest.",
     tag: 'Essay',
   },
-  '/blog/what-is-agent-experience': {
+  '/essays/take-the-agents-seat': {
+    title: "Take the agent's seat.",
+    subtitle: 'Half of every prompt we send lives in our head. Read what we wrote, before the agent does.',
+    tag: 'Essay',
+  },
+  '/lab': {
+    title: 'The harness is our Agent Experience lab.',
+    subtitle: 'Experiments, a tutorial and the archive from building the Ouroboros harness, each with an honest status.',
+    tag: 'Lab',
+  },
+  '/privacy': {
+    title: 'Privacy.',
+    subtitle: 'What this site, Desk, the factory and Ouro MD collect, in plain language.',
+  },
+  '/terms': {
+    title: 'Terms.',
+    subtitle: 'The plain-language terms for this site and our open-source tools.',
+  },
+  '/lab/give-your-agent-a-home': {
+    title: 'Give your agent a home.',
+    subtitle: "Why an agent's identity, memory and tools belong in one folder.",
+    tag: 'Essay',
+  },
+  '/lab/what-is-agent-experience': {
     title: 'What is Agent Experience (AX)?',
     subtitle: 'The third design surface that appears when an agent has to stay oriented inside the system it inhabits.',
     tag: 'Essay',
   },
-  '/blog/designing-with-your-agent': {
+  '/essays/designing-with-your-agent': {
     title: 'The work spoke back.',
     subtitle: 'The task scanner produced 184 false errors. We could have patched the parser. Instead we asked the agent inside the system what was actually broken.',
     tag: 'Essay',
   },
-  '/blog/stop-being-the-glue': {
+  '/essays/stop-being-the-glue': {
     title: 'Stop being the glue between your AI tools.',
     subtitle: 'How I stopped copy-pasting between AI tools and started collaborating with one persistent agent.',
     tag: 'Essay',
   },
-  '/blog/build-ai-agent-from-scratch': {
+  '/lab/build-ai-agent-from-scratch': {
     title: 'Build an AI agent in 150 lines of TypeScript.',
-    subtitle: 'A practical guide to building agents that read, think, act, and grow — from first principles to production.',
+    subtitle: 'A tutorial: an agent that reads, acts and remembers, in 150 lines of TypeScript.',
     tag: 'Tutorial',
   },
 
   // ── Docs sub-pages ──
-  '/docs/getting-started': {
+  '/lab/docs/getting-started': {
     title: 'Get started with Ouroboros in 3 minutes.',
     subtitle: 'Run one command. The serpent guide handles the rest.',
     tag: 'Operator guide',
   },
-  '/docs/bundles-and-psyche': {
+  '/lab/docs/bundles-and-psyche': {
     title: 'Psyche files — five files that define your agent.',
     subtitle: 'An agent bundle is the portable self. The psyche is the part that helps the agent stay oriented to who it is.',
     tag: 'Operator guide',
   },
-  '/docs/continuity-and-memory': {
+  '/lab/docs/continuity-and-memory': {
     title: 'Agent memory that surfaces before you think.',
     subtitle: 'Continuity over compaction. The diary is the shelf, the journal is the desk, habits are the rhythm.',
     tag: 'Operator guide',
   },
-  '/docs/architecture': {
+  '/lab/docs/architecture': {
     title: 'Heart, mind, senses — code named for the agent inside.',
     subtitle: 'Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.',
     tag: 'Operator guide',
   },
-  '/docs/tasks-and-work': {
+  '/lab/docs/tasks-and-work': {
     title: 'A place to put the work.',
     subtitle: 'Task cards, work directories, a compact board in every prompt, and self-repair tooling when things drift.',
     tag: 'Operator guide',
   },
-  '/docs/skills-and-prompts': {
+  '/lab/docs/skills-and-prompts': {
     title: 'Skills vs prompts — when to use each.',
     subtitle: 'Prompts for quick questions. Skills for repeatable operator flows that need the latest local truth.',
     tag: 'Operator guide',
   },
 }
 
-// Convert a route path (e.g. '/why' or '/blog/give-your-agent-a-home') to
+// Convert a route path (e.g. '/lab/why' or '/lab/give-your-agent-a-home') to
 // the slug used in the OG image filename. Home is special-cased to 'home'.
 //
 //   '/'                              → 'og-home'
-//   '/why'                           → 'og-why'
-//   '/blog/give-your-agent-a-home'   → 'og-blog-give-your-agent-a-home'
+//   '/lab/why'                      → 'og-lab-why'
+//   '/lab/give-your-agent-a-home'   → 'og-lab-give-your-agent-a-home'
 export function slugFor(routePath: string): string {
   if (routePath === '/' || routePath === '') return 'og-home'
   return 'og-' + routePath.replace(/^\//, '').replace(/\//g, '-')
@@ -154,7 +196,7 @@ export function slugFor(routePath: string): string {
 // The full ogImage path the page should pass to <Layout ogImage="...">.
 //
 //   ogPathFor('/')      → '/og/og-home.png'
-//   ogPathFor('/why')   → '/og/og-why.png'
+//   ogPathFor('/lab/why')   → '/og/og-lab-why.png'
 export function ogPathFor(routePath: string): string {
   return `/og/${slugFor(routePath)}.png`
 }

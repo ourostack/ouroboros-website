@@ -1,19 +1,26 @@
 ---
-import DocsPageShell from '../../components/DocsPageShell.astro'
-import SerpentGuidePreview from '../../components/SerpentGuidePreview.astro'
-import PromptCard from '../../components/PromptCard.astro'
-import { ogPathFor } from '../../data/og'
+import DocsPageShell from '../../../components/DocsPageShell.astro'
+import SerpentGuidePreview from '../../../components/SerpentGuidePreview.astro'
+import PromptCard from '../../../components/PromptCard.astro'
+import { ogPathFor } from '../../../data/og'
+import { labelFor } from '../../../data/readiness.mjs'
+
+const harness = labelFor('harness')
 ---
 
 <DocsPageShell
   title="Get started with Ouroboros in 3 minutes"
   description="Run one command. The serpent guide handles the rest."
   eyebrow="Operator guide"
-  ogImage={ogPathFor('/docs/getting-started')}
-  canonical="https://ouroboros.bot/docs/getting-started/"
+  ogImage={ogPathFor('/lab/docs/getting-started')}
+  canonical="https://ouroboros.bot/lab/docs/getting-started/"
   intro="Setup is a conversation, not a checklist. The serpent guide walks you through provider setup, naming, and personality — you just answer its questions."
 >
   <section class="space-y-4" aria-label="Install Ouroboros">
+    <p class="flex flex-wrap items-center gap-3 text-sm text-mist leading-relaxed" data-harness-notice>
+      <span class={`tag ${harness.tone}`}>{harness.label}</span>
+      <span>The Ouroboros harness is an experiment. Expect breaking changes.</span>
+    </p>
     <p class="text-sm text-mist leading-relaxed">You'll need <a href="https://nodejs.org/en/download/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Node.js 22 or newer</a>.</p>
     <PromptCard label="Open Terminal" prompt="npx ouro.bot" />
   </section>
@@ -30,10 +37,10 @@ import { ogPathFor } from '../../data/og'
 
   <!-- Exit links -->
   <div class="pt-6 border-t border-canopy/30 space-y-3">
-    <a href="/what-is-an-agent-harness" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/what-is-an-agent-harness" class="group block text-sm text-mist hover:text-bone transition-colors">
       Want to understand the philosophy behind Ouroboros? <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
-    <a href="/story" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/story" class="group block text-sm text-mist hover:text-bone transition-colors">
       Curious how we got here? <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
   </div>

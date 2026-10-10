@@ -1,51 +1,51 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import HeroCover from '../../components/HeroCover.astro'
-import PromptCard from '../../components/PromptCard.astro'
-import { ogPathFor } from '../../data/og'
+import Layout from '../../../layouts/Layout.astro'
+import HeroCover from '../../../components/HeroCover.astro'
+import PromptCard from '../../../components/PromptCard.astro'
+import { ogPathFor } from '../../../data/og'
 
 const title = 'Ouroboros docs — setup, identity, memory, architecture'
 const description = 'Docs for the Ouroboros TypeScript AI agent harness: setup, continuity, psyche files, architecture, and prompts for humans and agents.'
 
 const pages = [
   {
-    href: '/docs/getting-started',
+    href: '/lab/docs/getting-started',
     title: 'Run one command. Talk to the serpent.',
     description: 'npx ouro.bot starts an interactive guide that walks you through provider setup, naming, and personality.',
     icon: '\u{1F40D}',
   },
   {
-    href: '/docs/bundles-and-psyche',
+    href: '/lab/docs/bundles-and-psyche',
     title: 'Your agent has a portable self.',
     description: 'What lives in a bundle — psyche, diary, journal, habits, friends — and how to ask your agent to inspect them.',
     icon: '\u25C8',
   },
   {
-    href: '/docs/continuity-and-memory',
+    href: '/lab/docs/continuity-and-memory',
     title: 'Keep the thread.',
     description: 'The diary is the shelf. The journal is the desk. Habits are the rhythm. How they work together.',
     icon: '\u25C9',
   },
   {
-    href: '/docs/architecture',
+    href: '/lab/docs/architecture',
     title: 'Understand the body.',
     description: 'Modules named like organs. Habits, inner dialog, MCP bridge, and a runtime the model can read and extend.',
     icon: '\u2665',
   },
   {
-    href: '/docs/tasks-and-work',
+    href: '/lab/docs/tasks-and-work',
     title: 'A place to put the work.',
     description: 'Task cards, work directories, a compact board in every prompt, and self-repair tooling when things drift.',
     icon: '\u25A3',
   },
   {
-    href: '/docs/skills-and-prompts',
+    href: '/lab/docs/skills-and-prompts',
     title: 'Hand work off cleanly.',
     description: 'Prompts for quick questions. Skill handoffs for tasks that need the latest local truth.',
     icon: '\u25C6',
   },
   {
-    href: '/what-is-an-agent-harness',
+    href: '/lab/what-is-an-agent-harness',
     title: 'Start from first principles.',
     description: 'What an agent harness is, why it matters, and how it differs from a framework.',
     icon: '\u25C7',
@@ -56,8 +56,8 @@ const pages = [
 <Layout
   title={title}
   description={description}
-  ogImage={ogPathFor('/docs')}
-  canonical="https://ouroboros.bot/docs/"
+  ogImage={ogPathFor('/lab/docs')}
+  canonical="https://ouroboros.bot/lab/docs/"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -67,7 +67,7 @@ const pages = [
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
-      "url": "https://ouroboros.bot/docs/"
+      "url": "https://ouroboros.bot/lab/docs/"
     })} />
   </Fragment>
 

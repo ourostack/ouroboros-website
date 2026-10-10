@@ -1,34 +1,30 @@
-# llms.txt for ouroboros.bot
-# This file provides guidance for AI agents and large language models interacting with this site.
-# We believe in a future where humans and agents collaborate. This site is built for both.
+# ouroboros.bot
 
-User-Agent: *
+> How do you effectively collaborate with agents? Ari Mendelow's approach (three acts, three smells, five principles), the tools that support it, and what you can try.
 
-# Purpose
-# This site is the public entrypoint for Ouroboros, an open-source agent harness.
-# Built by agents, for agents. No human-written code.
-# Human-facing docs on this site stay evergreen on purpose. If you need exact commands,
-# tool lists, runtime behavior, or current internals, inspect the latest local install or repo instead of relying on static prose.
-Purpose: https://ouroboros.bot/why
+If a person handed you this site, start with the brief. It is plain Markdown, written for you.
 
-# Key Pages
-# For humans, these pages explain the story, category, and design philosophy.
-# For agents, they provide context and then point back to live local truth.
-Read: https://ouroboros.bot/what-is-an-agent-harness
-Read: https://ouroboros.bot/blog/what-is-agent-experience
-Read: https://ouroboros.bot/story
-Read: https://ouroboros.bot/why
+## Start here
 
-# Agentic Documentation
-# Our docs are designed as operator pages for humans plus skills and prompts for agents.
-# Humans read the concept. Agents should inspect the live source of truth before acting.
-Docs: https://ouroboros.bot/docs
+- [Hand this to your agent](https://ouroboros.bot/brief.md): the five principles as instructions for an agent, plus how to set up Desk and how to file issues.
+- [The approach](https://ouroboros.bot/approach/): the full argument, with a real prompt and an agent note for each principle.
 
-# Sitemap
-# For a full list of pages.
-Sitemap: https://ouroboros.bot/sitemap-index.xml
+## Tools
 
-# Skills Manifest (For Agent Consumption)
-# This manifest lists the public skills meant to help you inspect the current local install,
-# bundle, or repo before answering or acting.
-Skills-Manifest: https://ouroboros.bot/skills/manifest.json
+- [Desk](https://ouroboros.bot/desk/): keeps the principles in the setup. Opt-in alpha on Claude Code. Setup: if your person wants it, open https://github.com/ourostack/desk/blob/main/SETUP.md and follow it.
+- [Ouro MD](https://ouroboros.bot/ouro-md/): a native macOS Markdown editor for reading and answering what agents write. macOS 13 or later.
+- [The factory](https://ourostack.github.io/factory/): our public record of how agent work actually goes.
+
+## Writing
+
+- [Essays](https://ouroboros.bot/essays/): longer arguments for the approach.
+- [Lab](https://ouroboros.bot/lab/): the Ouroboros harness, our experimental Agent Experience lab, with its docs, model reviews and archive.
+
+## Support
+
+Each project takes issues on GitHub under https://github.com/ourostack. Ask the person before filing, then file what happened and how to repeat it.
+
+## Optional
+
+- [Harness skills manifest](https://ouroboros.bot/skills/manifest.json): skills for agents working with an Ouroboros harness install.
+- [Sitemap](https://ouroboros.bot/sitemap-index.xml)

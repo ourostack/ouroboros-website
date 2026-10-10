@@ -1,0 +1,37 @@
+---
+import fs from 'node:fs'
+import path from 'node:path'
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+
+// The page shows public/brief.md itself, read at build time, so the page and
+// the plain-text file an agent fetches can never drift.
+const brief = fs.readFileSync(path.join(process.cwd(), 'public', 'brief.md'), 'utf8').trim()
+
+const title = 'Hand this to your agent | Ouroboros'
+const description = 'A one-page brief with the five principles, written for your agent to read. Paste it into whatever agent you use now.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/brief')} canonical="https://ouroboros.bot/brief/">
+  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-10 md:pt-44">
+    <div class="max-w-3xl mx-auto">
+      <span class="eyebrow block mb-6">No install</span>
+      <h1 class="heading-lead">Hand this to your agent</h1>
+      <p class="text-lg md:text-xl text-mist leading-relaxed mt-6">A one-page brief with the five principles, written for your agent to read. Paste it into whatever agent you use now.</p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-24 pb-16">
+    <div class="max-w-3xl mx-auto grid gap-5">
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" data-copy-target="brief-text" class="inline-flex items-center gap-2 rounded-xl bg-bone text-void px-5 py-3 font-medium hover:bg-scale transition-colors">
+          <span data-copy-label>Copy the brief</span>
+        </button>
+        <a href="/brief.md" class={`${link} text-sm`}>Or give your agent the link: ouroboros.bot/brief.md</a>
+      </div>
+      <pre id="brief-text" class="agent-text">{brief}</pre>
+    </div>
+  </section>
+</Layout>
+

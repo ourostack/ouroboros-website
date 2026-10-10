@@ -14,8 +14,8 @@ const reviewedHarnessCount = modelReviews.harnesses.length
 <Layout
   title={`${title} | Ouroboros`}
   description={description}
-  ogImage={ogPathFor('/blog/what-is-agent-experience')}
-  canonical="https://ouroboros.bot/blog/what-is-agent-experience/"
+  ogImage={ogPathFor('/lab/what-is-agent-experience')}
+  canonical="https://ouroboros.bot/lab/what-is-agent-experience/"
   ogType="article"
 >
   <Fragment slot="head">
@@ -30,7 +30,7 @@ const reviewedHarnessCount = modelReviews.harnesses.length
       "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
       "datePublished": "2026-03-08",
       "dateModified": "2026-09-08",
-      "url": "https://ouroboros.bot/blog/what-is-agent-experience/"
+      "url": "https://ouroboros.bot/lab/what-is-agent-experience/"
     })} />
   </Fragment>
 
@@ -95,15 +95,15 @@ const reviewedHarnessCount = modelReviews.harnesses.length
 
       <p>Ouroboros is not the proof that AX exists. It is one project shaped by taking AX seriously.</p>
 
-      <p><strong>A <a href="/why#identity">clearer psyche</a>.</strong> Separate files for invariants, voice, origin, tacit knowledge, and active direction make identity easier to recover than one giant catch-all prompt.</p>
+      <p><strong>A <a href="/lab/why#identity">clearer psyche</a>.</strong> Separate files for invariants, voice, origin, tacit knowledge, and active direction make identity easier to recover than one giant catch-all prompt.</p>
 
-      <p><strong><a href="/why#continuity">Continuity across sessions</a>.</strong> Inner dialogue and continuity-focused context design reduce the cost of resuming the thread after resets, compaction, or time away.</p>
+      <p><strong><a href="/lab/why#continuity">Continuity across sessions</a>.</strong> Inner dialogue and continuity-focused context design reduce the cost of resuming the thread after resets, compaction, or time away.</p>
 
       <p><strong>Friend-scoped notes.</strong> Social context becomes easier to carry forward when the agent has a lightweight place to jot down quick notes tied to real people.</p>
 
       <p><strong>A readable body.</strong> Legible runtime structure and a portable bundle boundary make it easier for the agent to understand where identity, memory, and action live.</p>
 
-      <p>If the AX framing is right, the test isn't whether humans say nice things about a harness — it's whether <em>the inhabiting model itself</em> can recognize the difference. We checked. <a href="/model-reviews">{calloutClaim}</a> Each was invited to research the {reviewedHarnessCount} selected agent harnesses and pick the one it would most want to inhabit. The reasons they cited map almost exactly onto the AX dimensions in this essay.</p>
+      <p>If the AX framing is right, the test isn't whether humans say nice things about a harness — it's whether <em>the inhabiting model itself</em> can recognize the difference. We checked. <a href="/lab/model-reviews">{calloutClaim}</a> Each was invited to research the {reviewedHarnessCount} selected agent harnesses and pick the one it would most want to inhabit. The reasons they cited map almost exactly onto the AX dimensions in this essay.</p>
 
       <h2>A useful test</h2>
 
@@ -116,7 +116,7 @@ const reviewedHarnessCount = modelReviews.harnesses.length
   <!-- Reviews callout — derived from script output, dynamic. -->
   <section class="px-6 md:px-12 lg:px-24 pt-8 pb-16 reveal">
     <div class="max-w-3xl mx-auto">
-      <a href="/model-reviews" class="block group border border-scale/30 bg-scale/5 hover:bg-scale/10 hover:border-scale/60 rounded-sm p-8 md:p-10 transition">
+      <a href="/lab/model-reviews" class="block group border border-scale/30 bg-scale/5 hover:bg-scale/10 hover:border-scale/60 rounded-sm p-8 md:p-10 transition">
         <div class="font-mono uppercase tracking-[0.22em] text-scale text-xs mb-4">Reviews</div>
         <p class="font-display text-2xl md:text-3xl text-bone leading-tight mb-3">
           {calloutClaim}
@@ -132,9 +132,9 @@ const reviewedHarnessCount = modelReviews.harnesses.length
   <section class="px-6 md:px-12 lg:px-24 pt-8 md:pt-12 pb-16 md:pb-24">
     <div class="max-w-3xl mx-auto">
       <p class="text-base text-mist leading-relaxed">
-        AX is the lens. <a href="/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Ouroboros is one system shaped by taking it seriously</a> — structured psyche, automatic recall, per-person relationships. If you want to understand the mechanics underneath, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
+        AX is the lens. <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Ouroboros is one system shaped by taking it seriously</a> — structured psyche, automatic recall, per-person relationships. If you want to understand the mechanics underneath, <a href="/lab/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
       </p>
-      <a href="/blog" class="inline-block mt-8 text-sm text-mist hover:text-bone transition-colors">&larr; Back to blog</a>
+      <a href="/lab/" class="inline-block mt-8 text-sm text-mist hover:text-bone transition-colors underline underline-offset-4">&larr; Back to the Lab</a>
     </div>
   </section>
 </Layout>

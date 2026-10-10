@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://ouroboros.bot',
   integrations: [sitemap()],
   redirects: {
-    '/origin': '/blog/build-ai-agent-from-scratch',
+    '/origin': '/lab/build-ai-agent-from-scratch/',
   },
   vite: {
     plugins: [tailwindcss()]

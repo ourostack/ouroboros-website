@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { ogPathFor, pageOg } from '../../data/og'
+import { labelFor } from '../../data/readiness.mjs'
+import { labPieces, labStatusTones } from '../../data/lab.mjs'
+
+const title = 'Lab: the Ouroboros harness | Ouroboros'
+const description = pageOg['/lab'].subtitle
+const harness = labelFor('harness')
+
+// Status words come from src/data/lab.mjs: Experiment (still running),
+// Tutorial, Archive (kept as the record of how we got here). Titles and
+// descriptions come from the OG manifest; model-review copy there derives
+// from getModelReviewClaims().
+const pieces = labPieces.map((piece) => ({ ...piece, href: `${piece.route}/`, title: pageOg[piece.route].title, summary: pageOg[piece.route].subtitle }))
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/lab')} canonical="https://ouroboros.bot/lab/">
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
+    <div class="max-w-5xl mx-auto grid gap-5">
+      <span class="eyebrow">Lab</span>
+      <h1 class="heading-lead">The harness is our experimental Agent Experience lab.</h1>
+      <p class="text-lg text-mist leading-relaxed max-w-[60ch]">It's where we try out what agents need to stay oriented, in the open. Each piece says what it is: an experiment that's still running, a tutorial, or an archive of how we got here.</p>
+      <p class="flex flex-wrap items-center gap-3 text-sm">
+        <span class={`tag ${harness.tone}`}>{harness.label}</span>
+        <a href="https://github.com/ourostack/ouroboros" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">The harness on GitHub &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-16">
+    <ul class="max-w-5xl mx-auto grid gap-4 md:grid-cols-2">
+      {pieces.map((piece) => (
+        <li>
+          <a href={piece.href} data-status={piece.status} class="group h-full rounded-2xl border border-canopy/40 bg-deep/70 p-6 grid gap-3 content-start hover:border-scale transition-colors">
+            <span class={`tag ${labStatusTones[piece.status]} justify-self-start`}>{piece.status}</span>
+            <h2 class="font-display text-2xl text-bone leading-tight group-hover:text-scale transition-colors">{piece.title}</h2>
+            <p class="text-mist">{piece.summary}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>

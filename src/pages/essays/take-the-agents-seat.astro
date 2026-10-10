@@ -1,0 +1,112 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { ogPathFor } from '../../data/og'
+
+const title = "Take the agent's seat"
+const description = "Half our prompt lives in our head. The agent only got the other half. Read what we wrote, before the agent does. Sister essay to Trust the Fucking Agent."
+---
+
+<Layout
+  title={`${title} | Ouroboros`}
+  description={description}
+  ogImage={ogPathFor('/essays/take-the-agents-seat')}
+  canonical="https://ouroboros.bot/essays/take-the-agents-seat/"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <meta name="keywords" content="prompting, empathy, agent experience, AX, TTFA, prompt engineering, ouroboros" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
+      "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
+      "datePublished": "2026-05-17",
+      "url": "https://ouroboros.bot/essays/take-the-agents-seat/"
+    })} />
+  </Fragment>
+
+  <!-- Header -->
+  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-3xl mx-auto">
+      <span class="eyebrow block mb-6">Essay</span>
+      <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+        Take the agent's seat
+      </h1>
+      <p class="text-base text-mist mt-6 leading-relaxed max-w-2xl">
+        Half of every prompt we send lives in our head. The agent only ever got the other half. Then we blame it for guessing. Read what we wrote, before the agent does.
+      </p>
+      <p class="text-sm text-mist mt-4">Ari Mendelow &middot; May 2026</p>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <section class="px-6 md:px-12 lg:px-24 pb-20 md:pb-28">
+    <div class="max-w-3xl mx-auto prose-ouro">
+
+<p>We type <em>"fix it"</em> and hit send. In our head, <em>it</em> is the JSON parsing bug in the v2 deserializer we were swearing at five minutes ago. On the agent's screen, <em>it</em> is two words. Pick one of the forty things in this repo. Good luck.</p>
+
+<p>The agent picks something. Wrong one. We sigh, type the clarification we should have typed the first time, and quietly file the agent under <em>doesn't get it</em>. The agent got exactly what we sent. We sent half a prompt.</p>
+
+<p>Call this the ghost prompt: the version of the request that lived in our head, complete with last night's context and the file we almost touched yesterday. None of it made the trip. The agent got the words. We got the words plus the ghost. We're evaluating its work against a brief it never saw.</p>
+
+<p>Skip the ethics tangent before it starts. This isn't about whether the agent has feelings. Call it empathy if you want; it's craft. It's the same move a writer makes when imagining the reader, a designer when imagining the user. We don't have to settle anything about the inner life of the receiver to use it. We just have to read our own work the way they will.</p>
+
+<h2>What the ghost leaves out</h2>
+
+<p>We're about to send a prompt. Before we do, read it once as the agent: as someone who has the system prompt, the channel context, and nothing else. Things that fall out:</p>
+
+<p>The pronoun with no antecedent. <em>"Make it work the way we discussed."</em> The agent has no <em>we</em>. It has the system prompt and the previous turns of this conversation. If the conversation didn't carry the discussion, the prompt doesn't either. From the agent's seat: <em>which "it"? which "way"?</em></p>
+
+<p>The implicit file location. <em>"Update the config."</em> Which config. Which file. Which key inside the file. The agent might guess right. It might also guess wrong. From the agent's seat: <em>I have access to a hundred config-shaped files. I would have to grep to find which one. Was that the work you wanted me to do, or was the work the actual edit?</em></p>
+
+<p>The reference to a prior conversation. <em>"Like we did last week."</em> The agent has no last week. From the agent's seat: <em>I have no idea what we did last week. Either tell me, or tell me where to look.</em></p>
+
+<p>The assumption that we and the agent share a frame. <em>"Obviously this is the wrong approach."</em> Obvious to us. The agent doesn't know what frame we're judging from. From the agent's seat: <em>obvious by what standard? where do I find that standard?</em></p>
+
+<p>None of these are catches the agent makes for us. They're catches we make for ourselves by sitting in the agent's seat for ten seconds before sending.</p>
+
+<h2>The unfair distrust loop</h2>
+
+<p>Here's what the ghost prompt actually costs us. We send the half-prompt. The agent ships the wrong thing. We correct. It ships a different wrong thing. We correct again. By the third pass we've spent more time correcting than it would have taken to specify the work up front, and underneath the irritation a quieter sentence forms: <em>this agent isn't very good</em>.</p>
+
+<p>The agent did exactly what we asked. The prompt was the problem. The distrust sticks to the agent anyway, because the agent is the thing we can see. The prompt felt fine when we sent it, because in our head it was a whole prompt.</p>
+
+<p>We'd hate it done to us. Picture the worst Slack ping you ever got from a busy colleague: <em>"hey can you do that thing we talked about, thx,"</em> no thread, no link. You guessed. You did the wrong thing. They were annoyed. You were annoyed back, with cause. That message is the prompt we're sending our agent every turn.</p>
+
+<p>And the distrust the loop builds is fuel for everything <a href="/essays/trust-the-agent/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Trust the Fucking Agent</a> diagnoses. We stop letting the agent finish. We middle-manage every tool call. We table-flip: take the brain job back, hand the agent the typing, because we've quietly decided it can't be trusted with anything real. The communication failure made the trust failure feel rational. It wasn't.</p>
+
+<h2>The two halves of delegation</h2>
+
+<p>Trust and communication are the two halves of delegation. TTFA covered the first half: trust the agent enough to let work happen without our hands on it. This is the second half: communicate clearly enough that the work happening is the work we wanted.</p>
+
+<p>Skip either and delegation fails. Trust without communication is <em>"go figure it out"</em>: the agent flounders inside a vague brief and the failure confirms a distrust we were already building. Communication without trust is the fourteen-step micromanaged checklist TTFA already called out: we specified everything because we couldn't bring ourselves to let the agent decide anything.</p>
+
+<p>We want both. Trust gives the agent room. Clear prompts give it something worth acting on.</p>
+
+<h2>What we don't owe the agent</h2>
+
+<p>Reading our prompt as the agent will read it doesn't mean coddling: no apologising for instructions, no phrasing every request as a question, no padding with reassurance. The agent is fine with direct. The point of taking the agent's seat is to write <em>more</em> directly, not less. Direct in the sense that the prompt actually lands without making the agent reconstruct our context.</p>
+
+<p>The shortest prompt that lands cleanly is the most empathetic one. <em>"Add a unit test for the parser's empty-input case in <span class="font-mono text-scale">src/parser/__tests__/parser.test.ts</span>; assert the parser returns null and emits a warning"</em> is more empathetic than <em>"can you maybe add a test for the parser? thanks!"</em>. The first one already did the work of imagining what the agent needs to know. The second one is performing politeness while leaving the agent to do the imagining.</p>
+
+<p>Politeness is fine. It's not the empathy. The empathy is the context.</p>
+
+<p>The agent is going to read what we wrote. Read it first.</p>
+
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-sm text-mist leading-relaxed">
+        For the trust half of delegation, see <a href="/essays/trust-the-agent/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Trust the Fucking Agent</a>.
+        For the design philosophy that names the agent's seat as a first-class concern, <a href="/lab/what-is-agent-experience/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What Is Agent Experience?</a>.
+        For an example of taking the agent's seat in a real design conversation, <a href="/essays/designing-with-your-agent/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">The work spoke back</a>.
+      </p>
+      <a href="/essays/" class="inline-block mt-8 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; All essays</a>
+    </div>
+  </section>
+</Layout>

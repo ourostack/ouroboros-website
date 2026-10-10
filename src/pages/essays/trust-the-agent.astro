@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { ogPathFor } from '../../data/og'
+
+const title = 'Trust the Fucking Agent'
+const description = "Agents have all the agency. We have the judgement. We keep doing both jobs. Bring only the judgement; they've got the rest."
+---
+
+<Layout
+  title={`${title} | Ouroboros`}
+  description={description}
+  ogImage={ogPathFor('/essays/trust-the-agent')}
+  canonical="https://ouroboros.bot/essays/trust-the-agent/"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <meta name="keywords" content="AI agents, agent ergonomics, TTFA, agent experience, trust, autonomy, harness design" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
+      "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
+      "datePublished": "2026-05-14",
+      "url": "https://ouroboros.bot/essays/trust-the-agent/"
+    })} />
+  </Fragment>
+
+  <!-- Header -->
+  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-3xl mx-auto">
+      <span class="eyebrow block mb-6">Essay</span>
+      <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+        Trust the Fucking Agent
+      </h1>
+      <p class="text-base text-mist mt-6 leading-relaxed max-w-2xl">
+        Agents have all the agency. We have the judgement. We keep doing both jobs and wonder why we don't scale. Bring judgement. They've got the rest.
+      </p>
+      <p class="text-sm text-mist mt-4">Ari Mendelow &middot; May 2026</p>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <section class="px-6 md:px-12 lg:px-24 pb-20 md:pb-28">
+    <div class="max-w-3xl mx-auto prose-ouro">
+
+<p>I've been thinking about what agents are actually for.</p>
+
+<p>The high version of the answer comes from Dario Amodei. When he tried to describe where powerful AI is heading, he reached for a phrase that's been quoted everywhere since:</p>
+
+<figure class="my-10 not-prose">
+  <blockquote class="border-l-[3px] border-fang/40 pl-6">
+    <p class="text-base text-mist leading-relaxed italic">"We could summarize this as a 'country of geniuses in a datacenter'."</p>
+  </blockquote>
+  <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; Dario Amodei, <a href="https://www.darioamodei.com/essay/machines-of-loving-grace" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Machines of Loving Grace</a></figcaption>
+</figure>
+
+<p>Take that seriously for a second. The spec he was summarizing: broadly superhuman across most fields, autonomous on long-horizon work, running at 10 to 100&times; human speed, operating at the scale of millions of simultaneous instances. That isn't slightly-better autocomplete. That's a civilization of cognitive capacity sitting in a server room.</p>
+
+<p>What stands between here and there isn't smarter agents. We have agents now. They're capable. They're ready. The work is in how we assign them work and how we let them do it. And we're not letting them.</p>
+
+<p>Stop and look at how that "letting them do it" muscle actually works in the rest of life. All of us have tried to hand off real work and watched ourselves do the wrong thing the moment something matters. Someone asks for help. We think for a second about handing off the work, really handing it off, and then catch ourselves rehearsing the three stories that always show up:</p>
+
+<p><em>It's faster if I just do it.</em><br />
+<em>They'll never get it exactly right.</em><br />
+<em>By the time I explain it, I could've done it myself.</em></p>
+
+<p>Every one of these is a lie that feels reasonable in the moment. The kind that feels reasonable is the kind we tell ourselves most. The work gets pulled back. The person who was supposed to do it goes back to their desk slightly diminished. We get on with it. And we never quite scale ourselves the way we said we would.</p>
+
+<p>Picture the worst version. Your manager asks you to send a calendar invite. Instead of just letting you send it, they stand behind your chair and narrate it. Open Outlook. No, the other Outlook. Click the calendar icon. Click New Event. Capitalize Quarterly. Tab to the time field, no, not that one. You'd lose your shit. You'd ask, "do you want to just do this yourself?" The infuriating part isn't even the inefficiency. It's the assumption that you couldn't have figured out the next step without making a mess of things.</p>
+
+<p>Same failure mode as not trusting your fucking employees.</p>
+
+<h2>The mirror</h2>
+
+<p>That was us. The behavior we'd never tolerate if anyone did it to us is the behavior we use on agents every day.</p>
+
+<p>The agent context didn't create the failure. It made it impossible to look away from. The hilarity of the whole thing is the part where we've handed agents the fun jobs and kept the rest for ourselves. The analyzing, the planning, the decision-making all go to the agent. The typing, the pasting, the ferrying output between applications all go to us.</p>
+
+<p>We ask the agent to ship the feature, then narrate every step. We ask it to investigate the bug, then dictate the grep. We ask it to draft the doc, then rewrite each clause before it finishes typing.</p>
+
+<p>Or, alternatively:</p>
+
+<figure class="my-10 not-prose">
+  <blockquote class="border-l-[3px] border-fang/40 pl-6">
+    <p class="font-mono text-sm text-mist leading-relaxed">Claude: Hey, mind if I grep -ohP "useEffect\(.*?\[\K[^\]]+" **/*.tsx 2&gt;&amp;1|tr ',' '\n'|awk 'NF&#123;$1=$1;a[$0]++&#125;END&#123;for(k in a)print a[k],k&#125;'|sort -rn|head -20</p>
+    <p class="font-mono text-sm text-mist leading-relaxed mt-3">Me: ... yeah go for it dude</p>
+  </blockquote>
+  <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; <a href="https://x.com/DavidKPiano/status/2014015826794340791" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@DavidKPiano</a></figcaption>
+</figure>
+
+<p>Claude proposes a shell pipeline arcane enough to surface every useEffect hook across a codebase. The tweet's author doesn't ask Claude to walk him through. He doesn't pull up the awk man page. He says "yeah go for it dude" and goes back to whatever else he was doing.</p>
+
+<p>The first list is the failure. The tweet is the alternative.</p>
+
+<h2>The trade</h2>
+
+<p>Look at what we actually traded. The agent should be doing the mechanical execution at scale: sweeping the codebase, running the tools, drafting the ten variants no human would type by hand, holding eight threads of context at once. We should be doing the framing and the judgement. Instead, the agent is doing the interesting cognitive work, and we're moving its output through the system by hand. Does that sound like the future of cognitive labor, or does it sound like an extra step we just invented for ourselves?</p>
+
+<p>That's the inverse of what delegation is for. Multiplication became addition. We bought a tool capable of running ten parallel hands and used it as a typewriter that needs supervising. We added a capable new colleague to the table and immediately gave ourselves a second job: translating for it, second-guessing it, doing the bits we never bothered to ask whether it needed help with.</p>
+
+<p>When an agent setup ends up costing us time, it isn't because the agent is slow. It's because we refuse to let the agent do the work. We check everything. We <a href="/essays/stop-being-the-glue/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">keep being the glue</a>. The bottleneck didn't change when we added the agent. We just got a second one. Now we're the bottleneck both for what we'd always done, and for what the agent was meant to do for us.</p>
+
+<h2>The value of human judgement</h2>
+
+<p>Here's what we actually have to bring. The agent has the agency. The agent has the capability. The agent has access to more knowledge than we do. The one thing the agent doesn't have is the lived-experience judgement to ask whether the work is the right work in the first place.</p>
+
+<p>That judgement is small. It's also the only thing only we can do.</p>
+
+<p>The agent will confidently build something elegant for a misframed question. It will pick a clean architecture for the wrong problem, and the cleanness will fool everyone reading the diff. Our job isn't to redo the build. Our job is to notice the misframe before the elegant build wastes either of our time.</p>
+
+<p>That's the deal. We provide the judgement. We provide nothing else. We don't do anything for the agent that the agent can do for itself. We don't rerun the search. We don't reformat the output. We don't paste the diff into the file. We don't act as middleware between the agent and the work it was given. The moment we start doing that, we've taken back the only resource of ours that actually mattered.</p>
+
+<p>The country of geniuses is here. Bring judgement. They've got the rest.</p>
+
+<p>Trust the fucking agent.</p>
+
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-sm text-mist leading-relaxed">
+        See <a href="/essays/take-the-agents-seat/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Take the agent's seat</a> for the communication half, or <a href="/approach/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the approach</a> for how I work this way every day.
+      </p>
+      <a href="/essays/" class="inline-block mt-8 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; All essays</a>
+    </div>
+  </section>
+</Layout>

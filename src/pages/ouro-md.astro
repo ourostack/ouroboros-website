@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+import { labelFor } from '../data/readiness.mjs'
+import { ouroMdInstall } from '../data/principles.mjs'
+
+const title = 'Ouro MD: read and answer what your agent writes | Ouroboros'
+const description = 'A native macOS Markdown editor. Your agent’s plans and notes show as a document, update live when the agent edits them, and mark what changed.'
+const status = labelFor('ouro-md')
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/ouro-md')} canonical="https://ouroboros.bot/ouro-md/">
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
+    <div class="max-w-3xl mx-auto grid gap-5 content-start min-w-0">
+      <span class={`tag ${status.tone} justify-self-start`}>{status.label}</span>
+      <div class="flex items-center gap-4">
+        <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
+        <h1 class="heading-lead">Ouro MD</h1>
+      </div>
+      <p class="text-xl text-bone font-display">Where you read and answer what your agent writes.</p>
+      <p class="text-lg text-mist leading-relaxed">Your agent's plans and notes live in Markdown files. Ouro MD shows them as a document, updates live when your agent edits them, and marks what changed so you can jump straight to it.</p>
+
+      <div class="grid gap-2">
+        <span class="caption-mono">Install in Terminal</span>
+        <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" data-copy-target="ouro-md-install" class="inline-flex items-center rounded-xl bg-bone text-void px-4 py-2.5 text-sm font-medium hover:bg-scale transition-colors"><span data-copy-label>Copy</span></button>
+          <a href="https://ouro.bot/apps/ouro-md/" class={`${link} text-sm`}>Or download the app &rarr;</a>
+        </div>
+      </div>
+      <ul class="list-disc pl-5 grid gap-2 text-mist">
+        <li>macOS 13 or later.</li>
+        <li>Signed and notarized, with built-in update checks.</li>
+        <li>The installer also adds an <code class="font-mono">md</code> command to your shell.</li>
+        <li>Builds from the installer or the download page send anonymous usage telemetry (you can turn it off in Settings). The <a href="/privacy/" class={link}>privacy page</a> says what's sent.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pt-8">
+    <p class="max-w-3xl mx-auto text-mist">Found a problem? Ask your agent to file an issue on <a href="https://github.com/ourostack/ouro-md/issues" class={link}>github.com/ourostack/ouro-md</a>.</p>
+  </section>
+</Layout>
+

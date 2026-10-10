@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+import { deskHosts, labelFor, allowedLabels } from '../data/readiness.mjs'
+import { deskSetupUrl } from '../data/principles.mjs'
+
+const title = 'Desk: the principles, built in | Ouroboros'
+const description = 'Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. Opt-in alpha on Claude Code.'
+const status = labelFor('desk-claude-code-macos')
+const supportPrompt = 'Something went wrong with Desk. Look at what happened in this session, then file a GitHub issue on ourostack/desk with the steps to reproduce it and the exact error. Show me the issue before you submit it.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/desk')} canonical="https://ouroboros.bot/desk/">
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
+    <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+      <div class="grid gap-5 content-start min-w-0">
+        <span class={`tag ${status.tone} justify-self-start`}>{status.label}</span>
+        <div class="flex items-center gap-4">
+          <img src="/brand/desk-icon.svg" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
+          <h1 class="heading-lead">Desk</h1>
+        </div>
+        <p class="text-lg text-mist leading-relaxed max-w-[52ch]">The principles are free. Following them every time is the hard part, and rules held in your head fade. Desk keeps them in the setup: your agent's work lives in a Git repository you own, every job starts with one alignment conversation and an explicit go, and done means evidence you can accept or send back.</p>
+
+        <div class="grid gap-2">
+          <span class="caption-mono">Give your agent</span>
+          <pre id="desk-setup" class="agent-text">{`${deskSetupUrl}\nset this up`}</pre>
+          <div class="flex flex-wrap items-center gap-3">
+            <button type="button" data-copy-target="desk-setup" class="inline-flex items-center rounded-xl bg-bone text-void px-4 py-2.5 text-sm font-medium hover:bg-scale transition-colors"><span data-copy-label>Copy</span></button>
+            <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
+          </div>
+        </div>
+        <p class="text-sm text-mist">Setup also installs Jesse Vincent's <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a> method, unchanged, and our Plain Language writing rules. We ship several times a day, so expect change.</p>
+      </div>
+
+      <div class="grid gap-6 content-start min-w-0">
+        <div class={card}>
+          <h2 class="caption-mono mb-3">Where it runs</h2>
+          <ul class="grid">
+            {deskHosts.map((host) => (
+              <li class="flex flex-wrap items-center justify-between gap-2 py-3 border-b border-dashed border-canopy/50 last:border-b-0">
+                <span class="text-bone">{host.name}<span class="block text-sm text-mist">{host.detail}</span></span>
+                <span class={`tag ${allowedLabels[host.label]}`}>{host.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class={card}>
+          <h2 class="caption-mono mb-3">Known limits today</h2>
+          <ul class="list-disc pl-5 grid gap-2 text-mist">
+            <li>The browser Desk gives your agent starts signed out, and on macOS it can steal keyboard focus.</li>
+            <li>We haven't yet recorded a full install on a fresh user profile.</li>
+            <li>The loop that turns friction into fixes is built, and it isn't proven on live data yet.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 border-t border-canopy/15">
+    <div class="max-w-3xl mx-auto grid gap-6">
+      <div class={`${card} grid gap-3 content-start`}>
+        <h2 class="heading-sub">Support goes through your agent</h2>
+        <p class="text-mist">Give your agent this, not a support form:</p>
+        <pre id="desk-support" class="agent-text !text-xs">{supportPrompt}</pre>
+        <button type="button" data-copy-target="desk-support" class="justify-self-start inline-flex items-center rounded-xl border border-canopy text-bone px-4 py-2 text-sm font-medium hover:border-scale hover:text-scale transition-colors"><span data-copy-label>Copy</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pt-4">
+    <p class="max-w-3xl mx-auto text-mist">Found a problem? Ask your agent to file an issue on <a href="https://github.com/ourostack/desk/issues" class={link}>github.com/ourostack/desk</a>.</p>
+  </section>
+</Layout>
+

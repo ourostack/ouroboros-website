@@ -2,6 +2,7 @@
 import '../styles/global.css'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
+import { labStatusFor } from '../data/lab.mjs'
 
 interface Props {
   title: string
@@ -13,11 +14,12 @@ interface Props {
 
 const {
   title,
-  description = 'An agent harness where the self doesn\'t live in the conversation. Structured psyche, agent-initiated memory, per-person relationships, cross-session continuity.',
+  description = "How do you effectively collaborate with agents? Here's how I believe it works, what I use to support it, and what you can try.",
   ogImage = '/og/og-home.png',
   canonical = `https://ouroboros.bot${Astro.url.pathname}`,
   ogType = 'website',
 } = Astro.props
+const lab = labStatusFor(Astro.url.pathname)
 ---
 
 <!doctype html>
@@ -26,7 +28,7 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/images/ouroboros.svg" />
+    <link rel="icon" type="image/svg+xml" href="/brand/ouro-character.svg" />
     <title>{title}</title>
 
     <meta property="og:title" content={title} />
@@ -47,22 +49,62 @@ const {
       "@type": "WebSite",
       "name": "Ouroboros",
       "url": "https://ouroboros.bot",
-      "description": "An agent harness where the self doesn't live in the conversation.",
+      "description": "How do you effectively collaborate with agents? The approach, the tools that support it, and what you can try.",
       "publisher": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" }
     })} />
   </head>
   <body class="bg-void text-bone font-body antialiased overflow-x-hidden">
-    <!-- Atmospheric base — not pure black, a living dark gradient -->
+    {/* Atmospheric base — not pure black, a living dark gradient */}
     <div class="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-void via-deep/50 to-void" aria-hidden="true"></div>
-    <!-- Grain -->
+    {/* Grain */}
     <div class="fixed inset-0 pointer-events-none z-50" style="background-image: url('/images/grain.png'); background-repeat: repeat; opacity: 0.03;" aria-hidden="true"></div>
 
     <Nav />
     <main class="relative z-10">
+      {lab && (
+        <div class="absolute top-16 inset-x-0 z-20 px-6 md:px-12 lg:px-16 pt-3" data-lab-status={lab.status}>
+          <p class="max-w-6xl mx-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist">
+            <a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; The Lab</a>
+            <span class={`tag ${lab.tone}`}>{lab.status}</span>
+            <span class="hidden sm:inline">Part of our experimental Agent Experience lab.</span>
+          </p>
+        </div>
+      )}
       <slot />
     </main>
     <Footer />
 
+    <script is:inline>
+      // Copy buttons: <button data-copy-target="id"> copies that element's text.
+      // Without the Clipboard API, select the text so the visitor can copy it.
+      (function () {
+        document.querySelectorAll('[data-copy-target]').forEach(function (button) {
+          button.addEventListener('click', function () {
+            var target = document.getElementById(button.getAttribute('data-copy-target'));
+            var label = button.querySelector('[data-copy-label]') || button;
+            if (!target) return;
+            var original = label.textContent;
+            function done(text) {
+              label.textContent = text;
+              setTimeout(function () { label.textContent = original; }, 1600);
+            }
+            function select() {
+              var range = document.createRange();
+              range.selectNodeContents(target);
+              var selection = window.getSelection();
+              selection.removeAllRanges();
+              selection.addRange(range);
+              done('Selected, now copy it');
+            }
+            if (navigator.clipboard && window.isSecureContext) {
+              navigator.clipboard.writeText(target.textContent).then(function () { done('Copied'); }, select);
+            } else {
+              select();
+            }
+          });
+        });
+      })();
+    </script>
     <script is:inline>
       (function() {
         var reveals = document.querySelectorAll('.reveal');
