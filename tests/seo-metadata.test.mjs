@@ -257,6 +257,12 @@ test('old URLs redirect to their new homes and published posts keep theirs', asy
   }
   assert.equal(redirectFor('/docs/skills/manifest.json'), '/lab/docs/skills/manifest.json', 'File paths keep their name');
   assert.equal(redirectFor('/approach/'), null);
+  for (const old of ['docs', 'docs-architecture', 'docs-bundles-and-psyche', 'docs-continuity-and-memory', 'docs-getting-started', 'docs-skills-and-prompts', 'docs-tasks-and-work', 'model-reviews', 'story', 'why', 'what-is-an-agent-harness']) {
+    const target = redirectFor(`/og/og-${old}.png`);
+    assert.equal(target, `/og/og-lab-${old}.png`, `Old share card og-${old}.png`);
+    assert.ok(fs.existsSync(path.join(distDir, target)), `${target} is not built`);
+  }
+  assert.equal(redirectFor('/og/og-home.png'), null);
   assert.equal(redirectFor('/lab/docs/'), null);
 });
 

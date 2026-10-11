@@ -5,6 +5,8 @@ const moved = [
   [/^\/(docs|model-reviews|story|why|what-is-an-agent-harness)(\/.*)?$/, '/lab/$1$2'],
   [/^\/essays(\/.*)?$/, '/blog$1'],
   [/^\/lab\/(what-is-agent-experience|give-your-agent-a-home|build-ai-agent-from-scratch)\/?$/, '/blog/$1/'],
+  // Share cards already posted keep their image: the old card names gained "lab-".
+  [/^\/og\/og-(docs(?:-[a-z-]+)?|model-reviews|story|why|what-is-an-agent-harness)\.png$/, '/og/og-lab-$1.png'],
 ]
 
 /** The new path for an old one, or null. Page paths end in a slash, so a

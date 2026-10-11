@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import test from 'node:test';
 import { readDist, distExists, textOf } from './support/dist.mjs';
 
@@ -62,4 +63,10 @@ test('copy buttons fall back to selecting the text without the Clipboard API', (
     assert.match(html, /data-copy-target=/, `${file} has a copy button`);
     assert.match(html, /selectNodeContents/, `${file} needs the select fallback`);
   }
+});
+
+test('llms.txt keeps every line it was first published with', () => {
+  const llms = readDist('llms.txt');
+  const published = fs.readFileSync(new URL('./fixtures/llms-published.txt', import.meta.url), 'utf8');
+  for (const line of published.split('\n').filter((l) => l.trim())) assert.ok(llms.includes(line), `llms.txt lost "${line}"`);
 });

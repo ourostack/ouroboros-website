@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { readiness, allowedLabels } from '../src/data/readiness.mjs';
-import { readDist, textOf, listHtmlFiles, distDir, distExists } from './support/dist.mjs';
+import { readDist, textOf, hrefsOf, listHtmlFiles, distDir, distExists } from './support/dist.mjs';
 
 const allowed = ['Use today, alpha', 'Use today', 'Experimental', 'Not open yet'];
 
@@ -34,9 +34,9 @@ test('the Desk page shows every host with an honest label', () => {
     text.includes('https://github.com/ourostack/desk/blob/main/SETUP.md set this up'), 'Desk page carries the setup line');
 });
 
-test('the Desk page links no design document and keeps the plain-words line for screen readers only', () => {
+test('the Desk page keeps the plain-words line for screen readers only', () => {
+  // Ari's ruling after pass 1: link the Desk RFC from the Desk page too (tested below).
   const html = readDist('desk/index.html');
-  assert.doesNotMatch(html, /href="[^"]*-rfc\.md"/, 'Hold the design document link until it is retitled');
   assert.match(html, /<span class="sr-only">In words: give your agent/);
 });
 
@@ -64,12 +64,13 @@ test('the Ouro MD page carries the install line and the macOS floor', () => {
   assert.ok(text.includes('macOS 13'));
 });
 
-test('the Ouro MD page shows only the app icon, no screenshots or animations', () => {
+test('the Ouro MD page leads with the download and the media pack hero, light and dark', () => {
   const html = readDist('ouro-md/index.html');
   const imgs = [...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(([, src]) => src);
-  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png']);
-  assert.doesNotMatch(html, /<picture\b|\.gif"|\.webp"/);
+  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-harbor-light.webp', '/images/workshop/ouro-md-harbor-dark.webp']);
+  for (const [img] of html.matchAll(/<img\b[^>]*ouro-md-harbor[^>]*>/g)) assert.match(img, /width="800" height="720"/);
   assert.ok(!distExists('images/ouro-md'), 'The rejected Ouro MD media must not ship');
+  assert.ok(html.indexOf('https://ouro.bot/apps/ouro-md/') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
   const text = textOf(html);
   assert.match(text, /you can turn it off in Settings/);
   assert.doesNotMatch(text, /principles 3 and 5/);
@@ -85,4 +86,10 @@ test('each tool page has exactly one way to report a problem through your agent'
   const md = textOf(readDist('ouro-md/index.html')).replace(/\s+([.,])/g, '$1');
   assert.equal((md.match(/ask your agent to file an issue on github\.com\/ourostack\/ouro-md\./gi) || []).length, 1);
   assert.doesNotMatch(md, /Found a problem\?/);
+});
+
+test('the Desk page leads with what Desk does for a builder and links the RFC', () => {
+  const html = readDist('desk/index.html');
+  assert.ok(textOf(html).includes("My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off."));
+  assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
 });

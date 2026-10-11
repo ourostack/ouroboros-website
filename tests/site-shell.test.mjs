@@ -248,7 +248,7 @@ test('a filled button inside prose keeps the button colours, not the link green'
 test('approach page has its own heading, not the homepage question', () => {
   const html = readDist('approach/index.html');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
-  assert.equal(h1, 'How I collaborate with agents');
+  assert.equal(h1, 'How I build with agents');
   assert.doesNotMatch(textOf(html), /Here's how I believe it works/);
   assert.ok(hrefsOf(html).includes('/brief/'));
 });
@@ -259,7 +259,7 @@ test('approach page renders the five principles and the proposed sixth', () => {
   principleHeadings.forEach((heading, i) => {
     assert.ok(headings.includes(`${i + 1}. ${heading}`), `Missing principle heading: ${heading}`);
   });
-  assert.ok(headings.includes('Into Act 3: fix the system, not the instance (proposed)'));
+  assert.ok(headings.includes('Into the third act: fix the system, not the instance (proposed)'));
   for (const id of ['intent-and-judgement', 'whole-outcomes', 'durable-context', 'authority-and-boundaries', 'verify-the-result', 'fix-the-system']) {
     assert.match(html, new RegExp(`id="${id}"`), `Missing anchor ${id}`);
   }
@@ -350,7 +350,7 @@ test('the Lab opens with the harness as the origin and keeps the live homepage i
 test('the story opens with who Slugger is and ends with where it went', () => {
   const html = readDist('lab/story/index.html');
   const text = textOf(html);
-  assert.ok(text.indexOf('Who is Slugger, and what came out of this') < text.indexOf('The spark'));
+  assert.ok(text.indexOf('Who is Slugger') < text.indexOf('The spark'));
   assert.ok(text.indexOf('What happened next') > text.indexOf('Build the house accordingly'));
   for (const href of ['/approach/', '/desk/', '/ouro-md/']) assert.ok(hrefsOf(html).includes(href));
 });
@@ -463,10 +463,18 @@ test('the review transcripts share the Lab review card', () => {
   }
 });
 
-test('the approach uses one word for where Act 2 stands', () => {
+test('the approach introduces the three acts in Ari\'s words before naming one, and the homepage agrees', () => {
+  const acts = "I view this agentic era as three acts: capability, orientation, and work design.";
+  for (const file of ['approach/index.html', 'index.html']) {
+    const text = textOf(readDist(file));
+    assert.ok(text.includes(acts), `${file} is missing the three acts`);
+    assert.doesNotMatch(text, /Acts? [23]\b/, `${file} names an act by number`);
+    assert.doesNotMatch(text, /solidifying|settling|oriented well enough/);
+  }
   const approach = textOf(readDist('approach/index.html'));
-  assert.doesNotMatch(approach, /solidifying/);
-  assert.match(approach, /settling/);
+  assert.ok(approach.indexOf(acts) < approach.indexOf('Into the third act'));
+  assert.match(approach, /Agents pinned about a dozen times anyway/);
+  assert.doesNotMatch(approach, /a dozen more times/);
 });
 
 test('the May essays say when they were written and when they were published', () => {

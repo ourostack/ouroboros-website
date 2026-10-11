@@ -1,15 +1,13 @@
 ---
-// The same short route onward at the end of every blog post: the posts are
-// where the method came from, and this is where it went.
+// The same short route onward at the end of every blog post.
 import { deskSetupUrl, factoryUrl } from '../data/principles.mjs'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
 ---
 
 <aside class="px-6 md:px-12 lg:px-24 pb-20" aria-labelledby="post-end-heading" data-post-end>
   <div class="max-w-3xl mx-auto rounded-2xl border border-scale/40 bg-deep/80 p-6 md:p-8 grid gap-3">
-    <h2 id="post-end-heading" class="eyebrow">Where this went</h2>
-    <p class="font-display text-2xl text-bone leading-snug">These ideas became <a href="/approach/" class={link}>a method</a> and <a href="/desk/" class={link}>Desk</a>.</p>
-    <p class="text-mist">To try it, give your agent <span class="font-mono text-sm text-bone break-all">{deskSetupUrl}</span> and say "set this up". To see how the work actually goes, open <a href={factoryUrl} class={link}>the factory</a>.</p>
+    <h2 id="post-end-heading" class="font-display text-2xl text-bone leading-snug"><a href="/approach/" class={link}>How I build with agents now</a></h2>
+    <p class="text-mist">To try <a href="/desk/" class={link}>Desk</a>, give your agent <span class="font-mono text-sm text-bone break-all">{deskSetupUrl}</span> and say "set this up". My agents' sessions are on <a href={factoryUrl} class={link}>the factory</a>.</p>
     <p class="text-mist">Running a team? <a href="/approach/#for-teams" class={link}>Start with four steps</a>.</p>
   </div>
 </aside>

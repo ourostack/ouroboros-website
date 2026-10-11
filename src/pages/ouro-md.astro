@@ -4,7 +4,7 @@ import { ogPathFor } from '../data/og'
 import { labelFor } from '../data/readiness.mjs'
 import { ouroMdInstall } from '../data/principles.mjs'
 
-const title = 'Ouro MD: read and answer what your agent writes | Ouroboros'
+const title = 'Ouro MD: Markdown that renders as you write | Ouroboros'
 const description = 'A native macOS Markdown editor. Your agent’s plans and notes show as a document, update live when the agent edits them, and mark what changed.'
 const status = labelFor('ouro-md')
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
@@ -12,26 +12,39 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
 
 <Layout title={title} description={description} ogImage={ogPathFor('/ouro-md')} canonical="https://ouroboros.bot/ouro-md/">
   <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
-    <div class="max-w-3xl mx-auto grid gap-5 content-start min-w-0">
-      <span class={`tag ${status.tone} justify-self-start`}>{status.label}</span>
-      <div class="flex items-center gap-4">
-        <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
-        <h1 class="heading-lead">Ouro MD</h1>
-      </div>
-      <p class="text-xl md:text-2xl text-bone font-display leading-snug">Where you read and answer what your agent writes.</p>
-      <p class="text-lg text-mist leading-relaxed">Your agent's plans and notes, as a live document. When the agent edits, you see what changed.</p>
+    <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+      <div class="grid gap-5 content-start min-w-0">
+        <span class={`tag ${status.tone} justify-self-start`}>{status.label}</span>
+        <div class="flex items-center gap-4">
+          <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
+          <h1 class="heading-lead">Ouro MD</h1>
+        </div>
+        <p class="text-xl md:text-2xl text-bone font-display leading-snug">Markdown that renders as you write. It's where I read and answer what my agents write.</p>
 
-      <div class="flex flex-wrap items-center gap-3">
-        <a href="https://ouro.bot/apps/ouro-md/" class="btn-primary">Download for Mac &rarr;</a>
-        <span class="text-sm text-mist">macOS 13 or later. Signed, notarized, updates itself.</span>
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="https://ouro.bot/apps/ouro-md/" class="btn-primary">Download for Mac &rarr;</a>
+          <span class="text-sm text-mist">macOS 13 or later. Signed, notarized, updates itself.</span>
+        </div>
       </div>
 
+      <figure class="min-w-0 grid gap-3">
+        <div class="rounded-2xl overflow-hidden border border-canopy/60 bg-void">
+          <img src="/images/workshop/ouro-md-harbor-light.webp" width="800" height="720" decoding="async" alt="Real Ouro MD window in light appearance showing the fictional Harbor launch plan with an objective, invitation, feedback and decisions; sidebar closed and actual file status Committed." class="theme-light-only w-full h-auto" />
+          <img src="/images/workshop/ouro-md-harbor-dark.webp" width="800" height="720" decoding="async" alt="Real Ouro MD window in dark appearance showing the fictional Harbor launch plan with an objective, invitation, feedback and decisions; sidebar closed and actual file status Committed." class="theme-dark-only w-full h-auto" />
+        </div>
+        <figcaption class="text-sm text-mist">One ordinary Markdown plan, ready for people and agents to work on together.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pt-4">
+    <div class="max-w-3xl mx-auto grid gap-5">
       <div class="grid gap-2">
-        <span class="caption-mono">Or install in Terminal</span>
+        <h2 class="caption-mono">Or install in Terminal</h2>
         <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
         <div class="flex flex-wrap items-center gap-3">
           <button type="button" data-copy-target="ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
-          <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> command.</span>
+          <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> shell alias.</span>
         </div>
       </div>
       <p class="text-sm text-mist">Builds from the installer or the download page send anonymous usage telemetry (you can turn it off in Settings). The <a href="/privacy/" class={link}>privacy page</a> says what's sent.</p>

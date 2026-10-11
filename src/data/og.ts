@@ -52,7 +52,7 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: "Here's how I believe it works, what I use to support it, and what you can try.",
   },
   '/approach': {
-    title: 'How I collaborate with agents.',
+    title: 'How I build with agents.',
     subtitle: 'Three smells and five principles, with my own words for each.',
     tag: 'The approach',
   },
@@ -61,7 +61,7 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Five principles for working with agents, written for your agent to read. No install.',
   },
   '/desk': {
-    title: 'Desk: the principles, built in.',
+    title: 'Desk: where my agents keep their work.',
     subtitle: 'Give your agent one link and say "set this up". Opt-in alpha on Claude Code.',
     tag: 'Desk',
   },

@@ -147,7 +147,9 @@
   --color-canopy: #1E3D28;
   --color-scale: #36A452;
   --color-glow: #4AE36C;
-  --color-fang: #D3483D;
+  /* Lightened from #D3483D so 12px red labels pass WCAG AA (4.5:1) on every
+     dark surface, down to the undergrowth #152A1C (4.51:1). */
+  --color-fang: #E5625A;
   --color-bone: #EDF2EE;
   --color-mist: #9AAE9F;
   --color-shadow: #82968A;
@@ -492,6 +494,15 @@ p, li, dd, figcaption { text-wrap: pretty; }
   border-radius: 0.25rem;
   font-size: 0.85em;
   overflow-wrap: anywhere;
+}
+
+/* ── Media with a light and a dark version: show the one for the theme ── */
+.theme-light-only { display: none; }
+:root[data-theme="light"] .theme-light-only { display: block; }
+:root[data-theme="light"] .theme-dark-only { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-light-only { display: block; }
+  :root:not([data-theme="dark"]) .theme-dark-only { display: none; }
 }
 
 /* ── Theme toggle icon: show the theme you'd switch to ── */

@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro'
 import { ogPathFor } from '../data/og'
 import { deskHosts, labelFor, allowedLabels } from '../data/readiness.mjs'
-import { deskSetupUrl, factoryUrl } from '../data/principles.mjs'
+import { deskSetupUrl, factoryUrl, rfcUrl } from '../data/principles.mjs'
 
-const title = 'Desk: the principles, built in | Ouroboros'
+const title = 'Desk: where my agents keep their work | Ouroboros'
 const description = 'Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. Opt-in alpha on Claude Code.'
 const status = labelFor('desk-claude-code-macos')
 const supportPrompt = 'Something went wrong with Desk. Look at what happened in this session, then file a GitHub issue on ourostack/desk with the steps to reproduce it and the exact error. Show me the issue before you submit it.'
@@ -21,8 +21,8 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
           <img src="/brand/desk-icon.svg" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
           <h1 class="heading-lead">Desk</h1>
         </div>
-        <p class="text-xl md:text-2xl text-bone font-display leading-snug max-w-[34ch]">The principles, built into your agent's setup.</p>
-        <p class="text-lg text-mist leading-relaxed max-w-[52ch]">Your agent's work lives in a Git repository you own. Every job starts with one conversation and a go, and ends with evidence you accept or send back.</p>
+        <p class="text-xl md:text-2xl text-bone font-display leading-snug max-w-[40ch]">My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off.</p>
+        <p class="text-lg text-mist leading-relaxed max-w-[52ch]">Every job starts with one conversation and a go, and ends with evidence you accept or send back. The full design is in <a href={rfcUrl} class={link}>the Desk RFC</a>.</p>
 
         <div class="grid gap-2">
           <span class="caption-mono">Give your agent</span>
