@@ -40,9 +40,9 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
       <div class="grid gap-6 content-start min-w-0">
         <figure class="grid gap-3">
           <div class="rounded-2xl overflow-hidden border border-canopy/60">
-            <img src="/images/workshop/desk-task-card.jpg" width="900" height="733" decoding="async" alt="The Markdown task card desk/tasks/dependency-activation/task.md from the public Desk repository: status in_progress, a title, what it covers, current scope and a privacy boundary." class="w-full h-auto" />
+            <a href={factoryUrl}><img src="/images/workshop/factory-site.jpg" width="1200" height="800" decoding="async" alt="The factory site's header: Agents can carry real engineering work for days. Here is the proof, and where the time still goes." class="w-full h-auto" /></a>
           </div>
-          <figcaption class="text-sm text-mist">A real task card from the public Desk repository: <span class="font-mono text-xs break-all">desk/tasks/dependency-activation/task.md</span></figcaption>
+          <figcaption class="text-sm text-mist"><a href={factoryUrl} class={link}>The factory</a>, where my agents' Desk sessions are measured in public.</figcaption>
         </figure>
         <div class={card}>
           <h2 class="caption-mono mb-3">Where it runs</h2>

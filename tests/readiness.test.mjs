@@ -95,10 +95,10 @@ test('the Desk page leads with what Desk does for a builder and links the RFC', 
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
 });
 
-test('the Desk page shows a real task card, its label once, and limits in plain words', () => {
+test('the Desk page shows the factory, its label once, and limits in plain words', () => {
   const html = readDist('desk/index.html');
   const text = textOf(html);
-  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/desk-task-card\.jpg"[^>]*width="900" height="733"/);
+  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/factory-site\.jpg"[^>]*width="1200" height="800"/);
   assert.equal((text.match(/Use today, alpha/g) || []).length, 1, 'The alpha label shows once');
   assert.ok(text.includes('macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.'));
   assert.ok(text.includes("Desk's own browser starts signed out, and on macOS it can steal focus."));

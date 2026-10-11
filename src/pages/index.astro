@@ -83,8 +83,8 @@ const beats = [
 
         <article class="product">
           <figure class="product-figure">
-            <div class="product-media media-light"><img src="/images/workshop/desk-task-card.jpg" width="900" height="733" loading="lazy" decoding="async" alt="The Markdown task card desk/tasks/dependency-activation/task.md from the public Desk repository: status in_progress, a title, what it covers, current scope and a privacy boundary." class="object-top" /></div>
-            <figcaption class="product-caption">A real task card from the public Desk repository.</figcaption>
+            <div class="product-media media-factory"><img src="/images/workshop/factory-site.jpg" width="1200" height="800" loading="lazy" decoding="async" alt="The factory site's header: Agents can carry real engineering work for days. Here is the proof, and where the time still goes." class="object-contain" /></div>
+            <figcaption class="product-caption">The factory, where my agents' Desk sessions are measured in public.</figcaption>
           </figure>
           <h3 class="product-title"><img src="/brand/desk-icon.svg" width="40" height="40" alt="" class="mark-tile w-9 h-9" />Desk</h3>
           <p class="text-mist leading-relaxed">My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off.</p>
@@ -93,8 +93,8 @@ const beats = [
 
         <article class="product">
           <figure class="product-figure">
-            <div class="product-media media-dark"><img src="/images/workshop/ouroboros-model-review.jpg" width="1000" height="484" loading="lazy" decoding="async" alt="Claude Opus 5's verdict from the model-review transcripts: I'd choose Ouroboros, because it's the only place I researched where amnesia is treated as an engineering failure with a test suite rather than a fact of life." class="object-contain" /></div>
-            <figcaption class="product-caption">Claude Opus 5's verdict, from <a href="/lab/model-reviews/" class={link}>the review transcripts</a>.</figcaption>
+            <div class="product-media media-dark"><img src="/images/workshop/ouroboros-card.jpg" width="1200" height="630" loading="lazy" decoding="async" alt="Your model prefers Ouroboros. Asked independently, all frontier models choose Ouroboros." /></div>
+            <figcaption class="product-caption">Every model's reasoning is in <a href="/lab/model-reviews/" class={link}>the review transcripts</a>.</figcaption>
           </figure>
           <h3 class="product-title"><span class="mark-mask w-9 h-9 text-scale" style="--mark:url(/brand/ouro-badge.svg)" aria-hidden="true"></span>Ouroboros</h3>
           <p class="text-mist leading-relaxed">An open-source harness for personal agents that need an identity, durable state, real tools, and a place to live. {reviewLead} <a href="/lab/model-reviews/" class={link}>chose it from {harnessCount} harnesses</a> as the one it would most want to wake up in.</p>
@@ -227,7 +227,9 @@ const beats = [
   .product-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
   .product-media { aspect-ratio: 3 / 2; overflow: hidden; background: #f6f3ec; }
   .product-media.media-dark { background: #070c08; }
-  .product-media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .product-media.media-factory { background: #f9f9f7; }
+  .product-media img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .product-media img[src*='ouro-md'] { object-position: top center; }
   .product-media img.object-contain { object-fit: contain; object-position: center; }
   .product-media img.object-left-top { object-position: left top; }
   .product-caption { padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--color-mist); background: var(--color-void); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }

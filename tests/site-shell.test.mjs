@@ -74,13 +74,15 @@ test('homepage shows what Ari built with agents, each with captioned media of th
   assert.match(poster[0], /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
   assert.match(poster[0], /data-gif-alt="[^"]*3 times their captured rate/);
   assert.ok(text.includes('Agent revises the same file; the person stays in place (3× captured playback).'));
-  for (const [file, w, h] of [['spoonjoy-app.jpg', 1000, 625], ['desk-task-card.jpg', 900, 733], ['ouroboros-model-review.jpg', 1000, 484]]) {
+  for (const [file, w, h] of [['spoonjoy-app.jpg', 1000, 625], ['factory-site.jpg', 1200, 800], ['ouroboros-card.jpg', 1200, 630]]) {
     assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${file.replace('.', '\\.')}"[^>]*width="${w}" height="${h}"`), `${file} is sized`);
     assert.ok(distExists(`images/workshop/${file}`));
   }
   assert.equal((html.match(/class="product-media/g) || []).length, 4, 'Every product has media');
   assert.equal((html.match(/<figcaption class="product-caption"/g) || []).length, 4, 'Every product image has a caption');
-  for (const gone of ['spoonjoy.jpg', 'factory-longest-sessions.jpg']) assert.ok(!distExists(`images/workshop/${gone}`), `${gone} should be gone`);
+  assert.ok(text.includes("The factory, where my agents' Desk sessions are measured in public."));
+  assert.match(html, /Every model's reasoning is in <a href="\/lab\/model-reviews\/"/);
+  for (const gone of ['spoonjoy.jpg', 'factory-longest-sessions.jpg', 'desk-task-card.jpg', 'ouroboros-model-review.jpg']) assert.ok(!distExists(`images/workshop/${gone}`), `${gone} should be gone`);
 });
 
 test('homepage says how Ari works in his own words and links each principle', () => {
