@@ -92,22 +92,38 @@ test('homepage shows five things built for humans and agents, each with captione
   assert.doesNotMatch(text, /One agent session ran for|\(proposed\)|Fix the system/);
 
   // Media slots: a clip with a poster when the clip exists, otherwise the poster alone. Never an empty frame.
-  for (const name of ['ouro-md-type', 'ouro-md-agent-edit', 'spoonjoy-import']) {
-    assert.ok(distExists(`images/workshop/${name}.png`), `${name}.png poster ships`);
+  // The Ouro MD clips come in a light and a dark recording, each with its own poster.
+  const slots = [
+    ...['ouro-md-typing', 'ouro-md-agent-edit'].flatMap((clip) => ['light', 'dark'].map((theme) => ({ name: `${clip}-${theme}`, poster: `${clip}-${theme}-poster` }))),
+    { name: 'spoonjoy-import', poster: 'spoonjoy-import' },
+  ];
+  for (const { name, poster } of slots) {
+    assert.ok(distExists(`images/workshop/${poster}.png`), `${poster}.png poster ships`);
     if (distExists(`images/workshop/${name}.mp4`)) {
-      const video = html.match(new RegExp(`<video\\b[^>]*poster="/images/workshop/${name}\\.png"[^>]*>`));
+      const video = html.match(new RegExp(`<video\\b[^>]*poster="/images/workshop/${poster}\\.png"[^>]*>`));
       assert.ok(video, `${name} renders as a video with its poster`);
       assert.match(video[0], /\bmuted\b/);
       assert.match(video[0], /preload="none"/);
       assert.doesNotMatch(video[0], /\bautoplay\b/, 'Clips play from script so reduced motion keeps the poster');
       // WCAG 2.2.2: a looping clip has a visible Pause/Play control next to it.
-      const clip = html.match(new RegExp(`<div class="workshop-clip"[^>]*>\\s*<video\\b[^>]*poster="/images/workshop/${name}\\.png"[\\s\\S]*?</div>`));
+      const clip = html.match(new RegExp(`<div class="workshop-clip"[^>]*>\\s*<video\\b[^>]*poster="/images/workshop/${poster}\\.png"[\\s\\S]*?</div>`));
       assert.ok(clip, `${name} sits in a clip wrapper`);
       assert.match(clip[0], /<button type="button" class="clip-toggle"[^>]*data-clip-toggle[^>]*>Pause<\/button>/, `${name} has a Pause control`);
     } else {
-      assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${name}\\.png"[^>]*width="\\d+" height="\\d+"[^>]*loading="lazy"`), `${name} poster is sized and lazy`);
+      assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${poster}\\.png"[^>]*width="\\d+" height="\\d+"[^>]*loading="lazy"`), `${name} poster is sized and lazy`);
     }
   }
+  // The Ouro MD clips are the real 840x630 recordings, WebM first, and CSS shows the
+  // one for the active theme, so the poster matches the theme without JS.
+  for (const clip of ['ouro-md-typing', 'ouro-md-agent-edit']) {
+    for (const theme of ['light', 'dark']) {
+      assert.ok(distExists(`images/workshop/${clip}-${theme}.mp4`) && distExists(`images/workshop/${clip}-${theme}.webm`), `${clip}-${theme} ships as MP4 and WebM`);
+      const wrapped = html.match(new RegExp(`<div class="clip-theme theme-${theme}-only"[^>]*>\\s*<div class="workshop-clip"[^>]*>\\s*<video\\b[^>]*poster="/images/workshop/${clip}-${theme}-poster\\.png"[^>]*>\\s*<source src="/images/workshop/${clip}-${theme}\\.webm" type="video/webm"[^>]*>\\s*<source src="/images/workshop/${clip}-${theme}\\.mp4" type="video/mp4"`));
+      assert.ok(wrapped, `${clip}-${theme} sits in its theme wrapper with WebM before MP4`);
+      assert.match(wrapped[0], /width="840" height="630"/);
+    }
+  }
+  assert.doesNotMatch(html, /ouro-md-type\.png|ouro-md-agent-edit\.png/, 'The Ouro MD placeholder posters are gone');
 });
 
 test('homepage Desk playback renders its final frame without JS and plays once with a replay', () => {

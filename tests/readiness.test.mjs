@@ -79,7 +79,7 @@ test('the Ouro MD page leads with the card copy and clips, then keeps the agent-
   // Copy deck (2026-10-11): /ouro-md/ leads with the homepage card's copy and the same media.
   assert.ok(textOf(html).includes('A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.'));
   const imgs = [...html.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
-  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-type.png', '/images/workshop/ouro-md-agent-edit.png', '/images/workshop/ouro-md-reload-poster.png']);
+  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-typing-light-poster.png', '/images/workshop/ouro-md-typing-dark-poster.png', '/images/workshop/ouro-md-agent-edit-light-poster.png', '/images/workshop/ouro-md-agent-edit-dark-poster.png', '/images/workshop/ouro-md-reload-poster.png']);
   assert.match(html, /<img src="\/images\/workshop\/ouro-md-reload-poster\.png"[^>]*width="800" height="720" loading="lazy"/);
   assert.match(html, /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
   assert.ok(textOf(html).includes("A demo: an agent's revision lands in the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));

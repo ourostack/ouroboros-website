@@ -8,17 +8,20 @@ import path from 'node:path'
  * or without JS, the poster stays. Until the clip file exists in public/, only
  * the poster renders, so a clip can be dropped in without touching the page.
  *
+ * An optional WebM goes first, and the MP4 is the fallback.
+ *
  * Once a clip plays, a visible Pause/Play button appears on it (WCAG 2.2.2).
  * A clip the reader paused stays paused when it scrolls back into view.
  */
-interface Props { src: string; poster: string; width: number; height: number; alt?: string }
-const { src, poster, width, height, alt = '' } = Astro.props
+interface Props { src: string; webm?: string; poster: string; width: number; height: number; alt?: string }
+const { src, webm, poster, width, height, alt = '' } = Astro.props
 const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
 ---
 
 {hasClip ? (
   <div class="workshop-clip" data-workshop-clip>
     <video class="workshop-video" muted playsinline loop preload="none" poster={poster} width={width} height={height} data-workshop-video>
+      {webm && <source src={webm} type="video/webm" />}
       <source src={src} type="video/mp4" />
     </video>
     <button type="button" class="clip-toggle" data-clip-toggle hidden>Pause</button>

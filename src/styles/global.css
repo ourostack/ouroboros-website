@@ -251,6 +251,8 @@ html {
 .product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
+.product-media.media-clip { aspect-ratio: 4 / 3; }
+.clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
 .clip-pair { display: grid; }
 @media (min-width: 768px) { .clip-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

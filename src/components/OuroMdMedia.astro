@@ -3,16 +3,25 @@ import WorkshopVideo from './WorkshopVideo.astro'
 
 // The Ouro MD media, verbatim from the copy deck (2026-10-11). The homepage card
 // and /ouro-md/ both lead with it, so the two cannot drift.
+//
+// Each clip comes in a light and a dark recording. CSS shows the one for the
+// active theme (the saved data-theme, else the system setting), so the poster
+// matches with no JS, and the hidden one never plays or loads its video.
+const themes = ['light', 'dark'] as const
 ---
 
 <figure class="product-figure">
   <div class="clip-pair">
     <figure class="clip">
-      <div class="product-media"><WorkshopVideo src="/images/workshop/ouro-md-type.mp4" poster="/images/workshop/ouro-md-type.png" width={1200} height={800} alt="Recording in progress" /></div>
+      <div class="product-media media-clip">
+        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} /></div>)}
+      </div>
       <figcaption class="product-caption">Typing the Nautilus crew's periscope plan. It renders as you go.</figcaption>
     </figure>
     <figure class="clip">
-      <div class="product-media"><WorkshopVideo src="/images/workshop/ouro-md-agent-edit.mp4" poster="/images/workshop/ouro-md-agent-edit.png" width={1200} height={800} alt="Recording in progress" /></div>
+      <div class="product-media media-clip">
+        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-agent-edit-${theme}.mp4`} webm={`/images/workshop/ouro-md-agent-edit-${theme}.webm`} poster={`/images/workshop/ouro-md-agent-edit-${theme}-poster.png`} width={840} height={630} /></div>)}
+      </div>
       <figcaption class="product-caption">An agent fills in the depth trials while you read.</figcaption>
     </figure>
   </div>
