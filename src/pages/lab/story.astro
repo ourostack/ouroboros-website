@@ -56,7 +56,7 @@ const entries = [
     label: 'The tutorial',
     color: 'scale',
     content: `<p>Around the same time, I started writing a guide. I wanted to explain what an agent loop actually is — not the marketing version, the mechanical version.</p>
-<p><a href="/lab/build-ai-agent-from-scratch"><em>Just Give the Model a Keyboard</em></a> walks through building an agent from scratch in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, the agentic loop.</p>
+<p><a href="/blog/build-ai-agent-from-scratch"><em>Just Give the Model a Keyboard</em></a> walks through building an agent from scratch in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, the agentic loop.</p>
 <p>Then the handoff — you stop talking to your coding agent and start talking to your creation.</p>
 <p>I wrote it as a teaching tool. A way to demystify the primitive.</p>
 <p class="note">Then I followed my own guide.</p>`,
@@ -122,6 +122,14 @@ const entries = [
   <!-- Byline -->
   <section class="px-6 md:px-12 lg:px-24 -mt-8 md:-mt-12 mb-16 reveal">
     <p class="text-sm text-shadow text-center">Ari Mendelow &middot; March 2026</p>
+  </section>
+
+  <!-- Orientation for a reader arriving cold. The story itself follows unchanged. -->
+  <section class="px-6 md:px-12 lg:px-24 mb-16" aria-labelledby="who-is-slugger">
+    <div class="max-w-3xl mx-auto rounded-2xl border border-scale/40 bg-deep/80 p-6 md:p-8 grid gap-3">
+      <h2 id="who-is-slugger" class="eyebrow">Who is Slugger, and what came out of this</h2>
+      <p class="text-mist leading-relaxed">Slugger is my agent. He started on OpenClaw, then moved into a harness I built for him: <a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Ouroboros</a>. Living with him taught me <a href="/approach/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">the method</a>, and the method became <a href="/desk/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Desk</a> and <a href="/ouro-md/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Ouro MD</a>.</p>
+    </div>
   </section>
 
   <!-- Timeline -->
@@ -201,9 +209,21 @@ const entries = [
           The architecture that emerged from this — the <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">psyche, the memory, the bridges</a> — is the subject of a longer argument.
         </p>
         <p class="text-sm text-mist leading-relaxed">
-          Or skip the argument and <a href="/lab/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">start building</a>. The serpent guide takes about three minutes. If you want to understand the primitive first, <a href="/lab/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
+          Or skip the argument and <a href="/lab/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">start building</a>. The serpent guide takes about three minutes. If you want to understand the primitive first, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- Onward -->
+  <section class="px-6 md:px-12 lg:px-24 pb-24" aria-labelledby="story-next">
+    <div class="max-w-3xl mx-auto border-t border-canopy/30 pt-10">
+      <h2 id="story-next" class="eyebrow mb-5">What happened next</h2>
+      <ul class="grid gap-3 text-lg">
+        <li><a href="/approach/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">The approach</a><span class="text-mist">: what working with Slugger taught me.</span></li>
+        <li><a href="/desk/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Desk</a><span class="text-mist">: the approach built into your agent's setup.</span></li>
+        <li><a href="/lab/model-reviews/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">The model reviews</a><span class="text-mist">: which harness frontier models would choose.</span></li>
+      </ul>
     </div>
   </section>
 </Layout>

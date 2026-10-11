@@ -9,8 +9,7 @@ for (const [path, type] of [['/brief.md', 'text/markdown'], ['/llms.txt', 'text/
   check(res.status === 200 && (res.headers.get('content-type') || '').startsWith(type), `${path} is ${type} (${res.status} ${res.headers.get('content-type')})`)
 }
 for (const [from, to] of [
-  ['/blog/stop-being-the-glue', '/essays/stop-being-the-glue/'],
-  ['/blog/', '/essays/'],
+  ['/essays/stop-being-the-glue', '/blog/stop-being-the-glue/'],
   ['/docs?utm_source=smoke', '/lab/docs/?utm_source=smoke'],
   ['/why', '/lab/why/'],
   ['/model-reviews/anthropic/', '/lab/model-reviews/anthropic/'],
@@ -18,5 +17,10 @@ for (const [from, to] of [
   const res = await fetch(base + from, { redirect: 'manual' })
   const location = res.headers.get('location') || ''
   check(res.status === 301 && location.endsWith(to), `${from} → 301 ${to} (${res.status} ${location})`)
+}
+// Published posts and the Desk RFC's links are served directly, no redirect.
+for (const path of ['/blog/', '/blog/stop-being-the-glue/', '/blog/designing-with-your-agent/', '/blog/what-is-agent-experience/']) {
+  const res = await fetch(base + path, { redirect: 'manual' })
+  check(res.status === 200, `${path} is 200 (${res.status})`)
 }
 process.exit(failures.length ? 1 : 0)

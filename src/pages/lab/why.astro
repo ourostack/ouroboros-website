@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import HeroCover from '../../components/HeroCover.astro'
+import Glossary from '../../components/Glossary.astro'
 import OuroborosRing from '../../components/OuroborosRing.astro'
 import modelReviews from '../../data/model-reviews.json'
 import { ogPathFor } from '../../data/og'
@@ -51,6 +52,8 @@ const organs = [
     </Fragment>
   </HeroCover>
 
+  <div class="px-6 md:px-12 lg:px-24"><Glossary class="max-w-3xl mx-auto" /></div>
+
   <!-- Pull quote — moved out of the hero so the cover stays focused -->
   <section class="relative px-6 md:px-12 lg:px-24 pt-8 pb-16 reveal">
     <blockquote class="max-w-2xl mx-auto border-l border-fang/30 pl-6">
@@ -81,7 +84,7 @@ const organs = [
     <div class="relative max-w-5xl mx-auto">
       <p class="text-sm sm:text-base text-mist mb-14 sm:mb-20 max-w-md leading-relaxed">
         The hidden tax. Every time the agent loses the thread, someone pays to rebuild it.
-        Usually the human. That's <a href="/lab/what-is-agent-experience" class="text-scale hover:text-glow transition-colors underline underline-offset-2">reorientation overhead</a>.
+        Usually the human. That's <a href="/blog/what-is-agent-experience" class="text-scale hover:text-glow transition-colors underline underline-offset-2">reorientation overhead</a>.
       </p>
 
       <div class="space-y-12 sm:space-y-20 md:space-y-28">
@@ -359,7 +362,7 @@ const organs = [
           </div>
 
           <p class="text-sm sm:text-base text-mist mt-10 leading-relaxed">
-            <a href="/lab/build-ai-agent-from-scratch" class="text-scale hover:text-glow transition-colors underline underline-offset-2">Code a model can use</a>, not code that uses a model.
+            <a href="/blog/build-ai-agent-from-scratch" class="text-scale hover:text-glow transition-colors underline underline-offset-2">Code a model can use</a>, not code that uses a model.
           </p>
         </div>
       </div>
@@ -376,7 +379,7 @@ const organs = [
       </p>
       <p class="text-sm text-mist leading-relaxed">
         The docs won't explain how it works — <a href="/lab/docs" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">your agent will</a>.
-        Or if you want to understand the primitive underneath, <a href="/lab/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the loop from scratch</a> in 150 lines.
+        Or if you want to understand the primitive underneath, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the loop from scratch</a> in 150 lines.
       </p>
     </div>
   </section>

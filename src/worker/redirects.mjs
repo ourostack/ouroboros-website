@@ -1,9 +1,10 @@
-// Old URLs from the harness-first site, sent to their new homes with a 301.
+// Old URLs sent to their new homes with a 301. Published posts keep their
+// /blog/ URLs; the harness pages moved under /lab/. The /essays/ paths only
+// ever existed on a preview, so they fold back into /blog/.
 const moved = [
-  [/^\/blog\/(stop-being-the-glue|designing-with-your-agent)\/?$/, '/essays/$1/'],
-  [/^\/blog\/(what-is-agent-experience|give-your-agent-a-home|build-ai-agent-from-scratch)\/?$/, '/lab/$1/'],
-  [/^\/blog\/?$/, '/essays/'],
   [/^\/(docs|model-reviews|story|why|what-is-an-agent-harness)(\/.*)?$/, '/lab/$1$2'],
+  [/^\/essays(\/.*)?$/, '/blog$1'],
+  [/^\/lab\/(what-is-agent-experience|give-your-agent-a-home|build-ai-agent-from-scratch)\/?$/, '/blog/$1/'],
 ]
 
 /** The new path for an old one, or null. Page paths end in a slash, so a

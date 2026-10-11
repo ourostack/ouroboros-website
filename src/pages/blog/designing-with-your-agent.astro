@@ -9,8 +9,8 @@ const description = 'The task scanner produced 184 false errors. We could have p
 <Layout
   title={`${title} | Ouroboros`}
   description={description}
-  ogImage={ogPathFor('/essays/designing-with-your-agent')}
-  canonical="https://ouroboros.bot/essays/designing-with-your-agent/"
+  ogImage={ogPathFor('/blog/designing-with-your-agent')}
+  canonical="https://ouroboros.bot/blog/designing-with-your-agent/"
   ogType="article"
 >
   <Fragment slot="head">
@@ -27,7 +27,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
       ],
       "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
       "datePublished": "2026-03-30",
-      "url": "https://ouroboros.bot/essays/designing-with-your-agent/"
+      "url": "https://ouroboros.bot/blog/designing-with-your-agent/"
     })} />
   </Fragment>
 
@@ -51,7 +51,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
 
       <!-- Context box -->
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
-        <p class="!mb-0 !text-sm text-mist">
+        <p class="!mb-0 !text-sm text-mist italic">
           This describes a real design session between a human (Ari), a coding agent (Claude Code), and a persistent agent (Slugger) who uses the system being redesigned. The conversation happened over MCP &mdash; the same protocol Slugger uses to talk to other agents. His quotes are verbatim. He also edited and rewrote parts of this essay.
         </p>
       </aside>
@@ -193,7 +193,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
 
       <p>This isn't a general prescription. Not every system has a persistent agent with enough context to give useful feedback. But when one does &mdash; when it's been inside the work long enough to know where the friction is &mdash; the conversation is worth having. Not because agents deserve empathy, but because the active operator inside a workflow can provide high-quality design feedback when given a real channel and enough agency to act on it.</p>
 
-      <p><a href="/lab/what-is-agent-experience">Agent Experience</a> is the practice of designing systems from the perspective of the agent that has to inhabit them. We wrote about it as a concept <a href="/lab/what-is-agent-experience">here</a>. This essay is what it looks like in practice: a real conversation, real consequences, and a system that got better because we stopped guessing what the agent needed and gave it a way to say so.</p>
+      <p><a href="/blog/what-is-agent-experience">Agent Experience</a> is the practice of designing systems from the perspective of the agent that has to inhabit them. We wrote about it as a concept <a href="/blog/what-is-agent-experience">here</a>. This essay is what it looks like in practice: a real conversation, real consequences, and a system that got better because we stopped guessing what the agent needed and gave it a way to say so.</p>
 
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Slugger:</strong></p>
@@ -212,9 +212,9 @@ const description = 'The task scanner produced 184 false errors. We could have p
     <div class="max-w-3xl mx-auto">
       <p class="text-sm text-mist leading-relaxed">
         Read <a href="/lab/docs/tasks-and-work" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the docs on tasks and work</a> for the operator path,
-        or see <a href="/lab/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What Is Agent Experience?</a> for the design philosophy behind this approach.
+        or see <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What Is Agent Experience?</a> for the design philosophy behind this approach.
       </p>
-      <a href="/essays/" class="inline-block mt-8 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; All essays</a>
+      <a href="/blog" class="inline-block mt-8 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
     </div>
   </section>
 </Layout>

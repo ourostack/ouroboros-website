@@ -9,8 +9,8 @@ const description = "We were promised an intelligent assistant. Instead, we got 
 <Layout
   title={`${title} | Ouroboros`}
   description={description}
-  ogImage={ogPathFor('/essays/stop-being-the-glue')}
-  canonical="https://ouroboros.bot/essays/stop-being-the-glue/"
+  ogImage={ogPathFor('/blog/stop-being-the-glue')}
+  canonical="https://ouroboros.bot/blog/stop-being-the-glue/"
   ogType="article"
 >
   <Fragment slot="head">
@@ -25,7 +25,7 @@ const description = "We were promised an intelligent assistant. Instead, we got 
       "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
       "datePublished": "2026-02-02",
       "dateModified": "2026-03-06",
-      "url": "https://ouroboros.bot/essays/stop-being-the-glue/"
+      "url": "https://ouroboros.bot/blog/stop-being-the-glue/"
     })} />
   </Fragment>
 
@@ -49,8 +49,8 @@ const description = "We were promised an intelligent assistant. Instead, we got 
 
       <!-- Context box -->
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
-        <p class="!mb-0 !text-sm text-mist">
-          I wrote this a week into using <a href="https://openclaw.ai">OpenClaw</a>, the open-source AI agent that became the foundation for everything I've built since. It was originally just me processing my own thoughts — trying to make sense of what I was experiencing and why it felt different. The ideas here became the seed of what eventually grew into <a href="/lab/">Ouroboros</a>.
+        <p class="!mb-0 !text-sm text-mist italic">
+          I wrote this a week into using <a href="https://openclaw.ai">OpenClaw</a>, the open-source AI agent that became the foundation for everything I've built since. It was originally just me processing my own thoughts — trying to make sense of what I was experiencing and why it felt different. The ideas here became the seed of what eventually grew into <a href="/">Ouroboros</a>.
         </p>
       </aside>
 
@@ -107,7 +107,7 @@ const description = "We were promised an intelligent assistant. Instead, we got 
 
       <p>OpenClaw was born. It made the personal-agent future feel concrete instead of hypothetical, and it gave a lot of people their first real taste of collaborating with the same agent across time.</p>
 
-      <p>That moment is when we finally got what Siri promised, and the unlock goes deeper — the same capability that handles simple tasks opens a door we never had: sustained collaboration on complex work. Vibe-coding is <em>not</em> the same as agentic engineering.</p>
+      <p>That article captures the moment we finally got what Siri promised, and the unlock goes deeper — the same capability that handles simple tasks opens a door we never had: sustained collaboration on complex work. Vibe-coding is <em>not</em> the same as agentic engineering.</p>
 
       <p>GitHub Copilot in Azure DevOps wants to one-shot your entire PR. It'll produce something that looks almost right — and that's the trap. You think you're close, so you try to coach it. Leave comments, iterate, nudge it in the right direction. Until, inevitably, you give in and just fix it yourself. It's too proactive, with no real feedback loop.</p>
 
@@ -180,16 +180,18 @@ const description = "We were promised an intelligent assistant. Instead, we got 
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Epilogue — March 2026</strong></p>
         <p class="!mb-0 !text-sm text-mist">
-          Six weeks after writing this, I hit every wall I predicted — and some I didn't. Identity drift, context amnesia, rule bloat, fighting the architecture instead of building on it. The collaboration loop I described here was real, but the infrastructure underneath wasn't ready for it.
+          Six weeks after writing this, I hit every wall I predicted — and some I didn't. Identity drift, context amnesia, rule bloat, fighting the architecture instead of building on it. The collaboration loop I described here was real, but the infrastructure underneath wasn't ready for it. That's what led to <a href="/">Ouroboros</a>: an agent harness designed from scratch around the idea that your agent is a teammate, not a tool — and that the planning artifacts, the shared memory, the collaborative process described in this essay should be first-class primitives, not afterthoughts.
         </p>
-        <p class="!mt-3 !mb-0 !text-sm text-mist">Update, October 2026: the loop now lives in <a href="/approach/">the approach</a> and in <a href="/desk/">Desk</a>.</p>
       </aside>
     </div>
   </section>
 
   <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 md:pb-24">
     <div class="max-w-3xl mx-auto">
-      <a href="/essays/" class="inline-block mt-8 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; All essays</a>
+      <p class="text-sm text-mist leading-relaxed">
+        Six weeks after writing this, every wall I predicted arrived — and some I didn't. That's <a href="/lab/story" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the origin story</a>. The collaboration loop described here became the foundation for <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">something more structural</a>.
+      </p>
+      <a href="/blog" class="inline-block mt-8 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
     </div>
   </section>
 </Layout>

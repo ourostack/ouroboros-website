@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro'
 import HeroCover from '../../../components/HeroCover.astro'
 import PromptCard from '../../../components/PromptCard.astro'
+import Glossary from '../../../components/Glossary.astro'
 import { ogPathFor } from '../../../data/og'
 
 const title = 'Ouroboros docs — setup, identity, memory, architecture'
@@ -79,6 +80,8 @@ const pages = [
       These pages are the human version — context for the questions you'll ask your agent. Your agent can fetch the live version directly at <span class="font-mono text-scale text-sm">ouroboros.bot/skills/manifest.json</span>
     </Fragment>
   </HeroCover>
+
+  <div class="px-6 md:px-12 lg:px-24"><Glossary class="max-w-3xl mx-auto" /></div>
 
   <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-20 md:pb-24">
     <div class="max-w-6xl mx-auto">

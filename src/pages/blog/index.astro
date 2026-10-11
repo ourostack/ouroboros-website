@@ -1,0 +1,155 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import HeroCover from '../../components/HeroCover.astro'
+import { ogPathFor } from '../../data/og'
+
+const title = 'Agent ergonomics & persistent AI — Ouroboros blog'
+const description = 'Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.'
+
+const featured = [
+  {
+    title: 'Why Ouroboros',
+    description: 'Why long-lived agents need better ergonomics than a pile of memory features if you want shared momentum instead of constant recovery.',
+    href: '/lab/why',
+    tag: 'Essay',
+    label: 'Start here',
+  },
+  {
+    title: 'The origin story',
+    description: 'How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.',
+    href: '/lab/story',
+    tag: 'Story',
+    label: 'The timeline',
+  },
+]
+
+const essays = [
+  {
+    title: 'Trust the Fucking Agent',
+    description: "Agents have all the agency. We have the judgement. We keep doing both jobs and wonder why we don't scale. Bring judgement. They've got the rest.",
+    href: '/blog/trust-the-agent',
+    author: 'Ari Mendelow',
+  },
+  {
+    title: "Take the agent's seat",
+    description: 'Half of every prompt we send lives in our head. Read what we wrote, before the agent does.',
+    href: '/blog/take-the-agents-seat',
+    author: 'Ari Mendelow',
+  },
+  {
+    title: 'The work spoke back',
+    description: 'The task scanner produced 184 false errors. We could have patched the parser. Instead, we asked the agent living inside the system what was actually broken.',
+    href: '/blog/designing-with-your-agent',
+    author: 'Ari Mendelow & Slugger',
+  },
+  {
+    title: 'Give your agent a home',
+    description: 'Most agents live as scattered files across your filesystem. A bundle changes that. One folder, one identity, one place to back up and carry.',
+    href: '/blog/give-your-agent-a-home',
+    author: 'Ari Mendelow & Slugger',
+  },
+  {
+    title: 'What is Agent Experience?',
+    description: 'Why long-lived agents create a third design surface beyond UX and DX: Agent Experience, reorientation overhead, and shared momentum.',
+    href: '/blog/what-is-agent-experience',
+    author: 'Ari Mendelow',
+  },
+  {
+    title: 'Stop being the glue',
+    description: 'We were promised an intelligent assistant. Instead, we got a fragmentation of semi-intelligent bots. How I stopped copy-pasting between AI tools and started collaborating.',
+    href: '/blog/stop-being-the-glue',
+    author: 'Ari Mendelow',
+  },
+]
+
+const tutorial = {
+  title: 'Build an AI agent loop from scratch',
+  description: 'A working AI agent in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, and the agentic loop. Then the handoff — you stop talking to your coding agent and start talking to your creation.',
+  href: '/blog/build-ai-agent-from-scratch',
+  author: 'Ari Mendelow',
+}
+---
+
+<Layout
+  title={title}
+  description={description}
+  ogImage={ogPathFor('/blog')}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Ouroboros blog",
+      "description": description,
+      "url": "https://ouroboros.bot/blog",
+      "publisher": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" }
+    })} />
+  </Fragment>
+
+  <HeroCover eyebrow="Blog">
+    <Fragment slot="title">
+      Dispatches from<br class="hidden sm:inline" /> the serpent.
+    </Fragment>
+    <Fragment slot="body">
+      Essays on agent ergonomics, persistent agents, and the problem of building software an agent can actually stay oriented inside.
+    </Fragment>
+  </HeroCover>
+
+  <!-- Recommended reading -->
+  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 reveal">
+    <div class="max-w-3xl mx-auto">
+      <span class="font-mono text-sm text-fang uppercase tracking-[0.22em] block mb-8">Recommended reading</span>
+      <div class="grid sm:grid-cols-2 gap-6">
+        {featured.map(item => (
+          <a href={item.href} class="group block rounded-2xl border border-canopy/40 bg-undergrowth/10 p-8 md:p-10 hover:border-scale/60 hover:bg-undergrowth/20 transition-all duration-300">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="font-mono text-xs text-scale uppercase tracking-[0.18em]">{item.tag}</span>
+              <span class="font-mono text-xs text-glow uppercase tracking-[0.18em]">{item.label}</span>
+            </div>
+            <h2 class="font-display text-bone text-2xl group-hover:text-scale transition-colors">{item.title}</h2>
+            <p class="text-base text-mist mt-3 leading-relaxed">{item.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tutorial -->
+  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 reveal">
+    <div class="max-w-3xl mx-auto">
+      <span class="font-mono text-sm text-fang uppercase tracking-[0.22em] block mb-8">Tutorial</span>
+      <a href={tutorial.href} class="group block rounded-2xl border border-scale/40 bg-scale/[0.04] p-8 md:p-10 hover:border-scale/60 hover:bg-scale/[0.06] transition-all duration-300">
+        <span class="font-mono text-xs text-scale uppercase tracking-[0.18em]">Guide</span>
+        <h2 class="font-display text-bone text-2xl md:text-3xl mt-3 group-hover:text-scale transition-colors">{tutorial.title}</h2>
+        <p class="text-base text-mist mt-4 leading-relaxed max-w-xl">{tutorial.description}</p>
+        <span class="text-sm text-mist mt-4 block">{tutorial.author}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Essays -->
+  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 reveal">
+    <div class="max-w-3xl mx-auto">
+      <span class="font-mono text-sm text-fang uppercase tracking-[0.22em] block mb-8">Essays</span>
+      <div class="space-y-6">
+        {essays.map(essay => (
+          <a href={essay.href} class="group block rounded-2xl border border-canopy/40 bg-undergrowth/10 p-8 md:p-10 hover:border-scale/60 hover:bg-undergrowth/20 transition-all duration-300">
+            <h2 class="font-display text-bone text-2xl group-hover:text-scale transition-colors">{essay.title}</h2>
+            <p class="text-base text-mist mt-3 leading-relaxed">{essay.description}</p>
+            <span class="text-sm text-mist mt-3 block">{essay.author}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer text -->
+  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-24 md:pb-36 reveal">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-sm text-mist leading-relaxed">
+        Read <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Why Ouroboros</a> for the core argument,
+        or step into <a href="/lab/docs" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the docs</a> if you want the operator path.
+      </p>
+    </div>
+  </section>
+</Layout>

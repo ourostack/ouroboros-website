@@ -52,8 +52,8 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: "Here's how I believe it works, what I use to support it, and what you can try.",
   },
   '/approach': {
-    title: 'How do you effectively collaborate with agents?',
-    subtitle: 'Three acts, three smells and five principles, each with a real prompt and the agent\'s note on it.',
+    title: 'How I collaborate with agents.',
+    subtitle: 'Three smells and five principles, with my own words for each.',
     tag: 'The approach',
   },
   '/brief': {
@@ -69,6 +69,11 @@ export const pageOg: Record<string, OgEntry> = {
     title: 'Ouro MD: read and answer what your agent writes.',
     subtitle: 'A native Markdown editor for macOS 13 or later. Live updates, quiet marks where your agent changed things.',
     tag: 'Ouro MD',
+  },
+  '/lab': {
+    title: 'The harness: where all of this started.',
+    subtitle: 'Slugger, the Ouroboros harness and the model reviews. Our Agent Experience lab.',
+    tag: 'Lab',
   },
   '/lab/why': {
     title: 'Persistence is not enough.',
@@ -95,25 +100,45 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'The website explains the what. Your agent fetches the how.',
     tag: 'Documentation',
   },
-  '/essays': {
-    title: 'Essays on working with agents.',
-    subtitle: 'Longer arguments for the approach: trust, communication, and why we stopped being the glue.',
-    tag: 'Essays',
+  '/blog': {
+    title: 'Dispatches from the serpent.',
+    subtitle: 'Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.',
+    tag: 'Blog',
   },
-  '/essays/trust-the-agent': {
+  '/blog/trust-the-agent': {
     title: 'Trust the Fucking Agent.',
     subtitle: "Agents have all the agency. We have the judgement. Bring judgement. They've got the rest.",
     tag: 'Essay',
   },
-  '/essays/take-the-agents-seat': {
+  '/blog/take-the-agents-seat': {
     title: "Take the agent's seat.",
     subtitle: 'Half of every prompt we send lives in our head. Read what we wrote, before the agent does.',
     tag: 'Essay',
   },
-  '/lab': {
-    title: 'The harness is our Agent Experience lab.',
-    subtitle: 'Experiments, a tutorial and the archive from building the Ouroboros harness, each with an honest status.',
-    tag: 'Lab',
+  '/blog/give-your-agent-a-home': {
+    title: 'Give your agent a home.',
+    subtitle: 'One folder. One identity. One place to back up, move, and grow.',
+    tag: 'Essay',
+  },
+  '/blog/what-is-agent-experience': {
+    title: 'What is Agent Experience (AX)?',
+    subtitle: 'The third design surface that appears when an agent has to stay oriented inside the system it inhabits.',
+    tag: 'Essay',
+  },
+  '/blog/designing-with-your-agent': {
+    title: 'The work spoke back.',
+    subtitle: 'The task scanner produced 184 false errors. We could have patched the parser. Instead we asked the agent inside the system what was actually broken.',
+    tag: 'Essay',
+  },
+  '/blog/stop-being-the-glue': {
+    title: 'Stop being the glue between your AI tools.',
+    subtitle: 'How I stopped copy-pasting between AI tools and started collaborating with one persistent agent.',
+    tag: 'Essay',
+  },
+  '/blog/build-ai-agent-from-scratch': {
+    title: 'Build an AI agent in 150 lines of TypeScript.',
+    subtitle: 'A practical guide to building agents that read, think, act, and grow — from first principles to production.',
+    tag: 'Tutorial',
   },
   '/privacy': {
     title: 'Privacy.',
@@ -122,31 +147,6 @@ export const pageOg: Record<string, OgEntry> = {
   '/terms': {
     title: 'Terms.',
     subtitle: 'The plain-language terms for this site and our open-source tools.',
-  },
-  '/lab/give-your-agent-a-home': {
-    title: 'Give your agent a home.',
-    subtitle: "Why an agent's identity, memory and tools belong in one folder.",
-    tag: 'Essay',
-  },
-  '/lab/what-is-agent-experience': {
-    title: 'What is Agent Experience (AX)?',
-    subtitle: 'The third design surface that appears when an agent has to stay oriented inside the system it inhabits.',
-    tag: 'Essay',
-  },
-  '/essays/designing-with-your-agent': {
-    title: 'The work spoke back.',
-    subtitle: 'The task scanner produced 184 false errors. We could have patched the parser. Instead we asked the agent inside the system what was actually broken.',
-    tag: 'Essay',
-  },
-  '/essays/stop-being-the-glue': {
-    title: 'Stop being the glue between your AI tools.',
-    subtitle: 'How I stopped copy-pasting between AI tools and started collaborating with one persistent agent.',
-    tag: 'Essay',
-  },
-  '/lab/build-ai-agent-from-scratch': {
-    title: 'Build an AI agent in 150 lines of TypeScript.',
-    subtitle: 'A tutorial: an agent that reads, acts and remembers, in 150 lines of TypeScript.',
-    tag: 'Tutorial',
   },
 
   // ── Docs sub-pages ──

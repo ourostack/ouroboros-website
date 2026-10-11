@@ -1,0 +1,22 @@
+---
+// Three harness words the Lab pages use before defining them. Shown as a
+// small strip so the published prose stays as it was.
+const terms = [
+  { term: 'Psyche', def: 'Five Markdown files that define who the agent is, loaded every turn.', href: '/lab/docs/bundles-and-psyche/' },
+  { term: 'Bundle', def: "One folder holding an agent's identity, memory and tools, so you can back it up and move it.", href: '/blog/give-your-agent-a-home/' },
+  { term: 'Reorientation overhead', def: 'What it costs, usually the human, to get an agent back on track after it loses the thread.', href: '/blog/what-is-agent-experience/' },
+]
+const { class: extra = '' } = Astro.props
+---
+
+<details class={`glossary group rounded-xl border border-canopy/50 bg-deep/70 px-5 py-3 ${extra}`} data-glossary>
+  <summary class="cursor-pointer font-mono text-xs uppercase tracking-[0.2em] text-scale">Words used here</summary>
+  <dl class="grid gap-3 mt-4 mb-1">
+    {terms.map((t) => (
+      <div>
+        <dt class="font-display text-xl text-bone">{t.term}</dt>
+        <dd class="text-sm text-mist">{t.def} <a href={t.href} class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">More &rarr;</a></dd>
+      </div>
+    ))}
+  </dl>
+</details>
