@@ -26,7 +26,7 @@ test('brief.md is plain text an agent can read, under 6,000 characters', () => {
 
 test('llms.txt points agents at the method pages', () => {
   const llms = readDist('llms.txt');
-  for (const route of ['/approach/', '/brief.md', '/desk/', '/ouro-md/', '/essays/']) {
+  for (const route of ['/approach/', '/brief.md', '/desk/', '/ouro-md/', '/blog/', '/lab/story/']) {
     assert.ok(llms.includes(`https://ouroboros.bot${route}`), `llms.txt is missing ${route}`);
   }
   assert.doesNotMatch(llms, /<[a-z][^>]*>/i);

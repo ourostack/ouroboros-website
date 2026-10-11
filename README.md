@@ -1,6 +1,6 @@
 # ouroboros.bot
 
-How to collaborate with agents: Ari Mendelow's approach, the tools that support it ([Desk](https://github.com/ourostack/desk), [Ouro MD](https://github.com/ourostack/ouro-md) and [the factory](https://ourostack.github.io/factory/)), essays, and the Lab, where the [Ouroboros harness](https://github.com/ourostack/ouroboros) lives as an experiment.
+How to collaborate with agents: Ari Mendelow's approach, the tools that support it ([Desk](https://github.com/ourostack/desk), [Ouro MD](https://github.com/ourostack/ouro-md) and [the factory](https://ourostack.github.io/factory/)), the blog, and the Lab: the [Ouroboros harness](https://github.com/ourostack/ouroboros) and Slugger's story, where the method came from.
 
 Built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailwindcss.com), served by a Cloudflare Worker.
 
@@ -10,8 +10,8 @@ Built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailwindcs
 - [The approach](https://ouroboros.bot/approach/)
 - [Hand this to your agent](https://ouroboros.bot/brief/) ([plain text](https://ouroboros.bot/brief.md))
 - [Desk](https://ouroboros.bot/desk/) and [Ouro MD](https://ouroboros.bot/ouro-md/)
-- [Essays](https://ouroboros.bot/essays/)
-- [Lab](https://ouroboros.bot/lab/)
+- [The story](https://ouroboros.bot/lab/story/) and [the Lab](https://ouroboros.bot/lab/)
+- [Blog](https://ouroboros.bot/blog/)
 
 ## Development
 
@@ -30,7 +30,7 @@ src/
   components/      # Nav, Footer, Lab heroes and docs shell
   data/            # OG manifest, readiness and Lab status, principles, model-review data
   layouts/         # Base HTML layout
-  pages/           # Routes: approach, brief, desk, ouro-md, essays/, lab/, privacy, terms
+  pages/           # Routes: approach, brief, desk, ouro-md, blog/, lab/, privacy, terms
   styles/          # Global CSS + Tailwind theme
   worker/          # Cloudflare Worker and the old-URL redirect map
 public/

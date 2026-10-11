@@ -5,12 +5,12 @@ import test from 'node:test';
 import { readDist, textOf, hrefsOf, distExists, listHtmlFiles, distDir, loadDenyList } from './support/dist.mjs';
 
 const navLinks = [
-  ['The approach', '/approach/'],
-  ['Hand this to your agent', '/brief/'],
+  ['Approach', '/approach/'],
   ['Desk', '/desk/'],
   ['Ouro MD', '/ouro-md/'],
-  ['Essays', '/essays/'],
+  ['Story', '/lab/story/'],
   ['Lab', '/lab/'],
+  ['Blog', '/blog/'],
 ];
 
 function navOf(html) {
@@ -25,23 +25,46 @@ function footerOf(html) {
   return match[0];
 }
 
-test('homepage asks the question and answers with the three acts and smells', () => {
+test('homepage asks the question, answers in one line and opens three doors above the origin', () => {
   const html = readDist('index.html');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How do you effectively collaborate with agents?');
 
   const text = textOf(html);
-  const acts = ['Act 1', 'Act 2', 'Act 3'].map((act) => text.indexOf(act));
-  assert.ok(acts.every((i) => i >= 0), 'Missing an act');
-  assert.ok(acts[0] < acts[1] && acts[1] < acts[2], 'Acts are out of order');
-  assert.ok(text.includes('We are between Acts 2 and 3'));
+  assert.match(text, /Talk it through once, hand over the whole job, write down what matters, and check the real result\./);
+  const doors = ['href="/approach/"', 'href="/desk/"', 'href="/lab/"'].map((d) => html.indexOf(d, html.indexOf('aria-label="Start here"')));
+  assert.ok(doors.every((i) => i > 0), 'Missing a door');
+  assert.ok(Math.max(...doors) < html.indexOf('id="origin-heading"'), 'The three doors come before the origin');
 
   assert.match(text, /doing it by hand/i);
   assert.match(text, /teaching it twice/i);
   assert.match(text, /control keeps coming back to you/i);
+  assert.match(text, /between Acts 2 and 3/);
 
-  // The old harness-first headline must not come back to the front door.
-  assert.ok(!text.includes('All frontier models tested chose'), 'Homepage must not lead with the model-review headline');
+  // The model-review vote is evidence further down, not the headline.
+  assert.ok(!h1.includes('All frontier models tested chose'));
+});
+
+test('homepage gives Slugger and the harness a real place, in Ari\'s words from the story', () => {
+  const html = readDist('index.html');
+  const text = textOf(html);
+  assert.match(text, /It started with Slugger\./);
+  const story = textOf(readDist('lab/story/index.html'));
+  for (const quote of ['I set up OpenClaw on a spare MacBook at home. Named my agent Slugger.', 'Then the seams started showing.', 'Then I followed my own guide.']) {
+    assert.ok(text.includes(quote), `Homepage is missing "${quote}"`);
+    assert.ok(story.includes(quote), `"${quote}" is not verbatim from the story`);
+  }
+  assert.ok(hrefsOf(html).includes('/lab/story/'));
+  assert.ok(hrefsOf(html).includes('/lab/model-reviews/'));
+});
+
+test('homepage shows the factory evidence as a real screenshot and links the RFC', () => {
+  const html = readDist('index.html');
+  assert.match(textOf(html), /69 hours in one session\. 50 of 53 pull requests merged\./);
+  assert.match(html, /<img\b[^>]*src="\/images\/factory-sessions\.jpg"[^>]*alt="[^"]{40,}"/);
+  assert.ok(distExists('images/factory-sessions.jpg'));
+  assert.ok(hrefsOf(html).includes('https://ourostack.github.io/factory/'));
+  assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
 });
 
 test('no built page or agent file contains a deny-listed string', (t) => {
@@ -59,17 +82,19 @@ test('no built page or agent file contains a deny-listed string', (t) => {
   assert.deepEqual(hits, []);
 });
 
-test('homepage links each principle to the approach and names what supports it', () => {
-  const html = readDist('index.html');
-  const hrefs = hrefsOf(html);
-  assert.ok(hrefs.filter((href) => href.startsWith('/approach/#')).length >= 6, 'Each principle card links to the approach');
-  assert.ok(hrefs.includes('https://ourostack.github.io/factory/'), 'Links the factory');
-  const text = textOf(html);
-  assert.match(text, /What supports this/);
-  assert.match(text, /Try it today/);
+test('homepage links each principle to the approach', () => {
+  const hrefs = hrefsOf(readDist('index.html'));
+  assert.ok(hrefs.filter((href) => href.startsWith('/approach/#')).length >= 6, 'Each principle links to the approach');
 });
 
 test('every page carries the same nav, in order, with the badge as the mark', () => {
+  for (const file of listHtmlFiles()) {
+    const rel = path.relative(distDir, file);
+    const page = fs.readFileSync(file, 'utf8');
+    if (rel === '404.html' || /http-equiv="refresh"/.test(page)) continue;
+    const nav = navOf(page);
+    for (const [, href] of navLinks) assert.ok(nav.includes(`href="${href}"`), `${rel}: nav is missing ${href}`);
+  }
   const html = readDist('index.html');
   const nav = navOf(html);
   const positions = navLinks.map(([label, href]) => {
@@ -112,7 +137,24 @@ test('marks stay visible in dark mode', () => {
     .join('\n');
   assert.match(css, /\.mark-mask\{[^}]*background(-color)?:currentColor/);
   assert.match(css, /\.mark-tile\{[^}]*(box-shadow|border|outline)/);
-  assert.match(css, /prefers-color-scheme:\s*light/, 'Site must define a light theme');
+  assert.match(css, /prefers-color-scheme:\s*light/, 'Site must follow the system light setting');
+  assert.match(css, /\[data-theme=(light|"light")\]/, 'Site must support a chosen light theme');
+});
+
+test('a theme toggle sits in the nav and a saved choice applies before paint', () => {
+  const html = readDist('index.html');
+  assert.match(navOf(html), /<button\b[^>]*id="theme-toggle"/);
+  const head = html.slice(0, html.indexOf('</head>'));
+  assert.match(head, /localStorage\.getItem\('theme'\)/);
+});
+
+test('nothing starts invisible: entrance animations move, never fade from zero', () => {
+  const css = fs.readdirSync(path.join(distDir, '_astro')).filter((n) => n.endsWith('.css'))
+    .map((n) => fs.readFileSync(path.join(distDir, '_astro', n), 'utf8')).join('\n');
+  const fade = css.match(/@keyframes fade-up\{([^}]*\}[^}]*)\}/);
+  assert.ok(fade, 'Missing fade-up keyframes');
+  assert.doesNotMatch(fade[1], /opacity:0/);
+  assert.doesNotMatch(css, /\.reveal-ready \.reveal\{[^}]*opacity:0/);
 });
 
 test('favicon uses the new character mark', () => {
@@ -143,14 +185,14 @@ test('a filled button inside prose keeps the button colours, not the link green'
   const path = await import('node:path');
   const dir = path.join(process.cwd(), 'dist', '_astro');
   const css = fs.readdirSync(dir).filter((f) => f.endsWith('.css')).map((f) => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n');
-  const rule = css.match(/\.prose-ouro a\.bg-bone(?::hover)?(?:,\.prose-ouro a\.bg-bone(?::hover)?)*\{([^}]*)\}/);
-  assert.ok(rule, 'Missing the .prose-ouro a.bg-bone rule');
+  const rule = css.match(/\.prose-ouro a\.btn-primary(?::hover)?(?:,\.prose-ouro a\.btn-primary(?::hover)?)*\{([^}]*)\}/);
+  assert.ok(rule, 'Missing the .prose-ouro a.btn-primary rule');
   assert.match(rule[1], /color:var\(--color-void\)/);
   assert.match(rule[1], /text-decoration:none/);
   // The rule must come after the prose link rules so it wins on equal specificity.
-  assert.ok(css.indexOf('.prose-ouro a.bg-bone') > css.indexOf('.prose-ouro a:hover'), 'Button rule must follow the prose link rules');
+  assert.ok(css.indexOf('.prose-ouro a.btn-primary') > css.indexOf('.prose-ouro a:hover'), 'Button rule must follow the prose link rules');
   const html = readDist('approach/index.html');
-  assert.match(html, /<a href="\/brief\/" class="[^"]*\bbg-bone\b[^"]*\btext-void\b/, 'The approach call to action is a filled button');
+  assert.match(html, /<a href="\/brief\/" class="[^"]*\bbtn-primary\b/, 'The approach call to action is a filled button');
 });
 
 test('approach page has its own heading, not the homepage question', () => {
@@ -158,7 +200,7 @@ test('approach page has its own heading, not the homepage question', () => {
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How I collaborate with agents');
   assert.doesNotMatch(textOf(html), /Here's how I believe it works/);
-  assert.match(textOf(html), /Hand your agent the brief\./);
+  assert.ok(hrefsOf(html).includes('/brief/'));
 });
 
 test('approach page renders the five principles and the proposed sixth', () => {
@@ -192,45 +234,83 @@ test('approach page carries no source notes, comments or local paths', () => {
   }
 });
 
-// ── Essays and Lab ──
+// ── Blog and Lab ──
 
-test('essays index lists the lead essays at their new paths', () => {
-  const html = readDist('essays/index.html');
+test('the blog index lists every post, old and new, at /blog/', () => {
+  const html = readDist('blog/index.html');
   const hrefs = hrefsOf(html);
-  for (const href of ['/essays/trust-the-agent/', '/essays/take-the-agents-seat/', '/essays/stop-being-the-glue/']) {
-    assert.ok(hrefs.includes(href), `Essays index is missing ${href}`);
+  for (const slug of ['trust-the-agent', 'take-the-agents-seat', 'stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience', 'give-your-agent-a-home', 'build-ai-agent-from-scratch']) {
+    assert.ok(hrefs.includes(`/blog/${slug}`), `Blog index is missing ${slug}`);
+    assert.ok(distExists(`blog/${slug}/index.html`), `${slug} is not built at /blog/`);
   }
-  assert.match(textOf(html), /Trust the Fucking Agent/);
+  assert.match(textOf(html), /Dispatches from the serpent\./);
 });
 
-test('recovered essays keep the 2026-05-17 rewrites with the agreed cuts', () => {
-  const ttfa = readDist('essays/trust-the-agent/index.html');
+test('the May essays keep the 2026-05-17 rewrites', () => {
+  const ttfa = readDist('blog/trust-the-agent/index.html');
   assert.equal(textOf(ttfa.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]), 'Trust the Fucking Agent');
   assert.match(textOf(ttfa), /The country of geniuses is here\. Bring judgement\. They've got the rest\./);
-  assert.doesNotMatch(ttfa, /<h1\b[^>]*class="[^"]*\bitalic\b/);
-
-  const seat = readDist('essays/take-the-agents-seat/index.html');
+  const seat = readDist('blog/take-the-agents-seat/index.html');
   assert.match(textOf(seat), /The agent is going to read what we wrote\. Read it first\./);
-  assert.doesNotMatch(seat, /diary, journal/);
-  assert.doesNotMatch(seat, /<h1\b[^>]*class="[^"]*\bitalic\b/);
 });
 
-test('Stop being the glue has one epilogue and no harness pointer', () => {
-  const text = textOf(readDist('essays/stop-being-the-glue/index.html'));
-  assert.equal((text.match(/Six weeks after writing this/g) || []).length, 1);
-  assert.doesNotMatch(text, /That's what led to Ouroboros/);
-  assert.doesNotMatch(text, /something more structural/);
+test('Stop being the glue is back to its published text', () => {
+  const text = textOf(readDist('blog/stop-being-the-glue/index.html'));
+  assert.match(text, /That article captures the moment we finally got what Siri promised/);
+  assert.match(text, /That's what led to Ouroboros ?: an agent harness designed from scratch/);
+  assert.match(text, /The collaboration loop described here became the foundation for something more structural ?\./);
+  assert.doesNotMatch(text, /Update, October 2026/);
 });
 
-test('the Lab opens with the harness as our Agent Experience lab and labels every piece', () => {
+test('every blog post ends with a route to Desk, the factory and the team steps', () => {
+  for (const slug of ['stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience', 'trust-the-agent']) {
+    const html = readDist(`blog/${slug}/index.html`);
+    const end = html.match(/<aside\b[^>]*data-post-end[\s\S]*?<\/aside>/);
+    assert.ok(end, `${slug} has no post end`);
+    assert.match(textOf(end[0]), /https:\/\/github\.com\/ourostack\/desk\/blob\/main\/SETUP\.md and say "set this up"/);
+    assert.ok(hrefsOf(end[0]).includes('https://ourostack.github.io/factory/'));
+    assert.ok(hrefsOf(end[0]).includes('/approach/#for-teams'));
+  }
+  assert.doesNotMatch(readDist('blog/index.html'), /data-post-end/);
+});
+
+test('the approach has a short For teams box with a start and a measure', () => {
+  const html = readDist('approach/index.html');
+  const box = html.match(/<section\b[^>]*id="for-teams"[\s\S]*?<\/section>/);
+  assert.ok(box, 'Missing the For teams box');
+  assert.ok((box[0].match(/<li\b/g) || []).length <= 5);
+  assert.ok(hrefsOf(box[0]).includes('https://ourostack.github.io/factory/'));
+});
+
+test('the Lab opens with the harness as the origin and keeps the live homepage it replaced', () => {
   const html = readDist('lab/index.html');
   const text = textOf(html);
-  assert.match(text, /^.*?The harness is our experimental Agent Experience lab/);
-  const statuses = [...html.matchAll(/data-status="([^"]+)"/g)].map(([, s]) => s);
-  assert.ok(statuses.length >= 8, 'Every Lab piece carries a status');
-  for (const status of statuses) assert.ok(['Experiment', 'Tutorial', 'Archive'].includes(status), `Unknown status ${status}`);
-  for (const href of ['/lab/model-reviews/', '/lab/docs/', '/lab/what-is-agent-experience/', '/lab/build-ai-agent-from-scratch/']) {
+  assert.equal(textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]), 'The harness, where all of this started.');
+  assert.match(text, /Slugger was my OpenClaw agent/);
+  // The harness-first homepage, carried over intact.
+  for (const line of ['What survives when the context window runs out?', 'The tail is consumed. The self survives.', 'One command. A conversation. Hatched.', 'Most agents forget who they are between conversations.']) {
+    assert.ok(text.includes(line), `Lab is missing "${line}"`);
+  }
+  for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) assert.ok(hrefsOf(html).includes(`/lab/model-reviews/${provider}`));
+  for (const href of ['/lab/story/', '/lab/why/', '/lab/docs/', '/lab/model-reviews/', '/blog/what-is-agent-experience/', '/blog/build-ai-agent-from-scratch/']) {
     assert.ok(hrefsOf(html).includes(href), `Lab is missing ${href}`);
+  }
+});
+
+test('the story opens with who Slugger is and ends with where it went', () => {
+  const html = readDist('lab/story/index.html');
+  const text = textOf(html);
+  assert.ok(text.indexOf('Who is Slugger, and what came out of this') < text.indexOf('The spark'));
+  assert.ok(text.indexOf('What happened next') > text.indexOf('Build the house accordingly'));
+  for (const href of ['/approach/', '/desk/', '/ouro-md/']) assert.ok(hrefsOf(html).includes(href));
+});
+
+test('the harness pages define their own words without touching the prose', () => {
+  for (const file of ['lab/why/index.html', 'lab/docs/index.html', 'lab/docs/getting-started/index.html']) {
+    const html = readDist(file);
+    const glossary = html.match(/<details\b[^>]*data-glossary[\s\S]*?<\/details>/);
+    assert.ok(glossary, `${file} has no glossary`);
+    for (const term of ['Psyche', 'Bundle', 'Reorientation overhead']) assert.match(textOf(glossary[0]), new RegExp(term));
   }
 });
 
@@ -252,11 +332,14 @@ test('privacy and terms build, are linked from the footer, and say they are draf
 test('tag text and card details pass WCAG AA in both themes', async () => {
   const fs = await import('node:fs');
   const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
-  const lightAt = css.indexOf('prefers-color-scheme: light');
+  const lightAt = css.indexOf(':root[data-theme="light"]');
   assert.ok(lightAt > 0, 'Light theme block not found');
   const tokens = (chunk) => Object.fromEntries([...chunk.matchAll(/--color-([a-z]+):\s*(#[0-9A-Fa-f]{6})/g)].map(([, k, v]) => [k, v]));
   const dark = tokens(css.slice(0, lightAt));
-  const light = { ...dark, ...tokens(css.slice(lightAt, css.indexOf('}', css.indexOf('--color-amber', lightAt)) + 1)) };
+  const light = { ...dark, ...tokens(css.slice(lightAt, css.indexOf('}', lightAt))) };
+  // The system-setting block must use the same light tokens as the toggle block.
+  const media = css.slice(css.indexOf('@media (prefers-color-scheme: light)'));
+  assert.deepEqual(tokens(media.slice(0, media.indexOf('}'))), tokens(css.slice(lightAt, css.indexOf('}', lightAt))));
   const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
   const mix = (a, b, t) => a.map((v, i) => v * t + b[i] * (1 - t));
   const lum = (c) => {
@@ -295,7 +378,6 @@ test('tag text and card details pass WCAG AA in both themes', async () => {
 // ── Lab status on every Lab page ──
 
 test('every Lab page shows its status from the Lab map and links back to the Lab', async () => {
-  const path = await import('node:path');
   const { labStatusFor } = await import('../src/data/lab.mjs');
   const pages = listHtmlFiles().filter((file) => {
     const rel = path.relative(distDir, file).split(path.sep).join('/');
@@ -312,37 +394,33 @@ test('every Lab page shows its status from the Lab map and links back to the Lab
     assert.equal(bar[1], status.status, `${rel} shows the wrong status`);
     assert.match(bar[2], /href="\/lab\/"/, `${rel} has no link back to the Lab`);
   }
+  assert.equal(labStatusFor('/lab/story/').status, 'Origin', 'The story is the origin, not an archive');
   assert.doesNotMatch(readDist('lab/index.html'), /data-lab-status=/, 'The Lab index needs no bar');
 });
 
-test('the harness install prompt is labelled Experimental', () => {
-  const text = textOf(readDist('lab/docs/getting-started/index.html'));
-  const notice = text.indexOf('The Ouroboros harness is an experiment. Expect breaking changes.');
-  assert.ok(notice >= 0, 'Missing the experiment notice');
-  assert.ok(text.lastIndexOf('Experimental', notice) >= 0);
-  assert.ok(notice < text.indexOf('npx ouro.bot'), 'The notice comes before the install command');
+test('the harness setup guide says what setup asks for before the command runs', () => {
+  const html = readDist('lab/docs/getting-started/index.html');
+  const facts = html.match(/<dl\b[^>]*data-setup-facts[\s\S]*?<\/dl>/);
+  assert.ok(facts, 'Missing the setup facts strip');
+  const text = textOf(facts[0]);
+  for (const fact of [/Experimental/, /Anthropic/, /GitHub Copilot/, /0\.1\.0 alpha/, /Release notes/, /Architecture/]) assert.match(text, fact);
+  assert.ok(hrefsOf(facts[0]).includes('/lab/docs/architecture/'));
 });
 
-test('the Lab model-review card states the method before the result', () => {
-  const text = textOf(readDist('lab/index.html'));
-  assert.match(text, /We gave frontier models \d+ public agent harnesses and asked which they'd choose to work inside\./);
+test('the review transcripts share the Lab review card', () => {
   for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) {
     assert.match(readDist(`lab/model-reviews/${provider}/index.html`), /og:image" content="https:\/\/ouroboros\.bot\/og\/og-lab-model-reviews\.png"/);
   }
 });
 
-test('the homepage and the approach use one word for where Act 2 stands, and the factory claim names the one desk', () => {
-  const home = textOf(readDist('index.html'));
+test('the approach uses one word for where Act 2 stands', () => {
   const approach = textOf(readDist('approach/index.html'));
-  for (const text of [home, approach]) {
-    assert.doesNotMatch(text, /solidifying/);
-    assert.match(text, /settling/);
-  }
-  assert.match(home, /Designed for many, proven on one desk so far\./);
+  assert.doesNotMatch(approach, /solidifying/);
+  assert.match(approach, /settling/);
 });
 
 test('the May essays say when they were written and when they were published', () => {
-  for (const [file, created] of [['essays/trust-the-agent/index.html', '2026-05-14'], ['essays/take-the-agents-seat/index.html', '2026-05-17']]) {
+  for (const [file, created] of [['blog/trust-the-agent/index.html', '2026-05-14'], ['blog/take-the-agents-seat/index.html', '2026-05-17']]) {
     const ld = JSON.parse(readDist(file).match(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema\.org","@type":"(?:Blog|)?Article"[\s\S]*?)<\/script>/)[1]);
     assert.equal(ld.dateCreated, created, `${file} dateCreated`);
     assert.ok(ld.datePublished > ld.dateCreated, `${file} datePublished must be the release date, not the writing date`);

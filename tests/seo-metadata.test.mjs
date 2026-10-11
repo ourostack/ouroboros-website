@@ -14,11 +14,11 @@ const routes = [
   ['/brief/', 'brief/index.html'],
   ['/desk/', 'desk/index.html'],
   ['/ouro-md/', 'ouro-md/index.html'],
-  ['/essays/', 'essays/index.html'],
-  ['/essays/trust-the-agent/', 'essays/trust-the-agent/index.html'],
-  ['/essays/take-the-agents-seat/', 'essays/take-the-agents-seat/index.html'],
-  ['/essays/stop-being-the-glue/', 'essays/stop-being-the-glue/index.html'],
-  ['/essays/designing-with-your-agent/', 'essays/designing-with-your-agent/index.html'],
+  ['/blog/', 'blog/index.html'],
+  ['/blog/trust-the-agent/', 'blog/trust-the-agent/index.html'],
+  ['/blog/take-the-agents-seat/', 'blog/take-the-agents-seat/index.html'],
+  ['/blog/stop-being-the-glue/', 'blog/stop-being-the-glue/index.html'],
+  ['/blog/designing-with-your-agent/', 'blog/designing-with-your-agent/index.html'],
   ['/lab/', 'lab/index.html'],
   ['/lab/docs/', 'lab/docs/index.html'],
   ['/lab/docs/architecture/', 'lab/docs/architecture/index.html'],
@@ -31,9 +31,9 @@ const routes = [
   ['/lab/model-reviews/openai/', 'lab/model-reviews/openai/index.html'],
   ['/lab/model-reviews/gemini/', 'lab/model-reviews/gemini/index.html'],
   ['/lab/model-reviews/minimax/', 'lab/model-reviews/minimax/index.html'],
-  ['/lab/build-ai-agent-from-scratch/', 'lab/build-ai-agent-from-scratch/index.html'],
-  ['/lab/what-is-agent-experience/', 'lab/what-is-agent-experience/index.html'],
-  ['/lab/give-your-agent-a-home/', 'lab/give-your-agent-a-home/index.html'],
+  ['/blog/build-ai-agent-from-scratch/', 'blog/build-ai-agent-from-scratch/index.html'],
+  ['/blog/what-is-agent-experience/', 'blog/what-is-agent-experience/index.html'],
+  ['/blog/give-your-agent-a-home/', 'blog/give-your-agent-a-home/index.html'],
   ['/privacy/', 'privacy/index.html'],
   ['/terms/', 'terms/index.html'],
 ];
@@ -58,7 +58,7 @@ test('review claims derive from the data and retain the model count in methodolo
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
   const claims = getModelReviewClaims(data);
 
-  for (const filePath of ['lab/model-reviews/index.html', 'lab/why/index.html', 'lab/what-is-agent-experience/index.html']) {
+  for (const filePath of ['lab/model-reviews/index.html', 'lab/why/index.html', 'blog/what-is-agent-experience/index.html', 'lab/index.html']) {
     assert.ok(readDistFile(filePath).includes(claims.claimSentence), `Missing shared claim on ${filePath}`);
   }
   const methodology = readDistFile('lab/model-reviews/index.html').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
@@ -193,18 +193,18 @@ test('rerun instructions offer API-only inference without a required Copilot sub
 });
 
 test('Agent Experience article derives the reviewed harness count from the accepted data', () => {
-  const html = readDistFile('lab/what-is-agent-experience/index.html');
+  const html = readDistFile('blog/what-is-agent-experience/index.html');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
 
   assert.match(text, new RegExp(`research the ${data.harnesses.length} selected agent harnesses`));
 });
 
-test('the sitemap has no blog, docs or model-review URL outside the Lab', () => {
+test('the sitemap has no docs or model-review URL outside the Lab, and no /essays/', () => {
   const sitemap = fs.readFileSync(sitemapPath, 'utf8');
   const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, loc]) => new URL(loc).pathname);
   assert.ok(locs.length > 10, 'Sitemap looks empty');
-  const stray = locs.filter((p) => /^\/(blog|docs|model-reviews|story|why|what-is-an-agent-harness)(\/|$)/.test(p));
+  const stray = locs.filter((p) => /^\/(essays|docs|model-reviews|story|why|what-is-an-agent-harness)(\/|$)/.test(p));
   assert.deepEqual(stray, []);
 });
 
@@ -233,30 +233,31 @@ test('every internal link resolves to a built file', () => {
   assert.deepEqual(broken, []);
 });
 
-test('old harness-first URLs redirect to their new homes', async () => {
+test('old URLs redirect to their new homes and published posts keep theirs', async () => {
   const { redirectFor } = await import('../src/worker/redirects.mjs');
   const cases = [
-    ['/blog/stop-being-the-glue', '/essays/stop-being-the-glue/'],
-    ['/blog/designing-with-your-agent/', '/essays/designing-with-your-agent/'],
-    ['/blog/what-is-agent-experience/', '/lab/what-is-agent-experience/'],
-    ['/blog/give-your-agent-a-home', '/lab/give-your-agent-a-home/'],
-    ['/blog/build-ai-agent-from-scratch/', '/lab/build-ai-agent-from-scratch/'],
-    ['/blog', '/essays/'],
     ['/docs/getting-started/', '/lab/docs/getting-started/'],
     ['/docs', '/lab/docs/'],
     ['/model-reviews/anthropic/', '/lab/model-reviews/anthropic/'],
     ['/story', '/lab/story/'],
     ['/why', '/lab/why/'],
     ['/what-is-an-agent-harness/', '/lab/what-is-an-agent-harness/'],
+    ['/essays/', '/blog/'],
+    ['/essays/trust-the-agent', '/blog/trust-the-agent/'],
+    ['/lab/what-is-agent-experience/', '/blog/what-is-agent-experience/'],
   ];
   for (const [from, to] of cases) {
     assert.equal(redirectFor(from), to, `${from} should go to ${to}`);
     assert.ok(fs.existsSync(path.join(distDir, to, 'index.html')), `Redirect target ${to} is not built`);
   }
+  // The URLs the Desk RFC and old shares point at are served directly.
+  for (const post of ['/blog/', '/blog/stop-being-the-glue/', '/blog/designing-with-your-agent/', '/blog/what-is-agent-experience/', '/blog/build-ai-agent-from-scratch/']) {
+    assert.equal(redirectFor(post), null, `${post} must not redirect`);
+    assert.ok(fs.existsSync(path.join(distDir, post, 'index.html')), `${post} is not built`);
+  }
   assert.equal(redirectFor('/docs/skills/manifest.json'), '/lab/docs/skills/manifest.json', 'File paths keep their name');
   assert.equal(redirectFor('/approach/'), null);
   assert.equal(redirectFor('/lab/docs/'), null);
-  assert.equal(redirectFor('/blog/unknown-post/'), null);
 });
 
 test('the worker answers an old URL with a 301 that keeps the query string', async () => {
