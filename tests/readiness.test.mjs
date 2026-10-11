@@ -68,7 +68,7 @@ test('the Ouro MD page leads with the download and the agent-revision animation,
   const imgs = [...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(([, src]) => src);
   assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-reload-poster.png']);
   assert.match(html, /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
-  assert.ok(textOf(html).includes("An agent revises the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
+  assert.ok(textOf(html).includes("A demo: an agent's revision lands in the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
   assert.doesNotMatch(textOf(html), /One ordinary Markdown plan|the person stays in place/);
   assert.ok(!distExists('images/ouro-md'), 'The rejected Ouro MD media must not ship');
   assert.ok(html.indexOf('https://ouro.bot/apps/ouro-md/') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');

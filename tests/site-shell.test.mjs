@@ -73,7 +73,7 @@ test('homepage shows what Ari built with agents, each with captioned media of th
   assert.ok(poster, 'Missing the Ouro MD poster');
   assert.match(poster[0], /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
   assert.match(poster[0], /data-gif-alt="[^"]*3 times their captured rate/);
-  assert.ok(text.includes("An agent revises the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
+  assert.ok(text.includes("A demo: an agent's revision lands in the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
   for (const [file, w, h] of [['spoonjoy-app.jpg', 1000, 625]]) {
     assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${file.replace('.', '\\.')}"[^>]*width="${w}" height="${h}"`), `${file} is sized`);
     assert.ok(distExists(`images/workshop/${file}`));
@@ -83,9 +83,9 @@ test('homepage shows what Ari built with agents, each with captioned media of th
   assert.equal((html.match(/<figcaption class="product-caption"/g) || []).length, 4, 'Every product image has a caption');
 
   // Desk and Ouroboros show the product in site type, not pictures of slogans.
-  assert.ok(text.includes('A new session picks up where the last one left off.'));
+  assert.ok(text.includes('Real output from a Desk session start (sample task).'));
   assert.ok(text.includes('next: wire the saved-address picker into the shipping form, then test it on a phone.'), 'The real session-start lines');
-  assert.ok(text.includes('First run: the serpent guide sets up your agent.'));
+  assert.ok(text.includes('What first run looks like (illustration).'));
   assert.match(html, /class="serpent-preview[^"]*serpent-compact/);
   assert.ok(text.includes('npx ouro.bot'));
   for (const gone of ['spoonjoy.jpg', 'factory-longest-sessions.jpg', 'desk-task-card.jpg', 'ouroboros-model-review.jpg', 'factory-site.jpg', 'ouroboros-card.jpg']) assert.ok(!distExists(`images/workshop/${gone}`), `${gone} should be gone`);
