@@ -9,11 +9,13 @@ export const navLinks = [
   { href: '/blog/', label: 'Blog' },
 ]
 
-export const footerExtraLinks = [
-  { href: '/brief/', label: 'Hand this to your agent' },
-  { href: 'https://ourostack.github.io/factory/', label: 'The factory' },
-  { href: '/privacy/', label: 'Privacy' },
-  { href: '/terms/', label: 'Terms' },
-]
-
 export const githubOrg = 'https://github.com/ourostack'
+
+// The sister site: the last nav item, and the footer row (shared kit, copy deck 2026-10-11).
+export const sisterNav = { href: 'https://mendelow.me', label: 'About me ↗' }
+export const footerLine = 'You bring judgment. Your agents bring the rest.'
+export const footerRow = [
+  { href: 'https://mendelow.me', label: 'mendelow.me' },
+  { href: 'https://github.com/arimendelow', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/arimendelow', label: 'LinkedIn' },
+]

@@ -1,18 +1,18 @@
-// Ari's five principles plus the proposed sixth. Titles are verbatim from the
-// approach draft; summaries are the short card copy from the homepage mockup.
+// Ari's five principles. Titles are his originals, verbatim from the copy deck
+// (2026-10-11); summaries are the short card copy from the homepage mockup.
 // The approach page anchors each section with `id`, so homepage cards can
 // deep-link to /approach/#<id>.
 export const principles = [
   {
     id: 'intent-and-judgement',
     n: '1',
-    title: 'Talk through intent and judgement together',
+    title: 'Talk through intent and judgment',
     summary: "The planning is collaborative and the doing is delegated. The agent's confident first answer is a draft to push on.",
   },
   {
     id: 'whole-outcomes',
     n: '2',
-    title: 'Delegate whole outcomes, not steps',
+    title: 'Delegate whole outcomes',
     summary: "Say what done looks like and why it matters. The steps are the agent's, including the awkward ones.",
   },
   {
@@ -24,23 +24,16 @@ export const principles = [
   {
     id: 'authority-and-boundaries',
     n: '4',
-    title: 'Give agents meaningful authority, with clear boundaries',
+    title: 'Meaningful authority with clear boundaries',
     summary: "Name the few things only you can do. Everything else is the agent's, and what it does stays visible.",
   },
   {
     id: 'verify-the-result',
     n: '5',
-    title: 'Verify the actual result, not plausible progress',
+    title: 'Verify the actual result',
     summary: 'Look where the result lives: the live page, the installed app, the merged change.',
   },
 ]
-
-export const proposedPrinciple = {
-  id: 'fix-the-system',
-  n: '+1',
-  title: 'Fix the system, not the instance',
-  summary: "When a smell shows up, change the setup so the next agent doesn't hit it.",
-}
 
 export const smells = [
   { name: "You're doing it by hand.", short: 'Anything the agent could have done.' },

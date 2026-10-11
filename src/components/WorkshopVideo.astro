@@ -1,0 +1,42 @@
+---
+import fs from 'node:fs'
+import path from 'node:path'
+
+/**
+ * A short clip with its poster. It loads nothing but the poster until it is on
+ * screen, then plays muted and looped. Under reduced motion, with Save-Data,
+ * or without JS, the poster stays. Until the clip file exists in public/, only
+ * the poster renders, so a clip can be dropped in without touching the page.
+ */
+interface Props { src: string; poster: string; width: number; height: number; alt?: string }
+const { src, poster, width, height, alt = '' } = Astro.props
+const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
+---
+
+{hasClip ? (
+  <video class="workshop-video" muted playsinline loop preload="none" poster={poster} width={width} height={height} data-workshop-video>
+    <source src={src} type="video/mp4" />
+  </video>
+) : (
+  <img class="workshop-video" src={poster} width={width} height={height} loading="lazy" decoding="async" alt={alt} data-clip-pending={src} />
+)}
+
+<script>
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-workshop-video]')
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true
+  if (videos.length && !reduce && !saveData && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement
+        if (entry.isIntersecting) video.play().catch(() => {})
+        else video.pause()
+      }
+    }, { threshold: 0.5 })
+    videos.forEach((video) => io.observe(video))
+  }
+</script>
+
+<style>
+  .workshop-video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+</style>

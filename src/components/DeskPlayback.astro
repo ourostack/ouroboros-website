@@ -1,0 +1,183 @@
+---
+/**
+ * Desk playback: a dramatization in the shapes of Desk's real output.
+ *
+ * The line shapes follow Desk 3.2.0-alpha.287's plain-text boot
+ * (`mcp/src/runtime/boot-text.js`): the `Desk boot: <status> | host ...`
+ * headline, `Active tasks (n):`, tasks grouped by state with the blocked group
+ * first (`BLOCKED (n): these cannot move until the blocker clears`), each task
+ * as `- track/slug` with a `blocker:` or `next:` line under it, and the
+ * `task_create: track/slug` / `task_update: track/slug` acknowledgements Desk
+ * writes when it commits a card. The crew, tracks and steps are the
+ * Nautilus dramatization from the 2026-10-11 design.
+ *
+ * Without JS, or under reduced motion, the final frame (scene 2, complete)
+ * is what renders. With JS it plays once when it scrolls into view, and the
+ * Replay button plays it again.
+ */
+
+type Tone = 'prompt' | 'bone' | 'mist' | 'scale' | 'glow' | 'fang' | 'tool'
+type Line = { text: string; tone: Tone }
+
+const blocked = 'BLOCKED (1): these cannot move until the blocker clears'
+
+const scenes: { id: string; title: string; lines: Line[] }[] = [
+  {
+    id: 'ned',
+    title: 'ned@laptop · Claude Code',
+    lines: [
+      { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist' },
+      { text: 'Active tasks (3):', tone: 'bone' },
+      { text: blocked, tone: 'fang' },
+      { text: '- ballast/pump-3', tone: 'bone' },
+      { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
+      { text: 'processing (1)', tone: 'scale' },
+      { text: '- salon/organ-tuning', tone: 'bone' },
+      { text: '  next: tune the reeds, pipes, and pedals', tone: 'mist' },
+      { text: 'validating (1)', tone: 'scale' },
+      { text: '- captains-log/export', tone: 'bone' },
+      { text: "  next: waiting on Captain Nemo's review", tone: 'mist' },
+      { text: '', tone: 'mist' },
+      { text: '> Plan the periscope overhaul', tone: 'prompt' },
+      { text: '⏺ desk · task_create', tone: 'tool' },
+      { text: '  ⎿ task_create: periscope/overhaul', tone: 'glow' },
+      { text: '  Next step: survey the lens, seals, and hoist', tone: 'mist' },
+    ],
+  },
+  {
+    id: 'conseil',
+    title: 'conseil@mac2 · Copilot CLI',
+    lines: [
+      { text: '> where were we?', tone: 'prompt' },
+      { text: 'Desk boot: ok | host mac2 / conseil / copilot', tone: 'mist' },
+      { text: 'Active tasks (4):', tone: 'bone' },
+      { text: blocked, tone: 'fang' },
+      { text: '- ballast/pump-3', tone: 'bone' },
+      { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
+      { text: 'processing (2)', tone: 'scale' },
+      { text: '- periscope/overhaul', tone: 'bone' },
+      { text: '  next: survey the lens, seals, and hoist', tone: 'mist' },
+      { text: '- salon/organ-tuning', tone: 'bone' },
+      { text: '  next: tune the reeds, pipes, and pedals', tone: 'mist' },
+      { text: 'validating (1)', tone: 'scale' },
+      { text: '- captains-log/export', tone: 'bone' },
+      { text: "  next: waiting on Captain Nemo's review", tone: 'mist' },
+      { text: '', tone: 'mist' },
+      { text: '⏺ desk · task_update', tone: 'tool' },
+      { text: '  ⎿ task_update: periscope/overhaul', tone: 'glow' },
+      { text: '  Next step: survey the lens, seals, and hoist', tone: 'mist' },
+    ],
+  },
+]
+const last = scenes.length - 1
+---
+
+<div class="desk-playback" data-desk-playback>
+  <div class="dp-bar">
+    <span class="dp-dot"></span><span class="dp-dot"></span><span class="dp-dot"></span>
+    {scenes.map((scene, i) => (
+      <span class="dp-title" data-scene-title={scene.id} hidden={i !== last}>{scene.title}</span>
+    ))}
+    <button type="button" class="dp-replay" data-replay hidden>Replay</button>
+  </div>
+  <div class="dp-screen">
+    {scenes.map((scene, i) => (
+      <pre class="dp-body" data-scene={scene.id} hidden={i !== last}>{scene.lines.map((line) => <span class={`dp-line tone-${line.tone}`}>{line.text || ' '}</span>)}</pre>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Plays once when it scrolls into view; Replay plays it again. Under
+  // reduced motion it stays on the final frame and offers no replay.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+  document.querySelectorAll<HTMLElement>('[data-desk-playback]').forEach((root) => {
+    if (reduce.matches) return
+    const bodies = [...root.querySelectorAll<HTMLElement>('[data-scene]')]
+    const titles = [...root.querySelectorAll<HTMLElement>('[data-scene-title]')]
+    const screen = root.querySelector<HTMLElement>('.dp-screen')!
+    const replay = root.querySelector<HTMLButtonElement>('[data-replay]')!
+    let run = 0
+
+    const show = (index: number) => {
+      bodies.forEach((body, i) => { body.hidden = i !== index })
+      titles.forEach((title, i) => { title.hidden = i !== index })
+    }
+
+    const typeLine = async (line: HTMLElement, token: number) => {
+      const full = line.dataset.full ?? line.textContent ?? ''
+      line.dataset.full = full
+      line.textContent = ''
+      line.classList.remove('is-hidden')
+      for (let i = 1; i <= full.length; i++) {
+        if (token !== run) return
+        line.textContent = full.slice(0, i)
+        await wait(45)
+      }
+    }
+
+    const play = async () => {
+      const token = ++run
+      replay.hidden = true
+      // Hold the final frame's height so nothing below jumps while it plays.
+      screen.style.minHeight = `${screen.offsetHeight}px`
+      for (let s = 0; s < bodies.length; s++) {
+        if (token !== run) return
+        show(s)
+        const lines = [...bodies[s].querySelectorAll<HTMLElement>('.dp-line')]
+        lines.forEach((line) => {
+          if (line.dataset.full !== undefined) line.textContent = line.dataset.full
+          line.classList.add('is-hidden')
+        })
+        await wait(500)
+        for (const line of lines) {
+          if (token !== run) return
+          if (line.classList.contains('tone-prompt')) {
+            await typeLine(line, token)
+            await wait(450)
+          } else {
+            line.classList.remove('is-hidden')
+            await wait(line.textContent?.trim() ? 160 : 60)
+          }
+        }
+        if (s < bodies.length - 1) await wait(2200)
+      }
+      if (token === run) replay.hidden = false
+    }
+
+    replay.addEventListener('click', () => { play() })
+
+    if (!('IntersectionObserver' in window)) { replay.hidden = false; return }
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        io.disconnect()
+        play()
+      }
+    }, { threshold: 0.4 })
+    io.observe(root)
+  })
+</script>
+
+<style>
+  .desk-playback { height: 100%; display: flex; flex-direction: column; background: var(--color-deep); }
+  .dp-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0.45rem 0.75rem 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .dp-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
+  .dp-title { margin-left: 0.5rem; min-width: 0; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dp-title[hidden], .dp-body[hidden], .dp-replay[hidden] { display: none; }
+  .dp-replay { margin-left: auto; flex: none; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-bone); padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--color-canopy); background: transparent; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+  .dp-replay:hover { border-color: var(--color-scale); color: var(--color-scale); }
+  .dp-screen { flex: 1; }
+  .dp-body { margin: 0; padding: 0.9rem 1rem; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }
+  @media (min-width: 640px) { .dp-body { font-size: 0.75rem; } }
+  .dp-line { display: block; padding-left: 2ch; text-indent: -2ch; }
+  .dp-line.is-hidden { visibility: hidden; }
+  .tone-bone { color: var(--color-bone); }
+  .tone-mist { color: var(--color-mist); }
+  .tone-scale { color: var(--color-scale); }
+  .tone-glow { color: var(--color-glow); }
+  .tone-fang { color: var(--color-fang); }
+  .tone-tool { color: var(--color-bone); }
+  .tone-prompt { color: var(--color-bone); font-weight: 500; }
+</style>

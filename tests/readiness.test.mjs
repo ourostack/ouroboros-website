@@ -7,6 +7,13 @@ import { readDist, textOf, hrefsOf, listHtmlFiles, distDir, distExists } from '.
 
 const allowed = ['Use today, alpha', 'Use today', 'Experimental', 'Not open yet'];
 
+test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experimental', async () => {
+  const { entry } = await import('../src/data/readiness.mjs');
+  assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['Copilot CLI', 'Use today, alpha', 'Tested daily']);
+  assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', 'Runs, not yet proven in daily use']);
+  assert.ok(!readiness.some((item) => item.name === 'Copilot CLI and Codex'));
+});
+
 test('readiness labels come only from the allowed four', () => {
   assert.deepEqual(Object.keys(allowedLabels).sort(), [...allowed].sort());
   for (const item of readiness) {
@@ -20,7 +27,9 @@ test('the Desk page shows every host with an honest label', () => {
   for (const [host, detail, label] of [
     // The three Claude Code hosts share the page's one "Use today, alpha" label.
     ['Claude Code', 'macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.', ''],
-    ['Copilot CLI and Codex', 'Runs, not yet proven in daily use', 'Experimental'],
+    // Ari uses Copilot CLI every day as his primary harness, with Desk underneath (2026-10-11).
+    ['Copilot CLI', 'Tested daily', 'Use today, alpha'],
+    ['Codex', 'Runs, not yet proven in daily use', 'Experimental'],
     ['Hosted Desk on claude.ai', 'No sign-up yet', 'Not open yet'],
   ]) {
     const at = text.indexOf(host);
@@ -103,7 +112,8 @@ test('the Desk page shows real session-start output, links the factory once, its
   assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
   assert.match(text.replace(/\s+([.,])/g, '$1'), /The factory measures every session sent to it, in public\./);
   assert.doesNotMatch(text, /See what it does in practice/);
-  assert.equal((text.match(/Use today, alpha/g) || []).length, 1, 'The alpha label shows once');
+  // Once for the page (the Claude Code hosts) and once on the Copilot CLI row.
+  assert.equal((text.match(/Use today, alpha/g) || []).length, 2, 'The alpha label shows for Claude Code and Copilot CLI');
   assert.ok(text.includes('macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.'));
   assert.ok(text.includes("Desk's own browser starts signed out, and on macOS it can steal focus."));
   assert.doesNotMatch(text, /friction-to-fix|Its browser|fresh user profile/);

@@ -1,0 +1,47 @@
+---
+/**
+ * The Ouroboros harness's real top-level `src/` body-part folders, with two
+ * real files from each. Read from github.com/ourostack/ouroboros at commit
+ * 07466c409a89d291ea056266361b3ff6170496e0 (main, 2026-10-11).
+ */
+const sourceSha = '07466c409a89d291ea056266361b3ff6170496e0'
+
+const tree: { dir: string; files: string[] }[] = [
+  { dir: 'heart', files: ['identity.ts', 'tool-loop.ts'] },
+  { dir: 'mind', files: ['diary.ts', 'prompt.ts'] },
+  { dir: 'nerves', files: ['observation.ts', 'redact.ts'] },
+  { dir: 'repertoire', files: ['skills.ts', 'tools.ts'] },
+  { dir: 'senses', files: ['cli.ts', 'mail.ts'] },
+]
+const rows: { prefix: string; name: string; kind: 'root' | 'dir' | 'file' }[] = [{ prefix: '', name: 'src/', kind: 'root' }]
+tree.forEach(({ dir, files }, i) => {
+  const lastDir = i === tree.length - 1
+  rows.push({ prefix: lastDir ? '└── ' : '├── ', name: `${dir}/`, kind: 'dir' })
+  files.forEach((file, j) => {
+    rows.push({ prefix: `${lastDir ? '    ' : '│   '}${j === files.length - 1 ? '└── ' : '├── '}`, name: file, kind: 'file' })
+  })
+})
+---
+
+<div class="source-tree" data-source-sha={sourceSha}>
+  <div class="st-bar">
+    <span class="st-dot"></span><span class="st-dot"></span><span class="st-dot"></span>
+    <a class="st-title" href={`https://github.com/ourostack/ouroboros/tree/${sourceSha}/src`}>ourostack/ouroboros</a>
+  </div>
+  <pre class="st-body">{rows.map((row) => <span class="st-row"><span class="st-prefix" aria-hidden="true">{row.prefix}</span><span class={`st-${row.kind}`}>{row.name}</span></span>)}</pre>
+</div>
+
+<style>
+  .source-tree { height: 100%; display: flex; flex-direction: column; background: var(--color-deep); }
+  .st-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .st-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
+  .st-title { margin-left: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-mist) 40%, transparent); text-underline-offset: 3px; }
+  .st-title:hover { color: var(--color-scale); }
+  .st-body { flex: 1; margin: 0; padding: 0.9rem 1rem; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; color: var(--color-bone); white-space: pre; overflow-x: auto; }
+  @media (min-width: 640px) { .st-body { font-size: 0.8125rem; } }
+  .st-row { display: block; }
+  .st-prefix { color: var(--color-shadow); }
+  .st-root { color: var(--color-mist); }
+  .st-dir { color: var(--color-scale); }
+  .st-file { color: var(--color-mist); }
+</style>
