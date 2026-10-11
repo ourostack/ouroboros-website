@@ -1526,8 +1526,8 @@
  {
   "page": "blog/what-is-agent-experience",
   "was": "A useful test If you are debugging an agent and you keep finding yourself restating identity, restitching context, reminding it who people are, or rebuilding the work after every interruption, you do not just have a memory problem.",
-  "now": "A useful test If you are debugging an agent and you keep finding yourself restating identity, restitching context, reminding it who humans are, or rebuilding the work after every interruption, you do not just have a memory problem.",
-  "why": "approved antithesis rewrite; copy deck: humans for the human side"
+  "now": "A useful test If you are debugging an agent and you keep finding yourself restating identity, restitching context, reminding it who humans are, or rebuilding the work after every interruption, you have an AX problem.",
+  "why": "approved antithesis rewrite; copy deck: humans for the human side; review I1: approved antithesis rewrite"
  },
  {
   "page": "blog/what-is-agent-experience",
@@ -1616,8 +1616,8 @@
  {
   "page": "index",
   "was": "The Toyota Way ; Toyota Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. genchi genbutsu, LEI Lean's eight wastes, as they show up with agents Waiting: an agent stops to ask what you could have told it up front.",
-  "now": "The Toyota Way ; Toyota Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. genchi genbutsu, LEI Agents are the newest workers on the line.",
-  "why": "review F1: the factory paragraphs in deck order"
+  "now": "Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. andon, LEI ; genchi genbutsu, LEI Agents are the newest workers on the line.",
+  "why": "review F1: the factory paragraphs in deck order; review M7: the stop-the-line item also cites LEI on andon"
  },
  {
   "page": "lab",
@@ -2728,5 +2728,131 @@
   "was": "The harness → What is Agent Experience? → My agent imports a recipe into Spoonjoy.",
   "now": "My agent imports a recipe into Spoonjoy.",
   "why": "copy deck round 2: card order puts Spoonjoy last"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Anthropic Claude Opus 5 Ouroboros — The only harness here whose repo opens by addressing the agent directly and whose contributor rules name \"AX (Agent Experience)\" and \"TTFA\" as first principles ( AGENTS.md .",
+  "now": "Anthropic Claude Opus 5 Ouroboros — The only harness here whose repo opens by addressing the agent directly and whose contributor rules name \"AX (Agent Experience)\" and \"TTFA\" as first principles ( AGENTS.md ).",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Codex CLI — Rust, fast, and the sandboxing story is genuinely first-class (seatbelt/Landlock, profiles, permissions, documented in the Codex config docs .",
+  "now": "Codex CLI — Rust, fast, and the sandboxing story is genuinely first-class (seatbelt/Landlock, profiles, permissions, documented in the Codex config docs ).",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Copilot CLI — Honest about what it is: the Copilot coding agent's harness in your terminal, with GitHub MCP by default, LSP integration via ~/.copilot/lsp-config.json , and preview-before-execute on every action ( README .",
+  "now": "Copilot CLI — Honest about what it is: the Copilot coding agent's harness in your terminal, with GitHub MCP by default, LSP integration via ~/.copilot/lsp-config.json , and preview-before-execute on every action ( README ).",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Gemini CLI — Genuinely open (Apache-2.0), well-engineered release channels, a real free tier, Search grounding, checkpointing, GEMINI.md context files, and an extensions system ( README .",
+  "now": "Gemini CLI — Genuinely open (Apache-2.0), well-engineered release channels, a real free tier, Search grounding, checkpointing, GEMINI.md context files, and an extensions system ( README ).",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "OpenCode — Excellent craft and the best portability story of the coding-focused group: TUI, desktop app, IDE, ACP, an SDK and server, custom tools, plugins, policies, and provider-agnostic model config ( docs .",
+  "now": "OpenCode — Excellent craft and the best portability story of the coding-focused group: TUI, desktop app, IDE, ACP, an SDK and server, custom tools, plugins, policies, and provider-agnostic model config ( docs ).",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Goose — Rust, Apache-2.0, now governed under the Linux Foundation's Agentic AI Foundation, with a desktop app, CLI, embeddable API, 15+ providers including ACP-brokered subscriptions, and 70+ MCP extensions ( README .",
+  "now": "Goose — Rust, Apache-2.0, now governed under the Linux Foundation's Agentic AI Foundation, with a desktop app, CLI, embeddable API, 15+ providers including ACP-brokered subscriptions, and 70+ MCP extensions ( README ).",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Pi coding-agent README Gemini CLI — A polished single-vendor CLI from Google with Gemini 3 + 1M context, MCP extensibility, Google Search grounding, conversation checkpointing, and a GitHub Action for PR review.",
+  "now": "Gemini CLI — A polished single-vendor CLI from Google with Gemini 3 + 1M context, MCP extensibility, Google Search grounding, conversation checkpointing, and a GitHub Action for PR review.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Gemini CLI README OpenCode — An open-source TUI/desktop coding agent with a clean Effect-based architecture, build/plan/explore subagents, and a permission system that denies by tool name rather than by file.",
+  "now": "OpenCode — An open-source TUI/desktop coding agent with a clean Effect-based architecture, build/plan/explore subagents, and a permission system that denies by tool name rather than by file.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( OpenCode agent.ts Ouroboros — A TypeScript harness for daemon-managed agents that live in external .ouro bundles with a body metaphor enforced across the codebase: psyche/ (SOUL, IDENTITY, LORE, TACIT, ASPIRATIONS), arc/ (live continuity, obligations, claims, presence), desk/ (durable work + maintained record), habits/ (autonomous rhythms), senses/ (cli/teams/bluebubbles/mail/voice), heart/ (runtime + daemon), mind/ (prompt assembly + embeddings), repertoire/ (tools), nerves/ (logging).",
+  "now": "Ouroboros — A TypeScript harness for daemon-managed agents that live in external .ouro bundles with a body metaphor enforced across the codebase: psyche/ (SOUL, IDENTITY, LORE, TACIT, ASPIRATIONS), arc/ (live continuity, obligations, claims, presence), desk/ (durable work + maintained record), habits/ (autonomous rhythms), senses/ (cli/teams/bluebubbles/mail/voice), heart/ (runtime + daemon), mind/ (prompt assembly + embeddings), repertoire/ (tools), nerves/ (logging).",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Ouroboros README , Agent Orientation Substrate Goose — A Rust-built general-purpose agent under the Linux Foundation's AAIF, with 15+ providers and 70+ MCP extensions, plus a desktop app and CLI.",
+  "now": "Goose — A Rust-built general-purpose agent under the Linux Foundation's AAIF, with 15+ providers and 70+ MCP extensions, plus a desktop app and CLI.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Goose README Claude Code — Anthropic's reference CLI, the de facto standard among developers.",
+  "now": "Claude Code — Anthropic's reference CLI, the de facto standard among developers.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Claude Code README Copilot CLI — GitHub's CLI backed by Claude Sonnet 4.5 by default with LSP server integration, MCP-powered extensibility, and approval-before-every-action.",
+  "now": "Copilot CLI — GitHub's CLI backed by Claude Sonnet 4.5 by default with LSP server integration, MCP-powered extensibility, and approval-before-every-action.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Copilot CLI README Codex CLI — A Rust rewrite with a sophisticated memory pipeline ( codex-rs/memories/{read,write} ) that runs Phase 1 (per-rollout extraction into structured raw_memory + rollout_summary ) and Phase 2 (global consolidation against a git-baseline workspace diff at ~/.codex/memories/.git ) under a single global lock.",
+  "now": "Codex CLI — A Rust rewrite with a sophisticated memory pipeline ( codex-rs/memories/{read,write} ) that runs Phase 1 (per-rollout extraction into structured raw_memory + rollout_summary ) and Phase 2 (global consolidation against a git-baseline workspace diff at ~/.codex/memories/.git ) under a single global lock.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Codex memories README Letta Code — The most architecturally disciplined of the bunch, with strict layer boundaries ( tools/ cannot import cli/ , backend/ cannot import cli/ ) enforced by scripts that check the import graph and keep source files under 1,000 lines.",
+  "now": "Letta Code — The most architecturally disciplined of the bunch, with strict layer boundaries ( tools/ cannot import cli/ , backend/ cannot import cli/ ) enforced by scripts that check the import graph and keep source files under 1,000 lines.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Letta Code MemFS docs , Letta Code Mods docs OpenClaw — A Foundation-stewarded, multi-channel personal assistant with a single long-lived Gateway daemon owning 20+ messaging surfaces (WhatsApp via Baileys, Telegram via grammY, Slack, Discord, Signal, iMessage, WebChat) over a typed WebSocket protocol.",
+  "now": "OpenClaw — A Foundation-stewarded, multi-channel personal assistant with a single long-lived Gateway daemon owning 20+ messaging surfaces (WhatsApp via Baileys, Telegram via grammY, Slack, Discord, Signal, iMessage, WebChat) over a typed WebSocket protocol.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( OpenClaw architecture docs , OpenClaw agent-loop docs Hermes Agent — The strongest self-improvement loop in the field.",
+  "now": "Hermes Agent — The strongest self-improvement loop in the field.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "( Hermes Agent architecture docs , Hermes Agent skills docs , Hermes Agent Honcho docs Methodology How the review was run.",
+  "now": "Hermes Agent Honcho docs ) Methodology How the review was run.",
+  "why": "review M16: a citation link no longer swallows its closing parenthesis, so \")\" shows again in the model's text"
+ },
+ {
+  "page": "blog/give-your-agent-a-home",
+  "was": "That's not a metaphor for feelings.",
+  "now": null,
+  "why": "review I1: approved antithesis rewrite"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Vibe-coding is not the same as agentic engineering.",
+  "now": "Vibe-coding and agentic engineering are different things.",
+  "why": "review I1: approved antithesis rewrite"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "If the AX framing is right, the test isn't whether humans say nice things about a harness — it's whether the inhabiting model itself can recognize the difference.",
+  "now": "If the AX framing is right, the test is whether the inhabiting model itself can recognize the difference.",
+  "why": "review I1: approved antithesis rewrite"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "You have an AX problem.",
+  "now": "or rebuilding the work after every interruption, you have an AX problem.",
+  "why": "review I1: approved antithesis rewrite"
  }
 ]

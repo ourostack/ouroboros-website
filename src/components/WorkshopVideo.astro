@@ -20,7 +20,7 @@ const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
 
 {hasClip ? (
   <div class="workshop-clip" data-workshop-clip>
-    <video class="workshop-video" muted playsinline loop preload="none" poster={poster} width={width} height={height} data-workshop-video>
+    <video class="workshop-video" muted playsinline loop preload="none" poster={poster} width={width} height={height} aria-label={alt || undefined} data-workshop-video>
       {webm && <source src={webm} type="video/webm" />}
       <source src={src} type="video/mp4" />
     </video>
