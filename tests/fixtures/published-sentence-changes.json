@@ -3214,5 +3214,17 @@
   "was": "The approach",
   "now": "How I work",
   "why": "root final ruling F5 (2026-10-11): the share-card tag for /approach says \"How I work\""
+ },
+ {
+  "page": "blog attributes",
+  "was": "Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.",
+  "now": "Essays on agent experience, persistent agents, and software shaped for the thing inside it.",
+  "why": "root final ruling F8 (2026-10-11): the blog description and share card say \"agent experience\""
+ },
+ {
+  "page": "share card /blog",
+  "was": "Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.",
+  "now": "Essays on agent experience, persistent agents, and software shaped for the thing inside it.",
+  "why": "root final ruling F8 (2026-10-11): the blog description and share card say \"agent experience\""
  }
 ]

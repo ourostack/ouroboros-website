@@ -102,7 +102,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog': {
     title: 'Dispatches from the serpent.',
-    subtitle: 'Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.',
+    subtitle: 'Essays on agent experience, persistent agents, and software shaped for the thing inside it.',
     tag: 'Blog',
   },
   '/blog/trust-the-agent': {
