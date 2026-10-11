@@ -25,24 +25,55 @@ function footerOf(html) {
   return match[0];
 }
 
-test('homepage asks the question, answers in one line and opens three doors above the origin', () => {
+test('homepage asks the question and answers as Ari, with his portrait linking to mendelow.me', () => {
   const html = readDist('index.html');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How do you effectively collaborate with agents?');
 
   const text = textOf(html);
-  assert.match(text, /Talk it through once, hand over the whole job, write down what matters, and check the real result\./);
-  const doors = ['href="/approach/"', 'href="/desk/"', 'href="/lab/"'].map((d) => html.indexOf(d, html.indexOf('aria-label="Start here"')));
-  assert.ok(doors.every((i) => i > 0), 'Missing a door');
-  assert.ok(Math.max(...doors) < html.indexOf('id="origin-heading"'), 'The three doors come before the origin');
+  assert.ok(text.includes("I'm Ari. I build products for humans + agents. Here's how I believe it works, what I use to support it, and what you can try."));
+  assert.match(html, /<a href="https:\/\/mendelow\.me"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
+  assert.ok(text.includes('More about me →'));
+  assert.ok(distExists('images/workshop/ari-portrait.jpg'), 'The portrait is copied locally, never hotlinked');
+  assert.doesNotMatch(html, /src="https:\/\/mendelow\.me/, 'No hotlinked images');
 
-  assert.match(text, /doing it by hand/i);
-  assert.match(text, /teaching it twice/i);
-  assert.match(text, /control keeps coming back to you/i);
-  assert.match(text, /between Acts 2 and 3/);
+  // Pass 1's hero slogan, name badge and context ring are gone.
+  assert.doesNotMatch(text, /write down what matters/);
+  assert.doesNotMatch(text, /✦ Ari Mendelow/);
+  assert.doesNotMatch(html, /ouroboros-spin/, 'The ring lives on /lab/ only');
+  assert.match(readDist('lab/index.html'), /ouroboros-spin/);
+});
 
-  // The model-review vote is evidence further down, not the headline.
-  assert.ok(!h1.includes('All frontier models tested chose'));
+test('homepage shows what Ari built this way, each with a line and a link', () => {
+  const html = readDist('index.html');
+  const text = textOf(html);
+  assert.ok(text.includes("What I've built this way"));
+  for (const line of [
+    "Markdown that renders as you write. It's where I read and answer what my agents write.",
+    "A photo-first kitchen for the recipes you actually cook. The same operations that power the app are exposed to an agent, so it does the work through the exact surface you'd use by hand.",
+    "My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off.",
+    'An open-source harness for personal agents that need an identity, durable state, real tools, and a place to live. Every frontier model we tested chose it from eleven harnesses as the one it would most want to wake up in.',
+  ]) assert.ok(text.includes(line), `Homepage is missing "${line}"`);
+  for (const href of ['/ouro-md/', 'https://spoonjoy.app', '/desk/', '/lab/']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
+
+  // Media is local, sized, and the animation starts as a poster.
+  const poster = html.match(/<img\b[^>]*src="\/images\/workshop\/ouro-md-reload-poster\.png"[^>]*>/);
+  assert.ok(poster, 'Missing the Ouro MD poster');
+  assert.match(poster[0], /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
+  assert.match(poster[0], /width="800" height="720"/);
+  assert.ok(text.includes('Agent revises the same file; the person stays in place.'), 'The animation has a caption');
+  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/spoonjoy\.jpg"[^>]*width="1200" height="630"/);
+  for (const file of ['ouro-md-reload-poster.png', 'ouro-md-reload.gif', 'spoonjoy.jpg']) assert.ok(distExists(`images/workshop/${file}`));
+});
+
+test('homepage says how Ari works in his own words and links each principle', () => {
+  const html = readDist('index.html');
+  const text = textOf(html);
+  assert.ok(text.includes("I view this agentic era as three acts: capability, orientation, and work design. Capability has been solved for some time. Everything else I've worked on has been about orientation. Now the industry is moving into the third act: designing and measuring how agents get their work done."));
+  assert.ok(text.includes('I studied Industrial and Systems Engineering, so I already have tools to reach for.'));
+  assert.match(text, /Fix the system, not the instance \(proposed\)/);
+  assert.ok(text.includes('The five principles, with the moments that taught me each one →'));
+  assert.ok(hrefsOf(html).includes('/approach/'));
 });
 
 test('homepage gives Slugger and the harness a real place, in Ari\'s words from the story', () => {
@@ -50,21 +81,40 @@ test('homepage gives Slugger and the harness a real place, in Ari\'s words from 
   const text = textOf(html);
   assert.match(text, /It started with Slugger\./);
   const story = textOf(readDist('lab/story/index.html'));
-  for (const quote of ['I set up OpenClaw on a spare MacBook at home. Named my agent Slugger.', 'Then the seams started showing.', 'Then I followed my own guide.']) {
+  for (const quote of ['I set up OpenClaw on a spare MacBook at home. Named my agent Slugger.', 'Then the seams started showing.', 'Then I followed my own guide.', "What emerged from Slugger's molt wasn't another crustacean. It was a snake, eating its own tail."]) {
     assert.ok(text.includes(quote), `Homepage is missing "${quote}"`);
-    assert.ok(story.includes(quote), `"${quote}" is not verbatim from the story`);
+    assert.ok(story.toLowerCase().includes(quote.toLowerCase()), `"${quote}" is not verbatim from the story`);
   }
+  for (const when of ['January 2026', 'Early February 2026', 'Late February 2026']) assert.ok(story.includes(when), `${when} is not a story date`);
+  assert.doesNotMatch(text, /Since Building Slugger a harness/);
   assert.ok(hrefsOf(html).includes('/lab/story/'));
-  assert.ok(hrefsOf(html).includes('/lab/model-reviews/'));
 });
 
-test('homepage shows the factory evidence as a real screenshot and links the RFC', () => {
+test('homepage shows the live factory number, dated, from the factory data', async () => {
+  const { longestSession, longestHours } = await import('../src/data/factory.mjs');
+  assert.equal(longestHours, '172.7');
   const html = readDist('index.html');
-  assert.match(textOf(html), /69 hours in one session\. 50 of 53 pull requests merged\./);
-  assert.match(html, /<img\b[^>]*src="\/images\/factory-sessions\.jpg"[^>]*alt="[^"]{40,}"/);
-  assert.ok(distExists('images/factory-sessions.jpg'));
+  const text = textOf(html).replace(/ ([,.])/g, '$1');
+  assert.ok(text.includes(`${longestHours} hours in one session. ${longestSession.prsMerged} of ${longestSession.prsTotal} pull requests merged.`));
+  assert.ok(text.includes(`From the factory, my public record of agent work, as of ${longestSession.asOf}.`));
+  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/factory-longest-sessions\.jpg"[^>]*alt="[^"]{40,}"/);
   assert.ok(hrefsOf(html).includes('https://ourostack.github.io/factory/'));
-  assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
+});
+
+test('homepage ends with three things to try', () => {
+  const html = readDist('index.html');
+  const text = textOf(html);
+  assert.ok(text.includes('The five principles, written for your agent to read.'));
+  assert.ok(text.includes('Give your agent this link and say "set this up": https://github.com/ourostack/desk/blob/main/SETUP.md'));
+  assert.ok(text.includes('For the Mac.'));
+  assert.doesNotMatch(text, /\bfree\b/i, 'No App Store listing says free');
+  for (const href of ['/brief/', 'https://ouro.bot/apps/ouro-md/']) assert.ok(hrefsOf(html).includes(href));
+});
+
+test('the footer links to mendelow.me', () => {
+  const footer = footerOf(readDist('index.html'));
+  assert.ok(textOf(footer).includes('More about me: mendelow.me'));
+  assert.ok(hrefsOf(footer).includes('https://mendelow.me'));
 });
 
 test('no built page or agent file contains a deny-listed string', (t) => {

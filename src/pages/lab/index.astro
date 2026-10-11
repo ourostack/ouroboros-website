@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import SerpentGuidePreview from '../../components/SerpentGuidePreview.astro'
+import OuroborosRing from '../../components/OuroborosRing.astro'
 import modelReviews from '../../data/model-reviews.json'
 import { ogPathFor, pageOg } from '../../data/og'
 import { labelFor } from '../../data/readiness.mjs'
@@ -106,13 +107,20 @@ const pieces = [
     <div class="relative max-w-6xl mx-auto">
       <span class="font-mono text-xs text-fang uppercase tracking-[0.25em] block mb-8">The cost</span>
 
-      <h2 class="heading-section">
-        What survives when the context window <span class="text-scale">runs out?</span>
-      </h2>
+      <div class="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center mb-16 sm:mb-24 md:mb-32">
+        <div class="min-w-0">
+          <h2 class="heading-section">
+            What survives when the context window <span class="text-scale">runs out?</span>
+          </h2>
 
-      <p class="font-display text-2xl md:text-3xl text-mist mt-6 mb-16 sm:mb-24 md:mb-32 max-w-3xl">
-        Every conversation has a ceiling. Hit it, and something has to give.
-      </p>
+          <p class="font-display text-2xl md:text-3xl text-mist mt-6 max-w-3xl">
+            Every conversation has a ceiling. Hit it, and something has to give.
+          </p>
+        </div>
+        <div class="hidden lg:flex justify-center" aria-hidden="true">
+          <OuroborosRing size="md" id="lab-cost" />
+        </div>
+      </div>
 
       <div class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-16">
         <!-- Problems: smaller type, mist color -->
