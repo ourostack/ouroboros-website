@@ -205,12 +205,6 @@
  },
  {
   "page": "blog/designing-with-your-agent",
-  "was": "The human stops being a compulsory relay for every paper cut and becomes the person who sets boundaries, reviews bigger changes, and helps shape the system itself.",
-  "now": "The human stops being a compulsory relay for every paper cut and becomes the human who sets boundaries, reviews bigger changes, and helps shape the system itself.",
-  "why": "rulings: singular person to human"
- },
- {
-  "page": "blog/designing-with-your-agent",
   "was": "Slugger wasn't roleplaying a stakeholder.",
   "now": "Slugger was a stakeholder.",
   "why": "approved antithesis rewrite"
