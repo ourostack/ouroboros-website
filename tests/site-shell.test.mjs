@@ -86,6 +86,10 @@ test('homepage shows four things built for humans and agents, each with captione
       assert.match(video[0], /\bmuted\b/);
       assert.match(video[0], /preload="none"/);
       assert.doesNotMatch(video[0], /\bautoplay\b/, 'Clips play from script so reduced motion keeps the poster');
+      // WCAG 2.2.2: a looping clip has a visible Pause/Play control next to it.
+      const clip = html.match(new RegExp(`<div class="workshop-clip"[^>]*>\\s*<video\\b[^>]*poster="/images/workshop/${name}\\.png"[\\s\\S]*?</div>`));
+      assert.ok(clip, `${name} sits in a clip wrapper`);
+      assert.match(clip[0], /<button type="button" class="clip-toggle"[^>]*data-clip-toggle[^>]*>Pause<\/button>/, `${name} has a Pause control`);
     } else {
       assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${name}\\.png"[^>]*width="\\d+" height="\\d+"[^>]*loading="lazy"`), `${name} poster is sized and lazy`);
     }
@@ -200,6 +204,59 @@ test('homepage ends with three things to try, each with one action and no broken
   assert.match(html, /<button type="button" data-copy-target="home-desk-setup"/);
   assert.doesNotMatch(text, /\bfree\b/i, 'No App Store listing says free');
   for (const href of ['/brief/', 'https://ouro.bot/apps/ouro-md/', 'https://github.com/ourostack/desk/blob/main/SETUP.md']) assert.ok(hrefsOf(html).includes(href));
+});
+
+test('homepage deck lines appear in the deck order', () => {
+  // One line or more from every block of the copy deck (2026-10-11), in deck order.
+  // Each must appear after the one before it in the page's reading order.
+  const text = homeText();
+  const order = [
+    'How do you effectively collaborate with agents?',
+    "I'm Ari. I build products for humans + agents.",
+    'Built for humans and agents',
+    "Typing the Nautilus crew's periscope plan.",
+    'A Markdown editor for the Mac that renders as you type.',
+    "Desk keeps my agents' work in a Git repository",
+    'The real source tree.',
+    'The harness my agents live in.',
+    'My agent imports a recipe into Spoonjoy.',
+    "My recipe app, and the one project that's followed my whole software journey.",
+    'How I work',
+    'I see this agentic era in three acts:',
+    'Capability.', 'Orientation.', 'Work design.',
+    "When something's off",
+    "You're doing it by hand.", "You're teaching it twice.", 'Control keeps coming back to you.',
+    "What's been working",
+    'Talk through intent and judgment', 'Delegate whole outcomes', 'Make context durable', 'Meaningful authority with clear boundaries', 'Verify the actual result',
+    'Two more things I keep coming back to.',
+    "Everyone's building a software factory.",
+    "It's the phrase of the year",
+    'I studied industrial and systems engineering before I wrote code.',
+    'What Lean already knows',
+    'In most processes, less than a tenth of the elapsed time adds value.',
+    'Taiichi Ohno described the Toyota Production System',
+    'Toyota built it on',
+    'Any worker can stop the line',
+    'Agents are the newest workers on the line.',
+    "Lean's eight wastes, as they show up with agents",
+    'Waiting:', 'Defects:', 'Overprocessing:', 'Overproduction:', 'Motion:', 'Inventory:', 'Transportation:', 'Unused talent:',
+    'Walk through my factory →',
+    'It started with Slugger.',
+    'In January I set up OpenClaw',
+    "That's when it clicked: correction is a smell.",
+    'The agent that grew out of it named itself Ouroboros',
+    'Most of what came next was watching how agents used what I gave them',
+    'Grow an agent →',
+    'Try it',
+    'How I work, written for your agent to read.',
+    'For the Mac.',
+  ];
+  let at = -1;
+  for (const line of order) {
+    const i = text.indexOf(line, at + 1);
+    assert.ok(i > at, `"${line}" is missing or out of the deck order`);
+    at = i;
+  }
 });
 
 test('the footer is the shared kit: the line, then one row with the sister link, GitHub and LinkedIn', () => {

@@ -26,6 +26,7 @@ const scenes: { id: string; title: string; lines: Line[] }[] = [
     id: 'ned',
     title: 'ned@laptop · Claude Code',
     lines: [
+      { text: '> Plan the periscope overhaul', tone: 'prompt' },
       { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist' },
       { text: 'Active tasks (3):', tone: 'bone' },
       { text: blocked, tone: 'fang' },
@@ -38,7 +39,6 @@ const scenes: { id: string; title: string; lines: Line[] }[] = [
       { text: '- captains-log/export', tone: 'bone' },
       { text: "  next: waiting on Captain Nemo's review", tone: 'mist' },
       { text: '', tone: 'mist' },
-      { text: '> Plan the periscope overhaul', tone: 'prompt' },
       { text: '⏺ desk · task_create', tone: 'tool' },
       { text: '  ⎿ task_create: periscope/overhaul', tone: 'glow' },
       { text: '  Next step: survey the lens, seals, and hoist', tone: 'mist' },
@@ -82,7 +82,13 @@ const last = scenes.length - 1
   </div>
   <div class="dp-screen">
     {scenes.map((scene, i) => (
-      <pre class="dp-body" data-scene={scene.id} hidden={i !== last}>{scene.lines.map((line) => <span class={`dp-line tone-${line.tone}`}>{line.text || ' '}</span>)}</pre>
+      <pre class="dp-body" data-scene={scene.id} hidden={i !== last}>{scene.lines.map((line) => {
+        // The terminal glyphs are decoration; screen readers skip them.
+        const glyph = line.text.match(/^(\s*)([⏺⎿])(.*)$/)
+        return glyph
+          ? <span class={`dp-line tone-${line.tone}`}>{glyph[1]}<span aria-hidden="true">{glyph[2]}</span>{glyph[3]}</span>
+          : <span class={`dp-line tone-${line.tone}`}>{line.text || ' '}</span>
+      })}</pre>
     ))}
   </div>
 </div>
