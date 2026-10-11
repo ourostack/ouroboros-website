@@ -198,7 +198,7 @@ npm run reviews -- --inference copilot-first</code></pre>
         Use Node 22. Direct API mode is the default and needs no Copilot account or subscription. For the selected panel, set <code class="font-mono text-scale text-xs">ANTHROPIC_API_KEY</code>, <code class="font-mono text-scale text-xs">OPENAI_API_KEY</code>, <code class="font-mono text-scale text-xs">GEMINI_API_KEY</code> (or <code class="font-mono text-scale text-xs">GOOGLE_API_KEY</code>), and <code class="font-mono text-scale text-xs">MINIMAX_API_KEY</code>. Both modes require <code class="font-mono text-scale text-xs">PERPLEXITY_API_KEY</code> for search and share the bundled SDK research runtime.
       </p>
       <p class="text-shadow text-sm leading-relaxed mt-4">
-        For Copilot-first mode, authenticate with <code class="font-mono text-scale text-xs">COPILOT_GITHUB_TOKEN</code> or an existing <code class="font-mono text-scale text-xs">copilot login</code>. Exact catalog matches use Copilot inference; only missing models need direct API keys. Copilot authentication, quota, and execution errors stop the run rather than silently switching to paid APIs.
+        For Copilot-first mode, authenticate with <code class="font-mono text-scale text-xs">COPILOT_GITHUB_TOKEN</code> or an existing <code class="font-mono text-scale text-xs">copilot login</code>. Exact catalog matches use Copilot inference; only missing models need direct API keys. Copilot authentication, quota, and execution errors stop the run, and it never switches to paid APIs silently.
       </p>
       <p class="text-shadow text-sm leading-relaxed mt-4">
         Results are saved privately in the directory printed by the runner and do not update this page. Each run records its candidate list.

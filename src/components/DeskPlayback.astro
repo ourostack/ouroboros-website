@@ -92,6 +92,23 @@ const last = scenes.length - 1
     ))}
   </div>
 </div>
+<script is:inline>
+  // Arm the playback before first paint, so a card already on screen starts at
+  // scene 1 with no flash of the final frame. Without JS, or under reduced
+  // motion, this never runs and the final frame stays.
+  (function () {
+    var root = document.currentScript && document.currentScript.previousElementSibling;
+    if (!root || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var screen = root.querySelector('.dp-screen');
+    screen.style.minHeight = screen.offsetHeight + 'px';
+    var bodies = root.querySelectorAll('[data-scene]');
+    var titles = root.querySelectorAll('[data-scene-title]');
+    for (var i = 0; i < bodies.length; i++) { bodies[i].hidden = i !== 0; titles[i].hidden = i !== 0; }
+    var lines = bodies[0].querySelectorAll('.dp-line');
+    for (var j = 0; j < lines.length; j++) lines[j].classList.add('is-hidden');
+    root.setAttribute('data-armed', '');
+  })();
+</script>
 
 <script>
   // Plays once when it scrolls into view; Replay plays it again. Under
@@ -124,11 +141,32 @@ const last = scenes.length - 1
       }
     }
 
+    // A click or a key on the terminal skips to the final frame.
+    const skip = () => {
+      run++
+      show(bodies.length - 1)
+      root.querySelectorAll<HTMLElement>('.dp-line').forEach((line) => {
+        if (line.dataset.full !== undefined) line.textContent = line.dataset.full
+        line.classList.remove('is-hidden')
+      })
+      root.removeAttribute('tabindex')
+      root.removeAttribute('data-playing')
+      replay.hidden = false
+    }
+    root.addEventListener('click', (event) => {
+      if (root.hasAttribute('data-playing') && !(event.target as HTMLElement).closest('[data-replay]')) skip()
+    })
+    root.addEventListener('keydown', (event) => {
+      if (root.hasAttribute('data-playing') && ['Enter', ' ', 'Escape'].includes(event.key)) { event.preventDefault(); skip() }
+    })
+
     const play = async () => {
       const token = ++run
       replay.hidden = true
+      root.setAttribute('data-playing', '')
+      root.tabIndex = 0
       // Hold the final frame's height so nothing below jumps while it plays.
-      screen.style.minHeight = `${screen.offsetHeight}px`
+      if (!screen.style.minHeight) screen.style.minHeight = `${screen.offsetHeight}px`
       for (let s = 0; s < bodies.length; s++) {
         if (token !== run) return
         show(s)
@@ -150,7 +188,11 @@ const last = scenes.length - 1
         }
         if (s < bodies.length - 1) await wait(2200)
       }
-      if (token === run) replay.hidden = false
+      if (token === run) {
+        replay.hidden = false
+        root.removeAttribute('data-playing')
+        root.removeAttribute('tabindex')
+      }
     }
 
     replay.addEventListener('click', () => { play() })
@@ -167,6 +209,7 @@ const last = scenes.length - 1
 </script>
 
 <style>
+  .desk-playback[data-playing] { cursor: pointer; }
   .desk-playback { height: 100%; display: flex; flex-direction: column; background: var(--color-deep); }
   .dp-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0.45rem 0.75rem 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
   .dp-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }

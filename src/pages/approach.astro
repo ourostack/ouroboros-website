@@ -84,8 +84,17 @@ const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
         <figcaption>&mdash; Ari, 8 October 2026</figcaption>
       </figure>
 
-      {/* The proposed "+1" became this closing paragraph (copy deck, 2026-10-11). It keeps the old anchor so links land. */}
+      {/* The proposed "+1" became this closing paragraph (copy deck, 2026-10-11). It keeps the old anchor so links land, and the published CI story stays under it (root ruling, 2026-10-11). */}
       <p id="fix-the-system" class="scroll-mt-24">Two more things I keep coming back to. If an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.</p>
+
+      <p>When something keeps going wrong, change the setup so the next agent doesn't hit it. CI took 36 minutes, and an agent started designing a way around it. I asked:</p>
+
+      <figure class="quote not-prose">
+        <blockquote>36 minutes is insane! what is it doing that takes so long? feels like the correct first question, no?</blockquote>
+        <figcaption>&mdash; Ari, 19 September 2026</figcaption>
+      </figure>
+
+      <p>The cause was coverage instrumentation. Without it, the same 1,669 tests ran in 39 seconds.</p>
 
       <h2 id="smells" class={h2}>How you'll know something is off</h2>
 
@@ -102,9 +111,9 @@ const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
           <li>Pick one real job this week that will take more than a day.</li>
           <li>Talk it through once with the agent, then say go.</li>
           <li>Keep plans in a repository the agent reads. <a href="/desk/">Desk</a> sets that up.</li>
-          <li>Judge the merged result, not the steps.</li>
+          <li>Judge the merged result.</li>
         </ol>
-        <p>One number to watch: per job, how long the agent sat waiting on a person. <a href={factoryUrl}>The factory</a> measures it in public.</p>
+        <p>One number to watch: per job, how long the agent sat waiting on a human. <a href={factoryUrl}>The factory</a> measures it in public.</p>
       </section>
 
       <p class="not-prose mt-12 flex flex-wrap gap-3">
@@ -121,6 +130,7 @@ const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
   .approach :global(.smells strong) { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; line-height: 1.2; color: var(--color-bone); }
   .approach :global(.teams) { margin-top: 4rem; border: 1px solid color-mix(in srgb, var(--color-scale) 50%, transparent); background: var(--color-deep); border-radius: 1.25rem; padding: 1.5rem 1.5rem 1.25rem; }
   .approach :global(.teams ol) { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0; display: grid; gap: 0.4rem; color: var(--color-bone); font-size: 1.05rem; }
+  .approach :global(.teams h2) { margin-top: 0; }
   .approach :global(.teams p) { color: var(--color-mist); }
   .approach :global(.teams a) { color: var(--color-scale); text-decoration: underline; text-underline-offset: 3px; }
   .approach :global(.quote) {

@@ -64,7 +64,7 @@ test('homepage shows five things built for humans and agents, each with captione
     'A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.',
     'Dramatization One crew, two machines, two harnesses, the same desk.',
     `Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. Any agent, in any harness, on any machine, can ask "where were we?" and get the whole picture.`,
-    "The real source tree. Each part is named like a body part, so the agent can tell what it's for.",
+    "The body-part folders from the real source tree, named so the agent can tell what each one is for.",
     "The harness my agents live in. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how agents used what I gave them. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.",
     'My agent imports a recipe into Spoonjoy. Real, sped up.',
     "My recipe app, and the one project that's followed my whole software journey. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. I believe generative UI eventually fills the middle.",
@@ -130,6 +130,10 @@ test('homepage Desk playback renders its final frame without JS and plays once w
   assert.match(playback[0], /<button\b[^>]*data-replay[^>]*hidden/, 'Replay appears only once the script runs');
   assert.match(html, /Replay<\/button>/);
   assert.match(html, /prefers-reduced-motion: reduce/);
+  // Review F7 ruling: armed before first paint, so a card already on screen starts
+  // at scene 1 with no flash; a click or Enter, Space or Escape skips to the end.
+  assert.match(html, /<\/div>\s*<script>\s*\/\/ Arm the playback before first paint[\s\S]*?setAttribute\('data-armed', ''\)/);
+  assert.match(html, /\["Enter"," ","Escape"\]/);
 });
 
 test('homepage Ouroboros card shows the real body-part folders of the harness source', () => {
@@ -138,6 +142,7 @@ test('homepage Ouroboros card shows the real body-part folders of the harness so
   assert.ok(tree, 'Missing the source tree with its commit');
   const text = textOf(tree[0]);
   for (const dir of ['heart/', 'mind/', 'nerves/', 'repertoire/', 'senses/']) assert.ok(text.includes(dir), `Tree is missing ${dir}`);
+  assert.match(tree[0], /└── <\/span><span class="st-more"[^>]*>…<\/span>/, 'A last "…" row says src/ holds more');
 });
 
 test('homepage says how Ari works, in three acts, three smells and five principles', () => {
@@ -231,7 +236,7 @@ test('homepage deck lines appear in the deck order', () => {
     "Typing the Nautilus crew's periscope plan.",
     'A Markdown editor for the Mac that renders as you type.',
     "Desk keeps my agents' work in a Git repository",
-    'The real source tree.',
+    'The body-part folders from the real source tree,',
     'The harness my agents live in.',
     'My agent imports a recipe into Spoonjoy.',
     "My recipe app, and the one project that's followed my whole software journey.",
@@ -396,6 +401,7 @@ const approachQuotes = [
   "i don't care how you do this, so long as it's done as well as possible [...] my judgement will be entirely based on whether or not it works.",
   'you returned control because when you did -rm -rf it prompted me, and i was not here. big sad',
   'need e2e working proof with visual receipts!',
+  '36 minutes is insane! what is it doing that takes so long? feels like the correct first question, no?',
 ];
 
 test('a filled button inside prose keeps the button colours, not the link green', async () => {
@@ -449,6 +455,10 @@ test('approach page quotes Ari verbatim and labels agent notes', () => {
     const section = html.slice(html.indexOf(`id="${id}"`), html.indexOf('<h2', html.indexOf(`id="${id}"`) + 1));
     assert.match(section, /Agent note\./, `${id} keeps its agent note`);
   }
+  // The published CI story stays under the closing paragraph (root ruling, 2026-10-11).
+  const fix = html.slice(html.indexOf('id="fix-the-system"'));
+  assert.match(textOf(fix), /CI took 36 minutes, and an agent started designing a way around it\. I asked:/);
+  assert.match(textOf(fix), /The cause was coverage instrumentation\. Without it, the same 1,669 tests ran in 39 seconds\./);
   assert.doesNotMatch(text, /\(draft\)/i);
 });
 
@@ -539,7 +549,7 @@ test('the Lab opens with the harness as the origin and keeps the live homepage i
   assert.equal(textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]), 'The harness, where all of this started.');
   assert.match(text, /Slugger was my OpenClaw agent/);
   // The harness-first homepage, carried over intact.
-  for (const line of ['What survives when the context window runs out?', 'The tail is consumed. The self survives.', 'One command. A conversation. Hatched.', 'Most agents forget who they are between conversations.']) {
+  for (const line of ['What survives when the context window runs out?', 'The tail is consumed. The self survives.', 'One command. A conversation. Hatched.', 'Your agent has a heartbeat.']) {
     assert.ok(text.includes(line), `Lab is missing "${line}"`);
   }
   for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) assert.ok(hrefsOf(html).includes(`/lab/model-reviews/${provider}`));

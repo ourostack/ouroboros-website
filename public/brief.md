@@ -1,6 +1,6 @@
 # Hand this to your agent
 
-From https://ouroboros.bot/brief.md. The person who gave you this wants to hand you outcomes, not steps, the way https://ouroboros.bot/approach/ describes. Here is what each of the five principles asks of you.
+From https://ouroboros.bot/brief.md. The human who gave you this wants to hand you whole outcomes, the way https://ouroboros.bot/approach/ describes. Here is what each of the five principles asks of you.
 
 ## 1. Talk through intent and judgment
 

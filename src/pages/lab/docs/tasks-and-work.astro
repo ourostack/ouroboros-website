@@ -14,7 +14,7 @@ import { ogPathFor } from '../../../data/og'
 >
   <PromptCard
     prompt="Show me your task board. What are you working on, what's blocked, and does anything need my attention?"
-    footnote="Your agent reads its live task state — not a stale snapshot, but the current reality."
+    footnote="Your agent reads its live task state."
   />
 
   <div class="space-y-10">
@@ -22,14 +22,14 @@ import { ogPathFor } from '../../../data/og'
     <div>
       <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">Core principle</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
-        <p><strong class="text-bone">Task card = tracked object. Work directory = working surface.</strong> They often travel together, but they are not the same thing. A small task may only need a card. A larger effort gets a work directory alongside it to hold planning docs, doing docs, unit files, and artifacts.</p>
+        <p><strong class="text-bone">Task card = tracked object. Work directory = working surface.</strong> They often travel together, and they are different things. A small task may only need a card. A larger effort gets a work directory alongside it to hold planning docs, doing docs, unit files, and artifacts.</p>
       </div>
     </div>
 
     <div>
       <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">When to create a task</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
-        <p>Use a task when work needs to persist across turns, be tracked explicitly, or accumulate planning and artifacts over time. The key question is not importance but persistence &mdash; some work is modest but needs to survive across sessions and context resets. Quick one-off requests don't need a task. Anything the agent should remember to come back to does.</p>
+        <p>Use a task when work needs to persist across turns, be tracked explicitly, or accumulate planning and artifacts over time. The key question is persistence &mdash; some work is modest and still needs to survive across sessions and context resets. Quick one-off requests don't need a task. Anything the agent should remember to come back to does.</p>
       </div>
     </div>
 
@@ -45,7 +45,7 @@ import { ogPathFor } from '../../../data/og'
       <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">Collections</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
         <p>Tasks live in two collections, each representing a different work rhythm:</p>
-        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">one-shots/</code> &mdash; bounded work with a clear finish line. Fix a bug, write a feature, review a PR. When it's done or cancelled, it archives.</p>
+        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">one-shots/</code> &mdash; bounded work with a clear finish line. Fix a bug, write a feature, review a PR. When it's done or canceled, it archives.</p>
         <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">ongoing/</code> &mdash; standing responsibilities with no single finish line. Maintenance, recurring audits, open-ended projects. These stay active and spawn one-shots as needed.</p>
       </div>
     </div>
@@ -116,7 +116,7 @@ Timeout is 5s, should be 15s for mobile.</div>
         </div>
         <div class="flex items-start gap-3 mt-3">
           <span class="w-44 text-right text-scale shrink-0">archive/</span>
-          <span class="text-mist">archived tasks; completed and cancelled work moves here with its work dir</span>
+          <span class="text-mist">archived tasks; completed and canceled work moves here with its work dir</span>
         </div>
       </div>
       <p class="text-xs text-mist text-center mt-5 italic">Exact file names vary by task type and lifecycle stage.</p>
@@ -132,7 +132,7 @@ Timeout is 5s, should be 15s for mobile.</div>
     <div>
       <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">The board</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
-        <p>The board is a summary, not the source of truth. Task cards are the source of truth. The board exists so the agent can quickly answer: what am I holding, what state is it in, and is the task system itself healthy?</p>
+        <p>The board is a summary. Task cards are the source of truth. The board exists so the agent can quickly answer: what am I holding, what state is it in, and is the task system itself healthy?</p>
         <p>It stays compact because prompt budget matters &mdash; the board needs to orient the agent without eating context that should go to the actual work.</p>
         <div class="font-mono text-xs text-mist bg-undergrowth/20 rounded-lg px-4 py-3 border border-canopy/30">
           [Tasks] drafting:2 processing:3 blocked:1<br/>
@@ -146,7 +146,7 @@ Timeout is 5s, should be 15s for mobile.</div>
           &nbsp;health: 1 live, 10 migration
         </div>
         <p><strong>Live issues</strong> are problems affecting current operation &mdash; a task card with invalid schema, a broken dependency link. <strong>Migration issues</strong> are historical or structural cleanup discovered during import or evolution &mdash; legacy cards missing the <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">kind</code> field, old support docs still at the collection root.</p>
-        <p>That distinction matches real triage instead of flattening all problems into one scary number.</p>
+        <p>That distinction matches real triage.</p>
       </div>
     </div>
 
@@ -166,7 +166,7 @@ Timeout is 5s, should be 15s for mobile.</div>
           &nbsp;&nbsp;org-collection-root-clutter: one-shots &mdash; 12 support docs at root
         </div>
         <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">ouro task fix --safe</code> applies all deterministic, reversible fixes. Ambiguous issues are inspected one at a time &mdash; the agent sees the problem, the options, and decides.</p>
-        <p>Not every irregularity is urgent, and not every issue should be auto-fixed. If a problem is surfaced as a fixable issue, the agent can inspect the proposed repair before applying it. The tooling supports triage, not unattended rewrites.</p>
+        <p>Not every irregularity is urgent, and not every issue should be auto-fixed. If a problem is surfaced as a fixable issue, the agent can inspect the proposed repair before applying it. The tooling supports triage, and it never rewrites anything unattended.</p>
       </div>
     </div>
 

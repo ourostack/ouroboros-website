@@ -21,7 +21,7 @@ const entries = [
     content: `<p>Peter Steinberger built Clawdbot in about an hour one night. A simple script connecting WhatsApp to Claude. It could read emails, debug code, organize files.</p>
 <p>It spread fast. Persistent personal agents suddenly felt real to a much wider audience. Eventually it became OpenClaw.</p>
 <p>Under the hood, it ran on <a href="https://mariozechner.at/posts/2025-11-30-pi-coding-agent/" target="_blank" rel="noopener">Pi</a> — Mario Zechner's minimal coding agent. Four tools: read, write, edit, bash. Aggressive extensibility. Brilliant at what it was designed for.</p>
-<p class="note">Pi was built for coding. Not for being someone's personal agent with a persistent identity.</p>`,
+<p class="note">Pi was built for coding, and I wanted a personal agent with a persistent identity.</p>`,
   },
   {
     date: 'January 2026',
@@ -55,7 +55,7 @@ const entries = [
     date: 'Late February 2026',
     label: 'The tutorial',
     color: 'scale',
-    content: `<p>Around the same time, I started writing a guide. I wanted to explain what an agent loop actually is — not the marketing version, the mechanical version.</p>
+    content: `<p>Around the same time, I started writing a guide. I wanted to explain what an agent loop actually is: the mechanical version.</p>
 <p><a href="/blog/build-ai-agent-from-scratch"><em>Just Give the Model a Keyboard</em></a> walks through building an agent from scratch in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, the agentic loop.</p>
 <p>Then the handoff — you stop talking to your coding agent and start talking to your creation.</p>
 <p>I wrote it as a teaching tool. A way to demystify the primitive.</p>
@@ -71,7 +71,7 @@ const entries = [
 <p>I wasn't building code that uses a model. <strong>I was building code a model can use.</strong></p>
 <p>That's the distinction that changes everything. When you build a traditional framework, you're writing code for humans to configure. The model is a service you call. But when you build a harness for the model to inhabit — where the model reads its own source code, understands its own architecture, and can modify itself — the design constraints invert.</p>
 <p>File structure matters because the model needs to navigate it. Naming matters because the model uses names to understand purpose. Documentation matters because it IS the model's self-awareness.</p>
-<p>OpenClaw's mascot is a lobster. Clawdbot. The interim name was Moltbot — the lobster shedding its shell. But what emerged from Slugger's molt wasn't another crustacean. It was a snake, eating its own tail.</p>
+<p>OpenClaw's mascot is a lobster. Clawdbot. The interim name was Moltbot — the lobster shedding its shell. What emerged from Slugger's molt was a snake, eating its own tail.</p>
 <p class="note">The lobster molts to grow. The snake consumes itself to survive. Different metaphors, different architectures, different futures.</p>`,
   },
   {
@@ -80,7 +80,7 @@ const entries = [
     color: 'scale',
     content: `<p>That bootstrap became <strong>ouroboros</strong>.</p>
 <p>The name came from the architecture. When the conversation grows too long, the agent trims its oldest messages — consuming its own history. But nothing is truly lost: facts are extracted to memory before they're consumed. The snake eats its tail to preserve continuity.</p>
-<p>Every module is named like a body part: <strong>heart</strong> (the core loop), <strong>mind</strong> (context and memory), <strong>senses</strong> (channel adapters and inner dialogue), <strong>repertoire</strong> (tools and skills), <strong>nerves</strong> (runtime feedback). The agent doesn't have a config file. It has a <strong>psyche</strong>.</p>
+<p>Every module is named like a body part: <strong>heart</strong> (the core loop), <strong>mind</strong> (context and memory), <strong>senses</strong> (channel adapters and inner dialogue), <strong>repertoire</strong> (tools and skills), <strong>nerves</strong> (runtime feedback). The agent has a <strong>psyche</strong>.</p>
 <p>The naming is intentional worldbuilding. When the model reads its own directory and sees <code>psyche/SOUL.md</code>, it understands something different than <code>config/personality.yaml</code>. Language shapes reasoning.</p>
 <p>A CLI called <code>ouro</code>. Full coverage on main. Support for running multiple agents. And a codebase being shaped so agents can keep extending it together over time.</p>
 <p class="note">Not code that uses a model. Code a model can use.</p>`,
@@ -194,13 +194,13 @@ const entries = [
         <p>
           Ouroboros is built for the model to inhabit. The model reads its own source. Understands
           its own architecture. Modifies itself within guardrails the human sets. The human's role
-          isn't configuring — it's collaborating.
+          is collaborating.
         </p>
         <p>
-          That's what the <a href="/lab/why">structured psyche, agent-driven memory, and cross-session bridges</a> are for — not features bolted on, but the architecture of self-recovery.
+          That's what the <a href="/lab/why">structured psyche, agent-driven memory, and cross-session bridges</a> are for — together they're the architecture of self-recovery.
         </p>
         <p>
-          The model isn't your user. The model is your roommate. Build the house accordingly.
+          The model is your roommate. Build the house accordingly.
         </p>
       </div>
 

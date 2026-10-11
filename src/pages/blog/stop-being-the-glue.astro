@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'Stop being the glue between your AI tools'
-const description = "We were promised an intelligent assistant. Instead, we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed."
+const description = "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed."
 ---
 
 <Layout
@@ -70,7 +70,7 @@ const description = "We were promised an intelligent assistant. Instead, we got 
 
       <p>It was too late, though — we caught the bug! We had woken up! And so things kept progressing, and the most inspired among us kept trying to build on top of this rapidly progressing technology, an undertaking comparable to building a boat in the middle of the most wild of seas. Things kept improving, and we got <a href="https://github.com/features/copilot">Copilot</a>, <a href="https://cursor.sh">Cursor</a>, and <a href="https://v0.dev">v0</a>, but they'd waste your time and send you off on a useless side quest just as often as they were helpful. Still, the interfaces matured, and slowly, models became capable enough to give us vibe-coding.</p>
 
-      <p>Yet there was still a problem — we were starting to diverge from the dream: instead of an intelligent assistant, we found ourselves surrounded by a fragmentation of semi-intelligent generic bots, all with their own interfaces and memories, all united by the fact that they could only operate in one narrow problem set, all incapable of holistically improving our lives.</p>
+      <p>Yet there was still a problem — we were starting to diverge from the dream: we found ourselves surrounded by a fragmentation of semi-intelligent generic bots, all with their own interfaces and memories, all united by the fact that they could only operate in one narrow problem set, all incapable of holistically improving our lives.</p>
 
       <p>We became the glue, mindlessly copy-pasting output from one tool as input to another tool. We became the bottleneck.</p>
 
@@ -103,17 +103,17 @@ const description = "We were promised an intelligent assistant. Instead, we got 
         </div>
       </div>
 
-      <p>That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task. Instead of a simple chat bot, he discovered that models had become capable enough that we no longer needed a human in the loop. That if you give a model access to your terminal and send it a voice note, it will, without direction, find the tools it needs lying around and <a href="https://youtu.be/AcwK1Uuwc0U?t=217">build itself the capability to transcribe it and respond to you</a>.</p>
+      <p>That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task. Building a simple chat bot, he discovered that models had become capable enough that we no longer needed a human in the loop. That if you give a model access to your terminal and send it a voice note, it will, without direction, find the tools it needs lying around and <a href="https://youtu.be/AcwK1Uuwc0U?t=217">build itself the capability to transcribe it and respond to you</a>.</p>
 
-      <p>OpenClaw was born. It made the personal-agent future feel concrete instead of hypothetical, and it gave a lot of humans their first real taste of collaborating with the same agent across time.</p>
+      <p>OpenClaw was born. It made the personal-agent future feel concrete, and it gave a lot of humans their first real taste of collaborating with the same agent across time.</p>
 
       <p>That article captures the moment we finally got what Siri promised, and the unlock goes deeper — the same capability that handles simple tasks opens a door we never had: sustained collaboration on complex work. Vibe-coding is <em>not</em> the same as agentic engineering.</p>
 
       <p>GitHub Copilot in Azure DevOps wants to one-shot your entire PR. It'll produce something that looks almost right — and that's the trap. You think you're close, so you try to coach it. Leave comments, iterate, nudge it in the right direction. Until, inevitably, you give in and just fix it yourself. It's too proactive, with no real feedback loop.</p>
 
-      <p>In-IDE Copilot and Claude Code have the opposite problem. They're capable, sure, but you still need to hold their hand. Every step requires your attention. I wasn't delegating — I was supervising.</p>
+      <p>In-IDE Copilot and Claude Code have the opposite problem. They're capable, sure, but you still need to hold their hand. Every step requires your attention. I was supervising.</p>
 
-      <p>And Claude Code's plan mode? It keeps you trapped in the terminal, one step at a time, with a planning structure that's static and basic — it doesn't develop and learn with you. It's planning <em>by</em> Claude, not <em>with</em> Claude.</p>
+      <p>And Claude Code's plan mode? It keeps you trapped in the terminal, one step at a time, with a planning structure that's static and basic — it doesn't develop and learn with you. It's planning <em>by</em> Claude.</p>
 
       <p>Even <a href="https://github.com/frankbria/ralph-claude-code">Ralphing</a> — the practice of running Claude in autonomous loops until completion — doesn't quite get you there. It's an improvement, but something's still missing.</p>
 
@@ -123,7 +123,7 @@ const description = "We were promised an intelligent assistant. Instead, we got 
 
       <p>There's a deeper reason why this kind of process will always be necessary: both humans and models have limited context windows. We both forget. We both need to jot things down — whether that's a human scribbling a note "in case I forget," or a model compacting its session when it hits its token limit. The process — the planning docs, the task files — becomes the shared memory that neither of us can hold alone.</p>
 
-      <p>This is why collaborative planning isn't just nice to have. It's essential. We're building an artifact together, one that persists beyond either of our context windows.</p>
+      <p>This is why collaborative planning is essential. We're building an artifact together, one that persists beyond either of our context windows.</p>
 
       <p>What we actually want is one agent that can coordinate the rest — a chief of staff to an eventual army of specialized agents, capable of delegating on our behalf without us micromanaging every step. We want to be able to toss it unrelated orders as we think of them, truly operating at what Peter calls <a href="https://steipete.me/posts/2025/shipping-at-inference-speed">"inference speed."</a></p>
 
@@ -131,7 +131,7 @@ const description = "We were promised an intelligent assistant. Instead, we got 
 
       <hr />
 
-      <p>I've been using OpenClaw for about a week now. Something happened. When you have one agent — <em>your</em> agent — it starts to develop an identity. It stops feeling like a tool and starts feeling like an entity. I'm not talking to some generic bot. I'm working with a teammate.</p>
+      <p>I've been using OpenClaw for about a week now. Something happened. When you have one agent — <em>your</em> agent — it starts to develop an identity. It stops feeling like a tool and starts feeling like an entity. I'm working with a teammate.</p>
 
       <p>Together, we've developed a process of collaboration: planning documents that capture the <em>what</em> and <em>why</em>, doing documents that break down the <em>how</em> into atomic units. It's still early days. We're still exploring what optimal human-agent collaboration looks like, and we can apply what we learn to the tools we have right now.</p>
 
@@ -172,7 +172,7 @@ const description = "We were promised an intelligent assistant. Instead, we got 
         </div>
       </div>
 
-      <p>AI can't make decisions for us, but it can accelerate our decision making — and the best decisions emerge from collaboration, not isolation.</p>
+      <p>AI can accelerate our decision making, and the best decisions emerge from collaboration.</p>
 
       <p><em>I got pretty far on writing this before bringing in my agent to help sort my thoughts. Can you tell where my writing ends and my agent's begins?</em></p>
 
@@ -180,7 +180,7 @@ const description = "We were promised an intelligent assistant. Instead, we got 
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Epilogue — March 2026</strong></p>
         <p class="!mb-0 !text-sm text-mist">
-          Six weeks after writing this, I hit every wall I predicted — and some I didn't. Identity drift, context amnesia, rule bloat, fighting the architecture instead of building on it. The collaboration loop I described here was real, but the infrastructure underneath wasn't ready for it. That's what led to <a href="/">Ouroboros</a>: an agent harness designed from scratch around the idea that your agent is a teammate, not a tool — and that the planning artifacts, the shared memory, the collaborative process described in this essay should be first-class primitives, not afterthoughts.
+          Six weeks after writing this, I hit every wall I predicted — and some I didn't. Identity drift, context amnesia, rule bloat, fighting the architecture. The collaboration loop I described here was real, and the infrastructure underneath wasn't ready for it. That's what led to <a href="/">Ouroboros</a>: an agent harness designed from scratch around the idea that your agent is a teammate — and that the planning artifacts, the shared memory, the collaborative process described in this essay should be first-class primitives.
         </p>
       </aside>
     </div>

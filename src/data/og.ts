@@ -77,7 +77,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/lab/why': {
     title: 'Persistence is not enough.',
-    subtitle: 'Why long-lived agents need structured identity, not just longer context windows.',
+    subtitle: 'Why long-lived agents need structured identity.',
     tag: 'Why Ouroboros',
   },
   '/lab/story': {
@@ -127,7 +127,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/designing-with-your-agent': {
     title: 'The work spoke back.',
-    subtitle: 'The task scanner produced 184 false errors. We could have patched the parser. Instead we asked the agent inside the system what was actually broken.',
+    subtitle: 'The task scanner produced 184 false errors. Before patching the parser, we asked the agent inside the system what was actually broken.',
     tag: 'Essay',
   },
   '/blog/stop-being-the-glue': {
@@ -162,7 +162,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/lab/docs/continuity-and-memory': {
     title: 'Agent memory that surfaces before you think.',
-    subtitle: 'Continuity over compaction. The diary is the shelf, the journal is the desk, habits are the rhythm.',
+    subtitle: 'The diary is the shelf, the journal is the desk, habits are the rhythm.',
     tag: 'Operator guide',
   },
   '/lab/docs/architecture': {

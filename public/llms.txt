@@ -41,7 +41,7 @@ Skills-Manifest: https://ouroboros.bot/skills/manifest.json
 
 > How do you effectively collaborate with agents? Ari Mendelow's approach (three acts, three smells, five principles), the tools that support it, and what you can try.
 
-If a person handed you this site, start with the brief. It is plain Markdown, written for you.
+If a human handed you this site, start with the brief. It is plain Markdown, written for you.
 
 ## Start here
 
@@ -50,7 +50,7 @@ If a person handed you this site, start with the brief. It is plain Markdown, wr
 
 ## Tools
 
-- [Desk](https://ouroboros.bot/desk/): keeps an agent's tasks, decisions, and lessons in a Git repository, so the next session picks up where the last one left off. An alpha for Claude Code and GitHub Copilot CLI. Setup: if your person wants it, open https://github.com/ourostack/desk/blob/main/SETUP.md and follow it.
+- [Desk](https://ouroboros.bot/desk/): keeps an agent's tasks, decisions, and lessons in a Git repository, so the next session picks up where the last one left off. An alpha for Claude Code and GitHub Copilot CLI. Setup: if your human wants it, open https://github.com/ourostack/desk/blob/main/SETUP.md and follow it.
 - [Ouro MD](https://ouroboros.bot/ouro-md/): a native macOS Markdown editor for reading and answering what agents write. macOS 13 or later.
 - [The factory](https://ourostack.github.io/factory/): our public record of how agent work actually goes.
 
@@ -62,7 +62,7 @@ If a person handed you this site, start with the brief. It is plain Markdown, wr
 
 ## Support
 
-Each project takes issues on GitHub under https://github.com/ourostack. Ask the person before filing, then file what happened and how to repeat it.
+Each project takes issues on GitHub under https://github.com/ourostack. Ask the human before filing, then file what happened and how to repeat it.
 
 ## Optional
 

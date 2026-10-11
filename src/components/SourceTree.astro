@@ -13,14 +13,16 @@ const tree: { dir: string; files: string[] }[] = [
   { dir: 'repertoire', files: ['skills.ts', 'tools.ts'] },
   { dir: 'senses', files: ['cli.ts', 'mail.ts'] },
 ]
-const rows: { prefix: string; name: string; kind: 'root' | 'dir' | 'file' }[] = [{ prefix: '', name: 'src/', kind: 'root' }]
-tree.forEach(({ dir, files }, i) => {
-  const lastDir = i === tree.length - 1
-  rows.push({ prefix: lastDir ? '└── ' : '├── ', name: `${dir}/`, kind: 'dir' })
+// The tree shows the body-part folders only, so a last "…" row says there is
+// more in src/ (ruling 2026-10-11 on review finding F5).
+const rows: { prefix: string; name: string; kind: 'root' | 'dir' | 'file' | 'more' }[] = [{ prefix: '', name: 'src/', kind: 'root' }]
+tree.forEach(({ dir, files }) => {
+  rows.push({ prefix: '├── ', name: `${dir}/`, kind: 'dir' })
   files.forEach((file, j) => {
-    rows.push({ prefix: `${lastDir ? '    ' : '│   '}${j === files.length - 1 ? '└── ' : '├── '}`, name: file, kind: 'file' })
+    rows.push({ prefix: `│   ${j === files.length - 1 ? '└── ' : '├── '}`, name: file, kind: 'file' })
   })
 })
+rows.push({ prefix: '└── ', name: '…', kind: 'more' })
 ---
 
 <div class="source-tree" data-source-sha={sourceSha}>
@@ -43,5 +45,5 @@ tree.forEach(({ dir, files }, i) => {
   .st-prefix { color: var(--color-shadow); }
   .st-root { color: var(--color-mist); }
   .st-dir { color: var(--color-scale); }
-  .st-file { color: var(--color-mist); }
+  .st-file, .st-more { color: var(--color-mist); }
 </style>
