@@ -25,90 +25,120 @@ function footerOf(html) {
   return match[0];
 }
 
-test('homepage asks the question and answers as Ari, with his portrait linking to mendelow.me', () => {
+const plain = (html) => textOf(html).replace(/\s+([,.;:])/g, '$1').replace(/\s+/g, ' ');
+
+test('homepage asks the question and answers with Ari\'s own lines, with a small portrait linking to mendelow.me', () => {
   const html = readDist('index.html');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How do you effectively collaborate with agents?');
 
-  const text = textOf(html);
-  assert.ok(text.includes("I'm Ari. I build products for humans + agents. Here's how I believe it works, what I use to support it, and what you can try."));
-  assert.match(html, /<a href="https:\/\/mendelow\.me"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
+  const text = plain(html);
+  assert.ok(text.includes("I'm Ari. I build products for humans + agents. People keep ending up as the glue between half-smart tools, copying out of one and pasting into the next. The software should carry that context so you do not have to."));
+  assert.doesNotMatch(text, /Here's how I believe it works/, 'The table-of-contents subline is gone');
+  assert.match(html, /<a href="https:\/\/mendelow\.me" class="hero-pic[^"]*"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
   assert.ok(text.includes('More about me →'));
   assert.ok(distExists('images/workshop/ari-portrait.jpg'), 'The portrait is copied locally, never hotlinked');
-  assert.doesNotMatch(html, /src="https:\/\/mendelow\.me/, 'No hotlinked images');
+  assert.doesNotMatch(html, /src="https?:\/\//, 'No hotlinked images');
 
-  // Pass 1's hero slogan, name badge and context ring are gone.
+  // On a phone the portrait sits small beside the subline, not a screen of its own.
+  const css = fs.readdirSync(path.join(distDir, '_astro')).filter((n) => n.endsWith('.css')).map((n) => fs.readFileSync(path.join(distDir, '_astro', n), 'utf8')).join('\n') + html;
+  assert.match(css, /\.portrait(\[[^\]]+\])?\{[^}]*width:6\.5rem/);
+
   assert.doesNotMatch(text, /write down what matters/);
   assert.doesNotMatch(text, /✦ Ari Mendelow/);
   assert.doesNotMatch(html, /ouroboros-spin/, 'The ring lives on /lab/ only');
   assert.match(readDist('lab/index.html'), /ouroboros-spin/);
 });
 
-test('homepage shows what Ari built this way, each with a line and a link', () => {
+test('homepage shows what Ari built with agents, each with captioned media of the same height, a line and a link', async () => {
   const html = readDist('index.html');
-  const text = textOf(html);
-  assert.ok(text.includes("What I've built this way"));
+  const text = plain(html);
+  assert.ok(text.includes("What I've built with agents"));
   for (const line of [
     "Markdown that renders as you write. It's where I read and answer what my agents write.",
     "A photo-first kitchen for the recipes you actually cook. The same operations that power the app are exposed to an agent, so it does the work through the exact surface you'd use by hand.",
     "My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off.",
     'An open-source harness for personal agents that need an identity, durable state, real tools, and a place to live. Every frontier model we tested chose it from eleven harnesses as the one it would most want to wake up in.',
   ]) assert.ok(text.includes(line), `Homepage is missing "${line}"`);
-  for (const href of ['/ouro-md/', 'https://spoonjoy.app', '/desk/', '/lab/']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
+  for (const href of ['/ouro-md/', 'https://spoonjoy.app', '/desk/', '/lab/', '/lab/model-reviews/']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
+  assert.match(html, /<a href="\/lab\/model-reviews\/"[^>]*>chose it from eleven harnesses<\/a>/, 'The vote claim links to its evidence');
 
-  // Media is local, sized, and the animation starts as a poster.
+  // The claim is derived from the review data, not typed in.
+  const reviews = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
+  assert.equal(reviews.harnesses.length, 11);
+  assert.equal(reviews.summary.verdicts[reviews.summary.winner], reviews.summary.totalReviews);
+  assert.match(fs.readFileSync(path.join(process.cwd(), 'src/pages/index.astro'), 'utf8'), /modelReviews\.harnesses\.length/);
+
   const poster = html.match(/<img\b[^>]*src="\/images\/workshop\/ouro-md-reload-poster\.png"[^>]*>/);
   assert.ok(poster, 'Missing the Ouro MD poster');
   assert.match(poster[0], /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
-  assert.match(poster[0], /width="800" height="720"/);
-  assert.ok(text.includes('Agent revises the same file; the person stays in place.'), 'The animation has a caption');
-  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/spoonjoy\.jpg"[^>]*width="1200" height="630"/);
-  for (const file of ['ouro-md-reload-poster.png', 'ouro-md-reload.gif', 'spoonjoy.jpg']) assert.ok(distExists(`images/workshop/${file}`));
+  assert.match(poster[0], /data-gif-alt="[^"]*3 times their captured rate/);
+  assert.ok(text.includes('Agent revises the same file; the person stays in place (3× captured playback).'));
+  for (const [file, w, h] of [['spoonjoy-app.jpg', 1000, 625], ['desk-task-card.jpg', 900, 733], ['ouroboros-model-review.jpg', 1000, 484]]) {
+    assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${file.replace('.', '\\.')}"[^>]*width="${w}" height="${h}"`), `${file} is sized`);
+    assert.ok(distExists(`images/workshop/${file}`));
+  }
+  assert.equal((html.match(/class="product-media/g) || []).length, 4, 'Every product has media');
+  assert.equal((html.match(/<figcaption class="product-caption"/g) || []).length, 4, 'Every product image has a caption');
+  for (const gone of ['spoonjoy.jpg', 'factory-longest-sessions.jpg']) assert.ok(!distExists(`images/workshop/${gone}`), `${gone} should be gone`);
 });
 
 test('homepage says how Ari works in his own words and links each principle', () => {
   const html = readDist('index.html');
-  const text = textOf(html);
-  assert.ok(text.includes("I view this agentic era as three acts: capability, orientation, and work design. Capability has been solved for some time. Everything else I've worked on has been about orientation. Now the industry is moving into the third act: designing and measuring how agents get their work done."));
-  assert.ok(text.includes('I studied Industrial and Systems Engineering, so I already have tools to reach for.'));
-  assert.match(text, /Fix the system, not the instance \(proposed\)/);
-  assert.ok(text.includes('The five principles, with the moments that taught me each one →'));
+  const text = plain(html);
+  assert.ok(text.includes("I view this agentic era as three acts: capability, orientation, and work design. Capability has been solved for some time. Everything else I've worked on has been about orientation. Now the industry is starting to move into the third act: designing and measuring how agents get their work done."));
+  assert.ok(text.includes('I studied industrial and systems engineering, and my favorite class was Work Design and Ergonomics: designing the work around the worker instead of making the worker absorb the friction. Agent Experience is that idea, pointed at the agent.'));
+  assert.doesNotMatch(text, /so I already have tools to reach for/);
+  assert.match(text, /\+1 Fix the system, not the instance \(proposed\)/);
+  assert.ok(text.includes('Five principles and a proposed sixth, with the moments that taught me each one →'));
   assert.ok(hrefsOf(html).includes('/approach/'));
+  assert.ok(hrefsOf(html).includes('/blog/what-is-agent-experience/'));
 });
 
-test('homepage gives Slugger and the harness a real place, in Ari\'s words from the story', () => {
+test('homepage gives Slugger and the harness a real place, in concrete lines from the story', () => {
   const html = readDist('index.html');
-  const text = textOf(html);
+  const text = plain(html);
   assert.match(text, /It started with Slugger\./);
-  const story = textOf(readDist('lab/story/index.html'));
-  for (const quote of ['I set up OpenClaw on a spare MacBook at home. Named my agent Slugger.', 'Then the seams started showing.', 'Then I followed my own guide.', "What emerged from Slugger's molt wasn't another crustacean. It was a snake, eating its own tail."]) {
+  const story = plain(readDist('lab/story/index.html'));
+  for (const quote of [
+    'Slugger managed my calendar. Ordered food. Drafted messages. Talked to my family.',
+    'Slugger would forget preferences between sessions. Identity would drift.',
+    'I built the 150-line bootstrap. Ran it. Started talking to it.',
+    "OpenClaw's mascot is a lobster.",
+    "The interim name was Moltbot — the lobster shedding its shell. But what emerged from Slugger's molt wasn't another crustacean. It was a snake, eating its own tail.",
+  ]) {
     assert.ok(text.includes(quote), `Homepage is missing "${quote}"`);
-    assert.ok(story.toLowerCase().includes(quote.toLowerCase()), `"${quote}" is not verbatim from the story`);
+    assert.ok(story.includes(quote), `"${quote}" is not verbatim from the story`);
   }
+  assert.ok(text.indexOf("OpenClaw's mascot is a lobster.") < text.indexOf('another crustacean'), 'The lobster is set up first');
+  for (const bare of ['Then the seams started showing.', 'Then I followed my own guide.']) assert.ok(!text.includes(bare), `Bare beat "${bare}" is back`);
   for (const when of ['January 2026', 'Early February 2026', 'Late February 2026']) assert.ok(story.includes(when), `${when} is not a story date`);
-  assert.doesNotMatch(text, /Since Building Slugger a harness/);
   assert.ok(hrefsOf(html).includes('/lab/story/'));
 });
 
-test('homepage shows the live factory number, dated, from the factory data', async () => {
+test('homepage states the factory number in one plain sentence, dated, without a screenshot', async () => {
   const { longestSession, longestHours } = await import('../src/data/factory.mjs');
   assert.equal(longestHours, '172.7');
+  assert.equal(longestSession.asOf, 'October 2026');
   const html = readDist('index.html');
-  const text = textOf(html).replace(/ ([,.])/g, '$1');
-  assert.ok(text.includes(`${longestHours} hours in one session. ${longestSession.prsMerged} of ${longestSession.prsTotal} pull requests merged.`));
-  assert.ok(text.includes(`From the factory, my public record of agent work, as of ${longestSession.asOf}.`));
-  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/factory-longest-sessions\.jpg"[^>]*alt="[^"]{40,}"/);
+  const text = plain(html);
+  assert.ok(text.includes('One agent session ran for 172.7 hours, about a week. 82 of the 84 pull requests it referenced are merged.'));
+  assert.ok(text.includes('From the factory, my public record of agent work, October 2026.'));
+  assert.doesNotMatch(html, /factory-longest-sessions|factory-sessions\.jpg/);
   assert.ok(hrefsOf(html).includes('https://ourostack.github.io/factory/'));
 });
 
-test('homepage ends with three things to try', () => {
+test('homepage ends with three things to try, each with one action and no broken URL', () => {
   const html = readDist('index.html');
-  const text = textOf(html);
+  const text = plain(html);
   assert.ok(text.includes('The five principles, written for your agent to read.'));
-  assert.ok(text.includes('Give your agent this link and say "set this up": https://github.com/ourostack/desk/blob/main/SETUP.md'));
+  assert.ok(text.includes(`Give your agent this link and say "set this up": Desk's SETUP.md`));
+  assert.match(html, /<span id="home-desk-setup" class="sr-only"[^>]*>https:\/\/github\.com\/ourostack\/desk\/blob\/main\/SETUP\.md<\/span>/);
+  assert.match(html, /<button type="button" data-copy-target="home-desk-setup"/);
   assert.ok(text.includes('For the Mac.'));
   assert.doesNotMatch(text, /\bfree\b/i, 'No App Store listing says free');
-  for (const href of ['/brief/', 'https://ouro.bot/apps/ouro-md/']) assert.ok(hrefsOf(html).includes(href));
+  assert.doesNotMatch(html, /door-arrow/, 'No bare arrows');
+  for (const href of ['/brief/', 'https://ouro.bot/apps/ouro-md/', 'https://github.com/ourostack/desk/blob/main/SETUP.md']) assert.ok(hrefsOf(html).includes(href));
 });
 
 test('the footer links to mendelow.me', () => {
@@ -259,7 +289,7 @@ test('approach page renders the five principles and the proposed sixth', () => {
   principleHeadings.forEach((heading, i) => {
     assert.ok(headings.includes(`${i + 1}. ${heading}`), `Missing principle heading: ${heading}`);
   });
-  assert.ok(headings.includes('Into the third act: fix the system, not the instance (proposed)'));
+  assert.ok(headings.includes('+1. Fix the system, not the instance (proposed)'));
   for (const id of ['intent-and-judgement', 'whole-outcomes', 'durable-context', 'authority-and-boundaries', 'verify-the-result', 'fix-the-system']) {
     assert.match(html, new RegExp(`id="${id}"`), `Missing anchor ${id}`);
   }
@@ -272,7 +302,14 @@ test('approach page quotes Ari verbatim and labels agent notes', () => {
   for (const quote of approachQuotes) assert.ok(quotes.includes(quote), `Missing quote: ${quote}`);
 
   const text = textOf(html);
-  assert.equal((text.match(/Agent note\./g) || []).length, 6, 'Six agent notes, each labelled');
+  assert.equal((text.match(/Agent note\./g) || []).length, 2, 'Agent notes only where they add a fact: principles 3 and 4');
+  for (const id of ['durable-context', 'authority-and-boundaries']) {
+    const section = html.slice(html.indexOf(`id="${id}"`), html.indexOf('<h2', html.indexOf(`id="${id}"`) + 1));
+    assert.match(section, /Agent note\./, `${id} keeps its agent note`);
+  }
+  const fix = html.slice(html.indexOf('id="fix-the-system"'));
+  assert.match(textOf(fix), /CI took 36 minutes, and an agent started designing a way around it\. I asked:/);
+  assert.match(textOf(fix), /The cause was coverage instrumentation\. Without it, the same 1,669 tests ran in 39 seconds\./);
   assert.doesNotMatch(text, /\(draft\)/i);
 });
 
@@ -472,7 +509,8 @@ test('the approach introduces the three acts in Ari\'s words before naming one, 
     assert.doesNotMatch(text, /solidifying|settling|oriented well enough/);
   }
   const approach = textOf(readDist('approach/index.html'));
-  assert.ok(approach.indexOf(acts) < approach.indexOf('Into the third act'));
+  assert.ok(approach.includes('Now the industry is starting to move into the third act'));
+  assert.ok(approach.indexOf(acts) < approach.indexOf('+1. Fix the system'));
   assert.match(approach, /Agents pinned about a dozen times anyway/);
   assert.doesNotMatch(approach, /a dozen more times/);
 });

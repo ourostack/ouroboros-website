@@ -29,10 +29,9 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
 
       <figure class="min-w-0 grid gap-3">
         <div class="rounded-2xl overflow-hidden border border-canopy/60 bg-void">
-          <img src="/images/workshop/ouro-md-harbor-light.webp" width="800" height="720" decoding="async" alt="Real Ouro MD window in light appearance showing the fictional Harbor launch plan with an objective, invitation, feedback and decisions; sidebar closed and actual file status Committed." class="theme-light-only w-full h-auto" />
-          <img src="/images/workshop/ouro-md-harbor-dark.webp" width="800" height="720" decoding="async" alt="Real Ouro MD window in dark appearance showing the fictional Harbor launch plan with an objective, invitation, feedback and decisions; sidebar closed and actual file status Committed." class="theme-dark-only w-full h-auto" />
+          <img src="/images/workshop/ouro-md-reload-poster.png" data-gif="/images/workshop/ouro-md-reload.gif" data-gif-alt="After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed. Actual captured frames are played at 3 times their captured rate; no tween frames." width="800" height="720" decoding="async" alt="After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed." class="w-full h-auto" />
         </div>
-        <figcaption class="text-sm text-mist">One ordinary Markdown plan, ready for people and agents to work on together.</figcaption>
+        <figcaption class="text-sm text-mist">Agent revises the same file; the person stays in place (3× captured playback).</figcaption>
       </figure>
     </div>
   </section>
@@ -55,4 +54,16 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
     <p class="max-w-3xl mx-auto text-mist">To report a problem, ask your agent to file an issue on <a href="https://github.com/ourostack/ouro-md/issues" class={link}>github.com/ourostack/ouro-md</a>.</p>
   </section>
 </Layout>
+
+<script is:inline>
+  // Swap the poster for its animation unless the reader prefers reduced
+  // motion. Without JS, the poster stays.
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('img[data-gif]').forEach(function (img) {
+      img.src = img.getAttribute('data-gif');
+      if (img.hasAttribute('data-gif-alt')) img.alt = img.getAttribute('data-gif-alt');
+    });
+  })();
+</script>
 

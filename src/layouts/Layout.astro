@@ -72,7 +72,7 @@ const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
         <div class="absolute top-16 inset-x-0 z-20 px-6 md:px-12 lg:px-16 pt-3" data-lab-status={lab.status}>
           <p class="max-w-6xl mx-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist">
             <a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; Lab</a>
-            <span class={`tag ${lab.tone}`}>{lab.status}</span>
+            {lab.status !== 'Origin' && <span class={`tag ${lab.tone}`}>{lab.status}</span>}
           </p>
         </div>
       )}

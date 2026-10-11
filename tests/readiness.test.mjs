@@ -18,9 +18,8 @@ test('readiness labels come only from the allowed four', () => {
 test('the Desk page shows every host with an honest label', () => {
   const text = textOf(readDist('desk/index.html'));
   for (const [host, detail, label] of [
-    ['Claude Code on macOS', 'Tested daily', 'Use today, alpha'],
-    ['Claude Code on Linux', 'Listed, lightly tested', 'Use today, alpha'],
-    ['Claude Code on Windows', 'Works, with rough edges', 'Use today, alpha'],
+    // The three Claude Code hosts share the page's one "Use today, alpha" label.
+    ['Claude Code', 'macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.', ''],
     ['Copilot CLI and Codex', 'Runs, not yet proven in daily use', 'Experimental'],
     ['Hosted Desk on claude.ai', 'No sign-up yet', 'Not open yet'],
   ]) {
@@ -28,7 +27,7 @@ test('the Desk page shows every host with an honest label', () => {
     assert.ok(at >= 0, `Desk page is missing ${host}`);
     const row = text.slice(at, at + 160);
     if (detail) assert.ok(row.includes(detail), `${host} should say "${detail}"`);
-    assert.ok(row.includes(label), `${host} should be labelled "${label}"`);
+    if (label) assert.ok(row.includes(label), `${host} should be labelled "${label}"`);
   }
   assert.ok(text.includes('give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say "set this up"') ||
     text.includes('https://github.com/ourostack/desk/blob/main/SETUP.md set this up'), 'Desk page carries the setup line');
@@ -64,11 +63,13 @@ test('the Ouro MD page carries the install line and the macOS floor', () => {
   assert.ok(text.includes('macOS 13'));
 });
 
-test('the Ouro MD page leads with the download and the media pack hero, light and dark', () => {
+test('the Ouro MD page leads with the download and the agent-revision animation, with its playback speed', () => {
   const html = readDist('ouro-md/index.html');
   const imgs = [...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(([, src]) => src);
-  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-harbor-light.webp', '/images/workshop/ouro-md-harbor-dark.webp']);
-  for (const [img] of html.matchAll(/<img\b[^>]*ouro-md-harbor[^>]*>/g)) assert.match(img, /width="800" height="720"/);
+  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-reload-poster.png']);
+  assert.match(html, /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
+  assert.ok(textOf(html).includes('Agent revises the same file; the person stays in place (3× captured playback).'));
+  assert.doesNotMatch(textOf(html), /One ordinary Markdown plan/);
   assert.ok(!distExists('images/ouro-md'), 'The rejected Ouro MD media must not ship');
   assert.ok(html.indexOf('https://ouro.bot/apps/ouro-md/') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
   const text = textOf(html);
@@ -92,4 +93,20 @@ test('the Desk page leads with what Desk does for a builder and links the RFC', 
   const html = readDist('desk/index.html');
   assert.ok(textOf(html).includes("My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off."));
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
+});
+
+test('the Desk page shows a real task card, its label once, and limits in plain words', () => {
+  const html = readDist('desk/index.html');
+  const text = textOf(html);
+  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/desk-task-card\.jpg"[^>]*width="900" height="733"/);
+  assert.equal((text.match(/Use today, alpha/g) || []).length, 1, 'The alpha label shows once');
+  assert.ok(text.includes('macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.'));
+  assert.ok(text.includes("Desk's own browser starts signed out, and on macOS it can steal focus."));
+  assert.doesNotMatch(text, /friction-to-fix|Its browser|fresh user profile/);
+});
+
+test('the Take the agent\'s seat essay no longer cites a checklist TTFA never had', () => {
+  const text = textOf(readDist('blog/take-the-agents-seat/index.html'));
+  assert.ok(text.includes('Communication without trust is the micromanagement TTFA already called out'));
+  assert.doesNotMatch(text, /fourteen-step/);
 });

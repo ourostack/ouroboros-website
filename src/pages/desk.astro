@@ -7,6 +7,8 @@ import { deskSetupUrl, factoryUrl, rfcUrl } from '../data/principles.mjs'
 const title = 'Desk: where my agents keep their work | Ouroboros'
 const description = 'Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. Opt-in alpha on Claude Code.'
 const status = labelFor('desk-claude-code-macos')
+// The three Claude Code hosts share the page's label, so they collapse into one row.
+const otherHosts = deskHosts.filter((host) => !host.id.startsWith('desk-claude-code-'))
 const supportPrompt = 'Something went wrong with Desk. Look at what happened in this session, then file a GitHub issue on ourostack/desk with the steps to reproduce it and the exact error. Show me the issue before you submit it.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
 const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
@@ -36,10 +38,20 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
       </div>
 
       <div class="grid gap-6 content-start min-w-0">
+        <figure class="grid gap-3">
+          <div class="rounded-2xl overflow-hidden border border-canopy/60">
+            <img src="/images/workshop/desk-task-card.jpg" width="900" height="733" decoding="async" alt="The Markdown task card desk/tasks/dependency-activation/task.md from the public Desk repository: status in_progress, a title, what it covers, current scope and a privacy boundary." class="w-full h-auto" />
+          </div>
+          <figcaption class="text-sm text-mist">A real task card from the public Desk repository: <span class="font-mono text-xs break-all">desk/tasks/dependency-activation/task.md</span></figcaption>
+        </figure>
         <div class={card}>
           <h2 class="caption-mono mb-3">Where it runs</h2>
           <ul class="grid">
-            {deskHosts.map((host) => (
+            <li class="py-3 border-b border-dashed border-canopy/50">
+              <span class="text-bone">Claude Code</span>
+              <span class="block text-sm text-mist">macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.</span>
+            </li>
+            {otherHosts.map((host) => (
               <li class="flex flex-wrap items-center justify-between gap-2 py-3 border-b border-dashed border-canopy/50 last:border-b-0">
                 <span class="text-bone">{host.name}<span class="block text-sm text-mist">{host.detail}</span></span>
                 <span class={`tag ${allowedLabels[host.label]}`}>{host.label}</span>
@@ -50,9 +62,9 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
         <div class={card}>
           <h2 class="caption-mono mb-3">Known limits today</h2>
           <ul class="list-disc pl-5 grid gap-2 text-mist">
-            <li>Its browser starts signed out, and on macOS it can steal focus.</li>
-            <li>No recorded install on a fresh user profile yet.</li>
-            <li>The friction-to-fix loop is built but not proven on live data.</li>
+            <li>Desk's own browser starts signed out, and on macOS it can steal focus.</li>
+            <li>No one has yet recorded an install on a brand-new user account.</li>
+            <li>Turning reported problems into fixes is built, but not yet proven on real work.</li>
           </ul>
         </div>
       </div>

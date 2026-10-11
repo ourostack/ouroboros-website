@@ -37,7 +37,7 @@ export const principles = [
 
 export const proposedPrinciple = {
   id: 'fix-the-system',
-  n: '6',
+  n: '+1',
   title: 'Fix the system, not the instance',
   summary: "When a smell shows up, change the setup so the next agent doesn't hit it.",
 }
