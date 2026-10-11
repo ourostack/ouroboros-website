@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import DeskPlayback from '../components/DeskPlayback.astro'
+import DeskMedia from '../components/DeskMedia.astro'
+import OuroMdMedia from '../components/OuroMdMedia.astro'
 import SourceTree from '../components/SourceTree.astro'
 import WorkshopVideo from '../components/WorkshopVideo.astro'
 import { ogPathFor } from '../data/og'
@@ -76,29 +77,14 @@ const wastes = [
 
       <div class="products">
         <article class="product product-wide" id="ouro-md">
-          <figure class="product-figure">
-            <div class="clip-pair">
-              <figure class="clip">
-                <div class="product-media"><WorkshopVideo src="/images/workshop/ouro-md-type.mp4" poster="/images/workshop/ouro-md-type.png" width={1200} height={800} alt="Recording in progress" /></div>
-                <figcaption class="product-caption">Typing the Nautilus crew's periscope plan. It renders as you go.</figcaption>
-              </figure>
-              <figure class="clip">
-                <div class="product-media"><WorkshopVideo src="/images/workshop/ouro-md-agent-edit.mp4" poster="/images/workshop/ouro-md-agent-edit.png" width={1200} height={800} alt="Recording in progress" /></div>
-                <figcaption class="product-caption">An agent fills in the depth trials while you read.</figcaption>
-              </figure>
-            </div>
-            <figcaption class="product-caption caption-tag-only"><span class="tag tag-plain">Dramatization</span></figcaption>
-          </figure>
+          <OuroMdMedia />
           <h3 class="product-title"><img src="/brand/ouro-md-icon.png" width="40" height="40" alt="" class="mark-tile w-9 h-9" />Ouro MD</h3>
           <p class="text-mist leading-relaxed">A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.</p>
           <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
         </article>
 
         <article class="product" id="desk">
-          <figure class="product-figure">
-            <div class="product-media media-terminal"><DeskPlayback /></div>
-            <figcaption class="product-caption"><span class="tag tag-plain">Dramatization</span> <span>Dramatization: one crew, two machines, two harnesses, the same desk.</span></figcaption>
-          </figure>
+          <DeskMedia />
           <h3 class="product-title"><img src="/brand/desk-icon.svg" width="40" height="40" alt="" class="mark-tile w-9 h-9" />Desk</h3>
           <p class="text-mist leading-relaxed">Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. Any agent, in any harness, on any machine, can ask "where were we?" and get the whole picture.</p>
           <p class="product-links"><a href="/desk/" class={link}>Desk &rarr;</a></p>
@@ -122,6 +108,16 @@ const wastes = [
           <h3 class="product-title">Spoonjoy</h3>
           <p class="text-mist leading-relaxed">My recipe app, and the one project that's followed my whole software journey. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. I believe generative UI eventually fills the middle.</p>
           <p class="product-links"><a href="https://mendelow.me/#spoonjoy-story" class={link}>The Spoonjoy story &rarr;</a> <a href="https://spoonjoy.app" class={link}>spoonjoy.app &#8599;</a></p>
+        </article>
+
+        <article class="product product-wide product-split" id="m365crawl" data-allow-product-name="Microsoft 365">
+          <figure class="product-figure">
+            <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1602" height="1434" loading="lazy" decoding="async" alt="m365crawl doctor with every check green and a snapshot of the archive: Teams chats, channels, meetings and messages, Outlook mail, and the calendar" /></div>
+            <figcaption class="product-caption">Real output: m365crawl's health check and a snapshot of the archive.</figcaption>
+          </figure>
+          <h3 class="product-title">m365crawl</h3>
+          <p class="text-mist leading-relaxed">Microsoft 365 for your agents. It gives an agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.</p>
+          <p class="product-links"><a href="https://github.com/ourostack/m365crawl" class={link}>m365crawl on GitHub &#8599;</a></p>
         </article>
       </div>
     </div>
@@ -266,14 +262,11 @@ const wastes = [
   .dek { margin-top: 1.25rem; max-width: 52ch; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
 
-  /* Cards: Ouro MD and Spoonjoy span the row; Desk and Ouroboros sit as a pair whose rows line up. */
+  /* Cards: Ouro MD, Spoonjoy and m365crawl span the row; Desk and Ouroboros sit as a pair whose rows line up. */
   .products { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
   @media (min-width: 768px) { .products { margin-top: 3rem; } }
   @media (min-width: 1024px) { .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .product { display: grid; grid-template-rows: auto auto 1fr auto; gap: 0.9rem; align-content: start; padding: 1.25rem; border-radius: 1.25rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); background: color-mix(in srgb, var(--color-deep) 75%, transparent); min-width: 0; }
-  .product-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); display: flex; flex-direction: column; }
-  .product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); }
-  .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
   @media (min-width: 1024px) {
     .product:not(.product-wide) { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0.9rem; }
     .product-wide { grid-column: 1 / -1; }
@@ -281,14 +274,6 @@ const wastes = [
     .product-split .product-figure { grid-row: 1 / span 3; margin: 0; }
     .product-split > :not(.product-figure) { grid-column: 2; }
   }
-  .clip-pair { display: grid; }
-  @media (min-width: 768px) { .clip-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .clip { margin: 0; min-width: 0; display: flex; flex-direction: column; }
-  @media (min-width: 768px) { .clip + .clip { border-left: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
-  @media (max-width: 767px) { .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
-  .clip .product-caption { flex: 1; }
-  .product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--color-mist); background: var(--color-void); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
-  .caption-tag-only { padding-top: 0.5rem; padding-bottom: 0.5rem; }
   .product-title { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; color: var(--color-bone); }
   .product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
 

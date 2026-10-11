@@ -245,6 +245,22 @@ html {
 .tag-closed { --tag-tone: var(--color-fang); }
 .tag-plain  { --tag-tone: var(--color-mist); }
 
+/* ── Product media: the card figure with its caption strip (shared kit) ──
+   The homepage cards, /desk/ and /ouro-md/ share these, so the media looks the same everywhere. */
+.product-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); display: flex; flex-direction: column; }
+.product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); }
+.product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
+.product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
+.product-media.media-shot img { display: block; width: 100%; height: auto; }
+.clip-pair { display: grid; }
+@media (min-width: 768px) { .clip-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.clip { margin: 0; min-width: 0; display: flex; flex-direction: column; }
+@media (min-width: 768px) { .clip + .clip { border-left: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
+@media (max-width: 767px) { .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
+.clip .product-caption { flex: 1; }
+.product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--color-mist); background: var(--color-void); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+.caption-tag-only { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
 /* ── Copyable text for agents ──
    Long URLs must wrap at 375px; never scroll the page sideways. */
 .agent-text {

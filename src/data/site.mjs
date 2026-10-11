@@ -14,8 +14,12 @@ export const githubOrg = 'https://github.com/ourostack'
 // The sister site: the last nav item, and the footer row (shared kit, copy deck 2026-10-11).
 export const sisterNav = { href: 'https://mendelow.me', label: 'About me ↗' }
 export const footerLine = 'You bring judgment. Your agents bring the rest.'
+// On ouroboros.bot the row also carries Privacy and Terms, which Ouro MD and the
+// hosted Desk depend on, and GitHub goes to the ourostack organization (ruling 2026-10-11).
 export const footerRow = [
   { href: 'https://mendelow.me', label: 'mendelow.me' },
-  { href: 'https://github.com/arimendelow', label: 'GitHub' },
+  { href: githubOrg, label: 'GitHub' },
   { href: 'https://www.linkedin.com/in/arimendelow', label: 'LinkedIn' },
+  { href: '/privacy/', label: 'Privacy' },
+  { href: '/terms/', label: 'Terms' },
 ]

@@ -23,7 +23,9 @@ test('readiness labels come only from the allowed four', () => {
 });
 
 test('the Desk page shows every host with an honest label', () => {
-  const text = textOf(readDist('desk/index.html'));
+  const page = textOf(readDist('desk/index.html'));
+  // The rows live under "Where it runs"; the playback above it names harnesses too.
+  const text = page.slice(page.indexOf('Where it runs'));
   for (const [host, detail, label] of [
     // The three Claude Code hosts share the page's one "Use today, alpha" label.
     ['Claude Code', 'macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.', ''],
@@ -38,8 +40,8 @@ test('the Desk page shows every host with an honest label', () => {
     if (detail) assert.ok(row.includes(detail), `${host} should say "${detail}"`);
     if (label) assert.ok(row.includes(label), `${host} should be labelled "${label}"`);
   }
-  assert.ok(text.includes('give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say "set this up"') ||
-    text.includes('https://github.com/ourostack/desk/blob/main/SETUP.md set this up'), 'Desk page carries the setup line');
+  assert.ok(page.includes('give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say "set this up"') ||
+    page.includes('https://github.com/ourostack/desk/blob/main/SETUP.md set this up'), 'Desk page carries the setup line');
 });
 
 test('the Desk page keeps the plain-words line for screen readers only', () => {
@@ -72,10 +74,13 @@ test('the Ouro MD page carries the install line and the macOS floor', () => {
   assert.ok(text.includes('macOS 13'));
 });
 
-test('the Ouro MD page leads with the download and the agent-revision animation, with its playback speed', () => {
+test('the Ouro MD page leads with the card copy and clips, then keeps the agent-revision animation with its playback speed', () => {
   const html = readDist('ouro-md/index.html');
-  const imgs = [...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(([, src]) => src);
-  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-reload-poster.png']);
+  // Copy deck (2026-10-11): /ouro-md/ leads with the homepage card's copy and the same media.
+  assert.ok(textOf(html).includes('A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.'));
+  const imgs = [...html.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
+  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-type.png', '/images/workshop/ouro-md-agent-edit.png', '/images/workshop/ouro-md-reload-poster.png']);
+  assert.match(html, /<img src="\/images\/workshop\/ouro-md-reload-poster\.png"[^>]*width="800" height="720" loading="lazy"/);
   assert.match(html, /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
   assert.ok(textOf(html).includes("A demo: an agent's revision lands in the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
   assert.doesNotMatch(textOf(html), /One ordinary Markdown plan|the person stays in place/);
@@ -98,9 +103,13 @@ test('each tool page has exactly one way to report a problem through your agent'
   assert.doesNotMatch(md, /Found a problem\?/);
 });
 
-test('the Desk page leads with what Desk does for a builder and links the RFC', () => {
+test('the Desk page leads with the card copy and the playback, and links the RFC', () => {
   const html = readDist('desk/index.html');
-  assert.ok(textOf(html).includes("My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off."));
+  // Copy deck (2026-10-11): /desk/ leads with the homepage card's copy and the same media.
+  assert.ok(textOf(html).includes(`Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. Any agent, in any harness, on any machine, can ask "where were we?" and get the whole picture.`));
+  assert.match(html, /data-desk-playback/);
+  assert.ok(html.indexOf('data-desk-playback') < html.indexOf('Where it runs'), 'The playback leads the right column');
+  assert.match(html, /<meta name="description" content="[^"]*An alpha for Claude Code and GitHub Copilot CLI\."/);
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
 });
 
@@ -121,6 +130,6 @@ test('the Desk page shows real session-start output, links the factory once, its
 
 test('the Take the agent\'s seat essay no longer cites a checklist TTFA never had', () => {
   const text = textOf(readDist('blog/take-the-agents-seat/index.html'));
-  assert.ok(text.includes('Communication without trust is the micromanagement TTFA already called out'));
+  assert.ok(text.includes('Trust and communication are the two halves of delegation.'));
   assert.doesNotMatch(text, /fourteen-step/);
 });

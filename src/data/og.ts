@@ -49,7 +49,7 @@ const labReviewSummary = `We gave frontier models ${modelReviews.harnesses.lengt
 export const pageOg: Record<string, OgEntry> = {
   '/': {
     title: 'How do you effectively collaborate with agents?',
-    subtitle: "Here's how I believe it works, what I use to support it, and what you can try.",
+    subtitle: "I'm Ari. I build products for humans + agents.",
   },
   '/approach': {
     title: 'How I build with agents.',
@@ -62,7 +62,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/desk': {
     title: 'Desk: where my agents keep their work.',
-    subtitle: 'Give your agent one link and say "set this up". Opt-in alpha on Claude Code.',
+    subtitle: 'Give your agent one link and say "set this up". An alpha for Claude Code and GitHub Copilot CLI.',
     tag: 'Desk',
   },
   '/ouro-md': {
@@ -72,7 +72,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/lab': {
     title: 'The harness: where all of this started.',
-    subtitle: 'Slugger, the Ouroboros harness and the model reviews. Our Agent Experience lab.',
+    subtitle: 'Slugger, the Ouroboros harness, and the model reviews. Our Agent Experience lab.',
     tag: 'Lab',
   },
   '/lab/why': {
@@ -107,12 +107,12 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/trust-the-agent': {
     title: 'Trust the Fucking Agent.',
-    subtitle: "Agents have all the agency. We have the judgement. Bring judgement. They've got the rest.",
+    subtitle: "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
     tag: 'Essay',
   },
   '/blog/take-the-agents-seat': {
     title: "Take the agent's seat.",
-    subtitle: 'Half of every prompt we send lives in our head. Read what we wrote, before the agent does.',
+    subtitle: 'Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.',
     tag: 'Essay',
   },
   '/blog/give-your-agent-a-home': {
@@ -142,7 +142,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/privacy': {
     title: 'Privacy.',
-    subtitle: 'What this site, Desk, the factory and Ouro MD collect, in plain language.',
+    subtitle: 'What this site, Desk, the factory, and Ouro MD collect, in plain language.',
   },
   '/terms': {
     title: 'Terms.',

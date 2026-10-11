@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import OuroMdMedia from '../components/OuroMdMedia.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor } from '../data/readiness.mjs'
 import { ouroMdInstall } from '../data/principles.mjs'
@@ -19,7 +20,7 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
           <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
           <h1 class="heading-lead">Ouro MD</h1>
         </div>
-        <p class="text-xl md:text-2xl text-bone font-display leading-snug">Markdown that renders as you write. It's where I read and answer what my agents write.</p>
+        <p class="text-xl md:text-2xl text-bone font-display leading-snug">A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.</p>
 
         <div class="flex flex-wrap items-center gap-3">
           <a href="https://ouro.bot/apps/ouro-md/" class="btn-primary">Download for Mac &rarr;</a>
@@ -27,17 +28,18 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
         </div>
       </div>
 
-      <figure class="min-w-0 grid gap-3">
-        <div class="rounded-2xl overflow-hidden border border-canopy/60 bg-void">
-          <img src="/images/workshop/ouro-md-reload-poster.png" data-gif="/images/workshop/ouro-md-reload.gif" data-gif-alt="After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed. Actual captured frames are played at 3 times their captured rate; no tween frames." width="800" height="720" decoding="async" alt="After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed." class="w-full h-auto" />
-        </div>
-        <figcaption class="text-sm text-mist">A demo: an agent's revision lands in the plan I'm reading, and Ouro MD marks what changed. Sped up 3×.</figcaption>
-      </figure>
+      <div class="min-w-0"><OuroMdMedia /></div>
     </div>
   </section>
 
   <section class="px-6 md:px-12 lg:px-16 pt-4">
     <div class="max-w-3xl mx-auto grid gap-5">
+      <figure class="grid gap-3">
+        <div class="rounded-2xl overflow-hidden border border-canopy/60 bg-void">
+          <img src="/images/workshop/ouro-md-reload-poster.png" data-gif="/images/workshop/ouro-md-reload.gif" data-gif-alt="After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed. Actual captured frames are played at 3 times their captured rate; no tween frames." width="800" height="720" loading="lazy" decoding="async" alt="After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed." class="w-full h-auto" />
+        </div>
+        <figcaption class="text-sm text-mist">A demo: an agent's revision lands in the plan I'm reading, and Ouro MD marks what changed. Sped up 3×.</figcaption>
+      </figure>
       <div class="grid gap-2">
         <h2 class="caption-mono">Or install in Terminal</h2>
         <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>

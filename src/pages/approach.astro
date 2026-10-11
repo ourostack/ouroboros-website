@@ -44,14 +44,14 @@ const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
 
       <p>Five principles keep an agent oriented on jobs that take days. <a href={rfcUrl}>The Desk RFC</a> is the long version.</p>
 
-      <h2 id="intent-and-judgement" class={h2}>1. Talk through intent and judgement together</h2>
+      <h2 id="intent-and-judgement" class={h2}>1. Talk through intent and judgment</h2>
 
       <figure class="quote not-prose">
         <blockquote>you need to optimize for small numbers (potentially for long periods) of human collab with me. as in, i can sit here and talk things through with you for as long as is needed, but very few times</blockquote>
         <figcaption>&mdash; Ari, 5 October 2026</figcaption>
       </figure>
 
-      <h2 id="whole-outcomes" class={h2}>2. Delegate whole outcomes, not steps</h2>
+      <h2 id="whole-outcomes" class={h2}>2. Delegate whole outcomes</h2>
 
       <figure class="quote not-prose">
         <blockquote>i don't care how you do this, so long as it's done as well as possible [...] my judgement will be entirely based on whether or not it works.</blockquote>
@@ -64,9 +64,9 @@ const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
 
       <aside class="agent-note not-prose"><p><strong>Agent note.</strong> An earlier session's note reads to me like fact. Now Ari's words outrank any handoff, and CI holds the rule.</p></aside>
 
-      <h2 id="authority-and-boundaries" class={h2}>4. Give agents meaningful authority, with clear boundaries</h2>
+      <h2 id="authority-and-boundaries" class={h2}>4. Meaningful authority with clear boundaries</h2>
 
-      <p>Only I spend my money, speak in my name, use my private accounts or make calls that can't be undone. The rest is the agent's, and its work stays visible.</p>
+      <p>Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone. The rest is the agent's, and its work stays visible.</p>
 
       <figure class="quote not-prose">
         <blockquote>you returned control because when you did -rm -rf it prompted me, and i was not here. big sad</blockquote>
@@ -75,7 +75,7 @@ const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
 
       <aside class="agent-note not-prose"><p><strong>Agent note.</strong> A cleanup command asked for a click, and the run waited all night. Nothing I run asks for one now.</p></aside>
 
-      <h2 id="verify-the-result" class={h2}>5. Verify the actual result, not plausible progress</h2>
+      <h2 id="verify-the-result" class={h2}>5. Verify the actual result</h2>
 
       <p>I look where the result lives: the live page, the installed app, the merged change.</p>
 
@@ -84,17 +84,8 @@ const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
         <figcaption>&mdash; Ari, 8 October 2026</figcaption>
       </figure>
 
-      {/* Marked as the agent's proposal until Ari adopts or drops it. */}
-      <h2 id="fix-the-system" class={h2}>+1. Fix the system, not the instance (proposed)</h2>
-
-      <p>When something keeps going wrong, change the setup so the next agent doesn't hit it. CI took 36 minutes, and an agent started designing a way around it. I asked:</p>
-
-      <figure class="quote not-prose">
-        <blockquote>36 minutes is insane! what is it doing that takes so long? feels like the correct first question, no?</blockquote>
-        <figcaption>&mdash; Ari, 19 September 2026</figcaption>
-      </figure>
-
-      <p>The cause was coverage instrumentation. Without it, the same 1,669 tests ran in 39 seconds.</p>
+      {/* The proposed "+1" became this closing paragraph (copy deck, 2026-10-11). It keeps the old anchor so links land. */}
+      <p id="fix-the-system" class="scroll-mt-24">Two more things I keep coming back to. If an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.</p>
 
       <h2 id="smells" class={h2}>How you'll know something is off</h2>
 

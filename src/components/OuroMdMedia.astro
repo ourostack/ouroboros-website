@@ -1,0 +1,20 @@
+---
+import WorkshopVideo from './WorkshopVideo.astro'
+
+// The Ouro MD media, verbatim from the copy deck (2026-10-11). The homepage card
+// and /ouro-md/ both lead with it, so the two cannot drift.
+---
+
+<figure class="product-figure">
+  <div class="clip-pair">
+    <figure class="clip">
+      <div class="product-media"><WorkshopVideo src="/images/workshop/ouro-md-type.mp4" poster="/images/workshop/ouro-md-type.png" width={1200} height={800} alt="Recording in progress" /></div>
+      <figcaption class="product-caption">Typing the Nautilus crew's periscope plan. It renders as you go.</figcaption>
+    </figure>
+    <figure class="clip">
+      <div class="product-media"><WorkshopVideo src="/images/workshop/ouro-md-agent-edit.mp4" poster="/images/workshop/ouro-md-agent-edit.png" width={1200} height={800} alt="Recording in progress" /></div>
+      <figcaption class="product-caption">An agent fills in the depth trials while you read.</figcaption>
+    </figure>
+  </div>
+  <figcaption class="product-caption caption-tag-only"><span class="tag tag-plain">Dramatization</span></figcaption>
+</figure>

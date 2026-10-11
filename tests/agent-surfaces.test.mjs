@@ -3,12 +3,13 @@ import fs from 'node:fs';
 import test from 'node:test';
 import { readDist, distExists, textOf } from './support/dist.mjs';
 
+// Ari's original titles (copy deck, 2026-10-11).
 const principles = [
-  'Talk through intent and judgement together',
-  'Delegate whole outcomes, not steps',
+  'Talk through intent and judgment',
+  'Delegate whole outcomes',
   'Make context durable',
-  'Give agents meaningful authority, with clear boundaries',
-  'Verify the actual result, not plausible progress',
+  'Meaningful authority with clear boundaries',
+  'Verify the actual result',
 ];
 const deskSetupUrl = 'https://github.com/ourostack/desk/blob/main/SETUP.md';
 
@@ -23,6 +24,8 @@ test('brief.md is plain text an agent can read, under 6,000 characters', () => {
   assert.doesNotMatch(brief, /give your agent/i, 'brief.md speaks to the agent, not about it');
   assert.match(brief, /GitHub issue/i);
   assert.match(brief, /file/i);
+  assert.ok(brief.includes("It's an alpha for Claude Code and GitHub Copilot CLI."), 'brief.md names both tested harnesses');
+  assert.doesNotMatch(brief, /not plausible progress|judgement/);
 });
 
 test('llms.txt points agents at the method pages', () => {
