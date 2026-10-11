@@ -36,7 +36,7 @@ import { ogPathFor } from '../../../data/og'
     <div>
       <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">Task cards</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
-        <p>A task card is a markdown file with YAML frontmatter that declares <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">kind: task</code>. That declaration is the signal. Everything else in the task directory &mdash; planning docs, doing docs, unit files, artifacts &mdash; is support material that the scanner may list for context; it doesn't parse it as a task card.</p>
+        <p>A task card is a markdown file with YAML frontmatter that declares <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">kind: task</code>. That declaration is the signal. Everything else in the task directory &mdash; planning docs, doing docs, unit files, artifacts &mdash; is support material that the scanner may list for context, and it parses only task cards.</p>
         <p>Cards carry status, priority, dependencies, ownership, timestamps, and pointers. They're the source of truth that the board reads from.</p>
       </div>
     </div>

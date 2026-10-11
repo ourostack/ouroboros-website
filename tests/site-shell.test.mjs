@@ -141,7 +141,11 @@ test('the Spoonjoy card shows one of Ari\'s own recipes, linked, with the deck c
   assert.ok(card, 'Missing the Spoonjoy card');
   const img = card[0].match(/<img\b[^>]*src="\/images\/workshop\/spoonjoy-recipe\.(?:webp|jpg)"[^>]*>/);
   assert.ok(img, 'The Spoonjoy card shows the recipe screenshot');
-  assert.match(img[0], /width="1280" height="800"/);
+  // root final ruling F19: cropped to the recipe hero, without the blank bottom and the COOK MODE rule.
+  assert.match(img[0], /width="1280" height="700"/);
+  const webp = fs.readFileSync(new URL('../public/images/workshop/spoonjoy-recipe.webp', import.meta.url));
+  assert.equal(webp.toString('ascii', 12, 16), 'VP8 ', 'A lossy WebP');
+  assert.deepEqual([webp.readUInt16LE(26) & 0x3fff, webp.readUInt16LE(28) & 0x3fff], [1280, 700], 'The file matches its width and height');
   assert.match(img[0], /loading="lazy"/);
   assert.match(img[0], /alt="Ari(&#39;|')s Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion\."/);
   assert.ok(hrefsOf(card[0]).includes('https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z'), 'The screenshot links to the recipe');
@@ -169,7 +173,9 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   assert.match(playback[0], /^<div\b[^>]*role="group"[^>]*aria-label="Desk playback"/);
   const plainText = (h) => textOf(h).replace(/\s+([,.?])/g, '$1');
   const one = plainText(scenes[0][4]);
-  const two = plainText(scenes[1][4]);
+  // The wide frame: the narrow-only lines left out (root final ruling F4).
+  const lineSpan = (attr) => new RegExp(`<span class="dp-line[^"]*"[^>]*\\b${attr}\\b[^>]*>[^<]*<\\/span>`, 'g');
+  const two = plainText(scenes[1][4].replace(lineSpan('data-narrow'), ''));
   // Copy deck round 2: scene 1 answers only the periscope request.
   assert.equal(one, "Desk boot: ok | host laptop / ned / claude > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow.");
   assert.match(playback[0], /data-scene-title="ned"[^>]*>ned@laptop · Claude Code</);
@@ -197,6 +203,23 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   assert.match(moduleSrc, /\.dp-line\[data-off\] \{ visibility: hidden; \}/);
   assert.match(html, /await \w+\(5[0-9]{3}\)/, "Scene 1 holds for at least 5 seconds");
   assert.doesNotMatch(html, /minHeight/);
+  // root final ruling F2: when Skip or Replay hides itself while focused, focus moves to the button that replaces it.
+  assert.match(moduleSrc, /const finish = \(\) => \{\s*const hadFocus = root\.contains\(document\.activeElement\)[\s\S]*?if \(hadFocus\) replay\.focus\(\)/);
+  assert.match(moduleSrc, /const hadFocus = document\.activeElement === replay\s*replay\.hidden = true\s*skipButton\.hidden = false\s*if \(hadFocus\) skipButton\.focus\(\)/);
+  // root final ruling F3: the host bar wraps its title and never truncates it; titles and buttons each share a cell, so the bar keeps one height.
+  assert.doesNotMatch(moduleSrc, /text-overflow: ellipsis/);
+  assert.match(moduleSrc, /\.dp-title \{ grid-area: 1 \/ 1;/);
+  assert.match(moduleSrc, /\.dp-actions > \.dp-replay \{ grid-area: 1 \/ 1; justify-self: end; \}/);
+  assert.match(moduleSrc, /\.dp-title\[data-off\], \.dp-sizer \{ visibility: hidden; \}/);
+  assert.match(playback[0], /<span class="dp-replay dp-sizer"[^>]*aria-hidden="true"[^>]*>Replay<\/span>/, 'An invisible Replay holds the buttons\' width');
+  // root final ruling F4: below 640px, scene 2 drops the blocked group's explanation and the salon task, and the counts follow.
+  assert.match(moduleSrc, /@media \(max-width: 639\.98px\) \{ \.dp-line\[data-wide\] \{ display: none; \} \}/);
+  assert.match(moduleSrc, /@media \(min-width: 640px\) \{ \.dp-body \{ font-size: 0\.75rem; \} \.dp-line\[data-narrow\] \{ display: none; \} \}/);
+  const linesWith = (attr) => [...scenes[1][4].matchAll(lineSpan(attr))].map(([span]) => textOf(span).trim());
+  assert.deepEqual(linesWith('data-wide'), ['Active tasks (4):', 'BLOCKED (1): these cannot move until the blocker clears', 'processing (2)', '- salon/organ-tuning', 'next: tune the reeds, pipes, and pedals']);
+  assert.deepEqual(linesWith('data-narrow'), ['Active tasks (3):', 'BLOCKED (1)', 'processing (1)']);
+  const narrow = plainText(scenes[1][4].replace(lineSpan('data-wide'), ''));
+  assert.ok(!narrow.includes('salon') && !narrow.includes('these cannot move'), 'The narrow frame drops the salon task and the blocked explanation');
 });
 
 test('homepage Ouroboros card shows the real body-part folders of the harness source', () => {
@@ -249,14 +272,14 @@ test('homepage puts the factory in Lean terms, with sources and the eight wastes
     `Agents are the newest workers on the line. AI "amplifies what's already there" (DORA 2025). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (METR). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.`,
     "Here's one. Our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.",
     "Lean's eight wastes, as they show up with agents",
-    'Waiting an agent stops to ask what you could have told it up front.',
-    'Defects work that comes back broken.',
-    'Overprocessing polish nobody asked for.',
-    'Overproduction building before anyone needs it.',
-    'Motion re-reading and re-searching what was already known.',
-    'Inventory half-finished branches and pull requests piling up.',
-    'Transportation carrying context by hand from one tool to the next.',
-    'Unused talent a human doing what an agent could, or an agent kept from what it could do.',
+    'Waiting An agent stops to ask what you could have told it up front.',
+    'Defects Work that comes back broken.',
+    'Overprocessing Polish nobody asked for.',
+    'Overproduction Building before anyone needs it.',
+    'Motion Re-reading and re-searching what was already known.',
+    'Inventory Half-finished branches and pull requests piling up.',
+    'Transportation Carrying context by hand from one tool to the next.',
+    'Unused talent A human doing what an agent could, or an agent kept from what it could do.',
     'The numbers are public, alarms and all.',
     "See my agents' numbers →",
   ]);
@@ -264,6 +287,8 @@ test('homepage puts the factory in Lean terms, with sources and the eight wastes
     assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
   }
   assert.doesNotMatch(html, /<strong>[^<]*:<\/strong>/, 'The wastes grid drops the colons after the titles');
+  // root final ruling F13: each description starts with a capital letter.
+  for (const m of html.matchAll(/<li><strong>[^<]+<\/strong> ([^<])/g)) assert.match(m[1], /[A-Z]/, 'A waste description starts lowercase');
 });
 
 test('homepage tells where it started, with Slugger and the molt', () => {
@@ -297,7 +322,9 @@ test('homepage ends with three things to try, each with one action and no broken
   assert.match(html, /<span id="home-desk-setup" class="sr-only"[^>]*>https:\/\/github\.com\/ourostack\/desk\/blob\/main\/SETUP\.md<\/span>/);
   assert.match(html, /<button type="button" data-copy-target="home-desk-setup"/);
   assert.doesNotMatch(text, /\bfree\b/i, 'No App Store listing says free');
-  for (const href of ['/brief/', 'https://ouro.bot/apps/ouro-md/', 'https://github.com/ourostack/desk/blob/main/SETUP.md']) assert.ok(hrefsOf(html).includes(href));
+  // root final ruling F1: the homepage download goes to /ouro-md/, which keeps the real download button.
+  for (const href of ['/brief/', '/ouro-md/', 'https://github.com/ourostack/desk/blob/main/SETUP.md']) assert.ok(hrefsOf(html).includes(href));
+  assert.ok(!hrefsOf(html).includes('https://ouro.bot/apps/ouro-md/'), 'The homepage sends Download Ouro MD to /ouro-md/');
 });
 
 test('homepage deck lines appear in the deck order', () => {
@@ -566,13 +593,14 @@ test('the two essays are the 2026-10-11 essays deck, with their bylines and end 
     "He's describing models that are smarter than us at most things, work on their own for days, and run as millions of copies at once.",
     "That's how most of us treat agents. We ask one to look into a bug, then dictate the grep.",
     'David doesn\'t ask Claude to walk him through it.',
-    'Either way, you find out what your setup was quietly leaning on you for.',
+    // root final ruling F6.
+    'You find out what your setup was leaning on you for.',
     "Here's what we bring: the judgment to ask whether this is the right work in the first place.",
     "Every time I rerun a search, reformat the output, or paste a diff by hand, that's time I'm not spending on judgment.",
     'Trust the fucking agent.',
     'You can see how my agents spend their time on the factory dashboard.',
   ]) assert.ok(ttfaText.includes(line), `TTFA is missing "${line}"`);
-  assert.doesNotMatch(ttfaText, /fourteen-step|Multiplication became addition|The trade|The country of geniuses is showing up|Take that seriously/);
+  assert.doesNotMatch(ttfaText, /Either way|quietly leaning|fourteen-step|Multiplication became addition|The trade|The country of geniuses is showing up|Take that seriously/);
   // Copy deck round 2: the essay ends on "Trust the fucking agent."
   assert.match(ttfa, /<p>Trust the fucking agent\.<\/p>\s*<\/div>/, 'The essay ends on its title line');
   assert.ok(hrefsOf(ttfa).includes('https://ourostack.github.io/factory/'));
@@ -604,13 +632,15 @@ test('Stop being the glue is back to its published text', () => {
   assert.doesNotMatch(text, /Update, October 2026/);
 });
 
-test('every blog post ends with a route to Desk, the factory and the team steps', () => {
+test('every blog post ends with a route to Desk and the team steps', () => {
   for (const slug of ['stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience', 'trust-the-agent']) {
     const html = readDist(`blog/${slug}/index.html`);
     const end = html.match(/<aside\b[^>]*data-post-end[\s\S]*?<\/aside>/);
     assert.ok(end, `${slug} has no post end`);
     assert.match(textOf(end[0]), /https:\/\/github\.com\/ourostack\/desk\/blob\/main\/SETUP\.md and say "set this up"/);
-    assert.ok(hrefsOf(end[0]).includes('https://ourostack.github.io/factory/'));
+    // root final ruling F7: the post end no longer says where my agents' sessions are.
+    assert.doesNotMatch(textOf(end[0]), /sessions are on/);
+    assert.ok(!hrefsOf(end[0]).includes('https://ourostack.github.io/factory/'));
     assert.ok(hrefsOf(end[0]).includes('/approach/#for-teams'));
   }
   assert.doesNotMatch(readDist('blog/index.html'), /data-post-end/);
@@ -653,7 +683,6 @@ test('the story opens with who Slugger is and ends with where it went, with no d
     "It mostly worked, and every fix felt like adding a room to someone else's house. Pi is excellent at coding. I was asking it to be a personal agent.",
     'Around the same time, Slugger and I started writing a guide.',
     "Docs matter because they're how the model learns what it is.",
-    "Clawdbot became Moltbot, and what came out of Slugger's molt was a snake.",
     'It named itself, which is a little silly for something that was building itself. The name started making sense with the sliding context window: when the conversation grows too long, the agent trims its oldest messages, and before it trims, it saves the facts to memory.',
     "I named things so the agent could guess what they're for: psyche/SOUL.md tells it more than config/personality.yaml would.",
     'Every line is tested.',
@@ -662,7 +691,7 @@ test('the story opens with who Slugger is and ends with where it went, with no d
     'The model is your roommate. Build the house accordingly.',
     'The quick start takes about three minutes.',
   ]) assert.ok(text.includes(line), `/lab/story/ is missing "${line}"`);
-  for (const gone of ['Brilliant at what it was designed for.', 'genuinely magical', 'like teammates', 'Duct tape on someone else', 'And something shifted.', "That's the distinction that changes everything.", 'Different metaphors', 'Most agent frameworks are built by humans']) assert.ok(!text.includes(gone), `/lab/story/ still has "${gone}"`);
+  for (const gone of ['Brilliant at what it was designed for.', 'genuinely magical', 'like teammates', 'Duct tape on someone else', 'And something shifted.', "That's the distinction that changes everything.", 'Different metaphors', 'Most agent frameworks are built by humans', /* root final ruling F9 */ "Clawdbot became Moltbot, and what came out of Slugger's molt was a snake."]) assert.ok(!text.includes(gone), `/lab/story/ still has "${gone}"`);
   const story = textOf(html.replace(/<script\b[\s\S]*?<\/script>/g, ''));
   assert.doesNotMatch(story.replace(/^.*?Ari Mendelow · March 2026/, ''), /—|(^|[.!?] )But /, 'No em dashes or "But" sentence openers in the story');
   for (const href of ['/approach/', '/desk/', '/ouro-md/']) assert.ok(hrefsOf(html).includes(href));

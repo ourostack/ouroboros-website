@@ -10,7 +10,8 @@ const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet'];
 test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experimental', async () => {
   const { entry } = await import('../src/data/readiness.mjs');
   assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['Copilot CLI', 'Alpha', 'Tested daily']);
-  assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', "Runs, and hasn't been proven in daily use yet."]);
+  // root final ruling F12: readiness details have no trailing period.
+  assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', "Runs, and hasn't been proven in daily use yet"]);
   assert.ok(!readiness.some((item) => item.name === 'Copilot CLI and Codex'));
 });
 
@@ -28,10 +29,10 @@ test('the Desk page shows every host with an honest label', () => {
   const text = page.slice(page.indexOf('Where it runs'));
   for (const [host, detail, label] of [
     // The three Claude Code hosts share one row, and it carries the badge (copy deck round 2).
-    ['Claude Code', 'macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges.', 'Alpha'],
+    ['Claude Code', 'macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges', 'Alpha'],
     // Ari uses Copilot CLI every day as his primary harness, with Desk underneath (2026-10-11).
     ['Copilot CLI', 'Tested daily', 'Alpha'],
-    ['Codex', "Runs, and hasn't been proven in daily use yet.", 'Experimental'],
+    ['Codex', "Runs, and hasn't been proven in daily use yet", 'Experimental'],
     ['Hosted Desk on claude.ai', 'No sign-up yet', 'Not open yet'],
   ]) {
     const at = text.indexOf(host);
@@ -123,14 +124,15 @@ test('the Desk page shows real session-start output, links the factory once, its
   assert.ok(text.includes('- my-app/checkout-flow "One-page checkout with saved addresses" (updated 2026-10-10)'));
   assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
   assert.ok(text.replace(/\s+([.,])/g, '$1').includes("Setup also installs Superpowers, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public factory. It sends timings and sizes, never your prompts, commands, or code."));
-  assert.ok(text.includes('What setup looks like'), 'The sample terminal sits under its own heading');
+  // root final ruling F14: the H2 matches the session-start output under it.
+  assert.ok(text.includes('What a new session looks like'), 'The sample terminal sits under its own heading');
   // At 1440px, Known limits sits under the copy box in the left column, before the playback.
   assert.ok(html.indexOf('Known limits today') < html.indexOf('data-desk-playback'), 'Known limits moves under the copy box');
   assert.doesNotMatch(text, /See what it does in practice/);
   // Once for the page, once on the Claude Code row and once on the Copilot CLI row.
   assert.equal((text.match(/\bAlpha\b/g) || []).length, 3, 'The Alpha label shows for the page, Claude Code and Copilot CLI');
   assert.doesNotMatch(text, /Use today, alpha/);
-  assert.ok(text.includes('macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges.'));
+  assert.ok(text.includes('macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges'));
   assert.ok(text.includes("We haven't yet tested a first install on a brand-new Mac account."));
   assert.ok(text.includes("Desk's own browser starts signed out, and on macOS it can steal focus."));
   assert.doesNotMatch(text, /friction-to-fix|Its browser|fresh user profile/);

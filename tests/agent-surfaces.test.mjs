@@ -68,8 +68,37 @@ test('copy buttons fall back to selecting the text without the Clipboard API', (
   }
 });
 
-test('llms.txt keeps every line it was first published with', () => {
+// root final ruling F5 (2026-10-11): the workshop section comes first, the old
+// block's purpose line names the harness as one project in this workshop, and
+// its links point at their /lab/ paths. Each published line that changed, with
+// the line that replaced it.
+const llmsChanges = new Map([
+  ['# This site is the public entrypoint for Ouroboros, an open-source agent harness.', '# Ouroboros, the open-source agent harness, is one project in this workshop. Its docs live under /lab/.'],
+  ['# Built by agents, for agents. No human-written code.', '# No human-written code.'],
+  ['Purpose: https://ouroboros.bot/why', 'Purpose: https://ouroboros.bot/lab/why'],
+  ['Read: https://ouroboros.bot/what-is-an-agent-harness', 'Read: https://ouroboros.bot/lab/what-is-an-agent-harness'],
+  ['Read: https://ouroboros.bot/story', 'Read: https://ouroboros.bot/lab/story'],
+  ['Read: https://ouroboros.bot/why', 'Read: https://ouroboros.bot/lab/why'],
+  ['Docs: https://ouroboros.bot/docs', 'Docs: https://ouroboros.bot/lab/docs'],
+]);
+
+test('llms.txt keeps every line it was first published with, unless the root final ruling F5 replaced it', () => {
   const llms = readDist('llms.txt');
+  const lines = llms.split('\n');
   const published = fs.readFileSync(new URL('./fixtures/llms-published.txt', import.meta.url), 'utf8');
-  for (const line of published.split('\n').filter((l) => l.trim())) assert.ok(llms.includes(line), `llms.txt lost "${line}"`);
+  for (const line of published.split('\n').filter((l) => l.trim())) {
+    const now = llmsChanges.get(line) ?? line;
+    assert.ok(lines.includes(now), `llms.txt lost "${line}"`);
+    if (llmsChanges.has(line)) assert.ok(!lines.includes(line), `llms.txt still has "${line}"`);
+  }
+});
+
+test('llms.txt opens with the workshop, names /approach "How I work", and links the harness pages at /lab/', () => {
+  const llms = readDist('llms.txt');
+  assert.ok(llms.startsWith('# ouroboros.bot\n'), 'The workshop section comes first');
+  assert.ok(llms.indexOf('# ouroboros.bot\n') < llms.indexOf('# llms.txt for ouroboros.bot'));
+  assert.ok(llms.includes('- [How I work](https://ouroboros.bot/approach/)'));
+  assert.doesNotMatch(llms, /\[The approach\]/);
+  assert.doesNotMatch(llms, /public entrypoint/);
+  assert.doesNotMatch(llms, /https:\/\/ouroboros\.bot\/(why|story|docs|what-is-an-agent-harness)\b/, 'Old-block links use their /lab/ paths');
 });

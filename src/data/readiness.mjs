@@ -18,7 +18,7 @@ export const readiness = [
   { id: 'desk-claude-code-linux', name: 'Claude Code on Linux', label: 'Alpha', detail: 'Lightly tested' },
   { id: 'desk-claude-code-windows', name: 'Claude Code on Windows', label: 'Alpha', detail: 'Works, with rough edges' },
   { id: 'desk-copilot-cli', name: 'Copilot CLI', label: 'Alpha', detail: 'Tested daily' },
-  { id: 'desk-codex', name: 'Codex', label: 'Experimental', detail: "Runs, and hasn't been proven in daily use yet." },
+  { id: 'desk-codex', name: 'Codex', label: 'Experimental', detail: "Runs, and hasn't been proven in daily use yet" },
   { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'No sign-up yet' },
   { id: 'ouro-md', name: 'Ouro MD', label: 'Use today', detail: 'macOS 13 or later' },
   { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },

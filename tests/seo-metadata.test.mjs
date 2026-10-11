@@ -58,9 +58,15 @@ test('review claims derive from the data and retain the model count in methodolo
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
   const claims = getModelReviewClaims(data);
 
-  for (const filePath of ['lab/model-reviews/index.html', 'lab/why/index.html', 'blog/what-is-agent-experience/index.html', 'lab/index.html']) {
+  for (const filePath of ['lab/model-reviews/index.html', 'lab/why/index.html', 'blog/what-is-agent-experience/index.html']) {
     assert.ok(readDistFile(filePath).includes(claims.claimSentence), `Missing shared claim on ${filePath}`);
   }
+  // root final ruling F10: /lab states the claim once, then the method, with the harness count spelled out.
+  const lab = readDistFile('lab/index.html').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  assert.ok(lab.includes('Each model we asked picked Ouroboros .') || lab.includes('Each model we asked picked Ouroboros.'));
+  const word = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'][data.harnesses.length];
+  assert.ok(lab.includes(`We asked each model separately, with the same ${word} harnesses.`));
+  assert.ok(!lab.includes(claims.claimSentence), '/lab no longer repeats the claim under its heading');
   const methodology = readDistFile('lab/model-reviews/index.html').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   assert.ok(methodology.includes(`runs the ${claims.totalReviews} selected models in parallel`));
 });

@@ -10,21 +10,25 @@ import WorkshopVideo from './WorkshopVideo.astro'
 interface Props { stacked?: boolean }
 const { stacked = false } = Astro.props
 const themes = ['light', 'dark'] as const
+// Each clip's caption is also its poster's alt text and its video's aria-label,
+// so the clip is named programmatically (root final ruling F15).
+const typing = "A made-up plan for Captain Nemo's Nautilus, typed in. It renders as you go."
+const agentEdit = 'An agent fills in the depth trials while I read.'
 ---
 
 <figure class="product-figure">
   <div class:list={['clip-pair', { 'clip-stack': stacked }]}>
     <figure class="clip">
       <div class="product-media media-clip">
-        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} /></div>)}
+        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} alt={typing} /></div>)}
       </div>
-      <figcaption class="product-caption">A made-up plan for Captain Nemo's Nautilus, typed in. It renders as you go.</figcaption>
+      <figcaption class="product-caption">{typing}</figcaption>
     </figure>
     <figure class="clip">
       <div class="product-media media-clip">
-        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-agent-edit-${theme}.mp4`} webm={`/images/workshop/ouro-md-agent-edit-${theme}.webm`} poster={`/images/workshop/ouro-md-agent-edit-${theme}-poster.png`} width={840} height={630} /></div>)}
+        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-agent-edit-${theme}.mp4`} webm={`/images/workshop/ouro-md-agent-edit-${theme}.webm`} poster={`/images/workshop/ouro-md-agent-edit-${theme}-poster.png`} width={840} height={630} alt={agentEdit} /></div>)}
       </div>
-      <figcaption class="product-caption">An agent fills in the depth trials while I read.</figcaption>
+      <figcaption class="product-caption">{agentEdit}</figcaption>
     </figure>
   </div>
   <figcaption class="product-caption caption-tag-only"><span class="tag tag-plain">Dramatization</span></figcaption>

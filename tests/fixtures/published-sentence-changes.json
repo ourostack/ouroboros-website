@@ -1580,8 +1580,8 @@
  {
   "page": "desk",
   "was": "The factory measures every session sent to it, in public. a new session starts Active tasks (1): processing (1) - my-app/checkout-flow \"One-page checkout with saved addresses\" (updated 2026-10-10) next: wire the saved-address picker into the shipping form, then test it on a phone.",
-  "now": "What setup looks like a new session starts Active tasks (1): processing (1) - my-app/checkout-flow \"One-page checkout with saved addresses\" (updated 2026-10-10) next: wire the saved-address picker into the shipping form, then test it on a phone.",
-  "why": "copy deck: the Desk boot preview moved below the lead, so this text run changed; copy deck round 2: /desk: under the copy box, and the sample terminal gets the H2 \"What setup looks like\""
+  "now": "What a new session looks like a new session starts Active tasks (1): processing (1) - my-app/checkout-flow \"One-page checkout with saved addresses\" (updated 2026-10-10) next: wire the saved-address picker into the shipping form, then test it on a phone.",
+  "why": "copy deck: the Desk boot preview moved below the lead, so this text run changed; copy deck round 2: /desk: under the copy box, and the sample terminal gets the H2 \"What setup looks like\"; root final ruling F14 (2026-10-11): the H2 becomes \"What a new session looks like\""
  },
  {
   "page": "desk",
@@ -1592,8 +1592,8 @@
  {
   "page": "index",
   "was": "Ouro MD → ned@laptop · Claude Code conseil@mac2 · Copilot CLI Replay Desk boot: ok | host laptop / ned / claude Active tasks (3): BLOCKED (1): these cannot move until the blocker clears - ballast/pump-3 blocker: waiting on parts at Vanikoro processing (1) - salon/organ-tuning next: tune the reeds, pipes, and pedals validating (1) - captains-log/export next: waiting on Captain Nemo's review > Plan the periscope overhaul ⏺ desk · task_create ⎿ task_create: periscope/overhaul Next step: survey the lens, seals, and hoist > where were we?",
-  "now": "ned@laptop · Claude Code conseil@mac2 · Copilot CLI · next morning Skip Replay Desk boot: ok | host laptop / ned / claude > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow. > where were we?",
-  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes; root ruling M10 (2026-10-11): a Skip button while it plays"
+  "now": "ned@laptop · Claude Code conseil@mac2 · Copilot CLI · next morning Replay Skip Replay Desk boot: ok | host laptop / ned / claude > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow. > where were we?",
+  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes; root ruling M10 (2026-10-11): a Skip button while it plays; root final ruling F3 (2026-10-11): an invisible, aria-hidden copy of Replay holds the buttons' width, so the bar keeps one height"
  },
  {
   "page": "index",
@@ -2222,8 +2222,8 @@
  {
   "page": "desk",
   "was": "Copilot CLI Tested daily Use today, alpha Codex Runs, not yet proven in daily use Experimental Hosted Desk on claude.ai No sign-up yet Not open yet Known limits today Desk's own browser starts signed out, and on macOS it can steal focus.",
-  "now": "Copilot CLI Tested daily Alpha Codex Runs, and hasn't been proven in daily use yet. Experimental Hosted Desk on claude.ai No sign-up yet Not open yet What setup looks like",
-  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail"
+  "now": "Copilot CLI Tested daily Alpha Codex Runs, and hasn't been proven in daily use yet Experimental Hosted Desk on claude.ai No sign-up yet Not open yet What a new session looks like",
+  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail; root final ruling F12 (2026-10-11): readiness details have no trailing period; root final ruling F14: the H2 becomes \"What a new session looks like\""
  },
  {
   "page": "desk",
@@ -2312,44 +2312,44 @@
  {
   "page": "index",
   "was": "Defects: work that comes back broken.",
-  "now": "Defects work that comes back broken.",
-  "why": "copy deck round 2: homepage: wastes grid drops the colons"
+  "now": "Defects Work that comes back broken.",
+  "why": "copy deck round 2: homepage: wastes grid drops the colons; root final ruling F13 (2026-10-11): each description starts with a capital letter"
  },
  {
   "page": "index",
   "was": "Overprocessing: polish nobody asked for.",
-  "now": "Overprocessing polish nobody asked for.",
-  "why": "copy deck round 2: homepage: wastes grid drops the colons"
+  "now": "Overprocessing Polish nobody asked for.",
+  "why": "copy deck round 2: homepage: wastes grid drops the colons; root final ruling F13 (2026-10-11): each description starts with a capital letter"
  },
  {
   "page": "index",
   "was": "Overproduction: building before anyone needs it.",
-  "now": "Overproduction building before anyone needs it.",
-  "why": "copy deck round 2: homepage: wastes grid drops the colons"
+  "now": "Overproduction Building before anyone needs it.",
+  "why": "copy deck round 2: homepage: wastes grid drops the colons; root final ruling F13 (2026-10-11): each description starts with a capital letter"
  },
  {
   "page": "index",
   "was": "Motion: re-reading and re-searching what was already known.",
-  "now": "Motion re-reading and re-searching what was already known.",
-  "why": "copy deck round 2: homepage: wastes grid drops the colons"
+  "now": "Motion Re-reading and re-searching what was already known.",
+  "why": "copy deck round 2: homepage: wastes grid drops the colons; root final ruling F13 (2026-10-11): each description starts with a capital letter"
  },
  {
   "page": "index",
   "was": "Inventory: half-finished branches and pull requests piling up.",
-  "now": "Inventory half-finished branches and pull requests piling up.",
-  "why": "copy deck round 2: homepage: wastes grid drops the colons"
+  "now": "Inventory Half-finished branches and pull requests piling up.",
+  "why": "copy deck round 2: homepage: wastes grid drops the colons; root final ruling F13 (2026-10-11): each description starts with a capital letter"
  },
  {
   "page": "index",
   "was": "Transportation: carrying context by hand from one tool to the next.",
-  "now": "Transportation carrying context by hand from one tool to the next.",
-  "why": "copy deck round 2: homepage: wastes grid drops the colons"
+  "now": "Transportation Carrying context by hand from one tool to the next.",
+  "why": "copy deck round 2: homepage: wastes grid drops the colons; root final ruling F13 (2026-10-11): each description starts with a capital letter"
  },
  {
   "page": "index",
   "was": "Unused talent: a human doing what an agent could, or an agent kept from what it could do.",
-  "now": "Unused talent a human doing what an agent could, or an agent kept from what it could do.",
-  "why": "copy deck round 2: homepage: wastes grid drops the colons"
+  "now": "Unused talent A human doing what an agent could, or an agent kept from what it could do.",
+  "why": "copy deck round 2: homepage: wastes grid drops the colons; root final ruling F13 (2026-10-11): each description starts with a capital letter"
  },
  {
   "page": "index",
@@ -2618,14 +2618,14 @@
  {
   "page": "lab/story",
   "was": "The shell Clawdbot → Moltbot → What emerged Ouroboros The lobster molts to grow larger.",
-  "now": "Clawdbot → Moltbot → Ouroboros Clawdbot became Moltbot, and what came out of Slugger's molt was a snake.",
-  "why": "copy deck round 2: /lab/story edit pass: the decorative molt labels go, and the molt caption"
+  "now": "Clawdbot → Moltbot → Ouroboros March 2026 The snake grows",
+  "why": "copy deck round 2: /lab/story edit pass: the decorative molt labels go, and the molt caption; root final ruling F9 (2026-10-11): the caption goes, since the diagram already shows Clawdbot → Moltbot"
  },
  {
   "page": "lab/story",
   "was": "The snake consumes itself to preserve continuity.",
-  "now": "Clawdbot became Moltbot, and what came out of Slugger's molt was a snake.",
-  "why": "copy deck round 2: /lab/story edit pass: the molt caption"
+  "now": null,
+  "why": "copy deck round 2: /lab/story edit pass: the molt caption; root final ruling F9 (2026-10-11): the caption goes, since the diagram already shows Clawdbot → Moltbot"
  },
  {
   "page": "lab/story",
@@ -3092,13 +3092,127 @@
  {
   "page": "lab/docs/tasks-and-work",
   "was": "Everything else in the task directory — planning docs, doing docs, unit files, artifacts — is support material that the scanner may enumerate for context but does not parse as a task card.",
-  "now": "Everything else in the task directory — planning docs, doing docs, unit files, artifacts — is support material that the scanner may list for context; it doesn't parse it as a task card.",
-  "why": "root ruling M1 (2026-10-11)"
+  "now": "Everything else in the task directory — planning docs, doing docs, unit files, artifacts — is support material that the scanner may list for context, and it parses only task cards.",
+  "why": "root ruling M1 (2026-10-11); root final ruling F11 (2026-10-11)"
  },
  {
   "page": "lab/model-reviews",
   "was": "Models absent from its catalog use their direct API instead.",
   "now": "Models absent from its catalog use their direct API.",
   "why": "root ruling M1 (2026-10-11)"
+ },
+ {
+  "page": "blog",
+  "was": "Agent ergonomics & persistent AI — Ouroboros blog Blog Dispatches from the serpent.",
+  "now": "Essays on agents | Ouroboros blog Blog Dispatches from the serpent.",
+  "why": "root final ruling F8 (2026-10-11): the page title drops \"agent ergonomics\" and the em dash"
+ },
+ {
+  "page": "blog",
+  "was": "Essays on agent ergonomics, persistent agents, and the problem of building software an agent can actually stay oriented inside.",
+  "now": "Essays on agent experience, persistent agents, and the problem of building software an agent can actually stay oriented inside.",
+  "why": "root final ruling F8 (2026-10-11): \"agent experience\" in the lead"
+ },
+ {
+  "page": "blog",
+  "was": "Story The timeline The origin story How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.",
+  "now": "Story The timeline The origin story How a plugin for my OpenClaw agent turned into a harness I built from scratch.",
+  "why": "root final ruling F8 (2026-10-11): the origin-story card uses the /lab/story dek"
+ },
+ {
+  "page": "blog attributes",
+  "was": "Agent ergonomics & persistent AI — Ouroboros blog",
+  "now": "Essays on agents | Ouroboros blog",
+  "why": "root final ruling F8 (2026-10-11): the page title"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
+ },
+ {
+  "page": "blog/designing-with-your-agent",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
+ },
+ {
+  "page": "blog/give-your-agent-a-home",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
+ },
+ {
+  "page": "blog/take-the-agents-seat",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
+ },
+ {
+  "page": "blog/trust-the-agent",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "UX taught us to care about how the product feels to the person using it.",
+  "now": "UX taught us to care about how the product feels to the human using it.",
+  "why": "root final ruling F18 (2026-10-11): \"humans\" for the human side"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "DX taught us to care about how the system feels to the person building on it.",
+  "now": "DX taught us to care about how the system feels to the human building on it.",
+  "why": "root final ruling F18 (2026-10-11): \"humans\" for the human side"
+ },
+ {
+  "page": "brief",
+  "was": "Hand this to your agent | Ouroboros No install Hand this to your agent The five principles, written for your agent to read.",
+  "now": "Hand this to your agent | Ouroboros Hand this to your agent The five principles, written for your agent to read.",
+  "why": "root final ruling F17 (2026-10-11): the \"No install\" kicker goes; neither copy deck names it"
+ },
+ {
+  "page": "desk",
+  "was": "Windows: works, with rough edges.",
+  "now": "Windows: works, with rough edges",
+  "why": "root final ruling F12 (2026-10-11): readiness details have no trailing period"
+ },
+ {
+  "page": "lab",
+  "was": "Read the story → The harness on GitHub ✦ Reviews All frontier models tested chose Ouroboros.",
+  "now": "Read the story → The harness on GitHub ✦ Reviews Each model we asked picked Ouroboros.",
+  "why": "root final ruling F10 (2026-10-11): the H2"
+ },
+ {
+  "page": "lab",
+  "was": "Asked independently from one another, all frontier models tested chose Ouroboros.",
+  "now": "We asked each model separately, with the same eleven harnesses.",
+  "why": "root final ruling F10 (2026-10-11): the sentence under the H2, with the harness count from /lab/model-reviews spelled out"
+ },
+ {
+  "page": "lab",
+  "was": "Hatched. npx ouro.bot starts a serpent guide — a conversational hatching process that shapes your agent's personality, name, and purpose through dialogue.",
+  "now": "Hatched. npx ouro.bot starts a guided setup — a conversational hatching process that shapes your agent's personality, name, and purpose through dialogue.",
+  "why": "root final ruling F10 (2026-10-11): \"starts a guided setup\""
+ },
+ {
+  "page": "share card /approach",
+  "was": "The approach",
+  "now": "How I work",
+  "why": "root final ruling F5 (2026-10-11): the share-card tag for /approach says \"How I work\""
  }
 ]

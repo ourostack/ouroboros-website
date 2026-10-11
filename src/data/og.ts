@@ -54,7 +54,7 @@ export const pageOg: Record<string, OgEntry> = {
   '/approach': {
     title: 'How I work.',
     subtitle: 'The three acts, three smells, and five principles I use to work with agents on jobs that take days.',
-    tag: 'The approach',
+    tag: 'How I work',
   },
   '/brief': {
     title: 'Hand this to your agent.',

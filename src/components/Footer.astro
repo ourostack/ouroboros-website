@@ -23,4 +23,7 @@ const linkClass = 'underline decoration-canopy underline-offset-4 hover:text-bon
 <style>
   .footer-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.35rem 0.6rem; }
   .footer-sep { color: var(--color-shadow); }
+  /* The row wraps on a phone, so a separator would dangle at a line's end; the
+     wider gap separates the items instead (root final ruling F17). */
+  @media (max-width: 639.98px) { .footer-sep { display: none; } .footer-row { column-gap: 1.1rem; } }
 </style>

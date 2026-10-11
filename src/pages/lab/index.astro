@@ -8,7 +8,13 @@ import { labelFor } from '../../data/readiness.mjs'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
 
 const reviews = modelReviews.reviews
-const { winner, claimSentence, heroLead } = getModelReviewClaims(modelReviews)
+const { winner, claimSentence, heroLead, allChose } = getModelReviewClaims(modelReviews)
+// root final ruling F10 (2026-10-11): the claim as the method, with the harness
+// count from the script output, spelled out.
+const numberWords = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty']
+const harnessCountWord = numberWords[modelReviews.harnesses.length] ?? String(modelReviews.harnesses.length)
+const reviewsHeading = allChose ? `Each model we asked picked ${winner}.` : null
+const reviewsMethod = `We asked each model separately, with the same ${harnessCountWord} harnesses.`
 const harness = labelFor('harness')
 const title = 'The harness: where all of this started | Ouroboros'
 const description = pageOg['/lab'].subtitle
@@ -58,12 +64,12 @@ const pieces = [
 
       <!-- ONE claim -->
       <h2 class="heading-hero animate-fade-up stagger-1 max-w-5xl">
-        {heroLead} <span class="text-scale">{winner}.</span>
+        {reviewsHeading ? <>Each model we asked picked <span class="text-scale">{winner}.</span></> : <>{heroLead} <span class="text-scale">{winner}.</span></>}
       </h2>
 
       <!-- ONE subhead — derived from the script output. Never hardcode the claim. -->
       <p class="mt-6 md:mt-8 text-bone text-lg md:text-xl lg:text-2xl max-w-3xl leading-snug animate-fade-up stagger-2">
-        {claimSentence}
+        {reviewsHeading ? reviewsMethod : claimSentence}
       </p>
 
       <!-- 4 compact specimen cards — the selected review panel.
@@ -166,7 +172,7 @@ const pieces = [
           <span class="text-scale">Hatched.</span>
         </h2>
         <p class="text-sm xl:text-base text-mist mt-6 leading-relaxed max-w-xs">
-          <code class="font-mono text-scale text-xs">npx ouro.bot</code> starts a serpent guide — a conversational hatching process that shapes your agent's personality, name, and purpose through dialogue.
+          <code class="font-mono text-scale text-xs">npx ouro.bot</code> starts a guided setup — a conversational hatching process that shapes your agent's personality, name, and purpose through dialogue.
         </p>
         <div class="mt-8 flex items-baseline gap-6">
           <a href="/lab/docs" class="inline-flex items-center gap-2 px-5 py-2.5 bg-scale text-void text-sm font-medium rounded-lg transition-all duration-300 hover:bg-glow hover:shadow-[0_0_30px_rgba(45,148,71,0.15)]">
