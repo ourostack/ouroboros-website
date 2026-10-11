@@ -2726,8 +2726,8 @@
  {
   "page": "index",
   "was": "The harness → What is Agent Experience? → My agent imports a recipe into Spoonjoy.",
-  "now": "My agent imports a recipe into Spoonjoy.",
-  "why": "copy deck round 2: card order puts Spoonjoy last"
+  "now": "One of my recipes in Spoonjoy.",
+  "why": "copy deck round 2: card order puts Spoonjoy last; copy deck round 2: the Spoonjoy media is one of Ari's own recipes, and the recorded import clip does not ship"
  },
  {
   "page": "lab/model-reviews",
@@ -3040,5 +3040,17 @@
   "was": "It's an opt-in alpha on Claude Code.",
   "now": "It's an alpha for Claude Code and GitHub Copilot CLI.",
   "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\""
+ },
+ {
+  "page": "index attributes",
+  "was": "Recording in progress",
+  "now": "Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion.",
+  "why": "copy deck round 2: the Spoonjoy placeholder becomes a screenshot of one of Ari's own recipes (review C1)"
+ },
+ {
+  "page": "index",
+  "was": "Real, sped up.",
+  "now": null,
+  "why": "copy deck round 2: the recorded import clip does not ship, so its caption goes (review C1)"
  }
 ]

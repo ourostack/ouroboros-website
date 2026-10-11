@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro'
 import DeskMedia from '../components/DeskMedia.astro'
 import OuroMdMedia from '../components/OuroMdMedia.astro'
 import SourceTree from '../components/SourceTree.astro'
-import WorkshopVideo from '../components/WorkshopVideo.astro'
 import { ogPathFor } from '../data/og'
 import { principles, smells, factoryUrl, deskSetupUrl } from '../data/principles.mjs'
 import { labelFor } from '../data/readiness.mjs'
@@ -98,8 +97,8 @@ const wastes = [
 
         <article class="product product-wide product-split" id="m365crawl" data-allow-product-name="Microsoft 365">
           <figure class="product-figure">
-            <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1602" height="1434" loading="lazy" decoding="async" alt="m365crawl doctor with every check green and a snapshot of the archive: Teams chats, channels, meetings and messages, Outlook mail, and the calendar" /></div>
-            <figcaption class="product-caption">Real output: m365crawl's health check and a snapshot of the archive.</figcaption>
+            <div class="product-media media-shot"><img src="/images/workshop/m365crawl-indexed-notes.png" width="2204" height="1646" loading="lazy" decoding="async" alt="Actual synthetic m365crawl output: focused indexed-note search, then a note with text, OCR, native hierarchy, flags and source coverage" /></div>
+            <figcaption class="product-caption">Real output on synthetic notes: a search, then the note it found.</figcaption>
           </figure>
           <h3 class="product-title">m365crawl</h3>
           <p class="text-mist leading-relaxed">It gives my agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.</p>
@@ -108,8 +107,8 @@ const wastes = [
 
         <article class="product product-wide product-split" id="spoonjoy">
           <figure class="product-figure">
-            <div class="product-media"><WorkshopVideo src="/images/workshop/spoonjoy-import.mp4" poster="/images/workshop/spoonjoy-import.png" width={1200} height={800} alt="Recording in progress" /></div>
-            <figcaption class="product-caption">My agent imports a recipe into Spoonjoy. Real, sped up.</figcaption>
+            <a href="https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z" class="product-media media-shot media-photo"><img src="/images/workshop/spoonjoy-recipe.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." /></a>
+            <figcaption class="product-caption">One of my recipes in Spoonjoy.</figcaption>
           </figure>
           <h3 class="product-title">Spoonjoy</h3>
           <p class="text-mist leading-relaxed">My recipe app. I've rebuilt it every time I learned a new way to build software. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. For everything in between, I believe the app will eventually draw its own UI.</p>

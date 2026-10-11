@@ -254,6 +254,7 @@ html {
 .product-media.media-clip { aspect-ratio: 4 / 3; }
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
+.product-media.media-photo { display: block; background: #f7f5f0; }
 .clip-pair { display: grid; }
 @media (min-width: 768px) { .clip-pair:not(.clip-stack) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .clip { margin: 0; min-width: 0; display: flex; flex-direction: column; }
