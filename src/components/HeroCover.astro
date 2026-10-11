@@ -16,10 +16,10 @@
     - body (optional): the smaller mist-color body paragraph below
 
   Props:
-    - eyebrow (required): the small uppercase mono label above the H1
+    - eyebrow (optional): the small uppercase mono label above the H1
 */
 interface Props {
-  eyebrow: string
+  eyebrow?: string
 }
 
 const { eyebrow } = Astro.props
@@ -33,11 +33,13 @@ const hasBody = Astro.slots.has('body')
 
   <div class="relative max-w-5xl mx-auto text-center">
     <!-- Eyebrow flanked with hairline rules -->
-    <div class="inline-flex items-center gap-3 mb-10 md:mb-12">
-      <span class="h-px w-12 bg-canopy/50"></span>
-      <span class="font-mono text-xs text-fang uppercase tracking-[0.28em]">{eyebrow}</span>
-      <span class="h-px w-12 bg-canopy/50"></span>
-    </div>
+    {eyebrow && (
+      <div class="inline-flex items-center gap-3 mb-10 md:mb-12">
+        <span class="h-px w-12 bg-canopy/50"></span>
+        <span class="font-mono text-xs text-fang uppercase tracking-[0.28em]">{eyebrow}</span>
+        <span class="h-px w-12 bg-canopy/50"></span>
+      </div>
+    )}
 
     <!-- The title -->
     <h1 class="heading-hero tracking-tight mb-6 md:mb-8">

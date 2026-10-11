@@ -1,5 +1,5 @@
 // Ari's five principles. Titles are his originals, verbatim from the copy deck
-// (2026-10-11); summaries are the short card copy from the homepage mockup.
+// (2026-10-11).
 // The approach page anchors each section with `id`, so homepage cards can
 // deep-link to /approach/#<id>.
 export const principles = [
@@ -7,31 +7,26 @@ export const principles = [
     id: 'intent-and-judgement',
     n: '1',
     title: 'Talk through intent and judgment',
-    summary: "The planning is collaborative and the doing is delegated. The agent's confident first answer is a draft to push on.",
   },
   {
     id: 'whole-outcomes',
     n: '2',
     title: 'Delegate whole outcomes',
-    summary: "Say what done looks like and why it matters. The steps are the agent's, including the awkward ones.",
   },
   {
     id: 'durable-context',
     n: '3',
     title: 'Make context durable',
-    summary: 'Decisions live in files the next session reads, not in a chat that ends. Teaching it twice means the record is missing something.',
   },
   {
     id: 'authority-and-boundaries',
     n: '4',
     title: 'Meaningful authority with clear boundaries',
-    summary: "Name the few things only you can do. Everything else is the agent's, and what it does stays visible.",
   },
   {
     id: 'verify-the-result',
     n: '5',
     title: 'Verify the actual result',
-    summary: 'Look where the result lives: the live page, the installed app, the merged change.',
   },
 ]
 

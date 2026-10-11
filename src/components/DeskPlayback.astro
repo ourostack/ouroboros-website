@@ -2,22 +2,26 @@
 /**
  * Desk playback: a dramatization in the shapes of Desk's real output.
  *
- * The line shapes follow Desk 3.2.0-alpha.287's plain-text boot
+ * The list follows Desk 3.2.0-alpha.287's plain-text boot
  * (`mcp/src/runtime/boot-text.js`): the `Desk boot: <status> | host ...`
  * headline, `Active tasks (n):`, tasks grouped by state with the blocked group
- * first (`BLOCKED (n): these cannot move until the blocker clears`), each task
- * as `- track/slug` with a `blocker:` or `next:` line under it, and the
- * `task_create: track/slug` / `task_update: track/slug` acknowledgements Desk
- * writes when it commits a card. The crew, tracks and steps are the
- * Nautilus dramatization from the 2026-10-11 design.
+ * first (`BLOCKED (n): these cannot move until the blocker clears`), and each
+ * task as `- track/slug` with a `blocker:` or `next:` line under it. The
+ * `task_create periscope/overhaul` call is shown as a tool call with its next
+ * step, condensed from the card it writes. The crew, tracks, steps and the
+ * agent's lines are the Nautilus dramatization in copy deck round 2
+ * (2026-10-11).
  *
- * Without JS, or under reduced motion, the final frame (scene 2, complete)
- * is what renders. With JS it plays once when it scrolls into view, and the
- * Replay button plays it again.
+ * Before it plays, scene 1's opening (the bar, the boot line and the prompt)
+ * shows as a still, so the body is never empty, and the box grows with the
+ * lines it shows. Without JS, or under reduced motion, the final frame
+ * (scene 2, complete) is what renders. With JS it plays once when it scrolls
+ * into view, holds scene 1 for 5 seconds, and holds the end. A click or a key
+ * skips to the end, and Replay plays it again.
  */
 
 type Tone = 'prompt' | 'bone' | 'mist' | 'scale' | 'glow' | 'fang' | 'tool'
-type Line = { text: string; tone: Tone }
+type Line = { text: string; tone: Tone; opening?: boolean }
 
 const blocked = 'BLOCKED (1): these cannot move until the blocker clears'
 
@@ -26,27 +30,18 @@ const scenes: { id: string; title: string; lines: Line[] }[] = [
     id: 'ned',
     title: 'ned@laptop · Claude Code',
     lines: [
-      { text: '> Plan the periscope overhaul', tone: 'prompt' },
-      { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist' },
-      { text: 'Active tasks (3):', tone: 'bone' },
-      { text: blocked, tone: 'fang' },
-      { text: '- ballast/pump-3', tone: 'bone' },
-      { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
-      { text: 'processing (1)', tone: 'scale' },
-      { text: '- salon/organ-tuning', tone: 'bone' },
-      { text: '  next: tune the reeds, pipes, and pedals', tone: 'mist' },
-      { text: 'validating (1)', tone: 'scale' },
-      { text: '- captains-log/export', tone: 'bone' },
-      { text: "  next: waiting on Captain Nemo's review", tone: 'mist' },
+      { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist', opening: true },
+      { text: '> Plan the periscope overhaul', tone: 'prompt', opening: true },
       { text: '', tone: 'mist' },
-      { text: '⏺ desk · task_create', tone: 'tool' },
-      { text: '  ⎿ task_create: periscope/overhaul', tone: 'glow' },
-      { text: '  Next step: survey the lens, seals, and hoist', tone: 'mist' },
+      { text: '⏺ task_create periscope/overhaul', tone: 'tool' },
+      { text: '  ⎿ Next step: survey the lens, the seals, and the hoist', tone: 'glow' },
+      { text: '', tone: 'mist' },
+      { text: "⏺ Filed under periscope. I'll start with the lens survey tomorrow.", tone: 'bone' },
     ],
   },
   {
     id: 'conseil',
-    title: 'conseil@mac2 · Copilot CLI',
+    title: 'conseil@mac2 · Copilot CLI · next morning',
     lines: [
       { text: '> where were we?', tone: 'prompt' },
       { text: 'Desk boot: ok | host mac2 / conseil / copilot', tone: 'mist' },
@@ -56,16 +51,14 @@ const scenes: { id: string; title: string; lines: Line[] }[] = [
       { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
       { text: 'processing (2)', tone: 'scale' },
       { text: '- periscope/overhaul', tone: 'bone' },
-      { text: '  next: survey the lens, seals, and hoist', tone: 'mist' },
+      { text: '  next: survey the lens, the seals, and the hoist', tone: 'mist' },
       { text: '- salon/organ-tuning', tone: 'bone' },
       { text: '  next: tune the reeds, pipes, and pedals', tone: 'mist' },
       { text: 'validating (1)', tone: 'scale' },
       { text: '- captains-log/export', tone: 'bone' },
       { text: "  next: waiting on Captain Nemo's review", tone: 'mist' },
       { text: '', tone: 'mist' },
-      { text: '⏺ desk · task_update', tone: 'tool' },
-      { text: '  ⎿ task_update: periscope/overhaul', tone: 'glow' },
-      { text: '  Next step: survey the lens, seals, and hoist', tone: 'mist' },
+      { text: '⏺ We were on the periscope overhaul. Ned planned it last night, and the next step is surveying the lens, the seals, and the hoist. The ballast pump is still waiting on parts. Want me to start on the periscope?', tone: 'bone' },
     ],
   },
 ]
@@ -86,26 +79,24 @@ const last = scenes.length - 1
         // The terminal glyphs are decoration; screen readers skip them.
         const glyph = line.text.match(/^(\s*)([⏺⎿])(.*)$/)
         return glyph
-          ? <span class={`dp-line tone-${line.tone}`}>{glyph[1]}<span aria-hidden="true">{glyph[2]}</span>{glyph[3]}</span>
-          : <span class={`dp-line tone-${line.tone}`}>{line.text || ' '}</span>
+          ? <span class={`dp-line tone-${line.tone}`} data-opening={line.opening ? '' : undefined}>{glyph[1]}<span aria-hidden="true">{glyph[2]}</span>{glyph[3]}</span>
+          : <span class={`dp-line tone-${line.tone}`} data-opening={line.opening ? '' : undefined}>{line.text || ' '}</span>
       })}</pre>
     ))}
   </div>
 </div>
 <script is:inline>
-  // Arm the playback before first paint, so a card already on screen starts at
-  // scene 1 with no flash of the final frame. Without JS, or under reduced
-  // motion, this never runs and the final frame stays.
+  // Arm the playback before first paint: it shows scene 1's opening as a still
+  // (the bar, the boot line and the prompt), with no flash of the final frame.
+  // Without JS, or under reduced motion, this never runs and the final frame stays.
   (function () {
     var root = document.currentScript && document.currentScript.previousElementSibling;
-    if (!root || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var screen = root.querySelector('.dp-screen');
-    screen.style.minHeight = screen.offsetHeight + 'px';
+    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var bodies = root.querySelectorAll('[data-scene]');
     var titles = root.querySelectorAll('[data-scene-title]');
     for (var i = 0; i < bodies.length; i++) { bodies[i].hidden = i !== 0; titles[i].hidden = i !== 0; }
     var lines = bodies[0].querySelectorAll('.dp-line');
-    for (var j = 0; j < lines.length; j++) lines[j].classList.add('is-hidden');
+    for (var j = 0; j < lines.length; j++) lines[j].hidden = !lines[j].hasAttribute('data-opening');
     root.setAttribute('data-armed', '');
   })();
 </script>
@@ -120,20 +111,28 @@ const last = scenes.length - 1
     if (reduce.matches) return
     const bodies = [...root.querySelectorAll<HTMLElement>('[data-scene]')]
     const titles = [...root.querySelectorAll<HTMLElement>('[data-scene-title]')]
-    const screen = root.querySelector<HTMLElement>('.dp-screen')!
     const replay = root.querySelector<HTMLButtonElement>('[data-replay]')!
+    const allLines = [...root.querySelectorAll<HTMLElement>('.dp-line')]
     let run = 0
 
     const show = (index: number) => {
       bodies.forEach((body, i) => { body.hidden = i !== index })
       titles.forEach((title, i) => { title.hidden = i !== index })
     }
+    const restore = (line: HTMLElement) => {
+      if (line.dataset.full !== undefined) line.textContent = line.dataset.full
+    }
+    // Scene 1's opening, as the still shows it before playing.
+    const still = () => {
+      show(0)
+      allLines.forEach((line) => { restore(line); line.hidden = !line.hasAttribute('data-opening') })
+    }
 
     const typeLine = async (line: HTMLElement, token: number) => {
       const full = line.dataset.full ?? line.textContent ?? ''
       line.dataset.full = full
       line.textContent = ''
-      line.classList.remove('is-hidden')
+      line.hidden = false
       for (let i = 1; i <= full.length; i++) {
         if (token !== run) return
         line.textContent = full.slice(0, i)
@@ -141,17 +140,18 @@ const last = scenes.length - 1
       }
     }
 
+    const finish = () => {
+      root.removeAttribute('tabindex')
+      root.removeAttribute('data-playing')
+      replay.hidden = false
+    }
+
     // A click or a key on the terminal skips to the final frame.
     const skip = () => {
       run++
       show(bodies.length - 1)
-      root.querySelectorAll<HTMLElement>('.dp-line').forEach((line) => {
-        if (line.dataset.full !== undefined) line.textContent = line.dataset.full
-        line.classList.remove('is-hidden')
-      })
-      root.removeAttribute('tabindex')
-      root.removeAttribute('data-playing')
-      replay.hidden = false
+      allLines.forEach((line) => { restore(line); line.hidden = false })
+      finish()
     }
     root.addEventListener('click', (event) => {
       if (root.hasAttribute('data-playing') && !(event.target as HTMLElement).closest('[data-replay]')) skip()
@@ -165,39 +165,32 @@ const last = scenes.length - 1
       replay.hidden = true
       root.setAttribute('data-playing', '')
       root.tabIndex = 0
-      // Hold the final frame's height so nothing below jumps while it plays.
-      if (!screen.style.minHeight) screen.style.minHeight = `${screen.offsetHeight}px`
+      still()
       for (let s = 0; s < bodies.length; s++) {
         if (token !== run) return
         show(s)
-        const lines = [...bodies[s].querySelectorAll<HTMLElement>('.dp-line')]
-        lines.forEach((line) => {
-          if (line.dataset.full !== undefined) line.textContent = line.dataset.full
-          line.classList.add('is-hidden')
-        })
-        await wait(500)
+        const lines = [...bodies[s].querySelectorAll<HTMLElement>('.dp-line')].filter((line) => !(s === 0 && line.hasAttribute('data-opening')))
+        lines.forEach((line) => { restore(line); line.hidden = true })
+        await wait(s === 0 ? 900 : 500)
         for (const line of lines) {
           if (token !== run) return
           if (line.classList.contains('tone-prompt')) {
             await typeLine(line, token)
             await wait(450)
           } else {
-            line.classList.remove('is-hidden')
-            await wait(line.textContent?.trim() ? 160 : 60)
+            line.hidden = false
+            await wait(line.textContent?.trim() ? 220 : 80)
           }
         }
-        if (s < bodies.length - 1) await wait(2200)
+        // Hold the finished scene 1 for at least 5 seconds.
+        if (s < bodies.length - 1) await wait(5200)
       }
-      if (token === run) {
-        replay.hidden = false
-        root.removeAttribute('data-playing')
-        root.removeAttribute('tabindex')
-      }
+      if (token === run) finish()
     }
 
     replay.addEventListener('click', () => { play() })
 
-    if (!('IntersectionObserver' in window)) { replay.hidden = false; return }
+    if (!('IntersectionObserver' in window)) { skip(); return }
     const io = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
         io.disconnect()
@@ -210,18 +203,16 @@ const last = scenes.length - 1
 
 <style>
   .desk-playback[data-playing] { cursor: pointer; }
-  .desk-playback { height: 100%; display: flex; flex-direction: column; background: var(--color-deep); }
+  .desk-playback { display: flex; flex-direction: column; background: var(--color-deep); }
   .dp-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0.45rem 0.75rem 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
   .dp-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
   .dp-title { margin-left: 0.5rem; min-width: 0; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .dp-title[hidden], .dp-body[hidden], .dp-replay[hidden] { display: none; }
+  .dp-title[hidden], .dp-body[hidden], .dp-replay[hidden], .dp-line[hidden] { display: none; }
   .dp-replay { margin-left: auto; flex: none; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-bone); padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--color-canopy); background: transparent; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
   .dp-replay:hover { border-color: var(--color-scale); color: var(--color-scale); }
-  .dp-screen { flex: 1; }
   .dp-body { margin: 0; padding: 0.9rem 1rem; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }
   @media (min-width: 640px) { .dp-body { font-size: 0.75rem; } }
   .dp-line { display: block; padding-left: 2ch; text-indent: -2ch; }
-  .dp-line.is-hidden { visibility: hidden; }
   .tone-bone { color: var(--color-bone); }
   .tone-mist { color: var(--color-mist); }
   .tone-scale { color: var(--color-scale); }

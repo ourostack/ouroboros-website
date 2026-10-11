@@ -46,7 +46,7 @@ If a human handed you this site, start with the brief. It is plain Markdown, wri
 ## Start here
 
 - [Hand this to your agent](https://ouroboros.bot/brief.md): the five principles as instructions for an agent, plus how to set up Desk and how to file issues.
-- [The approach](https://ouroboros.bot/approach/): the full argument, with Ari's own words or an exhibit, and an agent note, for each principle.
+- [The approach](https://ouroboros.bot/approach/): the full argument.
 
 ## Tools
 

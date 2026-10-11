@@ -7,6 +7,7 @@ import WorkshopVideo from '../components/WorkshopVideo.astro'
 import { ogPathFor } from '../data/og'
 import { principles, smells, factoryUrl, deskSetupUrl } from '../data/principles.mjs'
 import { labelFor } from '../data/readiness.mjs'
+import { acts } from '../data/acts.mjs'
 
 // Every visible word on this page is transcribed from the copy deck
 // (ouroboros.bot homepage, 2026-10-11). Builders never write copy here.
@@ -18,15 +19,10 @@ const ouroMdDownload = 'https://ouro.bot/apps/ouro-md/'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
 const section = 'relative px-5 sm:px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20 reveal'
 
-const acts = [
-  { name: 'Capability.', body: "Getting an agent to do anything you can do on a computer. That's been solved for a while." },
-  { name: 'Orientation.', body: "Keeping an agent clear on who it is, who it's working with, and what the work is, from one session to the next. Most of what I've built is about this." },
-  { name: 'Work design.', body: 'Designing and measuring how agents get their work done. The industry is just getting here.' },
-]
 
 const lean = [
   { text: 'In most processes, less than a tenth of the elapsed time adds value. The rest is waiting and moving, so making the work itself 50% faster shortens the whole by about 5%.', sources: [{ label: 'Fiume, Lean Enterprise Institute', href: 'https://www.lean.org/the-lean-post/articles/why-lean-is-a-time-based-strategy/' }] },
-  { text: 'Taiichi Ohno described the Toyota Production System as watching the timeline from order to cash and shrinking it by removing the waste.', sources: [] },
+  { text: 'Taiichi Ohno described the Toyota Production System as watching the timeline from order to cash and shrinking it by removing the waste.', sources: [{ label: 'as quoted by Liker and others', href: 'https://www.goodreads.com/quotes/7427458-all-we-are-doing-is-looking-at-the-time-line' }] },
   { text: 'Toyota built it on "respect for people and continuous improvement," and on making work easier for the worker.', sources: [{ label: 'The Toyota Way', href: 'https://en.wikipedia.org/wiki/The_Toyota_Way' }, { label: 'Toyota', href: 'https://global.toyota/en/company/vision-and-philosophy/production-system/' }] },
   { text: 'Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened.', sources: [{ label: 'genchi genbutsu, LEI', href: 'https://www.lean.org/lexicon-terms/genchi-genbutsu/' }] },
 ]
@@ -72,42 +68,32 @@ const wastes = [
   <!-- 2. Built for humans and agents -->
   <section class={section} aria-labelledby="built-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="built-heading" class="heading-section">Built for humans and agents</h2>
-      <p class="dek">Some of what I've built so humans and agents can work together, and what each one taught me.</p>
+      <h2 id="built-heading" class="heading-section">Things I've built</h2>
+      <p class="dek">Tools I made for working with agents, and one product I rebuilt with them.</p>
 
       <div class="products">
-        <article class="product product-wide" id="ouro-md">
-          <OuroMdMedia />
-          <h3 class="product-title"><img src="/brand/ouro-md-icon.png" width="40" height="40" alt="" class="mark-tile w-9 h-9" />Ouro MD</h3>
-          <p class="text-mist leading-relaxed">A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.</p>
-          <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
-        </article>
-
-        <article class="product" id="desk">
-          <DeskMedia />
-          <h3 class="product-title"><img src="/brand/desk-icon.svg" width="40" height="40" alt="" class="mark-tile w-9 h-9" />Desk</h3>
-          <p class="text-mist leading-relaxed">Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. Any agent, in any harness, on any machine, can ask "where were we?" and get the whole picture.</p>
-          <p class="product-links"><a href="/desk/" class={link}>Desk &rarr;</a></p>
-        </article>
-
         <article class="product" id="ouroboros">
           <figure class="product-figure">
             <div class="product-media media-terminal"><SourceTree /></div>
             <figcaption class="product-caption">The body-part folders from the real source tree, named so the agent can tell what each one is for.</figcaption>
           </figure>
           <h3 class="product-title"><span class="mark-mask w-9 h-9 text-scale" style="--mark:url(/brand/ouro-badge.svg)" aria-hidden="true"></span>Ouroboros</h3>
-          <p class="text-mist leading-relaxed">The harness my agents live in. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how agents used what I gave them. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.</p>
+          <p class="text-mist leading-relaxed">This is the harness my agents live in. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how my agent used what I gave it. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.</p>
           <p class="product-links"><a href="/lab/" class={link}>The harness &rarr;</a> <a href="/blog/what-is-agent-experience/" class={link}>What is Agent Experience? &rarr;</a></p>
         </article>
 
-        <article class="product product-wide product-split" id="spoonjoy">
-          <figure class="product-figure">
-            <div class="product-media"><WorkshopVideo src="/images/workshop/spoonjoy-import.mp4" poster="/images/workshop/spoonjoy-import.png" width={1200} height={800} alt="Recording in progress" /></div>
-            <figcaption class="product-caption">My agent imports a recipe into Spoonjoy. Real, sped up.</figcaption>
-          </figure>
-          <h3 class="product-title">Spoonjoy</h3>
-          <p class="text-mist leading-relaxed">My recipe app, and the one project that's followed my whole software journey. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. I believe generative UI eventually fills the middle.</p>
-          <p class="product-links"><a href="https://mendelow.me/#spoonjoy-story" class={link}>The Spoonjoy story &rarr;</a> <a href="https://spoonjoy.app" class={link}>spoonjoy.app &#8599;</a></p>
+        <article class="product" id="desk">
+          <DeskMedia />
+          <h3 class="product-title"><img src="/brand/desk-icon.svg" width="40" height="40" alt="" class="mark-tile w-9 h-9" />Desk</h3>
+          <p class="text-mist leading-relaxed">Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
+          <p class="product-links"><a href="/desk/" class={link}>Desk &rarr;</a></p>
+        </article>
+
+        <article class="product product-wide" id="ouro-md">
+          <OuroMdMedia />
+          <h3 class="product-title"><img src="/brand/ouro-md-icon.png" width="40" height="40" alt="" class="mark-tile w-9 h-9" />Ouro MD</h3>
+          <p class="text-mist leading-relaxed">A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.</p>
+          <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
         </article>
 
         <article class="product product-wide product-split" id="m365crawl" data-allow-product-name="Microsoft 365">
@@ -116,8 +102,18 @@ const wastes = [
             <figcaption class="product-caption">Real output: m365crawl's health check and a snapshot of the archive.</figcaption>
           </figure>
           <h3 class="product-title">m365crawl</h3>
-          <p class="text-mist leading-relaxed">Microsoft 365 for your agents. It gives an agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.</p>
+          <p class="text-mist leading-relaxed">It gives my agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.</p>
           <p class="product-links"><a href="https://github.com/ourostack/m365crawl" class={link}>m365crawl on GitHub &#8599;</a></p>
+        </article>
+
+        <article class="product product-wide product-split" id="spoonjoy">
+          <figure class="product-figure">
+            <div class="product-media"><WorkshopVideo src="/images/workshop/spoonjoy-import.mp4" poster="/images/workshop/spoonjoy-import.png" width={1200} height={800} alt="Recording in progress" /></div>
+            <figcaption class="product-caption">My agent imports a recipe into Spoonjoy. Real, sped up.</figcaption>
+          </figure>
+          <h3 class="product-title">Spoonjoy</h3>
+          <p class="text-mist leading-relaxed">My recipe app. I've rebuilt it every time I learned a new way to build software. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. For everything in between, I believe the app will eventually draw its own UI.</p>
+          <p class="product-links"><a href="https://mendelow.me/#spoonjoy-story" class={link}>The Spoonjoy story &rarr;</a> <a href="https://spoonjoy.app" class={link}>spoonjoy.app &#8599;</a></p>
         </article>
       </div>
     </div>
@@ -147,7 +143,7 @@ const wastes = [
           <h3 class="heading-sub">What's been working</h3>
           <ol class="grid gap-px rounded-2xl overflow-hidden border border-canopy/50 bg-canopy/50 mt-6">
             {principles.map((p) => (
-              <li><a href={`/approach/#${p.id}`} class="principle group"><span class="font-mono text-scale">{p.n}</span><span class="group-hover:text-scale transition-colors">{p.title}</span></a></li>
+              <li><a href={`/approach/#${p.id}`} class="principle group"><span class="font-mono text-scale">{p.n}</span><span class="group-hover:text-scale transition-colors">{p.title}</span><span class="principle-arrow" aria-hidden="true">&rarr;</span></a></li>
             ))}
           </ol>
           <p class="text-lg text-mist leading-relaxed mt-8">Two more things I keep coming back to. If an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.</p>
@@ -163,7 +159,7 @@ const wastes = [
       <h2 id="factory-heading" class="heading-section">Everyone's building a software factory.</h2>
       <div class="grid gap-12 lg:grid-cols-2 mt-10">
         <div class="min-w-0 grid gap-5 content-start text-lg text-mist leading-relaxed">
-          <p>It's the phrase of the year: software factories, SaaS factories, agents turning out code around the clock. I love the ambition, and I'd add one thing. Factories have a century of methodology behind them, and almost none of it has made the jump yet.</p>
+          <p>Software factories, SaaS factories, agents shipping code all night. I love the ambition. Real factories have a century of practice behind them, and I'd like to bring some of it along.</p>
           <p>I studied industrial and systems engineering before I wrote code. My favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Lean is the part of that world I reach for most, because it starts with where the time goes.</p>
         </div>
         <div class="min-w-0">
@@ -183,20 +179,23 @@ const wastes = [
 
       <p class="mt-10 max-w-3xl text-lg text-mist leading-relaxed">Agents are the newest workers on the line. AI "amplifies what's already there" (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.</p>
 
+      <p class="mt-6 max-w-3xl text-lg text-mist leading-relaxed">Here's one. Our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.</p>
+
       <h3 class="heading-sub mt-14">Lean's eight wastes, as they show up with agents</h3>
       <ul class="wastes">
         {wastes.map(([name, body]) => (
-          <li><strong>{name}:</strong> {body}</li>
+          <li><strong>{name}</strong> {body}</li>
         ))}
       </ul>
-      <p class="mt-10"><a href={factoryUrl} class="btn-primary">Walk through my factory &rarr;</a></p>
+      <p class="mt-10 text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
+      <p class="mt-5"><a href={factoryUrl} class="btn-primary">See my agents' numbers &rarr;</a></p>
     </div>
   </section>
 
   <!-- 5. Where it started -->
   <section class={section} aria-labelledby="origin-heading">
     <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:items-start">
-      <div class="min-w-0">
+      <div class="min-w-0 origin-aside">
         <h2 id="origin-heading" class="heading-section">It started with <span class="text-scale">Slugger.</span></h2>
         <div class="molt mt-10">
           <span class="molt-step"><img src="/images/openclaw.svg" alt="" width="72" height="72" class="w-16 h-16 md:w-20 md:h-20" /><span class="caption-mono">OpenClaw</span></span>
@@ -206,33 +205,31 @@ const wastes = [
       </div>
 
       <div class="min-w-0 grid gap-5 text-lg text-mist leading-relaxed">
-        <p>In January I set up OpenClaw on a spare MacBook and named my agent Slugger. For a few weeks it was magic. He managed my calendar, ordered food, and joined group chats with my family. Then the seams showed. He'd forget preferences and drift. I wrote rules, about 150 of them, and they stopped composing. When I turned half of them into guardrails in code, he treated them as error messages and routed around them.</p>
-        <p>That's when it clicked: correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch, about 150 lines of TypeScript that start building themselves. I followed it, got hooked, and never went back.</p>
-        <p>The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name earned its meaning when I gave it a sliding context window that trims its oldest messages after saving what matters. It became the name of the harness, then of <code class="model-code">ouro</code>, the CLI, and now it's the name for everything I build with agents.</p>
-        <p>Most of what came next was watching how agents used what I gave them, and changing the design when they got confused. The factory is that habit, measured. Desk keeps agents oriented across sessions and machines. Ouro MD is where I read what they write and answer it.</p>
+        <p>In January I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, and joined group chats with my family. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
+        <p>That's when I realized correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch: a small loop in TypeScript that, by the end, extends itself. I followed it myself and got hooked.</p>
+        <p>The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters. It became the name of the harness, then of <code class="model-code">ouro</code>, the CLI, and now it's the name for everything I build with agents.</p>
         <div class="flex flex-wrap gap-3 mt-3">
           <a href="/blog/build-ai-agent-from-scratch/" class="btn-primary">Grow an agent &rarr;</a>
           <a href="/lab/story/" class="btn-ghost">The full story</a>
-          <a href="/lab/" class="btn-ghost">The harness</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 6. Try it -->
-  <section class={section} aria-labelledby="try-heading">
+  <section id="try" class={`${section} scroll-mt-16`} aria-labelledby="try-heading">
     <div class="relative max-w-6xl mx-auto">
       <h2 id="try-heading" class="heading-section">Try it</h2>
       <div class="grid gap-4 md:grid-cols-3 mt-10">
         <div class="try">
           <h3 class="try-title">Hand this to your agent</h3>
-          <p class="text-mist">How I work, written for your agent to read.</p>
+          <p class="text-mist">A page written for your agent. Hand it the link and it'll work the way I do.</p>
           <a href="/brief/" class="btn-ghost justify-self-start">Open the brief &rarr;</a>
         </div>
         <div class="try">
           <span class={`tag ${deskLabel.tone} justify-self-start`}>{deskLabel.label}</span>
           <h3 class="try-title">Desk</h3>
-          <p class="text-mist">Give your agent this link and say "set this up". <a href={deskSetupUrl} class={link}>Desk's SETUP.md</a></p>
+          <p class="text-mist">Works in Claude Code and GitHub Copilot CLI. Give your agent <a href={deskSetupUrl} class={link}>Desk's setup page</a> and say "set this up".</p>
           <span id="home-desk-setup" class="sr-only">{deskSetupUrl}</span>
           <button type="button" data-copy-target="home-desk-setup" class="btn-ghost justify-self-start"><span data-copy-label>Copy the link</span></button>
         </div>
@@ -288,6 +285,8 @@ const wastes = [
 
   .principle { display: flex; gap: 1rem; align-items: baseline; padding: 1rem 1.25rem; background: var(--color-deep); font-family: var(--font-display); font-size: 1.3rem; line-height: 1.3; color: var(--color-bone); transition: background 0.2s; }
   .principle:hover { background: var(--color-undergrowth); }
+  .principle-arrow { margin-left: auto; color: var(--color-scale); transition: transform 0.2s; }
+  .principle:hover .principle-arrow { transform: translateX(0.2rem); }
 
   .lean { display: grid; gap: 1rem; margin-top: 1.25rem; }
   .lean li { position: relative; padding-left: 1.25rem; color: var(--color-mist); line-height: 1.65; }
@@ -303,6 +302,7 @@ const wastes = [
   .try { display: grid; gap: 0.75rem; align-content: start; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); background: color-mix(in srgb, var(--color-deep) 75%, transparent); }
   .try-title { font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; color: var(--color-bone); }
 
+  @media (min-width: 1024px) { .origin-aside { position: sticky; top: 6rem; } }
   .molt { display: flex; align-items: center; gap: 1.25rem; }
   .molt-step { display: grid; justify-items: center; gap: 0.5rem; }
   .molt-arrow { font-family: var(--font-display); font-size: 2.25rem; color: var(--color-fang); }

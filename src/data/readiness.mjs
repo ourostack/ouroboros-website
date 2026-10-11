@@ -6,7 +6,7 @@
 // module and against every built page. Re-check each detail before publishing.
 
 export const allowedLabels = {
-  'Use today, alpha': 'tag-alpha',
+  'Alpha': 'tag-alpha',
   'Use today': 'tag-today',
   'Experimental': 'tag-exp',
   'Not open yet': 'tag-closed',
@@ -14,10 +14,10 @@ export const allowedLabels = {
 
 /** @type {{ id: string, name: string, label: keyof typeof allowedLabels, detail: string }[]} */
 export const readiness = [
-  { id: 'desk-claude-code-macos', name: 'Claude Code on macOS', label: 'Use today, alpha', detail: 'Tested daily' },
-  { id: 'desk-claude-code-linux', name: 'Claude Code on Linux', label: 'Use today, alpha', detail: 'Listed, lightly tested' },
-  { id: 'desk-claude-code-windows', name: 'Claude Code on Windows', label: 'Use today, alpha', detail: 'Works, with rough edges' },
-  { id: 'desk-copilot-cli', name: 'Copilot CLI', label: 'Use today, alpha', detail: 'Tested daily' },
+  { id: 'desk-claude-code-macos', name: 'Claude Code on macOS', label: 'Alpha', detail: 'Tested daily' },
+  { id: 'desk-claude-code-linux', name: 'Claude Code on Linux', label: 'Alpha', detail: 'Lightly tested' },
+  { id: 'desk-claude-code-windows', name: 'Claude Code on Windows', label: 'Alpha', detail: 'Works, with rough edges' },
+  { id: 'desk-copilot-cli', name: 'Copilot CLI', label: 'Alpha', detail: 'Tested daily' },
   { id: 'desk-codex', name: 'Codex', label: 'Experimental', detail: 'Runs, not yet proven in daily use' },
   { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'No sign-up yet' },
   { id: 'ouro-md', name: 'Ouro MD', label: 'Use today', detail: 'macOS 13 or later' },

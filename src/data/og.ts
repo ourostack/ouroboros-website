@@ -52,8 +52,8 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: "I'm Ari. I build products for humans + agents.",
   },
   '/approach': {
-    title: 'How I build with agents.',
-    subtitle: 'Three smells and five principles, with my own words for each.',
+    title: 'How I work.',
+    subtitle: 'The three acts, three smells, and five principles I use to work with agents on jobs that take days.',
     tag: 'The approach',
   },
   '/brief': {
@@ -82,7 +82,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/lab/story': {
     title: 'Code a model can use, not code that uses a model.',
-    subtitle: 'How building an AI agent plugin led to building an agent harness from scratch.',
+    subtitle: 'How a plugin for my OpenClaw agent turned into a harness I built from scratch.',
     tag: 'Origin story',
   },
   '/lab/what-is-an-agent-harness': {

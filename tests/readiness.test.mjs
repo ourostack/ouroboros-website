@@ -5,11 +5,11 @@ import test from 'node:test';
 import { readiness, allowedLabels } from '../src/data/readiness.mjs';
 import { readDist, textOf, hrefsOf, listHtmlFiles, distDir, distExists } from './support/dist.mjs';
 
-const allowed = ['Use today, alpha', 'Use today', 'Experimental', 'Not open yet'];
+const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet'];
 
 test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experimental', async () => {
   const { entry } = await import('../src/data/readiness.mjs');
-  assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['Copilot CLI', 'Use today, alpha', 'Tested daily']);
+  assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['Copilot CLI', 'Alpha', 'Tested daily']);
   assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', 'Runs, not yet proven in daily use']);
   assert.ok(!readiness.some((item) => item.name === 'Copilot CLI and Codex'));
 });
@@ -27,10 +27,10 @@ test('the Desk page shows every host with an honest label', () => {
   // The rows live under "Where it runs"; the playback above it names harnesses too.
   const text = page.slice(page.indexOf('Where it runs'));
   for (const [host, detail, label] of [
-    // The three Claude Code hosts share the page's one "Use today, alpha" label.
-    ['Claude Code', 'macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.', ''],
+    // The three Claude Code hosts share one row, and it carries the badge (copy deck round 2).
+    ['Claude Code', 'macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges.', 'Alpha'],
     // Ari uses Copilot CLI every day as his primary harness, with Desk underneath (2026-10-11).
-    ['Copilot CLI', 'Tested daily', 'Use today, alpha'],
+    ['Copilot CLI', 'Tested daily', 'Alpha'],
     ['Codex', 'Runs, not yet proven in daily use', 'Experimental'],
     ['Hosted Desk on claude.ai', 'No sign-up yet', 'Not open yet'],
   ]) {
@@ -74,15 +74,16 @@ test('the Ouro MD page carries the install line and the macOS floor', () => {
   assert.ok(text.includes('macOS 13'));
 });
 
-test('the Ouro MD page leads with the card copy and clips, then keeps the agent-revision animation with its playback speed', () => {
+test('the Ouro MD page leads with the card copy and the stacked clips, with no second demo and no badge', () => {
   const html = readDist('ouro-md/index.html');
   // Copy deck (2026-10-11): /ouro-md/ leads with the homepage card's copy and the same media.
   assert.ok(textOf(html).includes('A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.'));
   const imgs = [...html.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
-  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-typing-light-poster.png', '/images/workshop/ouro-md-typing-dark-poster.png', '/images/workshop/ouro-md-agent-edit-light-poster.png', '/images/workshop/ouro-md-agent-edit-dark-poster.png', '/images/workshop/ouro-md-reload-poster.png']);
-  assert.match(html, /<img src="\/images\/workshop\/ouro-md-reload-poster\.png"[^>]*width="800" height="720" loading="lazy"/);
-  assert.match(html, /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
-  assert.ok(textOf(html).includes("A demo: an agent's revision lands in the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
+  assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-typing-light-poster.png', '/images/workshop/ouro-md-typing-dark-poster.png', '/images/workshop/ouro-md-agent-edit-light-poster.png', '/images/workshop/ouro-md-agent-edit-dark-poster.png']);
+  // Copy deck round 2: the hero clips stack one per row, the second demo ("Harbor launch plan") and its GIF are cut, and there is no badge.
+  assert.match(html, /class="clip-pair clip-stack"/);
+  assert.doesNotMatch(html, /ouro-md-reload|data-gif=/);
+  assert.doesNotMatch(textOf(html), /A demo: an agent's revision lands|Use today/);
   assert.doesNotMatch(textOf(html), /One ordinary Markdown plan|the person stays in place/);
   assert.ok(!distExists('images/ouro-md'), 'The rejected Ouro MD media must not ship');
   assert.ok(html.indexOf('https://ouro.bot/apps/ouro-md/') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
@@ -106,7 +107,9 @@ test('each tool page has exactly one way to report a problem through your agent'
 test('the Desk page leads with the card copy and the playback, and links the RFC', () => {
   const html = readDist('desk/index.html');
   // Copy deck (2026-10-11): /desk/ leads with the homepage card's copy and the same media.
-  assert.ok(textOf(html).includes(`Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. Any agent, in any harness, on any machine, can ask "where were we?" and get the whole picture.`));
+  assert.ok(textOf(html).includes(`Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.`));
+  assert.ok(textOf(html).replace(/\s+([.,])/g, '$1').includes("The full design is in Desk's design doc."));
+  assert.match(html, /<meta name="description" content="[^"]*a job is done when you’ve seen it work\./);
   assert.match(html, /data-desk-playback/);
   assert.ok(html.indexOf('data-desk-playback') < html.indexOf('Where it runs'), 'The playback leads the right column');
   assert.match(html, /<meta name="description" content="[^"]*An alpha for Claude Code and GitHub Copilot CLI\."/);
@@ -119,17 +122,22 @@ test('the Desk page shows real session-start output, links the factory once, its
   assert.ok(text.includes('Active tasks (1):'));
   assert.ok(text.includes('- my-app/checkout-flow "One-page checkout with saved addresses" (updated 2026-10-10)'));
   assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
-  assert.match(text.replace(/\s+([.,])/g, '$1'), /The factory measures every session sent to it, in public\./);
+  assert.ok(text.replace(/\s+([.,])/g, '$1').includes("Setup also installs Superpowers, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public factory. It sends timings and sizes, never your prompts, commands, or code."));
+  assert.ok(text.includes('What setup looks like'), 'The sample terminal sits under its own heading');
+  // At 1440px, Known limits sits under the copy box in the left column, before the playback.
+  assert.ok(html.indexOf('Known limits today') < html.indexOf('data-desk-playback'), 'Known limits moves under the copy box');
   assert.doesNotMatch(text, /See what it does in practice/);
-  // Once for the page (the Claude Code hosts) and once on the Copilot CLI row.
-  assert.equal((text.match(/Use today, alpha/g) || []).length, 2, 'The alpha label shows for Claude Code and Copilot CLI');
-  assert.ok(text.includes('macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.'));
+  // Once for the page, once on the Claude Code row and once on the Copilot CLI row.
+  assert.equal((text.match(/\bAlpha\b/g) || []).length, 3, 'The Alpha label shows for the page, Claude Code and Copilot CLI');
+  assert.doesNotMatch(text, /Use today, alpha/);
+  assert.ok(text.includes('macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges.'));
+  assert.ok(text.includes("We haven't yet tested a first install on a brand-new Mac account."));
   assert.ok(text.includes("Desk's own browser starts signed out, and on macOS it can steal focus."));
   assert.doesNotMatch(text, /friction-to-fix|Its browser|fresh user profile/);
 });
 
 test('the Take the agent\'s seat essay no longer cites a checklist TTFA never had', () => {
   const text = textOf(readDist('blog/take-the-agents-seat/index.html'));
-  assert.ok(text.includes('Trust and communication are the two halves of delegation.'));
+  assert.ok(text.includes("Trust the Fucking Agent was about trust. This one's about saying what you mean."));
   assert.doesNotMatch(text, /fourteen-step/);
 });

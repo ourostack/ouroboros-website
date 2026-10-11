@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
+import { factoryUrl } from '../../data/principles.mjs'
 
 const title = 'Trust the Fucking Agent'
 const description = "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest."
@@ -62,7 +63,7 @@ const description = "We keep doing the agent's job along with our own. Bring jud
   <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; Dario Amodei, <a href="https://www.darioamodei.com/essay/machines-of-loving-grace" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Machines of Loving Grace</a></figcaption>
 </figure>
 
-<p>Take that seriously for a second. Broadly superhuman across most fields, working on its own for long stretches, running at 10 to 100 times human speed, millions of copies at once. We have early versions of those agents today, and they're capable. What's missing is how we hand them work and how much of it we let them do.</p>
+<p>He's describing models that are smarter than us at most things, work on their own for days, and run as millions of copies at once. We have early versions of those agents today, and they're capable. What's missing is how we hand them work and how much of it we let them do.</p>
 
 <h2>The three stories</h2>
 
@@ -78,7 +79,7 @@ const description = "We keep doing the agent's job along with our own. Bring jud
 
 <p>Picture your manager asking you to send a calendar invite and then standing behind your chair narrating it. Open Outlook. No, the other Outlook. Click New Event. Capitalize Quarterly. You'd ask if they want to just do it themselves. The worst part is the assumption that you couldn't have figured out the next step on your own.</p>
 
-<p>That's how most of us treat agents. We ask the agent to ship the feature, then narrate every step. We ask it to investigate the bug, then dictate the grep. We ask it to draft the doc, then rewrite each sentence before it finishes.</p>
+<p>That's how most of us treat agents. We ask one to look into a bug, then dictate the grep.</p>
 
 <p>And then there's this:</p>
 
@@ -90,23 +91,21 @@ const description = "We keep doing the agent's job along with our own. Bring jud
   <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; <a href="https://x.com/DavidKPiano/status/2014015826794340791" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@DavidKPiano</a></figcaption>
 </figure>
 
-<p>He doesn't ask Claude to walk him through it. He doesn't open the awk man page. He says "yeah go for it dude" and gets on with his day. That's the whole idea.</p>
+<p>David doesn't ask Claude to walk him through it. He doesn't open the awk man page. He says "yeah go for it dude" and gets on with his day. That's the whole idea.</p>
 
 <h2>What it shows you</h2>
 
 <p>The best part of trusting the agent is what it finds. Early on, I let an agent work directly in our harness's credential discovery. It looked fine. It handled several providers and passed the sniff test. The agent read the code, followed the paths, and found that GitHub Copilot credentials were never discovered at all, and that one of the environment mappings was wrong. We humans had been working around both without noticing. The agent couldn't work around them, so it found them.</p>
 
-<p>That keeps happening. When you let the agent carry the work, it runs into everything your setup quietly depended on a human to patch: missing state, a step that only makes sense if you remember last week, a "safety" check that's mostly ceremony. If your tools are weak, trust shows you fast. If they're good, trust compounds. Either way you learn something real.</p>
+<p>That keeps happening. When you let the agent carry the work, it runs into everything your setup quietly depended on a human to patch: missing state, a step that only makes sense if you remember last week, a "safety" check that's mostly ceremony. Either way, you find out what your setup was quietly leaning on you for.</p>
 
 <h2>Your one job</h2>
 
-<p>Here's what we bring. The agent has the agency, the capability, and access to more knowledge than any of us. What it doesn't have is the lived judgment to ask whether this is the right work in the first place.</p>
+<p>Here's what we bring: the judgment to ask whether this is the right work in the first place.</p>
 
 <p>That judgment is small, and it's the one thing only we can do. An agent will confidently build something elegant for a misframed question, and the elegance will fool everyone reading the diff. Our job is to catch the misframe early, so neither of us wastes time on the wrong build.</p>
 
-<p>So that's the deal. We bring judgment. We don't rerun the search, reformat the output, paste the diff into the file, or carry work between the agent and the thing it was asked to change. The moment we start doing that, we've spent the one resource of ours that mattered.</p>
-
-<p>The country of geniuses is showing up. You bring judgment. Your agents bring the rest.</p>
+<p>Every time I rerun a search, reformat the output, or paste a diff by hand, that's time I'm not spending on judgment.</p>
 
 <p>Trust the fucking agent.</p>
 
@@ -116,7 +115,7 @@ const description = "We keep doing the agent's job along with our own. Bring jud
   <section class="px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
     <div class="max-w-3xl mx-auto">
       <p class="text-sm text-mist leading-relaxed">
-        See <a href="/blog/take-the-agents-seat/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Take the agent's seat</a> for the other half of delegation, or <a href="/approach/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">how I work</a>.
+        You can see how my agents spend their time on the <a href={factoryUrl} class="text-scale underline underline-offset-2 hover:text-glow transition-colors">factory dashboard</a>.
       </p>
       <a href="/blog/" class="inline-block mt-8 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; Back to blog</a>
     </div>

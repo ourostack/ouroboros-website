@@ -7,7 +7,7 @@ import { deskHosts, labelFor, allowedLabels } from '../data/readiness.mjs'
 import { deskSetupUrl, factoryUrl, rfcUrl } from '../data/principles.mjs'
 
 const title = 'Desk: where my agents keep their work | Ouroboros'
-const description = 'Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. An alpha for Claude Code and GitHub Copilot CLI.'
+const description = 'Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and a job is done when you’ve seen it work. An alpha for Claude Code and GitHub Copilot CLI.'
 const status = labelFor('desk-claude-code-macos')
 // The three Claude Code hosts share the page's label, so they collapse into one row.
 const otherHosts = deskHosts.filter((host) => !host.id.startsWith('desk-claude-code-'))
@@ -25,8 +25,8 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
           <img src="/brand/desk-icon.svg" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
           <h1 class="heading-lead">Desk</h1>
         </div>
-        <p class="text-xl md:text-2xl text-bone font-display leading-snug max-w-[40ch]">Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. Any agent, in any harness, on any machine, can ask "where were we?" and get the whole picture.</p>
-        <p class="text-lg text-mist leading-relaxed max-w-[52ch]">Every job starts with one conversation and a go, and ends with evidence you accept or send back. The full design is in <a href={rfcUrl} class={link}>the Desk RFC</a>.</p>
+        <p class="text-xl md:text-2xl text-bone font-display leading-snug max-w-[40ch]">Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
+        <p class="text-lg text-mist leading-relaxed max-w-[52ch]">Every job starts with one conversation and a go, and ends with evidence you accept or send back. The full design is in <a href={rfcUrl} class={link}>Desk's design doc</a>.</p>
 
         <div class="grid gap-2">
           <span class="caption-mono">Give your agent</span>
@@ -36,7 +36,15 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
             <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
           </div>
         </div>
-        <p class="text-sm text-mist">Setup also installs Jesse Vincent's <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, unchanged. <a href={factoryUrl} class={link}>The factory</a> measures every session sent to it, in public.</p>
+        <p class="text-sm text-mist">Setup also installs <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public <a href={factoryUrl} class={link}>factory</a>. It sends timings and sizes, never your prompts, commands, or code.</p>
+        <div class={card}>
+          <h2 class="caption-mono mb-3">Known limits today</h2>
+          <ul class="list-disc pl-5 grid gap-2 text-mist">
+            <li>Desk's own browser starts signed out, and on macOS it can steal focus.</li>
+            <li>We haven't yet tested a first install on a brand-new Mac account.</li>
+            <li>Turning reported problems into fixes is built, and it hasn't been proven on real work yet.</li>
+          </ul>
+        </div>
       </div>
 
       <div class="grid gap-6 content-start min-w-0">
@@ -44,9 +52,9 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
         <div class={card}>
           <h2 class="caption-mono mb-3">Where it runs</h2>
           <ul class="grid">
-            <li class="py-3 border-b border-dashed border-canopy/50">
-              <span class="text-bone">Claude Code</span>
-              <span class="block text-sm text-mist">macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.</span>
+            <li class="flex flex-wrap items-center justify-between gap-2 py-3 border-b border-dashed border-canopy/50">
+              <span class="text-bone">Claude Code<span class="block text-sm text-mist">macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges.</span></span>
+              <span class={`tag ${status.tone}`}>{status.label}</span>
             </li>
             {otherHosts.map((host) => (
               <li class="flex flex-wrap items-center justify-between gap-2 py-3 border-b border-dashed border-canopy/50 last:border-b-0">
@@ -56,20 +64,13 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
             ))}
           </ul>
         </div>
-        <div class={card}>
-          <h2 class="caption-mono mb-3">Known limits today</h2>
-          <ul class="list-disc pl-5 grid gap-2 text-mist">
-            <li>Desk's own browser starts signed out, and on macOS it can steal focus.</li>
-            <li>No one has yet recorded an install on a brand-new user account.</li>
-            <li>Turning reported problems into fixes is built, and it hasn't been proven on real work yet.</li>
-          </ul>
-        </div>
       </div>
     </div>
   </section>
 
   <section class="px-6 md:px-12 lg:px-16 py-12 border-t border-canopy/15">
     <div class="max-w-3xl mx-auto grid gap-6">
+      <h2 class="heading-sub">What setup looks like</h2>
       <figure class="grid gap-3">
         <DeskBootPreview />
         <figcaption class="text-sm text-mist">A new session picks up where the last one left off. This is real output from Desk's session start, run on a sample desk.</figcaption>

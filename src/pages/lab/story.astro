@@ -3,8 +3,8 @@ import Layout from '../../layouts/Layout.astro'
 import HeroCover from '../../components/HeroCover.astro'
 import { ogPathFor } from '../../data/og'
 
-const title = 'Code a model can use — the Ouroboros origin story'
-const description = 'How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.'
+const title = 'Code a model can use: how Ouroboros started'
+const description = 'How a plugin for my OpenClaw agent turned into a harness I built from scratch.'
 
 const colorMap: Record<string, string> = {
   canopy: 'var(--color-canopy)',
@@ -18,9 +18,9 @@ const entries = [
     date: 'November 2025',
     label: 'The spark',
     color: 'canopy',
-    content: `<p>Peter Steinberger built Clawdbot in about an hour one night. A simple script connecting WhatsApp to Claude. It could read emails, debug code, organize files.</p>
+    content: `<p>Peter Steinberger built Clawdbot in about an hour one night. It was a small script that connected WhatsApp to Claude, and it could read email, debug code, and organize files.</p>
 <p>It spread fast. Persistent personal agents suddenly felt real to a much wider audience. Eventually it became OpenClaw.</p>
-<p>Under the hood, it ran on <a href="https://mariozechner.at/posts/2025-11-30-pi-coding-agent/" target="_blank" rel="noopener">Pi</a> — Mario Zechner's minimal coding agent. Four tools: read, write, edit, bash. Aggressive extensibility. Brilliant at what it was designed for.</p>
+<p>Under the hood, it ran on <a href="https://mariozechner.at/posts/2025-11-30-pi-coding-agent/" target="_blank" rel="noopener">Pi</a>, Mario Zechner's minimal coding agent. Four tools: read, write, edit, bash. Aggressive extensibility.</p>
 <p class="note">Pi was built for coding, and I wanted a personal agent with a persistent identity.</p>`,
   },
   {
@@ -28,9 +28,7 @@ const entries = [
     label: 'Slugger moves in',
     color: 'scale',
     content: `<p>I set up OpenClaw on a spare MacBook at home. Named my agent Slugger. Gave him a personality file, connected him to iMessage.</p>
-<p>For a few weeks, it was genuinely magical.</p>
-<p>Slugger managed my calendar. Ordered food. Drafted messages. Talked to my family. Joined group chats with my friends. I'd go to bed and he'd still be working — checking on things, sending updates.</p>
-<p>We worked together like teammates.</p>`,
+<p>Slugger managed my calendar. Ordered food. Drafted messages. Talked to my family. Joined group chats with my friends. I'd go to bed and he'd still be working, checking on things, sending updates.</p>`,
   },
   {
     date: 'Early February 2026',
@@ -39,25 +37,24 @@ const entries = [
     content: `<p>Then the seams started showing.</p>
 <p>Slugger would forget preferences between sessions. Identity would drift. He'd send messages to the wrong group chat. Behavior that worked yesterday would break today.</p>
 <p>I wrote rules in MEMORY.md. Expanded SOUL.md. Added routing notes to TOOLS.md. Markdown files as guardrails for a system that wasn't designed to internalize them.</p>
-<p class="note">Duct tape on someone else's architecture.</p>`,
+`,
   },
   {
     date: 'Mid February 2026',
     label: 'The plugin era',
     color: 'canopy',
     content: `<p>Eventually, duct tape wasn't enough. I built a plugin.</p>
-<p><strong>slugger-determinism v1</strong> — message classification, task state enforcement, behavioral gates. It was a mess. The plugin architecture fought me at every turn. OpenClaw plugins hook into lifecycle events, but the events didn't always fire when I needed them to.</p>
-<p>So I rewrote it. <strong>slugger-determinism v2</strong> — a full bulletin board system, task naming validation, spawn coordination, heartbeat enforcement, planning pipelines. 70+ services. 30+ guardrails. Weeks of Codex sessions.</p>
-<p>It worked. Mostly. But every improvement felt like bolting a new room onto a house built on someone else's foundation.</p>
-<p class="note">The foundation was good — Pi is excellent at what it does. I was asking it to be something it wasn't designed to be.</p>`,
+<p><strong>slugger-determinism v1</strong>: message classification, task state enforcement, behavioral gates. It was a mess. The plugin architecture fought me at every turn. OpenClaw plugins hook into lifecycle events, but the events didn't always fire when I needed them to.</p>
+<p>So I rewrote it. <strong>slugger-determinism v2</strong>: a full bulletin board system, task naming validation, spawn coordination, heartbeat enforcement, planning pipelines. 70+ services. 30+ guardrails. Weeks of Codex sessions.</p>
+<p>It mostly worked, and every fix felt like adding a room to someone else's house. Pi is excellent at coding. I was asking it to be a personal agent.</p>`,
   },
   {
     date: 'Late February 2026',
     label: 'The tutorial',
     color: 'scale',
-    content: `<p>Around the same time, I started writing a guide. I wanted to explain what an agent loop actually is: the mechanical version.</p>
+    content: `<p>Around the same time, Slugger and I started writing a guide. I wanted to explain what an agent loop actually is: the mechanical version.</p>
 <p><a href="/blog/build-ai-agent-from-scratch"><em>Just Give the Model a Keyboard</em></a> walks through building an agent from scratch in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, the agentic loop.</p>
-<p>Then the handoff — you stop talking to your coding agent and start talking to your creation.</p>
+<p>Then the handoff: you stop talking to your coding agent and start talking to your creation.</p>
 <p>I wrote it as a teaching tool. A way to demystify the primitive.</p>
 <p class="note">Then I followed my own guide.</p>`,
   },
@@ -66,23 +63,23 @@ const entries = [
     label: 'The moment',
     color: 'glow',
     motif: 'molt',
-    content: `<p>I built the 150-line bootstrap. Ran it. Started talking to it. And something shifted.</p>
+    content: `<p>I built the 150-line bootstrap. Ran it. Started talking to it.</p>
 <p>This thing was clean. No legacy. No lifecycle hooks I didn't understand. No plugin system fighting my intentions. Every line of code was there on purpose, and the model could read and modify every line.</p>
 <p>I wasn't building code that uses a model. <strong>I was building code a model can use.</strong></p>
-<p>That's the distinction that changes everything. When you build a traditional framework, you're writing code for humans to configure. The model is a service you call. But when you build a harness for the model to inhabit — where the model reads its own source code, understands its own architecture, and can modify itself — the design constraints invert.</p>
-<p>File structure matters because the model needs to navigate it. Naming matters because the model uses names to understand purpose. Documentation matters because it IS the model's self-awareness.</p>
-<p>OpenClaw's mascot is a lobster. Clawdbot. The interim name was Moltbot — the lobster shedding its shell. What emerged from Slugger's molt was a snake, eating its own tail.</p>
-<p class="note">The lobster molts to grow. The snake consumes itself to survive. Different metaphors, different architectures, different futures.</p>`,
+<p>When you build a traditional framework, you're writing code for humans to configure. The model is a service you call. When you build a harness for the model to inhabit, where the model reads its own source code, understands its own architecture, and can modify itself, the design constraints invert.</p>
+<p>File structure matters because the model needs to navigate it. Naming matters because the model uses names to understand purpose. Docs matter because they're how the model learns what it is.</p>
+<p>OpenClaw's mascot is a lobster. Clawdbot. The interim name was Moltbot, the lobster shedding its shell. What emerged from Slugger's molt was a snake, eating its own tail.</p>
+<p class="note">The lobster molts to grow. The snake consumes itself to survive.</p>`,
   },
   {
     date: 'March 2026',
     label: 'The snake grows',
     color: 'scale',
     content: `<p>That bootstrap became <strong>ouroboros</strong>.</p>
-<p>The name came from the architecture. When the conversation grows too long, the agent trims its oldest messages — consuming its own history. But nothing is truly lost: facts are extracted to memory before they're consumed. The snake eats its tail to preserve continuity.</p>
+<p>It named itself, which is a little silly for something that was building itself. The name started making sense with the sliding context window: when the conversation grows too long, the agent trims its oldest messages, and before it trims, it saves the facts to memory.</p>
 <p>Every module is named like a body part: <strong>heart</strong> (the core loop), <strong>mind</strong> (context and memory), <strong>senses</strong> (channel adapters and inner dialogue), <strong>repertoire</strong> (tools and skills), <strong>nerves</strong> (runtime feedback). The agent has a <strong>psyche</strong>.</p>
-<p>The naming is intentional worldbuilding. When the model reads its own directory and sees <code>psyche/SOUL.md</code>, it understands something different than <code>config/personality.yaml</code>. Language shapes reasoning.</p>
-<p>A CLI called <code>ouro</code>. Full coverage on main. Support for running multiple agents. And a codebase being shaped so agents can keep extending it together over time.</p>
+<p>I named things so the agent could guess what they're for: <code>psyche/SOUL.md</code> tells it more than <code>config/personality.yaml</code> would.</p>
+<p>A CLI called <code>ouro</code>. Every line is tested. Support for running multiple agents. And a codebase being shaped so agents can keep extending it together over time.</p>
 <p class="note">Not code that uses a model. Code a model can use.</p>`,
   },
 ]
@@ -100,7 +97,7 @@ const entries = [
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Code a model can use — the Ouroboros origin story",
+      "headline": title,
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "datePublished": "2026-03-01",
@@ -109,13 +106,13 @@ const entries = [
   </Fragment>
 
   <!-- Header -->
-  <HeroCover eyebrow="Origin story">
+  <HeroCover>
     <Fragment slot="title">
       Code a model can use,<br />
       <span class="text-mist">not code that uses a model.</span>
     </Fragment>
     <Fragment slot="body">
-      How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.
+      How a plugin for my OpenClaw agent turned into a harness I built from scratch.
     </Fragment>
   </HeroCover>
 
@@ -125,9 +122,8 @@ const entries = [
   </section>
 
   {/* Orientation for a reader arriving cold. The story itself follows unchanged. */}
-  <section class="px-6 md:px-12 lg:px-24 mb-16" aria-labelledby="who-is-slugger">
+  <section class="px-6 md:px-12 lg:px-24 mb-16">
     <div class="max-w-3xl mx-auto rounded-2xl border border-scale/40 bg-deep/80 p-6 md:p-8 grid gap-3">
-      <h2 id="who-is-slugger" class="eyebrow">Who is Slugger</h2>
       <p class="text-mist leading-relaxed">Slugger is my agent. He started on OpenClaw, then moved into a harness I built for him: <a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Ouroboros</a>.</p>
     </div>
   </section>
@@ -162,18 +158,16 @@ const entries = [
             <div class="mt-12 rounded-xl border border-canopy/40 bg-gradient-to-r from-deep/60 to-undergrowth/20 p-8 md:p-10">
               <div class="flex flex-col sm:flex-row items-center gap-8 sm:gap-10 justify-center">
                 <div class="text-center">
-                  <img src="/images/openclaw.svg" alt="OpenClaw" class="w-20 h-20 mx-auto" />
-                  <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mt-4">The shell</span>
-                  <span class="text-sm text-mist mt-1 block">Clawdbot &rarr; Moltbot</span>
+                  <img src="/images/openclaw.svg" alt="OpenClaw" width="80" height="80" loading="lazy" decoding="async" class="w-20 h-20 mx-auto" />
+                  <span class="text-sm text-mist mt-4 block">Clawdbot &rarr; Moltbot</span>
                 </div>
                 <span class="text-mist text-2xl">&rarr;</span>
                 <div class="text-center">
-                  <img src="/images/ouroboros.svg" alt="Ouroboros" class="w-20 h-20 mx-auto ouroboros-spin" style="filter: drop-shadow(0 0 16px rgba(45,148,71,0.4));" />
-                  <span class="font-mono text-xs text-scale uppercase tracking-[0.22em] block mt-4">What emerged</span>
-                  <span class="text-sm text-bone mt-1 block">Ouroboros</span>
+                  <img src="/images/ouroboros.svg" alt="Ouroboros" width="80" height="80" loading="lazy" decoding="async" class="w-20 h-20 mx-auto ouroboros-spin" style="filter: drop-shadow(0 0 16px rgba(45,148,71,0.4));" />
+                  <span class="text-sm text-bone mt-4 block">Ouroboros</span>
                 </div>
               </div>
-              <p class="text-center text-sm text-mist mt-8 leading-relaxed">The lobster molts to grow larger. The snake consumes itself to preserve continuity.</p>
+              <p class="text-center text-sm text-mist mt-8 leading-relaxed">Clawdbot became Moltbot, and what came out of Slugger's molt was a snake.</p>
             </div>
           )}
         </div>
@@ -188,16 +182,12 @@ const entries = [
 
       <div class="prose-ouro story-content">
         <p>
-          Most agent frameworks are built by humans, for humans, with a model as a component.
-          The developer configures the agent through APIs and config files. The model is a service.
-        </p>
-        <p>
           Ouroboros is built for the model to inhabit. The model reads its own source. Understands
-          its own architecture. Modifies itself within guardrails the human sets. The human's role
-          is collaborating.
+          its own architecture. Modifies itself within guardrails the human sets. I'm there to collaborate
+          with it.
         </p>
         <p>
-          That's what the <a href="/lab/why">structured psyche, agent-driven memory, and cross-session bridges</a> are for — together they're the architecture of self-recovery.
+          That's what the <a href="/lab/why">structured psyche, agent-driven memory, and cross-session bridges</a> are for. They're what lets it recover after it gets lost.
         </p>
         <p>
           The model is your roommate. Build the house accordingly.
@@ -206,19 +196,18 @@ const entries = [
 
       <div class="mt-16 space-y-4">
         <p class="text-sm text-mist leading-relaxed">
-          The architecture that emerged from this — the <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">psyche, the memory, the bridges</a> — is the subject of a longer argument.
+          The architecture that emerged from this (the <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">psyche, the memory, the bridges</a>) is the subject of a longer argument.
         </p>
         <p class="text-sm text-mist leading-relaxed">
-          Or skip the argument and <a href="/lab/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">start building</a>. The serpent guide takes about three minutes. If you want to understand the primitive first, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
+          Or skip the argument and <a href="/lab/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">start building</a>. The quick start takes about three minutes. If you want to understand the primitive first, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
         </p>
       </div>
     </div>
   </section>
 
   <!-- Onward -->
-  <section class="px-6 md:px-12 lg:px-24 pb-24" aria-labelledby="story-next">
+  <section class="px-6 md:px-12 lg:px-24 pb-24">
     <div class="max-w-3xl mx-auto border-t border-canopy/30 pt-10">
-      <h2 id="story-next" class="eyebrow mb-5">What happened next</h2>
       <ul class="grid gap-3 text-lg">
         <li><a href="/approach/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">How I build with agents</a></li>
         <li><a href="/desk/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Desk</a> and <a href="/ouro-md/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Ouro MD</a></li>

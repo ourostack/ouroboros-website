@@ -7,22 +7,24 @@ import WorkshopVideo from './WorkshopVideo.astro'
 // Each clip comes in a light and a dark recording. CSS shows the one for the
 // active theme (the saved data-theme, else the system setting), so the poster
 // matches with no JS, and the hidden one never plays or loads its video.
+interface Props { stacked?: boolean }
+const { stacked = false } = Astro.props
 const themes = ['light', 'dark'] as const
 ---
 
 <figure class="product-figure">
-  <div class="clip-pair">
+  <div class:list={['clip-pair', { 'clip-stack': stacked }]}>
     <figure class="clip">
       <div class="product-media media-clip">
         {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} /></div>)}
       </div>
-      <figcaption class="product-caption">Typing the Nautilus crew's periscope plan. It renders as you go.</figcaption>
+      <figcaption class="product-caption">A made-up plan for Captain Nemo's Nautilus, typed in. It renders as you go.</figcaption>
     </figure>
     <figure class="clip">
       <div class="product-media media-clip">
         {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-agent-edit-${theme}.mp4`} webm={`/images/workshop/ouro-md-agent-edit-${theme}.webm`} poster={`/images/workshop/ouro-md-agent-edit-${theme}-poster.png`} width={840} height={630} /></div>)}
       </div>
-      <figcaption class="product-caption">An agent fills in the depth trials while you read.</figcaption>
+      <figcaption class="product-caption">An agent fills in the depth trials while I read.</figcaption>
     </figure>
   </div>
   <figcaption class="product-caption caption-tag-only"><span class="tag tag-plain">Dramatization</span></figcaption>
