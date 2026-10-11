@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import DeskBootPreview from '../components/DeskBootPreview.astro'
 import { ogPathFor } from '../data/og'
 import { deskHosts, labelFor, allowedLabels } from '../data/readiness.mjs'
 import { deskSetupUrl, factoryUrl, rfcUrl } from '../data/principles.mjs'
@@ -34,15 +35,13 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
             <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
           </div>
         </div>
-        <p class="text-sm text-mist">Setup also installs Jesse Vincent's <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, unchanged. See what it does in practice on <a href={factoryUrl} class={link}>the factory</a>.</p>
+        <p class="text-sm text-mist">Setup also installs Jesse Vincent's <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, unchanged. <a href={factoryUrl} class={link}>The factory</a> measures every session sent to it, in public.</p>
       </div>
 
       <div class="grid gap-6 content-start min-w-0">
         <figure class="grid gap-3">
-          <div class="rounded-2xl overflow-hidden border border-canopy/60">
-            <a href={factoryUrl}><img src="/images/workshop/factory-site.jpg" width="1200" height="800" decoding="async" alt="The factory site's header: Agents can carry real engineering work for days. Here is the proof, and where the time still goes." class="w-full h-auto" /></a>
-          </div>
-          <figcaption class="text-sm text-mist"><a href={factoryUrl} class={link}>The factory</a>, where my agents' Desk sessions are measured in public.</figcaption>
+          <DeskBootPreview />
+          <figcaption class="text-sm text-mist">A new session picks up where the last one left off. This is real output from Desk's session start, run on a sample desk.</figcaption>
         </figure>
         <div class={card}>
           <h2 class="caption-mono mb-3">Where it runs</h2>

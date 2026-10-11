@@ -73,16 +73,22 @@ test('homepage shows what Ari built with agents, each with captioned media of th
   assert.ok(poster, 'Missing the Ouro MD poster');
   assert.match(poster[0], /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
   assert.match(poster[0], /data-gif-alt="[^"]*3 times their captured rate/);
-  assert.ok(text.includes('Agent revises the same file; the person stays in place (3× captured playback).'));
-  for (const [file, w, h] of [['spoonjoy-app.jpg', 1000, 625], ['factory-site.jpg', 1200, 800], ['ouroboros-card.jpg', 1200, 630]]) {
+  assert.ok(text.includes("An agent revises the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
+  for (const [file, w, h] of [['spoonjoy-app.jpg', 1000, 625]]) {
     assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${file.replace('.', '\\.')}"[^>]*width="${w}" height="${h}"`), `${file} is sized`);
     assert.ok(distExists(`images/workshop/${file}`));
   }
   assert.equal((html.match(/class="product-media/g) || []).length, 4, 'Every product has media');
+  assert.doesNotMatch(text, /Your model prefers Ouroboros|Agents can carry real engineering work for days/, 'No share cards or headline slabs');
   assert.equal((html.match(/<figcaption class="product-caption"/g) || []).length, 4, 'Every product image has a caption');
-  assert.ok(text.includes("The factory, where my agents' Desk sessions are measured in public."));
-  assert.match(html, /Every model's reasoning is in <a href="\/lab\/model-reviews\/"/);
-  for (const gone of ['spoonjoy.jpg', 'factory-longest-sessions.jpg', 'desk-task-card.jpg', 'ouroboros-model-review.jpg']) assert.ok(!distExists(`images/workshop/${gone}`), `${gone} should be gone`);
+
+  // Desk and Ouroboros show the product in site type, not pictures of slogans.
+  assert.ok(text.includes('A new session picks up where the last one left off.'));
+  assert.ok(text.includes('next: wire the saved-address picker into the shipping form, then test it on a phone.'), 'The real session-start lines');
+  assert.ok(text.includes('First run: the serpent guide sets up your agent.'));
+  assert.match(html, /class="serpent-preview[^"]*serpent-compact/);
+  assert.ok(text.includes('npx ouro.bot'));
+  for (const gone of ['spoonjoy.jpg', 'factory-longest-sessions.jpg', 'desk-task-card.jpg', 'ouroboros-model-review.jpg', 'factory-site.jpg', 'ouroboros-card.jpg']) assert.ok(!distExists(`images/workshop/${gone}`), `${gone} should be gone`);
 });
 
 test('homepage says how Ari works in his own words and links each principle', () => {
@@ -522,5 +528,13 @@ test('the May essays say when they were written and when they were published', (
     const ld = JSON.parse(readDist(file).match(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema\.org","@type":"(?:Blog|)?Article"[\s\S]*?)<\/script>/)[1]);
     assert.equal(ld.dateCreated, created, `${file} dateCreated`);
     assert.ok(ld.datePublished > ld.dateCreated, `${file} datePublished must be the release date, not the writing date`);
+  }
+});
+
+test('the full serpent conversation still renders where it lived before', () => {
+  for (const page of ['lab/index.html', 'lab/docs/getting-started/index.html']) {
+    const html = readDist(page);
+    assert.doesNotMatch(html, /class="serpent-preview[^"]*serpent-compact/, `${page} keeps the full preview`);
+    assert.ok(textOf(html).includes('opinionated. want it to push back when'), `${page} keeps the middle exchange`);
   }
 });

@@ -1,0 +1,43 @@
+---
+/**
+ * Real Desk session-start output, not hand-written. Produced on 2026-10-10 by
+ * running Desk 3.2.0-alpha.273's `mcp/scripts/session-boot.js` against a
+ * throwaway sample desk (one track `my-app`, one task `checkout-flow` with
+ * status `processing` and a `**Next step:**` paragraph). These are the
+ * "Active tasks" lines of that output, verbatim; the rest of the output
+ * (machine paths, the sign-in check, the agent's instructions) is left out.
+ */
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props
+
+const lines = [
+  { text: 'Active tasks (1):', tone: 'bone' },
+  { text: '', tone: 'mist' },
+  { text: 'processing (1)', tone: 'scale' },
+  { text: '- my-app/checkout-flow "One-page checkout with saved addresses" (updated 2026-10-10)', tone: 'bone' },
+  { text: '  next: wire the saved-address picker into the shipping form, then test it on a phone.', tone: 'glow' },
+]
+---
+
+<div class:list={['desk-boot', { 'desk-boot-compact': compact }]}>
+  <div class="desk-boot-bar">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="desk-boot-title">a new session starts</span>
+  </div>
+  <pre class="desk-boot-body">{lines.map((line) => <span class={`line tone-${line.tone}`}>{line.text || ' '}</span>)}</pre>
+</div>
+
+<style>
+  .desk-boot { height: 100%; display: flex; flex-direction: column; border-radius: 0.75rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); background: var(--color-deep); }
+  .desk-boot-compact { border: 0; border-radius: 0; }
+  .desk-boot-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
+  .desk-boot-title { margin-left: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
+  .desk-boot-body { flex: 1; margin: 0; padding: 1rem 1.1rem; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }
+  .desk-boot-compact .desk-boot-body { font-size: 0.75rem; }
+  .line { display: block; }
+  .tone-bone { color: var(--color-bone); }
+  .tone-mist { color: var(--color-mist); }
+  .tone-scale { color: var(--color-scale); }
+  .tone-glow { color: var(--color-glow); }
+</style>

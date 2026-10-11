@@ -68,8 +68,8 @@ test('the Ouro MD page leads with the download and the agent-revision animation,
   const imgs = [...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(([, src]) => src);
   assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-reload-poster.png']);
   assert.match(html, /data-gif="\/images\/workshop\/ouro-md-reload\.gif"/);
-  assert.ok(textOf(html).includes('Agent revises the same file; the person stays in place (3× captured playback).'));
-  assert.doesNotMatch(textOf(html), /One ordinary Markdown plan/);
+  assert.ok(textOf(html).includes("An agent revises the plan I'm reading, and Ouro MD marks what changed. Sped up 3×."));
+  assert.doesNotMatch(textOf(html), /One ordinary Markdown plan|the person stays in place/);
   assert.ok(!distExists('images/ouro-md'), 'The rejected Ouro MD media must not ship');
   assert.ok(html.indexOf('https://ouro.bot/apps/ouro-md/') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
   const text = textOf(html);
@@ -95,10 +95,14 @@ test('the Desk page leads with what Desk does for a builder and links the RFC', 
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
 });
 
-test('the Desk page shows the factory, its label once, and limits in plain words', () => {
+test('the Desk page shows real session-start output, links the factory once, its label once, and limits in plain words', () => {
   const html = readDist('desk/index.html');
   const text = textOf(html);
-  assert.match(html, /<img\b[^>]*src="\/images\/workshop\/factory-site\.jpg"[^>]*width="1200" height="800"/);
+  assert.ok(text.includes('Active tasks (1):'));
+  assert.ok(text.includes('- my-app/checkout-flow "One-page checkout with saved addresses" (updated 2026-10-10)'));
+  assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
+  assert.match(text.replace(/\s+([.,])/g, '$1'), /The factory measures every session sent to it, in public\./);
+  assert.doesNotMatch(text, /See what it does in practice/);
   assert.equal((text.match(/Use today, alpha/g) || []).length, 1, 'The alpha label shows once');
   assert.ok(text.includes('macOS: tested daily. Linux: listed, lightly tested. Windows: works, with rough edges.'));
   assert.ok(text.includes("Desk's own browser starts signed out, and on macOS it can steal focus."));
