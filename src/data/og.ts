@@ -1,4 +1,4 @@
-import modelReviews from './model-reviews.json'
+import modelReviews from './model-reviews.json' with { type: 'json' }
 import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
 
 /*

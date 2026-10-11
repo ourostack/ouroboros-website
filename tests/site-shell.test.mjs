@@ -67,7 +67,7 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
     `Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.`,
     "The body-part folders from the real source tree, named so the agent can tell what each one is for.",
     "This is the harness my agents live in. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how my agent used what I gave it. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.",
-    'My agent imports a recipe into Spoonjoy. Real, sped up.',
+    'One of my recipes in Spoonjoy.',
     "My recipe app. I've rebuilt it every time I learned a new way to build software. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. For everything in between, I believe the app will eventually draw its own UI.",
     'Ouro MD →', 'Desk →', 'The harness →', 'What is Agent Experience? →', 'The Spoonjoy story →', 'spoonjoy.app ↗',
   ]);
@@ -75,15 +75,13 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
 
   // Copy deck round 2: the m365crawl card comes fourth, before Spoonjoy.
   assertLines(text, [
-    "Real output: m365crawl's health check and a snapshot of the archive.",
+    'Real output on synthetic notes: a search, then the note it found.',
     'It gives my agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.',
     'm365crawl on GitHub ↗',
   ]);
   const cards = [...html.matchAll(/<article class="product[^"]*" id="([^"]+)"/g)].map(([, id]) => id);
   assert.deepEqual(cards, ['ouroboros', 'desk', 'ouro-md', 'm365crawl', 'spoonjoy']);
   assert.match(html, /<article class="product product-wide product-split" id="m365crawl"/);
-  assert.match(html, /<img src="\/images\/workshop\/m365crawl-doctor\.png" width="1602" height="1434" loading="lazy"/);
-  assert.ok(distExists('images/workshop/m365crawl-doctor.png'));
   const outside = html.replace(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/, '');
   assert.doesNotMatch(outside, /Microsoft 365/, 'Microsoft 365 is named only in the m365crawl card');
   assert.equal((html.match(/<span class="tag tag-plain"[^>]*>Dramatization<\/span>/g) || []).length, 2, 'Ouro MD and Desk are labelled Dramatization');
@@ -92,15 +90,13 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
   assert.doesNotMatch(html, /spoonjoy-app\.jpg|serpent-preview|desk-boot\b/);
   assert.doesNotMatch(text, /One agent session ran for|\(proposed\)|Fix the system/);
 
-  // Media slots: a clip with a poster when the clip exists, otherwise the poster alone. Never an empty frame.
+  // Media slots: every clip ships with its poster. A placeholder never ships (design.md).
   // The Ouro MD clips come in a light and a dark recording, each with its own poster.
-  const slots = [
-    ...['ouro-md-typing', 'ouro-md-agent-edit'].flatMap((clip) => ['light', 'dark'].map((theme) => ({ name: `${clip}-${theme}`, poster: `${clip}-${theme}-poster` }))),
-    { name: 'spoonjoy-import', poster: 'spoonjoy-import' },
-  ];
+  const slots = ['ouro-md-typing', 'ouro-md-agent-edit'].flatMap((clip) => ['light', 'dark'].map((theme) => ({ name: `${clip}-${theme}`, poster: `${clip}-${theme}-poster` })));
   for (const { name, poster } of slots) {
     assert.ok(distExists(`images/workshop/${poster}.png`), `${poster}.png poster ships`);
-    if (distExists(`images/workshop/${name}.mp4`)) {
+    assert.ok(distExists(`images/workshop/${name}.mp4`), `${name}.mp4 ships`);
+    {
       const video = html.match(new RegExp(`<video\\b[^>]*poster="/images/workshop/${poster}\\.png"[^>]*>`));
       assert.ok(video, `${name} renders as a video with its poster`);
       assert.match(video[0], /\bmuted\b/);
@@ -110,8 +106,6 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
       const clip = html.match(new RegExp(`<div class="workshop-clip"[^>]*>\\s*<video\\b[^>]*poster="/images/workshop/${poster}\\.png"[\\s\\S]*?</div>`));
       assert.ok(clip, `${name} sits in a clip wrapper`);
       assert.match(clip[0], /<button type="button" class="clip-toggle"[^>]*data-clip-toggle[^>]*>Pause<\/button>/, `${name} has a Pause control`);
-    } else {
-      assert.match(html, new RegExp(`<img\\b[^>]*src="/images/workshop/${poster}\\.png"[^>]*width="\\d+" height="\\d+"[^>]*loading="lazy"`), `${name} poster is sized and lazy`);
     }
   }
   // The Ouro MD clips are the real 840x630 recordings, WebM first, and CSS shows the
@@ -125,6 +119,43 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
     }
   }
   assert.doesNotMatch(html, /ouro-md-type\.png|ouro-md-agent-edit\.png/, 'The Ouro MD placeholder posters are gone');
+});
+
+test('no page ships a "Recording in progress" placeholder or a poster with no clip', () => {
+  const offenders = [];
+  for (const file of listHtmlFiles()) {
+    const html = fs.readFileSync(file, 'utf8');
+    const rel = path.relative(distDir, file);
+    if (/Recording in progress/i.test(html)) offenders.push(`${rel}: "Recording in progress"`);
+    // WorkshopVideo renders a bare poster when its clip file is missing; that is a placeholder too.
+    if (/data-clip-pending=/.test(html)) offenders.push(`${rel}: a poster with no clip`);
+  }
+  assert.deepEqual(offenders, []);
+  // The rejected Spoonjoy import recording never ships (root ruling, 2026-10-11).
+  for (const ext of ['mp4', 'webm', 'png']) assert.ok(!distExists(`images/workshop/spoonjoy-import.${ext}`), `spoonjoy-import.${ext} must not ship`);
+});
+
+test('the Spoonjoy card shows one of Ari\'s own recipes, linked, with the deck caption', () => {
+  const html = readDist('index.html');
+  const card = html.match(/<article\b[^>]*id="spoonjoy"[\s\S]*?<\/article>/);
+  assert.ok(card, 'Missing the Spoonjoy card');
+  const img = card[0].match(/<img\b[^>]*src="\/images\/workshop\/spoonjoy-recipe\.(?:webp|jpg)"[^>]*>/);
+  assert.ok(img, 'The Spoonjoy card shows the recipe screenshot');
+  assert.match(img[0], /width="1280" height="800"/);
+  assert.match(img[0], /loading="lazy"/);
+  assert.match(img[0], /alt="Ari(&#39;|')s Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion\."/);
+  assert.ok(hrefsOf(card[0]).includes('https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z'), 'The screenshot links to the recipe');
+  assert.ok(plain(card[0]).includes('One of my recipes in Spoonjoy.'));
+  assert.doesNotMatch(plain(card[0]), /Real, sped up|imports a recipe/);
+});
+
+test('the m365crawl card shows the README\'s synthetic indexed-notes screenshot at its real size', () => {
+  const html = readDist('index.html');
+  const card = html.match(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/)[0];
+  assert.match(card, /<img src="\/images\/workshop\/m365crawl-indexed-notes\.png" width="\d+" height="\d+" loading="lazy"/);
+  assert.ok(distExists('images/workshop/m365crawl-indexed-notes.png'));
+  assert.ok(!distExists('images/workshop/m365crawl-doctor.png'), 'The doctor screenshot no longer ships');
+  assert.ok(plain(card).includes('Real output on synthetic notes: a search, then the note it found.'));
 });
 
 test('homepage Desk playback renders its final frame without JS, shows scene 1 as a still before it plays, and plays once with a replay', () => {

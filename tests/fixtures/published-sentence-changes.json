@@ -2854,5 +2854,191 @@
   "was": "You have an AX problem.",
   "now": "or rebuilding the work after every interruption, you have an AX problem.",
   "why": "review I1: approved antithesis rewrite"
+ },
+ {
+  "page": "approach attributes",
+  "was": "How I build with agents | Ouroboros",
+  "now": "How I work | Ouroboros",
+  "why": "copy deck round 2: /approach title"
+ },
+ {
+  "page": "approach attributes",
+  "was": "Three smells and five principles for working with agents on jobs that take days, with my own words for each.",
+  "now": "The three acts, three smells, and five principles I use to work with agents on jobs that take days.",
+  "why": "copy deck round 2: /approach meta description, with the Oxford comma"
+ },
+ {
+  "page": "blog/designing-with-your-agent attributes",
+  "was": "The task scanner produced 184 false errors. We could have patched the parser. Instead, we asked the agent living inside the system what was actually broken.",
+  "now": "The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.",
+  "why": "approved antithesis rewrite"
+ },
+ {
+  "page": "blog/stop-being-the-glue attributes",
+  "was": "We were promised an intelligent assistant. Instead, we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed.",
+  "now": "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed.",
+  "why": "approved antithesis rewrite"
+ },
+ {
+  "page": "blog/take-the-agents-seat attributes",
+  "was": "Half our prompt lives in our head. The agent only got the other half. Read what we wrote, before the agent does. Sister essay to Trust the Fucking Agent.",
+  "now": "Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.",
+  "why": "essays deck (2026-10-11): the new dek"
+ },
+ {
+  "page": "blog/trust-the-agent attributes",
+  "was": "Agents have all the agency. We have the judgement. We keep doing both jobs. Bring only the judgement; they've got the rest.",
+  "now": "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
+  "why": "essays deck (2026-10-11): the new dek"
+ },
+ {
+  "page": "desk attributes",
+  "was": "Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. Opt-in alpha on Claude Code.",
+  "now": "Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and a job is done when you’ve seen it work. An alpha for Claude Code and GitHub Copilot CLI.",
+  "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\"; copy deck round 2: \"…and a job is done when you've seen it work.\""
+ },
+ {
+  "page": "lab attributes",
+  "was": "Slugger, the Ouroboros harness and the model reviews. Our Agent Experience lab.",
+  "now": "Slugger, the Ouroboros harness, and the model reviews. Our Agent Experience lab.",
+  "why": "copy deck: Oxford commas in every list"
+ },
+ {
+  "page": "lab/story attributes",
+  "was": "Code a model can use — the Ouroboros origin story",
+  "now": "Code a model can use: how Ouroboros started",
+  "why": "copy deck round 2: /lab/story title"
+ },
+ {
+  "page": "lab/story attributes",
+  "was": "How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.",
+  "now": "How a plugin for my OpenClaw agent turned into a harness I built from scratch.",
+  "why": "copy deck round 2: /lab/story dek, used as its meta description"
+ },
+ {
+  "page": "lab/why attributes",
+  "was": "Why persistent agents need structured identity, automatic memory recall, per-person relationships, and cross-session continuity — not just a longer context window.",
+  "now": "Why persistent agents need structured identity, automatic memory recall, per-person relationships, and cross-session continuity.",
+  "why": "approved antithesis rewrite"
+ },
+ {
+  "page": "ouro-md attributes",
+  "was": "After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed.",
+  "now": null,
+  "why": "copy deck round 2: the second demo (\"Harbor launch plan\") and its GIF are cut (it was rewritten first: approved antithesis rewrite; rulings: singular person to human)"
+ },
+ {
+  "page": "privacy attributes",
+  "was": "What this site, hosted Desk, the factory and Ouro MD collect, in plain language.",
+  "now": "What this site, hosted Desk, the factory, and Ouro MD collect, in plain language.",
+  "why": "review M5: Oxford comma"
+ },
+ {
+  "page": "share card /",
+  "was": "Here's how I believe it works, what I use to support it, and what you can try.",
+  "now": "I'm Ari. I build products for humans + agents.",
+  "why": "copy deck: the homepage share card subtitle becomes the hero sub"
+ },
+ {
+  "page": "share card /approach",
+  "was": "How I build with agents.",
+  "now": "How I work.",
+  "why": "copy deck round 2: /approach title"
+ },
+ {
+  "page": "share card /approach",
+  "was": "Three smells and five principles, with my own words for each.",
+  "now": "The three acts, three smells, and five principles I use to work with agents on jobs that take days.",
+  "why": "copy deck round 2: no quoting Ari on his own site, so the card uses the /approach meta description"
+ },
+ {
+  "page": "share card /desk",
+  "was": "Give your agent one link and say \"set this up\". Opt-in alpha on Claude Code.",
+  "now": "Give your agent one link and say \"set this up\". An alpha for Claude Code and GitHub Copilot CLI.",
+  "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\""
+ },
+ {
+  "page": "share card /lab",
+  "was": "Slugger, the Ouroboros harness and the model reviews. Our Agent Experience lab.",
+  "now": "Slugger, the Ouroboros harness, and the model reviews. Our Agent Experience lab.",
+  "why": "copy deck: Oxford commas in every list"
+ },
+ {
+  "page": "share card /lab/why",
+  "was": "Why long-lived agents need structured identity, not just longer context windows.",
+  "now": "Why long-lived agents need structured identity.",
+  "why": "approved antithesis rewrite"
+ },
+ {
+  "page": "share card /lab/story",
+  "was": "How building an AI agent plugin led to building an agent harness from scratch.",
+  "now": "How a plugin for my OpenClaw agent turned into a harness I built from scratch.",
+  "why": "copy deck round 2: /lab/story dek"
+ },
+ {
+  "page": "share card /blog/trust-the-agent",
+  "was": "Agents have all the agency. We have the judgement. Bring judgement. They've got the rest.",
+  "now": "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
+  "why": "essays deck (2026-10-11): the new dek"
+ },
+ {
+  "page": "share card /blog/take-the-agents-seat",
+  "was": "Half of every prompt we send lives in our head. Read what we wrote, before the agent does.",
+  "now": "Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.",
+  "why": "essays deck (2026-10-11): the new dek"
+ },
+ {
+  "page": "share card /blog/designing-with-your-agent",
+  "was": "The task scanner produced 184 false errors. We could have patched the parser. Instead we asked the agent inside the system what was actually broken.",
+  "now": "The task scanner produced 184 false errors. Before patching the parser, we asked the agent inside the system what was actually broken.",
+  "why": "approved antithesis rewrite"
+ },
+ {
+  "page": "share card /privacy",
+  "was": "What this site, Desk, the factory and Ouro MD collect, in plain language.",
+  "now": "What this site, Desk, the factory, and Ouro MD collect, in plain language.",
+  "why": "copy deck: Oxford commas in every list"
+ },
+ {
+  "page": "share card /lab/docs/continuity-and-memory",
+  "was": "Continuity over compaction. The diary is the shelf, the journal is the desk, habits are the rhythm.",
+  "now": "The diary is the shelf, the journal is the desk, habits are the rhythm.",
+  "why": "approved antithesis rewrite"
+ },
+ {
+  "page": "brief.md",
+  "was": "The person who gave you this wants to hand you outcomes, not steps, the way https://ouroboros.bot/approach/ describes.",
+  "now": "The human who gave you this wants to hand you whole outcomes, the way https://ouroboros.bot/approach/ describes.",
+  "why": "approved antithesis rewrite; rulings: singular person to human"
+ },
+ {
+  "page": "brief.md",
+  "was": "Talk through intent and judgement together Say back the outcome, who it's for and why, and what you don't know.",
+  "now": "Talk through intent and judgment Say back the outcome, who it's for and why, and what you don't know.",
+  "why": "copy deck: principle titles in their original wording"
+ },
+ {
+  "page": "brief.md",
+  "was": "Delegate whole outcomes, not steps After go, own every step to a result they can accept, including the awkward ones: signing in, cleaning up, merging when you're confident.",
+  "now": "Delegate whole outcomes After go, own every step to a result they can accept, including the awkward ones: signing in, cleaning up, merging when you're confident.",
+  "why": "copy deck: principle titles in their original wording"
+ },
+ {
+  "page": "brief.md",
+  "was": "Give agents meaningful authority, with clear boundaries Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone.",
+  "now": "Meaningful authority with clear boundaries Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone.",
+  "why": "copy deck: principle titles in their original wording"
+ },
+ {
+  "page": "brief.md",
+  "was": "Verify the actual result, not plausible progress Say \"done\" only with evidence from where the result lives: the live page, the installed app, the merged change.",
+  "now": "Verify the actual result Say \"done\" only with evidence from where the result lives: the live page, the installed app, the merged change.",
+  "why": "copy deck: principle titles in their original wording"
+ },
+ {
+  "page": "brief.md",
+  "was": "It's an opt-in alpha on Claude Code.",
+  "now": "It's an alpha for Claude Code and GitHub Copilot CLI.",
+  "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\""
  }
 ]
