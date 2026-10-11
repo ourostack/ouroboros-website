@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import { ogPathFor } from '../data/og'
 import { deskHosts, labelFor, allowedLabels } from '../data/readiness.mjs'
-import { deskSetupUrl } from '../data/principles.mjs'
+import { deskSetupUrl, factoryUrl } from '../data/principles.mjs'
 
 const title = 'Desk: the principles, built in | Ouroboros'
 const description = 'Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. Opt-in alpha on Claude Code.'
@@ -21,7 +21,8 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
           <img src="/brand/desk-icon.svg" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
           <h1 class="heading-lead">Desk</h1>
         </div>
-        <p class="text-lg text-mist leading-relaxed max-w-[52ch]">The principles are free. Following them every time is the hard part, and rules held in your head fade. Desk keeps them in the setup: your agent's work lives in a Git repository you own, every job starts with one alignment conversation and an explicit go, and done means evidence you can accept or send back.</p>
+        <p class="text-xl md:text-2xl text-bone font-display leading-snug max-w-[34ch]">The principles, built into your agent's setup.</p>
+        <p class="text-lg text-mist leading-relaxed max-w-[52ch]">Your agent's work lives in a Git repository you own. Every job starts with one conversation and a go, and ends with evidence you accept or send back.</p>
 
         <div class="grid gap-2">
           <span class="caption-mono">Give your agent</span>
@@ -31,7 +32,7 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
             <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
           </div>
         </div>
-        <p class="text-sm text-mist">Setup also installs Jesse Vincent's <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a> method, unchanged, and our Plain Language writing rules. We ship several times a day, so expect change.</p>
+        <p class="text-sm text-mist">Setup also installs Jesse Vincent's <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, unchanged. See what it does in practice on <a href={factoryUrl} class={link}>the factory</a>.</p>
       </div>
 
       <div class="grid gap-6 content-start min-w-0">
@@ -49,9 +50,9 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
         <div class={card}>
           <h2 class="caption-mono mb-3">Known limits today</h2>
           <ul class="list-disc pl-5 grid gap-2 text-mist">
-            <li>The browser Desk gives your agent starts signed out, and on macOS it can steal keyboard focus.</li>
-            <li>We haven't yet recorded a full install on a fresh user profile.</li>
-            <li>The loop that turns friction into fixes is built, and it isn't proven on live data yet.</li>
+            <li>Its browser starts signed out, and on macOS it can steal focus.</li>
+            <li>No recorded install on a fresh user profile yet.</li>
+            <li>The friction-to-fix loop is built but not proven on live data.</li>
           </ul>
         </div>
       </div>
@@ -62,7 +63,7 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
     <div class="max-w-3xl mx-auto grid gap-6">
       <div class={`${card} grid gap-3 content-start`}>
         <h2 class="heading-sub">Support goes through your agent</h2>
-        <p class="text-mist">Give your agent this, not a support form:</p>
+        <p class="text-mist">Give your agent this:</p>
         <pre id="desk-support" class="agent-text !text-xs">{supportPrompt}</pre>
         <button type="button" data-copy-target="desk-support" class="justify-self-start inline-flex items-center rounded-xl border border-canopy text-bone px-4 py-2 text-sm font-medium hover:border-scale hover:text-scale transition-colors"><span data-copy-label>Copy</span></button>
       </div>

@@ -18,23 +18,23 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
         <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
         <h1 class="heading-lead">Ouro MD</h1>
       </div>
-      <p class="text-xl text-bone font-display">Where you read and answer what your agent writes.</p>
-      <p class="text-lg text-mist leading-relaxed">Your agent's plans and notes live in Markdown files. Ouro MD shows them as a document, updates live when your agent edits them, and marks what changed so you can jump straight to it.</p>
+      <p class="text-xl md:text-2xl text-bone font-display leading-snug">Where you read and answer what your agent writes.</p>
+      <p class="text-lg text-mist leading-relaxed">Your agent's plans and notes, as a live document. When the agent edits, you see what changed.</p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="https://ouro.bot/apps/ouro-md/" class="btn-primary">Download for Mac &rarr;</a>
+        <span class="text-sm text-mist">macOS 13 or later. Signed, notarized, updates itself.</span>
+      </div>
 
       <div class="grid gap-2">
-        <span class="caption-mono">Install in Terminal</span>
+        <span class="caption-mono">Or install in Terminal</span>
         <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
         <div class="flex flex-wrap items-center gap-3">
-          <button type="button" data-copy-target="ouro-md-install" class="inline-flex items-center rounded-xl bg-bone text-void px-4 py-2.5 text-sm font-medium hover:bg-scale transition-colors"><span data-copy-label>Copy</span></button>
-          <a href="https://ouro.bot/apps/ouro-md/" class={`${link} text-sm`}>Or download the app &rarr;</a>
+          <button type="button" data-copy-target="ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> command.</span>
         </div>
       </div>
-      <ul class="list-disc pl-5 grid gap-2 text-mist">
-        <li>macOS 13 or later.</li>
-        <li>Signed and notarized, with built-in update checks.</li>
-        <li>The installer also adds an <code class="font-mono">md</code> command to your shell.</li>
-        <li>Builds from the installer or the download page send anonymous usage telemetry (you can turn it off in Settings). The <a href="/privacy/" class={link}>privacy page</a> says what's sent.</li>
-      </ul>
+      <p class="text-sm text-mist">Builds from the installer or the download page send anonymous usage telemetry (you can turn it off in Settings). The <a href="/privacy/" class={link}>privacy page</a> says what's sent.</p>
     </div>
   </section>
 

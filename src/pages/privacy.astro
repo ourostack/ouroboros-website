@@ -19,23 +19,21 @@ const description = 'What this site, hosted Desk, the factory and Ouro MD collec
 
   <article class="px-6 md:px-12 lg:px-24 pb-16">
     <div class="max-w-3xl mx-auto prose-ouro">
-      <p>This page says what this site and each of our tools collect, in plain language. If something here is wrong or unclear, ask your agent to file an issue on the project it's about.</p>
-
       <h2>This site</h2>
-      <p>You don't need an account to read it. It sets no cookies and loads no analytics script of its own. Cloudflare serves the pages and, like any web host, sees each request.</p>
+      <p>No account, no cookies, no analytics script of our own. Cloudflare serves the pages and, like any host, sees each request.</p>
 
       <h2>Hosted Desk</h2>
-      <p>Hosted Desk is not open yet. When it is, you sign in with GitHub so it can confirm who you are, and only accounts on its allow list get in. It keeps a copy of your desk's Git repository on our server so it can read and write your tasks and notes, and pushes its changes back to your repository. It can't run commands or change code. We'll publish a full notice for it before it opens to anyone else.</p>
+      <p>Not open yet. When it opens, you sign in with GitHub and only allow-listed accounts get in. It keeps a copy of your desk's Git repository on our server to read and write your tasks and notes, and pushes its changes back. It can't run commands or change code. We'll publish a full notice before it opens to anyone else.</p>
 
       <h2>The factory</h2>
-      <p>Desk asks you once whether you want to contribute to <a href="https://ourostack.github.io/factory/">the factory</a>. Contributing is off unless you say yes. Desk keeps its own session notes on your machine either way; only publishing waits for your yes.</p>
-      <p>If you say yes, Desk publishes measurements of how your agent sessions ran to the public <a href="https://github.com/ourostack/factory">ourostack/factory</a> repository: how long they took, how time split between turns, tools and waits, which tools failed or retried, which models and plugin versions ran, which public pull requests a session touched, the day a job finished, whether you accepted the result, and the rough size (not the text) of each prompt and reply. It never includes transcript text, prompts, file contents, names or the time of day. Each contribution arrives as a pull request, so your GitHub account and when you contributed are visible on GitHub.</p>
+      <p>Desk asks once whether you want to contribute to <a href="https://ourostack.github.io/factory/">the factory</a>. It's off unless you say yes. Desk keeps its session notes on your machine either way.</p>
+      <p>If you say yes, Desk publishes measurements of how your sessions ran to the public <a href="https://github.com/ourostack/factory">ourostack/factory</a> repository: durations, how time split between turns, tools and waits, failed or retried tools, models and plugin versions, public pull requests a session touched, the day a job finished, whether you accepted the result, and the rough size of each prompt and reply. Never transcript text, prompts, file contents, names or time of day. Each contribution is a pull request, so your GitHub account and when you contributed are visible.</p>
 
       <h2>Ouro MD</h2>
-      <p>Builds from the installer or the download page send anonymous usage telemetry to PostHog, on by default: app launches, update steps, and when documents are opened, saved, renamed or exported, with the app and macOS version and a random install id. It never sends document contents, filenames, folder paths, search queries or clipboard contents. Turn it off in Settings &rsaquo; Telemetry. The app checks GitHub for updates. The full list is in <a href="https://github.com/ourostack/ouro-md/blob/main/PRIVACY.md">Ouro MD's PRIVACY.md</a>.</p>
+      <p>Builds from the installer or the download page send anonymous usage telemetry to PostHog, on by default: launches, update steps, and documents opened, saved, renamed or exported, with app and macOS version and a random install id. Never document contents, filenames, folder paths, search queries or clipboard contents. Turn it off in Settings &rsaquo; Telemetry. The app checks GitHub for updates. Full list: <a href="https://github.com/ourostack/ouro-md/blob/main/PRIVACY.md">Ouro MD's PRIVACY.md</a>.</p>
 
       <h2>Questions</h2>
-      <p>Each project takes issues on <a href="https://github.com/ourostack">GitHub</a>. Ask your agent to file one on the project your question is about.</p>
+      <p>Ask your agent to file an issue on the project on <a href="https://github.com/ourostack">GitHub</a>.</p>
     </div>
   </article>
 </Layout>

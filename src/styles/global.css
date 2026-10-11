@@ -162,26 +162,41 @@ html {
 }
 
 /* ── Light theme ──
-   The serpent palette above is the dark theme. Visitors whose system asks
-   for light get the calm reading surface from the 2026-10 method-first
-   pitch: the same token names, remapped, so every utility (text-bone,
-   bg-void, border-canopy/15 …) follows automatically. Keep contrast at
-   WCAG AA for mist and shadow text on void. */
+   The serpent palette above is the dark theme. Light is the same serpent
+   on parchment: warm paper, moss green, the fang red kept. Same token
+   names, remapped, so every utility follows. The system setting decides
+   unless the visitor picks a theme with the toggle, which sets
+   data-theme on <html>. Keep every text token at WCAG AA on void, deep
+   and undergrowth (tests/site-shell.test.mjs checks). */
 :root { color-scheme: dark; }
-@media (prefers-color-scheme: light) {
-  :root {
+:root[data-theme="light"] {
     color-scheme: light;
-    --color-void: #F4F5F0;
-    --color-deep: #FCFCF9;
-    --color-undergrowth: #E9EDE4;
-    --color-canopy: #B7C2B4;
-    --color-scale: #23753F;
-    --color-glow: #18592F;
-    --color-fang: #B8402F;
-    --color-bone: #15201A;
-    --color-mist: #3D4A42;
-    --color-shadow: #5A675F;
-    --color-amber: #80590C;
+    --color-void: #F5EFE0;
+    --color-deep: #FFFAF0;
+    --color-undergrowth: #ECE3CC;
+    --color-canopy: #CBBD98;
+    --color-scale: #1F6A37;
+    --color-glow: #14502A;
+    --color-fang: #A8352A;
+    --color-bone: #1A2118;
+    --color-mist: #3D4839;
+    --color-shadow: #535E50;
+    --color-amber: #7A5308;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+      color-scheme: light;
+      --color-void: #F5EFE0;
+      --color-deep: #FFFAF0;
+      --color-undergrowth: #ECE3CC;
+      --color-canopy: #CBBD98;
+      --color-scale: #1F6A37;
+      --color-glow: #14502A;
+      --color-fang: #A8352A;
+      --color-bone: #1A2118;
+      --color-mist: #3D4839;
+      --color-shadow: #535E50;
+      --color-amber: #7A5308;
   }
 }
 
@@ -268,8 +283,8 @@ p, li, dd, figcaption { text-wrap: pretty; }
 
 /* ── Animations ── */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(16px); }
+  to { transform: translateY(0); }
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -280,7 +295,11 @@ p, li, dd, figcaption { text-wrap: pretty; }
   50% { opacity: 0.25; transform: scale(1.05); }
 }
 
-.animate-fade-up { animation: fade-up 0.8s var(--ease-expo) both; }
+/* Text is visible from the first frame: the entrance moves, it never fades
+   in from nothing, so screenshots and slow devices never see a blank hero. */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-up { animation: fade-up 0.8s var(--ease-expo) both; }
+}
 .stagger-1 { animation-delay: 100ms; }
 .stagger-2 { animation-delay: 250ms; }
 .stagger-3 { animation-delay: 400ms; }
@@ -297,12 +316,10 @@ p, li, dd, figcaption { text-wrap: pretty; }
 
 @media (prefers-reduced-motion: no-preference) {
   html.reveal-ready .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s var(--ease-expo), transform 0.8s var(--ease-expo);
+    transform: translateY(16px);
+    transition: transform 0.8s var(--ease-expo);
   }
   html.reveal-ready .reveal.visible {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -476,3 +493,20 @@ p, li, dd, figcaption { text-wrap: pretty; }
   font-size: 0.85em;
   overflow-wrap: anywhere;
 }
+
+/* ── Theme toggle icon: show the theme you'd switch to ── */
+.theme-icon-sun { display: block; }
+.theme-icon-moon { display: none; }
+:root[data-theme="light"] .theme-icon-sun { display: none; }
+:root[data-theme="light"] .theme-icon-moon { display: block; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-icon-sun { display: none; }
+  :root:not([data-theme="dark"]) .theme-icon-moon { display: block; }
+}
+
+/* ── Buttons ── */
+.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; background: var(--color-scale); color: var(--color-void); padding: 0.75rem 1.25rem; font-weight: 500; transition: background 0.2s, box-shadow 0.3s; }
+.btn-primary:hover { background: var(--color-glow); box-shadow: 0 0 30px color-mix(in srgb, var(--color-scale) 35%, transparent); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; border: 1px solid var(--color-canopy); color: var(--color-bone); padding: 0.75rem 1.25rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: var(--color-scale); color: var(--color-scale); }
+.prose-ouro a.btn-primary, .prose-ouro a.btn-primary:hover { color: var(--color-void); text-decoration: none; }

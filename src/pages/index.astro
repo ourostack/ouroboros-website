@@ -1,17 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import OuroborosRing from '../components/OuroborosRing.astro'
+import modelReviews from '../data/model-reviews.json'
 import { ogPathFor } from '../data/og'
-import { principles, proposedPrinciple, smells, factoryUrl, deskSetupUrl, ouroMdInstall } from '../data/principles.mjs'
+import { principles, proposedPrinciple, smells, factoryUrl, deskSetupUrl, rfcUrl } from '../data/principles.mjs'
 import { labelFor } from '../data/readiness.mjs'
+import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
 
 const title = 'How do you effectively collaborate with agents? | Ouroboros'
 const description = "Here's how I believe it works, what I use to support it, and what you can try."
-
+const { shortClaim } = getModelReviewClaims(modelReviews)
 const deskLabel = labelFor('desk-claude-code-macos')
-const ouroMdLabel = labelFor('ouro-md')
 
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
-const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
+
+const doors = [
+  { href: '/approach/', kicker: 'The method', title: 'Three smells, five principles.', body: 'How I work with agents on jobs that take days.' },
+  { href: '/desk/', kicker: 'The tools', title: 'Desk and Ouro MD.', body: 'The method, built into the setup.' },
+  { href: '/lab/', kicker: 'The lab', title: 'The harness.', body: 'Where all of this started.' },
+]
+
+// Beats quoted verbatim from /lab/story.
+const beats = [
+  { when: 'January 2026', quote: 'I set up OpenClaw on a spare MacBook at home. Named my agent Slugger.', tone: 'scale' },
+  { when: 'Early February', quote: 'Then the seams started showing.', tone: 'fang' },
+  { when: 'Late February', quote: 'Then I followed my own guide.', tone: 'glow' },
+]
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/')} canonical="https://ouroboros.bot/">
@@ -26,154 +40,168 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
     })} />
   </Fragment>
 
-  <!-- Hero: the question, the short answer, and the three smells as the way in -->
-  <section class="px-6 md:px-12 lg:px-16 pt-28 pb-14 md:pt-40 md:pb-20">
-    <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:items-center">
-      <div>
-        <h1 class="heading-lead animate-fade-up">How do you effectively collaborate with agents?</h1>
-        <p class="text-lg md:text-xl text-mist leading-relaxed mt-6 max-w-[46ch] animate-fade-up stagger-1">
-          Here's how I believe it works, what I use to support it, and what you can try. The short version: talk through what you want together, hand over whole outcomes, write down what matters, give the agent real authority with clear limits, and check the actual result.
-        </p>
-        <div class="flex flex-wrap gap-3 mt-8 animate-fade-up stagger-2">
-          <a href="/approach/" class="inline-flex items-center gap-2 rounded-xl bg-bone text-void px-5 py-3 font-medium hover:bg-scale transition-colors">Read the approach &rarr;</a>
-          <a href="/brief/" class="inline-flex items-center gap-2 rounded-xl border border-canopy text-bone px-5 py-3 font-medium hover:border-scale hover:text-scale transition-colors">Hand this to your agent</a>
+  <!-- Hero: the question, the answer in one line, three doors -->
+  <section class="relative overflow-hidden px-5 sm:px-6 md:px-12 lg:px-16 pt-24 pb-16 md:pt-32 md:pb-24">
+    <div class="absolute top-10 -right-40 w-[520px] h-[520px] rounded-full bg-scale/10 blur-[140px] pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute bottom-0 -left-40 w-[420px] h-[420px] rounded-full bg-fang/[0.07] blur-[140px] pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.9fr_1fr] lg:items-center">
+      <div class="min-w-0">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-fang/40 bg-fang/[0.06] font-mono text-xs text-fang uppercase tracking-[0.22em] animate-fade-up">&#10022; Ari Mendelow</span>
+        <h1 class="heading-hero mt-6 animate-fade-up stagger-1">How do you effectively collaborate with <span class="text-scale">agents?</span></h1>
+        <p class="text-lg md:text-2xl text-bone leading-snug mt-6 max-w-[34ch] animate-fade-up stagger-2">Talk it through once, hand over the whole job, write down what matters, and check the real result.</p>
+      </div>
+      <div class="hidden lg:flex justify-center animate-fade-up stagger-3" aria-hidden="true">
+        <OuroborosRing size="lg" id="home" />
+      </div>
+    </div>
+
+    <nav class="relative max-w-6xl mx-auto mt-12 md:mt-16 grid gap-4 md:grid-cols-3" aria-label="Start here">
+      {doors.map((door, i) => (
+        <a href={door.href} class={`door group animate-fade-up stagger-${i + 3}`}>
+          <span class="font-mono text-xs text-fang uppercase tracking-[0.22em]">{door.kicker}</span>
+          <span class="font-display text-3xl text-bone leading-tight group-hover:text-scale transition-colors">{door.title}</span>
+          <span class="text-mist">{door.body}</span>
+          <span class="door-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      ))}
+    </nav>
+  </section>
+
+  <!-- Origin: Slugger and the harness -->
+  <section class="relative px-5 sm:px-6 md:px-12 lg:px-16 py-16 md:py-28 border-t border-canopy/20 reveal" aria-labelledby="origin-heading">
+    <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+      <div class="min-w-0">
+        <span class="eyebrow">Where this came from</span>
+        <h2 id="origin-heading" class="heading-section mt-5">It started with <span class="text-scale">Slugger.</span></h2>
+        <div class="molt mt-10" aria-hidden="true">
+          <img src="/images/openclaw.svg" alt="" width="72" height="72" class="w-16 h-16 md:w-20 md:h-20" />
+          <span class="molt-arrow">&rarr;</span>
+          <span class="mark-mask w-16 h-16 md:w-20 md:h-20 text-scale" style="--mark:url(/brand/ouro-silhouette.svg)"></span>
         </div>
+        <blockquote class="font-display text-2xl md:text-3xl text-bone leading-snug mt-8 max-w-[30ch]">&ldquo;What emerged from Slugger's molt wasn't another crustacean. It was a snake, eating its own tail.&rdquo;</blockquote>
       </div>
 
-      <aside class={`${card} grid gap-4 animate-fade-up stagger-3`} aria-labelledby="smells-heading">
-        <h2 id="smells-heading" class="caption-mono">Three smells that something's off</h2>
-        {smells.map((smell) => (
-          <div class="grid gap-1 pb-4 border-b border-dashed border-canopy/50">
-            <p class="font-display text-2xl text-bone leading-tight">{smell.name}</p>
-            <p class="text-sm text-mist">{smell.short}</p>
-          </div>
-        ))}
-        <p class="text-sm text-mist">Each one means the agent is borrowing your hands, your memory or your nerve.</p>
-      </aside>
-    </div>
-  </section>
-
-  <!-- The three acts: the spine -->
-  <section class="px-6 md:px-12 lg:px-16 py-14 md:py-20 border-t border-canopy/15" aria-labelledby="acts-heading">
-    <div class="max-w-6xl mx-auto grid gap-8">
-      <div class="grid gap-3 max-w-3xl">
-        <span class="eyebrow">Where we are</span>
-        <h2 id="acts-heading" class="heading-sub">We are between Acts 2 and 3. Keeping agents oriented is still settling, and the push now is on designing and measuring the work itself.</h2>
-      </div>
-      <ol class="grid gap-4 md:grid-cols-3">
-        <li class="rounded-2xl border border-canopy/40 bg-void/60 p-6 grid gap-3 content-start">
-          <span class="caption-mono">Act 1 · Capability</span>
-          <h3 class="font-display text-2xl text-bone leading-tight">Can an agent do real work on a computer?</h3>
-          <p class="text-mist">Yes, well enough. What's left over is a habit: we still do by hand what the agent could have done.</p>
-          <p class="text-sm mt-1">Essay: <a href="/essays/stop-being-the-glue/" class={link}>Stop being the glue</a></p>
-        </li>
-        <li class="rounded-2xl border-2 border-scale/70 bg-deep p-6 grid gap-3 content-start">
-          <span class="caption-mono !text-scale">Act 2 · Orientation · settling</span>
-          <h3 class="font-display text-2xl text-bone leading-tight">Can it stay coherent across time, people and sessions?</h3>
-          <p class="text-mist">Still settling, for people and agents alike. The five principles below are the human side, Desk and Ouro MD are the system side, and the harness is where we experiment with what agents need.</p>
-          <p class="text-sm mt-1 flex flex-wrap gap-x-3 gap-y-1">
-            <a href="/approach/" class={link}>The approach</a>
-            <a href="/desk/" class={link}>Desk</a>
-            <a href="/ouro-md/" class={link}>Ouro MD</a>
-            <a href="/lab/" class={link}>Lab</a>
-          </p>
-        </li>
-        <li class="rounded-2xl border-2 border-scale/70 bg-deep p-6 grid gap-3 content-start">
-          <span class="caption-mono !text-scale">Act 3 · Designed work · where the push is</span>
-          <h3 class="font-display text-2xl text-bone leading-tight">Can we design and measure the work itself?</h3>
-          <p class="text-mist">The industry is pushing here, and so are we. Others use "software factory" as a name. Ours brings the Lean methodology with it: waste named from evidence, an alarm built to stop the line on a defect, and fixes checked against later data once there's enough of it. It's built to work with any factory setup, not only ours. Designed for many, proven on one desk so far. It's early, and it's public.</p>
-          <p class="text-sm mt-1"><a href={factoryUrl} class={link}>The factory &rarr;</a></p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- Act 2, the human side: Ari's five principles, plus the proposed sixth -->
-  <section class="px-6 md:px-12 lg:px-16 py-14 md:py-20 border-t border-canopy/15" aria-labelledby="principles-heading">
-    <div class="max-w-6xl mx-auto grid gap-8">
-      <div class="grid gap-3">
-        <span class="eyebrow">Act 2, the human side</span>
-        <h2 id="principles-heading" class="heading-sub">Five principles</h2>
-      </div>
-      <div class="grid gap-px rounded-2xl overflow-hidden border border-canopy/40 bg-canopy/40 md:grid-cols-2 lg:grid-cols-3">
-        {principles.map((p) => (
-          <a href={`/approach/#${p.id}`} class="group bg-deep p-6 grid gap-2 content-start hover:bg-undergrowth transition-colors">
-            <span class="font-mono text-sm text-scale">{p.n}</span>
-            <h3 class="font-display text-2xl text-bone leading-tight group-hover:text-scale transition-colors">{p.title}</h3>
-            <p class="text-mist">{p.summary}</p>
-            <span class="text-sm text-scale underline underline-offset-4 decoration-scale/40 mt-1">Read more &rarr;</span>
-          </a>
-        ))}
-        <a href={`/approach/#${proposedPrinciple.id}`} class="group p-6 grid gap-2 content-start bg-[color-mix(in_srgb,var(--color-deep)_88%,var(--color-amber))] hover:bg-undergrowth transition-colors">
-          <span class="font-mono text-sm text-amber">{proposedPrinciple.n}</span>
-          <h3 class="font-display text-2xl text-bone leading-tight group-hover:text-scale transition-colors">{proposedPrinciple.title}</h3>
-          <p class="text-mist">{proposedPrinciple.summary}</p>
-          <span class="text-sm text-scale underline underline-offset-4 decoration-scale/40 mt-1">Read more &rarr;</span>
-        </a>
+      <div class="min-w-0">
+        <ol class="grid gap-0">
+          {beats.map((beat) => (
+            <li class="beat" style={`--beat: var(--color-${beat.tone})`}>
+              <span class="caption-mono">{beat.when}</span>
+              <p class="font-display text-2xl md:text-[1.7rem] text-bone leading-snug mt-1">&ldquo;{beat.quote}&rdquo;</p>
+            </li>
+          ))}
+          <li class="beat" style="--beat: var(--color-amber)">
+            <span class="caption-mono">Since</span>
+            <p class="text-lg text-mist leading-relaxed mt-1">Building Slugger a harness taught me what agents need. That became the method, then <a href="/desk/" class={link}>Desk</a> and <a href="/ouro-md/" class={link}>Ouro MD</a>.</p>
+          </li>
+        </ol>
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a href="/lab/story/" class="btn-primary">Read the story &rarr;</a>
+          <a href="/lab/" class="btn-ghost">The harness</a>
+        </div>
+        <p class="text-sm text-mist mt-6">{shortClaim} <a href="/lab/model-reviews/" class={link}>Read the transcripts</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- What supports this -->
-  <section class="px-6 md:px-12 lg:px-16 py-14 md:py-20 border-t border-canopy/15" aria-labelledby="supports-heading">
-    <div class="max-w-6xl mx-auto grid gap-8">
-      <div class="grid gap-3">
-        <span class="eyebrow">Act 2, the system side</span>
-        <h2 id="supports-heading" class="heading-sub">What supports this</h2>
+  <!-- The method, in one screen -->
+  <section class="relative px-5 sm:px-6 md:px-12 lg:px-16 py-16 md:py-28 border-t border-canopy/20 bg-deep/40 reveal" aria-labelledby="method-heading">
+    <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-2">
+      <div class="min-w-0">
+        <span class="eyebrow">The method</span>
+        <h2 id="method-heading" class="heading-section mt-5">You can feel it when something's off.</h2>
+        <ul class="mt-10 grid gap-5">
+          {smells.map((smell) => (
+            <li class="smell">
+              <span class="font-display text-2xl md:text-3xl text-bone leading-tight">{smell.name}</span>
+              <span class="block text-mist mt-1">{smell.short}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div class="grid gap-4 md:grid-cols-3">
-        <a href="/desk/" class={`${card} group grid gap-3 content-start hover:border-scale transition-colors`}>
-          <img src="/brand/desk-icon.svg" width="48" height="48" alt="" class="mark-tile w-12 h-12" />
-          <h3 class="font-display text-2xl text-bone group-hover:text-scale transition-colors">Desk</h3>
-          <p class="text-mist">Keeps these principles in the setup instead of in your head.</p>
-          <span class="text-sm text-scale underline underline-offset-4 decoration-scale/40">About Desk &rarr;</span>
-        </a>
-        <a href="/ouro-md/" class={`${card} group grid gap-3 content-start hover:border-scale transition-colors`}>
-          <img src="/brand/ouro-md-icon.png" width="48" height="48" alt="" class="mark-tile w-12 h-12" />
-          <h3 class="font-display text-2xl text-bone group-hover:text-scale transition-colors">Ouro MD</h3>
-          <p class="text-mist">Where I read and answer what my agents write.</p>
-          <span class="text-sm text-scale underline underline-offset-4 decoration-scale/40">About Ouro MD &rarr;</span>
-        </a>
-        <a href={factoryUrl} class={`${card} group grid gap-3 content-start hover:border-scale transition-colors`}>
-          <span class="mark-mask w-12 h-12 text-scale" style="--mark:url(/brand/ouro-silhouette.svg)" aria-hidden="true"></span>
-          <h3 class="font-display text-2xl text-bone group-hover:text-scale transition-colors">The factory</h3>
-          <p class="text-mist">Our public record of how the work actually goes, misses included.</p>
-          <span class="text-sm text-scale underline underline-offset-4 decoration-scale/40">Open the factory &rarr;</span>
-        </a>
+      <div class="min-w-0 lg:pt-16">
+        <ol class="grid gap-px rounded-2xl overflow-hidden border border-canopy/50 bg-canopy/50">
+          {principles.map((p) => (
+            <li><a href={`/approach/#${p.id}`} class="principle group"><span class="font-mono text-scale">{p.n}</span><span class="group-hover:text-scale transition-colors">{p.title}</span></a></li>
+          ))}
+          <li><a href={`/approach/#${proposedPrinciple.id}`} class="principle group"><span class="font-mono text-amber">+1</span><span class="group-hover:text-scale transition-colors">{proposedPrinciple.title} <span class="text-sm text-mist">(proposed)</span></span></a></li>
+        </ol>
+        <p class="text-mist mt-6">We're between Acts 2 and 3: agents stay oriented well enough, so now we design and measure the work itself. The long version is <a href={rfcUrl} class={link}>the Desk RFC</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- Try it today -->
-  <section class="px-6 md:px-12 lg:px-16 py-14 md:py-20 border-t border-canopy/15" aria-labelledby="try-heading">
-    <div class="max-w-6xl mx-auto grid gap-8">
-      <div class="grid gap-3">
-        <span class="eyebrow">What you can do next</span>
-        <h2 id="try-heading" class="heading-sub">Try it today</h2>
-      </div>
-      <div class="grid gap-4 md:grid-cols-3">
-        <div class={`${card} grid gap-3 content-start`}>
+  <!-- Evidence -->
+  <section class="relative px-5 sm:px-6 md:px-12 lg:px-16 py-16 md:py-28 border-t border-canopy/20 reveal" aria-labelledby="proof-heading">
+    <div class="max-w-6xl mx-auto">
+      <span class="eyebrow">Receipts</span>
+      <h2 id="proof-heading" class="heading-section mt-5 max-w-[18ch]"><span class="text-scale">69 hours</span> in one session. 50 of 53 pull requests merged.</h2>
+      <figure class="mt-10">
+        <a href={factoryUrl} class="block rounded-2xl overflow-hidden border border-canopy/60 shadow-[0_20px_80px_-30px_rgba(54,164,82,0.45)] hover:border-scale transition-colors">
+          <img src="/images/factory-sessions.jpg" width="1400" height="761" decoding="async" alt="The factory site's three longest agent sessions: 69.0 hours with 50 of 53 referenced pull requests merged, 26.4 hours with 33 of 38, and 5.5 hours with 1 of 1." class="w-full h-auto" />
+        </a>
+        <figcaption class="text-sm text-mist mt-4">The three longest sessions on <a href={factoryUrl} class={link}>the factory</a>, our public record of agent work, as of September 2026. The live numbers are there.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Try it -->
+  <section class="relative px-5 sm:px-6 md:px-12 lg:px-16 py-16 md:py-28 border-t border-canopy/20 reveal" aria-labelledby="try-heading">
+    <div class="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-scale/[0.06] to-transparent pointer-events-none" aria-hidden="true"></div>
+    <div class="relative max-w-6xl mx-auto">
+      <span class="eyebrow">Try it</span>
+      <h2 id="try-heading" class="heading-section mt-5">Start with your agent.</h2>
+      <div class="grid gap-4 md:grid-cols-3 mt-10">
+        <a href="/brief/" class="door group">
           <span class="tag tag-plain justify-self-start">No install</span>
-          <h3 class="font-display text-2xl text-bone">Hand this to your agent</h3>
-          <p class="text-mist">A one-page brief with the five principles, written for your agent to read. Paste it into whatever agent you use now.</p>
-          <a href="/brief/" class={`${link} text-sm`}>Get the brief &rarr;</a>
-        </div>
-        <div class={`${card} grid gap-3 content-start`}>
+          <span class="font-display text-3xl text-bone leading-tight group-hover:text-scale transition-colors">Hand this to your agent</span>
+          <span class="text-mist">The five principles, written for your agent to read.</span>
+          <span class="door-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a href="/desk/" class="door group">
           <span class={`tag ${deskLabel.tone} justify-self-start`}>{deskLabel.label}</span>
-          <h3 class="font-display text-2xl text-bone">Desk</h3>
-          <p class="text-mist">Give your agent one link and say "set this up". Claude Code on macOS is the tested path.</p>
-          <p class="agent-text !text-xs">{deskSetupUrl}</p>
-          <a href="/desk/" class={`${link} text-sm`}>What it does and where it runs &rarr;</a>
-        </div>
-        <div class={`${card} grid gap-3 content-start`}>
-          <span class={`tag ${ouroMdLabel.tone} justify-self-start`}>{ouroMdLabel.label}</span>
-          <h3 class="font-display text-2xl text-bone">Ouro MD</h3>
-          <p class="text-mist">Live file updates, with quiet marks where your agent changed things.</p>
-          <p class="agent-text !text-xs">{ouroMdInstall}</p>
-          <p class="text-sm text-mist">macOS 13 or later.</p>
-          <a href="/ouro-md/" class={`${link} text-sm`}>About Ouro MD &rarr;</a>
-        </div>
+          <span class="font-display text-3xl text-bone leading-tight group-hover:text-scale transition-colors">Desk</span>
+          <span class="text-mist">Give your agent <span class="font-mono text-sm text-bone break-all">{deskSetupUrl}</span> and say "set this up".</span>
+          <span class="door-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a href="/ouro-md/" class="door group">
+          <img src="/brand/ouro-md-icon.png" width="40" height="40" alt="" class="mark-tile w-10 h-10" />
+          <span class="font-display text-3xl text-bone leading-tight group-hover:text-scale transition-colors">Ouro MD</span>
+          <span class="text-mist">Read and answer what your agent writes. macOS.</span>
+          <span class="door-arrow" aria-hidden="true">&rarr;</span>
+        </a>
       </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  .door {
+    position: relative;
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: 1.5rem 1.5rem 2.75rem;
+    border-radius: 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent);
+    background: color-mix(in srgb, var(--color-deep) 75%, transparent);
+    transition: border-color 0.3s, transform 0.5s var(--ease-expo), box-shadow 0.3s;
+  }
+  .door:hover { border-color: var(--color-scale); box-shadow: 0 0 40px -12px color-mix(in srgb, var(--color-scale) 50%, transparent); }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) { .door:hover { transform: translateY(-4px) rotate(-0.4deg); } }
+  .door-arrow { position: absolute; right: 1.5rem; bottom: 1rem; font-size: 1.5rem; color: var(--color-scale); transition: transform 0.4s var(--ease-expo); }
+  .door:hover .door-arrow { transform: translateX(6px); }
+
+  .molt { display: flex; align-items: center; gap: 1.25rem; }
+  .molt-arrow { font-family: var(--font-display); font-size: 2.25rem; color: var(--color-fang); }
+
+  .beat { position: relative; padding: 0 0 2rem 1.75rem; border-left: 2px solid color-mix(in srgb, var(--beat) 55%, transparent); }
+  .beat:last-child { padding-bottom: 0; }
+  .beat::before { content: ""; position: absolute; left: -7px; top: 0.15rem; width: 12px; height: 12px; border-radius: 50%; background: var(--beat); box-shadow: 0 0 14px var(--beat); }
+
+  .smell { padding-left: 1.25rem; border-left: 3px solid var(--color-fang); }
+
+  .principle { display: flex; gap: 1rem; align-items: baseline; padding: 1rem 1.25rem; background: var(--color-deep); font-family: var(--font-display); font-size: 1.3rem; line-height: 1.3; color: var(--color-bone); transition: background 0.2s; }
+  .principle:hover { background: var(--color-undergrowth); }
+
+</style>

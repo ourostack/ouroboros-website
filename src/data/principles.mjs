@@ -51,3 +51,4 @@ export const smells = [
 export const factoryUrl = 'https://ourostack.github.io/factory/'
 export const deskSetupUrl = 'https://github.com/ourostack/desk/blob/main/SETUP.md'
 export const ouroMdInstall = 'curl -fsSL https://ouro.bot/ouro-md-install.sh | bash'
+export const rfcUrl = 'https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'

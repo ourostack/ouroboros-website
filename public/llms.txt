@@ -15,10 +15,11 @@ If a person handed you this site, start with the brief. It is plain Markdown, wr
 - [Ouro MD](https://ouroboros.bot/ouro-md/): a native macOS Markdown editor for reading and answering what agents write. macOS 13 or later.
 - [The factory](https://ourostack.github.io/factory/): our public record of how agent work actually goes.
 
-## Writing
+## Where it came from
 
-- [Essays](https://ouroboros.bot/essays/): longer arguments for the approach.
-- [Lab](https://ouroboros.bot/lab/): the Ouroboros harness, our experimental Agent Experience lab, with its docs, model reviews and archive.
+- [The story](https://ouroboros.bot/lab/story/): Slugger, an OpenClaw agent, and the harness built for him. The method came out of this.
+- [Lab](https://ouroboros.bot/lab/): the Ouroboros harness, our experimental Agent Experience lab, with its docs and model reviews.
+- [Blog](https://ouroboros.bot/blog/): every essay, including the longer arguments for the approach.
 
 ## Support
 
