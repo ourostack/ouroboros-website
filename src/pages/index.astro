@@ -197,7 +197,7 @@ const wastes = [
       <div class="min-w-0 origin-aside">
         <h2 id="origin-heading" class="heading-section">It started with <span class="text-scale">Slugger.</span></h2>
         <div class="molt mt-10">
-          <span class="molt-step"><img src="/images/openclaw.svg" alt="" width="72" height="72" loading="lazy" decoding="async" class="w-16 h-16 md:w-20 md:h-20" /><span class="caption-mono">OpenClaw</span></span>
+          <span class="molt-step"><img src="/images/openclaw.svg" alt="" width="72" height="72" decoding="async" class="w-16 h-16 md:w-20 md:h-20" /><span class="caption-mono">OpenClaw</span></span>
           <span class="molt-arrow" aria-hidden="true">&rarr;</span>
           <span class="molt-step"><span class="mark-mask w-16 h-16 md:w-20 md:h-20 text-scale" style="--mark:url(/brand/ouro-silhouette.svg)" aria-hidden="true"></span><span class="caption-mono">Ouroboros</span></span>
         </div>
@@ -258,13 +258,13 @@ const wastes = [
   .dek { margin-top: 1.25rem; max-width: 52ch; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
 
-  /* Cards: Ouro MD, Spoonjoy and m365crawl span the row; Desk and Ouroboros sit as a pair whose rows line up. */
+  /* Cards: Ouroboros and Desk sit as a pair; Ouro MD, m365crawl and Spoonjoy span the row. The pair does not share
+     rows, so the Desk playback box stays the height of what it shows (copy deck round 2). */
   .products { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
   @media (min-width: 768px) { .products { margin-top: 3rem; } }
   @media (min-width: 1024px) { .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .product { display: grid; grid-template-rows: auto auto 1fr auto; gap: 0.9rem; align-content: start; padding: 1.25rem; border-radius: 1.25rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); background: color-mix(in srgb, var(--color-deep) 75%, transparent); min-width: 0; }
   @media (min-width: 1024px) {
-    .product:not(.product-wide) { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0.9rem; }
     .product-wide { grid-column: 1 / -1; }
     .product-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 2rem; }
     .product-split .product-figure { grid-row: 1 / span 3; margin: 0; }
