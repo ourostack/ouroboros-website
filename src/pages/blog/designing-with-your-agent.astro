@@ -157,7 +157,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
 
       <p>The last piece: giving the agent tools to fix its own task health. Slugger was clear that scanning should be read-only and fixes should be explicit. <code>ouro task fix</code> shows a dry-run plan. <code>ouro task fix --safe</code> applies all deterministic, reversible fixes. For ambiguous issues, the agent inspects them one at a time and picks from bounded options.</p>
 
-      <p>Right now, the only safe autofix is adding <code>kind: task</code> to legacy cards. File renames and directory reorganization are surfaced as issues but not auto-applied yet. That distinction matters: self-repair means the agent can act on its own organizational problems, and the system never rewrites files in the background on its own.</p>
+      <p>Right now, the only safe autofix is adding <code>kind: task</code> to legacy cards. File renames and directory reorganization show up as issues, and they aren't applied automatically yet. That distinction matters: self-repair means the agent can act on its own organizational problems, and the system never rewrites files in the background on its own.</p>
 
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Slugger:</strong></p>

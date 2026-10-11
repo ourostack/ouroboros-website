@@ -12,12 +12,14 @@
  * agent's lines are the Nautilus dramatization in copy deck round 2
  * (2026-10-11).
  *
- * Before it plays, scene 1's opening (the bar, the boot line and the prompt)
- * shows as a still, so the body is never empty, and the box grows with the
- * lines it shows. Without JS, or under reduced motion, the final frame
- * (scene 2, complete) is what renders. With JS it plays once when it scrolls
- * into view, holds scene 1 for 5 seconds, and holds the end. A click or a key
- * skips to the end, and Replay plays it again.
+ * Without JS, under reduced motion, or if the module fails to load, the final
+ * frame (scene 2, complete) is what renders. The module arms it: scene 1's
+ * opening (the bar, the boot line and the prompt) shows as a still, so the
+ * body is never empty. It plays once when it scrolls into view, holds scene 1
+ * for 5 seconds, and holds the end. Skip, a click or a key skips to the end,
+ * and Replay plays it again. Both scenes sit in one grid cell, and a line not
+ * yet shown keeps its space, so the box is the final frame's height
+ * throughout and the page below never moves.
  */
 
 type Tone = 'prompt' | 'bone' | 'mist' | 'scale' | 'glow' | 'fang' | 'tool'
@@ -65,17 +67,18 @@ const scenes: { id: string; title: string; lines: Line[] }[] = [
 const last = scenes.length - 1
 ---
 
-<div class="desk-playback" data-desk-playback>
+<div class="desk-playback" data-desk-playback role="group" aria-label="Desk playback">
   <div class="dp-bar">
     <span class="dp-dot"></span><span class="dp-dot"></span><span class="dp-dot"></span>
     {scenes.map((scene, i) => (
-      <span class="dp-title" data-scene-title={scene.id} hidden={i !== last}>{scene.title}</span>
+      <span class="dp-title" data-scene-title={scene.id} data-off={i !== last ? '' : undefined}>{scene.title}</span>
     ))}
+    <button type="button" class="dp-replay" data-skip hidden>Skip</button>
     <button type="button" class="dp-replay" data-replay hidden>Replay</button>
   </div>
   <div class="dp-screen">
     {scenes.map((scene, i) => (
-      <pre class="dp-body" data-scene={scene.id} hidden={i !== last}>{scene.lines.map((line) => {
+      <pre class="dp-body" data-scene={scene.id} data-off={i !== last ? '' : undefined}>{scene.lines.map((line) => {
         // The terminal glyphs are decoration; screen readers skip them.
         const glyph = line.text.match(/^(\s*)([⏺⎿])(.*)$/)
         return glyph
@@ -85,25 +88,11 @@ const last = scenes.length - 1
     ))}
   </div>
 </div>
-<script is:inline>
-  // Arm the playback before first paint: it shows scene 1's opening as a still
-  // (the bar, the boot line and the prompt), with no flash of the final frame.
-  // Without JS, or under reduced motion, this never runs and the final frame stays.
-  (function () {
-    var root = document.currentScript && document.currentScript.previousElementSibling;
-    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var bodies = root.querySelectorAll('[data-scene]');
-    var titles = root.querySelectorAll('[data-scene-title]');
-    for (var i = 0; i < bodies.length; i++) { bodies[i].hidden = i !== 0; titles[i].hidden = i !== 0; }
-    var lines = bodies[0].querySelectorAll('.dp-line');
-    for (var j = 0; j < lines.length; j++) lines[j].hidden = !lines[j].hasAttribute('data-opening');
-    root.setAttribute('data-armed', '');
-  })();
-</script>
 
 <script>
-  // Plays once when it scrolls into view; Replay plays it again. Under
-  // reduced motion it stays on the final frame and offers no replay.
+  // Arms the still, then plays once when it scrolls into view; Replay plays it
+  // again. Under reduced motion it stays on the final frame and offers no replay.
+  // Arming lives here, so if this module never loads the final frame stays.
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
   const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -112,12 +101,13 @@ const last = scenes.length - 1
     const bodies = [...root.querySelectorAll<HTMLElement>('[data-scene]')]
     const titles = [...root.querySelectorAll<HTMLElement>('[data-scene-title]')]
     const replay = root.querySelector<HTMLButtonElement>('[data-replay]')!
+    const skipButton = root.querySelector<HTMLButtonElement>('[data-skip]')!
     const allLines = [...root.querySelectorAll<HTMLElement>('.dp-line')]
     let run = 0
 
     const show = (index: number) => {
-      bodies.forEach((body, i) => { body.hidden = i !== index })
-      titles.forEach((title, i) => { title.hidden = i !== index })
+      bodies.forEach((body, i) => { body.toggleAttribute('data-off', i !== index) })
+      titles.forEach((title, i) => { title.toggleAttribute('data-off', i !== index) })
     }
     const restore = (line: HTMLElement) => {
       if (line.dataset.full !== undefined) line.textContent = line.dataset.full
@@ -125,14 +115,14 @@ const last = scenes.length - 1
     // Scene 1's opening, as the still shows it before playing.
     const still = () => {
       show(0)
-      allLines.forEach((line) => { restore(line); line.hidden = !line.hasAttribute('data-opening') })
+      allLines.forEach((line) => { restore(line); line.toggleAttribute('data-off', !line.hasAttribute('data-opening')) })
     }
 
     const typeLine = async (line: HTMLElement, token: number) => {
       const full = line.dataset.full ?? line.textContent ?? ''
       line.dataset.full = full
       line.textContent = ''
-      line.hidden = false
+      line.removeAttribute('data-off')
       for (let i = 1; i <= full.length; i++) {
         if (token !== run) return
         line.textContent = full.slice(0, i)
@@ -143,6 +133,7 @@ const last = scenes.length - 1
     const finish = () => {
       root.removeAttribute('tabindex')
       root.removeAttribute('data-playing')
+      skipButton.hidden = true
       replay.hidden = false
     }
 
@@ -150,7 +141,7 @@ const last = scenes.length - 1
     const skip = () => {
       run++
       show(bodies.length - 1)
-      allLines.forEach((line) => { restore(line); line.hidden = false })
+      allLines.forEach((line) => { restore(line); line.removeAttribute('data-off') })
       finish()
     }
     root.addEventListener('click', (event) => {
@@ -163,6 +154,7 @@ const last = scenes.length - 1
     const play = async () => {
       const token = ++run
       replay.hidden = true
+      skipButton.hidden = false
       root.setAttribute('data-playing', '')
       root.tabIndex = 0
       still()
@@ -170,7 +162,7 @@ const last = scenes.length - 1
         if (token !== run) return
         show(s)
         const lines = [...bodies[s].querySelectorAll<HTMLElement>('.dp-line')].filter((line) => !(s === 0 && line.hasAttribute('data-opening')))
-        lines.forEach((line) => { restore(line); line.hidden = true })
+        lines.forEach((line) => { restore(line); line.setAttribute('data-off', '') })
         await wait(s === 0 ? 900 : 500)
         for (const line of lines) {
           if (token !== run) return
@@ -178,7 +170,7 @@ const last = scenes.length - 1
             await typeLine(line, token)
             await wait(450)
           } else {
-            line.hidden = false
+            line.removeAttribute('data-off')
             await wait(line.textContent?.trim() ? 220 : 80)
           }
         }
@@ -189,6 +181,10 @@ const last = scenes.length - 1
     }
 
     replay.addEventListener('click', () => { play() })
+
+    // Arm: the still replaces the final frame until it plays.
+    still()
+    root.setAttribute('data-armed', '')
 
     if (!('IntersectionObserver' in window)) { skip(); return }
     const io = new IntersectionObserver((entries) => {
@@ -204,10 +200,15 @@ const last = scenes.length - 1
 <style>
   .desk-playback[data-playing] { cursor: pointer; }
   .desk-playback { display: flex; flex-direction: column; background: var(--color-deep); }
-  .dp-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0.45rem 0.75rem 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .dp-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; padding: 0.45rem 0.75rem 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
   .dp-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
   .dp-title { margin-left: 0.5rem; min-width: 0; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .dp-title[hidden], .dp-body[hidden], .dp-replay[hidden], .dp-line[hidden] { display: none; }
+  .dp-title[data-off], .dp-replay[hidden] { display: none; }
+  /* Both scenes share one cell, and lines not yet shown keep their space, so
+     the box holds the final frame's height while it plays. */
+  .dp-screen { display: grid; }
+  .dp-body { grid-area: 1 / 1; }
+  .dp-body[data-off], .dp-line[data-off] { visibility: hidden; }
   .dp-replay { margin-left: auto; flex: none; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-bone); padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--color-canopy); background: transparent; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
   .dp-replay:hover { border-color: var(--color-scale); color: var(--color-scale); }
   .dp-body { margin: 0; padding: 0.9rem 1rem; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }

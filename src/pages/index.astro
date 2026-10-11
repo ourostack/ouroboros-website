@@ -20,7 +20,7 @@ const section = 'relative px-5 sm:px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t
 
 
 const lean = [
-  { text: 'In most processes, less than a tenth of the elapsed time adds value. The rest is waiting and moving, so making the work itself 50% faster shortens the whole by about 5%.', sources: [{ label: 'Fiume, Lean Enterprise Institute', href: 'https://www.lean.org/the-lean-post/articles/why-lean-is-a-time-based-strategy/' }] },
+  { text: 'In most processes, less than a tenth of the elapsed time adds value. The rest is waiting and moving, so making the work itself 50% faster shortens the whole by 5% at most.', sources: [{ label: 'Fiume, Lean Enterprise Institute', href: 'https://www.lean.org/the-lean-post/articles/why-lean-is-a-time-based-strategy/' }] },
   { text: 'Taiichi Ohno described the Toyota Production System as watching the timeline from order to cash and shrinking it by removing the waste.', sources: [{ label: 'as quoted by Liker and others', href: 'https://www.goodreads.com/quotes/7427458-all-we-are-doing-is-looking-at-the-time-line' }] },
   { text: 'Toyota built it on "respect for people and continuous improvement," and on making work easier for the worker.', sources: [{ label: 'The Toyota Way', href: 'https://en.wikipedia.org/wiki/The_Toyota_Way' }, { label: 'Toyota', href: 'https://global.toyota/en/company/vision-and-philosophy/production-system/' }] },
   { text: 'Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened.', sources: [{ label: 'andon, LEI', href: 'https://www.lean.org/lexicon-terms/andon/' }, { label: 'genchi genbutsu, LEI', href: 'https://www.lean.org/lexicon-terms/genchi-genbutsu/' }] },
@@ -258,13 +258,16 @@ const wastes = [
   .dek { margin-top: 1.25rem; max-width: 52ch; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
 
-  /* Cards: Ouroboros and Desk sit as a pair; Ouro MD, m365crawl and Spoonjoy span the row. The pair does not share
-     rows, so the Desk playback box stays the height of what it shows (copy deck round 2). */
+  /* Cards: Ouroboros and Desk sit as a pair; Ouro MD, m365crawl and Spoonjoy span the row. The pair shares rows so
+     the titles line up, and each figure keeps its own height, so the Desk playback box stays the height of its final
+     frame instead of stretching to the source tree (root ruling, 2026-10-11). */
   .products { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
   @media (min-width: 768px) { .products { margin-top: 3rem; } }
   @media (min-width: 1024px) { .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .product { display: grid; grid-template-rows: auto auto 1fr auto; gap: 0.9rem; align-content: start; padding: 1.25rem; border-radius: 1.25rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); background: color-mix(in srgb, var(--color-deep) 75%, transparent); min-width: 0; }
   @media (min-width: 1024px) {
+    .product:not(.product-wide) { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0.9rem; }
+    .product:not(.product-wide) > :first-child { align-self: start; }
     .product-wide { grid-column: 1 / -1; }
     .product-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 2rem; }
     .product-split .product-figure { grid-row: 1 / span 3; margin: 0; }

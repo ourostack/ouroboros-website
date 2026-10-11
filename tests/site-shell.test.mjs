@@ -164,8 +164,9 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   assert.ok(playback, 'Missing the Desk playback');
   const scenes = [...playback[0].matchAll(/<pre\b([^>]*)data-scene="([^"]+)"([^>]*)>([\s\S]*?)<\/pre>/g)];
   assert.equal(scenes.length, 2);
-  assert.match(scenes[0][1] + scenes[0][3], /\bhidden\b/, 'Scene 1 is hidden in the final frame');
-  assert.doesNotMatch(scenes[1][1] + scenes[1][3], /\bhidden\b/, 'The final frame is visible without JS');
+  assert.match(scenes[0][1] + scenes[0][3], /\bdata-off\b/, 'Scene 1 is hidden in the final frame');
+  assert.doesNotMatch(scenes[1][1] + scenes[1][3], /\b(hidden|data-off)\b/, 'The final frame is visible without JS');
+  assert.match(playback[0], /^<div\b[^>]*role="group"[^>]*aria-label="Desk playback"/);
   const plainText = (h) => textOf(h).replace(/\s+([,.?])/g, '$1');
   const one = plainText(scenes[0][4]);
   const two = plainText(scenes[1][4]);
@@ -183,11 +184,17 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   assert.deepEqual(opening, ['Desk boot: ok | host laptop / ned / claude', '> Plan the periscope overhaul']);
   assert.match(playback[0], /<button\b[^>]*data-replay[^>]*hidden/, 'Replay appears only once the script runs');
   assert.match(html, /Replay<\/button>/);
+  assert.match(playback[0], /<button\b[^>]*data-skip[^>]*hidden[^>]*>Skip<\/button>/, 'Skip shows only while it plays');
   assert.match(html, /prefers-reduced-motion: reduce/);
-  // Armed before first paint to the still, with no flash of the final frame; a click or Enter, Space or Escape skips to the end.
-  assert.match(html, /<\/div>\s*<script>\s*\/\/ Arm the playback before first paint[\s\S]*?hasAttribute\(["']data-opening["']\)[\s\S]*?setAttribute\('data-armed', ''\)/);
+  // Armed only by the module, so a failed load leaves the final frame; a click, Skip, or Enter, Space or Escape skips to the end.
+  assert.doesNotMatch(html, /Arm the playback before first paint/);
+  const moduleSrc = fs.readFileSync(new URL('../src/components/DeskPlayback.astro', import.meta.url), 'utf8');
+  assert.match(moduleSrc, /<script>[\s\S]*hasAttribute\('data-opening'\)[\s\S]*still\(\)\s*root\.setAttribute\('data-armed', ''\)/);
+  assert.match(moduleSrc, /skipButton\.hidden = false/);
   assert.match(html, /\["Enter"," ","Escape"\]/);
-  // Scene 1 holds for at least 5 seconds, and nothing pins the box taller than what it shows.
+  // Scene 1 holds for at least 5 seconds. Both scenes share one grid cell and unshown lines keep their space, so the box holds the final frame's height and nothing pins it taller.
+  assert.match(moduleSrc, /\.dp-body \{ grid-area: 1 \/ 1; \}/);
+  assert.match(moduleSrc, /\.dp-line\[data-off\] \{ visibility: hidden; \}/);
   assert.match(html, /await \w+\(5[0-9]{3}\)/, "Scene 1 holds for at least 5 seconds");
   assert.doesNotMatch(html, /minHeight/);
 });
@@ -235,7 +242,7 @@ test('homepage puts the factory in Lean terms, with sources and the eight wastes
     "Software factories, SaaS factories, agents shipping code all night. I love the ambition. Real factories have a century of practice behind them, and I'd like to bring some of it along.",
     'I studied industrial and systems engineering before I wrote code. My favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Lean is the part of that world I reach for most, because it starts with where the time goes.',
     'What Lean already knows',
-    'In most processes, less than a tenth of the elapsed time adds value. The rest is waiting and moving, so making the work itself 50% faster shortens the whole by about 5%.',
+    'In most processes, less than a tenth of the elapsed time adds value. The rest is waiting and moving, so making the work itself 50% faster shortens the whole by 5% at most.',
     'Taiichi Ohno described the Toyota Production System as watching the timeline from order to cash and shrinking it by removing the waste.',
     'Toyota built it on "respect for people and continuous improvement," and on making work easier for the worker.',
     'Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened.',
@@ -638,7 +645,7 @@ test('the story opens with who Slugger is and ends with where it went, with no d
   assert.match(html, /<title>Code a model can use: how Ouroboros started<\/title>/);
   assert.ok(text.includes('How a plugin for my OpenClaw agent turned into a harness I built from scratch.'));
   assert.ok(text.indexOf('Slugger is my agent.') < text.indexOf('The spark'));
-  assert.ok(text.indexOf('How I build with agents') > text.indexOf('Build the house accordingly'));
+  assert.ok(text.lastIndexOf('How I work') > text.indexOf('Build the house accordingly'));
   for (const label of ['Who is Slugger', 'Origin story', 'The shell', 'What emerged', 'What happened next']) assert.ok(!new RegExp(`>\\s*${label}\\s*<`, 'i').test(html), `The "${label}" label is gone`);
   for (const kicker of ['November 2025', 'January 2026', 'Early February 2026', 'Mid February 2026', 'Late February 2026', 'March 2026']) assert.ok(text.includes(kicker), `Date kicker ${kicker} stays`);
   for (const line of [

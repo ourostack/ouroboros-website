@@ -10,7 +10,7 @@ const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet'];
 test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experimental', async () => {
   const { entry } = await import('../src/data/readiness.mjs');
   assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['Copilot CLI', 'Alpha', 'Tested daily']);
-  assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', 'Runs, not yet proven in daily use']);
+  assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', "Runs, and hasn't been proven in daily use yet."]);
   assert.ok(!readiness.some((item) => item.name === 'Copilot CLI and Codex'));
 });
 
@@ -31,7 +31,7 @@ test('the Desk page shows every host with an honest label', () => {
     ['Claude Code', 'macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges.', 'Alpha'],
     // Ari uses Copilot CLI every day as his primary harness, with Desk underneath (2026-10-11).
     ['Copilot CLI', 'Tested daily', 'Alpha'],
-    ['Codex', 'Runs, not yet proven in daily use', 'Experimental'],
+    ['Codex', "Runs, and hasn't been proven in daily use yet.", 'Experimental'],
     ['Hosted Desk on claude.ai', 'No sign-up yet', 'Not open yet'],
   ]) {
     const at = text.indexOf(host);

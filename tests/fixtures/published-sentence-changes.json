@@ -194,8 +194,8 @@
  {
   "page": "blog/designing-with-your-agent",
   "was": "File renames and directory reorganisation are surfaced as issues but not auto-applied yet.",
-  "now": "File renames and directory reorganization are surfaced as issues but not auto-applied yet.",
-  "why": "approved antithesis rewrite"
+  "now": "File renames and directory reorganization show up as issues, and they aren't applied automatically yet.",
+  "why": "approved antithesis rewrite; root ruling M1 (2026-10-11)"
  },
  {
   "page": "blog/designing-with-your-agent",
@@ -1592,8 +1592,8 @@
  {
   "page": "index",
   "was": "Ouro MD → ned@laptop · Claude Code conseil@mac2 · Copilot CLI Replay Desk boot: ok | host laptop / ned / claude Active tasks (3): BLOCKED (1): these cannot move until the blocker clears - ballast/pump-3 blocker: waiting on parts at Vanikoro processing (1) - salon/organ-tuning next: tune the reeds, pipes, and pedals validating (1) - captains-log/export next: waiting on Captain Nemo's review > Plan the periscope overhaul ⏺ desk · task_create ⎿ task_create: periscope/overhaul Next step: survey the lens, seals, and hoist > where were we?",
-  "now": "ned@laptop · Claude Code conseil@mac2 · Copilot CLI · next morning Replay Desk boot: ok | host laptop / ned / claude > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow. > where were we?",
-  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes"
+  "now": "ned@laptop · Claude Code conseil@mac2 · Copilot CLI · next morning Skip Replay Desk boot: ok | host laptop / ned / claude > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow. > where were we?",
+  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes; root ruling M10 (2026-10-11): a Skip button while it plays"
  },
  {
   "page": "index",
@@ -2222,8 +2222,8 @@
  {
   "page": "desk",
   "was": "Copilot CLI Tested daily Use today, alpha Codex Runs, not yet proven in daily use Experimental Hosted Desk on claude.ai No sign-up yet Not open yet Known limits today Desk's own browser starts signed out, and on macOS it can steal focus.",
-  "now": "Copilot CLI Tested daily Alpha Codex Runs, not yet proven in daily use Experimental Hosted Desk on claude.ai No sign-up yet Not open yet What setup looks like",
-  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk)"
+  "now": "Copilot CLI Tested daily Alpha Codex Runs, and hasn't been proven in daily use yet. Experimental Hosted Desk on claude.ai No sign-up yet Not open yet What setup looks like",
+  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail"
  },
  {
   "page": "desk",
@@ -2708,8 +2708,8 @@
  {
   "page": "lab/story",
   "was": "What happened next How I build with agents Desk and Ouro MD The model reviews : which harness frontier models would choose.",
-  "now": "How I build with agents Desk and Ouro MD The model reviews : which harness frontier models would choose.",
-  "why": "copy deck round 2: /lab/story edit pass: the decorative \"What happened next\" label goes"
+  "now": "How I work Desk and Ouro MD The model reviews : which harness frontier models would choose.",
+  "why": "copy deck round 2: /lab/story edit pass: the decorative \"What happened next\" label goes; root ruling (2026-10-11): the /approach link uses the page's one name, How I work"
  },
  {
   "page": "ouro-md",
@@ -3052,5 +3052,53 @@
   "was": "Real, sped up.",
   "now": null,
   "why": "copy deck round 2: the recorded import clip does not ship, so its caption goes (review C1)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": "How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
+ },
+ {
+  "page": "blog/designing-with-your-agent",
+  "was": "Read the docs on tasks and work for the operator path, or see What Is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": "Read the docs on tasks and work for the operator path, or see What Is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
+ },
+ {
+  "page": "blog/give-your-agent-a-home",
+  "was": "Read the docs on psyche files for the operator path, or see What is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": "Read the docs on psyche files for the operator path, or see What is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "The collaboration loop described here became the foundation for something more structural . ← Back to blog How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": "The collaboration loop described here became the foundation for something more structural . ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "If you want to understand the mechanics underneath, build the agent loop from scratch . ← Back to blog How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": "If you want to understand the mechanics underneath, build the agent loop from scratch . ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
+ },
+ {
+  "page": "index",
+  "was": "The rest is waiting and moving, so making the work itself 50% faster shortens the whole by about 5%.",
+  "now": "The rest is waiting and moving, so making the work itself 50% faster shortens the whole by 5% at most.",
+  "why": "root ruling M6 (2026-10-11): an upper bound"
+ },
+ {
+  "page": "lab/docs/tasks-and-work",
+  "was": "Everything else in the task directory — planning docs, doing docs, unit files, artifacts — is support material that the scanner may enumerate for context but does not parse as a task card.",
+  "now": "Everything else in the task directory — planning docs, doing docs, unit files, artifacts — is support material that the scanner may list for context; it doesn't parse it as a task card.",
+  "why": "root ruling M1 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Models absent from its catalog use their direct API instead.",
+  "now": "Models absent from its catalog use their direct API.",
+  "why": "root ruling M1 (2026-10-11)"
  }
 ]
