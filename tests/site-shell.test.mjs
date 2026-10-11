@@ -75,7 +75,7 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
 
   // Copy deck round 2: the m365crawl card comes fourth, before Spoonjoy.
   assertLines(text, [
-    'Real output on synthetic notes: a search, then the note it found.',
+    'The doctor, run on my own archive.',
     'It gives my agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.',
     'm365crawl on GitHub ↗',
   ]);
@@ -153,13 +153,13 @@ test('the Spoonjoy card shows one of Ari\'s own recipes, linked, with the deck c
   assert.doesNotMatch(plain(card[0]), /Real, sped up|imports a recipe/);
 });
 
-test('the m365crawl card shows the README\'s synthetic indexed-notes screenshot at its real size', () => {
+test('the m365crawl card shows the repo\'s doctor screenshot at its real size', () => {
   const html = readDist('index.html');
   const card = html.match(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/)[0];
-  assert.match(card, /<img src="\/images\/workshop\/m365crawl-indexed-notes\.png" width="\d+" height="\d+" loading="lazy"/);
-  assert.ok(distExists('images/workshop/m365crawl-indexed-notes.png'));
-  assert.ok(!distExists('images/workshop/m365crawl-doctor.png'), 'The doctor screenshot no longer ships');
-  assert.ok(plain(card).includes('Real output on synthetic notes: a search, then the note it found.'));
+  assert.match(card, /<img src="\/images\/workshop\/m365crawl-doctor\.png" width="\d+" height="\d+" loading="lazy"/);
+  assert.ok(distExists('images/workshop/m365crawl-doctor.png'));
+  assert.ok(!distExists('images/workshop/m365crawl-indexed-notes.png'), 'The synthetic indexed-notes screenshot no longer ships');
+  assert.ok(plain(card).includes('The doctor, run on my own archive.'));
 });
 
 test('homepage Desk playback renders its final frame without JS, shows scene 1 as a still before it plays, and plays once with a replay', () => {
