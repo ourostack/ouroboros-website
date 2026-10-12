@@ -88,7 +88,7 @@ const wastes = [
           <p class="product-links"><a href="/desk/" class={link}>Desk &rarr;</a></p>
         </article>
 
-        <article class="product product-wide" id="ouro-md">
+        <article class="product product-wide product-split" id="ouro-md">
           <OuroMdMedia />
           <h3 class="product-title"><img src="/brand/ouro-md-icon.png" width="40" height="40" alt="" loading="lazy" decoding="async" class="mark-tile w-9 h-9" />Ouro MD</h3>
           <p class="text-mist leading-relaxed">A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.</p>
@@ -107,7 +107,7 @@ const wastes = [
 
         <article class="product product-wide product-split" id="spoonjoy">
           <figure class="product-figure">
-            <a href="https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z" class="product-media media-shot media-photo"><img src="/images/workshop/spoonjoy-recipe.webp" width="1280" height="700" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." /></a>
+            <a href="https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z" class="product-media media-shot media-photo"><img src="/images/workshop/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." /></a>
             <figcaption class="product-caption">One of my recipes in Spoonjoy.</figcaption>
           </figure>
           <h3 class="product-title">Spoonjoy</h3>
@@ -272,8 +272,8 @@ const wastes = [
     .product:not(.product-wide) > :first-child { align-self: start; }
     .product-wide { grid-column: 1 / -1; }
     .product-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 2rem; }
-    .product-split .product-figure { grid-row: 1 / span 3; margin: 0; }
-    .product-split > :not(.product-figure) { grid-column: 2; }
+    .product-split > :global(.product-figure) { grid-row: 1 / span 3; margin: 0; }
+    .product-split > :global(:not(.product-figure)) { grid-column: 2; }
     /* A wide card with its media on top (Ouro MD) splits the text under it, so the paragraph keeps a reading measure. */
     .product-wide:not(.product-split) { grid-template-columns: var(--split-cols); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
     .product-wide:not(.product-split) > .product-figure { grid-column: 1 / -1; }
