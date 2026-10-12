@@ -1,0 +1,9 @@
+---
+// One act's body, with its links (see src/data/acts.mjs). On the homepage the
+// factory link stays on the page.
+interface Props { body: (string | { text: string; href: string })[]; home?: boolean }
+const { body, home = false } = Astro.props
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+const hrefFor = (href: string) => (home && href.startsWith('/#') ? href.slice(1) : href)
+---
+{body.map((part) => (typeof part === 'string' ? part : <a href={hrefFor(part.href)} class={link}>{part.text}</a>))}

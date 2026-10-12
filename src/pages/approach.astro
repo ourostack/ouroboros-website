@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import { ogPathFor } from '../data/og'
 import { factoryUrl, rfcUrl, smells } from '../data/principles.mjs'
 import { acts } from '../data/acts.mjs'
+import ActBody from '../components/ActBody.astro'
 
 /*
   Copy is verbatim from copy deck round 2 (2026-10-11): no quotes of Ari on
@@ -40,7 +41,7 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
         <p class="text-lg md:text-xl text-bone leading-relaxed">I see this agentic era in three acts:</p>
         <ol class="acts">
           {acts.map((act) => (
-            <li><strong>{act.name}</strong> {act.body}</li>
+            <li><strong>{act.name}</strong> <ActBody body={act.body} /></li>
           ))}
         </ol>
       </div>
@@ -81,7 +82,7 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
 
       <h3 id="durable-context" class={h3}>3. Make context durable</h3>
 
-      <p>Decisions live in files the next session reads. I once asked my agents to stop pinning dependencies to exact commits. They did it about a dozen more times anyway, because each one trusted an older agent's handoff note over what I'd said, and one of those notes was written twelve minutes after I said it. Now my words outrank any handoff note, and CI enforces the rule.</p>
+      <p>Decisions live in files the next session reads. <a href="/desk/">Desk</a> keeps them in a Git repository. I once asked my agents to stop pinning dependencies to exact commits. They did it about a dozen more times anyway, because each one trusted an older agent's handoff note over what I'd said, and one of those notes was written twelve minutes after I said it. Now my words outrank any handoff note, and CI enforces the rule.</p>
 
       <h3 id="authority-and-boundaries" class={h3}>4. Meaningful authority with clear boundaries</h3>
 
@@ -100,7 +101,7 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
 
       <div class="split-body">
 
-      <p>Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.</p>
+      <p>Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.</p>
 
       <p>CI once took 36 minutes, and an agent started designing a way around it. I asked what it was doing that took so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.</p>
 
@@ -117,7 +118,7 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
 
       <p class="not-prose mt-12 flex flex-wrap gap-3">
         <a href="/brief/" class="btn-primary">Hand this to your agent &rarr;</a>
-        <a href="/blog/" class="btn-ghost">Read the blog</a>
+        <a href="/blog/" class="btn-ghost">Read the blog &rarr;</a>
       </p>
       </div>
       </div>

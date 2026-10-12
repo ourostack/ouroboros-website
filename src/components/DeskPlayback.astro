@@ -40,7 +40,9 @@ const scenes: { id: string; title: string; lines: Line[] }[] = [
     id: 'ned',
     title: 'ned@laptop · Claude Code',
     lines: [
-      { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist', opening: true },
+      // A phone shortens the host, so the boot line fits on one line (root misses ruling 8.5).
+      { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist', opening: true, only: 'wide' },
+      { text: 'Desk boot: ok | host laptop/ned', tone: 'mist', opening: true, only: 'narrow' },
       { text: '> Plan the periscope overhaul', tone: 'prompt', opening: true },
       { text: '', tone: 'mist' },
       { text: '⏺ task_create periscope/overhaul', tone: 'tool' },
@@ -54,7 +56,8 @@ const scenes: { id: string; title: string; lines: Line[] }[] = [
     title: 'conseil@mac2 · Copilot CLI · next morning',
     lines: [
       { text: '> where were we?', tone: 'prompt' },
-      { text: 'Desk boot: ok | host mac2 / conseil / copilot', tone: 'mist' },
+      { text: 'Desk boot: ok | host mac2 / conseil / copilot', tone: 'mist', only: 'wide' },
+      { text: 'Desk boot: ok | host mac2/conseil', tone: 'mist', only: 'narrow' },
       { text: 'Active tasks (4):', tone: 'bone', only: 'wide' },
       { text: 'Active tasks (3):', tone: 'bone', only: 'narrow' },
       { text: blocked, tone: 'fang', only: 'wide' },

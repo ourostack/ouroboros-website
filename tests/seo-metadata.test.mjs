@@ -155,7 +155,11 @@ test('review rerun instructions describe private output without relabeling the p
   const html = readDistFile('lab/model-reviews/index.html');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
-  const count = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][data.harnesses.length] ?? String(data.harnesses.length);
+  // root misses ruling 2.2: spelled out past ten, so the page says eleven, as the Lab and mendelow.me do.
+  const count = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'][data.harnesses.length] ?? String(data.harnesses.length);
+  assert.equal(count, 'eleven');
+  // root misses ruling 7.6: the run date sits under the subhead.
+  assert.match(text, /Run on September 8, 2026\./);
 
   assert.match(text, /Results are saved privately/);
   assert.match(text, /do not update this page/);

@@ -7,7 +7,8 @@ import modelReviews from '../../data/model-reviews.json'
 import { ogPathFor } from '../../data/og'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
 
-const title = "Why persistence isn't enough for AI agents — Ouroboros"
+const headline = "Why persistence isn't enough for AI agents"
+const title = `${headline} | Ouroboros`
 const description = 'Why persistent agents need structured identity, automatic memory recall, per-person relationships, and cross-session continuity.'
 
 const { claimSentence: calloutClaim } = getModelReviewClaims(modelReviews)
@@ -35,7 +36,7 @@ const organs = [
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": title,
+      "headline": headline,
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow" },
       "datePublished": "2026-03-05",

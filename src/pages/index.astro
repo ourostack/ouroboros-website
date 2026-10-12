@@ -7,14 +7,15 @@ import { ogPathFor } from '../data/og'
 import { principles, smells, factoryUrl, deskSetupUrl } from '../data/principles.mjs'
 import { labelFor } from '../data/readiness.mjs'
 import { acts } from '../data/acts.mjs'
+import ActBody from '../components/ActBody.astro'
 
 // Every visible word on this page is transcribed from the copy deck
 // (ouroboros.bot homepage, 2026-10-11). Builders never write copy here.
-const title = 'How do you effectively collaborate with agents? | Ari Mendelow'
+const title = 'How do you effectively collaborate with agents? | Ouroboros'
 const description = "Hello!! I'm Ari. I build products for humans + agents. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started."
 
 const deskLabel = labelFor('desk-claude-code-macos')
-const ouroMdDownload = '/ouro-md/'
+const ouroMdPage = '/ouro-md/'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
 const section = 'relative px-5 sm:px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20 reveal'
 
@@ -58,8 +59,8 @@ const wastes = [
       <h1 class="hero-title heading-hero animate-fade-up">How do you effectively collaborate with <span class="text-scale">agents?</span></h1>
       <p class="hero-sub text-lg md:text-2xl text-bone leading-snug animate-fade-up stagger-1">Hello!! I'm Ari. I build products for humans + agents. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.</p>
       <a href="https://mendelow.me" class="hero-pic portrait group animate-fade-up stagger-2">
-        <img src="/images/workshop/ari-portrait.jpg" width="600" height="824" alt="Ari Mendelow" class="portrait-img" fetchpriority="high" />
-        <span class="text-sm md:text-base text-bone group-hover:text-scale transition-colors whitespace-nowrap">More about me &rarr;</span>
+        <img src="/images/workshop/ari-portrait.jpg" width="600" height="824" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." class="portrait-img" fetchpriority="high" />
+        <span class="text-sm md:text-base text-bone group-hover:text-scale transition-colors whitespace-nowrap">More about me &#8599;</span>
       </a>
     </div>
   </section>
@@ -74,7 +75,7 @@ const wastes = [
         <article class="product" id="ouroboros">
           <figure class="product-figure">
             <div class="product-media media-terminal"><SourceTree /></div>
-            <figcaption class="product-caption">The body-part folders from the real source tree, named so the agent can tell what each one is for.</figcaption>
+            <figcaption class="product-caption">A heart, a mind, nerves, and senses: the real source folders, named so the agent can find its way around its own body.</figcaption>
           </figure>
           <h3 class="product-title"><span class="mark-mask w-9 h-9 text-scale" style="--mark:url(/brand/ouro-badge.svg)" aria-hidden="true"></span>Ouroboros</h3>
           <p class="text-mist leading-relaxed">This is the agent harness I built from scratch, and it's where I test what agents need. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how my agent used what I gave it. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.</p>
@@ -97,7 +98,7 @@ const wastes = [
 
         <article class="product product-wide product-split" id="m365crawl" data-allow-product-name="Microsoft 365">
           <figure class="product-figure">
-            <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1602" height="1434" loading="lazy" decoding="async" alt="m365crawl doctor output: every ready check passing, then a snapshot of the archive with its Teams, mail, and calendar counts." /></div>
+            <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1582" height="1414" loading="lazy" decoding="async" alt="m365crawl doctor output: every ready check passing, then a snapshot of the archive with its Teams, mail, and calendar counts." /></div>
             <figcaption class="product-caption">The doctor, run on my own archive.</figcaption>
           </figure>
           <h3 class="product-title">m365crawl</h3>
@@ -108,11 +109,11 @@ const wastes = [
         <article class="product product-wide product-split" id="spoonjoy">
           <figure class="product-figure">
             <a href="https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z" class="product-media media-shot media-photo"><img src="/images/workshop/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." /></a>
-            <figcaption class="product-caption">One of my recipes in Spoonjoy.</figcaption>
+            <figcaption class="product-caption">My mushroom risotto in Spoonjoy, one tap from cook mode.</figcaption>
           </figure>
           <h3 class="product-title">Spoonjoy</h3>
-          <p class="text-mist leading-relaxed">My recipe app. I've rebuilt it every time I learned a new way to build software. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. For everything in between, I believe the app will eventually draw its own UI.</p>
-          <p class="product-links"><a href="https://mendelow.me/#spoonjoy-story" class={link}>The Spoonjoy story &rarr;</a> <a href="https://spoonjoy.app" class={link}>spoonjoy.app &#8599;</a></p>
+          <p class="text-mist leading-relaxed">My recipe app. I've rebuilt it every time I learned a new way to build software. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the <a href="https://github.com/spoonjoy/spoonjoy-v2/blob/main/app/lib/spoonjoy-api.server.ts" class={link}>same operations</a> the app uses. For everything in between, I believe the app will eventually draw its own UI.</p>
+          <p class="product-links"><a href="https://mendelow.me/#spoonjoy-story" class={link}>Spoonjoy, from the start &#8599;</a> <a href="https://spoonjoy.app" class={link}>spoonjoy.app &#8599;</a></p>
         </article>
       </div>
     </div>
@@ -127,7 +128,7 @@ const wastes = [
           <p class="text-lg md:text-xl text-bone leading-relaxed">I see this agentic era in three acts:</p>
           <ol class="acts">
             {acts.map((act) => (
-              <li><strong>{act.name}</strong> {act.body}</li>
+              <li><strong>{act.name}</strong> <ActBody body={act.body} home /></li>
             ))}
           </ol>
 
@@ -145,21 +146,22 @@ const wastes = [
               <li><a href={`/approach/#${p.id}`} class="principle group"><span class="font-mono text-scale">{p.n}</span><span class="group-hover:text-scale transition-colors">{p.title}</span><span class="principle-arrow" aria-hidden="true">&rarr;</span></a></li>
             ))}
           </ol>
-          <p class="text-lg text-mist leading-relaxed mt-8">Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.</p>
-          <p class="mt-6"><a href="/approach/" class={link}>How I work, in more detail &rarr;</a></p>
+          <p class="text-lg text-mist leading-relaxed mt-8">Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.</p>
+          <p class="mt-6"><a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 4. The factory -->
-  <section class={section} aria-labelledby="factory-heading">
+  <section id="factory" class={`${section} scroll-mt-16`} aria-labelledby="factory-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="factory-heading" class="heading-section">Everyone's building a software factory.</h2>
       <div class="grid gap-12 lg:grid-cols-2 mt-10">
         <div class="min-w-0 grid gap-5 content-start text-lg text-mist leading-relaxed">
           <p>Software factories, SaaS factories, agents shipping code all night. I love the ambition. Real factories have a century of practice behind them, and I'd like to bring some of it along.</p>
-          <p>I studied industrial and systems engineering before I wrote code. My favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Lean is the part of that world I reach for most, because it starts with where the time goes.</p>
+          <p>I studied industrial and systems engineering before I became a software engineer. My favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Lean is the part of that world I reach for most, because it starts with where the time goes.</p>
+          <p>Agents are the newest workers on the line. AI "amplifies what's already there" (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.</p>
         </div>
         <div class="min-w-0">
           <h3 class="heading-sub">What Lean already knows</h3>
@@ -176,10 +178,8 @@ const wastes = [
         </div>
       </div>
 
-      <div class="grid gap-6 lg:gap-12 lg:grid-cols-2 mt-10">
-        <p class="max-w-3xl lg:max-w-none text-lg text-mist leading-relaxed">Agents are the newest workers on the line. AI "amplifies what's already there" (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.</p>
-
-        <p class="max-w-3xl lg:max-w-none text-lg text-mist leading-relaxed">Here's one. Our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.</p>
+      <div class="mt-10">
+        <p class="max-w-3xl text-lg text-mist leading-relaxed">Here's one: our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.</p>
       </div>
 
       <h3 class="heading-sub mt-14">Lean's eight wastes, as they show up with agents</h3>
@@ -189,7 +189,7 @@ const wastes = [
         ))}
       </ul>
       <p class="mt-10 text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
-      <p class="mt-5"><a href={factoryUrl} class="btn-primary">See my agents' numbers &rarr;</a></p>
+      <p class="mt-5"><a href={factoryUrl} class="btn-primary">See my agents' numbers &#8599;</a></p>
     </div>
   </section>
 
@@ -206,12 +206,12 @@ const wastes = [
       </div>
 
       <div class="min-w-0 grid gap-5 text-lg text-mist leading-relaxed">
-        <p>In January I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, and joined group chats with my family. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
+        <p>In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, and joined group chats with my family. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
         <p>That's when I realized correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch: a small loop in TypeScript that, by the end, extends itself. I followed it myself and got hooked.</p>
-        <p>The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters. It became the name of the harness, then of <code class="model-code">ouro</code>, the CLI, and now it's the name for everything I build with agents.</p>
+        <p>The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters. It became the name of <a href="/lab/" class={link}>the harness</a>, then of <code class="model-code">ouro</code>, the CLI, and now it's the name for everything I build with agents.</p>
         <div class="flex flex-wrap gap-3 mt-3">
           <a href="/blog/build-ai-agent-from-scratch/" class="btn-primary">Grow an agent &rarr;</a>
-          <a href="/lab/story/" class="btn-ghost">The full story</a>
+          <a href="/lab/story/" class="btn-ghost">The full story &rarr;</a>
         </div>
       </div>
     </div>
@@ -223,21 +223,23 @@ const wastes = [
       <h2 id="try-heading" class="heading-section">Try it</h2>
       <div class="grid gap-4 md:grid-cols-3 mt-10">
         <div class="try">
+          <div class="try-tag"></div>
           <h3 class="try-title">Hand this to your agent</h3>
           <p class="text-mist">A page written for your agent. Hand it the link and it'll work the way I do.</p>
           <a href="/brief/" class="btn-ghost justify-self-start">Open the brief &rarr;</a>
         </div>
         <div class="try">
-          <span class={`tag ${deskLabel.tone} justify-self-start`}>{deskLabel.label}</span>
+          <div class="try-tag"><span class={`tag ${deskLabel.tone}`}>{deskLabel.label}</span></div>
           <h3 class="try-title">Desk</h3>
           <p class="text-mist">Works in Claude Code and GitHub Copilot CLI. Give your agent <a href={deskSetupUrl} class={link}>Desk's setup page</a> and say "set this up".</p>
           <span id="home-desk-setup" class="sr-only">{deskSetupUrl}</span>
           <button type="button" data-copy-target="home-desk-setup" class="btn-ghost justify-self-start"><span data-copy-label>Copy the link</span></button>
         </div>
         <div class="try">
+          <div class="try-tag"></div>
           <h3 class="try-title">Ouro MD</h3>
           <p class="text-mist">For the Mac.</p>
-          <a href={ouroMdDownload} class="btn-primary justify-self-start">Download Ouro MD &rarr;</a>
+          <a href={ouroMdPage} class="btn-ghost justify-self-start">Get Ouro MD &rarr;</a>
         </div>
       </div>
     </div>
@@ -308,7 +310,12 @@ const wastes = [
   .wastes li { padding: 1.1rem 1.25rem; background: var(--color-deep); color: var(--color-mist); line-height: 1.55; }
   .wastes strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; line-height: 1.2; margin-bottom: 0.2rem; }
 
-  .try { display: grid; gap: 0.75rem; align-content: start; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); background: color-mix(in srgb, var(--color-deep) 75%, transparent); }
+  /* Every card reserves the tag row, so the titles line up, and its button sits at the bottom (root misses ruling 8.2). */
+  .try { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); background: color-mix(in srgb, var(--color-deep) 75%, transparent); }
+  .try-tag { display: flex; align-items: center; min-height: 1.75rem; }
+  .try-tag:empty { display: none; }
+  @media (min-width: 768px) { .try-tag:empty { display: flex; } }
+  .try > :global(.btn-ghost) { align-self: flex-start; margin-top: auto; }
   .try-title { font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; color: var(--color-bone); }
 
   @media (min-width: 1024px) { .origin-aside { position: sticky; top: 6rem; } }

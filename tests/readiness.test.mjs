@@ -9,7 +9,7 @@ const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet'];
 
 test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experimental', async () => {
   const { entry } = await import('../src/data/readiness.mjs');
-  assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['Copilot CLI', 'Alpha', 'Tested daily']);
+  assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['GitHub Copilot CLI', 'Alpha', 'Tested daily']); // root misses ruling 2.17
   // root final ruling F12: readiness details have no trailing period.
   assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', "Runs, and hasn't been proven in daily use yet"]);
   assert.ok(!readiness.some((item) => item.name === 'Copilot CLI and Codex'));
@@ -123,7 +123,9 @@ test('the Desk page shows real session-start output, links the factory once, its
   assert.ok(text.includes('Active tasks (1):'));
   assert.ok(text.includes('- my-app/checkout-flow "One-page checkout with saved addresses" (updated 2026-10-10)'));
   assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
-  assert.ok(text.replace(/\s+([.,])/g, '$1').includes("Setup also installs Superpowers, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public factory. It sends timings and sizes, never your prompts, commands, or code."));
+  assert.ok(text.replace(/\s+([.,])/g, '$1').includes("Setup also installs Superpowers, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public factory. It sends timings and sizes, and never transcript text, prompts, file contents, or names."));
+  // root misses ruling 3.5: the Desk page points at the principles it encodes.
+  assert.ok(text.replace(/\s+([.,])/g, '$1').includes('Every job starts with one conversation and a go, and ends with evidence you accept or send back, the way How I work lays it out.'));
   // root final ruling F14: the H2 matches the session-start output under it.
   assert.ok(text.includes('What a new session looks like'), 'The sample terminal sits under its own heading');
   // At 1440px, Known limits sits under the copy box in the left column, before the playback.

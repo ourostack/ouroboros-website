@@ -87,7 +87,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/lab/what-is-an-agent-harness': {
     title: 'What is an agent harness?',
-    subtitle: 'The system around the loop — runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.',
+    subtitle: 'The system around the loop: runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.',
     tag: 'Guide',
   },
   '/lab/model-reviews': {
@@ -137,7 +137,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/build-ai-agent-from-scratch': {
     title: 'Build an AI agent in 150 lines of TypeScript.',
-    subtitle: 'A practical guide to building agents that read, think, act, and grow — from first principles to production.',
+    subtitle: 'A practical guide to building agents that read, think, act, and grow: from first principles to production.',
     tag: 'Tutorial',
   },
   '/privacy': {
@@ -156,7 +156,7 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Operator guide',
   },
   '/lab/docs/bundles-and-psyche': {
-    title: 'Psyche files — five files that define your agent.',
+    title: 'Psyche files: five files that define your agent.',
     subtitle: 'An agent bundle is the portable self. The psyche is the part that helps the agent stay oriented to who it is.',
     tag: 'Operator guide',
   },
@@ -166,7 +166,7 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Operator guide',
   },
   '/lab/docs/architecture': {
-    title: 'Heart, mind, senses — code named for the agent inside.',
+    title: 'Heart, mind, senses: code named for the agent inside.',
     subtitle: 'Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.',
     tag: 'Operator guide',
   },
@@ -176,7 +176,7 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Operator guide',
   },
   '/lab/docs/skills-and-prompts': {
-    title: 'Skills vs prompts — when to use each.',
+    title: 'Skills vs prompts: when to use each.',
     subtitle: 'Prompts for quick questions. Skills for repeatable operator flows that need the latest local truth.',
     tag: 'Operator guide',
   },

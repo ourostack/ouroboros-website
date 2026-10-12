@@ -47,8 +47,9 @@ test('root final ruling F15: every video is named by its poster alt text', () =>
   }
   assert.ok(videos > 0);
   const home = readDist('index.html');
-  assert.match(home, /<video\b[^>]*aria-label="Captain Nemo sketches his periscope plans, and the page renders as fast as he types\."/);
-  assert.match(home, /<video\b[^>]*aria-label="An agent logs the depth trials while the Captain reads along\."/);
+  // root misses ruling 5.1: the caption names the clip's real owner and does not claim real typing.
+  assert.match(home, /<video\b[^>]*aria-label="Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes\."/);
+  assert.match(home, /<video\b[^>]*aria-label="Back from the deep, an agent logs the depth trials, and a bar in the margin marks what changed\."/);
 });
 
 test('root final ruling F17: /brief has no "No install" kicker, and the footer row has no separator to dangle', () => {

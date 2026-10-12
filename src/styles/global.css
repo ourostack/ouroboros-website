@@ -288,7 +288,7 @@ html {
 @media (min-width: 768px) { .clip-pair:not(.clip-stack) .clip + .clip { border-left: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
 @media (max-width: 767px) { .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
 .clip-stack .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
-.clip .product-caption { flex: 1; }
+.clip .product-caption { flex: 1; align-items: start; }
 .product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--color-mist); background: var(--color-void); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
 .caption-tag-only { padding-top: 0.5rem; padding-bottom: 0.5rem; }
 

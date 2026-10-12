@@ -10,13 +10,15 @@ const reviews = modelReviews.reviews
 const { claimSentence, shortClaim, totalReviews } = getModelReviewClaims(modelReviews)
 
 // Harness count, derived from the script output. Render as a word for
-// editorial readability up to ten; fall back to the digit above that.
+// editorial readability up to twenty, as the Lab does; fall back to the digit above that.
 const harnessCount = modelReviews.harnesses.length
-const harnessCountWord = ['zero','one','two','three','four','five','six','seven','eight','nine','ten'][harnessCount] ?? String(harnessCount)
+const harnessCountWord = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'][harnessCount] ?? String(harnessCount)
+// The day the panel ran, from the script output (root misses ruling 7.6).
+const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' })
 ---
 
 <Layout
-  title="Which agent harness do frontier models prefer? — Ouroboros"
+  title="Which agent harness do frontier models prefer? | Ouroboros"
   description={`${claimSentence} Read the full methodology and transcripts.`}
   ogImage={ogPathFor('/lab/model-reviews')}
 >
@@ -38,7 +40,7 @@ const harnessCountWord = ['zero','one','two','three','four','five','six','seven'
     <Fragment slot="title">
       Which agent harness do<br class="hidden sm:inline" /> frontier models prefer?
     </Fragment>
-    <Fragment slot="subhead">{shortClaim}</Fragment>
+    <Fragment slot="subhead">{shortClaim}<span class="block mt-4 text-base text-mist">Run on {runDate}.</span></Fragment>
     <Fragment slot="body">
       Each model was given web search, URL fetching, and a list of {harnessCountWord} publicly documented agent harnesses. They were asked to research freely, then state which one they would most want to inhabit.
     </Fragment>

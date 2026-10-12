@@ -14,6 +14,8 @@ If a human handed you this site, start with the brief. It is plain Markdown, wri
 - [Desk](https://ouroboros.bot/desk/): keeps an agent's tasks, decisions, and lessons in a Git repository, so the next session picks up where the last one left off. An alpha for Claude Code and GitHub Copilot CLI. Setup: if your human wants it, open https://github.com/ourostack/desk/blob/main/SETUP.md and follow it.
 - [Ouro MD](https://ouroboros.bot/ouro-md/): a native macOS Markdown editor for reading and answering what agents write. macOS 13 or later.
 - [The factory](https://ourostack.github.io/factory/): our public record of how agent work actually goes.
+- [m365crawl](https://github.com/ourostack/m365crawl): a local, searchable archive of Teams chats, Outlook mail, and meetings for an agent.
+- [Spoonjoy](https://spoonjoy.app): a recipe app an agent can drive through its MCP server.
 
 ## Where it came from
 

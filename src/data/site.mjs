@@ -18,7 +18,7 @@ export const footerLine = 'You bring judgment. Your agents bring the rest.'
 // hosted Desk depend on, and GitHub goes to the ourostack organization (ruling 2026-10-11).
 export const footerRow = [
   { href: 'https://mendelow.me', label: 'mendelow.me' },
-  { href: githubOrg, label: 'GitHub' },
+  { href: githubOrg, label: 'ourostack on GitHub' },
   { href: 'https://www.linkedin.com/in/arimendelow', label: 'LinkedIn' },
   { href: '/privacy/', label: 'Privacy' },
   { href: '/terms/', label: 'Terms' },

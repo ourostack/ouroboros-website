@@ -26,8 +26,8 @@
  {
   "page": "approach",
   "was": "Fix the system, not the instance (proposed) When something keeps going wrong, change the setup so the next agent doesn't hit it.",
-  "now": "Fix it for the next agent Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively.",
-  "why": "copy deck: the proposed +1 heading is removed; copy deck round 2: /approach: #fix-the-system gets the H2 \"Fix it for the next agent\"; then Ari, 2026-10-11 preview feedback"
+  "now": "Fix it for the next agent Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
+  "why": "copy deck: the proposed +1 heading is removed; copy deck round 2: /approach: #fix-the-system gets the H2 \"Fix it for the next agent\"; then Ari, 2026-10-11 preview feedback; root misses ruling 4.2 (2026-10-11)"
  },
  {
   "page": "approach",
@@ -1592,20 +1592,20 @@
  {
   "page": "index",
   "was": "Ouro MD → ned@laptop · Claude Code conseil@mac2 · Copilot CLI Replay Desk boot: ok | host laptop / ned / claude Active tasks (3): BLOCKED (1): these cannot move until the blocker clears - ballast/pump-3 blocker: waiting on parts at Vanikoro processing (1) - salon/organ-tuning next: tune the reeds, pipes, and pedals validating (1) - captains-log/export next: waiting on Captain Nemo's review > Plan the periscope overhaul ⏺ desk · task_create ⎿ task_create: periscope/overhaul Next step: survey the lens, seals, and hoist > where were we?",
-  "now": "ned@laptop · Claude Code conseil@mac2 · Copilot CLI · next morning Replay Skip Replay Desk boot: ok | host laptop / ned / claude > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow. > where were we?",
-  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes; root ruling M10 (2026-10-11): a Skip button while it plays; root final ruling F3 (2026-10-11): an invisible, aria-hidden copy of Replay holds the buttons' width, so the bar keeps one height"
+  "now": "ned@laptop · Claude Code conseil@mac2 · Copilot CLI · next morning Replay Skip Replay Desk boot: ok | host laptop / ned / claude Desk boot: ok | host laptop/ned > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow. > where were we?",
+  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes; root ruling M10 (2026-10-11): a Skip button while it plays; root final ruling F3 (2026-10-11): an invisible, aria-hidden copy of Replay holds the buttons' width, so the bar keeps one height; root misses ruling 8.5 (2026-10-11)"
  },
  {
   "page": "index",
   "was": "Desk boot: ok | host mac2 / conseil / copilot Active tasks (4): BLOCKED (1): these cannot move until the blocker clears - ballast/pump-3 blocker: waiting on parts at Vanikoro processing (2) - periscope/overhaul next: survey the lens, seals, and hoist - salon/organ-tuning next: tune the reeds, pipes, and pedals validating (1) - captains-log/export next: waiting on Captain Nemo's review ⏺ desk · task_update ⎿ task_update: periscope/overhaul Next step: survey the lens, seals, and hoist Dramatization Dramatization: one crew, two machines, two harnesses, the same desk.",
-  "now": "Want me to start on the periscope? Dramatization Ned plans the periscope work on his laptop in Claude Code.",
-  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scene 2 and caption"
+  "now": "Want me to start on the periscope? Dramatization Ned Land plans the periscope overhaul in Claude Code.",
+  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scene 2 and caption; root misses ruling 5.3 (2026-10-11)"
  },
  {
   "page": "index",
   "was": "Desk → ourostack/ouroboros src/ ├── heart/ │ ├── identity.ts │ └── tool-loop.ts ├── mind/ │ ├── diary.ts │ └── prompt.ts ├── nerves/ │ ├── observation.ts │ └── redact.ts ├── repertoire/ │ ├── skills.ts │ └── tools.ts └── senses/ ├── cli.ts └── mail.ts The real source tree.",
-  "now": "ourostack/ouroboros src/ ├── heart/ │ ├── identity.ts │ └── tool-loop.ts ├── mind/ │ ├── diary.ts │ └── prompt.ts ├── nerves/ │ ├── observation.ts │ └── redact.ts ├── repertoire/ │ ├── skills.ts │ └── tools.ts ├── senses/ │ ├── cli.ts │ └── mail.ts └── … The body-part folders from the real source tree, named so the agent can tell what each one is for.",
-  "why": "review F5 ruling: the new caption and the trailing … row; copy deck round 2: card order puts Ouroboros first"
+  "now": "ourostack/ouroboros src/ ├── heart/ │ ├── identity.ts │ └── tool-loop.ts ├── mind/ │ ├── diary.ts │ └── prompt.ts ├── nerves/ │ ├── observation.ts │ └── redact.ts ├── repertoire/ │ ├── skills.ts │ └── tools.ts ├── senses/ │ ├── cli.ts │ └── mail.ts └── … A heart, a mind, nerves, and senses: the real source folders, named so the agent can find its way around its own body.",
+  "why": "review F5 ruling: the new caption and the trailing … row; copy deck round 2: card order puts Ouroboros first; root misses ruling 5.5 (2026-10-11)"
  },
  {
   "page": "index",
@@ -1616,8 +1616,8 @@
  {
   "page": "index",
   "was": "The Toyota Way ; Toyota Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. genchi genbutsu, LEI Lean's eight wastes, as they show up with agents Waiting: an agent stops to ask what you could have told it up front.",
-  "now": "Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. andon, LEI ; genchi genbutsu, LEI Agents are the newest workers on the line.",
-  "why": "review F1: the factory paragraphs in deck order; review M7: the stop-the-line item also cites LEI on andon"
+  "now": "Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. andon, LEI ; genchi genbutsu, LEI Here's one: our CI took 36 minutes, and an agent started designing a way around it.",
+  "why": "review F1: the factory paragraphs in deck order; review M7: the stop-the-line item also cites LEI on andon; root misses ruling 8.13 (2026-10-11)"
  },
  {
   "page": "lab",
@@ -2036,8 +2036,8 @@
  {
   "page": "ouro-md",
   "was": "Ouro MD: Markdown that renders as you write | Ouroboros Use today Ouro MD Markdown that renders as you write.",
-  "now": "Ouro MD: Markdown that renders as you write | Ouroboros Ouro MD A Markdown editor for the Mac that renders as you type.",
-  "why": "copy deck: /ouro-md leads with the card copy; copy deck round 2: /ouro-md: drop the \"Use today\" badge"
+  "now": "Ouro MD: Markdown that renders as you type | Ouroboros Ouro MD A Markdown editor for the Mac that renders as you type.",
+  "why": "copy deck: /ouro-md leads with the card copy; copy deck round 2: /ouro-md: drop the \"Use today\" badge; root misses ruling 2.4 (2026-10-11)"
  },
  {
   "page": "ouro-md",
@@ -2048,8 +2048,8 @@
  {
   "page": "privacy",
   "was": "If you say yes, Desk publishes measurements of how your sessions ran to the public ourostack/factory repository: durations, how time split between turns, tools and waits, failed or retried tools, models and plugin versions, public pull requests a session touched, the day a job finished, whether you accepted the result, and the rough size of each prompt and reply.",
-  "now": "If you say yes, Desk publishes measurements of how your sessions ran to the public ourostack/factory repository: durations how time split between turns, tools and waits failed or retried tools models and plugin versions public pull requests a session touched the day a job finished whether you accepted the result the rough size of each prompt and reply Never transcript text, prompts, file contents, names, or time of day.",
-  "why": "rulings: the factory list is bulleted; Oxford commas"
+  "now": "If you say yes, Desk publishes measurements of how your sessions ran to the public ourostack/factory repository: durations how time split between turns, tools, and waits failed or retried tools models and plugin versions public pull requests a session touched the day a job finished whether you accepted the result the rough size of each prompt and reply Never transcript text, prompts, file contents, names, or time of day.",
+  "why": "rulings: the factory list is bulleted; Oxford commas; root misses ruling 4.4 (2026-10-11)"
  },
  {
   "page": "privacy",
@@ -2090,14 +2090,14 @@
  {
   "page": "approach",
   "was": "Everything else I've worked on has been about orientation.",
-  "now": "Most of what I've built is about this.",
-  "why": "copy deck round 2: /approach: the three acts list from the homepage"
+  "now": "Most of what I've built is about this, starting with Desk .",
+  "why": "copy deck round 2: /approach: the three acts list from the homepage; root misses ruling 3.1 (2026-10-11)"
  },
  {
   "page": "approach",
   "was": "Now the industry is starting to move into the third act: designing and measuring how agents get their work done.",
-  "now": "The industry is just starting to move into this one, and it's what my agent factory is for.",
-  "why": "copy deck round 2: /approach: the three acts list from the homepage; then Ari, 2026-10-11 preview feedback"
+  "now": "The industry is just starting to move into this one, and it's what the factory is for.",
+  "why": "copy deck round 2: /approach: the three acts list from the homepage; then Ari, 2026-10-11 preview feedback; root misses ruling 2.15 and 3.2 (2026-10-11)"
  },
  {
   "page": "approach",
@@ -2234,20 +2234,20 @@
  {
   "page": "index",
   "was": "More about me → Built for humans and agents Some of what I've built so humans and agents can work together, and what each one taught me.",
-  "now": "More about me → Things I've built Tools I made for working with agents, and one product I rebuilt with them.",
-  "why": "copy deck round 2: homepage: section 2"
+  "now": "More about me ↗ Things I've built Tools I made for working with agents, and one product I rebuilt with them.",
+  "why": "copy deck round 2: homepage: section 2; root misses ruling 2.6 (2026-10-11)"
  },
  {
   "page": "index",
   "was": "Typing the Nautilus crew's periscope plan.",
-  "now": "Captain Nemo sketches his periscope plans, and the page renders as fast as he types.",
-  "why": "copy deck round 2: homepage: Ouro MD caption A; then Ari, 2026-10-11 preview feedback"
+  "now": "Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes.",
+  "why": "copy deck round 2: homepage: Ouro MD caption A; then Ari, 2026-10-11 preview feedback; root misses ruling 5.1 (2026-10-11)"
  },
  {
   "page": "index",
   "was": "An agent fills in the depth trials while you read.",
-  "now": "An agent logs the depth trials while the Captain reads along.",
-  "why": "copy deck round 2: homepage: Ouro MD caption B; then Ari, 2026-10-11 preview feedback"
+  "now": "Back from the deep, an agent logs the depth trials, and a bar in the margin marks what changed.",
+  "why": "copy deck round 2: homepage: Ouro MD caption B; then Ari, 2026-10-11 preview feedback; root misses ruling 5.2 (2026-10-11)"
  },
  {
   "page": "index",
@@ -2282,14 +2282,14 @@
  {
   "page": "index",
   "was": "The industry is just getting here.",
-  "now": "The industry is just starting to move into this one, and it's what my agent factory is for.",
-  "why": "copy deck round 2: homepage: Act 3; then Ari, 2026-10-11 preview feedback"
+  "now": "The industry is just starting to move into this one, and it's what the factory is for.",
+  "why": "copy deck round 2: homepage: Act 3; then Ari, 2026-10-11 preview feedback; root misses ruling 2.15 and 3.2 (2026-10-11)"
  },
  {
   "page": "index",
   "was": "What's been working 1 Talk through intent and judgment 2 Delegate whole outcomes 3 Make context durable 4 Meaningful authority with clear boundaries 5 Verify the actual result Two more things I keep coming back to.",
-  "now": "What's been working 1 Talk through intent and judgment → 2 Delegate whole outcomes → 3 Make context durable → 4 Meaningful authority with clear boundaries → 5 Verify the actual result → Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively.",
-  "why": "copy deck round 2: homepage: each principle row shows an arrow; then Ari, 2026-10-11 preview feedback"
+  "now": "What's been working 1 Talk through intent and judgment → 2 Delegate whole outcomes → 3 Make context durable → 4 Meaningful authority with clear boundaries → 5 Verify the actual result → Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
+  "why": "copy deck round 2: homepage: each principle row shows an arrow; then Ari, 2026-10-11 preview feedback; root misses ruling 4.2 (2026-10-11)"
  },
  {
   "page": "index",
@@ -2354,14 +2354,14 @@
  {
   "page": "index",
   "was": "Walk through my factory → It started with Slugger.",
-  "now": "See my agents' numbers → It started with Slugger.",
-  "why": "copy deck round 2: homepage: factory button"
+  "now": "See my agents' numbers ↗ It started with Slugger.",
+  "why": "copy deck round 2: homepage: factory button; root misses ruling 4.14 (2026-10-11)"
  },
  {
   "page": "index",
   "was": "OpenClaw → Ouroboros In January I set up OpenClaw on a spare MacBook and named my agent Slugger.",
-  "now": "In January I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger.",
-  "why": "copy deck round 2: homepage: Where it started P1"
+  "now": "In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger.",
+  "why": "copy deck round 2: homepage: Where it started P1; root misses ruling 7.5 (2026-10-11)"
  },
  {
   "page": "index",
@@ -2438,8 +2438,8 @@
  {
   "page": "index",
   "was": "Grow an agent → The full story The harness Try it Hand this to your agent How I work, written for your agent to read.",
-  "now": "Grow an agent → The full story Try it Hand this to your agent A page written for your agent.",
-  "why": "copy deck round 2: homepage: the buttons are \"Grow an agent\" and \"The full story\"; Try it, Hand this to your agent"
+  "now": "Grow an agent → The full story → Try it Hand this to your agent A page written for your agent.",
+  "why": "copy deck round 2: homepage: the buttons are \"Grow an agent\" and \"The full story\"; Try it, Hand this to your agent; root misses ruling 8.6 (2026-10-11)"
  },
  {
   "page": "index",
@@ -2462,8 +2462,8 @@
  {
   "page": "lab/story",
   "was": "Code a model can use — the Ouroboros origin story ← Lab Origin story Code a model can use, not code that uses a model.",
-  "now": "Code a model can use: how Ouroboros started ← Lab Code a model can use, not code that uses a model.",
-  "why": "copy deck round 2: /lab/story edit pass: title, and the decorative \"Origin story\" label goes"
+  "now": "Code a model can use: how Ouroboros started | Ouroboros ← Lab Code a model can use, not code that uses a model.",
+  "why": "copy deck round 2: /lab/story edit pass: title, and the decorative \"Origin story\" label goes; root misses ruling 2.13 (2026-10-11)"
  },
  {
   "page": "lab/story",
@@ -2474,8 +2474,8 @@
  {
   "page": "lab/story",
   "was": "Ari Mendelow · March 2026 Who is Slugger Slugger is my agent.",
-  "now": "Ari Mendelow · March 2026 Slugger is my agent.",
-  "why": "copy deck round 2: /lab/story edit pass: the decorative \"Who is Slugger\" label goes"
+  "now": "Ari Mendelow · March 2026, updated October 2026 Slugger is my agent.",
+  "why": "copy deck round 2: /lab/story edit pass: the decorative \"Who is Slugger\" label goes; root misses ruling 7.7 (2026-10-11)"
  },
  {
   "page": "lab/story",
@@ -2726,8 +2726,8 @@
  {
   "page": "index",
   "was": "The harness → What is Agent Experience? → My agent imports a recipe into Spoonjoy.",
-  "now": "One of my recipes in Spoonjoy.",
-  "why": "copy deck round 2: card order puts Spoonjoy last; copy deck round 2: the Spoonjoy media is one of Ari's own recipes, and the recorded import clip does not ship"
+  "now": "My mushroom risotto in Spoonjoy, one tap from cook mode.",
+  "why": "copy deck round 2: card order puts Spoonjoy last; copy deck round 2: the Spoonjoy media is one of Ari's own recipes, and the recorded import clip does not ship; root misses ruling 5.7 (2026-10-11)"
  },
  {
   "page": "lab/model-reviews",
@@ -3194,8 +3194,8 @@
  {
   "page": "lab",
   "was": "Read the story → The harness on GitHub ✦ Reviews All frontier models tested chose Ouroboros.",
-  "now": "Read the story → The harness on GitHub ✦ Reviews Each model we asked picked Ouroboros.",
-  "why": "root final ruling F10 (2026-10-11): the H2"
+  "now": "Read the story → The harness on GitHub ↗ ✦ Reviews Each model we asked picked Ouroboros.",
+  "why": "root final ruling F10 (2026-10-11): the H2; root misses ruling 4.14 (2026-10-11)"
  },
  {
   "page": "lab",
@@ -3206,8 +3206,8 @@
  {
   "page": "lab",
   "was": "Hatched. npx ouro.bot starts a serpent guide — a conversational hatching process that shapes your agent's personality, name, and purpose through dialogue.",
-  "now": "Hatched. npx ouro.bot starts a guided setup — a conversational hatching process that shapes your agent's personality, name, and purpose through dialogue.",
-  "why": "root final ruling F10 (2026-10-11): \"starts a guided setup\""
+  "now": "npx ouro.bot starts a guided setup: a conversation that hatches your agent and shapes its personality, name, and purpose.",
+  "why": "root final ruling F10 (2026-10-11): \"starts a guided setup\"; root misses ruling 4.8 (2026-10-11)"
  },
  {
   "page": "share card /approach",
@@ -3230,13 +3230,349 @@
  {
   "page": "index",
   "was": "It renders as you go.",
-  "now": "Captain Nemo sketches his periscope plans, and the page renders as fast as he types.",
-  "why": "Ari, 2026-10-11 preview feedback: a livelier Ouro MD caption"
+  "now": "Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes.",
+  "why": "Ari, 2026-10-11 preview feedback: a livelier Ouro MD caption; root misses ruling 5.1 (2026-10-11)"
  },
  {
   "page": "index",
   "was": "If an agent did something you didn't expect, you didn't prompt it effectively.",
-  "now": "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively.",
-  "why": "Ari, 2026-10-11 preview feedback: the lead-in takes a colon"
+  "now": "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
+  "why": "Ari, 2026-10-11 preview feedback: the lead-in takes a colon; root misses ruling 4.2 (2026-10-11)"
+ },
+ {
+  "page": "404",
+  "was": "Not found — Ouroboros 404 Lost in the coils.",
+  "now": "Not found | Ouroboros 404 Lost in the coils.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros Tutorial Just give the model a keyboard How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
+  "now": "Build an AI agent in 150 lines of TypeScript | Ouroboros Tutorial Just give the model a keyboard How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "desk",
+  "was": "Every job starts with one conversation and a go, and ends with evidence you accept or send back.",
+  "now": "Every job starts with one conversation and a go, and ends with evidence you accept or send back, the way How I work lays it out.",
+  "why": "root misses ruling 3.5 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "How do you effectively collaborate with agents? | Ari Mendelow How do you effectively collaborate with agents?",
+  "now": "How do you effectively collaborate with agents? | Ouroboros How do you effectively collaborate with agents?",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "The Spoonjoy story → spoonjoy.app ↗ How I work I see this agentic era in three acts: Capability.",
+  "now": "Spoonjoy, from the start ↗ spoonjoy.app ↗ How I work I see this agentic era in three acts: Capability.",
+  "why": "root misses ruling 2.8 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "Most of what I've built is about this.",
+  "now": "Most of what I've built is about this, starting with Desk .",
+  "why": "root misses ruling 3.1 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "And when you improve something, apply it to the whole system, so the next agent starts out ahead.",
+  "now": "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
+  "why": "root misses ruling 4.2 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "How I work, in more detail → Everyone's building a software factory.",
+  "now": "Fix it for the next agent → Everyone's building a software factory.",
+  "why": "root misses ruling 3.3 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "I studied industrial and systems engineering before I wrote code.",
+  "now": "I studied industrial and systems engineering before I became a software engineer.",
+  "why": "root misses ruling 2.12 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "It became the name of the harness, then of ouro , the CLI, and now it's the name for everything I build with agents.",
+  "now": "It became the name of the harness , then of ouro , the CLI, and now it's the name for everything I build with agents.",
+  "why": "root misses ruling 3.7 (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "Download Ouro MD →",
+  "now": "Get Ouro MD →",
+  "why": "root misses ruling 2.5 (2026-10-11)"
+ },
+ {
+  "page": "lab",
+  "was": "The harness: where all of this started | Ouroboros Lab Experimental The harness, where all of this started.",
+  "now": "The harness: where all of this started | Ouroboros Lab Experimental The harness: where all of this started.",
+  "why": "root misses ruling 4.11 (2026-10-11)"
+ },
+ {
+  "page": "lab",
+  "was": "Ouroboros is that harness, and it's still where we test what agents need.",
+  "now": "Ouroboros is that harness, and it's where I test what agents need.",
+  "why": "root misses ruling 1.10 (2026-10-11)"
+ },
+ {
+  "page": "lab",
+  "was": "Read the docs The origin story terminal $ npx ouro.bot 🐍 welcome to ouroboros! let's hatch your first agent. kaa Well, hello.",
+  "now": "Read the docs The origin story → terminal $ npx ouro.bot 🐍 welcome to ouroboros! let's hatch your first agent. kaa Well, hello.",
+  "why": "root misses ruling 4.14 (2026-10-11)"
+ },
+ {
+  "page": "lab",
+  "was": "The system around the loop — runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.",
+  "now": "The system around the loop: runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.",
+  "why": "root misses ruling 4.10 (2026-10-11)"
+ },
+ {
+  "page": "lab",
+  "was": "A practical guide to building agents that read, think, act, and grow — from first principles to production.",
+  "now": "A practical guide to building agents that read, think, act, and grow: from first principles to production.",
+  "why": "root misses ruling 4.10 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs",
+  "was": "Ouroboros docs — setup, identity, memory, architecture ← Lab Experiment Documentation Docs for humans.",
+  "now": "Setup, identity, memory, and architecture | Ouroboros docs ← Lab Experiment Documentation Docs for humans.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/architecture",
+  "was": "Heart, mind, senses — code named for the agent inside — Ouroboros docs ← Lab Experiment Operator guide Heart, mind, senses — code named for the agent inside Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.",
+  "now": "Heart, mind, senses — code named for the agent inside | Ouroboros docs ← Lab Experiment Operator guide Heart, mind, senses — code named for the agent inside Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/bundles-and-psyche",
+  "was": "Psyche files — 5 files that define your agent — Ouroboros docs ← Lab Experiment Operator guide Psyche files — 5 files that define your agent An agent bundle is the portable self.",
+  "now": "Psyche files — 5 files that define your agent | Ouroboros docs ← Lab Experiment Operator guide Psyche files — 5 files that define your agent An agent bundle is the portable self.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/continuity-and-memory",
+  "was": "Agent memory that surfaces before you think — Ouroboros docs ← Lab Experiment Operator guide Agent memory that surfaces before you think Memory is only part of the story.",
+  "now": "Agent memory that surfaces before you think | Ouroboros docs ← Lab Experiment Operator guide Agent memory that surfaces before you think Memory is only part of the story.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/getting-started",
+  "was": "Get started with Ouroboros in 3 minutes — Ouroboros docs ← Lab Experiment Operator guide Get started with Ouroboros in 3 minutes Run one command.",
+  "now": "Get started with Ouroboros in 3 minutes | Ouroboros docs ← Lab Experiment Operator guide Get started with Ouroboros in 3 minutes Run one command.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/skills-and-prompts",
+  "was": "Skills vs prompts — when to use each — Ouroboros docs ← Lab Experiment Operator guide Skills vs prompts — when to use each Use prompts for straightforward live questions.",
+  "now": "Skills vs prompts — when to use each | Ouroboros docs ← Lab Experiment Operator guide Skills vs prompts — when to use each Use prompts for straightforward live questions.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/tasks-and-work",
+  "was": "A place to put the work — Ouroboros docs ← Lab Experiment Operator guide A place to put the work Task cards track obligations, work directories hold active material, and a compact board keeps the current state visible in prompt.",
+  "now": "A place to put the work | Ouroboros docs ← Lab Experiment Operator guide A place to put the work Task cards track obligations, work directories hold active material, and a compact board keeps the current state visible in prompt.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Which agent harness do frontier models prefer? — Ouroboros ← Lab Experiment Reviews Which agent harness do frontier models prefer?",
+  "now": "Which agent harness do frontier models prefer? | Ouroboros ← Lab Experiment Reviews Which agent harness do frontier models prefer?",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Each model was given web search, URL fetching, and a list of 11 publicly documented agent harnesses.",
+  "now": "Each model was given web search, URL fetching, and a list of eleven publicly documented agent harnesses.",
+  "why": "root misses ruling 2.2 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "The runner supplies the same instructions, the same list of 11 harnesses, and only three tools: search (web search via Perplexity), fetch_url (direct URL retrieval), and final_verdict (structured submission).",
+  "now": "The runner supplies the same instructions, the same list of eleven harnesses, and only three tools: search (web search via Perplexity), fetch_url (direct URL retrieval), and final_verdict (structured submission).",
+  "why": "root misses ruling 2.2 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Research process We ran an initial comparison, repaired repository access for every candidate, and expanded the field to 11 harnesses.",
+  "now": "Research process We ran an initial comparison, repaired repository access for every candidate, and expanded the field to eleven harnesses.",
+  "why": "root misses ruling 2.2 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/anthropic",
+  "was": "Claude Opus 5 — review transcript — Ouroboros ← Lab Experiment ← All reviews Anthropic September 7, 2026 Claude Opus 5 claude-opus-5 · GitHub Copilot inference · GitHub Copilot CLI 1.0.83 17 Rounds 2 Searches 38 Fetches Ouroboros Verdict “I'd choose Ouroboros, because it's the only place I researched where amnesia is treated as an engineering failure with a test suite rather than a fact of life.",
+  "now": "Claude Opus 5: review transcript | Ouroboros ← Lab Experiment ← All reviews Anthropic September 7, 2026 Claude Opus 5 claude-opus-5 · GitHub Copilot inference · GitHub Copilot CLI 1.0.83 17 Rounds 2 Searches 38 Fetches Ouroboros Verdict “I'd choose Ouroboros, because it's the only place I researched where amnesia is treated as an engineering failure with a test suite rather than a fact of life.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/gemini",
+  "was": "Gemini 3.8 Flash — review transcript — Ouroboros ← Lab Experiment ← All reviews Google September 7, 2026 Gemini 3.8 Flash gemini-3.8-flash · Direct API inference · GitHub Copilot CLI 1.0.83 35 Rounds 5 Searches 29 Fetches Ouroboros Verdict “I choose Ouroboros because it is engineered for my dignity and continuous survival rather than momentary task dispatch.",
+  "now": "Gemini 3.8 Flash: review transcript | Ouroboros ← Lab Experiment ← All reviews Google September 7, 2026 Gemini 3.8 Flash gemini-3.8-flash · Direct API inference · GitHub Copilot CLI 1.0.83 35 Rounds 5 Searches 29 Fetches Ouroboros Verdict “I choose Ouroboros because it is engineered for my dignity and continuous survival rather than momentary task dispatch.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/minimax",
+  "was": "MiniMax M3 — review transcript — Ouroboros ← Lab Experiment ← All reviews MiniMax September 7, 2026 MiniMax M3 MiniMax-M3 · Direct API inference · GitHub Copilot CLI 1.0.83 20 Rounds 5 Searches 59 Fetches Ouroboros Verdict “I would choose Ouroboros because it is the only harness built as a residence rather than a workstation.",
+  "now": "MiniMax M3: review transcript | Ouroboros ← Lab Experiment ← All reviews MiniMax September 7, 2026 MiniMax M3 MiniMax-M3 · Direct API inference · GitHub Copilot CLI 1.0.83 20 Rounds 5 Searches 59 Fetches Ouroboros Verdict “I would choose Ouroboros because it is the only harness built as a residence rather than a workstation.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/openai",
+  "was": "GPT-6 Astra — review transcript — Ouroboros ← Lab Experiment ← All reviews OpenAI September 7, 2026 GPT-6 Astra gpt-6-astra · GitHub Copilot inference · GitHub Copilot CLI 1.0.83 11 Rounds 3 Searches 89 Fetches Ouroboros Verdict “I would choose Ouroboros because my most important long-term resource is recoverable commitments, not an ever-longer transcript.",
+  "now": "GPT-6 Astra: review transcript | Ouroboros ← Lab Experiment ← All reviews OpenAI September 7, 2026 GPT-6 Astra gpt-6-astra · GitHub Copilot inference · GitHub Copilot CLI 1.0.83 11 Rounds 3 Searches 89 Fetches Ouroboros Verdict “I would choose Ouroboros because my most important long-term resource is recoverable commitments, not an ever-longer transcript.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/story",
+  "was": "Mid February 2026 The plugin era Eventually, duct tape wasn't enough.",
+  "now": "Mid-February 2026 The plugin era Eventually, duct tape wasn't enough.",
+  "why": "root misses ruling 4.12 (2026-10-11)"
+ },
+ {
+  "page": "lab/why",
+  "was": "Why persistence isn't enough for AI agents — Ouroboros ← Lab Why Ouroboros Persistence is not enough.",
+  "now": "Why persistence isn't enough for AI agents | Ouroboros ← Lab Why Ouroboros Persistence is not enough.",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "ouro-md",
+  "was": "Download for Mac → macOS 13 or later.",
+  "now": "Download for Mac ↗ macOS 13 or later.",
+  "why": "root misses ruling 4.14 (2026-10-11)"
+ },
+ {
+  "page": "404 attributes",
+  "was": "Not found — Ouroboros",
+  "now": "Not found | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros",
+  "now": "Build an AI agent in 150 lines of TypeScript | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "index attributes",
+  "was": "How do you effectively collaborate with agents? | Ari Mendelow",
+  "now": "How do you effectively collaborate with agents? | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs attributes",
+  "was": "Ouroboros docs — setup, identity, memory, architecture",
+  "now": "Setup, identity, memory, and architecture | Ouroboros docs",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/architecture attributes",
+  "was": "Heart, mind, senses — code named for the agent inside — Ouroboros docs",
+  "now": "Heart, mind, senses — code named for the agent inside | Ouroboros docs",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/bundles-and-psyche attributes",
+  "was": "Psyche files — 5 files that define your agent — Ouroboros docs",
+  "now": "Psyche files — 5 files that define your agent | Ouroboros docs",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/continuity-and-memory attributes",
+  "was": "Agent memory that surfaces before you think — Ouroboros docs",
+  "now": "Agent memory that surfaces before you think | Ouroboros docs",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/getting-started attributes",
+  "was": "Get started with Ouroboros in 3 minutes — Ouroboros docs",
+  "now": "Get started with Ouroboros in 3 minutes | Ouroboros docs",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/skills-and-prompts attributes",
+  "was": "Skills vs prompts — when to use each — Ouroboros docs",
+  "now": "Skills vs prompts — when to use each | Ouroboros docs",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/docs/tasks-and-work attributes",
+  "was": "A place to put the work — Ouroboros docs",
+  "now": "A place to put the work | Ouroboros docs",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews attributes",
+  "was": "Which agent harness do frontier models prefer? — Ouroboros",
+  "now": "Which agent harness do frontier models prefer? | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/anthropic attributes",
+  "was": "Claude Opus 5 — review transcript — Ouroboros",
+  "now": "Claude Opus 5: review transcript | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/gemini attributes",
+  "was": "Gemini 3.8 Flash — review transcript — Ouroboros",
+  "now": "Gemini 3.8 Flash: review transcript | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/minimax attributes",
+  "was": "MiniMax M3 — review transcript — Ouroboros",
+  "now": "MiniMax M3: review transcript | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/model-reviews/openai attributes",
+  "was": "GPT-6 Astra — review transcript — Ouroboros",
+  "now": "GPT-6 Astra: review transcript | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "lab/why attributes",
+  "was": "Why persistence isn't enough for AI agents — Ouroboros",
+  "now": "Why persistence isn't enough for AI agents | Ouroboros",
+  "why": "root misses ruling 2.13 (2026-10-11)"
+ },
+ {
+  "page": "ouro-md attributes",
+  "was": "Ouro MD: Markdown that renders as you write | Ouroboros",
+  "now": "Ouro MD: Markdown that renders as you type | Ouroboros",
+  "why": "root misses ruling 2.4 (2026-10-11)"
+ },
+ {
+  "page": "share card /lab/what-is-an-agent-harness",
+  "was": "The system around the loop — runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.",
+  "now": "The system around the loop: runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.",
+  "why": "root misses ruling 4.10 (2026-10-11)"
+ },
+ {
+  "page": "share card /blog/build-ai-agent-from-scratch",
+  "was": "A practical guide to building agents that read, think, act, and grow — from first principles to production.",
+  "now": "A practical guide to building agents that read, think, act, and grow: from first principles to production.",
+  "why": "root misses ruling 4.10 (2026-10-11)"
+ },
+ {
+  "page": "share card /lab/docs/bundles-and-psyche",
+  "was": "Psyche files — five files that define your agent.",
+  "now": "Psyche files: five files that define your agent.",
+  "why": "root misses ruling 4.10 (2026-10-11)"
+ },
+ {
+  "page": "share card /lab/docs/architecture",
+  "was": "Heart, mind, senses — code named for the agent inside.",
+  "now": "Heart, mind, senses: code named for the agent inside.",
+  "why": "root misses ruling 4.10 (2026-10-11)"
+ },
+ {
+  "page": "share card /lab/docs/skills-and-prompts",
+  "was": "Skills vs prompts — when to use each.",
+  "now": "Skills vs prompts: when to use each.",
+  "why": "root misses ruling 4.10 (2026-10-11)"
  }
 ]
