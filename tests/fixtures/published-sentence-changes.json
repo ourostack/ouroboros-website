@@ -3344,13 +3344,13 @@
  {
   "page": "lab/docs/architecture",
   "was": "Heart, mind, senses — code named for the agent inside — Ouroboros docs ← Lab Experiment Operator guide Heart, mind, senses — code named for the agent inside Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.",
-  "now": "Heart, mind, senses — code named for the agent inside | Ouroboros docs ← Lab Experiment Operator guide Heart, mind, senses — code named for the agent inside Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.",
+  "now": "Heart, mind, and senses: code named for the agent inside | Ouroboros docs ← Lab Experiment Operator guide Heart, mind, and senses: code named for the agent inside Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.",
   "why": "root misses ruling 2.13 (2026-10-11)"
  },
  {
   "page": "lab/docs/bundles-and-psyche",
   "was": "Psyche files — 5 files that define your agent — Ouroboros docs ← Lab Experiment Operator guide Psyche files — 5 files that define your agent An agent bundle is the portable self.",
-  "now": "Psyche files — 5 files that define your agent | Ouroboros docs ← Lab Experiment Operator guide Psyche files — 5 files that define your agent An agent bundle is the portable self.",
+  "now": "Psyche files: 5 files that define your agent | Ouroboros docs ← Lab Experiment Operator guide Psyche files: 5 files that define your agent An agent bundle is the portable self.",
   "why": "root misses ruling 2.13 (2026-10-11)"
  },
  {
@@ -3368,7 +3368,7 @@
  {
   "page": "lab/docs/skills-and-prompts",
   "was": "Skills vs prompts — when to use each — Ouroboros docs ← Lab Experiment Operator guide Skills vs prompts — when to use each Use prompts for straightforward live questions.",
-  "now": "Skills vs prompts — when to use each | Ouroboros docs ← Lab Experiment Operator guide Skills vs prompts — when to use each Use prompts for straightforward live questions.",
+  "now": "Skills vs prompts: when to use each | Ouroboros docs ← Lab Experiment Operator guide Skills vs prompts: when to use each Use prompts for straightforward live questions.",
   "why": "root misses ruling 2.13 (2026-10-11)"
  },
  {
@@ -3470,13 +3470,13 @@
  {
   "page": "lab/docs/architecture attributes",
   "was": "Heart, mind, senses — code named for the agent inside — Ouroboros docs",
-  "now": "Heart, mind, senses — code named for the agent inside | Ouroboros docs",
+  "now": "Heart, mind, and senses: code named for the agent inside | Ouroboros docs",
   "why": "root misses ruling 2.13 (2026-10-11)"
  },
  {
   "page": "lab/docs/bundles-and-psyche attributes",
   "was": "Psyche files — 5 files that define your agent — Ouroboros docs",
-  "now": "Psyche files — 5 files that define your agent | Ouroboros docs",
+  "now": "Psyche files: 5 files that define your agent | Ouroboros docs",
   "why": "root misses ruling 2.13 (2026-10-11)"
  },
  {
@@ -3494,7 +3494,7 @@
  {
   "page": "lab/docs/skills-and-prompts attributes",
   "was": "Skills vs prompts — when to use each — Ouroboros docs",
-  "now": "Skills vs prompts — when to use each | Ouroboros docs",
+  "now": "Skills vs prompts: when to use each | Ouroboros docs",
   "why": "root misses ruling 2.13 (2026-10-11)"
  },
  {
@@ -3574,5 +3574,11 @@
   "was": "Skills vs prompts — when to use each.",
   "now": "Skills vs prompts: when to use each.",
   "why": "root misses ruling 4.10 (2026-10-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow — from first principles to production.",
+  "now": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow: from first principles to production.",
+  "why": "misses leftovers: no em dashes in titles or meta (2026-10-11)"
  }
 ]
