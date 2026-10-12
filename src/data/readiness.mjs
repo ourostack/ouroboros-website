@@ -15,8 +15,8 @@ export const allowedLabels = {
 /** @type {{ id: string, name: string, label: keyof typeof allowedLabels, detail: string }[]} */
 export const readiness = [
   { id: 'desk-claude-code-macos', name: 'Claude Code on macOS', label: 'Alpha', detail: 'Tested daily' },
-  { id: 'desk-claude-code-linux', name: 'Claude Code on Linux', label: 'Alpha', detail: 'Lightly tested' },
-  { id: 'desk-claude-code-windows', name: 'Claude Code on Windows', label: 'Alpha', detail: 'Works, with rough edges' },
+  { id: 'desk-claude-code-linux', name: 'Claude Code on Linux', label: 'Alpha', detail: 'Full test suite runs in CI' },
+  { id: 'desk-claude-code-windows', name: 'Claude Code on Windows', label: 'Alpha', detail: 'Full test suite runs in CI' },
   { id: 'desk-copilot-cli', name: 'GitHub Copilot CLI', label: 'Alpha', detail: 'Tested daily' },
   { id: 'desk-codex', name: 'Codex', label: 'Experimental', detail: "Runs, and hasn't been proven in daily use yet" },
   { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'No sign-up yet' },

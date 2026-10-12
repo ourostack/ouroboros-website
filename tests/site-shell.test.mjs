@@ -67,7 +67,7 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
     // root misses rulings 5.1, 5.2, 5.3, 5.5, 5.7, and 2.8.
     "Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes.",
     'Back from the deep, an agent logs the depth trials, and a bar in the margin marks what changed.',
-    'A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.',
+    'A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.',
     'Dramatization Ned Land plans the periscope overhaul in Claude Code. At dawn, Conseil asks Copilot CLI where they were, and it knows.',
     `Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.`,
     "A heart, a mind, nerves, and senses: the real source folders, named so the agent can find its way around its own body.",
@@ -80,8 +80,8 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
 
   // Copy deck round 2: the m365crawl card comes fourth, before Spoonjoy.
   assertLines(text, [
-    'The doctor, run on my own archive.',
-    'It gives my agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.',
+    'The doctor, giving an archive its checkup.',
+    'It gives my agent one local, searchable archive of my Teams chats, Outlook mail, and meetings, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, without me pasting a thing.',
     'm365crawl on GitHub ↗',
   ]);
   const cards = [...html.matchAll(/<article class="product[^"]*" id="([^"]+)"/g)].map(([, id]) => id);
@@ -166,7 +166,7 @@ test('the m365crawl card shows the repo\'s doctor screenshot at its real size', 
   assert.match(card, /<img src="\/images\/workshop\/m365crawl-doctor\.png" width="\d+" height="\d+" loading="lazy"/);
   assert.ok(distExists('images/workshop/m365crawl-doctor.png'));
   assert.ok(!distExists('images/workshop/m365crawl-indexed-notes.png'), 'The synthetic indexed-notes screenshot no longer ships');
-  assert.ok(plain(card).includes('The doctor, run on my own archive.'));
+  assert.ok(plain(card).includes('The doctor, giving an archive its checkup.'));
 });
 
 test('homepage Desk playback renders its final frame without JS, shows scene 1 as a still before it plays, and plays once with a replay', () => {
@@ -312,9 +312,9 @@ test('homepage tells where it started, with Slugger and the molt', () => {
   const text = homeText();
   assertLines(text, [
     'It started with Slugger.',
-    "In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, and joined group chats with my family. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.",
+    "In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, talked with my family, and joined group chats with my friends. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.",
     "That's when I realized correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch: a small loop in TypeScript that, by the end, extends itself. I followed it myself and got hooked.",
-    "The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters. It became the name of the harness, then of ouro, the CLI, and now it's the name for everything I build with agents.",
+    "The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters. It became the name of the harness, then of ouro, the CLI, and now it names this workshop, where I build with agents.",
     'Grow an agent →', 'The full story →',
   ]);
   // P4 and the third button are cut (copy deck round 2).
@@ -559,8 +559,8 @@ test('approach page puts the smells first, then the five principles, then fix it
     "I'd rather talk something through with an agent once, for as long as it takes, than answer it twenty times along the way. So every job starts with one real conversation about what we're doing and why, and then I say go.",
     "I say what done looks like and why it matters, and the how is the agent's. When I handed over a tool built for agents, all I asked was that it work as well as it possibly could, and that's the only thing I judged.",
     // root misses ruling 3.4: principle 3 names Desk.
-    "Decisions live in files the next session reads. Desk keeps them in a Git repository. I once asked my agents to stop pinning dependencies to exact commits. They did it about a dozen more times anyway, because each one trusted an older agent's handoff note over what I'd said, and one of those notes was written twelve minutes after I said it. Now my words outrank any handoff note, and CI enforces the rule.",
-    "Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone. The rest is the agent's, and its work stays visible. One night a cleanup command stopped to ask me for a click, and the run sat there until morning. Now nothing my agents run asks for one.",
+    "Decisions live in files the next session reads. Desk keeps them in a Git repository. I once asked my agents to stop pinning dependencies to exact commits. They did it about a dozen more times anyway, because each one trusted an older agent's handoff note over what I'd said, and one of those notes was written twelve minutes after I said it. Now my words outrank any handoff note, and every agent's instructions say so.",
+    "Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone. The rest is the agent's, and its work stays visible. One night a cleanup command stopped to ask me for a click, and the run sat there until morning. Now my agents work under a rule never to run a command that asks for one.",
     'I look where the result lives: the live page, the installed app, the merged change. I ask for proof that it works end to end, with screenshots I can check.',
     // root misses ruling 4.2.
     "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",

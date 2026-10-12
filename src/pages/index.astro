@@ -92,17 +92,17 @@ const wastes = [
         <article class="product product-wide product-split" id="ouro-md">
           <OuroMdMedia />
           <h3 class="product-title"><img src="/brand/ouro-md-icon.png" width="40" height="40" alt="" loading="lazy" decoding="async" class="mark-tile w-9 h-9" />Ouro MD</h3>
-          <p class="text-mist leading-relaxed">A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.</p>
+          <p class="text-mist leading-relaxed">A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.</p>
           <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
         </article>
 
         <article class="product product-wide product-split" id="m365crawl" data-allow-product-name="Microsoft 365">
           <figure class="product-figure">
             <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1582" height="1414" loading="lazy" decoding="async" alt="m365crawl doctor output: every ready check passing, then a snapshot of the archive with its Teams, mail, and calendar counts." /></div>
-            <figcaption class="product-caption">The doctor, run on my own archive.</figcaption>
+            <figcaption class="product-caption">The doctor, giving an archive its checkup.</figcaption>
           </figure>
           <h3 class="product-title">m365crawl</h3>
-          <p class="text-mist leading-relaxed">It gives my agent one local, searchable archive of my Teams chats, Outlook mail, meetings, and OneNote notes, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, and I never paste a thing.</p>
+          <p class="text-mist leading-relaxed">It gives my agent one local, searchable archive of my Teams chats, Outlook mail, and meetings, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, without me pasting a thing.</p>
           <p class="product-links"><a href="https://github.com/ourostack/m365crawl" class={link}>m365crawl on GitHub &#8599;</a></p>
         </article>
 
@@ -206,9 +206,9 @@ const wastes = [
       </div>
 
       <div class="min-w-0 grid gap-5 text-lg text-mist leading-relaxed">
-        <p>In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, and joined group chats with my family. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
+        <p>In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, talked with my family, and joined group chats with my friends. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
         <p>That's when I realized correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch: a small loop in TypeScript that, by the end, extends itself. I followed it myself and got hooked.</p>
-        <p>The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters. It became the name of <a href="/lab/" class={link}>the harness</a>, then of <code class="model-code">ouro</code>, the CLI, and now it's the name for everything I build with agents.</p>
+        <p>The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail. The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters. It became the name of <a href="/lab/" class={link}>the harness</a>, then of <code class="model-code">ouro</code>, the CLI, and now it names this workshop, where I build with agents.</p>
         <div class="flex flex-wrap gap-3 mt-3">
           <a href="/blog/build-ai-agent-from-scratch/" class="btn-primary">Grow an agent &rarr;</a>
           <a href="/lab/story/" class="btn-ghost">The full story &rarr;</a>

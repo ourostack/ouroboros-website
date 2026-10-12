@@ -1,21 +1,35 @@
 ---
 /**
- * Real Desk session-start output, not hand-written. Produced on 2026-10-10 by
- * running Desk 3.2.0-alpha.273's `mcp/scripts/session-boot.js` against a
- * throwaway sample desk (one track `my-app`, one task `checkout-flow` with
- * status `processing` and a `**Next step:**` paragraph). These are the
- * "Active tasks" lines of that output, verbatim; the rest of the output
- * (machine paths, the sign-in check, the agent's instructions) is left out.
+ * Real Desk session-start output, not hand-written. Produced on 2026-10-11 by
+ * running Desk 3.2.0-alpha.291's `mcp/scripts/session-boot.js` against a
+ * throwaway sample desk with the four Nautilus tasks the playback above uses:
+ * `ballast/pump-3` (blocked, with a `**Blocker:**` line) and three tasks with a
+ * `**Next step:**` paragraph, `captains-log/export` (validating) and
+ * `periscope/overhaul` and `salon/organ-tuning` (processing), dated so the
+ * periscope plan is the newest, as in the playback's story. These are the
+ * "Active tasks" lines of that output, verbatim and in Desk's order; the rest
+ * of the output (the boot headline with machine paths, the sign-in check, and
+ * the agent's instructions) is left out.
  */
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props
 
 const lines = [
-  { text: 'Active tasks (1):', tone: 'bone' },
+  { text: 'Active tasks (4):', tone: 'bone' },
   { text: '', tone: 'mist' },
-  { text: 'processing (1)', tone: 'scale' },
-  { text: '- my-app/checkout-flow "One-page checkout with saved addresses" (updated 2026-10-10)', tone: 'bone' },
-  { text: '  next: wire the saved-address picker into the shipping form, then test it on a phone.', tone: 'glow' },
+  { text: 'BLOCKED (1): these cannot move until the blocker clears', tone: 'fang' },
+  { text: '- ballast/pump-3 "Replace ballast pump 3" (updated 2026-10-07)', tone: 'bone' },
+  { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
+  { text: '', tone: 'mist' },
+  { text: 'processing (2)', tone: 'scale' },
+  { text: '- periscope/overhaul "Overhaul the periscope" (updated 2026-10-10)', tone: 'bone' },
+  { text: '  next: survey the lens, the seals, and the hoist', tone: 'glow' },
+  { text: '- salon/organ-tuning "Tune the salon organ" (updated 2026-10-09)', tone: 'bone' },
+  { text: '  next: tune the reeds, pipes, and pedals', tone: 'glow' },
+  { text: '', tone: 'mist' },
+  { text: 'validating (1)', tone: 'scale' },
+  { text: '- captains-log/export "Export the captain\'s log" (updated 2026-10-08)', tone: 'bone' },
+  { text: "  next: waiting on Captain Nemo's review", tone: 'glow' },
 ]
 ---
 
@@ -40,4 +54,5 @@ const lines = [
   .tone-mist { color: var(--color-mist); }
   .tone-scale { color: var(--color-scale); }
   .tone-glow { color: var(--color-glow); }
+  .tone-fang { color: var(--color-fang); }
 </style>

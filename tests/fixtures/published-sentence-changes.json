@@ -1580,8 +1580,8 @@
  {
   "page": "desk",
   "was": "The factory measures every session sent to it, in public. a new session starts Active tasks (1): processing (1) - my-app/checkout-flow \"One-page checkout with saved addresses\" (updated 2026-10-10) next: wire the saved-address picker into the shipping form, then test it on a phone.",
-  "now": "What a new session looks like a new session starts Active tasks (1): processing (1) - my-app/checkout-flow \"One-page checkout with saved addresses\" (updated 2026-10-10) next: wire the saved-address picker into the shipping form, then test it on a phone.",
-  "why": "copy deck: the Desk boot preview moved below the lead, so this text run changed; copy deck round 2: /desk: under the copy box, and the sample terminal gets the H2 \"What setup looks like\"; root final ruling F14 (2026-10-11): the H2 becomes \"What a new session looks like\""
+  "now": "What a new session looks like a new session starts Active tasks (4):",
+  "why": "copy deck: the Desk boot preview moved below the lead, so this text run changed; copy deck round 2: /desk: under the copy box, and the sample terminal gets the H2 \"What setup looks like\"; root final ruling F14 (2026-10-11): the H2 becomes \"What a new session looks like\"; leftover audit 5.4 and 6.5: real boot output recaptured from Desk 3.2.0-alpha.291 on a Nautilus sample desk (2026-10-11)"
  },
  {
   "page": "desk",
@@ -2144,7 +2144,7 @@
  {
   "page": "approach",
   "was": "Now Ari's words outrank any handoff, and CI holds the rule. 4.",
-  "now": "Now my words outrank any handoff note, and CI enforces the rule.",
+  "now": "Now my words outrank any handoff note, and every agent's instructions say so.",
   "why": "round 2: no quoting Ari on his own site"
  },
  {
@@ -2162,7 +2162,7 @@
  {
   "page": "approach",
   "was": "Nothing I run asks for one now. 5.",
-  "now": "Now nothing my agents run asks for one.",
+  "now": "Now my agents work under a rule never to run a command that asks for one.",
   "why": "round 2: no quoting Ari on his own site"
  },
  {
@@ -2216,8 +2216,8 @@
  {
   "page": "desk",
   "was": "Linux: listed, lightly tested.",
-  "now": "Linux: lightly tested.",
-  "why": "copy deck round 2: readiness labels"
+  "now": "Linux and Windows: the full test suite runs on both in CI",
+  "why": "copy deck round 2: readiness labels; fact check 2026-10-11: Desk's CI runs the full test suite on Linux and Windows"
  },
  {
   "page": "desk",
@@ -2366,13 +2366,13 @@
  {
   "page": "index",
   "was": "For a few weeks it was magic.",
-  "now": "For a few weeks he ran my calendar, ordered my food, and joined group chats with my family.",
+  "now": "For a few weeks he ran my calendar, ordered my food, talked with my family, and joined group chats with my friends.",
   "why": "copy deck round 2: homepage: Where it started P1"
  },
  {
   "page": "index",
   "was": "He managed my calendar, ordered food, and joined group chats with my family.",
-  "now": "For a few weeks he ran my calendar, ordered my food, and joined group chats with my family.",
+  "now": "For a few weeks he ran my calendar, ordered my food, talked with my family, and joined group chats with my friends.",
   "why": "copy deck round 2: homepage: Where it started P1"
  },
  {
@@ -3188,8 +3188,8 @@
  {
   "page": "desk",
   "was": "Windows: works, with rough edges.",
-  "now": "Windows: works, with rough edges",
-  "why": "root final ruling F12 (2026-10-11): readiness details have no trailing period"
+  "now": "Linux and Windows: the full test suite runs on both in CI",
+  "why": "root final ruling F12 (2026-10-11): readiness details have no trailing period; fact check 2026-10-11: Desk's CI runs the full test suite on Linux and Windows"
  },
  {
   "page": "lab",
@@ -3296,7 +3296,7 @@
  {
   "page": "index",
   "was": "It became the name of the harness, then of ouro , the CLI, and now it's the name for everything I build with agents.",
-  "now": "It became the name of the harness , then of ouro , the CLI, and now it's the name for everything I build with agents.",
+  "now": "It became the name of the harness , then of ouro , the CLI, and now it names this workshop, where I build with agents.",
   "why": "root misses ruling 3.7 (2026-10-11)"
  },
  {
@@ -3580,5 +3580,17 @@
   "was": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow — from first principles to production.",
   "now": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow: from first principles to production.",
   "why": "misses leftovers: no em dashes in titles or meta (2026-10-11)"
+ },
+ {
+  "page": "desk",
+  "was": "This is real output from Desk's session start, run on a sample desk.",
+  "now": "This is real output from Desk's session start, run on a sample Nautilus desk: every task, its state, and its next step or blocker, before anyone asks.",
+  "why": "leftover audit 5.4 and 6.5: real boot output recaptured from Desk 3.2.0-alpha.291 on a Nautilus sample desk (2026-10-11)"
+ },
+ {
+  "page": "index",
+  "was": "My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.",
+  "now": "My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.",
+  "why": "fact check 2026-10-11: describe what Ouro MD does, not a reading habit the evidence can't show"
  }
 ]

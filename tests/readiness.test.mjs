@@ -29,7 +29,7 @@ test('the Desk page shows every host with an honest label', () => {
   const text = page.slice(page.indexOf('Where it runs'));
   for (const [host, detail, label] of [
     // The three Claude Code hosts share one row, and it carries the badge (copy deck round 2).
-    ['Claude Code', 'macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges', 'Alpha'],
+    ['Claude Code', 'macOS: tested daily. Linux and Windows: the full test suite runs on both in CI', 'Alpha'],
     // Ari uses Copilot CLI every day as his primary harness, with Desk underneath (2026-10-11).
     ['Copilot CLI', 'Tested daily', 'Alpha'],
     ['Codex', "Runs, and hasn't been proven in daily use yet", 'Experimental'],
@@ -78,7 +78,7 @@ test('the Ouro MD page carries the install line and the macOS floor', () => {
 test('the Ouro MD page leads with the card copy and the stacked clips, with no second demo and no badge', () => {
   const html = readDist('ouro-md/index.html');
   // Copy deck (2026-10-11): /ouro-md/ leads with the homepage card's copy and the same media.
-  assert.ok(textOf(html).includes('A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.'));
+  assert.ok(textOf(html).includes('A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.'));
   const imgs = [...html.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
   assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-typing-light-poster.png', '/images/workshop/ouro-md-typing-dark-poster.png', '/images/workshop/ouro-md-agent-edit-light-poster.png', '/images/workshop/ouro-md-agent-edit-dark-poster.png']);
   // Copy deck round 2: the hero clips stack one per row, the second demo ("Harbor launch plan") and its GIF are cut, and there is no badge.
@@ -120,8 +120,8 @@ test('the Desk page leads with the card copy and the playback, and links the RFC
 test('the Desk page shows real session-start output, links the factory once, its label once, and limits in plain words', () => {
   const html = readDist('desk/index.html');
   const text = textOf(html);
-  assert.ok(text.includes('Active tasks (1):'));
-  assert.ok(text.includes('- my-app/checkout-flow "One-page checkout with saved addresses" (updated 2026-10-10)'));
+  assert.ok(text.includes('Active tasks (4):'));
+  assert.ok(text.includes('- periscope/overhaul "Overhaul the periscope" (updated 2026-10-10)'));
   assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
   assert.ok(text.replace(/\s+([.,])/g, '$1').includes("Setup also installs Superpowers, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public factory. It sends timings and sizes, and never transcript text, prompts, file contents, or names."));
   // root misses ruling 3.5: the Desk page points at the principles it encodes.
@@ -134,7 +134,7 @@ test('the Desk page shows real session-start output, links the factory once, its
   // Once for the page, once on the Claude Code row and once on the Copilot CLI row.
   assert.equal((text.match(/\bAlpha\b/g) || []).length, 3, 'The Alpha label shows for the page, Claude Code and Copilot CLI');
   assert.doesNotMatch(text, /Use today, alpha/);
-  assert.ok(text.includes('macOS: tested daily. Linux: lightly tested. Windows: works, with rough edges'));
+  assert.ok(text.includes('macOS: tested daily. Linux and Windows: the full test suite runs on both in CI'));
   assert.ok(text.includes("We haven't yet tested a first install on a brand-new Mac account."));
   assert.ok(text.includes("Desk's own browser starts signed out, and on macOS it can steal focus."));
   assert.doesNotMatch(text, /friction-to-fix|Its browser|fresh user profile/);
