@@ -49,7 +49,7 @@ const labReviewSummary = `We gave frontier models ${modelReviews.harnesses.lengt
 export const pageOg: Record<string, OgEntry> = {
   '/': {
     title: 'How do you effectively collaborate with agents?',
-    subtitle: "I'm Ari. I build products for humans + agents.",
+    subtitle: "Hello!! I'm Ari. I build products for humans + agents.",
   },
   '/approach': {
     title: 'How I work.',

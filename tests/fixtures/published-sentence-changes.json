@@ -26,8 +26,8 @@
  {
   "page": "approach",
   "was": "Fix the system, not the instance (proposed) When something keeps going wrong, change the setup so the next agent doesn't hit it.",
-  "now": "Fix it for the next agent Two more things I keep coming back to.",
-  "why": "copy deck: the proposed +1 heading is removed; copy deck round 2: /approach: #fix-the-system gets the H2 \"Fix it for the next agent\""
+  "now": "Fix it for the next agent Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively.",
+  "why": "copy deck: the proposed +1 heading is removed; copy deck round 2: /approach: #fix-the-system gets the H2 \"Fix it for the next agent\"; then Ari, 2026-10-11 preview feedback"
  },
  {
   "page": "approach",
@@ -2096,8 +2096,8 @@
  {
   "page": "approach",
   "was": "Now the industry is starting to move into the third act: designing and measuring how agents get their work done.",
-  "now": "The industry is just starting to move into this one.",
-  "why": "copy deck round 2: /approach: the three acts list from the homepage"
+  "now": "The industry is just starting to move into this one, and it's what my agent factory is for.",
+  "why": "copy deck round 2: /approach: the three acts list from the homepage; then Ari, 2026-10-11 preview feedback"
  },
  {
   "page": "approach",
@@ -2240,14 +2240,14 @@
  {
   "page": "index",
   "was": "Typing the Nautilus crew's periscope plan.",
-  "now": "A made-up plan for Captain Nemo's Nautilus, typed in.",
-  "why": "copy deck round 2: homepage: Ouro MD caption A"
+  "now": "Captain Nemo sketches his periscope plans, and the page renders as fast as he types.",
+  "why": "copy deck round 2: homepage: Ouro MD caption A; then Ari, 2026-10-11 preview feedback"
  },
  {
   "page": "index",
   "was": "An agent fills in the depth trials while you read.",
-  "now": "An agent fills in the depth trials while I read.",
-  "why": "copy deck round 2: homepage: Ouro MD caption B"
+  "now": "An agent logs the depth trials while the Captain reads along.",
+  "why": "copy deck round 2: homepage: Ouro MD caption B; then Ari, 2026-10-11 preview feedback"
  },
  {
   "page": "index",
@@ -2258,8 +2258,8 @@
  {
   "page": "index",
   "was": "Ouroboros The harness my agents live in.",
-  "now": "Ouroboros This is the harness my agents live in.",
-  "why": "copy deck round 2: homepage: Ouroboros body"
+  "now": "Ouroboros This is the agent harness I built from scratch, and it's where I test what agents need.",
+  "why": "copy deck round 2: homepage: Ouroboros body; then Ari, 2026-10-11 preview feedback"
  },
  {
   "page": "index",
@@ -2282,14 +2282,14 @@
  {
   "page": "index",
   "was": "The industry is just getting here.",
-  "now": "The industry is just starting to move into this one.",
-  "why": "copy deck round 2: homepage: Act 3"
+  "now": "The industry is just starting to move into this one, and it's what my agent factory is for.",
+  "why": "copy deck round 2: homepage: Act 3; then Ari, 2026-10-11 preview feedback"
  },
  {
   "page": "index",
   "was": "What's been working 1 Talk through intent and judgment 2 Delegate whole outcomes 3 Make context durable 4 Meaningful authority with clear boundaries 5 Verify the actual result Two more things I keep coming back to.",
-  "now": "What's been working 1 Talk through intent and judgment → 2 Delegate whole outcomes → 3 Make context durable → 4 Meaningful authority with clear boundaries → 5 Verify the actual result → Two more things I keep coming back to.",
-  "why": "copy deck round 2: homepage: each principle row shows an arrow"
+  "now": "What's been working 1 Talk through intent and judgment → 2 Delegate whole outcomes → 3 Make context durable → 4 Meaningful authority with clear boundaries → 5 Verify the actual result → Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively.",
+  "why": "copy deck round 2: homepage: each principle row shows an arrow; then Ari, 2026-10-11 preview feedback"
  },
  {
   "page": "index",
@@ -3226,5 +3226,17 @@
   "was": "Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.",
   "now": "Essays on agent experience, persistent agents, and software shaped for the thing inside it.",
   "why": "root final ruling F8 (2026-10-11): the blog description and share card say \"agent experience\""
+ },
+ {
+  "page": "index",
+  "was": "It renders as you go.",
+  "now": "Captain Nemo sketches his periscope plans, and the page renders as fast as he types.",
+  "why": "Ari, 2026-10-11 preview feedback: a livelier Ouro MD caption"
+ },
+ {
+  "page": "index",
+  "was": "If an agent did something you didn't expect, you didn't prompt it effectively.",
+  "now": "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively.",
+  "why": "Ari, 2026-10-11 preview feedback: the lead-in takes a colon"
  }
 ]

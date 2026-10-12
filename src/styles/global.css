@@ -276,7 +276,9 @@ html {
 .product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
-.product-media.media-clip { aspect-ratio: 4 / 3; }
+.product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; }
+/* The window recordings have rounded corners baked into every frame. A 4% scale crops them, so no notches show. */
+.product-media.media-clip video, .product-media.media-clip img { transform: scale(1.04); }
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
 .product-media.media-photo { display: block; background: #f7f5f0; }

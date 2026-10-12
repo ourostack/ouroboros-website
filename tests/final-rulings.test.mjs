@@ -47,8 +47,8 @@ test('root final ruling F15: every video is named by its poster alt text', () =>
   }
   assert.ok(videos > 0);
   const home = readDist('index.html');
-  assert.match(home, /<video\b[^>]*aria-label="A made-up plan for Captain Nemo(&#39;|')s Nautilus, typed in\. It renders as you go\."/);
-  assert.match(home, /<video\b[^>]*aria-label="An agent fills in the depth trials while I read\."/);
+  assert.match(home, /<video\b[^>]*aria-label="Captain Nemo sketches his periscope plans, and the page renders as fast as he types\."/);
+  assert.match(home, /<video\b[^>]*aria-label="An agent logs the depth trials while the Captain reads along\."/);
 });
 
 test('root final ruling F17: /brief has no "No install" kicker, and the footer row has no separator to dangle', () => {

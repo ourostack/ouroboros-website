@@ -38,7 +38,7 @@ const assertLines = (text, lines, where = 'Homepage') => {
 test('homepage head and hero follow the deck, with a small portrait linking to mendelow.me', () => {
   const html = readDist('index.html');
   assert.match(html, /<title>How do you effectively collaborate with agents\? \| Ari Mendelow<\/title>/);
-  const description = "I'm Ari. I build products for humans + agents. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.";
+  const description = "Hello!! I'm Ari. I build products for humans + agents. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.";
   assert.ok(html.includes(`<meta name="description" content="${description.replace(/'/g, '&#39;')}"`) || html.includes(`<meta name="description" content="${description}"`), 'Meta description');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How do you effectively collaborate with agents?');
@@ -60,13 +60,13 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
   assertLines(text, [
     "Things I've built",
     'Tools I made for working with agents, and one product I rebuilt with them.',
-    "A made-up plan for Captain Nemo's Nautilus, typed in. It renders as you go.",
-    'An agent fills in the depth trials while I read.',
+    "Captain Nemo sketches his periscope plans, and the page renders as fast as he types.",
+    'An agent logs the depth trials while the Captain reads along.',
     'A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.',
     'Dramatization Ned plans the periscope work on his laptop in Claude Code. The next morning, Conseil picks it up in Copilot CLI.',
     `Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.`,
     "The body-part folders from the real source tree, named so the agent can tell what each one is for.",
-    "This is the harness my agents live in. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how my agent used what I gave it. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.",
+    "This is the agent harness I built from scratch, and it's where I test what agents need. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how my agent used what I gave it. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.",
     'One of my recipes in Spoonjoy.',
     "My recipe app. I've rebuilt it every time I learned a new way to build software. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. For everything in between, I believe the app will eventually draw its own UI.",
     'Ouro MD →', 'Desk →', 'The harness →', 'What is Agent Experience? →', 'The Spoonjoy story →', 'spoonjoy.app ↗',
@@ -239,13 +239,13 @@ test('homepage says how Ari works, in three acts, three smells and five principl
     'I see this agentic era in three acts:',
     "Capability. Getting an agent to do anything you can do on a computer. That's been solved for a while.",
     "Orientation. Keeping an agent clear on who it is, who it's working with, and what the work is, from one session to the next. Most of what I've built is about this.",
-    'Work design. Designing and measuring how agents get their work done. The industry is just starting to move into this one.',
+    "Work design. Designing and measuring how agents get their work done. The industry is just starting to move into this one, and it's what my agent factory is for.",
     "When something's off",
     "You're doing it by hand. Anything the agent could have done.",
     "You're teaching it twice. The same correction, session after session.",
     "Control keeps coming back to you. You've become an approval button on a loop.",
     "What's been working",
-    "Two more things I keep coming back to. If an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.",
+    "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.",
     'How I work, in more detail →',
   ]);
   const titles = ['Talk through intent and judgment', 'Delegate whole outcomes', 'Make context durable', 'Meaningful authority with clear boundaries', 'Verify the actual result'];
@@ -333,13 +333,13 @@ test('homepage deck lines appear in the deck order', () => {
   const text = homeText();
   const order = [
     'How do you effectively collaborate with agents?',
-    "I'm Ari. I build products for humans + agents.",
+    "Hello!! I'm Ari. I build products for humans + agents.",
     "Things I've built",
     'The body-part folders from the real source tree,',
-    'This is the harness my agents live in.',
+    "This is the agent harness I built from scratch, and it's where I test what agents need.",
     'Ned plans the periscope work on his laptop in Claude Code.',
     "Desk keeps my agents' work in a Git repository",
-    "A made-up plan for Captain Nemo's Nautilus, typed in.",
+    "Captain Nemo sketches his periscope plans, and the page renders as fast as he types.",
     'A Markdown editor for the Mac that renders as you type.',
     'It gives my agent one local, searchable archive',
     'My recipe app.',
@@ -350,7 +350,7 @@ test('homepage deck lines appear in the deck order', () => {
     "You're doing it by hand.", "You're teaching it twice.", 'Control keeps coming back to you.',
     "What's been working",
     'Talk through intent and judgment', 'Delegate whole outcomes', 'Make context durable', 'Meaningful authority with clear boundaries', 'Verify the actual result',
-    'Two more things I keep coming back to.',
+    'Two more things I keep coming back to:',
     "Everyone's building a software factory.",
     'Software factories, SaaS factories, agents shipping code all night.',
     'I studied industrial and systems engineering before I wrote code.',
@@ -540,7 +540,7 @@ test('approach page puts the smells first, then the five principles, then fix it
     "Decisions live in files the next session reads. I once asked my agents to stop pinning dependencies to exact commits. They did it about a dozen more times anyway, because each one trusted an older agent's handoff note over what I'd said, and one of those notes was written twelve minutes after I said it. Now my words outrank any handoff note, and CI enforces the rule.",
     "Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone. The rest is the agent's, and its work stays visible. One night a cleanup command stopped to ask me for a click, and the run sat there until morning. Now nothing my agents run asks for one.",
     'I look where the result lives: the live page, the installed app, the merged change. I ask for proof that it works end to end, with screenshots I can check.',
-    "Two more things I keep coming back to. If an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.",
+    "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively. And when you improve something, apply it to the whole system, so the next agent starts out ahead.",
     'CI once took 36 minutes, and an agent started designing a way around it. I asked what it was doing that took so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.',
   ]) assert.ok(text.includes(line), `/approach/ is missing "${line}"`);
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
@@ -812,7 +812,7 @@ test('the approach leads with the same three acts list as the homepage, word for
     'I see this agentic era in three acts:',
     "Capability. Getting an agent to do anything you can do on a computer. That's been solved for a while.",
     "Orientation. Keeping an agent clear on who it is, who it's working with, and what the work is, from one session to the next. Most of what I've built is about this.",
-    'Work design. Designing and measuring how agents get their work done. The industry is just starting to move into this one.',
+    "Work design. Designing and measuring how agents get their work done. The industry is just starting to move into this one, and it's what my agent factory is for.",
   ];
   for (const line of lines) {
     assert.ok(approach.includes(line), `/approach/ is missing "${line}"`);
