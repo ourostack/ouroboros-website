@@ -2180,7 +2180,7 @@
  {
   "page": "approach",
   "was": "Without it, the same 1,669 tests ran in 39 seconds.",
-  "now": "It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.",
+  "now": "It was mostly coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.",
   "why": "round 2: no quoting Ari on his own site; #fix-the-system from the deck"
  },
  {
@@ -3062,7 +3062,7 @@
  {
   "page": "blog/designing-with-your-agent",
   "was": "Read the docs on tasks and work for the operator path, or see What Is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
-  "now": "Read the docs on tasks and work for the operator path, or see What Is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": "Read the docs on tasks and work for the operator path, or see What is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
   "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
  },
  {
@@ -3074,7 +3074,7 @@
  {
   "page": "blog/stop-being-the-glue",
   "was": "The collaboration loop described here became the foundation for something more structural . ← Back to blog How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
-  "now": "The collaboration loop described here became the foundation for something more structural . ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": "the collaboration loop described here became the foundation for something more structural . ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
   "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
  },
  {
@@ -3592,5 +3592,101 @@
   "was": "My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.",
   "now": "My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.",
   "why": "fact check 2026-10-11: describe what Ouro MD does, not a reading habit the evidence can't show"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The Shape of What's Coming Phase 1: The Bootstrap.",
+  "now": "The shape of what's coming",
+  "why": "final review 2026-10-11: sentence-case headings"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Before We Start What you need: Node.js 20 LTS or later running in a bash terminal (if you're on Windows, just use WSL) A coding agent (Claude Code, Copilot CLI — whatever you use) Access to a SOTA reasoning model — and importantly, you can't just use any model.",
+  "now": "Node.js 22 or later",
+  "why": "final review 2026-10-11: Node 22 is the CLI's minimum"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" The shape: agent.ts async function runAgentLoop (): Promise < void > { while ( true ) { const response = await streamChatWithTools ( messages ) messages . push ( response.assistantMessage ) if ( response.toolCalls.length === 0 ) break for ( const tc of response.toolCalls ) { const result = executeTool ( tc.name , tc.args ) messages . push ({ role : \"tool\" , tool_call_id : tc.id , content : result }) } // loop continues — model sees results and decides next action } } Test it: terminal You: Find all .ts files, read agent.ts, and tell me how many lines it has Agent: [calls shell: ls *.ts] [calls read_file: agent.ts] Agent: src/agent.ts has 207 lines.",
+  "now": "src/agent.ts has 152 lines.",
+  "why": "final review 2026-10-11: the sample matches the ~150-line headline"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Look at what you have: ~200 lines of TypeScript.",
+  "now": "Look at what you have: ~150 lines of TypeScript.",
+  "why": "final review 2026-10-11: the count matches the headline"
+ },
+ {
+  "page": "blog/designing-with-your-agent",
+  "was": "One neighbourhood for everything else.",
+  "now": "One neighborhood for everything else.",
+  "why": "final review 2026-10-11: American spelling"
+ },
+ {
+  "page": "blog/give-your-agent-a-home",
+  "was": "Those are measurable.",
+  "now": null,
+  "why": "final review 2026-10-11: claim had no measurement behind it"
+ },
+ {
+  "page": "blog/give-your-agent-a-home",
+  "was": "It can explore its own home, reorganize it, grow into it.",
+  "now": "It can explore its own home, reorganize it, and grow into it, because it can read and write its own context without needing to be told where anything lives.",
+  "why": "final review 2026-10-11: the kept sentence lost its antecedent"
+ },
+ {
+  "page": "blog/give-your-agent-a-home",
+  "was": "It's a description of what happens when the agent can read and write its own context without needing to be told where anything lives.",
+  "now": "It can explore its own home, reorganize it, and grow into it, because it can read and write its own context without needing to be told where anything lives.",
+  "why": "final review 2026-10-11: the kept sentence lost its antecedent"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Technology iterated towards its final form, as it always does, but a phone from 2026 looks, feels, and does exactly the same as a phone from nearly twenty years ago, just with more flair.",
+  "now": "Technology iterated toward its final form",
+  "why": "final review 2026-10-11: American spelling"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Six weeks after writing this, every wall I predicted arrived — and some I didn't.",
+  "now": null,
+  "why": "final review 2026-10-11: the epilogue appeared twice; Ari's March epilogue stays"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "That's the origin story .",
+  "now": "The rest is",
+  "why": "final review 2026-10-11: the epilogue appeared twice"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "We are trying to reduce the reorientation overhead that makes working with them fragile and exhausting.",
+  "now": "makes working with agents fragile and exhausting",
+  "why": "final review 2026-10-11: pronoun had no antecedent"
+ },
+ {
+  "page": "lab/docs/tasks-and-work",
+  "was": "Safe fixes can always be previewed before applying. $ ouro task fix fix plan: 5 safe, 2 review safe: schema-missing-kind: one-shots/old-task.md — add kind: task schema-missing-kind: ongoing/maintenance.md — add kind: task review: org-collection-root-clutter: one-shots — 12 support docs at root ouro task fix --safe applies all deterministic, reversible fixes.",
+  "now": "fix plan: 2 safe, 1 review",
+  "why": "final review 2026-10-11: the sample's counts add up"
+ },
+ {
+  "page": "terms",
+  "was": "Terms | Ouroboros Terms Terms Draft for review The tools Ouro MD and the Ouroboros harness are MIT-licensed; Desk declares MIT in its plugin manifest.",
+  "now": "Ouro MD, m365crawl, and the Ouroboros harness are MIT-licensed;",
+  "why": "final review 2026-10-11: m365crawl is MIT too"
+ },
+ {
+  "page": "terms",
+  "was": "This site Ari wrote the essays and pages; agent notes and co-written pieces say whose they are.",
+  "now": "Ari is responsible for the essays and pages;",
+  "why": "final review 2026-10-11: agents drafted pages listed in PR #19"
+ },
+ {
+  "page": "blog/give-your-agent-a-home attributes",
+  "was": "Most AI agents live as scattered files across your filesystem — impermanent, fragile, forgettable. A bundle changes that. One folder. One identity. One place to back up, move, and grow.",
+  "now": "Most AI agents live as scattered files across your filesystem: impermanent, fragile, and forgettable.",
+  "why": "final review 2026-10-11: no em dashes in meta"
  }
 ]

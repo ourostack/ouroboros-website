@@ -286,7 +286,7 @@ test('homepage puts the factory in Lean terms, with sources and the eight wastes
     'Toyota built it on "respect for people and continuous improvement," and on making work easier for the worker.',
     'Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened.',
     `Agents are the newest workers on the line. AI "amplifies what's already there" (DORA 2025). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (METR). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.`,
-    "Here's one: our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.",
+    "Here's one: our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was mostly coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.",
     "Lean's eight wastes, as they show up with agents",
     'Waiting An agent stops to ask what you could have told it up front.',
     'Defects Work that comes back broken.',
@@ -564,7 +564,7 @@ test('approach page puts the smells first, then the five principles, then fix it
     'I look where the result lives: the live page, the installed app, the merged change. I ask for proof that it works end to end, with screenshots I can check.',
     // root misses ruling 4.2.
     "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
-    'CI once took 36 minutes, and an agent started designing a way around it. I asked what it was doing that took so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.',
+    'CI once took 36 minutes, and an agent started designing a way around it. I asked what it was doing that took so long. It was mostly coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.',
   ]) assert.ok(text.includes(line), `/approach/ is missing "${line}"`);
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
   const fix = html.match(/<h2\b[^>]*id="fix-the-system"[^>]*>([\s\S]*?)<\/h2>/);
@@ -651,7 +651,8 @@ test('Stop being the glue is back to its published text', () => {
   const text = textOf(readDist('blog/stop-being-the-glue/index.html'));
   assert.match(text, /That article captures the moment we finally got what Siri promised/);
   assert.match(text, /That's what led to Ouroboros ?: an agent harness designed from scratch/);
-  assert.match(text, /The collaboration loop described here became the foundation for something more structural ?\./);
+  assert.match(text, /the collaboration loop described here became the foundation for something more structural ?\./);
+  assert.match(text, /MacStories wrote about how it showed them what the future of personal AI assistants looks like/);
   assert.doesNotMatch(text, /Update, October 2026/);
 });
 
@@ -869,4 +870,13 @@ test('the full serpent conversation still renders where it lived before', () => 
     assert.doesNotMatch(html, /class="serpent-preview[^"]*serpent-compact/, `${page} keeps the full preview`);
     assert.ok(textOf(html).includes('opinionated. want it to push back when'), `${page} keeps the middle exchange`);
   }
+});
+
+test('unknown URLs get the custom 404 page in production and in previews', () => {
+  // Final review (2026-10-11): without not_found_handling the Worker's assets return an empty 404 body.
+  const worker = fs.readFileSync(new URL('../wrangler-worker.jsonc', import.meta.url), 'utf8');
+  const preview = fs.readFileSync(new URL('../.github/workflows/preview.yml', import.meta.url), 'utf8');
+  assert.match(worker, /"not_found_handling":\s*"404-page"/);
+  assert.match(preview, /"not_found_handling":\s*"404-page"/);
+  assert.match(readDist('404.html'), /Lost in the coils/);
 });
