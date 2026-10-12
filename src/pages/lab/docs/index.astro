@@ -81,11 +81,12 @@ const pages = [
     </Fragment>
   </HeroCover>
 
-  <div class="px-6 md:px-12 lg:px-24"><Glossary class="max-w-3xl mx-auto" /></div>
+  <div class="px-6 md:px-12 lg:px-16"><Glossary class="max-w-3xl lg:max-w-6xl mx-auto" wide /></div>
 
-  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-20 md:pb-24">
+  <section class="px-6 md:px-12 lg:px-16 pt-12 md:pt-16 pb-20 md:pb-24">
     <div class="max-w-6xl mx-auto">
-      <div class="border-l-2 border-scale/60 pl-6 max-w-3xl">
+      <div class="split">
+      <div class="split-head border-l-2 border-scale/60 pl-6 max-w-3xl">
         <p class="text-base text-mist leading-relaxed">
           <strong class="text-bone">Docs for humans, skills for agents.</strong> The website explains the what.
           Your agent fetches the how from the code, the local install, or the bundle it's working inside.
@@ -93,16 +94,17 @@ const pages = [
       </div>
 
       <!-- PromptCard -->
-      <div class="mt-16">
+      <div class="split-body mt-16">
         <h2 class="font-display text-bone text-2xl mb-5">Have a question?</h2>
         <PromptCard
           prompt="Inspect the latest local Ouroboros install or repo on this machine and answer this using the current source of truth: [your question here]"
           footnote="Each docs page also has a more specific prompt. This one works for anything."
         />
       </div>
+      </div>
 
       <!-- Card grid -->
-      <div class="mt-16 grid md:grid-cols-2 gap-6">
+      <div class="docs-cards mt-16 grid md:grid-cols-2 gap-6">
         {pages.map(page => (
           <a href={page.href} class="group flex gap-5 rounded-2xl border border-canopy/40 bg-undergrowth/10 p-8 hover:border-scale/60 hover:bg-undergrowth/20 transition-all duration-300">
             <span class="text-scale text-xl shrink-0 group-hover:text-glow transition-colors">{page.icon}</span>
@@ -116,3 +118,8 @@ const pages = [
     </div>
   </section>
 </Layout>
+
+<style>
+  /* A lone last card spans the row, so the grid never leaves an empty cell. */
+  @media (min-width: 768px) { .docs-cards > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+</style>

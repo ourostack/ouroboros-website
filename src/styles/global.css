@@ -202,6 +202,31 @@ html {
   }
 }
 
+/* ── Desktop layout: every section composes across the full container ──
+   Shared with mendelow.me (same tokens and class names, so the sister sites
+   read as siblings). The container is 72rem (max-w-6xl) with a 4rem gutter
+   from 1024px. A split section puts the heading (with any kicker or intro) in
+   about 5/12 of the container and the body in about 7/12; .split-wide flips
+   the weights. Below 1024px the columns stack as before. */
+:root {
+  --split-cols: minmax(0, 5fr) minmax(0, 7fr);
+  --split-cols-wide: minmax(0, 7fr) minmax(0, 5fr);
+  --split-gap: 4rem;
+}
+@media (min-width: 1024px) {
+  .split { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); }
+  .split.split-wide { grid-template-columns: var(--split-cols-wide); }
+  .split > .split-head { grid-column: 1; }
+  .split > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
+  .split > .heading-section.split-head { padding-top: 0.1em; }
+  .split > .split-body > :first-child { margin-top: 0; }
+  .split-sticky > .split-head { position: sticky; top: 6rem; }
+}
+/* Alignment sits in a layer so a page can change it with an lg:items-* utility. */
+@layer components {
+  @media (min-width: 1024px) { .split { align-items: start; } }
+}
+
 /* ── Marks ──
    The badge and silhouette paint with currentColor. An <img> cannot inherit
    the text colour, so draw them as a mask filled with currentColor:

@@ -9,16 +9,15 @@ const description = 'What this site, hosted Desk, the factory, and Ouro MD colle
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/privacy')} canonical="https://ouroboros.bot/privacy/">
-  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-8 md:pt-44">
-    <div class="max-w-3xl mx-auto">
-      <span class="eyebrow block mb-6">Privacy</span>
-      <h1 class="heading-lead">Privacy</h1>
-      <p class="mt-6 inline-flex tag tag-alpha">Draft for review</p>
-    </div>
-  </section>
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-16 md:pt-44">
+    <div class="max-w-3xl lg:max-w-6xl mx-auto split split-sticky">
+      <div class="split-head">
+        <span class="eyebrow block mb-6">Privacy</span>
+        <h1 class="heading-lead">Privacy</h1>
+        <p class="mt-6 inline-flex tag tag-alpha">Draft for review</p>
+      </div>
 
-  <article class="px-6 md:px-12 lg:px-24 pb-16">
-    <div class="max-w-3xl mx-auto prose-ouro">
+      <article class="split-body prose-ouro pt-8 lg:pt-0">
       <h2>This site</h2>
       <p>No account, no cookies, no analytics script of our own. Cloudflare serves the pages and, like any host, sees each request.</p>
 
@@ -45,6 +44,7 @@ const description = 'What this site, hosted Desk, the factory, and Ouro MD colle
 
       <h2>Questions</h2>
       <p>Ask your agent to file an issue on the project on <a href="https://github.com/ourostack">GitHub</a>.</p>
+      </article>
     </div>
-  </article>
+  </section>
 </Layout>

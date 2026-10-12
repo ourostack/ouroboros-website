@@ -36,21 +36,25 @@ const pieces = [
 
 <Layout title={title} description={description} ogImage={ogPathFor('/lab')} canonical="https://ouroboros.bot/lab/">
   <!-- The Lab's own opening: what the harness is to everything else -->
-  <section class="relative overflow-hidden px-6 md:px-12 lg:px-24 pt-32 md:pt-40 pb-6">
+  <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-32 md:pt-40 pb-6">
     <div class="absolute top-0 left-1/4 w-[600px] h-[400px] rounded-full bg-scale/[0.06] blur-[160px] pointer-events-none" aria-hidden="true"></div>
-    <div class="relative max-w-6xl mx-auto grid gap-5">
-      <p class="flex flex-wrap items-center gap-3"><span class="eyebrow">Lab</span><span class={`tag ${harness.tone}`}>{harness.label}</span></p>
-      <h1 class="heading-lead max-w-[18ch]">The harness, where all of this <span class="text-scale">started.</span></h1>
-      <p class="text-lg md:text-xl text-mist leading-relaxed max-w-[56ch]">Slugger was my OpenClaw agent. When he kept losing the thread, I built him a harness from scratch. Ouroboros is that harness, and it's still where we test what agents need.</p>
-      <p class="flex flex-wrap gap-3 mt-2">
-        <a href="/lab/story/" class="btn-primary">Read the story &rarr;</a>
-        <a href="https://github.com/ourostack/ouroboros" class="btn-ghost">The harness on GitHub</a>
-      </p>
+    <div class="relative max-w-6xl mx-auto grid gap-5 split lg:items-end">
+      <div class="grid gap-5 split-head">
+        <p class="flex flex-wrap items-center gap-3"><span class="eyebrow">Lab</span><span class={`tag ${harness.tone}`}>{harness.label}</span></p>
+        <h1 class="heading-lead max-w-[18ch]">The harness, where all of this <span class="text-scale">started.</span></h1>
+      </div>
+      <div class="grid gap-5 split-body">
+        <p class="text-lg md:text-xl text-mist leading-relaxed max-w-[56ch]">Slugger was my OpenClaw agent. When he kept losing the thread, I built him a harness from scratch. Ouroboros is that harness, and it's still where we test what agents need.</p>
+        <p class="flex flex-wrap gap-3 mt-2">
+          <a href="/lab/story/" class="btn-primary">Read the story &rarr;</a>
+          <a href="https://github.com/ourostack/ouroboros" class="btn-ghost">The harness on GitHub</a>
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- ═══════════════ HERO — DECK SLIDE ═══════════════ -->
-  <section class="relative overflow-hidden px-6 md:px-12 lg:px-24 pt-10 pb-20 md:pt-12 md:pb-24 flex flex-col">
+  <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-10 pb-20 md:pt-12 md:pb-24 flex flex-col">
     <div class="absolute inset-0 bg-gradient-to-b from-deep via-undergrowth/15 to-void pointer-events-none"></div>
     <div class="absolute top-1/3 left-1/4 w-[500px] h-[400px] md:w-[800px] md:h-[500px] rounded-full bg-scale/[0.04] blur-[150px] md:blur-[220px] pointer-events-none"></div>
 
@@ -106,7 +110,7 @@ const pieces = [
   </section>
 
   <!-- ═══════════════ THE COST ═══════════════ -->
-  <section class="relative overflow-hidden px-6 md:px-12 lg:px-24 py-24 sm:py-32 md:py-48 reveal">
+  <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 py-24 sm:py-32 md:py-48 reveal">
     <div class="absolute inset-0 bg-deep/80 pointer-events-none"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-void/50 via-transparent to-void/50 pointer-events-none"></div>
 
@@ -160,10 +164,10 @@ const pieces = [
   </section>
 
   <!-- ═══════════════ BEGIN ═══════════════ -->
-  <section class="relative px-6 md:px-12 lg:px-24 py-24 sm:py-32 md:py-48 reveal">
+  <section class="relative px-6 md:px-12 lg:px-16 py-24 sm:py-32 md:py-48 reveal">
     <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-scale/[0.04] to-transparent pointer-events-none"></div>
 
-    <div class="relative lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:items-start max-w-7xl mx-auto">
+    <div class="relative lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:items-start max-w-6xl mx-auto">
       <div class="mb-16 lg:mb-0 lg:sticky lg:top-32">
         <span class="font-mono text-xs text-scale uppercase tracking-[0.25em] block mb-6">Begin</span>
         <h2 class="heading-section">
@@ -190,19 +194,19 @@ const pieces = [
   </section>
 
   <!-- ═══════════════ STILL HERE? ═══════════════ -->
-  <section class="relative px-6 md:px-12 lg:px-24 pt-16 sm:pt-20 pb-16 sm:pb-24 reveal">
-    <div class="max-w-2xl mx-auto">
-      <p class="text-bone text-lg sm:text-xl leading-relaxed">
+  <section class="relative px-6 md:px-12 lg:px-16 pt-16 sm:pt-20 pb-16 sm:pb-24 reveal">
+    <div class="max-w-2xl lg:max-w-6xl mx-auto split lg:items-baseline">
+      <p class="text-bone text-lg sm:text-xl leading-relaxed split-head">
         <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Your agent has a heartbeat.</a>
       </p>
-      <p class="text-sm md:text-base text-mist mt-6 leading-relaxed">
+      <p class="text-sm md:text-base text-mist mt-6 leading-relaxed split-body">
         A diary, a journal, habits it writes for itself, and a <a href="/lab/why#inner-life" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">vocabulary for thinking</a>.
       </p>
     </div>
   </section>
 
   <!-- ═══════════════ EVERYTHING IN THE LAB ═══════════════ -->
-  <section class="px-6 md:px-12 lg:px-24 pb-16 reveal" aria-labelledby="lab-pieces">
+  <section class="px-6 md:px-12 lg:px-16 pb-16 reveal" aria-labelledby="lab-pieces">
     <div class="max-w-6xl mx-auto">
       <h2 id="lab-pieces" class="eyebrow mb-8">Everything in the lab</h2>
       <ul class="grid gap-4 md:grid-cols-2">

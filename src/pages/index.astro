@@ -176,9 +176,11 @@ const wastes = [
         </div>
       </div>
 
-      <p class="mt-10 max-w-3xl text-lg text-mist leading-relaxed">Agents are the newest workers on the line. AI "amplifies what's already there" (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.</p>
+      <div class="grid gap-6 lg:gap-12 lg:grid-cols-2 mt-10">
+        <p class="max-w-3xl lg:max-w-none text-lg text-mist leading-relaxed">Agents are the newest workers on the line. AI "amplifies what's already there" (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.</p>
 
-      <p class="mt-6 max-w-3xl text-lg text-mist leading-relaxed">Here's one. Our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.</p>
+        <p class="max-w-3xl lg:max-w-none text-lg text-mist leading-relaxed">Here's one. Our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.</p>
+      </div>
 
       <h3 class="heading-sub mt-14">Lean's eight wastes, as they show up with agents</h3>
       <ul class="wastes">
@@ -272,6 +274,11 @@ const wastes = [
     .product-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 2rem; }
     .product-split .product-figure { grid-row: 1 / span 3; margin: 0; }
     .product-split > :not(.product-figure) { grid-column: 2; }
+    /* A wide card with its media on top (Ouro MD) splits the text under it, so the paragraph keeps a reading measure. */
+    .product-wide:not(.product-split) { grid-template-columns: var(--split-cols); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
+    .product-wide:not(.product-split) > .product-figure { grid-column: 1 / -1; }
+    .product-wide:not(.product-split) > .product-title { grid-column: 1; grid-row: 2 / span 2; align-self: start; }
+    .product-wide:not(.product-split) > :not(.product-figure, .product-title) { grid-column: 2; }
   }
   .product-title { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; color: var(--color-bone); }
   .product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }

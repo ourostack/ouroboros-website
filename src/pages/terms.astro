@@ -8,16 +8,15 @@ const description = 'The plain-language terms for this site and our open-source 
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/terms')} canonical="https://ouroboros.bot/terms/">
-  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-8 md:pt-44">
-    <div class="max-w-3xl mx-auto">
-      <span class="eyebrow block mb-6">Terms</span>
-      <h1 class="heading-lead">Terms</h1>
-      <p class="mt-6 inline-flex tag tag-alpha">Draft for review</p>
-    </div>
-  </section>
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-16 md:pt-44">
+    <div class="max-w-3xl lg:max-w-6xl mx-auto split split-sticky">
+      <div class="split-head">
+        <span class="eyebrow block mb-6">Terms</span>
+        <h1 class="heading-lead">Terms</h1>
+        <p class="mt-6 inline-flex tag tag-alpha">Draft for review</p>
+      </div>
 
-  <article class="px-6 md:px-12 lg:px-24 pb-16">
-    <div class="max-w-3xl mx-auto prose-ouro">
+      <article class="split-body prose-ouro pt-8 lg:pt-0">
       <h2>The tools</h2>
       <p>Ouro MD and the Ouroboros harness are MIT-licensed; Desk declares MIT in its plugin manifest. The factory's repository doesn't declare a license yet. Each repository on <a href="https://github.com/ourostack">GitHub</a> has its terms.</p>
       <p>We provide them as they are, without a warranty. You decide what an agent may do on your machine and in your accounts.</p>
@@ -27,6 +26,7 @@ const description = 'The plain-language terms for this site and our open-source 
 
       <h2>This site</h2>
       <p>Ari wrote the essays and pages; agent notes and co-written pieces say whose they are. If you quote them, please link back. Changes to these terms are commits in <a href="https://github.com/ourostack/ouroboros-website">the site's repository</a>.</p>
+      </article>
     </div>
-  </article>
+  </section>
 </Layout>
