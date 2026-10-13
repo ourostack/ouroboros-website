@@ -233,6 +233,13 @@ html {
   flex: none;
   object-fit: contain;
 }
+.spoonjoy-mark {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: url('/brand/spoonjoy.svg') center / contain no-repeat;
+  mask: url('/brand/spoonjoy.svg') center / contain no-repeat;
+}
 .mark-tile {
   border-radius: 22%;
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-bone) 22%, transparent);

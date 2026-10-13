@@ -42,3 +42,16 @@ test('the snake hover moves clockwise and is enabled only without reduced motion
   assert.match(nav, /\.brand-home:hover \.brand-mark\s*\{\s*transform:\s*rotate\(25deg\)/);
   assert.doesNotMatch(nav, /rotate\(\s*-|rotate-\[-/);
 });
+
+test('the Spoonjoy card shows its existing mark in the heading, with theme-aware colour', () => {
+  const home = readDist('index.html');
+  const card = home.match(/<article\b[^>]*id="spoonjoy"[\s\S]*?<\/article>/)[0];
+  assert.match(card, /<h3 class="product-title"[^>]*><span class="spoonjoy-mark[^"]*"[^>]*aria-hidden="true"[^>]*><\/span>Spoonjoy<\/h3>/);
+  assert.ok(distExists('brand/spoonjoy.svg'));
+  const svg = fs.readFileSync(path.join(distDir, 'brand/spoonjoy.svg'), 'utf8');
+  assert.match(svg, /viewBox="0 0 500 300"/);
+  assert.match(svg, /fill-rule="evenodd"/);
+  const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
+  assert.match(css, /\.spoonjoy-mark\s*\{[^}]*background-color:\s*currentColor/);
+  assert.match(css, /mask:\s*url\(['"]?\/brand\/spoonjoy\.svg/);
+});
