@@ -79,7 +79,8 @@ test('the Ouro MD page leads with the card copy and the stacked clips, with no s
   const html = readDist('ouro-md/index.html');
   // Copy deck (2026-10-11): /ouro-md/ leads with the homepage card's copy and the same media.
   assert.ok(textOf(html).includes('A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.'));
-  const imgs = [...html.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
+  const content = html.replace(/<nav\b[\s\S]*?<\/nav>/, '');
+  const imgs = [...content.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
   assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-typing-light-poster.png', '/images/workshop/ouro-md-typing-dark-poster.png', '/images/workshop/ouro-md-agent-edit-light-poster.png', '/images/workshop/ouro-md-agent-edit-dark-poster.png']);
   // Copy deck round 2: the hero clips stack one per row, the second demo ("Harbor launch plan") and its GIF are cut, and there is no badge.
   assert.match(html, /class="clip-pair clip-stack"/);

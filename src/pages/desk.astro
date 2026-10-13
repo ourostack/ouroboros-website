@@ -22,7 +22,7 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
       <div class="grid gap-5 content-start min-w-0">
         <span class={`tag ${status.tone} justify-self-start`}>{status.label}</span>
         <div class="flex items-center gap-4">
-          <img src="/brand/desk-icon.svg" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
+          <img src="/brand/desk-render.webp" srcset="/brand/desk-render-128.webp 128w, /brand/desk-render-256.webp 256w, /brand/desk-render.webp 1024w" sizes="(min-width: 768px) 64px, 56px" width="64" height="64" alt="" class="mark-render w-14 h-14 md:w-16 md:h-16" />
           <h1 class="heading-lead">Desk</h1>
         </div>
         <p class="text-xl md:text-2xl text-bone font-display leading-snug max-w-[40ch]">Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
@@ -87,4 +87,3 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
   </section>
 
 </Layout>
-

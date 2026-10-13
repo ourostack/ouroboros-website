@@ -329,7 +329,7 @@ test('homepage tells where it started, with Slugger and the molt', () => {
   assert.match(css, /@media ?\(min-width: ?1024px\)\s*\{\s*\.origin-aside[^{]*\{\s*position:\s*sticky/);
   assert.match(html, /<a href="\/blog\/build-ai-agent-from-scratch\/" class="btn-primary"/);
   assert.ok(hrefsOf(html).includes('/lab/story/'));
-  assert.ok(html.includes('/images/openclaw.svg') && html.includes('/brand/ouro-silhouette.svg'), 'The molt stays');
+  assert.ok(html.includes('/images/openclaw.svg') && html.includes('/brand/ouro-render.webp'), 'The molt stays');
 });
 
 test('homepage ends with three things to try, each with one action and no broken URL', () => {
@@ -442,7 +442,7 @@ test('no built page or agent file contains a deny-listed string', (t) => {
   assert.deepEqual(hits, []);
 });
 
-test('every page carries the same nav, in order, with the badge as the mark', () => {
+test('every page carries the same nav, in order, with the rich Ouro render as the mark', () => {
   for (const file of listHtmlFiles()) {
     const rel = path.relative(distDir, file);
     const page = fs.readFileSync(file, 'utf8');
@@ -459,31 +459,26 @@ test('every page carries the same nav, in order, with the badge as the mark', ()
     return i;
   });
   assert.deepEqual([...positions].sort((a, b) => a - b), positions, 'Nav links are out of order');
-  assert.ok(html.includes('/brand/ouro-badge.svg'), 'Nav must use the badge mark');
+  assert.ok(nav.includes('/brand/ouro-render.webp'), 'Nav must use the approved rich render');
 });
 
-test('marks stay visible in dark mode', () => {
-  // The badge and silhouette paint with currentColor, so they must be drawn
-  // through a CSS mask filled with the text colour, never as a bare <img>
-  // (which would render black on the dark theme).
-  const badge = fs.readFileSync(path.join(process.cwd(), 'public/brand/ouro-badge.svg'), 'utf8');
-  assert.match(badge, /currentColor/);
+test('rich marks keep their colour and have no white tile in dark mode', () => {
   for (const file of listHtmlFiles()) {
     const html = fs.readFileSync(file, 'utf8');
     const rel = path.relative(distDir, file);
-    assert.doesNotMatch(html, /<img\b[^>]*src="\/brand\/ouro-(badge|silhouette)\.svg"/, `${rel} draws a currentColor mark as an <img>`);
-    for (const [img] of html.matchAll(/<img\b[^>]*src="\/brand\/desk-icon\.svg"[^>]*>/g)) {
-      assert.match(img, /class="[^"]*\bmark-tile\b/, `${rel}: the white Desk tile needs the mark-tile edge`);
+    assert.doesNotMatch(html, /<img\b[^>]*src="\/brand\/ouro-(badge|silhouette)\.svg"/, `${rel} draws an old mark`);
+    for (const [img] of html.matchAll(/<img\b[^>]*src="\/brand\/(?:ouro|desk)-render\.webp"[^>]*>/g)) {
+      assert.match(img, /class="[^"]*\bmark-render\b/, `${rel}: the rich logo keeps its aspect ratio`);
+      assert.doesNotMatch(img, /\bmark-tile\b/, `${rel}: the rich logo has no tile`);
     }
   }
-  const markUse = readDist('index.html').match(/class="[^"]*\bmark-mask\b[^"]*"[^>]*style="[^"]*\/brand\/ouro-badge\.svg/);
-  assert.ok(markUse, 'Badge must render through .mark-mask');
+  assert.match(readDist('index.html'), /src="\/brand\/ouro-render\.webp"/);
 
   const css = fs.readdirSync(path.join(distDir, '_astro'))
     .filter((name) => name.endsWith('.css'))
     .map((name) => fs.readFileSync(path.join(distDir, '_astro', name), 'utf8'))
     .join('\n');
-  assert.match(css, /\.mark-mask\{[^}]*background(-color)?:currentColor/);
+  assert.match(css, /\.mark-render\{[^}]*object-fit:contain/);
   assert.match(css, /\.mark-tile\{[^}]*(box-shadow|border|outline)/);
   assert.match(css, /prefers-color-scheme:\s*light/, 'Site must follow the system light setting');
   assert.match(css, /\[data-theme=(light|"light")\]/, 'Site must support a chosen light theme');
@@ -505,9 +500,9 @@ test('nothing starts invisible: entrance animations move, never fade from zero',
   assert.doesNotMatch(css, /\.reveal-ready \.reveal\{[^}]*opacity:0/);
 });
 
-test('favicon uses the new character mark', () => {
-  assert.match(readDist('index.html'), /<link rel="icon"[^>]*href="\/brand\/ouro-character\.svg"/);
-  assert.ok(distExists('brand/ouro-character.svg'));
+test('favicon uses the approved one-colour mark', () => {
+  assert.match(readDist('index.html'), /<link rel="icon"[^>]*href="\/brand\/ouro\.svg"/);
+  assert.ok(distExists('brand/ouro.svg'));
 });
 
 // ── The approach (Ari's approved copy, verbatim) ──

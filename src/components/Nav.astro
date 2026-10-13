@@ -17,8 +17,8 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
     isHomepage ? 'bg-transparent' : 'bg-deep/75 backdrop-blur-lg border-b border-canopy/15'
   ]}>
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 h-16 px-4 sm:px-6 md:px-12 lg:px-16">
-      <a href="/" class="group flex items-center gap-3 text-bone" aria-label="Ouroboros home">
-        <span class="mark-mask w-8 h-8 transition-transform duration-500 group-hover:rotate-[-25deg]" style="--mark:url(/brand/ouro-badge.svg)" aria-hidden="true"></span>
+      <a href="/" class="brand-home group flex items-center gap-3 text-bone" aria-label="Ouroboros home">
+        <img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w, /brand/ouro-render.webp 1024w" sizes="32px" width="32" height="32" alt="" class="mark-render brand-mark w-8 h-8" />
         <span class="font-display text-xl xl:text-2xl">ouro</span>
       </a>
 
@@ -71,6 +71,13 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
     </div>
   </div>
 </nav>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+    .brand-mark { transition: transform 0.5s var(--ease-expo); }
+    .brand-home:hover .brand-mark { transform: rotate(25deg); }
+  }
+</style>
 
 <script is:inline>
   // Theme toggle. The <head> script in Layout.astro applies a saved choice

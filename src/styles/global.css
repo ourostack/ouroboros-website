@@ -227,18 +227,11 @@ html {
   @media (min-width: 1024px) { .split { align-items: start; } }
 }
 
-/* ── Marks ──
-   The badge and silhouette paint with currentColor. An <img> cannot inherit
-   the text colour, so draw them as a mask filled with currentColor:
-     <span class="mark-mask" style="--mark:url(/brand/ouro-badge.svg)"></span>
-   The Desk icon is a white tile; .mark-tile gives it an edge so it holds on
-   the light theme and does not glare on the dark one. */
-.mark-mask {
-  display: inline-block;
+/* Rich renders are the normal logos; the one-colour SVGs serve tiny uses. */
+.mark-render {
+  display: block;
   flex: none;
-  background-color: currentColor;
-  -webkit-mask: var(--mark) center / contain no-repeat;
-  mask: var(--mark) center / contain no-repeat;
+  object-fit: contain;
 }
 .mark-tile {
   border-radius: 22%;
