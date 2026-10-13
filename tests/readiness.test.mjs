@@ -5,7 +5,7 @@ import test from 'node:test';
 import { readiness, allowedLabels } from '../src/data/readiness.mjs';
 import { readDist, textOf, hrefsOf, listHtmlFiles, distDir, distExists } from './support/dist.mjs';
 
-const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet'];
+const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet', 'Under construction'];
 
 test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experimental', async () => {
   const { entry } = await import('../src/data/readiness.mjs');
@@ -15,7 +15,7 @@ test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experim
   assert.ok(!readiness.some((item) => item.name === 'Copilot CLI and Codex'));
 });
 
-test('readiness labels come only from the allowed four', () => {
+test('readiness labels come only from the approved vocabulary', () => {
   assert.deepEqual(Object.keys(allowedLabels).sort(), [...allowed].sort());
   for (const item of readiness) {
     assert.ok(allowed.includes(item.label), `${item.id} has label "${item.label}"`);

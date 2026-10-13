@@ -58,7 +58,7 @@ test('homepage head and hero follow the deck, with a small portrait linking to m
   assert.doesNotMatch(text, /People keep ending up as the glue/);
 });
 
-test('homepage shows five things I\'ve built, each with captioned media and its links', () => {
+test('homepage shows six things I\'ve built, each with captioned media and its links', () => {
   const html = readDist('index.html');
   const text = homeText();
   assertLines(text, [
@@ -85,7 +85,7 @@ test('homepage shows five things I\'ve built, each with captioned media and its 
     'm365crawl on GitHub ↗',
   ]);
   const cards = [...html.matchAll(/<article class="product[^"]*" id="([^"]+)"/g)].map(([, id]) => id);
-  assert.deepEqual(cards, ['ouroboros', 'desk', 'ouro-md', 'm365crawl', 'spoonjoy']);
+  assert.deepEqual(cards, ['ouroboros', 'desk', 'ouro-md', 'ouro-ui', 'm365crawl', 'spoonjoy']);
   assert.match(html, /<article class="product product-wide product-split" id="m365crawl"/);
   const outside = html.replace(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/, '');
   assert.doesNotMatch(outside, /Microsoft 365/, 'Microsoft 365 is named only in the m365crawl card');

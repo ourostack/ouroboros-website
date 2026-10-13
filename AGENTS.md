@@ -64,7 +64,7 @@ Every claim about model-review results must come from `getModelReviewClaims()` i
 
 The shared helper is used by `lab/model-reviews.astro`, `lab/why.astro`, `lab/what-is-agent-experience.astro`, and `og.ts` (which also derives the Lab card's review summary). The homepage makes no model-review claim.
 
-**Readiness labels** for Desk, Ouro MD, the harness and the factory come only from `src/data/readiness.mjs` (`labelFor()`), and only its four labels are allowed. Never call a product stable, supported or production-ready. **Lab status** (Origin, Experiment) comes only from `src/data/lab.mjs`; `Layout.astro` shows it, with a link back to `/lab/`, on every `/lab/*` page.
+**Readiness labels** come only from `src/data/readiness.mjs` (`labelFor()`), using its approved vocabulary, including Ari's explicit “Under construction” qualification for Ouro HX. Never call a product stable, supported or production-ready. **Lab status** (Origin, Experiment) comes only from `src/data/lab.mjs`; `Layout.astro` shows it, with a link back to `/lab/`, on every `/lab/*` page.
 
 The brand name in nav links, page titles, and section eyebrows is fine — those are brand identifiers, not claims about the data.
 

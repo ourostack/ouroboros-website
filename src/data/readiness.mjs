@@ -10,6 +10,7 @@ export const allowedLabels = {
   'Use today': 'tag-today',
   'Experimental': 'tag-exp',
   'Not open yet': 'tag-closed',
+  'Under construction': 'tag-alpha',
 }
 
 /** @type {{ id: string, name: string, label: keyof typeof allowedLabels, detail: string }[]} */
@@ -21,6 +22,7 @@ export const readiness = [
   { id: 'desk-codex', name: 'Codex', label: 'Experimental', detail: "Runs, and hasn't been proven in daily use yet" },
   { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'No sign-up yet' },
   { id: 'ouro-md', name: 'Ouro MD', label: 'Use today', detail: 'macOS 13 or later' },
+  { id: 'ouro-hx', name: 'Ouro HX', label: 'Under construction', detail: 'Component library in development' },
   { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },
 ]
 

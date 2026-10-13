@@ -1,0 +1,31 @@
+---
+const themes = ['light', 'dark'] as const
+const example = '<Dialog title="Edit recipe" trigger={<Button>Edit</Button>}>\n  <RecipeForm />\n</Dialog>'
+---
+
+<figure class="product-figure" data-hx-media>
+  <div class="hx-screen">
+    <p class="caption-mono">The human interface</p>
+    {themes.map((theme) => (
+      <picture class={`theme-${theme}-only`}>
+        <source media="(max-width: 639px)" srcset={`/images/workshop/hx-dialog-phone-${theme}.webp`} width="390" height="321" />
+        <img src={`/images/workshop/hx-dialog-desktop-${theme}.webp`} width="512" height="244" loading="lazy" decoding="async" alt="The published Dialog demo, with a fictional recipe name and visible keyboard focus." />
+      </picture>
+    ))}
+  </div>
+  <div class="hx-code">
+    <p class="caption-mono">The component API</p>
+    <pre data-hx-usage tabindex="0"><code>{example}</code></pre>
+  </div>
+  <figcaption class="product-caption">
+    <span>Real captures from the <a href="https://ourostack.github.io/ouro-ui/docs/dialog/">published Dialog demo</a>: a dialog on wider screens and a sheet on phones. The code is its docs usage example.</span>
+  </figcaption>
+</figure>
+
+<style>
+  .hx-screen { display: grid; gap: 0.8rem; padding: 1rem; background: var(--color-undergrowth); }
+  .hx-screen picture img { display: block; width: 100%; height: auto; border-radius: 0.6rem; }
+  .hx-code { padding: 1rem; border-top: 1px solid var(--color-canopy); background: var(--color-deep); }
+  .hx-code pre { margin: 0.7rem 0 0; font: 0.8125rem/1.65 var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }
+  .product-caption a { color: var(--color-scale); text-decoration: underline; text-underline-offset: 0.2em; }
+</style>
