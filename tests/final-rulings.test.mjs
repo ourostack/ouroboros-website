@@ -64,6 +64,6 @@ test('root final ruling F17: /brief has no "No install" kicker, and the footer r
 test('root final ruling F18: the AX essay says "the human" for the human side', () => {
   const text = pageText('blog/what-is-agent-experience/index.html');
   assert.ok(text.includes('UX taught us to care about how the product feels to the human using it.'));
-  assert.ok(text.includes('DX taught us to care about how the system feels to the human building on it.'));
+  assert.ok(text.includes('DX is a separate question: how the system feels to the humans and agents building on it.'));
   assert.ok(!/the person (using|building)/.test(text));
 });

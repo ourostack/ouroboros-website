@@ -122,7 +122,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/what-is-agent-experience': {
     title: 'What is Agent Experience (AX)?',
-    subtitle: 'The third design surface that appears when an agent has to stay oriented inside the system it inhabits.',
+    subtitle: 'The side of UX that appears when an agent has to stay oriented inside the system it inhabits.',
     tag: 'Essay',
   },
   '/blog/designing-with-your-agent': {

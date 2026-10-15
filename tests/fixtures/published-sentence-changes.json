@@ -98,8 +98,8 @@
  {
   "page": "blog",
   "was": "Why long-lived agents create a third design surface beyond UX and DX: Agent Experience, reorientation overhead, and shared momentum.",
-  "now": "Why long-lived agents create a third design surface alongside UX and DX: Agent Experience, reorientation overhead, and shared momentum.",
-  "why": "approved antithesis rewrite"
+  "now": "Why long-lived agents become users too: Agent Experience beside HX under UX, reorientation overhead, and shared momentum.",
+  "why": "approved antithesis rewrite; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  },
  {
   "page": "blog",
@@ -1490,14 +1490,14 @@
  {
   "page": "blog/what-is-agent-experience",
   "was": "Why AX matters to humans too AX does not compete with UX or DX.",
-  "now": "Why AX matters to humans too AX cascades into UX and DX.",
-  "why": "approved antithesis rewrite"
+  "now": "Why AX matters to humans too AX cascades into HX.",
+  "why": "approved antithesis rewrite; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  },
  {
   "page": "blog/what-is-agent-experience",
   "was": "It cascades into them.",
-  "now": "AX cascades into UX and DX.",
-  "why": "approved antithesis rewrite"
+  "now": "AX cascades into HX.",
+  "why": "approved antithesis rewrite; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  },
  {
   "page": "blog/what-is-agent-experience",
@@ -3176,8 +3176,8 @@
  {
   "page": "blog/what-is-agent-experience",
   "was": "DX taught us to care about how the system feels to the person building on it.",
-  "now": "DX taught us to care about how the system feels to the human building on it.",
-  "why": "root final ruling F18 (2026-10-11): \"humans\" for the human side"
+  "now": "DX is a separate question: how the system feels to the humans and agents building on it.",
+  "why": "root final ruling F18 (2026-10-11): \"humans\" for the human side; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  },
  {
   "page": "brief",
@@ -3688,5 +3688,53 @@
   "was": "Most AI agents live as scattered files across your filesystem — impermanent, fragile, forgettable. A bundle changes that. One folder. One identity. One place to back up, move, and grow.",
   "now": "Most AI agents live as scattered files across your filesystem: impermanent, fragile, and forgettable.",
   "why": "final review 2026-10-11: no em dashes in meta"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "The moment an agent has to stay oriented inside a system across time, memory, and interruptions, a third design surface appears.",
+  "now": "The moment an agent has to stay oriented inside a system across time, memory, and interruptions, the agent becomes a user too.",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "Ari Mendelow · March 2026 \"I spent more time trying to get my agents back on track than we actually spent working.\" If that line feels familiar, you have already felt bad AX.",
+  "now": "Ari Mendelow · March 2026 · Updated October 2026",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "AX asks a similar question for a new kind of inhabitant: what does this architecture feel like from the agent's side?",
+  "now": "AX asks it for a new kind of inhabitant: what does this architecture feel like from the agent's side?",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "The three design surfaces UX asks: is the flow intuitive?",
+  "now": "Where AX sits UX is the parent.",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "Can the user accomplish the task cleanly?",
+  "now": "Can the human accomplish the task cleanly?",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "blog/what-is-agent-experience",
+  "was": "When the agent cannot stay oriented, the user loses trust and the builder reaches for more guardrails.",
+  "now": "When the agent cannot stay oriented, the human loses trust and reaches for more guardrails.",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "share card /blog/what-is-agent-experience",
+  "was": "The third design surface that appears when an agent has to stay oriented inside the system it inhabits.",
+  "now": "The side of UX that appears when an agent has to stay oriented inside the system it inhabits.",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "lab",
+  "was": "The third design surface that appears when an agent has to stay oriented inside the system it inhabits.",
+  "now": "The side of UX that appears when an agent has to stay oriented inside the system it inhabits.",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  }
 ]

@@ -64,16 +64,16 @@
    "blog"
   ],
   "was": "Why long-lived agents create a third design surface beyond UX and DX: …",
-  "now": "Why long-lived agents create a third design surface alongside UX and DX: …",
-  "ruling": "inventory"
+  "now": "Why long-lived agents become users too: …",
+  "ruling": "inventory; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  },
  {
   "surfaces": [
    "blog/what-is-agent-experience"
   ],
   "was": "Not just UX. Not just DX. AX.",
-  "now": "UX. DX. AX.",
-  "ruling": "inventory"
+  "now": "UX now holds two experiences. HX. AX.",
+  "ruling": "inventory; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  },
  {
   "surfaces": [
@@ -88,8 +88,8 @@
    "blog/what-is-agent-experience"
   ],
   "was": "AX does not compete with UX or DX. It cascades into them.",
-  "now": "AX cascades into UX and DX.",
-  "ruling": "inventory"
+  "now": "AX cascades into HX.",
+  "ruling": "inventory; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
  },
  {
   "surfaces": [
