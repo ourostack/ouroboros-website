@@ -5,11 +5,11 @@ import test from 'node:test';
 import { readiness, allowedLabels } from '../src/data/readiness.mjs';
 import { readDist, textOf, hrefsOf, listHtmlFiles, distDir, distExists } from './support/dist.mjs';
 
-const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet', 'Under construction'];
+const allowed = ['Alpha', 'Use today', 'Experimental', 'Not open yet', 'Under construction', 'Coming soon'];
 
 test('Desk readiness splits Copilot CLI, tested daily, from Codex, still experimental', async () => {
   const { entry } = await import('../src/data/readiness.mjs');
-  assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['GitHub Copilot CLI', 'Alpha', 'Tested daily']); // root misses ruling 2.17
+  assert.deepEqual([entry('desk-copilot-cli').name, entry('desk-copilot-cli').label, entry('desk-copilot-cli').detail], ['GitHub Copilot CLI', 'Use today', 'Tested daily']); // root misses ruling 2.17; Desk + Crew handoff 2026-10-15: not branded alpha
   // root final ruling F12: readiness details have no trailing period.
   assert.deepEqual([entry('desk-codex').name, entry('desk-codex').label, entry('desk-codex').detail], ['Codex', 'Experimental', "Runs, and hasn't been proven in daily use yet"]);
   assert.ok(!readiness.some((item) => item.name === 'Copilot CLI and Codex'));
@@ -29,11 +29,12 @@ test('the Desk page shows every host with an honest label', () => {
   const text = page.slice(page.indexOf('Where it runs'));
   for (const [host, detail, label] of [
     // The three Claude Code hosts share one row, and it carries the badge (copy deck round 2).
-    ['Claude Code', 'macOS: tested daily. Linux and Windows: the full test suite runs on both in CI', 'Alpha'],
+    // Desk + Crew handoff (2026-10-15): core Desk is opt-in, not branded alpha; each host keeps its evidence.
+    ['Claude Code', 'macOS: tested daily. Linux and Windows: the full test suite runs on both in CI', 'Use today'],
     // Ari uses Copilot CLI every day as his primary harness, with Desk underneath (2026-10-11).
-    ['Copilot CLI', 'Tested daily', 'Alpha'],
+    ['Copilot CLI', 'Tested daily', 'Use today'],
     ['Codex', "Runs, and hasn't been proven in daily use yet", 'Experimental'],
-    ['Hosted Desk on claude.ai', 'No sign-up yet', 'Not open yet'],
+    ['Hosted Desk on claude.ai', 'Sign-in by invitation', 'Not open yet'],
   ]) {
     const at = text.indexOf(host);
     assert.ok(at >= 0, `Desk page is missing ${host}`);
@@ -114,7 +115,8 @@ test('the Desk page leads with the card copy and the playback, and links the RFC
   assert.match(html, /<meta name="description" content="[^"]*a job is done when you’ve seen it work\./);
   assert.match(html, /data-desk-playback/);
   assert.ok(html.indexOf('data-desk-playback') < html.indexOf('Where it runs'), 'The playback leads the right column');
-  assert.match(html, /<meta name="description" content="[^"]*An alpha for Claude Code and GitHub Copilot CLI\."/);
+  assert.match(html, /<meta name="description" content="[^"]*For Claude Code and GitHub Copilot CLI, with Crew for teams\."/);
+  assert.doesNotMatch(html, /An alpha for/);
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
 });
 
@@ -132,8 +134,9 @@ test('the Desk page shows real session-start output, links the factory once, its
   // At 1440px, Known limits sits under the copy box in the left column, before the playback.
   assert.ok(html.indexOf('Known limits today') < html.indexOf('data-desk-playback'), 'Known limits moves under the copy box');
   assert.doesNotMatch(text, /See what it does in practice/);
-  // Once for the page, once on the Claude Code row and once on the Copilot CLI row.
-  assert.equal((text.match(/\bAlpha\b/g) || []).length, 3, 'The Alpha label shows for the page, Claude Code and Copilot CLI');
+  // Once for the page, once on the Claude Code row and once on the Copilot CLI row; Desk itself is never branded alpha.
+  assert.equal((text.match(/\bUse today\b/g) || []).length, 3, 'The Use today label shows for the page, Claude Code and Copilot CLI');
+  assert.doesNotMatch(text, /\bAlpha\b/);
   assert.doesNotMatch(text, /Use today, alpha/);
   assert.ok(text.includes('macOS: tested daily. Linux and Windows: the full test suite runs on both in CI'));
   assert.ok(text.includes("We haven't yet tested a first install on a brand-new Mac account."));

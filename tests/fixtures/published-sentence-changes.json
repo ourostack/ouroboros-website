@@ -1574,8 +1574,8 @@
  {
   "page": "desk",
   "was": "Desk: where my agents keep their work | Ouroboros Use today, alpha Desk My agents' work lives in a Git repository: tasks, decisions and lessons, so the next session picks up where the last one left off.",
-  "now": "Desk: where my agents keep their work | Ouroboros Alpha Desk Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson.",
-  "why": "copy deck: /desk leads with the card copy; copy deck round 2: readiness labels"
+  "now": "Desk: where my agents keep their work | Ouroboros Use today Desk Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson.",
+  "why": "copy deck: /desk leads with the card copy; copy deck round 2: readiness labels; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation."
  },
  {
   "page": "desk",
@@ -2222,8 +2222,8 @@
  {
   "page": "desk",
   "was": "Copilot CLI Tested daily Use today, alpha Codex Runs, not yet proven in daily use Experimental Hosted Desk on claude.ai No sign-up yet Not open yet Known limits today Desk's own browser starts signed out, and on macOS it can steal focus.",
-  "now": "Copilot CLI Tested daily Alpha Codex Runs, and hasn't been proven in daily use yet Experimental Hosted Desk on claude.ai No sign-up yet Not open yet What a new session looks like",
-  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail; root final ruling F12 (2026-10-11): readiness details have no trailing period; root final ruling F14: the H2 becomes \"What a new session looks like\""
+  "now": "Copilot CLI Tested daily Use today Codex Runs, and hasn't been proven in daily use yet Experimental Hosted Desk on claude.ai Sign-in by invitation Not open yet What a new session looks like",
+  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail; root final ruling F12 (2026-10-11): readiness details have no trailing period; root final ruling F14: the H2 becomes \"What a new session looks like\"; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation."
  },
  {
   "page": "desk",
@@ -2444,8 +2444,8 @@
  {
   "page": "index",
   "was": "Open the brief → Use today, alpha Desk Give your agent this link and say \"set this up\".",
-  "now": "Open the brief → Alpha Desk Works in Claude Code and GitHub Copilot CLI.",
-  "why": "copy deck round 2: homepage: Try it, Desk, with the Alpha label"
+  "now": "Open the brief → Use today Desk Works in Claude Code and GitHub Copilot CLI.",
+  "why": "copy deck round 2: homepage: Try it, Desk, with the Alpha label; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation."
  },
  {
   "page": "index",
@@ -2894,8 +2894,8 @@
  {
   "page": "desk attributes",
   "was": "Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. Opt-in alpha on Claude Code.",
-  "now": "Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and a job is done when you’ve seen it work. An alpha for Claude Code and GitHub Copilot CLI.",
-  "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\"; copy deck round 2: \"…and a job is done when you've seen it work.\""
+  "now": "Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and a job is done when you’ve seen it work. For Claude Code and GitHub Copilot CLI, with Crew for teams.",
+  "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\"; copy deck round 2: \"…and a job is done when you've seen it work.\"; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation."
  },
  {
   "page": "lab attributes",
@@ -2954,8 +2954,8 @@
  {
   "page": "share card /desk",
   "was": "Give your agent one link and say \"set this up\". Opt-in alpha on Claude Code.",
-  "now": "Give your agent one link and say \"set this up\". An alpha for Claude Code and GitHub Copilot CLI.",
-  "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\""
+  "now": "Give your agent one link and say \"set this up\". For Claude Code and GitHub Copilot CLI, with Crew for teams.",
+  "why": "copy deck: Desk readiness, \"an alpha for Claude Code and GitHub Copilot CLI\"; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation."
  },
  {
   "page": "share card /lab",

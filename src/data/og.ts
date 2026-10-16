@@ -66,7 +66,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/desk': {
     title: 'Desk: where my agents keep their work.',
-    subtitle: 'Give your agent one link and say "set this up". An alpha for Claude Code and GitHub Copilot CLI.',
+    subtitle: 'Give your agent one link and say "set this up". For Claude Code and GitHub Copilot CLI, with Crew for teams.',
     tag: 'Desk',
     mark: 'desk',
   },

@@ -58,7 +58,7 @@ test('homepage head and hero follow the deck, with a small portrait linking to m
   assert.doesNotMatch(text, /People keep ending up as the glue/);
 });
 
-test('homepage shows six things I\'ve built, each with captioned media and its links', () => {
+test('homepage shows eight things I\'ve built, each with captioned media and its links', () => {
   const html = readDist('index.html');
   const text = homeText();
   assertLines(text, [
@@ -85,8 +85,23 @@ test('homepage shows six things I\'ve built, each with captioned media and its l
     'm365crawl on GitHub ↗',
   ]);
   const cards = [...html.matchAll(/<article class="product[^"]*" id="([^"]+)"/g)].map(([, id]) => id);
-  assert.deepEqual(cards, ['ouroboros', 'desk', 'ouro-md', 'ouro-ui', 'm365crawl', 'spoonjoy']);
-  assert.match(html, /<article class="product product-wide product-split" id="m365crawl"/);
+  // Product pass (Ari, 2026-10-15): every product gets its section. Shepherd and Friends join;
+  // m365crawl drops to a half-width card beside Friends, and Spoonjoy closes the list.
+  assert.deepEqual(cards, ['ouroboros', 'desk', 'ouro-md', 'ouro-ui', 'shepherd', 'friends', 'm365crawl', 'spoonjoy']);
+  assert.match(html, /<article class="product" id="m365crawl"/);
+  assertLines(text, [
+    'What an answer could look like in the terminal. Illustration, not real output.',
+    'Ouro Shepherd Coming soon',
+    "We're using and refining Shepherd on our own machines ahead of wider availability.",
+    'How Shepherd decides ↗',
+    'One person, every channel, one place on the trust ladder, and other agents who know him. Illustration, not real data.',
+    'Friends Alpha',
+    'Friends ↗', 'Friends Relay ↗',
+  ]);
+  for (const href of ['https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/friends-relay']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
+  // Shepherd is a coming-soon preview: no install, download or date.
+  const shepherd = html.match(/<article\b[^>]*id="shepherd"[\s\S]*?<\/article>/)[0];
+  assert.doesNotMatch(textOf(shepherd), /install|download|available now|\b20\d\d\b/i);
   const outside = html.replace(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/, '');
   assert.doesNotMatch(outside, /Microsoft 365/, 'Microsoft 365 is named only in the m365crawl card');
   assert.equal((html.match(/<span class="tag tag-plain"[^>]*>Dramatization<\/span>/g) || []).length, 2, 'Ouro MD and Desk are labelled Dramatization');
@@ -335,7 +350,7 @@ test('homepage tells where it started, with Slugger and the molt', () => {
 test('homepage ends with three things to try, each with one action and no broken URL', () => {
   const html = readDist('index.html');
   const text = homeText();
-  assertLines(text, ['Try it', 'Hand this to your agent', "A page written for your agent. Hand it the link and it'll work the way I do.", 'Open the brief →', 'Alpha Desk', `Works in Claude Code and GitHub Copilot CLI. Give your agent Desk's setup page and say "set this up".`, 'Copy the link', 'For the Mac.', 'Get Ouro MD →']);
+  assertLines(text, ['Try it', 'Hand this to your agent', "A page written for your agent. Hand it the link and it'll work the way I do.", 'Open the brief →', 'Use today Desk', `Works in Claude Code and GitHub Copilot CLI. Give your agent Desk's setup page and say "set this up".`, 'Copy the link', 'For the Mac.', 'Get Ouro MD →']);
   assert.match(html, /<section id="try"/, 'Try it has the #try anchor the nav links to');
   assert.match(html, /<span id="home-desk-setup" class="sr-only"[^>]*>https:\/\/github\.com\/ourostack\/desk\/blob\/main\/SETUP\.md<\/span>/);
   assert.match(html, /<button type="button" data-copy-target="home-desk-setup"/);

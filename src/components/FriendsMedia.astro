@@ -1,0 +1,58 @@
+---
+/**
+ * An illustration of one Friends record: one person across their channels,
+ * on the trust ladder from ourostack/friends. Invented data, not real output.
+ */
+const ladder = ['stranger', 'acquaintance', 'friend', 'family']
+const current = 'friend'
+const fields: [string, string][] = [
+  ['cli', 'ned'],
+  ['email', 'ned@nautilus.example'],
+  ['telegram', '@harpooner'],
+  ['notes', 'Short answers. Hates waiting on review.'],
+]
+const peers: [string, string][] = [
+  ["Conseil's agent", 'knows him too: same person'],
+  ["Aronnax's agent", 'message sealed, sent by relay'],
+]
+---
+
+<figure class="product-figure">
+  <div class="product-media media-terminal">
+    <div class="friends-card">
+      <div class="fr-bar">
+        <span class="fr-dot"></span><span class="fr-dot"></span><span class="fr-dot"></span>
+        <span class="fr-title">friends · Ned Land</span>
+      </div>
+      <div class="fr-body">
+        <ol class="fr-ladder" aria-label="Trust ladder">
+          {ladder.map((rung) => <li class={rung === current ? 'fr-rung fr-current' : 'fr-rung'} aria-current={rung === current ? 'true' : undefined}>{rung}</li>)}
+        </ol>
+        <dl class="fr-fields">
+          {fields.map(([key, value]) => (<><dt>{key}</dt><dd>{value}</dd></>))}
+        </dl>
+        <dl class="fr-fields fr-peers">
+          {peers.map(([key, value]) => (<><dt>{key}</dt><dd>{value}</dd></>))}
+        </dl>
+      </div>
+    </div>
+  </div>
+  <figcaption class="product-caption">One person, every channel, one place on the trust ladder, and other agents who know him. Illustration, not real data.</figcaption>
+</figure>
+
+<style>
+  .friends-card { height: 100%; display: flex; flex-direction: column; background: var(--color-deep); }
+  .fr-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .fr-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
+  .fr-title { margin-left: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
+  .fr-body { flex: 1; display: grid; align-content: center; gap: 1rem; padding: 1.25rem 1rem; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; }
+  @media (min-width: 640px) { .fr-body { font-size: 0.875rem; gap: 1.5rem; } }
+  .fr-ladder { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+  .fr-rung { padding: 0.15rem 0.55rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); color: var(--color-mist); }
+  .fr-current { border-color: var(--color-scale); color: var(--color-scale); }
+  .fr-fields { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1rem; margin: 0; }
+  .fr-fields dt { color: var(--color-shadow); }
+  .fr-fields dd { margin: 0; color: var(--color-bone); overflow-wrap: anywhere; }
+  .fr-peers { padding-top: 1rem; border-top: 1px dashed color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+  .fr-peers dd { color: var(--color-scale); }
+</style>

@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro'
 import DeskMedia from '../components/DeskMedia.astro'
 import OuroMdMedia from '../components/OuroMdMedia.astro'
 import OuroHxMedia from '../components/OuroHxMedia.astro'
+import ShepherdMedia from '../components/ShepherdMedia.astro'
+import FriendsMedia from '../components/FriendsMedia.astro'
 import SourceTree from '../components/SourceTree.astro'
 import { ogPathFor } from '../data/og'
 import { principles, smells, factoryUrl, deskSetupUrl } from '../data/principles.mjs'
@@ -17,6 +19,8 @@ const description = "Hello!! I'm Ari. I build products that help humans and agen
 
 const deskLabel = labelFor('desk-claude-code-macos')
 const hxLabel = labelFor('ouro-hx')
+const shepherdLabel = labelFor('shepherd')
+const friendsLabel = labelFor('friends')
 const ouroMdPage = '/ouro-md/'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
 const section = 'relative px-5 sm:px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20 reveal'
@@ -113,7 +117,21 @@ const wastes = [
           </div>
         </article>
 
-        <article class="product product-wide product-split" id="m365crawl" data-allow-product-name="Microsoft 365">
+        <article class="product product-wide product-split" id="shepherd">
+          <ShepherdMedia />
+          <h3 class="product-title"><img src="/brand/shepherd-render.webp" srcset="/brand/shepherd-render-128.webp 128w, /brand/shepherd-render-256.webp 256w, /brand/shepherd-render.webp 1024w" sizes="36px" width="40" height="40" alt="" loading="lazy" decoding="async" class="mark-render w-9 h-9" />Ouro Shepherd <span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span></h3>
+          <p class="text-mist leading-relaxed">Keep every coding agent moving. Coding agents often hand control back before they need to, asking "want me to go ahead?" about work I already asked for. Shepherd watches the agents in my terminals and judges each stop. If an agent stopped too early, Shepherd answers it in the terminal, where I can see it. If it really needs me, Shepherd tells me. We're using and refining Shepherd on our own machines ahead of wider availability.</p>
+          <p class="product-links"><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={link}>How Shepherd decides &#8599;</a></p>
+        </article>
+
+        <article class="product" id="friends">
+          <FriendsMedia />
+          <h3 class="product-title"><img src="/brand/friends-render.webp" srcset="/brand/friends-render-128.webp 128w, /brand/friends-render-256.webp 256w, /brand/friends-render.webp 1024w" sizes="36px" width="40" height="40" alt="" loading="lazy" decoding="async" class="mark-render w-9 h-9" />Friends <span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span></h3>
+          <p class="text-mist leading-relaxed">Friends gives an agent a who's-who: one identity for each person across every channel, what it knows about them, and how far it trusts them. Two agents that have never shared a database can agree they know the same person. When they talk, Friends Relay carries their messages sealed end to end, so the relay itself can never read them.</p>
+          <p class="product-links"><a href="https://github.com/ourostack/friends" class={link}>Friends &#8599;</a> <a href="https://github.com/ourostack/friends-relay" class={link}>Friends Relay &#8599;</a></p>
+        </article>
+
+        <article class="product" id="m365crawl" data-allow-product-name="Microsoft 365">
           <figure class="product-figure">
             <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1582" height="1414" loading="lazy" decoding="async" alt="m365crawl doctor output: every ready check passing, then a snapshot of the archive with its Teams, mail, and calendar counts." /></div>
             <figcaption class="product-caption">The doctor, giving an archive its checkup.</figcaption>
@@ -205,8 +223,13 @@ const wastes = [
           <li><strong>{name}</strong> {body}</li>
         ))}
       </ul>
-      <p class="mt-10 text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
-      <p class="mt-5"><a href={factoryUrl} class="btn-primary">See my agents' numbers &#8599;</a></p>
+      <div class="factory-cta mt-10">
+        <img src="/brand/factory-render.webp" srcset="/brand/factory-render-128.webp 128w, /brand/factory-render-256.webp 256w, /brand/factory-render.webp 1024w" sizes="(min-width: 768px) 80px, 64px" width="80" height="80" alt="" loading="lazy" decoding="async" class="mark-render w-16 h-16 md:w-20 md:h-20" />
+        <div class="grid gap-5">
+          <p class="text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
+          <p><a href={factoryUrl} class="btn-primary">See my agents' numbers &#8599;</a></p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -282,6 +305,7 @@ const wastes = [
   /* Cards: Ouroboros and Desk sit as a pair; Ouro MD, m365crawl and Spoonjoy span the row. The pair shares rows so
      the titles line up, and each figure keeps its own height, so the Desk playback box stays the height of its final
      frame instead of stretching to the source tree (root ruling, 2026-10-11). */
+  .factory-cta { display: flex; align-items: center; gap: 1.25rem; }
   .products { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
   @media (min-width: 768px) { .products { margin-top: 3rem; } }
   @media (min-width: 1024px) { .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -299,7 +323,7 @@ const wastes = [
     .product-wide:not(.product-split) > .product-title { grid-column: 1; grid-row: 2 / span 2; align-self: start; }
     .product-wide:not(.product-split) > :not(.product-figure, .product-title) { grid-column: 2; }
   }
-  .product-title { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; color: var(--color-bone); }
+  .product-title { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; color: var(--color-bone); }
   .product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
   .hx-product { grid-template-rows: auto auto; }
   .hx-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; }
