@@ -297,7 +297,7 @@ test('homepage puts the factory in Lean terms, with sources and the eight wastes
     "Everyone's building a software factory.",
     "Software factories, SaaS factories, agents shipping code all night. I love the ambition. Real factories have a century of practice behind them, and I'd like to bring some of it along.",
     // root misses ruling 2.12.
-    'I studied industrial and systems engineering before I became a software engineer. My favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Lean is the part of that world I reach for most, because it starts with where the time goes.',
+    'I studied Industrial and Systems Engineering before I became a software engineer. My favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Lean is the part of that world I reach for most, because it starts with where the time goes.',
     'What Lean already knows',
     'In most processes, less than a tenth of the elapsed time adds value. The rest is waiting and moving, so making the work itself 50% faster shortens the whole by 5% at most.',
     'Taiichi Ohno described the Toyota Production System as watching the timeline from order to cash and shrinking it by removing the waste.',
@@ -389,7 +389,7 @@ test('homepage deck lines appear in the deck order', () => {
     'Two more things I keep coming back to:',
     "Everyone's building a software factory.",
     'Software factories, SaaS factories, agents shipping code all night.',
-    'I studied industrial and systems engineering before I became a software engineer.',
+    'I studied Industrial and Systems Engineering before I became a software engineer.',
     // root misses ruling 8.13: the agents paragraph fills the factory section's left column.
     'Agents are the newest workers on the line.',
     'What Lean already knows',

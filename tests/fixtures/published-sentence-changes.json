@@ -3290,8 +3290,8 @@
  {
   "page": "index",
   "was": "I studied industrial and systems engineering before I wrote code.",
-  "now": "I studied industrial and systems engineering before I became a software engineer.",
-  "why": "root misses ruling 2.12 (2026-10-11)"
+  "now": "I studied Industrial and Systems Engineering before I became a software engineer.",
+  "why": "root misses ruling 2.12 (2026-10-11); then Ari, 2026-10-16: capitalize Industrial and Systems Engineering, as on mendelow.me and LinkedIn"
  },
  {
   "page": "index",
