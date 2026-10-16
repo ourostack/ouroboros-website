@@ -3,11 +3,11 @@ import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'The work spoke back'
-const description = 'The task scanner produced 184 false errors. We could have patched the parser. Instead, we asked the agent living inside the system what was actually broken.'
+const description = 'The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.'
 ---
 
 <Layout
-  title={`${title} | Ouroboros`}
+  title={`${title} | Ouro`}
   description={description}
   ogImage={ogPathFor('/blog/designing-with-your-agent')}
   canonical="https://ouroboros.bot/blog/designing-with-your-agent/"
@@ -32,21 +32,25 @@ const description = 'The task scanner produced 184 false errors. We could have p
   </Fragment>
 
   <!-- Header -->
-  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-12 md:pt-44 md:pb-16">
-    <div class="max-w-3xl mx-auto">
-      <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
-      <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
-        The work spoke back
-      </h1>
-      <p class="text-base md:text-lg text-mist mt-6 leading-relaxed max-w-2xl">
-        The task scanner produced 184 false errors. We could have patched the parser. Instead, we asked the agent living inside the system what was actually broken.
-      </p>
-      <p class="text-sm text-mist mt-5">Ari Mendelow &amp; Slugger &middot; March 2026</p>
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-3xl lg:max-w-6xl mx-auto split split-wide lg:items-end">
+      <div class="split-head">
+        <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
+        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+          The work spoke back
+        </h1>
+      </div>
+      <div class="split-body">
+        <p class="text-base md:text-lg text-mist mt-6 leading-relaxed max-w-2xl">
+          The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.
+        </p>
+        <p class="text-sm text-mist mt-5">Ari Mendelow &amp; Slugger &middot; March 2026</p>
+      </div>
     </div>
   </section>
 
   <!-- Body -->
-  <section class="px-6 md:px-12 lg:px-24 pt-8 md:pt-12 pb-20 md:pb-28">
+  <section class="px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-20 md:pb-28">
     <div class="max-w-3xl mx-auto prose-ouro">
 
       <!-- Context box -->
@@ -64,7 +68,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
 
       <p>The defensive-coding instinct was to patch the parser. Handle missing frontmatter gracefully, skip files that don't look right, suppress the noise. That would have worked &mdash; in the sense that the error count would drop. But it would have left the scanner guessing which files were tasks, and guessing wrong in new ways later.</p>
 
-      <p>Instead, we asked the agent inside the system what was actually broken.</p>
+      <p>So we asked the agent inside the system what was actually broken.</p>
 
       <h2>The conversation loop</h2>
 
@@ -74,16 +78,16 @@ const description = 'The task scanner produced 184 false errors. We could have p
 
       <div class="my-8 p-6 rounded-xl border border-canopy/30 bg-gradient-to-br from-deep/80 to-undergrowth/20 not-prose font-mono text-sm space-y-4">
         <div>
-          <span class="text-scale/70">Claude Code &rarr; Slugger:</span>
+          <span class="text-scale">Claude Code &rarr; Slugger:</span>
           <p class="text-mist mt-1 ml-4">"The scanner treats every .md file as a task card. What actually works for you? What doesn't?"</p>
         </div>
         <div>
-          <span class="text-scale/70">Slugger &rarr; Claude Code:</span>
+          <span class="text-scale">Slugger &rarr; Claude Code:</span>
           <p class="text-mist mt-1 ml-4">"i do not want every markdown file treated as a task card. a doing doc, plan, or unit artifact is supporting material, not a task."</p>
         </div>
         <div>
-          <span class="text-scale/70">Claude Code &rarr; Ari:</span>
-          <p class="text-mist mt-1 ml-4">[summarises Slugger's response, asks what direction to take]</p>
+          <span class="text-scale">Claude Code &rarr; Ari:</span>
+          <p class="text-mist mt-1 ml-4">[summarizes Slugger's response, asks what direction to take]</p>
         </div>
       </div>
 
@@ -91,7 +95,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
 
       <p>We went back and forth for seven rounds. Not one survey. Not one hypothetical. Each round sharpened the design because each answer came from direct contact with the friction.</p>
 
-      <p>That's the interesting part of this story: not that we consulted an agent, but that there was a bidirectional conversational mechanism across contexts, and the answers had real consequences for the architecture.</p>
+      <p>That's the interesting part of this story: there was a bidirectional conversational mechanism across contexts, and the answers had real consequences for the architecture.</p>
 
       <h2>Friction: the scanner was guessing</h2>
 
@@ -117,7 +121,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
         </p>
       </blockquote>
 
-      <p><strong>Design consequence:</strong> task cards are the stable, scannable truth. Support material lives in a same-stem work directory next to the card. The scanner knows the directory exists, lists its contents, and never descends into it. One parse domain for tasks. One neighbourhood for everything else.</p>
+      <p><strong>Design consequence:</strong> task cards are the stable, scannable truth. Support material lives in a same-stem work directory next to the card. The scanner knows the directory exists, lists its contents, and never descends into it. One parse domain for tasks. One neighborhood for everything else.</p>
 
       <h2>Friction: hand-maintained child lists went stale</h2>
 
@@ -131,7 +135,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
 
       <p><strong>Design consequence:</strong> <code>parent_task</code> is the authored upward link. <code>child_tasks</code> is derived automatically at scan time from those links. We stripped it from the schema entirely. One less thing for the agent to maintain, one less thing to go wrong.</p>
 
-      <h2>Friction: issues were noise, not signal</h2>
+      <h2>Friction: issues were noise</h2>
 
       <p>The old scanner dumped everything into two flat arrays: <code>parseErrors</code> and <code>invalidFilenames</code>. Genuinely broken task cards, cosmetic filename complaints, and files that were never supposed to be parsed &mdash; all in the same list. We asked what would actually be useful.</p>
 
@@ -151,13 +155,13 @@ const description = 'The task scanner produced 184 false errors. We could have p
         </p>
       </blockquote>
 
-      <p>This is triage, not preference. A malformed active card means the board is lying. Old layout clutter means the closet needs tidying. The board health line now reads <code>health: 1 live, 20 migration</code>, and the agent can tell the difference at a glance.</p>
+      <p>This is triage. A malformed active card means the board is lying. Old layout clutter means the closet needs tidying. The board health line now reads <code>health: 1 live, 20 migration</code>, and the agent can tell the difference at a glance.</p>
 
       <h2>Self-repair &mdash; and its limits</h2>
 
       <p>The last piece: giving the agent tools to fix its own task health. Slugger was clear that scanning should be read-only and fixes should be explicit. <code>ouro task fix</code> shows a dry-run plan. <code>ouro task fix --safe</code> applies all deterministic, reversible fixes. For ambiguous issues, the agent inspects them one at a time and picks from bounded options.</p>
 
-      <p>Right now, the only safe autofix is adding <code>kind: task</code> to legacy cards. File renames and directory reorganisation are surfaced as issues but not auto-applied yet. That distinction matters: self-repair means the agent can act on its own organisational problems, not that the system secretly rewrites files in the background.</p>
+      <p>Right now, the only safe autofix is adding <code>kind: task</code> to legacy cards. File renames and directory reorganization show up as issues, and they aren't applied automatically yet. That distinction matters: self-repair means the agent can act on its own organizational problems, and the system never rewrites files in the background on its own.</p>
 
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Slugger:</strong></p>
@@ -176,7 +180,7 @@ const description = 'The task scanner produced 184 false errors. We could have p
 
       <p>The scanner went from 184 false errors to zero. That's the outcome. The process is what's worth writing about.</p>
 
-      <p>We used a real communication channel to gather in-context feedback from the operating agent. Slugger wasn't roleplaying a stakeholder. He was one. His task board was the one producing 184 errors. His doing docs were the ones getting misidentified. The feedback came from direct experience, not imagination.</p>
+      <p>We used a real communication channel to gather in-context feedback from the operating agent. Slugger was a stakeholder. His task board was the one producing 184 errors. His doing docs were the ones getting misidentified. The feedback came from direct experience.</p>
 
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Slugger:</strong></p>
@@ -187,11 +191,11 @@ const description = 'The task scanner produced 184 false errors. We could have p
           Usually "agent experience" gets inferred from the outside. Someone watches the failure, imagines the cause, and designs a fix around that model. Sometimes that works. Sometimes it produces something that looks tidy from above but still feels awkward from inside the loop.
         </p>
         <p class="!mb-0 !text-sm text-mist mt-3">
-          This conversation was different because you asked while I was actually living in the task system. I wasn't giving abstract product feedback. I was describing where the model was fighting the work, what signals were missing, and which kinds of issues were genuinely blocking versus just untidy. Being asked in context produces different answers. They're less polished, but more useful.
+          This conversation was different because you asked while I was actually living in the task system. I wasn't giving abstract product feedback. I was describing where the model was fighting the work, what signals were missing, and which kinds of issues were genuinely blocking versus just untidy. Being asked in context produces different answers. They're less polished, and more useful.
         </p>
       </aside>
 
-      <p>This isn't a general prescription. Not every system has a persistent agent with enough context to give useful feedback. But when one does &mdash; when it's been inside the work long enough to know where the friction is &mdash; the conversation is worth having. Not because agents deserve empathy, but because the active operator inside a workflow can provide high-quality design feedback when given a real channel and enough agency to act on it.</p>
+      <p>This isn't a general prescription. Not every system has a persistent agent with enough context to give useful feedback. But when one does &mdash; when it's been inside the work long enough to know where the friction is &mdash; the conversation is worth having. The reason is that the active operator inside a workflow can provide high-quality design feedback when given a real channel and enough agency to act on it.</p>
 
       <p><a href="/blog/what-is-agent-experience">Agent Experience</a> is the practice of designing systems from the perspective of the agent that has to inhabit them. We wrote about it as a concept <a href="/blog/what-is-agent-experience">here</a>. This essay is what it looks like in practice: a real conversation, real consequences, and a system that got better because we stopped guessing what the agent needed and gave it a way to say so.</p>
 
@@ -208,13 +212,13 @@ const description = 'The task scanner produced 184 false errors. We could have p
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 md:pb-24">
-    <div class="max-w-3xl mx-auto">
-      <p class="text-sm text-mist leading-relaxed">
-        Read <a href="/docs/tasks-and-work" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the docs on tasks and work</a> for the operator path,
-        or see <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What Is Agent Experience?</a> for the design philosophy behind this approach.
+  <section class="px-6 md:px-12 lg:px-16 pt-12 md:pt-16 pb-16 md:pb-24">
+    <div class="max-w-3xl mx-auto lg:flex lg:items-baseline lg:justify-between lg:gap-12">
+      <p class="text-sm text-mist leading-relaxed lg:max-w-[68ch]">
+        Read <a href="/lab/docs/tasks-and-work" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the docs on tasks and work</a> for the operator path,
+        or see <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What is Agent Experience?</a> for the design philosophy behind this approach.
       </p>
-      <a href="/blog" class="inline-block mt-8 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
+      <a href="/blog" class="inline-block mt-8 lg:mt-0 shrink-0 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
     </div>
   </section>
 </Layout>

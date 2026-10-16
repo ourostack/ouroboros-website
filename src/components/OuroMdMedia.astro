@@ -1,0 +1,35 @@
+---
+import WorkshopVideo from './WorkshopVideo.astro'
+
+// The Ouro MD media, verbatim from the copy deck (2026-10-11). The homepage card
+// and /ouro-md/ both lead with it, so the two cannot drift.
+//
+// Each clip comes in a light and a dark recording. CSS shows the one for the
+// active theme (the saved data-theme, else the system setting), so the poster
+// matches with no JS, and the hidden one never plays or loads its video.
+interface Props { stacked?: boolean }
+const { stacked = false } = Astro.props
+const themes = ['light', 'dark'] as const
+// Each clip's caption is also its poster's alt text and its video's aria-label,
+// so the clip is named programmatically (root final ruling F15).
+const typing = 'Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes.'
+const agentEdit = 'Back from the deep, an agent logs the depth trials, and a bar in the margin marks what changed.'
+---
+
+<figure class="product-figure">
+  <div class:list={['clip-pair', { 'clip-stack': stacked }]}>
+    <figure class="clip">
+      <div class="product-media media-clip">
+        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} alt={typing} /></div>)}
+      </div>
+      <figcaption class="product-caption">{typing}</figcaption>
+    </figure>
+    <figure class="clip">
+      <div class="product-media media-clip">
+        {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-agent-edit-${theme}.mp4`} webm={`/images/workshop/ouro-md-agent-edit-${theme}.webm`} poster={`/images/workshop/ouro-md-agent-edit-${theme}-poster.png`} width={840} height={630} alt={agentEdit} /></div>)}
+      </div>
+      <figcaption class="product-caption">{agentEdit}</figcaption>
+    </figure>
+  </div>
+  <figcaption class="product-caption caption-tag-only"><span class="tag tag-plain">Dramatization</span></figcaption>
+</figure>

@@ -16,3 +16,14 @@ test('leaves unsafe link schemes escaped as plain model text', () => {
     '[click](javascript:alert(1)) &lt;script&gt;alert(1)&lt;/script&gt;',
   )
 })
+
+test('a link wrapped in parentheses keeps the closing parenthesis out of the URL', () => {
+  assert.equal(
+    parseInlineMd('every action ([README](https://github.com/github/copilot-cli)).'),
+    'every action (<a href="https://github.com/github/copilot-cli" target="_blank" rel="noopener noreferrer">README</a>).',
+  )
+  assert.equal(
+    parseInlineMd('[wiki](https://en.wikipedia.org/wiki/Lean_(manufacturing))'),
+    '<a href="https://en.wikipedia.org/wiki/Lean_(manufacturing)" target="_blank" rel="noopener noreferrer">wiki</a>',
+  )
+})

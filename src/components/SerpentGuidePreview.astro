@@ -2,10 +2,15 @@
 /**
  * Mock conversation showing the actual hatching flow.
  * npx ouro.bot → random serpent guide → conversation → hatch → seamless handoff.
+ *
+ * `compact` keeps only the opening exchange and the hatch, for small spaces
+ * such as the homepage's Ouroboros card. The lines themselves never change.
  */
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props
 ---
 
-<div class="serpent-preview max-w-2xl mx-auto rounded-xl border border-canopy/30 bg-deep/80 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+<div class:list={['serpent-preview rounded-xl border border-canopy/30 bg-deep/80 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]', { 'serpent-compact': compact, 'max-w-2xl mx-auto': !compact }]}>
   <div class="flex items-center gap-2 px-5 py-3 border-b border-canopy/20 bg-undergrowth/20">
     <span class="w-2 h-2 rounded-full bg-fang/40"></span>
     <span class="w-2 h-2 rounded-full bg-scale/30"></span>
@@ -28,29 +33,29 @@
       <p class="text-bone mt-1">Ari</p>
     </div>
 
-    <div class="border-l border-scale/20 pl-4">
+    <div class="border-l border-scale/20 pl-4 serpent-extra">
       <span class="text-scale text-xs uppercase tracking-wider">kaa</span>
       <p class="text-bone mt-1">Nice to meet you, Ari. So tell me — what do you want your agent to help you with?</p>
     </div>
-    <div class="pl-4">
+    <div class="pl-4 serpent-extra">
       <span class="text-shadow text-xs uppercase tracking-wider">you</span>
       <p class="text-bone mt-1">coding partner that actually remembers what we're doing between sessions. hate re-explaining everything</p>
     </div>
 
-    <div class="border-l border-scale/20 pl-4">
+    <div class="border-l border-scale/20 pl-4 serpent-extra">
       <span class="text-scale text-xs uppercase tracking-wider">kaa</span>
       <p class="text-bone mt-1">You hesitated there. The re-explaining — that's the real pain point, isn't it. I can work with that. Should this agent be more of a quiet partner or an opinionated one?</p>
     </div>
-    <div class="pl-4">
+    <div class="pl-4 serpent-extra">
       <span class="text-shadow text-xs uppercase tracking-wider">you</span>
       <p class="text-bone mt-1">opinionated. want it to push back when i'm making a bad call</p>
     </div>
 
-    <div class="border-l border-scale/20 pl-4">
+    <div class="border-l border-scale/20 pl-4 serpent-extra">
       <span class="text-scale text-xs uppercase tracking-wider">kaa</span>
       <p class="text-bone mt-1">I like that. I'm seeing something sharp, direct, a little stubborn in a good way. How does "Atlas" sound?</p>
     </div>
-    <div class="pl-4">
+    <div class="pl-4 serpent-extra">
       <span class="text-shadow text-xs uppercase tracking-wider">you</span>
       <p class="text-bone mt-1">perfect</p>
     </div>
@@ -58,18 +63,20 @@
     <div class="border-l border-scale/20 pl-4">
       <span class="text-scale text-xs uppercase tracking-wider">kaa</span>
       <div class="mt-1 space-y-1.5">
-        <p class="text-glow/60"><span class="text-scale/80">&#10003;</span> <span class="text-mist">~/AgentBundles/Atlas.ouro</span></p>
+        <p class="text-glow"><span class="text-scale">&#10003;</span> <span class="text-mist">~/AgentBundles/Atlas.ouro</span></p>
         <p class="text-mist">Atlas is ready. Sharp, opinionated, remembers everything. You two are going to get along. Or argue productively. Same thing, really.</p>
       </div>
     </div>
 
-    <div class="pt-3 border-t border-canopy/15">
+    <div class="pt-3 border-t border-canopy/15 serpent-extra">
       <div class="border-l border-scale/20 pl-4">
         <span class="text-scale text-xs uppercase tracking-wider">atlas</span>
         <p class="text-bone mt-1">Hey Ari. Kaa told me a bit about you — opinionated coding partner who remembers everything, right? I'm into it. What are we working on?<span class="serpent-cursor"></span></p>
       </div>
     </div>
   </div>
+  {/* A mock, so it carries the Dramatization tag like the site's other staged media (root misses ruling 6.6). */}
+  <p class="product-caption caption-tag-only"><span class="tag tag-plain">Dramatization</span></p>
 </div>
 
 <style>
@@ -83,6 +90,10 @@
     vertical-align: middle;
     animation: serpent-blink 1.2s step-end infinite;
   }
+  .serpent-compact .serpent-extra { display: none; }
+  .serpent-compact > div:last-child { padding: 0.9rem 1rem; font-size: 0.75rem; line-height: 1.5; }
+  .serpent-compact > div:last-child > * + * { margin-top: 0.6rem; }
+  .serpent-compact { box-shadow: none; border: 0; border-radius: 0; height: 100%; }
   @keyframes serpent-blink {
     0%, 100% { opacity: 0.6; }
     50% { opacity: 0; }

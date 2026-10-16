@@ -12,7 +12,7 @@ const reviewedHarnessCount = modelReviews.harnesses.length
 ---
 
 <Layout
-  title={`${title} | Ouroboros`}
+  title={`${title} | Ouro`}
   description={description}
   ogImage={ogPathFor('/blog/what-is-agent-experience')}
   canonical="https://ouroboros.bot/blog/what-is-agent-experience/"
@@ -29,27 +29,31 @@ const reviewedHarnessCount = modelReviews.harnesses.length
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
       "datePublished": "2026-03-08",
-      "dateModified": "2026-09-08",
+      "dateModified": "2026-10-15",
       "url": "https://ouroboros.bot/blog/what-is-agent-experience/"
     })} />
   </Fragment>
 
   <!-- Header -->
-  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-12 md:pt-44 md:pb-16">
-    <div class="max-w-3xl mx-auto">
-      <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
-      <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
-        What is Agent Experience?
-      </h1>
-      <p class="text-base md:text-lg text-mist mt-6 leading-relaxed max-w-2xl">
-        The moment an agent has to stay oriented inside a system across time, memory, and interruptions, a third design surface appears. Not just UX. Not just DX. <span class="font-display text-scale">AX</span>.
-      </p>
-      <p class="text-sm text-mist mt-5">Ari Mendelow &middot; March 2026</p>
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-3xl lg:max-w-6xl mx-auto split split-wide lg:items-end">
+      <div class="split-head">
+        <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
+        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+          What is Agent Experience?
+        </h1>
+      </div>
+      <div class="split-body">
+        <p class="text-base md:text-lg text-mist mt-6 leading-relaxed max-w-2xl">
+          The moment an agent has to stay oriented inside a system across time, memory, and interruptions, the agent becomes a user too. UX now holds two experiences. HX. <span class="font-display text-scale">AX</span>.
+        </p>
+        <p class="text-sm text-mist mt-5">Ari Mendelow &middot; March 2026 &middot; Updated October 2026</p>
+      </div>
     </div>
   </section>
 
   <!-- Body -->
-  <section class="px-6 md:px-12 lg:px-24 pt-8 md:pt-12 pb-20 md:pb-28">
+  <section class="px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-20 md:pb-28">
     <div class="max-w-3xl mx-auto prose-ouro">
 
       <blockquote class="border-l-[3px] border-fang/40 pl-6 my-10 not-prose">
@@ -63,9 +67,9 @@ const reviewedHarnessCount = modelReviews.harnesses.length
 
       <p>Agent Experience is the practice of designing systems from the perspective of the agent that has to inhabit them. The most practical way to think about AX is agent ergonomics: how expensive it is for the agent to stay oriented to itself, its relationships, and its work. When that cost is high, the human becomes a recovery loop. When it is low, the collaboration keeps momentum.</p>
 
-      <p>UX taught us to care about how the product feels to the person using it. DX taught us to care about how the system feels to the person building on it. AX asks a similar question for a new kind of inhabitant: what does this architecture feel like from the agent's side?</p>
+      <p>UX taught us to care about how the product feels to the human using it. Now the user can be an agent too, so UX holds two experiences. HX, human experience, keeps that question for the humans, whether they are working with agents or a traditional GUI. AX asks it for a new kind of inhabitant: what does this architecture feel like from the agent's side? DX is a separate question: how the system feels to the humans and agents building on it.</p>
 
-      <p>That is not a philosophical claim about sentience. It is a design claim. The structure of the environment materially affects whether the agent behaves coherently, recovers cleanly, and collaborates reliably over time.</p>
+      <p>That is a design claim. It makes no claim about sentience. The structure of the environment materially affects whether the agent behaves coherently, recovers cleanly, and collaborates reliably over time.</p>
 
       <h2>What bad AX looks like</h2>
 
@@ -75,48 +79,50 @@ const reviewedHarnessCount = modelReviews.harnesses.length
 
       <p><strong>Work.</strong> The thread breaks across sessions, context windows, or handoffs, so the human has to rebuild the state manually.</p>
 
-      <p><strong>Relationships.</strong> People blur together because there is no lightweight way to preserve the social context that actually matters.</p>
+      <p><strong>Relationships.</strong> Humans blur together because there is no lightweight way to preserve the social context that actually matters.</p>
 
-      <h2>The three design surfaces</h2>
+      <h2>Where AX sits</h2>
 
-      <p><strong>UX</strong> asks: is the flow intuitive? Does the product earn trust? Can the user accomplish the task cleanly?</p>
+      <p><strong>UX</strong> is the parent. Its users are humans and agents, so it holds HX and AX side by side.</p>
 
-      <p><strong>DX</strong> asks: are the APIs legible? Are the defaults sane? Can the builder ship without fighting the tool?</p>
+      <p><strong>HX</strong> asks: is the flow intuitive? Does the product earn trust? Can the human accomplish the task cleanly?</p>
 
       <p><strong><span class="font-display text-scale">AX</span></strong> asks: can the agent stay oriented? Can it resume the work? Can it recover gracefully after interruption?</p>
 
+      <p>Beside UX, <strong>DX</strong> asks: are the APIs legible? Are the defaults sane? Can the builder ship without fighting the tool?</p>
+
       <h2>Why AX matters to humans too</h2>
 
-      <p>AX does not compete with UX or DX. It cascades into them. When the agent cannot stay oriented, the user loses trust and the builder reaches for more guardrails. When the agent can stay oriented, the collaboration feels steadier, the human spends less time re-briefing, and the system becomes easier to build on.</p>
+      <p>AX cascades into HX. When the agent cannot stay oriented, the human loses trust and reaches for more guardrails. When the agent can stay oriented, the collaboration feels steadier, the human spends less time re-briefing, and the system becomes easier to build on.</p>
 
-      <p>That is why the language of ergonomics matters here. We are not trying to make agents seem mystical. We are trying to reduce the reorientation overhead that makes working with them fragile and exhausting.</p>
+      <p>That is why the language of ergonomics matters here. We are trying to reduce the reorientation overhead that makes working with agents fragile and exhausting.</p>
 
       <h2>How this informed Ouroboros</h2>
 
-      <p>Ouroboros is not the proof that AX exists. It is one project shaped by taking AX seriously.</p>
+      <p>Ouroboros is one project shaped by taking AX seriously.</p>
 
-      <p><strong>A <a href="/why#identity">clearer psyche</a>.</strong> Separate files for invariants, voice, origin, tacit knowledge, and active direction make identity easier to recover than one giant catch-all prompt.</p>
+      <p><strong>A <a href="/lab/why#identity">clearer psyche</a>.</strong> Separate files for invariants, voice, origin, tacit knowledge, and active direction make identity easier to recover than one giant catch-all prompt.</p>
 
-      <p><strong><a href="/why#continuity">Continuity across sessions</a>.</strong> Inner dialogue and continuity-focused context design reduce the cost of resuming the thread after resets, compaction, or time away.</p>
+      <p><strong><a href="/lab/why#continuity">Continuity across sessions</a>.</strong> Inner dialogue and continuity-focused context design reduce the cost of resuming the thread after resets, compaction, or time away.</p>
 
-      <p><strong>Friend-scoped notes.</strong> Social context becomes easier to carry forward when the agent has a lightweight place to jot down quick notes tied to real people.</p>
+      <p><strong>Friend-scoped notes.</strong> Social context becomes easier to carry forward when the agent has a lightweight place to jot down quick notes tied to real humans.</p>
 
       <p><strong>A readable body.</strong> Legible runtime structure and a portable bundle boundary make it easier for the agent to understand where identity, memory, and action live.</p>
 
-      <p>If the AX framing is right, the test isn't whether humans say nice things about a harness — it's whether <em>the inhabiting model itself</em> can recognize the difference. We checked. <a href="/model-reviews">{calloutClaim}</a> Each was invited to research the {reviewedHarnessCount} selected agent harnesses and pick the one it would most want to inhabit. The reasons they cited map almost exactly onto the AX dimensions in this essay.</p>
+      <p>If the AX framing is right, the test is whether <em>the inhabiting model itself</em> can recognize the difference. We checked. <a href="/lab/model-reviews">{calloutClaim}</a> Each was invited to research the {reviewedHarnessCount} selected agent harnesses and pick the one it would most want to inhabit. The reasons they cited map almost exactly onto the AX dimensions in this essay.</p>
 
       <h2>A useful test</h2>
 
-      <p>If you are debugging an agent and you keep finding yourself restating identity, restitching context, reminding it who people are, or rebuilding the work after every interruption, you do not just have a memory problem. You have an AX problem.</p>
+      <p>If you are debugging an agent and you keep finding yourself restating identity, restitching context, reminding it who humans are, or rebuilding the work after every interruption, you have an AX problem.</p>
 
-      <p>The discipline is still young, but the need is already here. Long-lived agents force the question. Once an agent has to inhabit a system over time, the shape of that system starts mattering from the inside.</p>
+      <p>The discipline is still young, and the need is already here. Long-lived agents force the question. Once an agent has to inhabit a system over time, the shape of that system starts mattering from the inside.</p>
     </div>
   </section>
 
   <!-- Reviews callout — derived from script output, dynamic. -->
-  <section class="px-6 md:px-12 lg:px-24 pt-8 pb-16 reveal">
+  <section class="px-6 md:px-12 lg:px-16 pt-8 pb-16 reveal">
     <div class="max-w-3xl mx-auto">
-      <a href="/model-reviews" class="block group border border-scale/30 bg-scale/5 hover:bg-scale/10 hover:border-scale/60 rounded-sm p-8 md:p-10 transition">
+      <a href="/lab/model-reviews" class="block group border border-scale/30 bg-scale/5 hover:bg-scale/10 hover:border-scale/60 rounded-sm p-8 md:p-10 transition">
         <div class="font-mono uppercase tracking-[0.22em] text-scale text-xs mb-4">Reviews</div>
         <p class="font-display text-2xl md:text-3xl text-bone leading-tight mb-3">
           {calloutClaim}
@@ -129,12 +135,12 @@ const reviewedHarnessCount = modelReviews.harnesses.length
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-24 pt-8 md:pt-12 pb-16 md:pb-24">
-    <div class="max-w-3xl mx-auto">
-      <p class="text-base text-mist leading-relaxed">
-        AX is the lens. <a href="/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Ouroboros is one system shaped by taking it seriously</a> — structured psyche, automatic recall, per-person relationships. If you want to understand the mechanics underneath, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
+  <section class="px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-16 md:pb-24">
+    <div class="max-w-3xl mx-auto lg:flex lg:items-baseline lg:justify-between lg:gap-12">
+      <p class="text-base text-mist leading-relaxed lg:max-w-[68ch]">
+        AX is the lens. <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Ouroboros is one system shaped by taking it seriously</a> — structured psyche, automatic recall, per-person relationships. If you want to understand the mechanics underneath, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the agent loop from scratch</a>.
       </p>
-      <a href="/blog" class="inline-block mt-8 text-sm text-mist hover:text-bone transition-colors">&larr; Back to blog</a>
+      <a href="/blog" class="inline-block mt-8 lg:mt-0 shrink-0 text-sm text-mist hover:text-bone transition-colors">&larr; Back to blog</a>
     </div>
   </section>
 </Layout>

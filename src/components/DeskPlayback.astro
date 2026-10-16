@@ -1,0 +1,262 @@
+---
+/**
+ * Desk playback: a dramatization in the shapes of Desk's real output.
+ *
+ * The list follows Desk 3.2.0-alpha.287's plain-text boot
+ * (`mcp/src/runtime/boot-text.js`): the `Desk boot: <status> | host ...`
+ * headline, `Active tasks (n):`, tasks grouped by state with the blocked group
+ * first (`BLOCKED (n): these cannot move until the blocker clears`), and each
+ * task as `- track/slug` with a `blocker:` or `next:` line under it. The
+ * `task_create periscope/overhaul` call is shown as a tool call with its next
+ * step, condensed from the card it writes. The crew, tracks, steps and the
+ * agent's lines are the Nautilus dramatization in copy deck round 2
+ * (2026-10-11).
+ *
+ * Without JS, under reduced motion, or if the module fails to load, the final
+ * frame (scene 2, complete) is what renders. The module arms it: scene 1's
+ * opening (the bar, the boot line and the prompt) shows as a still, so the
+ * body is never empty. It plays once when it scrolls into view, holds scene 1
+ * for 5 seconds, and holds the end. Skip, a click or a key skips to the end,
+ * and Replay plays it again. Both scenes sit in one grid cell, and a line not
+ * yet shown keeps its space, so the box is the final frame's height
+ * throughout and the page below never moves.
+ *
+ * Below 640px, scene 2 drops the blocked group's explanation and the salon
+ * task, and its counts follow, so the reserved height is smaller on a phone
+ * (root final ruling F4). The host bar wraps its title instead of truncating
+ * it, and the two titles and the two buttons each share one cell, so the bar
+ * is the same height in every state (F3).
+ */
+
+type Tone = 'prompt' | 'bone' | 'mist' | 'scale' | 'glow' | 'fang' | 'tool'
+// A line marked `only: 'wide'` shows at 640px and up, and one marked
+// `only: 'narrow'` shows below 640px, in its place.
+type Line = { text: string; tone: Tone; opening?: boolean; only?: 'wide' | 'narrow' }
+
+const blocked = 'BLOCKED (1): these cannot move until the blocker clears'
+
+const scenes: { id: string; title: string; lines: Line[] }[] = [
+  {
+    id: 'ned',
+    title: 'ned@laptop · Claude Code',
+    lines: [
+      // A phone shortens the host, so the boot line fits on one line (root misses ruling 8.5).
+      { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist', opening: true, only: 'wide' },
+      { text: 'Desk boot: ok | host laptop/ned', tone: 'mist', opening: true, only: 'narrow' },
+      { text: '> Plan the periscope overhaul', tone: 'prompt', opening: true },
+      { text: '', tone: 'mist' },
+      { text: '⏺ task_create periscope/overhaul', tone: 'tool' },
+      { text: '  ⎿ Next step: survey the lens, the seals, and the hoist', tone: 'glow' },
+      { text: '', tone: 'mist' },
+      { text: "⏺ Filed under periscope. I'll start with the lens survey tomorrow.", tone: 'bone' },
+    ],
+  },
+  {
+    id: 'conseil',
+    title: 'conseil@mac2 · Copilot CLI · next morning',
+    lines: [
+      { text: '> where were we?', tone: 'prompt' },
+      { text: 'Desk boot: ok | host mac2 / conseil / copilot', tone: 'mist', only: 'wide' },
+      { text: 'Desk boot: ok | host mac2/conseil', tone: 'mist', only: 'narrow' },
+      { text: 'Active tasks (4):', tone: 'bone', only: 'wide' },
+      { text: 'Active tasks (3):', tone: 'bone', only: 'narrow' },
+      { text: blocked, tone: 'fang', only: 'wide' },
+      { text: 'BLOCKED (1)', tone: 'fang', only: 'narrow' },
+      { text: '- ballast/pump-3', tone: 'bone' },
+      { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
+      { text: 'processing (2)', tone: 'scale', only: 'wide' },
+      { text: 'processing (1)', tone: 'scale', only: 'narrow' },
+      { text: '- periscope/overhaul', tone: 'bone' },
+      { text: '  next: survey the lens, the seals, and the hoist', tone: 'mist' },
+      { text: '- salon/organ-tuning', tone: 'bone', only: 'wide' },
+      { text: '  next: tune the reeds, pipes, and pedals', tone: 'mist', only: 'wide' },
+      { text: 'validating (1)', tone: 'scale' },
+      { text: '- captains-log/export', tone: 'bone' },
+      { text: "  next: waiting on Captain Nemo's review", tone: 'mist' },
+      { text: '', tone: 'mist' },
+      { text: '⏺ We were on the periscope overhaul. Ned planned it last night, and the next step is surveying the lens, the seals, and the hoist. The ballast pump is still waiting on parts. Want me to start on the periscope?', tone: 'bone' },
+    ],
+  },
+]
+const last = scenes.length - 1
+---
+
+<div class="desk-playback" data-desk-playback role="group" aria-label="Desk playback">
+  <div class="dp-bar">
+    <span class="dp-dot"></span><span class="dp-dot"></span><span class="dp-dot"></span>
+    <span class="dp-titles">
+      {scenes.map((scene, i) => (
+        <span class="dp-title" data-scene-title={scene.id} data-off={i !== last ? '' : undefined}>{scene.title}</span>
+      ))}
+    </span>
+    <span class="dp-actions">
+      <span class="dp-replay dp-sizer" aria-hidden="true">Replay</span>
+      <button type="button" class="dp-replay" data-skip hidden>Skip</button>
+      <button type="button" class="dp-replay" data-replay hidden>Replay</button>
+    </span>
+  </div>
+  <div class="dp-screen">
+    {scenes.map((scene, i) => (
+      <pre class="dp-body" data-scene={scene.id} data-off={i !== last ? '' : undefined}>{scene.lines.map((line) => {
+        // The terminal glyphs are decoration; screen readers skip them.
+        const glyph = line.text.match(/^(\s*)([⏺⎿])(.*)$/)
+        const only = line.only ? { [`data-${line.only}`]: '' } : {}
+        return glyph
+          ? <span class={`dp-line tone-${line.tone}`} data-opening={line.opening ? '' : undefined} {...only}>{glyph[1]}<span aria-hidden="true">{glyph[2]}</span>{glyph[3]}</span>
+          : <span class={`dp-line tone-${line.tone}`} data-opening={line.opening ? '' : undefined} {...only}>{line.text || ' '}</span>
+      })}</pre>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Arms the still, then plays once when it scrolls into view; Replay plays it
+  // again. Under reduced motion it stays on the final frame and offers no replay.
+  // Arming lives here, so if this module never loads the final frame stays.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+  document.querySelectorAll<HTMLElement>('[data-desk-playback]').forEach((root) => {
+    if (reduce.matches) return
+    const bodies = [...root.querySelectorAll<HTMLElement>('[data-scene]')]
+    const titles = [...root.querySelectorAll<HTMLElement>('[data-scene-title]')]
+    const replay = root.querySelector<HTMLButtonElement>('[data-replay]')!
+    const skipButton = root.querySelector<HTMLButtonElement>('[data-skip]')!
+    const allLines = [...root.querySelectorAll<HTMLElement>('.dp-line')]
+    let run = 0
+
+    const show = (index: number) => {
+      bodies.forEach((body, i) => { body.toggleAttribute('data-off', i !== index) })
+      titles.forEach((title, i) => { title.toggleAttribute('data-off', i !== index) })
+    }
+    const restore = (line: HTMLElement) => {
+      if (line.dataset.full !== undefined) line.textContent = line.dataset.full
+    }
+    // Scene 1's opening, as the still shows it before playing.
+    const still = () => {
+      show(0)
+      allLines.forEach((line) => { restore(line); line.toggleAttribute('data-off', !line.hasAttribute('data-opening')) })
+    }
+
+    const typeLine = async (line: HTMLElement, token: number) => {
+      const full = line.dataset.full ?? line.textContent ?? ''
+      line.dataset.full = full
+      line.textContent = ''
+      line.removeAttribute('data-off')
+      for (let i = 1; i <= full.length; i++) {
+        if (token !== run) return
+        line.textContent = full.slice(0, i)
+        await wait(45)
+      }
+    }
+
+    // When Skip or Replay hides itself while it has focus, focus moves to the
+    // button that replaces it (root final ruling F2).
+    const finish = () => {
+      const hadFocus = root.contains(document.activeElement)
+      root.removeAttribute('tabindex')
+      root.removeAttribute('data-playing')
+      skipButton.hidden = true
+      replay.hidden = false
+      if (hadFocus) replay.focus()
+    }
+
+    // A click or a key on the terminal skips to the final frame.
+    const skip = () => {
+      run++
+      show(bodies.length - 1)
+      allLines.forEach((line) => { restore(line); line.removeAttribute('data-off') })
+      finish()
+    }
+    root.addEventListener('click', (event) => {
+      if (root.hasAttribute('data-playing') && !(event.target as HTMLElement).closest('[data-replay]')) skip()
+    })
+    root.addEventListener('keydown', (event) => {
+      if (root.hasAttribute('data-playing') && ['Enter', ' ', 'Escape'].includes(event.key)) { event.preventDefault(); skip() }
+    })
+
+    const play = async () => {
+      const token = ++run
+      const hadFocus = document.activeElement === replay
+      replay.hidden = true
+      skipButton.hidden = false
+      if (hadFocus) skipButton.focus()
+      root.setAttribute('data-playing', '')
+      root.tabIndex = 0
+      still()
+      for (let s = 0; s < bodies.length; s++) {
+        if (token !== run) return
+        show(s)
+        const lines = [...bodies[s].querySelectorAll<HTMLElement>('.dp-line')].filter((line) => !(s === 0 && line.hasAttribute('data-opening')))
+        lines.forEach((line) => { restore(line); line.setAttribute('data-off', '') })
+        await wait(s === 0 ? 900 : 500)
+        for (const line of lines) {
+          if (token !== run) return
+          if (line.classList.contains('tone-prompt')) {
+            await typeLine(line, token)
+            await wait(450)
+          } else {
+            line.removeAttribute('data-off')
+            await wait(line.textContent?.trim() ? 220 : 80)
+          }
+        }
+        // Hold the finished scene 1 for at least 5 seconds.
+        if (s < bodies.length - 1) await wait(5200)
+      }
+      if (token === run) finish()
+    }
+
+    replay.addEventListener('click', () => { play() })
+
+    // Arm: the still replaces the final frame until it plays.
+    still()
+    root.setAttribute('data-armed', '')
+
+    if (!('IntersectionObserver' in window)) { skip(); return }
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        io.disconnect()
+        play()
+      }
+    }, { threshold: 0.4 })
+    io.observe(root)
+  })
+</script>
+
+<style>
+  .desk-playback[data-playing] { cursor: pointer; }
+  .desk-playback { display: flex; flex-direction: column; background: var(--color-deep); }
+  .dp-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; padding: 0.45rem 0.75rem 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .dp-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
+  /* The titles share one cell, and a title not shown keeps its space. The
+     buttons share another cell, held at Replay's width by an invisible copy of
+     it, because the site's base styles force [hidden] to display: none. So the
+     bar is as tall as its longest title in every state. A title wraps rather
+     than truncating. */
+  .dp-titles { display: grid; flex: 1; min-width: 0; margin-left: 0.5rem; }
+  .dp-title { grid-area: 1 / 1; min-width: 0; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.4; color: var(--color-mist); overflow-wrap: anywhere; }
+  .dp-actions { display: grid; flex: none; margin-left: auto; }
+  .dp-actions > .dp-replay { grid-area: 1 / 1; justify-self: end; }
+  .dp-title[data-off], .dp-sizer { visibility: hidden; }
+  .dp-replay[hidden] { display: none; }
+  /* Both scenes share one cell, and lines not yet shown keep their space, so
+     the box holds the final frame's height while it plays. */
+  .dp-screen { display: grid; }
+  .dp-body { grid-area: 1 / 1; }
+  .dp-body[data-off], .dp-line[data-off] { visibility: hidden; }
+  .dp-replay { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-bone); padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--color-canopy); background: transparent; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+  .dp-replay:hover { border-color: var(--color-scale); color: var(--color-scale); }
+  .dp-body { margin: 0; padding: 0.9rem 1rem; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }
+  @media (min-width: 640px) { .dp-body { font-size: 0.75rem; } .dp-line[data-narrow] { display: none; } }
+  @media (max-width: 639.98px) { .dp-line[data-wide] { display: none; } }
+  /* On a phone the window dots give their room to the title (root final ruling F3). */
+  @media (max-width: 479.98px) { .dp-dot { display: none; } .dp-titles { margin-left: 0; } }
+  .dp-line { display: block; padding-left: 2ch; text-indent: -2ch; }
+  .tone-bone { color: var(--color-bone); }
+  .tone-mist { color: var(--color-mist); }
+  .tone-scale { color: var(--color-scale); }
+  .tone-glow { color: var(--color-glow); }
+  .tone-fang { color: var(--color-fang); }
+  .tone-tool { color: var(--color-bone); }
+  .tone-prompt { color: var(--color-bone); font-weight: 500; }
+</style>

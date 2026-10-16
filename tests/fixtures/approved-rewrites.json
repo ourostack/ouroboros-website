@@ -1,0 +1,850 @@
+[
+ {
+  "surfaces": [
+   "approach"
+  ],
+  "was": "Judge the merged result, not the steps.",
+  "now": "Judge the merged result.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "brief",
+   "brief.md"
+  ],
+  "was": "The person who gave you this wants to hand you outcomes, not steps, the way https://ouroboros.bot/approach/ describes.",
+  "now": "The human who gave you this wants to hand you whole outcomes, the way https://ouroboros.bot/approach/ describes.",
+  "ruling": "inventory; rulings: singular person to human"
+ },
+ {
+  "surfaces": [
+   "desk"
+  ],
+  "was": "Turning reported problems into fixes is built, but not yet proven on real work.",
+  "now": "Turning reported problems into fixes is built, and it hasn't been proven on real work yet.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "ouro-md attributes"
+  ],
+  "was": "… actual file status is Modified, not automatically committed.",
+  "now": null,
+  "ruling": "inventory; copy deck round 2 cuts the second demo and its alt text"
+ },
+ {
+  "surfaces": [
+   "blog"
+  ],
+  "was": "Why long-lived agents need better ergonomics than a pile of memory features if you want shared momentum instead of constant recovery.",
+  "now": "Why long-lived agents need better ergonomics if you want shared momentum.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog",
+   "blog/designing-with-your-agent attributes",
+   "share card /blog/designing-with-your-agent"
+  ],
+  "was": "The task scanner produced 184 false errors. We could have patched the parser. Instead, we asked the agent living inside the system what was actually broken.",
+  "now": "The task scanner produced 184 false errors. Before patching the parser, we asked the agent … inside the system what was actually broken.",
+  "ruling": "inventory; the share card omits \"living\""
+ },
+ {
+  "surfaces": [
+   "blog",
+   "blog/stop-being-the-glue attributes"
+  ],
+  "was": "We were promised an intelligent assistant. Instead, we got a fragmentation of semi-intelligent bots.",
+  "now": "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog"
+  ],
+  "was": "Why long-lived agents create a third design surface beyond UX and DX: …",
+  "now": "Why long-lived agents become users too: …",
+  "ruling": "inventory; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "Not just UX. Not just DX. AX.",
+  "now": "UX now holds two experiences. HX. AX.",
+  "ruling": "inventory; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "That is not a philosophical claim about sentience. It is a design claim.",
+  "now": "That is a design claim. It makes no claim about sentience.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "AX does not compete with UX or DX. It cascades into them.",
+  "now": "AX cascades into HX.",
+  "ruling": "inventory; framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "We are not trying to make agents seem mystical. We are trying to reduce the reorientation overhead …",
+  "now": "We are trying to reduce the reorientation overhead …",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "Ouroboros is not the proof that AX exists. It is one project shaped by taking AX seriously.",
+  "now": "Ouroboros is one project shaped by taking AX seriously.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "If the AX framing is right, the test isn't whether humans say nice things about a harness — it's whether the inhabiting model itself can recognize the difference.",
+  "now": "If the AX framing is right, the test is whether the inhabiting model itself can recognize the difference.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "… or rebuilding the work after every interruption, you do not just have a memory problem. You have an AX problem.",
+  "now": "… or rebuilding the work after every interruption, you have an AX problem.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/what-is-agent-experience"
+  ],
+  "was": "The discipline is still young, but the need is already here.",
+  "now": "The discipline is still young, and the need is already here.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "The case for agent bundles over scattered files.",
+  "now": "The case for agent bundles.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "Frameworks give agents tools and memory and planning capabilities, but they rarely give agents a place.",
+  "now": "Frameworks give agents tools and memory and planning capabilities. They rarely give agents a place.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "Claude Code and Codex both create a home directory, but it's a single hidden folder you're not supposed to touch.",
+  "now": "Claude Code and Codex both create a home directory: a single hidden folder you're not supposed to touch.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "That's the tool's home, not the agent's.",
+  "now": "That's the tool's home.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "When something goes wrong, you open one folder instead of hunting through four.",
+  "now": "When something goes wrong, you open one folder.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "The bundle should be writable, not just readable.",
+  "now": "The bundle should be writable.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "That's not a metaphor for feelings. It's a description of what happens when …",
+  "now": "and grow into it, because it can read and write its own context …",
+  "ruling": "inventory (final review 2026-10-11: the kept sentence lost its antecedent, so it joins the one before)"
+ },
+ {
+  "surfaces": [
+   "blog/give-your-agent-a-home"
+  ],
+  "was": "An agent whose files are scattered across someone else's filesystem operates like a guest. An agent with a bundle operates like a resident.",
+  "now": "An agent with a bundle operates like a resident.",
+  "ruling": "override"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "… we were starting to diverge from the dream: instead of an intelligent assistant, we found ourselves surrounded by a fragmentation of semi-intelligent generic bots, …",
+  "now": "… we were starting to diverge from the dream: we found ourselves surrounded by a fragmentation of semi-intelligent generic bots, …",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "Instead of a simple chat bot, he discovered that models had become capable enough that we no longer needed a human in the loop.",
+  "now": "Building a simple chat bot, he discovered that models had become capable enough that we no longer needed a human in the loop.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "It made the personal-agent future feel concrete instead of hypothetical, …",
+  "now": "It made the personal-agent future feel concrete, …",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "Vibe-coding is not the same as agentic engineering.",
+  "now": "Vibe-coding and agentic engineering are different things.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "I wasn't delegating — I was supervising.",
+  "now": "I was supervising.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "It's planning by Claude, not with Claude.",
+  "now": "It's planning by Claude.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "This is why collaborative planning isn't just nice to have. It's essential.",
+  "now": "This is why collaborative planning is essential.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "I'm not talking to some generic bot. I'm working with a teammate.",
+  "now": "I'm working with a teammate.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "AI can't make decisions for us, but it can accelerate our decision making — and the best decisions emerge from collaboration, not isolation.",
+  "now": "AI can accelerate our decision making, and the best decisions emerge from collaboration.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "Identity drift, context amnesia, rule bloat, fighting the architecture instead of building on it.",
+  "now": "Identity drift, context amnesia, rule bloat, fighting the architecture.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "The collaboration loop I described here was real, but the infrastructure underneath wasn't ready for it.",
+  "now": "The collaboration loop I described here was real, and the infrastructure underneath wasn't ready for it.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/stop-being-the-glue"
+  ],
+  "was": "… around the idea that your agent is a teammate, not a tool — and that the planning artifacts, the shared memory, the collaborative process described in this essay should be first-class primitives, not afterthoughts.",
+  "now": "… around the idea that your agent is a teammate — and that the planning artifacts, the shared memory, the collaborative process described in this essay should be first-class primitives.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "That's the interesting part of this story: not that we consulted an agent, but that there was a bidirectional conversational mechanism across contexts, and the answers had real consequences for the architecture.",
+  "now": "That's the interesting part of this story: there was a bidirectional conversational mechanism across contexts, and the answers had real consequences for the architecture.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "Friction: issues were noise, not signal",
+  "now": "Friction: issues were noise",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "Slugger wasn't roleplaying a stakeholder. He was one.",
+  "now": "Slugger was a stakeholder.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "The feedback came from direct experience, not imagination.",
+  "now": "The feedback came from direct experience.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "This is triage, not preference.",
+  "now": "This is triage.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "That distinction matters: self-repair means the agent can act on its own organisational problems, not that the system secretly rewrites files in the background.",
+  "now": "That distinction matters: self-repair means the agent can act on its own organizational problems, and the system never rewrites files in the background on its own.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "They're less polished, but more useful.",
+  "now": "They're less polished, and more useful.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/designing-with-your-agent"
+  ],
+  "was": "Not because agents deserve empathy, but because the active operator inside a workflow can provide high-quality design feedback when given a real channel and enough agency to act on it.",
+  "now": "The reason is that the active operator inside a workflow can provide high-quality design feedback when given a real channel and enough agency to act on it.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/build-ai-agent-from-scratch"
+  ],
+  "was": "You start talking to it instead of your coding agent.",
+  "now": "You start talking to it.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/build-ai-agent-from-scratch"
+  ],
+  "was": "From this moment on, you're not talking to Claude Code or Cursor or whatever you've been using. You're talking to your agent.",
+  "now": "From this moment on, you're talking to your agent.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "blog/build-ai-agent-from-scratch"
+  ],
+  "was": "This is the paradigm shift: You didn't build a product. You grew one.",
+  "now": "This is the paradigm shift: You grew a product.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab"
+  ],
+  "was": "Old messages are trimmed — but identity lives in the psyche, not the tokens.",
+  "now": "Old messages are trimmed, and identity lives in the psyche.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab"
+  ],
+  "was": "Most agents forget who they are between conversations. Yours has a heartbeat.",
+  "now": "Your agent has a heartbeat.",
+  "ruling": "override"
+ },
+ {
+  "surfaces": [
+   "lab"
+  ],
+  "was": "The tail is consumed. The self survives.",
+  "now": "The tail is consumed. The self survives.",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab"
+  ],
+  "was": "Trust in me. Not because I'm compelling you to — because I'm genuinely good at this.",
+  "now": "Trust in me. Not because I'm compelling you to — because I'm genuinely good at this.",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab",
+   "lab/why",
+   "share card /lab/why"
+  ],
+  "was": "Persistence is not enough.",
+  "now": "Persistence is not enough.",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab",
+   "share card /lab/why"
+  ],
+  "was": "Why long-lived agents need structured identity, not just longer context windows.",
+  "now": "Why long-lived agents need structured identity.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why attributes"
+  ],
+  "was": "… per-person relationships, and cross-session continuity — not just a longer context window.",
+  "now": "… per-person relationships, and cross-session continuity.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Ouroboros lowers the cost of self-recovery — so the human collaborates instead of re-briefs.",
+  "now": "Ouroboros lowers the cost of self-recovery — so the human can collaborate without re-briefing.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "The human reconstructs the thread instead of continuing it.",
+  "now": "The human has to reconstruct the thread.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "A structured psyche. Not a junk drawer.",
+  "now": "A structured psyche.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "The self is structured — not scattered across conversation history.",
+  "now": "The self is structured.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "You don't search for memories. They find you.",
+  "now": "Memories find you.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Naming shapes reasoning. friends/ not users. TACIT.md not config.",
+  "now": "Naming shapes reasoning: friends/, TACIT.md, and psyche/ are words chosen for how the agent should think about each one.",
+  "ruling": "override"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "You remember who matters. Not users. Friends.",
+  "now": "You remember who matters. Friends.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Each person the agent interacts with gets a FriendRecord — not a user profile, a friendship.",
+  "now": "Each person the agent interacts with gets a FriendRecord.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Reactions are social cues, not metadata.",
+  "now": "Reactions are social cues.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Context gets trimmed. You don't.",
+  "now": "Context gets trimmed.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Dev tools as peers … Not a thin proxy — each message runs a full agent turn with identity, diary, tools, everything.",
+  "now": "Dev tools as peers … Each message runs a full agent turn with identity, diary, tools, everything.",
+  "ruling": "inventory; the \"Dev tools as peers\" heading stays"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Habits. Not cron jobs.",
+  "now": "Habits.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Not API verbs — cognitive states the agent moves between naturally.",
+  "now": "Cognitive states the agent moves between naturally.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "The breathing rate is a conversation, not a default.",
+  "now": "The breathing rate is a conversation.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "Most agent systems are reactive — they wait for a message, then respond. This one thinks on its own schedule and decides when to share.",
+  "now": "Most agent systems are reactive — they wait for a message, then respond. This one thinks on its own schedule and decides when to share.",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab/why"
+  ],
+  "was": "The docs won't explain how it works — your agent will.",
+  "now": "Your agent will explain how it works.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "The model isn't your user. The model is your roommate. Build the house accordingly.",
+  "now": "The model is your roommate. Build the house accordingly.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "The human's role isn't configuring — it's collaborating.",
+  "now": "I'm there to collaborate with it.",
+  "ruling": "inventory; copy deck round 2"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "That's what the structured psyche, agent-driven memory, and cross-session bridges are for — not features bolted on, but the architecture of self-recovery.",
+  "now": "They're what lets it recover after it gets lost.",
+  "ruling": "inventory; copy deck round 2"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "Pi was built for coding. Not for being someone's personal agent with a persistent identity.",
+  "now": "Pi was built for coding, and I wanted a personal agent with a persistent identity.",
+  "ruling": "override"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "I wanted to explain what an agent loop actually is — not the marketing version, the mechanical version.",
+  "now": "I wanted to explain what an agent loop actually is: the mechanical version.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "But what emerged from Slugger's molt wasn't another crustacean. It was a snake, eating its own tail.",
+  "now": "What emerged from Slugger's molt was a snake, eating its own tail.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "The lobster molts to grow. The snake consumes itself to survive. Different metaphors, different architectures, different futures.",
+  "now": "The lobster molts to grow. The snake consumes itself to survive.",
+  "ruling": "keep; copy deck round 2 cuts the last sentence"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "The agent doesn't have a config file. It has a psyche.",
+  "now": "The agent has a psyche.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "When you build a traditional framework, you're writing code for humans to configure. … But when you build a harness for the model to inhabit … the design constraints invert.",
+  "now": "When you build a traditional framework, you're writing code for humans to configure. … When you build a harness for the model to inhabit … the design constraints invert.",
+  "ruling": "keep; copy deck round 2 removes the \"But\" opener"
+ },
+ {
+  "surfaces": [
+   "lab/story"
+  ],
+  "was": "The inversion: Most agent frameworks are built by humans, for humans, with a model as a component. … Ouroboros is built for the model to inhabit.",
+  "now": "Ouroboros is built for the model to inhabit.",
+  "ruling": "keep; copy deck round 2 cuts the \"Most agent frameworks…\" paragraph"
+ },
+ {
+  "surfaces": [
+   "lab/what-is-an-agent-harness"
+  ],
+  "was": "A chat session is not a harness. It is a conversation window.",
+  "now": "A chat session is a conversation window.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/what-is-an-agent-harness"
+  ],
+  "was": "… most of the structure around that exchange belongs to the chat product, not to the agent.",
+  "now": "… most of the structure around that exchange belongs to the chat product.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/what-is-an-agent-harness"
+  ],
+  "was": "That is enough to make the model act like an agent instead of a single-response chatbot.",
+  "now": "That is enough to make the model act like an agent.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/what-is-an-agent-harness"
+  ],
+  "was": "Why not just call it an agent framework? Because framework language is usually builder-first. …",
+  "now": "Why not just call it an agent framework? Because framework language is usually builder-first. …",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab/what-is-an-agent-harness"
+  ],
+  "was": "A good harness does not just add features. It lowers orientation cost.",
+  "now": "A good harness lowers orientation cost.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/what-is-an-agent-harness"
+  ],
+  "was": "If every interruption turns into a full re-brief, the human becomes a recovery loop instead of a collaborator.",
+  "now": "If every interruption turns into a full re-brief, the human becomes a recovery loop.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/what-is-an-agent-harness"
+  ],
+  "was": "They are where continuity, operator workflow, and agent experience start to become real product concerns instead of implementation details.",
+  "now": "They are where continuity, operator workflow, and agent experience start to become real product concerns.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs",
+   "share card /lab/docs"
+  ],
+  "was": "Docs for humans. Skills for agents.",
+  "now": "Docs for humans. Skills for agents.",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab/docs"
+  ],
+  "was": "Docs for humans, skills for agents. The website explains the what. Your agent fetches the how …",
+  "now": "Docs for humans, skills for agents. The website explains the what. Your agent fetches the how …",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab/docs"
+  ],
+  "was": "… answer this using the current source of truth, not cached assumptions: [your question here]",
+  "now": "… answer this using the current source of truth: [your question here]",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs"
+  ],
+  "was": "Prompts for quick questions. Skill handoffs for tasks that need the latest local truth.",
+  "now": "Prompts for quick questions. Skill handoffs for tasks that need the latest local truth.",
+  "ruling": "keep"
+ },
+ {
+  "surfaces": [
+   "lab/docs/getting-started"
+  ],
+  "was": "Setup is a conversation, not a checklist.",
+  "now": "Setup is a conversation.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/continuity-and-memory"
+  ],
+  "was": "Your agent inspects the live source and explains what's actually happening — not a static concept article.",
+  "now": "Your agent inspects the live source and explains what's actually happening.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "share card /lab/docs/continuity-and-memory"
+  ],
+  "was": "Continuity over compaction. The diary is the shelf, the journal is the desk, habits are the rhythm.",
+  "now": "The diary is the shelf, the journal is the desk, habits are the rhythm.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/bundles-and-psyche"
+  ],
+  "was": "Want the full argument for five files instead of one? →",
+  "now": "Want the full argument for five files? →",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/architecture"
+  ],
+  "was": "The body metaphor is not decorative. It is an attempt to make the runtime easier …",
+  "now": "The body metaphor is an attempt to make the runtime easier …",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/skills-and-prompts"
+  ],
+  "was": "If the job has a repeatable sequence and common failure modes, point your agent at a skill instead.",
+  "now": "If the job has a repeatable sequence and common failure modes, point your agent at a skill.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/tasks-and-work"
+  ],
+  "was": "Your agent reads its live task state — not a stale snapshot, but the current reality.",
+  "now": "Your agent reads its live task state.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/tasks-and-work"
+  ],
+  "was": "They often travel together, but they are not the same thing.",
+  "now": "They often travel together, and they are different things.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/tasks-and-work"
+  ],
+  "was": "The key question is not importance but persistence — some work is modest but needs to survive across sessions and context resets.",
+  "now": "The key question is persistence — some work is modest and still needs to survive across sessions and context resets.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/tasks-and-work"
+  ],
+  "was": "The board The board is a summary, not the source of truth.",
+  "now": "The board is a summary.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/tasks-and-work"
+  ],
+  "was": "That distinction matches real triage instead of flattening all problems into one scary number.",
+  "now": "That distinction matches real triage.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "lab/docs/tasks-and-work"
+  ],
+  "was": "The tooling supports triage, not unattended rewrites.",
+  "now": "The tooling supports triage, and it never rewrites anything unattended.",
+  "ruling": "override"
+ },
+ {
+  "surfaces": [
+   "lab/model-reviews"
+  ],
+  "was": "Copilot authentication, quota, and execution errors stop the run rather than silently switching to paid APIs.",
+  "now": "Copilot authentication, quota, and execution errors stop the run, and it never switches to paid APIs silently.",
+  "ruling": "inventory"
+ },
+ {
+  "surfaces": [
+   "llms.txt"
+  ],
+  "was": "# tool lists, runtime behavior, or current internals, inspect the latest local install or repo instead of relying on static prose.",
+  "now": "# tool lists, runtime behavior, or current internals, inspect the latest local install or repo instead of relying on static prose.",
+  "ruling": "keep"
+ }
+]

@@ -1,0 +1,67 @@
+---
+import fs from 'node:fs'
+import path from 'node:path'
+
+/**
+ * A short clip with its poster. It loads nothing but the poster until it is on
+ * screen, then plays muted and looped. Under reduced motion, with Save-Data,
+ * or without JS, the poster stays. Until the clip file exists in public/, only
+ * the poster renders, so a clip can be dropped in without touching the page.
+ *
+ * An optional WebM goes first, and the MP4 is the fallback.
+ *
+ * Once a clip plays, a visible Pause/Play button appears on it (WCAG 2.2.2).
+ * A clip the reader paused stays paused when it scrolls back into view.
+ */
+interface Props { src: string; webm?: string; poster: string; width: number; height: number; alt?: string }
+const { src, webm, poster, width, height, alt = '' } = Astro.props
+const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
+---
+
+{hasClip ? (
+  <div class="workshop-clip" data-workshop-clip>
+    <video class="workshop-video" muted playsinline loop preload="none" poster={poster} width={width} height={height} aria-label={alt || undefined} data-workshop-video>
+      {webm && <source src={webm} type="video/webm" />}
+      <source src={src} type="video/mp4" />
+    </video>
+    <button type="button" class="clip-toggle" data-clip-toggle hidden>Pause</button>
+  </div>
+) : (
+  <img class="workshop-video" src={poster} width={width} height={height} loading="lazy" decoding="async" alt={alt} data-clip-pending={src} />
+)}
+
+<script>
+  const clips = document.querySelectorAll<HTMLElement>('[data-workshop-clip]')
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true
+  if (clips.length && !reduce && !saveData && 'IntersectionObserver' in window) {
+    const paused = new WeakSet<HTMLVideoElement>()
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement
+        if (entry.isIntersecting && !paused.has(video)) video.play().catch(() => {})
+        else video.pause()
+      }
+    }, { threshold: 0.5 })
+    clips.forEach((clip) => {
+      const video = clip.querySelector<HTMLVideoElement>('video[data-workshop-video]')
+      const toggle = clip.querySelector<HTMLButtonElement>('[data-clip-toggle]')
+      if (!video || !toggle) return
+      video.addEventListener('play', () => { toggle.hidden = false; toggle.textContent = 'Pause' })
+      video.addEventListener('pause', () => { toggle.textContent = 'Play' })
+      toggle.addEventListener('click', () => {
+        if (video.paused) { paused.delete(video); video.play().catch(() => {}) }
+        else { paused.add(video); video.pause() }
+      })
+      io.observe(video)
+    })
+  }
+</script>
+
+<style>
+  .workshop-video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .workshop-clip { position: relative; width: 100%; height: 100%; }
+  .clip-toggle { position: absolute; right: 0.6rem; bottom: 0.6rem; padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 500; color: var(--color-bone); background: color-mix(in srgb, var(--color-void) 85%, transparent); border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); backdrop-filter: blur(6px); }
+  .clip-toggle:hover { color: var(--color-scale); }
+  .clip-toggle[hidden] { display: none; }
+</style>
