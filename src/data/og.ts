@@ -35,10 +35,14 @@ import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
     read as "reviews of what?" to a fresh viewer. When in doubt, omit it.
 */
 
+// The approved product renders in src/og/marks. Pages without one show Ouro.
+export type OgMark = 'ouro' | 'desk' | 'ouro-md' | 'ouro-hx' | 'factory' | 'friends' | 'shepherd'
+
 export interface OgEntry {
   title: string
   subtitle?: string
   tag?: string
+  mark?: OgMark
 }
 
 const { winner, allChose, winnerCount, totalReviews } = getModelReviewClaims(modelReviews)
@@ -49,7 +53,7 @@ const labReviewSummary = `We gave frontier models ${modelReviews.harnesses.lengt
 export const pageOg: Record<string, OgEntry> = {
   '/': {
     title: 'How do you effectively collaborate with agents?',
-    subtitle: "Hello!! I'm Ari. I build products for humans + agents.",
+    subtitle: "Hello!! I'm Ari. I build products that help humans and agents do more together.",
   },
   '/approach': {
     title: 'How I work.',
@@ -64,11 +68,13 @@ export const pageOg: Record<string, OgEntry> = {
     title: 'Desk: where my agents keep their work.',
     subtitle: 'Give your agent one link and say "set this up". An alpha for Claude Code and GitHub Copilot CLI.',
     tag: 'Desk',
+    mark: 'desk',
   },
   '/ouro-md': {
     title: 'Ouro MD: read and answer what your agent writes.',
     subtitle: 'A native Markdown editor for macOS 13 or later. Live updates, quiet marks where your agent changed things.',
     tag: 'Ouro MD',
+    mark: 'ouro-md',
   },
   '/lab': {
     title: 'The harness: where all of this started.',

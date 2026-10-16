@@ -4,6 +4,7 @@ import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import { labStatusFor } from '../data/lab.mjs'
 import PostEnd from '../components/PostEnd.astro'
+import { pageOg, routePathForSlug } from '../data/og'
 
 interface Props {
   title: string
@@ -21,6 +22,10 @@ const {
   ogType = 'website',
 } = Astro.props
 const lab = labStatusFor(Astro.url.pathname)
+// The card's alt text says what the generated card says.
+const ogSlug = ogImage.match(/\/og\/(og-[^/]+)\.png$/)?.[1]
+const ogEntry = ogSlug ? pageOg[routePathForSlug(ogSlug) ?? ''] : undefined
+const ogAlt = ogEntry ? [ogEntry.title, ogEntry.subtitle].filter(Boolean).join(' ') : title
 // Every blog post ends with the same short route onward: Desk, the factory, the approach.
 const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
 ---
@@ -42,12 +47,16 @@ const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:image" content={`https://ouroboros.bot${ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content="Ouroboros" />
+    <meta property="og:site_name" content="Ouro" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`https://ouroboros.bot${ogImage}`} />
+    <meta name="twitter:image:alt" content={ogAlt} />
     <link rel="canonical" href={canonical} />
     <slot name="head" />
 
