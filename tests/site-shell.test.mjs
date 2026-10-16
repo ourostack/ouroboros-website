@@ -40,8 +40,10 @@ test('homepage head and hero follow the deck, with a small portrait linking to m
   // root misses ruling 2.13: one title suffix site-wide.
   // Ari, 2026-10-16: the suffix is the brand, Ouro; the h1 asks the question his work answers.
   assert.match(html, /<title>How can humans and agents do more together\? \| Ouro<\/title>/);
+  // The description sits beside the Ouro character in link previews, so it speaks about Ari, not as him.
+  const meta = "Ari Mendelow's workshop: the tools he's built for working with agents, how he uses them, and where it all started.";
+  assert.ok(html.includes(`<meta name="description" content="${meta.replace(/'/g, '&#39;')}"`) || html.includes(`<meta name="description" content="${meta}"`), 'Meta description');
   const description = "Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.";
-  assert.ok(html.includes(`<meta name="description" content="${description.replace(/'/g, '&#39;')}"`) || html.includes(`<meta name="description" content="${description}"`), 'Meta description');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How can humans and agents do more together?');
   const text = homeText();
