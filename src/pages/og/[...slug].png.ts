@@ -114,6 +114,7 @@ export const GET: APIRoute = async ({ params }) => {
           lineHeight: 1.04,
           letterSpacing: '-0.01em',
           color: COLOR.ink,
+          textWrap: 'balance',
         }, title),
         ...(subtitle ? [div({
           display: 'flex',
@@ -121,6 +122,7 @@ export const GET: APIRoute = async ({ params }) => {
           lineHeight: 1.4,
           color: COLOR.mist,
           marginTop: '28px',
+          textWrap: 'balance',
         }, subtitle)] : []),
       ]),
       // Product mark

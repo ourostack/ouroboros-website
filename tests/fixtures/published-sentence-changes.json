@@ -2456,8 +2456,8 @@
  {
   "page": "lab",
   "was": "How building an AI agent plugin led to building an agent harness from scratch.",
-  "now": "How a plugin for my OpenClaw agent turned into a harness I built from scratch.",
-  "why": "copy deck round 2: /lab/story edit pass: the /lab card reads the /lab/story share-card dek"
+  "now": "How a plugin for an OpenClaw agent named Slugger turned into a harness built from scratch.",
+  "why": "copy deck round 2: /lab/story edit pass: the /lab card reads the /lab/story share-card dek; then Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
  },
  {
   "page": "lab/story",
@@ -2936,20 +2936,20 @@
  {
   "page": "share card /",
   "was": "Here's how I believe it works, what I use to support it, and what you can try.",
-  "now": "I'm Ari, and that question is behind everything I build.",
-  "why": "copy deck: the homepage share card subtitle becomes the hero sub; Ari, 2026-10-15: the opening he approved for mendelow.me (\"I build products that help humans and agents do more together.\"), carried to the workshop; then Ari, 2026-10-16: the homepage h1 becomes the question his work answers, \"How can humans and agents do more together?\", and the greeting points at it instead of repeating it"
+  "now": "Ari Mendelow's workshop: tools for working with agents, how he uses them, and where it all started.",
+  "why": "copy deck: the homepage share card subtitle becomes the hero sub; Ari, 2026-10-15: the opening he approved for mendelow.me (\"I build products that help humans and agents do more together.\"), carried to the workshop; then Ari, 2026-10-16: the homepage h1 becomes the question his work answers, \"How can humans and agents do more together?\", and the greeting points at it instead of repeating it; then Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
  },
  {
   "page": "share card /approach",
   "was": "How I build with agents.",
-  "now": "How I work.",
-  "why": "copy deck round 2: /approach title"
+  "now": "How Ari works with agents.",
+  "why": "copy deck round 2: /approach title; then Ari, 2026-10-16 cringe pass: the card shows the Ouro character, so its title names Ari instead of speaking as \"I\" (the tag keeps the page's name, ruling F5)"
  },
  {
   "page": "share card /approach",
   "was": "Three smells and five principles, with my own words for each.",
-  "now": "The three acts, three smells, and five principles I use to work with agents on jobs that take days.",
-  "why": "copy deck round 2: no quoting Ari on his own site, so the card uses the /approach meta description"
+  "now": "Three acts, three smells, and five principles for working with agents on jobs that take days.",
+  "why": "copy deck round 2: no quoting Ari on his own site, so the card uses the /approach meta description; then Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
  },
  {
   "page": "share card /desk",
@@ -2972,8 +2972,8 @@
  {
   "page": "share card /lab/story",
   "was": "How building an AI agent plugin led to building an agent harness from scratch.",
-  "now": "How a plugin for my OpenClaw agent turned into a harness I built from scratch.",
-  "why": "copy deck round 2: /lab/story dek"
+  "now": "How a plugin for an OpenClaw agent named Slugger turned into a harness built from scratch.",
+  "why": "copy deck round 2: /lab/story dek; then Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
  },
  {
   "page": "share card /blog/trust-the-agent",
@@ -3224,8 +3224,8 @@
  {
   "page": "share card /blog",
   "was": "Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.",
-  "now": "Essays on agent experience, persistent agents, and software shaped for the thing inside it.",
-  "why": "root final ruling F8 (2026-10-11): the blog description and share card say \"agent experience\""
+  "now": "Agent Experience, persistent agents, and software designed for the agents working inside it.",
+  "why": "root final ruling F8 (2026-10-11): the blog description and share card say \"agent experience\"; then Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
  },
  {
   "page": "index",
@@ -4084,5 +4084,23 @@
   "was": "How do you effectively collaborate with agents?",
   "now": "How can humans and agents do more together?",
   "why": "Ari, 2026-10-16: the homepage h1 becomes the question his work answers, \"How can humans and agents do more together?\", and the greeting points at it instead of repeating it"
+ },
+ {
+  "page": "share card /desk",
+  "was": "Desk: where my agents keep their work.",
+  "now": "Desk: where agents keep their work.",
+  "why": "Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
+ },
+ {
+  "page": "share card /blog",
+  "was": "Dispatches from the serpent.",
+  "now": "Essays on working with agents.",
+  "why": "Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
+ },
+ {
+  "page": "share card /blog/stop-being-the-glue",
+  "was": "How I stopped copy-pasting between AI tools and started collaborating with one persistent agent.",
+  "now": "Stop copy-pasting between tools, and start collaborating with one persistent agent.",
+  "why": "Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
  }
 ]

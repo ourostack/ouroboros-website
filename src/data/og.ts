@@ -53,11 +53,11 @@ const labReviewSummary = `We gave frontier models ${modelReviews.harnesses.lengt
 export const pageOg: Record<string, OgEntry> = {
   '/': {
     title: 'How can humans and agents do more together?',
-    subtitle: "Hello!! I'm Ari, and that question is behind everything I build.",
+    subtitle: "Ari Mendelow's workshop: tools for working with agents, how he uses them, and where it all started.",
   },
   '/approach': {
-    title: 'How I work.',
-    subtitle: 'The three acts, three smells, and five principles I use to work with agents on jobs that take days.',
+    title: 'How Ari works with agents.',
+    subtitle: 'Three acts, three smells, and five principles for working with agents on jobs that take days.',
     tag: 'How I work',
   },
   '/brief': {
@@ -65,7 +65,7 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Five principles for working with agents, written for your agent to read. No install.',
   },
   '/desk': {
-    title: 'Desk: where my agents keep their work.',
+    title: 'Desk: where agents keep their work.',
     subtitle: 'Give your agent one link and say "set this up". For Claude Code and GitHub Copilot CLI, with Crew for teams.',
     tag: 'Desk',
     mark: 'desk',
@@ -88,7 +88,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/lab/story': {
     title: 'Code a model can use, not code that uses a model.',
-    subtitle: 'How a plugin for my OpenClaw agent turned into a harness I built from scratch.',
+    subtitle: 'How a plugin for an OpenClaw agent named Slugger turned into a harness built from scratch.',
     tag: 'Origin story',
   },
   '/lab/what-is-an-agent-harness': {
@@ -107,8 +107,8 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Documentation',
   },
   '/blog': {
-    title: 'Dispatches from the serpent.',
-    subtitle: 'Essays on agent experience, persistent agents, and software shaped for the thing inside it.',
+    title: 'Essays on working with agents.',
+    subtitle: 'Agent Experience, persistent agents, and software designed for the agents working inside it.',
     tag: 'Blog',
   },
   '/blog/trust-the-agent': {
@@ -138,7 +138,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/stop-being-the-glue': {
     title: 'Stop being the glue between your AI tools.',
-    subtitle: 'How I stopped copy-pasting between AI tools and started collaborating with one persistent agent.',
+    subtitle: 'Stop copy-pasting between tools, and start collaborating with one persistent agent.',
     tag: 'Essay',
   },
   '/blog/build-ai-agent-from-scratch': {
