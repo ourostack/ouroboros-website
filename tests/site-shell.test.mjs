@@ -39,7 +39,7 @@ test('homepage head and hero follow the deck, with a small portrait linking to m
   const html = readDist('index.html');
   // root misses ruling 2.13: one title suffix site-wide.
   assert.match(html, /<title>How do you effectively collaborate with agents\? \| Ouroboros<\/title>/);
-  const description = "Hello!! I'm Ari. I build products for humans + agents. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.";
+  const description = "Hello!! I'm Ari. I build products that help humans and agents do more together. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.";
   assert.ok(html.includes(`<meta name="description" content="${description.replace(/'/g, '&#39;')}"`) || html.includes(`<meta name="description" content="${description}"`), 'Meta description');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How do you effectively collaborate with agents?');
@@ -285,7 +285,7 @@ test('homepage puts the factory in Lean terms, with sources and the eight wastes
     'Taiichi Ohno described the Toyota Production System as watching the timeline from order to cash and shrinking it by removing the waste.',
     'Toyota built it on "respect for people and continuous improvement," and on making work easier for the worker.',
     'Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened.',
-    `Agents are the newest workers on the line. AI "amplifies what's already there" (DORA 2025). In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster (METR). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.`,
+    `Agents are the newest workers on the line. They amplify what's already there (DORA 2025). In one study, experienced developers took 19% longer with early-2025 coding assistants while believing they'd gone about 20% faster (METR). So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.`,
     "Here's one: our CI took 36 minutes, and an agent started designing a way around it. I asked what was taking so long. It was mostly coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.",
     "Lean's eight wastes, as they show up with agents",
     'Waiting An agent stops to ask what you could have told it up front.',
@@ -351,7 +351,7 @@ test('homepage deck lines appear in the deck order', () => {
   const text = homeText();
   const order = [
     'How do you effectively collaborate with agents?',
-    "Hello!! I'm Ari. I build products for humans + agents.",
+    "Hello!! I'm Ari. I build products that help humans and agents do more together.",
     "Things I've built",
     'A heart, a mind, nerves, and senses:',
     "This is the agent harness I built from scratch, and it's where I test what agents need.",

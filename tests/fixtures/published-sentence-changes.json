@@ -2936,8 +2936,8 @@
  {
   "page": "share card /",
   "was": "Here's how I believe it works, what I use to support it, and what you can try.",
-  "now": "I'm Ari. I build products for humans + agents.",
-  "why": "copy deck: the homepage share card subtitle becomes the hero sub"
+  "now": "I'm Ari. I build products that help humans and agents do more together.",
+  "why": "copy deck: the homepage share card subtitle becomes the hero sub; Ari, 2026-10-15: the opening he approved for mendelow.me (\"I build products that help humans and agents do more together.\"), carried to the workshop"
  },
  {
   "page": "share card /approach",
@@ -3736,5 +3736,29 @@
   "was": "The third design surface that appears when an agent has to stay oriented inside the system it inhabits.",
   "now": "The side of UX that appears when an agent has to stay oriented inside the system it inhabits.",
   "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+ },
+ {
+  "page": "index",
+  "was": "I build products for humans + agents.",
+  "now": "I build products that help humans and agents do more together.",
+  "why": "Ari, 2026-10-15: the opening he approved for mendelow.me (\"I build products that help humans and agents do more together.\"), carried to the workshop"
+ },
+ {
+  "page": "index",
+  "was": "AI \"amplifies what's already there\" ( DORA 2025 ).",
+  "now": "They amplify what's already there",
+  "why": "Ari, 2026-10-15: never use the acronym AI; say agents when we mean agents"
+ },
+ {
+  "page": "index",
+  "was": "In one study, experienced developers took 19% longer with AI tools while believing they'd gone about 20% faster ( METR ).",
+  "now": "took 19% longer with early-2025 coding assistants",
+  "why": "Ari, 2026-10-15: never use the acronym AI; say agents when we mean agents"
+ },
+ {
+  "page": "index attributes",
+  "was": "I'm Ari. I build products for humans + agents. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.",
+  "now": "I'm Ari. I build products that help humans and agents do more together. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.",
+  "why": "Ari, 2026-10-15: the opening he approved for mendelow.me, carried to the workshop's meta description"
  }
 ]
