@@ -38,11 +38,12 @@ const assertLines = (text, lines, where = 'Homepage') => {
 test('homepage head and hero follow the deck, with a small portrait linking to mendelow.me', () => {
   const html = readDist('index.html');
   // root misses ruling 2.13: one title suffix site-wide.
-  assert.match(html, /<title>How do you effectively collaborate with agents\? \| Ouroboros<\/title>/);
-  const description = "Hello!! I'm Ari. I build products that help humans and agents do more together. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.";
+  // Ari, 2026-10-16: the suffix is the brand, Ouro; the h1 asks the question his work answers.
+  assert.match(html, /<title>How can humans and agents do more together\? \| Ouro<\/title>/);
+  const description = "Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.";
   assert.ok(html.includes(`<meta name="description" content="${description.replace(/'/g, '&#39;')}"`) || html.includes(`<meta name="description" content="${description}"`), 'Meta description');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
-  assert.equal(h1, 'How do you effectively collaborate with agents?');
+  assert.equal(h1, 'How can humans and agents do more together?');
   const text = homeText();
   assert.ok(text.includes(description));
   assert.match(html, /<a href="https:\/\/mendelow\.me" class="hero-pic[^"]*"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
@@ -365,8 +366,8 @@ test('homepage deck lines appear in the deck order', () => {
   // Each must appear after the one before it in the page's reading order.
   const text = homeText();
   const order = [
-    'How do you effectively collaborate with agents?',
-    "Hello!! I'm Ari. I build products that help humans and agents do more together.",
+    'How can humans and agents do more together?',
+    "Hello!! I'm Ari, and that question is behind everything I build.",
     "Things I've built",
     'A heart, a mind, nerves, and senses:',
     "This is the agent harness I built from scratch, and it's where I test what agents need.",
@@ -550,7 +551,7 @@ test('approach page has its own heading, not the homepage question', () => {
   const html = readDist('approach/index.html');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
   assert.equal(h1, 'How I work');
-  assert.match(html, /<title>How I work \| Ouroboros<\/title>/);
+  assert.match(html, /<title>How I work \| Ouro<\/title>/);
   assert.match(html, /<meta name="description" content="The three acts, three smells, and five principles I use to work with agents on jobs that take days\."/);
   assert.doesNotMatch(textOf(html), /Here's how I believe it works/);
   assert.ok(hrefsOf(html).includes('/brief/'));
@@ -711,7 +712,7 @@ test('the story opens with who Slugger is and ends with where it went, with no d
   const html = readDist('lab/story/index.html');
   const text = plain(html);
   // root misses ruling 2.13: one title suffix site-wide.
-  assert.match(html, /<title>Code a model can use: how Ouroboros started \| Ouroboros<\/title>/);
+  assert.match(html, /<title>Code a model can use: how Ouroboros started \| Ouro<\/title>/);
   // root misses ruling 7.7: the byline says when the orientation box was added.
   assert.ok(text.includes('Ari Mendelow · March 2026, updated October 2026'));
   assert.ok(text.includes('How a plugin for my OpenClaw agent turned into a harness I built from scratch.'));

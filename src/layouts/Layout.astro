@@ -16,7 +16,7 @@ interface Props {
 
 const {
   title,
-  description = "How do you effectively collaborate with agents? Here's how I believe it works, what I use to support it, and what you can try.",
+  description = "How can humans and agents do more together? Here's how I believe it works, what I use to support it, and what you can try.",
   ogImage = '/og/og-home.png',
   canonical = `https://ouroboros.bot${Astro.url.pathname}`,
   ogType = 'website',
@@ -63,9 +63,9 @@ const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Ouroboros",
+      "name": "Ouro",
       "url": "https://ouroboros.bot",
-      "description": "How do you effectively collaborate with agents? The approach, the tools that support it, and what you can try.",
+      "description": "How can humans and agents do more together? The approach, the tools that support it, and what you can try.",
       "publisher": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" }
     })} />
   </head>

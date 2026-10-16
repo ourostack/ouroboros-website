@@ -17,7 +17,7 @@ test('root final ruling F5: the /approach share card says "How I work"', () => {
 
 test('root final ruling F8: the blog index uses the story dek, an "Essays on agents" title, and "agent experience" in its lead', () => {
   const html = readDist('blog/index.html');
-  assert.match(html, /<title>Essays on agents \| Ouroboros blog<\/title>/);
+  assert.match(html, /<title>Essays on agents \| Ouro blog<\/title>/);
   const text = pageText('blog/index.html');
   assert.ok(text.includes('How a plugin for my OpenClaw agent turned into a harness I built from scratch.'), 'The origin-story card uses the /lab/story dek');
   assert.ok(pageText('lab/story/index.html').includes('How a plugin for my OpenClaw agent turned into a harness I built from scratch.'), 'The dek matches /lab/story');
