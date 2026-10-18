@@ -74,9 +74,9 @@ test('homepage shows eight things I\'ve built, each with captioned media and its
     'Dramatization Ned Land plans the periscope overhaul in Claude Code. At dawn, Conseil asks Copilot CLI where they were, and it knows.',
     `Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.`,
     "A heart, a mind, nerves, and senses: the real source folders, named so the agent can find its way around its own body.",
-    "This is the agent harness I built from scratch, and it's where I test what agents need. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how my agent used what I gave it. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.",
+    "Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use. Building it, I watched closely how my agent used what I gave it. Did it pick the right tool and finish the job without getting confused? When it didn't, I asked it why and changed the design. That habit is what I call Agent Experience.",
     'My mushroom risotto in Spoonjoy, one tap from cook mode.',
-    "My recipe app. I've rebuilt it every time I learned a new way to build software. The easy things, like finding a recipe and cooking from it, stay in the app. Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses. For everything in between, I believe the app will eventually draw its own UI.",
+    "Spoonjoy is my recipe app, built to cook from. It's also where I work out what an app's interface is for once an agent is in the loop. The easy things stay in the app. Anything complicated, such as writing up a new recipe or importing one from a messy webpage, goes to an agent that works through the same operations the app uses, and I believe the app will eventually draw its own interface for everything in between.",
     'Ouro MD →', 'Desk →', 'The harness →', 'What is Agent Experience? →', 'Spoonjoy, from the start ↗', 'spoonjoy.app ↗',
   ]);
   for (const href of ['/ouro-md/', '/desk/', '/lab/', '/blog/what-is-agent-experience/', 'https://mendelow.me/#spoonjoy-story', 'https://spoonjoy.app', 'https://github.com/ourostack/m365crawl']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
@@ -84,7 +84,7 @@ test('homepage shows eight things I\'ve built, each with captioned media and its
   // Copy deck round 2: the m365crawl card comes fourth, before Spoonjoy.
   assertLines(text, [
     'The doctor, giving an archive its checkup.',
-    'It gives my agent one local, searchable archive of my Teams chats, Outlook mail, and meetings, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, without me pasting a thing.',
+    'm365crawl gives my agent one local, searchable archive of my Teams chats, Outlook mail, and meetings, read from what my signed-in apps already cached. My agent can find the conversation and walk into the meeting prepared, without me pasting a thing.',
     'm365crawl on GitHub ↗',
   ]);
   const cards = [...html.matchAll(/<article class="product[^"]*" id="([^"]+)"/g)].map(([, id]) => id);
@@ -295,7 +295,7 @@ test('homepage puts the factory in Lean terms, with sources and the eight wastes
   const text = homeText();
   assertLines(text, [
     "Everyone's building a software factory.",
-    "Software factories, SaaS factories, agents shipping code all night. I love the ambition. Real factories have a century of practice behind them, and I'd like to bring some of it along.",
+    "Software factories, SaaS factories, agents shipping code all night. I love the ambition. Real factories have a century of practice behind them, and I want to bring some of it along.",
     // root misses ruling 2.12.
     'I studied Industrial and Systems Engineering before I became a software engineer. My favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Lean is the part of that world I reach for most, because it starts with where the time goes.',
     'What Lean already knows',
@@ -372,13 +372,13 @@ test('homepage deck lines appear in the deck order', () => {
     "Hello!! I'm Ari, and that question is behind everything I build.",
     "Things I've built",
     'A heart, a mind, nerves, and senses:',
-    "This is the agent harness I built from scratch, and it's where I test what agents need.",
+    "Ouroboros is the agent harness I built from scratch, and it's where I test what agents need.",
     'Ned Land plans the periscope overhaul in Claude Code.',
     "Desk keeps my agents' work in a Git repository",
     "Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes.",
     'A Markdown editor for the Mac that renders as you type.',
-    'It gives my agent one local, searchable archive',
-    'My recipe app.',
+    'm365crawl gives my agent one local, searchable archive',
+    'Spoonjoy is my recipe app, built to cook from.',
     'How I work',
     'I see this agentic era in three acts:',
     'Capability.', 'Orientation.', 'Work design.',

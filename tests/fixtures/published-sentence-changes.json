@@ -2258,8 +2258,8 @@
  {
   "page": "index",
   "was": "Ouroboros The harness my agents live in.",
-  "now": "Ouroboros This is the agent harness I built from scratch, and it's where I test what agents need.",
-  "why": "copy deck round 2: homepage: Ouroboros body; then Ari, 2026-10-11 preview feedback"
+  "now": "Ouroboros Ouroboros is the agent harness I built from scratch, and it's where I test what agents need.",
+  "why": "copy deck round 2: homepage: Ouroboros body; then Ari, 2026-10-11 preview feedback; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
  },
  {
   "page": "index",
@@ -2270,14 +2270,14 @@
  {
   "page": "index",
   "was": "Spoonjoy My recipe app, and the one project that's followed my whole software journey.",
-  "now": "Spoonjoy My recipe app.",
-  "why": "copy deck round 2: homepage: Spoonjoy body"
+  "now": "Spoonjoy Spoonjoy is my recipe app, built to cook from.",
+  "why": "copy deck round 2: homepage: Spoonjoy body; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
  },
  {
   "page": "index",
   "was": "I believe generative UI eventually fills the middle.",
-  "now": "For everything in between, I believe the app will eventually draw its own UI.",
-  "why": "copy deck round 2: homepage: Spoonjoy body"
+  "now": "It's also where I work out what an app's interface is for once an agent is in the loop.",
+  "why": "copy deck round 2: homepage: Spoonjoy body; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
  },
  {
   "page": "index",
@@ -2306,8 +2306,8 @@
  {
   "page": "index",
   "was": "Factories have a century of methodology behind them, and almost none of it has made the jump yet.",
-  "now": "Real factories have a century of practice behind them, and I'd like to bring some of it along.",
-  "why": "copy deck round 2: homepage: factory P1"
+  "now": "Real factories have a century of practice behind them, and I want to bring some of it along.",
+  "why": "copy deck round 2: homepage: factory P1; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
  },
  {
   "page": "index",
@@ -4102,5 +4102,17 @@
   "was": "How I stopped copy-pasting between AI tools and started collaborating with one persistent agent.",
   "now": "Stop copy-pasting between tools, and start collaborating with one persistent agent.",
   "why": "Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
+ },
+ {
+  "page": "index",
+  "was": "The easy things, like finding a recipe and cooking from it, stay in the app.",
+  "now": "The easy things stay in the app.",
+  "why": "Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
+ },
+ {
+  "page": "index",
+  "was": "Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses.",
+  "now": "Anything complicated, such as writing up a new recipe or importing one from a messy webpage, goes to an agent that works through the same operations the app uses, and I believe the app will eventually draw its own interface for everything in between.",
+  "why": "Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
  }
 ]
