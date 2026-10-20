@@ -7,10 +7,10 @@
  * headline, `Active tasks (n):`, tasks grouped by state with the blocked group
  * first (`BLOCKED (n): these cannot move until the blocker clears`), and each
  * task as `- track/slug` with a `blocker:` or `next:` line under it. The
- * `task_create periscope/overhaul` call is shown as a tool call with its next
- * step, condensed from the card it writes. The crew, tracks, steps and the
- * agent's lines are the Nautilus dramatization in copy deck round 2
- * (2026-10-11).
+ * `task_create spoonjoy/recipe-import` call is shown as a tool call with its next
+ * step, condensed from the card it writes. The tracks, steps and the agent's
+ * lines are a dramatization on the same sample desk as DeskBootPreview (Ari,
+ * 2026-10-19: the Nautilus story was an in-joke nobody would get).
  *
  * Without JS, under reduced motion, or if the module fails to load, the final
  * frame (scene 2, complete) is what renders. The module arms it: scene 1's
@@ -21,8 +21,8 @@
  * yet shown keeps its space, so the box is the final frame's height
  * throughout and the page below never moves.
  *
- * Below 640px, scene 2 drops the blocked group's explanation and the salon
- * task, and its counts follow, so the reserved height is smaller on a phone
+ * Below 640px, scene 2 drops the blocked group's explanation and the print
+ * preview task, and its counts follow, so the reserved height is smaller on a phone
  * (root final ruling F4). The host bar wraps its title instead of truncating
  * it, and the two titles and the two buttons each share one cell, so the bar
  * is the same height in every state (F3).
@@ -37,44 +37,44 @@ const blocked = 'BLOCKED (1): these cannot move until the blocker clears'
 
 const scenes: { id: string; title: string; lines: Line[] }[] = [
   {
-    id: 'ned',
-    title: 'ned@laptop · Claude Code',
+    id: 'evening',
+    title: 'ari@laptop · Claude Code',
     lines: [
       // A phone shortens the host, so the boot line fits on one line (root misses ruling 8.5).
-      { text: 'Desk boot: ok | host laptop / ned / claude', tone: 'mist', opening: true, only: 'wide' },
-      { text: 'Desk boot: ok | host laptop/ned', tone: 'mist', opening: true, only: 'narrow' },
-      { text: '> Plan the periscope overhaul', tone: 'prompt', opening: true },
+      { text: 'Desk boot: ok | host laptop / ari / claude', tone: 'mist', opening: true, only: 'wide' },
+      { text: 'Desk boot: ok | host laptop/ari', tone: 'mist', opening: true, only: 'narrow' },
+      { text: '> Plan the recipe import', tone: 'prompt', opening: true },
       { text: '', tone: 'mist' },
-      { text: '⏺ task_create periscope/overhaul', tone: 'tool' },
-      { text: '  ⎿ Next step: survey the lens, the seals, and the hoist', tone: 'glow' },
+      { text: '⏺ task_create spoonjoy/recipe-import', tone: 'tool' },
+      { text: '  ⎿ Next step: run the three test recipes', tone: 'glow' },
       { text: '', tone: 'mist' },
-      { text: "⏺ Filed under periscope. I'll start with the lens survey tomorrow.", tone: 'bone' },
+      { text: "⏺ Filed under spoonjoy. I'll start with the three test recipes tomorrow.", tone: 'bone' },
     ],
   },
   {
-    id: 'conseil',
-    title: 'conseil@mac2 · Copilot CLI · next morning',
+    id: 'morning',
+    title: 'ari@mac-mini · Copilot CLI · next morning',
     lines: [
       { text: '> where were we?', tone: 'prompt' },
-      { text: 'Desk boot: ok | host mac2 / conseil / copilot', tone: 'mist', only: 'wide' },
-      { text: 'Desk boot: ok | host mac2/conseil', tone: 'mist', only: 'narrow' },
+      { text: 'Desk boot: ok | host mac-mini / ari / copilot', tone: 'mist', only: 'wide' },
+      { text: 'Desk boot: ok | host mac-mini/ari', tone: 'mist', only: 'narrow' },
       { text: 'Active tasks (4):', tone: 'bone', only: 'wide' },
       { text: 'Active tasks (3):', tone: 'bone', only: 'narrow' },
       { text: blocked, tone: 'fang', only: 'wide' },
       { text: 'BLOCKED (1)', tone: 'fang', only: 'narrow' },
-      { text: '- ballast/pump-3', tone: 'bone' },
-      { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
+      { text: '- spoonjoy/app-store', tone: 'bone' },
+      { text: '  blocker: waiting on App Review', tone: 'mist' },
       { text: 'processing (2)', tone: 'scale', only: 'wide' },
       { text: 'processing (1)', tone: 'scale', only: 'narrow' },
-      { text: '- periscope/overhaul', tone: 'bone' },
-      { text: '  next: survey the lens, the seals, and the hoist', tone: 'mist' },
-      { text: '- salon/organ-tuning', tone: 'bone', only: 'wide' },
-      { text: '  next: tune the reeds, pipes, and pedals', tone: 'mist', only: 'wide' },
+      { text: '- spoonjoy/recipe-import', tone: 'bone' },
+      { text: '  next: run the three test recipes', tone: 'mist' },
+      { text: '- ouro-md/print-preview', tone: 'bone', only: 'wide' },
+      { text: '  next: check margins on A4 and Letter', tone: 'mist', only: 'wide' },
       { text: 'validating (1)', tone: 'scale' },
-      { text: '- captains-log/export', tone: 'bone' },
-      { text: "  next: waiting on Captain Nemo's review", tone: 'mist' },
+      { text: '- mendelow-me/hero', tone: 'bone' },
+      { text: "  next: waiting on Ari's review", tone: 'mist' },
       { text: '', tone: 'mist' },
-      { text: '⏺ We were on the periscope overhaul. Ned planned it last night, and the next step is surveying the lens, the seals, and the hoist. The ballast pump is still waiting on parts. Want me to start on the periscope?', tone: 'bone' },
+      { text: "⏺ We were on the recipe import. You planned it last night, and the next step is running the three test recipes. The App Store build is still waiting on App Review. Want me to start the test recipes?", tone: 'bone' },
     ],
   },
 ]

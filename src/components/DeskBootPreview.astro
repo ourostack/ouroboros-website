@@ -1,15 +1,15 @@
 ---
 /**
- * Real Desk session-start output, not hand-written. Produced on 2026-10-11 by
- * running Desk 3.2.0-alpha.291's `mcp/scripts/session-boot.js` against a
- * throwaway sample desk with the four Nautilus tasks the playback above uses:
- * `ballast/pump-3` (blocked, with a `**Blocker:**` line) and three tasks with a
- * `**Next step:**` paragraph, `captains-log/export` (validating) and
- * `periscope/overhaul` and `salon/organ-tuning` (processing), dated so the
- * periscope plan is the newest, as in the playback's story. These are the
- * "Active tasks" lines of that output, verbatim and in Desk's order; the rest
- * of the output (the boot headline with machine paths, the sign-in check, and
- * the agent's instructions) is left out.
+ * Real Desk session-start output, not hand-written. Produced on 2026-10-20 by
+ * running Desk 3.2.0-alpha.333's `mcp/scripts/session-boot.js` (ourostack/desk
+ * db844212f) against a throwaway sample desk with the four tasks the playback
+ * above uses: `spoonjoy/app-store` (blocked, with a `**Blocker:**` line) and
+ * three tasks with a `**Next step:**` line, `mendelow-me/hero` (validating)
+ * and `spoonjoy/recipe-import` and `ouro-md/print-preview` (processing), dated
+ * so the recipe import is the newest, as in the playback's story. These are
+ * the "Active tasks" lines of that output, verbatim and in Desk's order; the
+ * rest of the output (the boot headline with machine paths, the sign-in
+ * check, and the agent's instructions) is left out.
  */
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props
@@ -18,18 +18,18 @@ const lines = [
   { text: 'Active tasks (4):', tone: 'bone' },
   { text: '', tone: 'mist' },
   { text: 'BLOCKED (1): these cannot move until the blocker clears', tone: 'fang' },
-  { text: '- ballast/pump-3 "Replace ballast pump 3" (updated 2026-10-07)', tone: 'bone' },
-  { text: '  blocker: waiting on parts at Vanikoro', tone: 'mist' },
+  { text: '- spoonjoy/app-store "Ship Spoonjoy to the App Store" (updated 2026-10-07)', tone: 'bone' },
+  { text: '  blocker: waiting on App Review', tone: 'mist' },
   { text: '', tone: 'mist' },
   { text: 'processing (2)', tone: 'scale' },
-  { text: '- periscope/overhaul "Overhaul the periscope" (updated 2026-10-10)', tone: 'bone' },
-  { text: '  next: survey the lens, the seals, and the hoist', tone: 'glow' },
-  { text: '- salon/organ-tuning "Tune the salon organ" (updated 2026-10-09)', tone: 'bone' },
-  { text: '  next: tune the reeds, pipes, and pedals', tone: 'glow' },
+  { text: '- spoonjoy/recipe-import "Import recipes from any webpage" (updated 2026-10-10)', tone: 'bone' },
+  { text: '  next: run the three test recipes', tone: 'glow' },
+  { text: '- ouro-md/print-preview "Print preview with page breaks" (updated 2026-10-09)', tone: 'bone' },
+  { text: '  next: check margins on A4 and Letter', tone: 'glow' },
   { text: '', tone: 'mist' },
   { text: 'validating (1)', tone: 'scale' },
-  { text: '- captains-log/export "Export the captain\'s log" (updated 2026-10-08)', tone: 'bone' },
-  { text: "  next: waiting on Captain Nemo's review", tone: 'glow' },
+  { text: '- mendelow-me/hero "Tighten the homepage hero" (updated 2026-10-08)', tone: 'bone' },
+  { text: "  next: waiting on Ari's review", tone: 'glow' },
 ]
 ---
 

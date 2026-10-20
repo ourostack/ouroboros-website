@@ -79,7 +79,7 @@ test('the Ouro MD page carries the install line and the macOS floor', () => {
 test('the Ouro MD page leads with the card copy and the stacked clips, with no second demo and no badge', () => {
   const html = readDist('ouro-md/index.html');
   // Copy deck (2026-10-11): /ouro-md/ leads with the homepage card's copy and the same media.
-  assert.ok(textOf(html).includes('A Markdown editor for the Mac that renders as you type. My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.'));
+  assert.ok(textOf(html).includes('My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.'));
   const content = html.replace(/<nav\b[\s\S]*?<\/nav>/, '');
   const imgs = [...content.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
   assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-typing-light-poster.png', '/images/workshop/ouro-md-typing-dark-poster.png', '/images/workshop/ouro-md-agent-edit-light-poster.png', '/images/workshop/ouro-md-agent-edit-dark-poster.png']);
@@ -124,7 +124,7 @@ test('the Desk page shows real session-start output, links the factory once, its
   const html = readDist('desk/index.html');
   const text = textOf(html);
   assert.ok(text.includes('Active tasks (4):'));
-  assert.ok(text.includes('- periscope/overhaul "Overhaul the periscope" (updated 2026-10-10)'));
+  assert.ok(text.includes('- spoonjoy/recipe-import "Import recipes from any webpage" (updated 2026-10-10)'));
   assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
   assert.ok(text.replace(/\s+([.,])/g, '$1').includes("Setup also installs Superpowers, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public factory. It sends timings and sizes, and never transcript text, prompts, file contents, or names."));
   // root misses ruling 3.5: the Desk page points at the principles it encodes.

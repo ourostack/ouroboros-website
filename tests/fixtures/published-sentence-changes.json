@@ -26,8 +26,8 @@
  {
   "page": "approach",
   "was": "Fix the system, not the instance (proposed) When something keeps going wrong, change the setup so the next agent doesn't hit it.",
-  "now": "Fix it for the next agent Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
-  "why": "copy deck: the proposed +1 heading is removed; copy deck round 2: /approach: #fix-the-system gets the H2 \"Fix it for the next agent\"; then Ari, 2026-10-11 preview feedback; root misses ruling 4.2 (2026-10-11)"
+  "now": null,
+  "why": "copy deck: the proposed +1 heading is removed; copy deck round 2: /approach: #fix-the-system gets the H2 \"Fix it for the next agent\"; then Ari, 2026-10-11 preview feedback; root misses ruling 4.2 (2026-10-11); then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "approach",
@@ -1592,14 +1592,14 @@
  {
   "page": "index",
   "was": "Ouro MD → ned@laptop · Claude Code conseil@mac2 · Copilot CLI Replay Desk boot: ok | host laptop / ned / claude Active tasks (3): BLOCKED (1): these cannot move until the blocker clears - ballast/pump-3 blocker: waiting on parts at Vanikoro processing (1) - salon/organ-tuning next: tune the reeds, pipes, and pedals validating (1) - captains-log/export next: waiting on Captain Nemo's review > Plan the periscope overhaul ⏺ desk · task_create ⎿ task_create: periscope/overhaul Next step: survey the lens, seals, and hoist > where were we?",
-  "now": "ned@laptop · Claude Code conseil@mac2 · Copilot CLI · next morning Replay Skip Replay Desk boot: ok | host laptop / ned / claude Desk boot: ok | host laptop/ned > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow. > where were we?",
-  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes; root ruling M10 (2026-10-11): a Skip button while it plays; root final ruling F3 (2026-10-11): an invisible, aria-hidden copy of Replay holds the buttons' width, so the bar keeps one height; root misses ruling 8.5 (2026-10-11)"
+  "now": null,
+  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scenes; root ruling M10 (2026-10-11): a Skip button while it plays; root final ruling F3 (2026-10-11): an invisible, aria-hidden copy of Replay holds the buttons' width, so the bar keeps one height; root misses ruling 8.5 (2026-10-11); then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "index",
   "was": "Desk boot: ok | host mac2 / conseil / copilot Active tasks (4): BLOCKED (1): these cannot move until the blocker clears - ballast/pump-3 blocker: waiting on parts at Vanikoro processing (2) - periscope/overhaul next: survey the lens, seals, and hoist - salon/organ-tuning next: tune the reeds, pipes, and pedals validating (1) - captains-log/export next: waiting on Captain Nemo's review ⏺ desk · task_update ⎿ task_update: periscope/overhaul Next step: survey the lens, seals, and hoist Dramatization Dramatization: one crew, two machines, two harnesses, the same desk.",
-  "now": "Want me to start on the periscope? Dramatization Ned Land plans the periscope overhaul in Claude Code.",
-  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scene 2 and caption; root misses ruling 5.3 (2026-10-11)"
+  "now": null,
+  "why": "review F4: scene 1 shows the prompt first; glyphs hidden from screen readers; copy deck round 2: homepage: Desk playback scene 2 and caption; root misses ruling 5.3 (2026-10-11); then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "index",
@@ -2036,8 +2036,8 @@
  {
   "page": "ouro-md",
   "was": "Ouro MD: Markdown that renders as you write | Ouroboros Use today Ouro MD Markdown that renders as you write.",
-  "now": "Ouro MD: Markdown that renders as you type | Ouro Ouro MD A Markdown editor for the Mac that renders as you type.",
-  "why": "copy deck: /ouro-md leads with the card copy; copy deck round 2: /ouro-md: drop the \"Use today\" badge; root misses ruling 2.4 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
+  "now": null,
+  "why": "copy deck: /ouro-md leads with the card copy; copy deck round 2: /ouro-md: drop the \"Use today\" badge; root misses ruling 2.4 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13); then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "ouro-md",
@@ -2078,8 +2078,8 @@
  {
   "page": "approach",
   "was": "How I build with agents | Ouroboros How I build with agents I view this agentic era as three acts: capability, orientation, and work design.",
-  "now": "How I work | Ouro How I work I see this agentic era in three acts: Capability.",
-  "why": "copy deck round 2: /approach: title, H1, and the three acts list from the homepage; then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
+  "now": null,
+  "why": "copy deck round 2: /approach: title, H1, and the three acts list from the homepage; then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13); then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "approach",
@@ -2168,26 +2168,26 @@
  {
   "page": "approach",
   "was": "CI took 36 minutes, and an agent started designing a way around it.",
-  "now": "CI once took 36 minutes, and an agent started designing a way around it.",
-  "why": "round 2: no quoting Ari on his own site; #fix-the-system from the deck"
+  "now": null,
+  "why": "round 2: no quoting Ari on his own site; #fix-the-system from the deck; then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "approach",
   "was": "I asked: 36 minutes is insane! what is it doing that takes so long? feels like the correct first question, no? — Ari, 19 September 2026 The cause was coverage instrumentation.",
-  "now": "I asked what it was doing that took so long.",
-  "why": "round 2: no quoting Ari on his own site; #fix-the-system from the deck"
+  "now": null,
+  "why": "round 2: no quoting Ari on his own site; #fix-the-system from the deck; then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "approach",
   "was": "Without it, the same 1,669 tests ran in 39 seconds.",
-  "now": "It was mostly coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.",
-  "why": "round 2: no quoting Ari on his own site; #fix-the-system from the deck"
+  "now": null,
+  "why": "round 2: no quoting Ari on his own site; #fix-the-system from the deck; then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "approach",
   "was": "How you'll know something is off You're doing it by hand.",
-  "now": "When something's off You're doing it by hand.",
-  "why": "copy deck round 2: /approach: \"When something's off\" comes first, the same as the homepage"
+  "now": null,
+  "why": "copy deck round 2: /approach: \"When something's off\" comes first, the same as the homepage; then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "blog/trust-the-agent",
@@ -2858,14 +2858,14 @@
  {
   "page": "approach attributes",
   "was": "How I build with agents | Ouroboros",
-  "now": "How I work | Ouro",
-  "why": "copy deck round 2: /approach title; then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
+  "now": null,
+  "why": "copy deck round 2: /approach title; then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13); then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "approach attributes",
   "was": "Three smells and five principles for working with agents on jobs that take days, with my own words for each.",
-  "now": "The three acts, three smells, and five principles I use to work with agents on jobs that take days.",
-  "why": "copy deck round 2: /approach meta description, with the Oxford comma"
+  "now": null,
+  "why": "copy deck round 2: /approach meta description, with the Oxford comma; then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "blog/designing-with-your-agent attributes",
@@ -2948,8 +2948,8 @@
  {
   "page": "share card /approach",
   "was": "Three smells and five principles, with my own words for each.",
-  "now": "Three acts, three smells, and five principles for working with agents on jobs that take days.",
-  "why": "copy deck round 2: no quoting Ari on his own site, so the card uses the /approach meta description; then Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
+  "now": null,
+  "why": "copy deck round 2: no quoting Ari on his own site, so the card uses the /approach meta description; then Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's; then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "share card /desk",
@@ -3584,8 +3584,8 @@
  {
   "page": "desk",
   "was": "This is real output from Desk's session start, run on a sample desk.",
-  "now": "This is real output from Desk's session start, run on a sample Nautilus desk: every task, its state, and its next step or blocker, before anyone asks.",
-  "why": "leftover audit 5.4 and 6.5: real boot output recaptured from Desk 3.2.0-alpha.291 on a Nautilus sample desk (2026-10-11)"
+  "now": null,
+  "why": "leftover audit 5.4 and 6.5: real boot output recaptured from Desk 3.2.0-alpha.291 on a Nautilus sample desk (2026-10-11); then Ari, 2026-10-20 skill pass: the method says its point (an agent's mistake comes from what it was given), the failure modes are named as such, the CI story is cut, Ouro MD shares the homepage line, and the Desk demo moves from the Nautilus in-joke to a sample desk about Spoonjoy and Ouro MD"
  },
  {
   "page": "index",

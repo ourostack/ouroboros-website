@@ -57,7 +57,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/approach': {
     title: 'How Ari works with agents.',
-    subtitle: 'Three acts, three smells, and five principles for working with agents on jobs that take days.',
+    subtitle: 'Three acts, three failure modes, and five principles for working with agents on jobs that take days.',
     tag: 'How I work',
   },
   '/brief': {

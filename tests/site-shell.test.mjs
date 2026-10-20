@@ -101,7 +101,7 @@ test('homepage tools alternate media and prose, each with one strong visual and 
   assertLines(text, [
     'Built by watching agents work',
     "Each began with something my agents or I kept running into. Then I watched agents use it and asked them what got in the way. That's Agent Experience.",
-    'Dramatization Ned Land plans the periscope overhaul in Claude Code. At dawn, Conseil asks Copilot CLI where they were, and it knows.',
+    'Dramatization I plan the recipe import in Claude Code. The next morning, on another Mac, I ask Copilot CLI where we were, and it knows.',
     `Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.`,
     'An agent fills in its test results, and a bar in the margin marks what changed.',
     'My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.',
@@ -189,20 +189,21 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   const lineSpan = (attr) => new RegExp(`<span class="dp-line[^"]*"[^>]*\\b${attr}\\b[^>]*>[^<]*<\\/span>`, 'g');
   const one = plainText(scenes[0][4].replace(lineSpan('data-narrow'), ''));
   const two = plainText(scenes[1][4].replace(lineSpan('data-narrow'), ''));
-  // Copy deck round 2: scene 1 answers only the periscope request.
-  assert.equal(one, "Desk boot: ok | host laptop / ned / claude > Plan the periscope overhaul ⏺ task_create periscope/overhaul ⎿ Next step: survey the lens, the seals, and the hoist ⏺ Filed under periscope. I'll start with the lens survey tomorrow.");
-  assert.match(playback[0], /data-scene-title="ned"[^>]*>ned@laptop · Claude Code</);
-  assert.match(playback[0], /data-scene-title="conseil"[^>]*>conseil@mac2 · Copilot CLI · next morning</);
+  // Ari, 2026-10-19: the Nautilus story was an in-joke; the playback runs on the same sample desk as the real output.
+  assert.equal(one, "Desk boot: ok | host laptop / ari / claude > Plan the recipe import ⏺ task_create spoonjoy/recipe-import ⎿ Next step: run the three test recipes ⏺ Filed under spoonjoy. I'll start with the three test recipes tomorrow.");
+  assert.match(playback[0], /data-scene-title="evening"[^>]*>ari@laptop · Claude Code</);
+  assert.match(playback[0], /data-scene-title="morning"[^>]*>ari@mac-mini · Copilot CLI · next morning</);
+  assert.doesNotMatch(playback[0], /periscope|Nautilus|Nemo|Conseil|Vanikoro/);
   assert.ok(two.startsWith('> where were we?'), 'Scene 2 starts with the prompt');
-  for (const line of ['- periscope/overhaul', '- ballast/pump-3', 'blocker: waiting on parts at Vanikoro', '- salon/organ-tuning', '- captains-log/export', "waiting on Captain Nemo's review", 'processing (2)', 'validating (1)', 'next: survey the lens, the seals, and the hoist']) {
+  for (const line of ['- spoonjoy/recipe-import', '- spoonjoy/app-store', 'blocker: waiting on App Review', '- ouro-md/print-preview', '- mendelow-me/hero', "waiting on Ari's review", 'processing (2)', 'validating (1)', 'next: run the three test recipes']) {
     assert.ok(two.includes(line), `Scene 2 is missing "${line}"`);
   }
-  assert.ok(two.endsWith('We were on the periscope overhaul. Ned planned it last night, and the next step is surveying the lens, the seals, and the hoist. The ballast pump is still waiting on parts. Want me to start on the periscope?'), 'Scene 2 ends with the agent\'s plain line');
+  assert.ok(two.endsWith('We were on the recipe import. You planned it last night, and the next step is running the three test recipes. The App Store build is still waiting on App Review. Want me to start the test recipes?'), 'Scene 2 ends with the agent\'s plain line');
   // The still before it plays: the boot line and the prompt are the opening lines, so the body is never empty.
   const opening = [...scenes[0][4].matchAll(/<span class="dp-line[^"]*" data-opening([^>]*)>([\s\S]*?)<\/span>/g)].filter(([, attrs]) => !/data-narrow/.test(attrs)).map(([, , inner]) => textOf(inner));
-  assert.deepEqual(opening, ['Desk boot: ok | host laptop / ned / claude', '> Plan the periscope overhaul']);
+  assert.deepEqual(opening, ['Desk boot: ok | host laptop / ari / claude', '> Plan the recipe import']);
   // root misses ruling 8.5: a phone shows a shorter host, so the boot line never wraps.
-  assert.match(scenes[0][4], /<span class="dp-line[^"]*" data-opening data-narrow[^>]*>Desk boot: ok \| host laptop\/ned<\/span>/);
+  assert.match(scenes[0][4], /<span class="dp-line[^"]*" data-opening data-narrow[^>]*>Desk boot: ok \| host laptop\/ari<\/span>/);
   assert.match(playback[0], /<button\b[^>]*data-replay[^>]*hidden/, 'Replay appears only once the script runs');
   assert.match(html, /Replay<\/button>/);
   assert.match(playback[0], /<button\b[^>]*data-skip[^>]*hidden[^>]*>Skip<\/button>/, 'Skip shows only while it plays');
@@ -227,15 +228,15 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   assert.match(moduleSrc, /\.dp-actions > \.dp-replay \{ grid-area: 1 \/ 1; justify-self: end; \}/);
   assert.match(moduleSrc, /\.dp-title\[data-off\], \.dp-sizer \{ visibility: hidden; \}/);
   assert.match(playback[0], /<span class="dp-replay dp-sizer"[^>]*aria-hidden="true"[^>]*>Replay<\/span>/, 'An invisible Replay holds the buttons\' width');
-  // root final ruling F4: below 640px, scene 2 drops the blocked group's explanation and the salon task, and the counts follow.
+  // root final ruling F4: below 640px, scene 2 drops the blocked group's explanation and the print preview task, and the counts follow.
   assert.match(moduleSrc, /@media \(max-width: 639\.98px\) \{ \.dp-line\[data-wide\] \{ display: none; \} \}/);
   assert.match(moduleSrc, /@media \(min-width: 640px\) \{ \.dp-body \{ font-size: 0\.75rem; \} \.dp-line\[data-narrow\] \{ display: none; \} \}/);
   const linesWith = (attr) => [...scenes[1][4].matchAll(lineSpan(attr))].map(([span]) => textOf(span).trim());
   // root misses ruling 8.5: the boot line has a shorter host on a phone.
-  assert.deepEqual(linesWith('data-wide'), ['Desk boot: ok | host mac2 / conseil / copilot', 'Active tasks (4):', 'BLOCKED (1): these cannot move until the blocker clears', 'processing (2)', '- salon/organ-tuning', 'next: tune the reeds, pipes, and pedals']);
-  assert.deepEqual(linesWith('data-narrow'), ['Desk boot: ok | host mac2/conseil', 'Active tasks (3):', 'BLOCKED (1)', 'processing (1)']);
+  assert.deepEqual(linesWith('data-wide'), ['Desk boot: ok | host mac-mini / ari / copilot', 'Active tasks (4):', 'BLOCKED (1): these cannot move until the blocker clears', 'processing (2)', '- ouro-md/print-preview', 'next: check margins on A4 and Letter']);
+  assert.deepEqual(linesWith('data-narrow'), ['Desk boot: ok | host mac-mini/ari', 'Active tasks (3):', 'BLOCKED (1)', 'processing (1)']);
   const narrow = plainText(scenes[1][4].replace(lineSpan('data-wide'), ''));
-  assert.ok(!narrow.includes('salon') && !narrow.includes('these cannot move'), 'The narrow frame drops the salon task and the blocked explanation');
+  assert.ok(!narrow.includes('print-preview') && !narrow.includes('these cannot move'), 'The narrow frame drops the print preview task and the blocked explanation');
 });
 
 test('homepage says how Ari works: three acts in sequence, three failure modes, and the principles', () => {
@@ -503,9 +504,11 @@ test('a filled button inside prose keeps the button colours, not the link green'
 test('approach page has its own heading, not the homepage question', () => {
   const html = readDist('approach/index.html');
   const h1 = textOf(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]);
-  assert.equal(h1, 'How I work');
-  assert.match(html, /<title>How I work \| Ouro<\/title>/);
-  assert.match(html, /<meta name="description" content="The three acts, three smells, and five principles I use to work with agents on jobs that take days\."/);
+  // Ari, 2026-10-19: "How I work" was too generic; the heading says the point.
+  assert.equal(h1, 'When an agent gets it wrong, look at what you gave it.');
+  assert.match(html, /<title>How I work with agents \| Ouro<\/title>/);
+  assert.match(html, /<meta name="description" content="The three acts, the failure modes I watch for, and the five principles I use to work with agents on jobs that take days\."/);
+  assert.ok(plain(html).includes("How I work keeps changing as agents improve and as I learn. Here's what holds so far."));
   assert.doesNotMatch(textOf(html), /Here's how I believe it works/);
   assert.ok(hrefsOf(html).includes('/brief/'));
 });
@@ -515,9 +518,9 @@ test('approach page puts the smells first, then the five principles, then fix it
   const text = plain(html);
   const h2s = [...html.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].map(([, inner]) => textOf(inner));
   const h3s = [...html.matchAll(/<h3\b[^>]*>([\s\S]*?)<\/h3>/g)].map(([, inner]) => textOf(inner));
-  assert.deepEqual(h2s.filter((h) => ["When something's off", "What's been working", 'Fix it for the next agent'].includes(h)), ["When something's off", "What's been working", 'Fix it for the next agent']);
+  assert.deepEqual(h2s.filter((h) => ['Failure modes I watch for', "What's been working", 'Fix it for the next agent'].includes(h)), ['Failure modes I watch for', "What's been working", 'Fix it for the next agent']);
   principleHeadings.forEach((heading, i) => assert.ok(h3s.includes(`${i + 1}. ${heading}`), `Missing principle heading: ${heading}`));
-  assert.ok(html.indexOf('id="smells"') < html.indexOf('id="intent-and-judgement"'), "When something's off comes first");
+  assert.ok(html.indexOf('id="smells"') < html.indexOf('id="intent-and-judgement"'), 'The failure modes come first');
   for (const line of [
     "Five principles keep an agent oriented on jobs that take days. The long version is in Desk's design doc.",
     "I'd rather talk something through with an agent once, for as long as it takes, than answer it twenty times along the way. So every job starts with one real conversation about what we're doing and why, and then I say go.",
@@ -526,10 +529,10 @@ test('approach page puts the smells first, then the five principles, then fix it
     "Decisions live in files the next session reads. Desk keeps them in a Git repository. I once asked my agents to stop pinning dependencies to exact commits. They did it about a dozen more times anyway, because each one trusted an older agent's handoff note over what I'd said, and one of those notes was written twelve minutes after I said it. Now my words outrank any handoff note, and every agent's instructions say so.",
     "Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone. The rest is the agent's, and its work stays visible. One night a cleanup command stopped to ask me for a click, and the run sat there until morning. Now my agents work under a rule never to run a command that asks for one.",
     'I look where the result lives: the live page, the installed app, the merged change. I ask for proof that it works end to end, with screenshots I can check.',
-    // root misses ruling 4.2.
-    "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
-    'CI once took 36 minutes, and an agent started designing a way around it. I asked what it was doing that took so long. It was mostly coverage instrumentation, and without it the same 1,669 tests ran in 39 seconds.',
+    // Ari, 2026-10-19: the CI story proved nothing, and the prompting line is now the heading.
+    "When I fix something, I fix it for the whole system: in the agent's instructions, in a skill, or in the tool itself, so the next agent starts out ahead.",
   ]) assert.ok(text.includes(line), `/approach/ is missing "${line}"`);
+  assert.doesNotMatch(text, /coverage instrumentation|you didn't prompt it effectively/);
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
   const fix = html.match(/<h2\b[^>]*id="fix-the-system"[^>]*>([\s\S]*?)<\/h2>/);
   assert.ok(fix, 'Fix it for the next agent keeps the #fix-the-system anchor');
