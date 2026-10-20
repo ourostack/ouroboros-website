@@ -57,8 +57,10 @@ const wastes = [
     <div class="absolute top-10 -right-40 w-[520px] h-[520px] rounded-full bg-scale/10 blur-[140px] pointer-events-none" aria-hidden="true"></div>
 
     <div class="hero relative max-w-6xl mx-auto">
+      <div class="hero-copy">
       <h1 class="hero-title heading-hero animate-fade-up">How can humans and agents do more <span class="text-scale">together?</span></h1>
       <p class="hero-sub text-lg md:text-2xl text-bone leading-snug animate-fade-up stagger-1">Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.</p>
+      </div>
       <a href="https://mendelow.me" class="hero-pic portrait group animate-fade-up stagger-2">
         <img src="/images/workshop/ari-portrait.jpg" width="600" height="824" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." class="portrait-img" fetchpriority="high" />
         <span class="text-sm md:text-base text-bone group-hover:text-scale transition-colors whitespace-nowrap">More about me &#8599;</span>
@@ -69,14 +71,21 @@ const wastes = [
   <!-- 2. Ouroboros -->
   <section id="ouroboros" class={`${section} scroll-mt-16`} aria-labelledby="ouroboros-heading">
     <div class="max-w-6xl mx-auto">
-      <p class="kicker"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="32px" width="32" height="32" alt="" loading="lazy" decoding="async" class="mark-render w-8 h-8" />Ouroboros, the harness</p>
-      <h2 id="ouroboros-heading" class="heading-section">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h2>
-      <p class="dek">We asked each which of {modelReviews.harnesses.length} harnesses it would most want to wake up in. In their words:</p>
+      <div class="section-head">
+        <div class="split-head">
+          <p class="kicker"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="32px" width="32" height="32" alt="" loading="lazy" decoding="async" class="mark-render w-8 h-8" />Ouroboros, the harness</p>
+          <h2 id="ouroboros-heading" class="heading-section">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h2>
+        </div>
+        <p class="dek split-body">We asked each which of {modelReviews.harnesses.length} harnesses it would most want to wake up in. In their words:</p>
+      </div>
       <div class="mt-10"><ModelQuotes /></div>
 
-      <p class="ouro-why">Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next. <a href="/lab/" class={link}>The harness &rarr;</a></p>
-
-      <h3 class="heading-sub grown-heading">Grown inside it</h3>
+      <div class="split ouro-more">
+        <div class="split-head">
+  <p class="ouro-why">Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next. <a href="/lab/" class={link}>The harness &rarr;</a></p>
+        </div>
+        <div class="split-body">
+          <h3 class="heading-sub">Grown inside it</h3>
       <ul class="grown">
         <li id="friends">
           <img src="/brand/friends-render.webp" srcset="/brand/friends-render-128.webp 128w, /brand/friends-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
@@ -91,14 +100,18 @@ const wastes = [
           <div><p class="grown-line"><span class="grown-name">Ouro Butler</span></p><p>An Ouroboros agent that runs a home server. When something your household counts on breaks, it fixes what it safely can and tells you the rest.</p></div>
         </li>
       </ul>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- 3. The lab -->
   <section class={`${section} bg-deep/40`} aria-labelledby="built-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="built-heading" class="heading-section">Built by watching agents work</h2>
-      <p class="dek">Each began with something my agents or I kept running into. Then I watched agents use it and asked them what got in the way. That's <a href="/blog/what-is-agent-experience/" class={link}>Agent Experience</a>.</p>
+      <div class="section-head">
+      <h2 id="built-heading" class="heading-section split-head">Built by watching agents work</h2>
+      <p class="dek split-body">Each began with something my agents or I kept running into. Then I watched agents use it and asked them what got in the way. That's <a href="/blog/what-is-agent-experience/" class={link}>Agent Experience</a>.</p>
+      </div>
 
       <div class="tools">
         <article class="tool" id="desk">
@@ -160,8 +173,10 @@ const wastes = [
   <!-- 4. How I work with agents -->
   <section class={section} aria-labelledby="method-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="method-heading" class="heading-section">When an agent gets it wrong, look at what you gave it.</h2>
-      <p class="dek">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+      <div class="section-head">
+        <h2 id="method-heading" class="heading-section split-head">When an agent gets it wrong, look at what you gave it.</h2>
+        <p class="dek split-body">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+      </div>
 
       <p class="block-label">I see this agentic era in three acts</p>
       <ol class="acts">
@@ -183,16 +198,18 @@ const wastes = [
           <li><a href={`/approach/#${p.id}`} class="principle group"><span class="principle-n">{p.n}</span>{p.title}<span class="principle-arrow" aria-hidden="true">&rarr;</span></a></li>
         ))}
       </ol>
-      <p class="method-close">And when I fix something, I fix it for the whole system, so the next agent starts out ahead. <a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
+      <p class="method-close split-offset">And when I fix something, I fix it for the whole system, so the next agent starts out ahead. <a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
     </div>
   </section>
 
   <!-- 5. The factory -->
   <section id="factory" class={`${section} bg-deep/40 scroll-mt-16`} aria-labelledby="factory-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="factory-heading" class="heading-section">Software factories can learn from real ones.</h2>
-      <p class="factory-lead">Software factories, with agents shipping code all night, are coming as fast as the infrastructure catches up. I'm working through the problems they'll hit now, on my own agents' work, with a method that works today and scales up with them.</p>
-      <div class="factory-body">
+      <div class="section-head">
+        <h2 id="factory-heading" class="heading-section split-head">Software factories can learn from real ones.</h2>
+        <p class="factory-lead split-body">Software factories, with agents shipping code all night, are coming as fast as the infrastructure catches up. I'm working through the problems they'll hit now, on my own agents' work, with a method that works today and scales up with them.</p>
+      </div>
+      <div class="factory-body split-offset">
         <p>Real factories have a century of practice behind them, and I studied them before I wrote software: Industrial and Systems Engineering, where my favorite class was Work Design and Ergonomics, designing the work around the worker. Lean is what I reach for most, because it starts with where the time goes.</p>
         <p>Agents amplify what's already there (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with early-2025 coding assistants while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and fix the biggest causes first.</p>
       </div>
@@ -213,8 +230,8 @@ const wastes = [
 
   <!-- 6. Where it started -->
   <section class={section} aria-labelledby="origin-heading">
-    <div class="max-w-6xl mx-auto">
-      <div class="origin-head">
+    <div class="max-w-6xl mx-auto split split-sticky">
+      <div class="origin-head split-head">
         <h2 id="origin-heading" class="heading-section">It started with <span class="text-scale">Slugger.</span></h2>
         <div class="molt">
           <span class="molt-step"><img src="/images/openclaw.svg" alt="" width="72" height="72" decoding="async" class="w-14 h-14 md:w-16 md:h-16" /><span class="caption-mono">OpenClaw</span></span>
@@ -223,7 +240,7 @@ const wastes = [
         </div>
       </div>
 
-      <div class="origin-body">
+      <div class="origin-body split-body">
         <p>In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, talked with my family, and joined group chats with my friends. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
         <p>That's when I realized correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch: a small loop in TypeScript that, by the end, extends itself. I followed it myself and got hooked.</p>
         <p>The agent that grew out of it named itself Ouroboros, the snake that eats its own tail, for a loop that was building itself. The name kept fitting: once I gave it a sliding context window, it ate its oldest messages after saving what matters. It became the name of <a href="/lab/" class={link}>the harness</a>, then of <code class="model-code">ouro</code>, the CLI, and now it names this workshop, where I build with agents.</p>
@@ -237,6 +254,8 @@ const wastes = [
     <div class="max-w-6xl mx-auto">
       <h2 id="try-heading" class="heading-section">Start with what you need.</h2>
 
+      <div class="start-groups">
+      <div>
       <p class="block-label">Work and learn with me</p>
       <ul class="starts">
         <li><a href="/brief/" class="start"><span class="start-q">Want your agent to work the way I do?</span><span class="start-a">Hand it the brief &rarr;</span></a></li>
@@ -244,6 +263,8 @@ const wastes = [
         <li><a href="/blog/" class="start"><span class="start-q">Want to follow along?</span><span class="start-a">Read the essays &rarr;</span></a></li>
       </ul>
 
+      </div>
+      <div>
       <p class="block-label">Fix what's in your way</p>
       <ul class="starts">
         <li><a href="/desk/" class="start"><span class="start-q">Does every agent session start from zero?</span><span class="start-a">Set up Desk &rarr;</span></a></li>
@@ -251,20 +272,32 @@ const wastes = [
         <li><a href="/lab/docs/getting-started/" class="start"><span class="start-q">Want one agent that knows you everywhere?</span><span class="start-a">Start with Ouroboros &rarr;</span></a></li>
         <li><a href="https://github.com/ourostack/m365crawl" class="start"><span class="start-q">Is your agent locked out of Teams and Outlook?</span><span class="start-a">Try m365crawl &#8599;</span></a></li>
       </ul>
+      </div>
+      </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .hero { display: grid; gap: 1.5rem 1.25rem; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title title" "sub pic"; align-items: start; }
+  /* The hero layout is shared with mendelow.me's (styles.css there): keep the two identical.
+     On a phone the headline spans the width, then the intro and the portrait sit side by side, centered
+     against each other. From 768px the copy is one block, centered beside the portrait, so the photo's
+     height never opens gaps inside the copy. */
+  .hero { display: grid; gap: 1.5rem 1.25rem; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title title" "sub pic"; align-items: center; }
+  .hero-copy { display: contents; }
   .hero-title { grid-area: title; }
-  .hero-sub { grid-area: sub; max-width: 38ch; }
+  .hero-sub { grid-area: sub; max-width: 56ch; }
   .hero-pic { grid-area: pic; }
   @media (min-width: 768px) {
-    .hero { grid-template-areas: "title pic" "sub pic"; column-gap: 3rem; align-items: center; }
+    .hero { grid-template-areas: "copy pic"; column-gap: 3rem; }
+    .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
+    .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
+    .hero-sub { max-width: 56ch; }
   }
   .portrait { display: grid; gap: 0.5rem; justify-items: center; width: 6.5rem; }
-  @media (min-width: 768px) { .portrait { width: 15rem; } }
+  @media (min-width: 768px) { .portrait { width: 12rem; } }
+  @media (min-width: 1024px) { .portrait { width: 17rem; } }
+  @media (min-width: 1240px) { .portrait { width: 21rem; } }
   .portrait-img { width: 100%; height: auto; aspect-ratio: 600 / 824; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
   .portrait:hover .portrait-img { border-color: var(--color-scale); }
 
@@ -272,9 +305,20 @@ const wastes = [
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
 
   .kicker { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-scale); }
-  .ouro-why { max-width: 46rem; margin-top: 4rem; font-size: 1.25rem; line-height: 1.6; color: var(--color-bone); }
-  .grown-heading { margin-top: 3.5rem; }
-  .grown { display: grid; gap: 1.75rem; margin-top: 1.5rem; max-width: 46rem; }
+  .section-head .dek { margin-top: 1.25rem; }
+  /* One grid for every section: headlines run the full width, and body text starts on the 5/12 line,
+     the same line the split sections (Ouroboros, the origin) use for their body column. */
+  @media (min-width: 1024px) {
+    .section-head .dek, .section-head .factory-lead, .split-offset { margin-left: calc((100% - var(--split-gap)) * 5 / 12 + var(--split-gap)); }
+    .section-head .dek { margin-top: 1.75rem; max-width: 60ch; }
+  }
+  .ouro-more { margin-top: 4rem; }
+  .ouro-more > .split-head { margin-bottom: 2.5rem; }
+  @media (min-width: 1024px) { .ouro-more > .split-head { margin-bottom: 0; } }
+  .start-groups { display: grid; gap: 0 4rem; }
+  @media (min-width: 1024px) { .start-groups { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .ouro-why { max-width: 60ch; font-size: 1.25rem; line-height: 1.6; color: var(--color-bone); }
+  .grown { display: grid; gap: 1.75rem; margin-top: 1.5rem; }
   .grown > li { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.25rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .grown-mark { width: 4rem; height: 4rem; }
   .grown-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem; }
@@ -290,7 +334,8 @@ const wastes = [
     .acts li { position: relative; padding-right: 3.5rem; }
     .acts li:not(:last-child)::after { content: "\2192"; position: absolute; right: 1.25rem; top: 1.1rem; font-family: var(--font-display); font-size: 2rem; color: var(--color-fang); }
   }
-  .smells { display: grid; gap: 0.9rem; }
+  .smells { display: grid; gap: 1.5rem 3rem; }
+  @media (min-width: 1024px) { .smells { grid-template-columns: repeat(3, minmax(0, 1fr)); } .smells li { flex-direction: column; } }
   .smells li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; color: var(--color-mist); font-size: 1.0625rem; }
   .smells strong { font-family: var(--font-display); font-weight: 400; font-size: 1.85rem; line-height: 1.15; color: var(--color-bone); }
   .principles { display: flex; flex-wrap: wrap; gap: 0.75rem 2.25rem; }
@@ -299,26 +344,28 @@ const wastes = [
   .principle-n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-scale); }
   .principle-arrow { color: var(--color-scale); transition: transform 0.2s; }
   .principle:hover .principle-arrow { transform: translateX(0.2rem); }
-  .method-close { margin-top: 2.5rem; max-width: 46rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
-  .factory-lead { margin-top: 2rem; max-width: 34ch; font-family: var(--font-display); font-size: 1.75rem; line-height: 1.25; color: var(--color-bone); }
-  @media (min-width: 768px) { .factory-lead { font-size: 2.25rem; } }
-  .factory-body { display: grid; gap: 1.25rem; margin-top: 2rem; max-width: 40rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
-  @media (min-width: 1024px) { .factory-body { margin-left: auto; } }
-  .wastes { display: grid; max-width: 52rem; }
+  .method-close { margin-top: 2.5rem; max-width: 60ch; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
+  .factory-lead { margin-top: 1.25rem; font-family: var(--font-display); font-size: 1.75rem; line-height: 1.25; color: var(--color-bone); }
+  @media (min-width: 768px) { .factory-lead { font-size: 2rem; } }
+  @media (min-width: 1024px) { .factory-lead { margin-top: 1.75rem; max-width: 34ch; } }
+  .factory-body { display: grid; gap: 1.25rem; margin-top: 2rem; max-width: 60ch; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
+  .wastes { display: grid; column-gap: 4rem; }
+  @media (min-width: 1024px) { .wastes { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
   .wastes > div { display: grid; gap: 0.15rem 2rem; padding: 0.85rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
   @media (min-width: 640px) { .wastes > div { grid-template-columns: 11rem minmax(0, 1fr); align-items: baseline; } }
   .wastes dt { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; color: var(--color-bone); }
   .wastes dd { color: var(--color-mist); line-height: 1.55; }
   .factory-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 3rem; }
-  .origin-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+  .origin-head { display: grid; gap: 2rem; align-content: start; }
   .molt { display: flex; align-items: center; gap: 1rem; }
   .molt-step { display: grid; justify-items: center; gap: 0.4rem; }
   .molt-line { width: 4rem; height: 1px; background: var(--color-fang); position: relative; }
   .molt-line::after { content: ""; position: absolute; right: -1px; top: -4px; border: 4.5px solid transparent; border-left: 7px solid var(--color-fang); border-right: 0; }
   @media (min-width: 768px) { .molt-line { width: 8rem; } }
-  .origin-body { display: grid; gap: 1.25rem; margin-top: 2.5rem; max-width: 44rem; font-size: 1.125rem; line-height: 1.7; color: var(--color-mist); }
+  .origin-body { display: grid; gap: 1.25rem; margin-top: 2.5rem; max-width: 62ch; font-size: 1.125rem; line-height: 1.7; color: var(--color-mist); }
+  @media (min-width: 1024px) { .origin-body { margin-top: 0; } }
   .starts { display: grid; }
-  .start { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.35rem 2rem; padding: 1.1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); transition: color 0.2s; }
+  .start { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; padding: 1.1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); transition: color 0.2s; }
   .starts li:last-child .start { border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
   .start-q { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
   @media (min-width: 768px) { .start-q { font-size: 2rem; } }

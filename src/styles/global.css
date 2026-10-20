@@ -163,6 +163,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Wide screens: from 1600px the root size grows with the viewport, so the 72rem
+   container, the type and the spacing scale together instead of leaving a narrow
+   strip in the middle of a large display. 16px at 1600px, about 20px at 2560px,
+   capped at 24px (a 4K display at 1x). Shared with ouroboros.bot and mendelow.me. */
+@media (min-width: 1600px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
+/* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about half its width in content, not a third. */
+@media (min-width: 2000px) { :root { --container-6xl: 84rem; } }
+
 /* ── Light theme ──
    The serpent palette above is the dark theme. Light is the same serpent
    on parchment: warm paper, moss green, the fang red kept. Same token
