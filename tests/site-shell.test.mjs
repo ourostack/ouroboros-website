@@ -76,7 +76,7 @@ test('homepage leads with Ouroboros: every frontier model picked it, in their wo
     'Grown inside it',
     'Friends Alpha Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.',
     'Ouro Shepherd Coming soon Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.',
-    'Mendelow Cloud Butler An Ouroboros agent that runs our home server. When something the household counts on breaks, it fixes what it safely can and tells me the rest.',
+    'Ouro Butler An Ouroboros agent that runs a home server. When something your household counts on breaks, it fixes what it safely can and tells you the rest.',
   ]);
   // Each model's own verdict, from the published data, linked to its transcript.
   for (const review of reviews.reviews) {
@@ -84,6 +84,8 @@ test('homepage leads with Ouroboros: every frontier model picked it, in their wo
     assert.ok(hrefsOf(section).includes(`/lab/model-reviews/${review.provider}`));
   }
   assert.doesNotMatch(text, /four frontier models|four models/i);
+  // Ari, 2026-10-20: the product is Ouro Butler; Mendelow Cloud Butler is only our install of it.
+  assert.doesNotMatch(text, /Mendelow Cloud Butler/);
   // Shepherd, Friends and the butler live inside Ouroboros, not as their own product cards.
   for (const id of ['friends', 'shepherd', 'butler']) assert.match(section, new RegExp(`<li id="${id}"`));
   for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
@@ -344,7 +346,7 @@ test('homepage sections appear in reading order', () => {
     "Hello!! I'm Ari, and that question is behind everything I build.",
     'Every frontier model we asked picked Ouroboros.',
     'Most harnesses are built for a coding session.',
-    'Grown inside it', 'Friends', 'Ouro Shepherd', 'Mendelow Cloud Butler',
+    'Grown inside it', 'Friends', 'Ouro Shepherd', 'Ouro Butler',
     'Built by watching agents work',
     "Desk keeps my agents' work in a Git repository",
     'My agents write their plans and reports in Markdown.',
