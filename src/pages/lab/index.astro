@@ -13,7 +13,7 @@ const { winner, claimSentence, heroLead, allChose } = getModelReviewClaims(model
 // count from the script output, spelled out.
 const numberWords = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty']
 const harnessCountWord = numberWords[modelReviews.harnesses.length] ?? String(modelReviews.harnesses.length)
-const reviewsHeading = allChose ? `Each model we asked picked ${winner}.` : null
+const reviewsHeading = allChose ? `Every frontier model we asked picked ${winner}.` : null
 const reviewsMethod = `We asked each model separately, with the same ${harnessCountWord} harnesses.`
 const harness = labelFor('harness')
 const title = 'The harness: where all of this started | Ouro'
@@ -68,7 +68,7 @@ const pieces = [
 
       <!-- ONE claim -->
       <h2 class="heading-hero animate-fade-up stagger-1 max-w-5xl">
-        {reviewsHeading ? <>Each model we asked picked <span class="text-scale">{winner}.</span></> : <>{heroLead} <span class="text-scale">{winner}.</span></>}
+        {reviewsHeading ? <>Every frontier model we asked picked <span class="text-scale">{winner}.</span></> : <>{heroLead} <span class="text-scale">{winner}.</span></>}
       </h2>
 
       <!-- ONE subhead — derived from the script output. Never hardcode the claim. -->

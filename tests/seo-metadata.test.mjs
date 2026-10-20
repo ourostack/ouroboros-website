@@ -63,7 +63,7 @@ test('review claims derive from the data and retain the model count in methodolo
   }
   // root final ruling F10: /lab states the claim once, then the method, with the harness count spelled out.
   const lab = readDistFile('lab/index.html').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
-  assert.ok(lab.includes('Each model we asked picked Ouroboros .') || lab.includes('Each model we asked picked Ouroboros.'));
+  assert.ok(lab.includes('Every frontier model we asked picked Ouroboros .') || lab.includes('Every frontier model we asked picked Ouroboros.'));
   const word = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'][data.harnesses.length];
   assert.ok(lab.includes(`We asked each model separately, with the same ${word} harnesses.`));
   assert.ok(!lab.includes(claims.claimSentence), '/lab no longer repeats the claim under its heading');
