@@ -49,9 +49,9 @@ test('root final ruling F15: every video is named by its poster alt text', () =>
   const home = readDist('index.html');
   // Ari, 2026-10-19: the demo's story is not the point, so captions say what the clip shows.
   // The homepage shows the agent-edit clip; /ouro-md/ shows both.
-  assert.match(home, /<video\b[^>]*aria-label="An agent edits the open document, and a bar in the margin marks what changed\."/);
+  assert.match(home, /<video\b[^>]*aria-label="An agent fills in its test results, and a bar in the margin marks what changed\."/);
   const md = readDist('ouro-md/index.html');
-  assert.match(md, /<video\b[^>]*aria-label="Tables and charts render as you type\."/);
+  assert.match(md, /<video\b[^>]*aria-label="Lists and flowcharts render as you type\."/);
   assert.doesNotMatch(md + home, /Aronnax/);
 });
 

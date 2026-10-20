@@ -101,7 +101,7 @@ test('homepage tools alternate media and prose, each with one strong visual and 
     "Each began with something my agents or I kept running into. Then I watched agents use it and asked them what got in the way. That's Agent Experience.",
     'Dramatization Ned Land plans the periscope overhaul in Claude Code. At dawn, Conseil asks Copilot CLI where they were, and it knows.',
     `Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.`,
-    'An agent edits the open document, and a bar in the margin marks what changed.',
+    'An agent fills in its test results, and a bar in the margin marks what changed.',
     'My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.',
     'The doctor, giving an archive its checkup.',
     'm365crawl gives my agent one searchable archive of my Teams chats, Outlook mail, and meetings, so it can find the conversation and walk into the meeting prepared, without me pasting a thing.',
