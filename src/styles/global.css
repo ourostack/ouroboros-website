@@ -470,11 +470,9 @@ p, li, dd, figcaption { text-wrap: pretty; }
     color: var(--color-bone);
     line-height: 0.95;
     letter-spacing: -0.02em;
-    font-size: 2.5rem;
+    /* One smooth curve: about 2.5rem on a phone, 3.3rem at 820px, 4.7rem at 1440px. */
+    font-size: clamp(2.5rem, 1.5rem + 3.6vw, 5rem);
   }
-  @media (min-width: 640px) { .heading-hero { font-size: 3.5rem; } }
-  @media (min-width: 768px) { .heading-hero { font-size: 5rem; } }
-  @media (min-width: 1024px) { .heading-hero { font-size: 6.5rem; } }
 
   /* Lead question (h1 on the method pages). Smaller than .heading-hero
      because the method pages open on a full sentence, not a slogan. */

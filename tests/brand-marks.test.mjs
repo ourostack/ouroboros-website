@@ -7,8 +7,9 @@ import { readDist, listHtmlFiles, distDir, distExists } from './support/dist.mjs
 test('normal logo placements use the approved rich renders, not the old vector marks', () => {
   const home = readDist('index.html');
   assert.match(home, /<img\b[^>]*src="\/brand\/ouro-render\.webp"[^>]*class="[^"]*brand-mark/);
-  assert.match(home, /id="ouroboros"[\s\S]*?class="product-title"[^>]*>[\s\S]*?src="\/brand\/ouro-render\.webp"/);
-  assert.match(home, /id="desk"[\s\S]*?class="product-title"[^>]*>[\s\S]*?src="\/brand\/desk-render\.webp"/);
+  assert.match(home, /id="ouroboros"[\s\S]*?class="kicker"[^>]*>[\s\S]*?src="\/brand\/ouro-render\.webp"/);
+  assert.match(home, /id="desk"[\s\S]*?class="tool-name"[^>]*>[\s\S]*?src="\/brand\/desk-render\.webp"/);
+  for (const mark of ['friends', 'shepherd']) assert.match(home, new RegExp(`id="${mark}"[\\s\\S]*?src="/brand/${mark}-render\\.webp"`));
   assert.match(readDist('desk/index.html'), /src="\/brand\/desk-render\.webp"/);
   assert.match(readDist('lab/story/index.html'), /src="\/brand\/ouro-render\.webp"/);
   for (const file of listHtmlFiles()) {
@@ -46,7 +47,7 @@ test('the snake hover moves clockwise and is enabled only without reduced motion
 test('the Spoonjoy card shows its existing mark in the heading, with theme-aware colour', () => {
   const home = readDist('index.html');
   const card = home.match(/<article\b[^>]*id="spoonjoy"[\s\S]*?<\/article>/)[0];
-  assert.match(card, /<h3 class="product-title"[^>]*><span class="spoonjoy-mark[^"]*"[^>]*aria-hidden="true"[^>]*><\/span>Spoonjoy<\/h3>/);
+  assert.match(card, /<h3 class="tool-name"[^>]*><span class="spoonjoy-mark[^"]*"[^>]*aria-hidden="true"[^>]*><\/span>Spoonjoy<\/h3>/);
   assert.ok(distExists('brand/spoonjoy.svg'));
   const svg = fs.readFileSync(path.join(distDir, 'brand/spoonjoy.svg'), 'utf8');
   assert.match(svg, /viewBox="0 0 500 300"/);

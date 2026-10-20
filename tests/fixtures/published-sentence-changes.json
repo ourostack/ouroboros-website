@@ -1604,8 +1604,8 @@
  {
   "page": "index",
   "was": "Desk → ourostack/ouroboros src/ ├── heart/ │ ├── identity.ts │ └── tool-loop.ts ├── mind/ │ ├── diary.ts │ └── prompt.ts ├── nerves/ │ ├── observation.ts │ └── redact.ts ├── repertoire/ │ ├── skills.ts │ └── tools.ts └── senses/ ├── cli.ts └── mail.ts The real source tree.",
-  "now": "ourostack/ouroboros src/ ├── heart/ │ ├── identity.ts │ └── tool-loop.ts ├── mind/ │ ├── diary.ts │ └── prompt.ts ├── nerves/ │ ├── observation.ts │ └── redact.ts ├── repertoire/ │ ├── skills.ts │ └── tools.ts ├── senses/ │ ├── cli.ts │ └── mail.ts └── … A heart, a mind, nerves, and senses: the real source folders, named so the agent can find its way around its own body.",
-  "why": "review F5 ruling: the new caption and the trailing … row; copy deck round 2: card order puts Ouroboros first; root misses ruling 5.5 (2026-10-11)"
+  "now": null,
+  "why": "review F5 ruling: the new caption and the trailing … row; copy deck round 2: card order puts Ouroboros first; root misses ruling 5.5 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -1616,8 +1616,8 @@
  {
   "page": "index",
   "was": "The Toyota Way ; Toyota Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. genchi genbutsu, LEI Lean's eight wastes, as they show up with agents Waiting: an agent stops to ask what you could have told it up front.",
-  "now": "Any worker can stop the line, and before anything changes, someone goes to see the real problem where it happened. andon, LEI ; genchi genbutsu, LEI Here's one: our CI took 36 minutes, and an agent started designing a way around it.",
-  "why": "review F1: the factory paragraphs in deck order; review M7: the stop-the-line item also cites LEI on andon; root misses ruling 8.13 (2026-10-11)"
+  "now": null,
+  "why": "review F1: the factory paragraphs in deck order; review M7: the stop-the-line item also cites LEI on andon; root misses ruling 8.13 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "lab",
@@ -2234,20 +2234,20 @@
  {
   "page": "index",
   "was": "More about me → Built for humans and agents Some of what I've built so humans and agents can work together, and what each one taught me.",
-  "now": "More about me ↗ Things I've built Tools I made for working with agents, and one product I rebuilt with them.",
-  "why": "copy deck round 2: homepage: section 2; root misses ruling 2.6 (2026-10-11)"
+  "now": null,
+  "why": "copy deck round 2: homepage: section 2; root misses ruling 2.6 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "Typing the Nautilus crew's periscope plan.",
-  "now": "Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes.",
-  "why": "copy deck round 2: homepage: Ouro MD caption A; then Ari, 2026-10-11 preview feedback; root misses ruling 5.1 (2026-10-11)"
+  "now": null,
+  "why": "copy deck round 2: homepage: Ouro MD caption A; then Ari, 2026-10-11 preview feedback; root misses ruling 5.1 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "An agent fills in the depth trials while you read.",
-  "now": "Back from the deep, an agent logs the depth trials, and a bar in the margin marks what changed.",
-  "why": "copy deck round 2: homepage: Ouro MD caption B; then Ari, 2026-10-11 preview feedback; root misses ruling 5.2 (2026-10-11)"
+  "now": null,
+  "why": "copy deck round 2: homepage: Ouro MD caption B; then Ari, 2026-10-11 preview feedback; root misses ruling 5.2 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -2258,26 +2258,26 @@
  {
   "page": "index",
   "was": "Ouroboros The harness my agents live in.",
-  "now": "Ouroboros Ouroboros is the agent harness I built from scratch, and it's where I test what agents need.",
-  "why": "copy deck round 2: homepage: Ouroboros body; then Ari, 2026-10-11 preview feedback; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
+  "now": null,
+  "why": "copy deck round 2: homepage: Ouroboros body; then Ari, 2026-10-11 preview feedback; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "Building it, I watched closely how agents used what I gave them.",
-  "now": "Building it, I watched closely how my agent used what I gave it.",
-  "why": "copy deck round 2: homepage: Ouroboros body"
+  "now": null,
+  "why": "copy deck round 2: homepage: Ouroboros body; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "Spoonjoy My recipe app, and the one project that's followed my whole software journey.",
-  "now": "Spoonjoy Spoonjoy is my recipe app, built to cook from.",
-  "why": "copy deck round 2: homepage: Spoonjoy body; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
+  "now": null,
+  "why": "copy deck round 2: homepage: Spoonjoy body; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "I believe generative UI eventually fills the middle.",
-  "now": "It's also where I work out what an app's interface is for once an agent is in the loop.",
-  "why": "copy deck round 2: homepage: Spoonjoy body; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
+  "now": null,
+  "why": "copy deck round 2: homepage: Spoonjoy body; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -2288,26 +2288,26 @@
  {
   "page": "index",
   "was": "What's been working 1 Talk through intent and judgment 2 Delegate whole outcomes 3 Make context durable 4 Meaningful authority with clear boundaries 5 Verify the actual result Two more things I keep coming back to.",
-  "now": "What's been working 1 Talk through intent and judgment → 2 Delegate whole outcomes → 3 Make context durable → 4 Meaningful authority with clear boundaries → 5 Verify the actual result → Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
-  "why": "copy deck round 2: homepage: each principle row shows an arrow; then Ari, 2026-10-11 preview feedback; root misses ruling 4.2 (2026-10-11)"
+  "now": null,
+  "why": "copy deck round 2: homepage: each principle row shows an arrow; then Ari, 2026-10-11 preview feedback; root misses ruling 4.2 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "It's the phrase of the year: software factories, SaaS factories, agents turning out code around the clock.",
-  "now": "Software factories, SaaS factories, agents shipping code all night.",
-  "why": "copy deck round 2: homepage: factory P1"
+  "now": null,
+  "why": "copy deck round 2: homepage: factory P1; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "I love the ambition, and I'd add one thing.",
-  "now": "I love the ambition.",
-  "why": "copy deck round 2: homepage: factory P1"
+  "now": null,
+  "why": "copy deck round 2: homepage: factory P1; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "Factories have a century of methodology behind them, and almost none of it has made the jump yet.",
-  "now": "Real factories have a century of practice behind them, and I want to bring some of it along.",
-  "why": "copy deck round 2: homepage: factory P1; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
+  "now": null,
+  "why": "copy deck round 2: homepage: factory P1; then Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -2408,8 +2408,8 @@
  {
   "page": "index",
   "was": "The name earned its meaning when I gave it a sliding context window that trims its oldest messages after saving what matters.",
-  "now": "The name started making sense when I gave it a sliding context window: it eats its oldest messages after saving what matters.",
-  "why": "copy deck round 2: homepage: Where it started P3"
+  "now": null,
+  "why": "copy deck round 2: homepage: Where it started P3; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -2438,20 +2438,20 @@
  {
   "page": "index",
   "was": "Grow an agent → The full story The harness Try it Hand this to your agent How I work, written for your agent to read.",
-  "now": "Grow an agent → The full story → Try it Hand this to your agent A page written for your agent.",
-  "why": "copy deck round 2: homepage: the buttons are \"Grow an agent\" and \"The full story\"; Try it, Hand this to your agent; root misses ruling 8.6 (2026-10-11)"
+  "now": null,
+  "why": "copy deck round 2: homepage: the buttons are \"Grow an agent\" and \"The full story\"; Try it, Hand this to your agent; root misses ruling 8.6 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "Open the brief → Use today, alpha Desk Give your agent this link and say \"set this up\".",
-  "now": "Open the brief → Use today Desk Works in Claude Code and GitHub Copilot CLI.",
-  "why": "copy deck round 2: homepage: Try it, Desk, with the Alpha label; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation."
+  "now": null,
+  "why": "copy deck round 2: homepage: Try it, Desk, with the Alpha label; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation.; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "Desk's SETUP.md https://github.com/ourostack/desk/blob/main/SETUP.md Copy the link Ouro MD For the Mac.",
-  "now": "and say \"set this up\". https://github.com/ourostack/desk/blob/main/SETUP.md Copy the link Ouro MD For the Mac.",
-  "why": "copy deck round 2: homepage: Try it, Desk: \"Give your agent Desk's setup page and say \"set this up\".\""
+  "now": null,
+  "why": "copy deck round 2: homepage: Try it, Desk: \"Give your agent Desk's setup page and say \"set this up\".\"; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "lab",
@@ -3086,8 +3086,8 @@
  {
   "page": "index",
   "was": "The rest is waiting and moving, so making the work itself 50% faster shortens the whole by about 5%.",
-  "now": "The rest is waiting and moving, so making the work itself 50% faster shortens the whole by 5% at most.",
-  "why": "root ruling M6 (2026-10-11): an upper bound"
+  "now": null,
+  "why": "root ruling M6 (2026-10-11): an upper bound; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "lab/docs/tasks-and-work",
@@ -3230,14 +3230,14 @@
  {
   "page": "index",
   "was": "It renders as you go.",
-  "now": "Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes.",
-  "why": "Ari, 2026-10-11 preview feedback: a livelier Ouro MD caption; root misses ruling 5.1 (2026-10-11)"
+  "now": null,
+  "why": "Ari, 2026-10-11 preview feedback: a livelier Ouro MD caption; root misses ruling 5.1 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "If an agent did something you didn't expect, you didn't prompt it effectively.",
-  "now": "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
-  "why": "Ari, 2026-10-11 preview feedback: the lead-in takes a colon; root misses ruling 4.2 (2026-10-11)"
+  "now": null,
+  "why": "Ari, 2026-10-11 preview feedback: the lead-in takes a colon; root misses ruling 4.2 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "404",
@@ -3266,8 +3266,8 @@
  {
   "page": "index",
   "was": "The Spoonjoy story → spoonjoy.app ↗ How I work I see this agentic era in three acts: Capability.",
-  "now": "Spoonjoy, from the start ↗ spoonjoy.app ↗ How I work I see this agentic era in three acts: Capability.",
-  "why": "root misses ruling 2.8 (2026-10-11)"
+  "now": null,
+  "why": "root misses ruling 2.8 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -3278,20 +3278,20 @@
  {
   "page": "index",
   "was": "And when you improve something, apply it to the whole system, so the next agent starts out ahead.",
-  "now": "Two more things I keep coming back to: if an agent did something you didn't expect, you didn't prompt it effectively, and when you improve something, apply it to the whole system, so the next agent starts out ahead.",
-  "why": "root misses ruling 4.2 (2026-10-11)"
+  "now": null,
+  "why": "root misses ruling 4.2 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "How I work, in more detail → Everyone's building a software factory.",
-  "now": "Fix it for the next agent → Everyone's building a software factory.",
-  "why": "root misses ruling 3.3 (2026-10-11)"
+  "now": null,
+  "why": "root misses ruling 3.3 (2026-10-11); then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
   "was": "I studied industrial and systems engineering before I wrote code.",
-  "now": "I studied Industrial and Systems Engineering before I became a software engineer.",
-  "why": "root misses ruling 2.12 (2026-10-11); then Ari, 2026-10-16: capitalize Industrial and Systems Engineering, as on mendelow.me and LinkedIn"
+  "now": null,
+  "why": "root misses ruling 2.12 (2026-10-11); then Ari, 2026-10-16: capitalize Industrial and Systems Engineering, as on mendelow.me and LinkedIn; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -3590,8 +3590,8 @@
  {
   "page": "index",
   "was": "My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.",
-  "now": "My agents write their plans, reports, and docs in Markdown, and Ouro MD is made for reading them, leaving notes for them, and seeing exactly what changed when they edit.",
-  "why": "fact check 2026-10-11: describe what Ouro MD does, not a reading habit the evidence can't show"
+  "now": null,
+  "why": "fact check 2026-10-11: describe what Ouro MD does, not a reading habit the evidence can't show; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
@@ -3746,8 +3746,8 @@
  {
   "page": "index",
   "was": "AI \"amplifies what's already there\" ( DORA 2025 ).",
-  "now": "They amplify what's already there",
-  "why": "Ari, 2026-10-15: never use the acronym AI; say agents when we mean agents"
+  "now": null,
+  "why": "Ari, 2026-10-15: never use the acronym AI; say agents when we mean agents; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  },
  {
   "page": "index",
@@ -4112,7 +4112,91 @@
  {
   "page": "index",
   "was": "Anything complicated, like importing a recipe from a messy webpage, goes to an agent that works through the same operations the app uses.",
-  "now": "Anything complicated, such as writing up a new recipe or importing one from a messy webpage, goes to an agent that works through the same operations the app uses, and I believe the app will eventually draw its own interface for everything in between.",
-  "why": "Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy"
+  "now": null,
+  "why": "Ari, 2026-10-18 copy sweep: examples take \"such as\", never \"like\"; each paragraph names its subject; Spoonjoy matches the locked mendelow.me copy; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "Dramatization Ouro MD A Markdown editor for the Mac that renders as you type.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "It gives a personal agent an identity, memory that lasts, real tools, and the channels I already use.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "Did it pick the right tool and finish the job without getting confused?",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "When it didn't, I asked it why and changed the design.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "That habit is what I call Agent Experience.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "When something's off You're doing it by hand.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "My favorite class was Work Design and Ergonomics, which is about designing the work around the worker.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "Lean is the part of that world I reach for most, because it starts with where the time goes.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "Agents are the newest workers on the line.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "So I measure where my agents' time actually goes, task by task, and take on the biggest causes first.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "What Lean already knows In most processes, less than a tenth of the elapsed time adds value.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "Fiume, Lean Enterprise Institute Taiichi Ohno described the Toyota Production System as watching the timeline from order to cash and shrinking it by removing the waste.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "Toyota built it on \"respect for people and continuous improvement,\" and on making work easier for the worker.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "index",
+  "was": "The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail.",
+  "now": null,
+  "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
  }
 ]

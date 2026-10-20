@@ -47,9 +47,12 @@ test('root final ruling F15: every video is named by its poster alt text', () =>
   }
   assert.ok(videos > 0);
   const home = readDist('index.html');
-  // root misses ruling 5.1: the caption names the clip's real owner and does not claim real typing.
-  assert.match(home, /<video\b[^>]*aria-label="Professor Aronnax drafts the periscope plans, and every table and chart renders as he writes\."/);
-  assert.match(home, /<video\b[^>]*aria-label="Back from the deep, an agent logs the depth trials, and a bar in the margin marks what changed\."/);
+  // Ari, 2026-10-19: the demo's story is not the point, so captions say what the clip shows.
+  // The homepage shows the agent-edit clip; /ouro-md/ shows both.
+  assert.match(home, /<video\b[^>]*aria-label="An agent edits the open document, and a bar in the margin marks what changed\."/);
+  const md = readDist('ouro-md/index.html');
+  assert.match(md, /<video\b[^>]*aria-label="Tables and charts render as you type\."/);
+  assert.doesNotMatch(md + home, /Aronnax/);
 });
 
 test('root final ruling F17: /brief has no "No install" kicker, and the footer row has no separator to dangle', () => {
