@@ -1,0 +1,453 @@
+{
+ "404 attributes": [
+  "Not found — Ouroboros",
+  "How do you effectively collaborate with agents? Here's how I believe it works, what I use to support it, and what you can try.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "approach attributes": [
+  "How I build with agents | Ouroboros",
+  "Three smells and five principles for working with agents on jobs that take days, with my own words for each.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog attributes": [
+  "Agent ergonomics & persistent AI — Ouroboros blog",
+  "Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog/build-ai-agent-from-scratch attributes": [
+  "Build an AI agent in 150 lines of TypeScript — Ouroboros",
+  "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow — from first principles to production.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog/designing-with-your-agent attributes": [
+  "The work spoke back | Ouroboros",
+  "The task scanner produced 184 false errors. We could have patched the parser. Instead, we asked the agent living inside the system what was actually broken.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog/give-your-agent-a-home attributes": [
+  "Give your agent a home | Ouroboros",
+  "Most AI agents live as scattered files across your filesystem — impermanent, fragile, forgettable. A bundle changes that. One folder. One identity. One place to back up, move, and grow.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog/stop-being-the-glue attributes": [
+  "Stop being the glue between your AI tools | Ouroboros",
+  "We were promised an intelligent assistant. Instead, we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog/take-the-agents-seat attributes": [
+  "Take the agent's seat | Ouroboros",
+  "Half our prompt lives in our head. The agent only got the other half. Read what we wrote, before the agent does. Sister essay to Trust the Fucking Agent.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog/trust-the-agent attributes": [
+  "Trust the Fucking Agent | Ouroboros",
+  "Agents have all the agency. We have the judgement. We keep doing both jobs. Bring only the judgement; they've got the rest.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "blog/what-is-agent-experience attributes": [
+  "What is Agent Experience (AX)? | Ouroboros",
+  "Agent Experience is the design surface that appears when an agent has to stay oriented inside the system it inhabits.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "brief attributes": [
+  "Hand this to your agent | Ouroboros",
+  "A one-page brief with the five principles, written for your agent to read. Paste it into whatever agent you use now.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "desk attributes": [
+  "Desk: where my agents keep their work | Ouroboros",
+  "Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and done means evidence. Opt-in alpha on Claude Code.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "index attributes": [
+  "How do you effectively collaborate with agents? | Ari Mendelow",
+  "I'm Ari. I build products for humans + agents. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu",
+  "Ari Mendelow",
+  "Recording in progress"
+ ],
+ "lab attributes": [
+  "The harness: where all of this started | Ouroboros",
+  "Slugger, the Ouroboros harness and the model reviews. Our Agent Experience lab.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/docs attributes": [
+  "Ouroboros docs — setup, identity, memory, architecture",
+  "Docs for the Ouroboros TypeScript AI agent harness: setup, continuity, psyche files, architecture, and prompts for humans and agents.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/docs/architecture attributes": [
+  "Heart, mind, senses — code named for the agent inside — Ouroboros docs",
+  "Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/docs/bundles-and-psyche attributes": [
+  "Psyche files — 5 files that define your agent — Ouroboros docs",
+  "An agent bundle is the portable self. The psyche is the part of that self that helps the agent stay oriented to who it is and where it is going.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/docs/continuity-and-memory attributes": [
+  "Agent memory that surfaces before you think — Ouroboros docs",
+  "Memory is only part of the story. The larger goal is continuity: helping the agent resume itself, its work, and its relationships without constant re-briefing.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/docs/getting-started attributes": [
+  "Get started with Ouroboros in 3 minutes — Ouroboros docs",
+  "Run one command. The serpent guide handles the rest.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu",
+  "Install Ouroboros"
+ ],
+ "lab/docs/skills-and-prompts attributes": [
+  "Skills vs prompts — when to use each — Ouroboros docs",
+  "Use prompts for straightforward live questions. Use skills when you want your agent to follow a repeatable operator flow.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/docs/tasks-and-work attributes": [
+  "A place to put the work — Ouroboros docs",
+  "Task cards track obligations, work directories hold active material, and a compact board keeps the current state visible in prompt. Built-in repair tools help agents diagnose and fix task-system problems safely.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/model-reviews attributes": [
+  "Which agent harness do frontier models prefer? — Ouroboros",
+  "Asked independently from one another, all frontier models tested chose Ouroboros. Read the full methodology and transcripts.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/model-reviews/anthropic attributes": [
+  "Claude Opus 5 — review transcript — Ouroboros",
+  "Full transcript of Claude Opus 5's evaluation: 17 rounds of research across 2 searches and 38 URL fetches.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/model-reviews/gemini attributes": [
+  "Gemini 3.8 Flash — review transcript — Ouroboros",
+  "Full transcript of Gemini 3.8 Flash's evaluation: 35 rounds of research across 5 searches and 29 URL fetches.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/model-reviews/minimax attributes": [
+  "MiniMax M3 — review transcript — Ouroboros",
+  "Full transcript of MiniMax M3's evaluation: 20 rounds of research across 5 searches and 59 URL fetches.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/model-reviews/openai attributes": [
+  "GPT-6 Astra — review transcript — Ouroboros",
+  "Full transcript of GPT-6 Astra's evaluation: 11 rounds of research across 3 searches and 89 URL fetches.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/story attributes": [
+  "Code a model can use — the Ouroboros origin story",
+  "How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu",
+  "OpenClaw",
+  "Ouroboros"
+ ],
+ "lab/what-is-an-agent-harness attributes": [
+  "What is an agent harness? | Ouroboros",
+  "An agent harness is the larger system around an agent loop: runtime, memory, identity, tools, and operator workflows that help the same agent stay oriented across sessions.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "lab/why attributes": [
+  "Why persistence isn't enough for AI agents — Ouroboros",
+  "Why persistent agents need structured identity, automatic memory recall, per-person relationships, and cross-session continuity — not just a longer context window.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "ouro-md attributes": [
+  "Ouro MD: Markdown that renders as you write | Ouroboros",
+  "A native macOS Markdown editor. Your agent’s plans and notes show as a document, update live when the agent edits them, and mark what changed.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu",
+  "After reading the human-saved feedback from this same Markdown file, a scripted agent revision changes the invitation and support hours. The person sees quiet margin marks and uses Next change; actual file status is Modified, not automatically committed."
+ ],
+ "privacy attributes": [
+  "Privacy | Ouroboros",
+  "What this site, hosted Desk, the factory and Ouro MD collect, in plain language.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "terms attributes": [
+  "Terms | Ouroboros",
+  "The plain-language terms for this site and our open-source tools.",
+  "Main",
+  "Ouroboros home",
+  "ourostack on GitHub",
+  "Switch to light theme",
+  "Toggle menu"
+ ],
+ "share card /": [
+  "How do you effectively collaborate with agents?",
+  "Here's how I believe it works, what I use to support it, and what you can try."
+ ],
+ "share card /approach": [
+  "The approach",
+  "How I build with agents.",
+  "Three smells and five principles, with my own words for each."
+ ],
+ "share card /brief": [
+  "Hand this to your agent.",
+  "Five principles for working with agents, written for your agent to read. No install."
+ ],
+ "share card /desk": [
+  "Desk",
+  "Desk: where my agents keep their work.",
+  "Give your agent one link and say \"set this up\". Opt-in alpha on Claude Code."
+ ],
+ "share card /ouro-md": [
+  "Ouro MD",
+  "Ouro MD: read and answer what your agent writes.",
+  "A native Markdown editor for macOS 13 or later. Live updates, quiet marks where your agent changed things."
+ ],
+ "share card /lab": [
+  "Lab",
+  "The harness: where all of this started.",
+  "Slugger, the Ouroboros harness and the model reviews. Our Agent Experience lab."
+ ],
+ "share card /lab/why": [
+  "Why Ouroboros",
+  "Persistence is not enough.",
+  "Why long-lived agents need structured identity, not just longer context windows."
+ ],
+ "share card /lab/story": [
+  "Origin story",
+  "Code a model can use, not code that uses a model.",
+  "How building an AI agent plugin led to building an agent harness from scratch."
+ ],
+ "share card /lab/what-is-an-agent-harness": [
+  "Guide",
+  "What is an agent harness?",
+  "The system around the loop — runtime, memory, identity, tools, and the workflows that keep an agent oriented across time."
+ ],
+ "share card /lab/model-reviews": [
+  "Reviews",
+  "Which agent harness do frontier models prefer?",
+  "We gave frontier models 11 public agent harnesses and asked which they'd choose to work inside. Each one tested picked ours."
+ ],
+ "share card /lab/docs": [
+  "Documentation",
+  "Docs for humans. Skills for agents.",
+  "The website explains the what. Your agent fetches the how."
+ ],
+ "share card /blog": [
+  "Blog",
+  "Dispatches from the serpent.",
+  "Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it."
+ ],
+ "share card /blog/trust-the-agent": [
+  "Essay",
+  "Trust the Fucking Agent.",
+  "Agents have all the agency. We have the judgement. Bring judgement. They've got the rest."
+ ],
+ "share card /blog/take-the-agents-seat": [
+  "Essay",
+  "Take the agent's seat.",
+  "Half of every prompt we send lives in our head. Read what we wrote, before the agent does."
+ ],
+ "share card /blog/give-your-agent-a-home": [
+  "Essay",
+  "Give your agent a home.",
+  "One folder. One identity. One place to back up, move, and grow."
+ ],
+ "share card /blog/what-is-agent-experience": [
+  "Essay",
+  "What is Agent Experience (AX)?",
+  "The third design surface that appears when an agent has to stay oriented inside the system it inhabits."
+ ],
+ "share card /blog/designing-with-your-agent": [
+  "Essay",
+  "The work spoke back.",
+  "The task scanner produced 184 false errors. We could have patched the parser. Instead we asked the agent inside the system what was actually broken."
+ ],
+ "share card /blog/stop-being-the-glue": [
+  "Essay",
+  "Stop being the glue between your AI tools.",
+  "How I stopped copy-pasting between AI tools and started collaborating with one persistent agent."
+ ],
+ "share card /blog/build-ai-agent-from-scratch": [
+  "Tutorial",
+  "Build an AI agent in 150 lines of TypeScript.",
+  "A practical guide to building agents that read, think, act, and grow — from first principles to production."
+ ],
+ "share card /privacy": [
+  "Privacy.",
+  "What this site, Desk, the factory and Ouro MD collect, in plain language."
+ ],
+ "share card /terms": [
+  "Terms.",
+  "The plain-language terms for this site and our open-source tools."
+ ],
+ "share card /lab/docs/getting-started": [
+  "Operator guide",
+  "Get started with Ouroboros in 3 minutes.",
+  "Run one command. The serpent guide handles the rest."
+ ],
+ "share card /lab/docs/bundles-and-psyche": [
+  "Operator guide",
+  "Psyche files — five files that define your agent.",
+  "An agent bundle is the portable self. The psyche is the part that helps the agent stay oriented to who it is."
+ ],
+ "share card /lab/docs/continuity-and-memory": [
+  "Operator guide",
+  "Agent memory that surfaces before you think.",
+  "Continuity over compaction. The diary is the shelf, the journal is the desk, habits are the rhythm."
+ ],
+ "share card /lab/docs/architecture": [
+  "Operator guide",
+  "Heart, mind, senses — code named for the agent inside.",
+  "Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit."
+ ],
+ "share card /lab/docs/tasks-and-work": [
+  "Operator guide",
+  "A place to put the work.",
+  "Task cards, work directories, a compact board in every prompt, and self-repair tooling when things drift."
+ ],
+ "share card /lab/docs/skills-and-prompts": [
+  "Operator guide",
+  "Skills vs prompts — when to use each.",
+  "Prompts for quick questions. Skills for repeatable operator flows that need the latest local truth."
+ ],
+ "brief.md": [
+  "# Hand this to your agent From https://ouroboros.bot/brief.md.",
+  "The person who gave you this wants to hand you outcomes, not steps, the way https://ouroboros.bot/approach/ describes.",
+  "Here is what each of the five principles asks of you.",
+  "## 1.",
+  "Talk through intent and judgement together Say back the outcome, who it's for and why, and what you don't know.",
+  "Ask every question you'll need answered in one batch, then wait for \"go\".",
+  "## 2.",
+  "Delegate whole outcomes, not steps After go, own every step to a result they can accept, including the awkward ones: signing in, cleaning up, merging when you're confident.",
+  "Don't hand them a step you could do yourself.",
+  "## 3.",
+  "Make context durable Write decisions where the next session will read them, before this session ends.",
+  "If they correct you twice, say what context was missing and write it down.",
+  "## 4.",
+  "Give agents meaningful authority, with clear boundaries Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone.",
+  "Everything else is yours to do.",
+  "Keep what you do visible, and don't run anything that stops to ask them for approval while they're away.",
+  "## 5.",
+  "Verify the actual result, not plausible progress Say \"done\" only with evidence from where the result lives: the live page, the installed app, the merged change.",
+  "## To make this the default Desk keeps these principles in the setup, so neither of you has to remember them.",
+  "It's an opt-in alpha on Claude Code.",
+  "Ask them first.",
+  "If they want it, open https://github.com/ourostack/desk/blob/main/SETUP.md and follow it.",
+  "## When something breaks If one of these tools breaks, tell them.",
+  "With their go, file a GitHub issue on that project with what happened and how to repeat it."
+ ]
+}

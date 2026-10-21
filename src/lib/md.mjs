@@ -27,7 +27,8 @@ export function parseInlineMd(text, options = {}) {
   })
 
   html = html.replace(
-    /\[([^\]\n]+)\]\((https?:\/\/[^\s"'<>]+)\)/g,
+    // A URL may hold balanced parentheses; an unbalanced ")" closes the link.
+    /\[([^\]\n]+)\]\((https?:\/\/(?:[^\s"'<>()]|\([^\s"'<>()]*\))+)\)/g,
     '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>',
   )
   html = html.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')

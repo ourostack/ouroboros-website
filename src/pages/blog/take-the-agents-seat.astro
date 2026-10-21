@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { ogPathFor } from '../../data/og'
+
+const title = "Take the agent's seat"
+const description = "Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send."
+---
+
+<Layout
+  title={`${title} | Ouro`}
+  description={description}
+  ogImage={ogPathFor('/blog/take-the-agents-seat')}
+  canonical="https://ouroboros.bot/blog/take-the-agents-seat/"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <meta name="keywords" content="prompting, empathy, agent experience, AX, TTFA, prompt engineering, ouroboros" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
+      "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
+      "dateCreated": "2026-05-12",
+      "datePublished": "2026-05-12",
+      "url": "https://ouroboros.bot/blog/take-the-agents-seat/"
+    })} />
+  </Fragment>
+
+  <!-- Header -->
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-6xl mx-auto split lg:items-end">
+      <div class="split-head">
+        <span class="eyebrow block mb-6">Essay</span>
+        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+          Take the agent's seat
+        </h1>
+      </div>
+      <div class="split-body">
+        <p class="text-base text-mist mt-6 leading-relaxed">
+          Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.
+        </p>
+        <p class="text-sm text-mist mt-4">Ari Mendelow &middot; May 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <section class="px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
+    <div class="max-w-6xl mx-auto prose-ouro">
+
+<p>We type "fix it" and hit send. In our head, it's the JSON parsing bug in the v2 deserializer we were swearing at five minutes ago. On the agent's screen, it's two words, in a repo with forty things that could be broken.</p>
+
+<p>The agent picks one. Wrong one. We sigh, type the clarification we should have typed the first time, and quietly decide the agent doesn't get it. It got exactly what we sent. We sent half a prompt.</p>
+
+<p>I call the missing half the ghost prompt: everything that lived in our head and never made the trip. Last night's context. The file we almost touched yesterday. The thing "we discussed". The agent got the words, and we're judging its work against a brief it never saw.</p>
+
+<p>Here's what I do: before I hit send, I put myself in the agent's shoes for ten seconds.</p>
+
+<h2>What falls out</h2>
+
+<p>Read your prompt as someone who has the system prompt, this conversation, and nothing else. A few things usually fall out:</p>
+
+<ul>
+  <li><strong>The pronoun with no antecedent.</strong> "Make it work the way we discussed." Which "it"? Which "way"? If this conversation didn't carry the discussion, the prompt doesn't either.</li>
+  <li><strong>The missing location.</strong> "Update the config." There are a hundred config-shaped files. Did you want the agent to spend its time searching, or editing?</li>
+  <li><strong>Last week.</strong> "Like we did last week." The agent has no last week. Tell it, or tell it where to look.</li>
+  <li><strong>The shared frame.</strong> "Obviously this is the wrong approach." Obvious by what standard, and where does the agent find it?</li>
+</ul>
+
+<h2>Where the distrust comes from</h2>
+
+<p>Send the half-prompt, and the agent ships the wrong thing. Correct it, and it ships a different wrong thing. By the third pass you've spent more time correcting than it would have taken to say what you meant, and a quiet sentence forms: this agent isn't very good.</p>
+
+<p>The agent did exactly what you asked. The distrust sticks to it anyway, because the agent is the part you can see. Then the distrust feeds everything I wrote about in Trust the Fucking Agent: we stop letting the agent finish, we narrate every tool call, and we end up doing the thinking and letting it type.</p>
+
+<p>We'd hate it done to us. Think of the worst message you ever got from a busy colleague: "hey can you do that thing we talked about, thx." No thread, no link. You guessed, guessed wrong, and both of you were annoyed. That's the prompt we send our agents every day.</p>
+
+<h2>Two halves</h2>
+
+<p>Trust the Fucking Agent was about trust. This one's about saying what you mean. If you trust the agent and the brief is vague, it flounders, and the floundering confirms your distrust. If the brief is clear and you don't trust it, you end up micromanaging. You want both.</p>
+
+<h2>Be direct</h2>
+
+<p>Agents are fine with direct. Skip the reassurance, skip phrasing every request as a question, and say exactly what you want.</p>
+
+<p>"Add a unit test for the parser's empty-input case in <code>src/parser/__tests__/parser.test.ts</code>; assert it returns null and logs a warning" already did the work of imagining what the agent needs to know. "can you maybe add a test for the parser? thanks!" is polite, and it leaves the imagining to the agent.</p>
+
+<p>The agent is going to read what you wrote. Read it first.</p>
+
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto lg:flex lg:items-baseline lg:justify-between lg:gap-12">
+      <p class="text-sm text-mist leading-relaxed">
+        For the trust half, see <a href="/blog/trust-the-agent/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Trust the Fucking Agent</a>. The design idea behind this is <a href="/blog/what-is-agent-experience/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Agent Experience</a>. For a real design conversation from the agent's seat, see <a href="/blog/designing-with-your-agent/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">The work spoke back</a>.
+      </p>
+      <a href="/blog/" class="inline-block mt-8 lg:mt-0 shrink-0 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; Back to blog</a>
+    </div>
+  </section>
+</Layout>

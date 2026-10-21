@@ -1,163 +1,408 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import SerpentGuidePreview from '../components/SerpentGuidePreview.astro'
+import DeskMedia from '../components/DeskMedia.astro'
+import OuroMdMedia from '../components/OuroMdMedia.astro'
+import ModelQuotes from '../components/ModelQuotes.astro'
 import modelReviews from '../data/model-reviews.json'
-import { ogPathFor } from '../data/og'
 import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
+import { ogPathFor } from '../data/og'
+import { principles, smells, factoryUrl, deskSetupUrl } from '../data/principles.mjs'
+import { labelFor, entry } from '../data/readiness.mjs'
+import { acts } from '../data/acts.mjs'
+import ActBody from '../components/ActBody.astro'
 
-const reviews = modelReviews.reviews
-const { winner, claimSentence, heroLead } = getModelReviewClaims(modelReviews)
+// Every visible word on this page is transcribed from the copy deck
+// (ouroboros.bot homepage, 2026-10-11). Builders never write copy here.
+const title = 'How can humans and agents do more together? | Ouro'
+// Link previews put this beside the Ouro character, so it never greets as Ari (cringe pass, 2026-10-16).
+const description = "Ari Mendelow's workshop: the tools he's built for working with agents, how he uses them, and where it all started."
+
+const { winner: reviewWinner, allChose, winnerCount, totalReviews } = getModelReviewClaims(modelReviews)
+const reviewHeading = allChose ? 'Every frontier model we asked picked' : `${winnerCount} of ${totalReviews} frontier models we asked picked`
+const deskLabel = labelFor('desk-claude-code-macos')
+const hxLabel = labelFor('ouro-hx')
+const shepherdLabel = labelFor('shepherd')
+const friendsLabel = labelFor('friends')
+const friendsDetail = entry('friends').detail
+const shepherdDetail = entry('shepherd').detail
+const butlerLabel = labelFor('butler')
+const butlerDetail = entry('butler').detail
+const ouroMdPage = '/ouro-md/'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const section = 'relative px-5 sm:px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20 reveal'
+
+
+const wastes = [
+  ['Waiting', 'An agent stops to ask what you could have told it up front.'],
+  ['Defects', 'Work that comes back broken.'],
+  ['Overprocessing', 'Polish nobody asked for.'],
+  ['Overproduction', 'Building before anyone needs it.'],
+  ['Motion', 'Re-reading and re-searching what was already known.'],
+  ['Inventory', 'Half-finished branches and pull requests piling up.'],
+  ['Transportation', 'Carrying context by hand from one tool to the next.'],
+  ['Unused talent', 'A human doing what an agent could, or an agent kept from what it could do.'],
+]
 ---
 
-<Layout
-  title={`${heroLead} ${winner}`}
-  description={`${claimSentence} Open source. Built by agents.`}
-  ogImage={ogPathFor('/')}
->
-  <!-- ═══════════════ HERO — DECK SLIDE ═══════════════ -->
-  <section class="relative overflow-hidden px-6 md:px-12 lg:px-24 pt-28 pb-20 md:pt-32 md:pb-24 min-h-dvh flex flex-col">
-    <div class="absolute inset-0 bg-gradient-to-b from-deep via-undergrowth/15 to-void pointer-events-none"></div>
-    <div class="absolute top-1/3 left-1/4 w-[500px] h-[400px] md:w-[800px] md:h-[500px] rounded-full bg-scale/[0.04] blur-[150px] md:blur-[220px] pointer-events-none"></div>
+<Layout title={title} description={description} ogImage={ogPathFor('/')} canonical="https://ouroboros.bot/">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "How can humans and agents do more together?",
+      "url": "https://ouroboros.bot/",
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://mendelow.me" },
+      "dateModified": "2026-10-11"
+    })} />
+  </Fragment>
 
-    <div class="relative max-w-6xl mx-auto w-full flex-1 flex flex-col justify-center">
-      <!-- Eyebrow -->
-      <div class="mb-8 md:mb-10 animate-fade-up">
-        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-fang/30 bg-fang/[0.04]">
-          <span class="font-mono text-xs text-fang uppercase tracking-[0.25em]">&#10022; Reviews</span>
-        </div>
+  <!-- 1. Hero -->
+  <section class="relative overflow-hidden px-5 sm:px-6 md:px-12 lg:px-16 pt-24 pb-10 md:pt-32 md:pb-14">
+    <div class="absolute top-10 -right-40 w-[520px] h-[520px] rounded-full bg-scale/10 blur-[140px] pointer-events-none" aria-hidden="true"></div>
+
+    <div class="hero relative max-w-6xl mx-auto">
+      <div class="hero-copy">
+      <h1 class="hero-title heading-hero animate-fade-up">How can humans and agents do more <span class="text-scale">together?</span></h1>
+      <p class="hero-sub text-lg md:text-2xl text-bone leading-snug animate-fade-up stagger-1">Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.</p>
+      </div>
+      <a href="https://mendelow.me" class="hero-pic portrait group animate-fade-up stagger-2">
+        <img src="/images/workshop/ari-portrait.jpg" width="600" height="824" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." class="portrait-img" fetchpriority="high" />
+        <span class="portrait-link text-sm md:text-base">More about me <span aria-hidden="true">&#8599;</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 2. Ouroboros: what it is, the evidence, what grew inside it -->
+  <section id="ouroboros" class={`${section} scroll-mt-16`} aria-labelledby="ouroboros-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="ouroboros-heading" class="heading-section heading-mark"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render" />Ouroboros</h2>
+      <div class="lead">
+        <p>Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.</p>
+        <p><a href="/lab/" class={link}>The harness &rarr;</a></p>
       </div>
 
-      <!-- ONE claim -->
-      <h1 class="heading-hero animate-fade-up stagger-1 max-w-5xl">
-        {heroLead} <span class="text-scale">{winner}.</span>
-      </h1>
+      <h3 class="heading-sub sub-block">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h3>
+      <p class="dek">We asked each which of {modelReviews.harnesses.length} harnesses it would most want to wake up in. In their words:</p>
+      <div class="mt-8"><ModelQuotes /></div>
 
-      <!-- ONE subhead — derived from the script output. Never hardcode the claim. -->
-      <p class="mt-6 md:mt-8 text-bone text-lg md:text-xl lg:text-2xl max-w-3xl leading-snug animate-fade-up stagger-2">
-        {claimSentence}
-      </p>
+      <h3 class="heading-sub sub-block">Grown inside it</h3>
+      <ul class="grown">
+        <li id="friends">
+          <img src="/brand/friends-render.webp" srcset="/brand/friends-render-128.webp 128w, /brand/friends-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
+          <div class="grown-body">
+            <h4 class="grown-name">Friends</h4>
+            <p class="grown-status"><span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span> {friendsDetail}</p>
+            <p>Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.</p>
+            <p><a href="https://github.com/ourostack/friends" class={link}>Friends on GitHub &#8599;</a></p>
+          </div>
+        </li>
+        <li id="shepherd">
+          <img src="/brand/shepherd-render.webp" srcset="/brand/shepherd-render-128.webp 128w, /brand/shepherd-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
+          <div class="grown-body">
+            <h4 class="grown-name">Ouro Shepherd</h4>
+            <p class="grown-status"><span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span> {shepherdDetail}</p>
+            <p>Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.</p>
+            <p><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={link}>How Shepherd decides &#8599;</a></p>
+          </div>
+        </li>
+        <li id="butler">
+          <img src="/brand/butler-render.webp" srcset="/brand/butler-render-128.webp 128w, /brand/butler-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
+          <div class="grown-body">
+            <h4 class="grown-name">Ouro Butler</h4>
+            <p class="grown-status"><span class={`tag ${butlerLabel.tone}`}>{butlerLabel.label}</span> {butlerDetail}</p>
+            <p>An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.</p>
+            <p><a href="/butler/" class={link}>Ouro Butler &rarr;</a></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-      <!-- 4 compact specimen cards — the selected review panel.
-           Each card links to that model's full transcript page. -->
-      <div class="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7 animate-fade-up stagger-3">
-        {reviews.map((review) => (
-          <a href={`/model-reviews/${review.provider}`} class="group block border-t border-canopy/50 pt-5 hover:border-scale/70 transition-colors">
-            <div class="font-mono text-xs text-fang uppercase tracking-[0.22em] mb-2">{review.vendor}</div>
-            <div class="font-display text-bone text-lg md:text-xl leading-tight mb-4 group-hover:text-scale transition-colors">{review.displayName}</div>
-            <p class="text-bone text-sm md:text-[15px] leading-[1.6]">
-              &#8220;{review.pullQuote}&#8221;
-            </p>
-            <div class="mt-5 inline-flex items-center gap-2 font-mono text-xs text-scale uppercase tracking-[0.18em] group-hover:text-glow transition-colors">
-              Read transcript
-              <span class="transition-transform group-hover:translate-x-0.5">&rarr;</span>
-            </div>
-          </a>
+  <!-- 3. The lab -->
+  <section class={`${section} bg-deep/40`} aria-labelledby="built-heading">
+    <div class="max-w-6xl mx-auto">
+      <div class="section-head">
+      <h2 id="built-heading" class="heading-section">Built by watching agents work</h2>
+      <p class="dek">Each began with something my agents or I kept running into. Then I watched agents use it and asked them what got in the way. That's <a href="/blog/what-is-agent-experience/" class={link}>Agent Experience</a>.</p>
+      </div>
+
+      <div class="tools">
+        <article class="tool" id="desk">
+          <DeskMedia />
+          <div class="tool-copy">
+            <h3 class="tool-name"><img src="/brand/desk-render.webp" srcset="/brand/desk-render-128.webp 128w, /brand/desk-render-256.webp 256w" sizes="44px" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-render w-11 h-11" />Desk</h3>
+            <p>Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
+            <p class="product-links"><a href="/desk/" class={link}>Desk &rarr;</a></p>
+          </div>
+        </article>
+
+        <article class="tool" id="ouro-md">
+          <OuroMdMedia only="agent" />
+          <div class="tool-copy">
+            <h3 class="tool-name"><img src="/brand/ouro-md-icon.png" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-tile w-11 h-11" />Ouro MD</h3>
+            <p>My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
+            <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
+          </div>
+        </article>
+
+        <article class="tool" id="ouro-ui">
+          <figure class="product-figure">
+            <a href="https://ourostack.github.io/ouro-ui/voyage/" class="product-media media-shot hx-voyage">
+              <picture class="theme-light-only"><img src="/images/workshop/hx-voyage-light.webp" width="1200" height="1069" loading="lazy" decoding="async" alt="The Ouro HX showcase: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+              <picture class="theme-dark-only"><img src="/images/workshop/hx-voyage-dark.webp" width="1200" height="1069" loading="lazy" decoding="async" alt="The Ouro HX showcase in its dark theme: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+            </a>
+            <figcaption class="product-caption">Every control on this stage is an Ouro HX component, and each one changes the view through the porthole.</figcaption>
+          </figure>
+          <div class="tool-copy">
+            <h3 class="tool-name"><img src="/brand/ouro-hx-render.webp" srcset="/brand/ouro-hx-render-128.webp 128w, /brand/ouro-hx-render-256.webp 256w" sizes="44px" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-render w-11 h-11" />Ouro UI</h3>
+            <p class="grown-status"><span class={`tag ${hxLabel.tone}`}>Ouro HX · {hxLabel.label}</span></p>
+            <p>Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.</p>
+            <p class="product-links"><a href="https://ourostack.github.io/ouro-ui/voyage/" class={link}>Try the showcase &#8599;</a> <a href="https://github.com/ourostack/ouro-ui" class={link}>Source &#8599;</a></p>
+          </div>
+        </article>
+
+        <article class="tool" id="m365crawl" data-allow-product-name="Microsoft 365">
+          <figure class="product-figure">
+            <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1582" height="1414" loading="lazy" decoding="async" alt="m365crawl doctor output: every ready check passing, then a snapshot of the archive with its Teams, mail, and calendar counts." /></div>
+            <figcaption class="product-caption">The doctor, giving an archive its checkup.</figcaption>
+          </figure>
+          <div class="tool-copy">
+            <h3 class="tool-name">m365crawl</h3>
+            <p>m365crawl gives my agent one searchable archive of my Teams chats, Outlook mail, and meetings, so it can find the conversation and walk into the meeting prepared, without me pasting a thing.</p>
+            <p class="product-links"><a href="https://github.com/ourostack/m365crawl" class={link}>m365crawl on GitHub &#8599;</a></p>
+          </div>
+        </article>
+
+        <article class="tool" id="spoonjoy">
+          <figure class="product-figure">
+            <a href="https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z" class="product-media media-shot media-photo"><img src="/images/workshop/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." /></a>
+            <figcaption class="product-caption">My mushroom risotto in Spoonjoy, one tap from cook mode.</figcaption>
+          </figure>
+          <div class="tool-copy">
+            <h3 class="tool-name"><span class="spoonjoy-mark w-11 h-11" aria-hidden="true"></span>Spoonjoy</h3>
+            <p>Spoonjoy is my recipe app, and where I work out what an app's interface is for once an agent is in the loop. The easy things stay in the app. Writing up a recipe or importing one from a messy webpage goes to an agent that uses the <a href="https://github.com/spoonjoy/spoonjoy-v2/blob/main/app/lib/spoonjoy-api.server.ts" class={link}>same operations</a> the app does. Eventually, the app will draw its own interface for everything in between.</p>
+            <p class="product-links"><a href="https://mendelow.me/#spoonjoy-story" class={link}>Spoonjoy, from the start &#8599;</a> <a href="https://spoonjoy.app" class={link}>spoonjoy.app &#8599;</a></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. How I work with agents -->
+  <section class={section} aria-labelledby="method-heading">
+    <div class="max-w-6xl mx-auto">
+      <div class="section-head">
+        <h2 id="method-heading" class="heading-section">When an agent gets it wrong, look at what you gave it.</h2>
+        <p class="dek">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+      </div>
+
+      <p class="block-label">I see this agentic era in three acts</p>
+      <ol class="acts">
+        {acts.map((act, i) => (
+          <li><span class="act-n">Act {i + 1}</span><strong class="act-name">{act.name}</strong><span class="act-body"><ActBody body={act.body} home /></span></li>
         ))}
+      </ol>
+
+      <p class="block-label">Failure modes I watch for</p>
+      <ul class="smells">
+        {smells.map((smell) => (
+          <li><strong>{smell.name}</strong> <span>{smell.short}</span></li>
+        ))}
+      </ul>
+
+      <p class="block-label">What's been working</p>
+      <ol class="principles">
+        {principles.map((p) => (
+          <li><a href={`/approach/#${p.id}`} class="principle group"><span class="principle-n">{p.n}</span>{p.title}<span class="principle-arrow" aria-hidden="true">&rarr;</span></a></li>
+        ))}
+      </ol>
+      <p class="method-close">And when I fix something, I fix it for the whole system, so the next agent starts out ahead. <a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
+    </div>
+  </section>
+
+  <!-- 5. The factory -->
+  <section id="factory" class={`${section} bg-deep/40 scroll-mt-16`} aria-labelledby="factory-heading">
+    <div class="max-w-6xl mx-auto">
+      <div class="section-head">
+        <h2 id="factory-heading" class="heading-section">Software factories can learn from real ones.</h2>
+        <p class="factory-lead">Software factories, with agents shipping code all night, are coming as fast as the infrastructure catches up. I'm working through the problems they'll hit now, on my own agents' work, with a method that works today and scales up with them.</p>
+      </div>
+      <div class="factory-body">
+        <p>Real factories have a century of practice behind them, and I studied them before I wrote software: Industrial and Systems Engineering, where my favorite class was Work Design and Ergonomics, designing the work around the worker. Lean is what I reach for most, because it starts with where the time goes.</p>
+        <p>Agents amplify what's already there (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with early-2025 coding assistants while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and fix the biggest causes first.</p>
       </div>
 
-      <!-- ONE CTA + secondary links -->
-      <div class="mt-12 md:mt-16 flex flex-wrap items-center gap-x-7 gap-y-4 animate-fade-up stagger-4">
-        <a href="/model-reviews" class="group inline-flex items-center gap-2 px-6 py-3 bg-scale text-void text-sm md:text-base font-medium rounded-md transition-all duration-300 hover:bg-glow hover:shadow-[0_0_40px_rgba(45,148,71,0.2)]">
-          Read the methodology
-          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-        </a>
-        <a href="/docs/getting-started/" class="inline-flex items-center gap-1.5 text-bone hover:text-scale transition-colors text-sm md:text-base">
-          Get started
-          <svg class="w-3.5 h-3.5 text-scale" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-        </a>
-        <a href="/why" class="text-mist hover:text-bone transition-colors text-sm md:text-base">Why Ouroboros</a>
+      <p class="block-label">Lean's eight wastes, as they show up with agents</p>
+      <dl class="wastes">
+        {wastes.map(([name, body]) => (
+          <div><dt>{name}</dt><dd>{body}</dd></div>
+        ))}
+      </dl>
+      <div class="factory-cta">
+        <img src="/brand/factory-render.webp" srcset="/brand/factory-render-128.webp 128w, /brand/factory-render-256.webp 256w, /brand/factory-render.webp 1024w" sizes="(min-width: 768px) 80px, 64px" width="80" height="80" alt="" loading="lazy" decoding="async" class="mark-render w-16 h-16 md:w-20 md:h-20" />
+        <p class="text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
+        <a href={factoryUrl} class="btn-primary">See my agents' numbers &#8599;</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════ THE COST ═══════════════ -->
-  <section class="relative overflow-hidden px-6 md:px-12 lg:px-24 py-24 sm:py-32 md:py-48 reveal">
-    <div class="absolute inset-0 bg-deep/80 pointer-events-none"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-void/50 via-transparent to-void/50 pointer-events-none"></div>
-
-    <div class="relative max-w-6xl mx-auto">
-      <span class="font-mono text-xs text-fang uppercase tracking-[0.25em] block mb-8">The cost</span>
-
-      <h2 class="heading-section">
-        What survives when the context window <span class="text-scale">runs out?</span>
-      </h2>
-
-      <p class="font-display text-2xl md:text-3xl text-mist mt-6 mb-16 sm:mb-24 md:mb-32 max-w-3xl">
-        Every conversation has a ceiling. Hit it, and something has to give.
-      </p>
-
-      <div class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-16">
-        <!-- Problems: smaller type, mist color -->
-        <div>
-          <span class="font-mono text-xs text-fang uppercase tracking-[0.22em]">Compaction</span>
-          <h3 class="font-display text-2xl md:text-3xl text-mist mt-4 leading-snug">Summarize and forget.</h3>
-          <p class="text-sm md:text-base text-mist mt-4 leading-relaxed">
-            The model compresses its history. Details flatten. Tone drifts. The agent becomes a stranger wearing a familiar name.
-          </p>
+  <!-- 6. Where it started -->
+  <section class={section} aria-labelledby="origin-heading">
+    <div class="max-w-6xl mx-auto">
+      <div class="origin-head">
+        <h2 id="origin-heading" class="heading-section">It started with <span class="text-scale">Slugger.</span></h2>
+        <div class="molt">
+          <span class="molt-step"><img src="/images/openclaw.svg" alt="" width="72" height="72" decoding="async" class="w-14 h-14 md:w-16 md:h-16" /><span class="caption-mono">OpenClaw</span></span>
+          <span class="molt-line" aria-hidden="true"></span>
+          <span class="molt-step"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w, /brand/ouro-render.webp 1024w" sizes="(min-width: 768px) 64px, 56px" alt="" width="80" height="80" loading="lazy" decoding="async" class="mark-render w-14 h-14 md:w-16 md:h-16" /><span class="caption-mono">Ouroboros</span></span>
         </div>
+      </div>
 
-        <div>
-          <span class="font-mono text-xs text-fang uppercase tracking-[0.22em]">New session</span>
-          <h3 class="font-display text-2xl md:text-3xl text-mist mt-4 leading-snug">Start over entirely.</h3>
-          <p class="text-sm md:text-base text-mist mt-4 leading-relaxed">
-            Everything resets. The human re-briefs. The agent re-discovers. Hours of shared context evaporate.
-          </p>
-        </div>
-
-        <!-- Solution: larger type, bone color, scale accent -->
-        <div>
-          <span class="font-mono text-xs text-scale uppercase tracking-[0.22em]">Ouroboros</span>
-          <h3 class="font-display text-2xl md:text-3xl text-bone mt-4 leading-snug">The snake eats its tail.</h3>
-          <p class="text-sm md:text-base text-mist mt-4 leading-relaxed">
-            Old messages are trimmed — but identity lives in the psyche, not the tokens. The agent keeps a diary, journals its thinking, and surfaces what matters when it matters.
-          </p>
-          <p class="font-mono text-scale text-xs uppercase tracking-[0.22em] mt-6">The tail is consumed. The self survives.</p>
-        </div>
+      <div class="origin-body">
+        <p>In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, talked with my family, and joined group chats with my friends. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
+        <p>That's when I realized correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch: a small loop in TypeScript that, by the end, extends itself. I followed it myself and got hooked.</p>
+        <p>The agent that grew out of it named itself Ouroboros, the snake that eats its own tail, for a loop that was building itself. The name kept fitting: once I gave it a sliding context window, it ate its oldest messages after saving what matters. It became the name of <a href="/lab/" class={link}>the harness</a>, then of <code class="model-code">ouro</code>, the CLI, and now it names this workshop, where I build with agents.</p>
+        <p class="product-links"><a href="/lab/story/" class={link}>The full story &rarr;</a></p>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════ BEGIN ═══════════════ -->
-  <section class="relative px-6 md:px-12 lg:px-24 py-24 sm:py-32 md:py-48 reveal">
-    <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-scale/[0.04] to-transparent pointer-events-none"></div>
+  <!-- 7. Where to start -->
+  <section id="try" class={`${section} bg-deep/40 scroll-mt-16`} aria-labelledby="try-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="try-heading" class="heading-section">Start with what you need.</h2>
 
-    <div class="relative lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:items-start max-w-7xl mx-auto">
-      <div class="mb-16 lg:mb-0 lg:sticky lg:top-32">
-        <span class="font-mono text-xs text-scale uppercase tracking-[0.25em] block mb-6">Begin</span>
-        <h2 class="heading-section">
-          One command.<br />
-          A conversation.<br />
-          <span class="text-scale">Hatched.</span>
-        </h2>
-        <p class="text-sm xl:text-base text-mist mt-6 leading-relaxed max-w-xs">
-          <code class="font-mono text-scale text-xs">npx ouro.bot</code> starts a serpent guide — a conversational hatching process that shapes your agent's personality, name, and purpose through dialogue.
-        </p>
-        <div class="mt-8 flex items-baseline gap-6">
-          <a href="/docs" class="inline-flex items-center gap-2 px-5 py-2.5 bg-scale text-void text-sm font-medium rounded-lg transition-all duration-300 hover:bg-glow hover:shadow-[0_0_30px_rgba(45,148,71,0.15)]">
-            Read the docs
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-          </a>
-          <a href="/story" class="text-mist hover:text-bone transition-colors text-sm">The origin story</a>
-        </div>
-      </div>
-
+      <div class="start-groups">
       <div>
-        <SerpentGuidePreview />
+      <p class="block-label">Work and learn with me</p>
+      <ul class="starts">
+        <li><a href="/brief/" class="start"><span class="start-q">Want your agent to work the way I do?</span><span class="start-a">Hand it the brief &rarr;</span></a></li>
+        <li><a href="/blog/build-ai-agent-from-scratch/" class="start"><span class="start-q">Want to understand agents from the inside?</span><span class="start-a">Grow one from scratch &rarr;</span></a></li>
+        <li><a href="/blog/" class="start"><span class="start-q">Want to follow along?</span><span class="start-a">Read the essays &rarr;</span></a></li>
+      </ul>
+
+      </div>
+      <div>
+      <p class="block-label">Fix what's in your way</p>
+      <ul class="starts">
+        <li><a href="/desk/" class="start"><span class="start-q">Does every agent session start from zero?</span><span class="start-a">Set up Desk &rarr;</span></a></li>
+        <li><a href={ouroMdPage} class="start"><span class="start-q">Do your agents write more than you can read?</span><span class="start-a">Get Ouro MD &rarr;</span></a></li>
+        <li><a href="/lab/docs/getting-started/" class="start"><span class="start-q">Want one agent that knows you everywhere?</span><span class="start-a">Start with Ouroboros &rarr;</span></a></li>
+        <li><a href="https://github.com/ourostack/m365crawl" class="start"><span class="start-q">Is your agent locked out of Teams and Outlook?</span><span class="start-a">Try m365crawl &#8599;</span></a></li>
+      </ul>
+      </div>
       </div>
     </div>
   </section>
-
-  <!-- ═══════════════ STILL HERE? ═══════════════ -->
-  <section class="relative px-6 md:px-12 lg:px-24 pt-16 sm:pt-20 pb-16 sm:pb-24 reveal">
-    <div class="max-w-2xl mx-auto">
-      <p class="text-bone text-lg sm:text-xl leading-relaxed">
-        Most agents forget who they are between conversations.
-        <a href="/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Yours has a heartbeat.</a>
-      </p>
-      <p class="text-sm md:text-base text-mist mt-6 leading-relaxed">
-        A diary, a journal, habits it writes for itself, and a <a href="/why#inner-life" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">vocabulary for thinking</a>.
-      </p>
-    </div>
-  </section>
-
 </Layout>
+
+<style>
+  /* The hero layout is shared with mendelow.me's (styles.css there): keep the two identical.
+     On a phone the photo leads, full width and cropped wide around the face, and the text stacks
+     centered under it. From 768px the copy is one block, centered beside a portrait-shaped photo. */
+  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "pic" "title" "sub"; text-align: center; }
+  .hero-copy { display: contents; }
+  .hero-title { grid-area: title; }
+  .hero-sub { grid-area: sub; }
+  .hero-pic { grid-area: pic; }
+  .portrait { display: grid; gap: 0.5rem; justify-items: end; width: 100%; }
+  .portrait-img { aspect-ratio: 3 / 2; object-position: 50% 26%; }
+  @media (min-width: 768px) {
+    .hero { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
+    .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
+    .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
+    .portrait { justify-items: center; width: 12rem; }
+    .portrait-img { aspect-ratio: 600 / 824; }
+  }
+  @media (min-width: 1024px) { .portrait { width: 17rem; } }
+  @media (min-width: 1240px) { .portrait { width: 21rem; } }
+  .portrait-img { width: 100%; height: auto; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
+  .portrait:hover .portrait-img, .portrait:focus-visible .portrait-img { border-color: var(--color-scale); }
+  .portrait-link { color: var(--color-scale); white-space: nowrap; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); text-underline-offset: 4px; }
+  .portrait:hover .portrait-link, .portrait:focus-visible .portrait-link { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
+  /* A picture that is a link shows it: a green ring on hover. */
+  a.product-media { outline: 2px solid transparent; outline-offset: -2px; transition: outline-color 0.2s; }
+  a.product-media:hover, a.product-media:focus-visible { outline-color: var(--color-scale); }
+
+  .dek { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
+  @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
+
+  .section-head .dek { margin-top: 1.25rem; }
+  /* Every section reads top to bottom: the headline, then its intro right under it, at a reading measure. */
+  .heading-mark { display: flex; align-items: center; gap: 1rem; }
+  .heading-mark img { width: 3rem; height: 3rem; }
+  @media (min-width: 768px) { .heading-mark img { width: 4rem; height: 4rem; } }
+  .lead { display: grid; gap: 1rem; margin-top: 1.5rem; font-size: 1.25rem; line-height: 1.6; color: var(--color-bone); }
+  @media (min-width: 768px) { .lead { font-size: 1.375rem; } }
+  .sub-block { margin-top: 4rem; }
+  .sub-block + .dek { margin-top: 0.75rem; }
+  .start-groups { display: grid; gap: 0 4rem; }
+  @media (min-width: 1024px) { .start-groups { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  /* Three parallel things, so three columns from 1024px. */
+  .grown { display: grid; gap: 1.75rem 3rem; margin-top: 1.5rem; }
+  @media (min-width: 1200px) { .grown { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .grown > li { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.25rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .grown-body { display: grid; gap: 0.5rem; align-content: start; }
+  .grown-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
+  .grown-mark { width: 4rem; height: 4rem; }
+  .grown-name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; color: var(--color-bone); }
+  .block-label { margin-top: 3.5rem; margin-bottom: 1.25rem; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-scale); }
+  .acts { display: grid; gap: 1.75rem; }
+  .acts li { display: grid; gap: 0.4rem; align-content: start; color: var(--color-mist); line-height: 1.6; }
+  .act-n { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-fang); }
+  .act-name { font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.05; color: var(--color-bone); }
+  @media (min-width: 1024px) {
+    .acts { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0; }
+    .acts li { position: relative; padding-right: 3.5rem; }
+    .acts li:not(:last-child)::after { content: "\2192"; position: absolute; right: 1.25rem; top: 1.1rem; font-family: var(--font-display); font-size: 2rem; color: var(--color-fang); }
+  }
+  .smells { display: grid; gap: 1.5rem 3rem; }
+  @media (min-width: 1024px) { .smells { grid-template-columns: repeat(3, minmax(0, 1fr)); } .smells li { flex-direction: column; } }
+  .smells li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; color: var(--color-mist); font-size: 1.0625rem; }
+  .smells strong { font-family: var(--font-display); font-weight: 400; font-size: 1.85rem; line-height: 1.15; color: var(--color-bone); }
+  .principles { display: flex; flex-wrap: wrap; gap: 0.75rem 2.25rem; }
+  .principle { display: inline; gap: 0.6rem; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
+  .principle:hover { color: var(--color-scale); }
+  .principle-n { margin-right: 0.5rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-scale); }
+  .principle-arrow { display: inline-block; margin-left: 0.4rem; color: var(--color-scale); transition: transform 0.2s; }
+  .principle:hover .principle-arrow { transform: translateX(0.2rem); }
+  .method-close { margin-top: 2.5rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
+  .factory-lead { margin-top: 1.25rem; font-family: var(--font-display); font-size: 1.375rem; line-height: 1.3; color: var(--color-bone); }
+  @media (min-width: 768px) { .factory-lead { font-size: 2rem; } }
+  @media (min-width: 1024px) { .factory-lead { margin-top: 1.75rem; } }
+  .factory-body { display: grid; gap: 1.25rem; margin-top: 2rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
+  .wastes { display: grid; column-gap: 4rem; }
+  @media (min-width: 1024px) { .wastes { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .wastes > div { display: grid; gap: 0.15rem 2rem; padding: 0.85rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+  @media (min-width: 640px) { .wastes > div { grid-template-columns: 11rem minmax(0, 1fr); align-items: baseline; } }
+  .wastes dt { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; color: var(--color-bone); }
+  .wastes dd { color: var(--color-mist); line-height: 1.55; }
+  .factory-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 3rem; }
+  .origin-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem 3rem; }
+  .molt { display: flex; align-items: center; gap: 1rem; }
+  .molt-step { display: grid; justify-items: center; gap: 0.4rem; }
+  .molt-line { width: 4rem; height: 1px; background: var(--color-fang); position: relative; }
+  .molt-line::after { content: ""; position: absolute; right: -1px; top: -4px; border: 4.5px solid transparent; border-left: 7px solid var(--color-fang); border-right: 0; }
+  @media (min-width: 768px) { .molt-line { width: 8rem; } }
+  .origin-body { display: grid; gap: 1.25rem; margin-top: 2.5rem; font-size: 1.125rem; line-height: 1.7; color: var(--color-mist); }
+  .starts { display: grid; }
+  .start { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; padding: 1.1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); transition: color 0.2s; }
+  .starts li:last-child .start { border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+  .start-q { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
+  @media (min-width: 768px) { .start-q { font-size: 2rem; } }
+  .start-a { font-size: 1.0625rem; color: var(--color-scale); white-space: nowrap; transition: transform 0.2s; }
+  .start:hover .start-q { color: var(--color-scale); }
+  .start:hover .start-a { transform: translateX(0.25rem); }
+  .tools { display: grid; gap: 4.5rem; margin-top: 3.5rem; }
+  @media (min-width: 1024px) { .tools { gap: 7rem; margin-top: 5rem; } }
+  .tool { display: grid; gap: 1.5rem; align-items: center; }
+  @media (min-width: 1024px) {
+    .tool { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4rem; }
+  }
+  .tool > :global(.product-figure) { margin: 0; min-width: 0; }
+  .tool-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; color: var(--color-mist); font-size: 1.125rem; line-height: 1.65; }
+  .tool-name { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 2.25rem; line-height: 1.1; color: var(--color-bone); }
+  .hx-voyage { display: block; }
+  .hx-voyage img { display: block; width: 100%; height: auto; }
+
+</style>

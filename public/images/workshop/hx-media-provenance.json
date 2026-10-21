@@ -1,0 +1,186 @@
+{
+  "sourceUrl": "https://ourostack.github.io/ouro-ui/docs/dialog/",
+  "markdownUrl": "https://ourostack.github.io/ouro-ui/docs/dialog.md",
+  "capturedAt": "2026-10-13T23:33:12.781Z",
+  "htmlSha256": "5f06dd20c1c11bb2d0da6c4e36dbfe456fe42444190a51c4dc60dd5961d8247e",
+  "markdownSha256": "86b5ed162a8bbf6ccddd66541b8fb74c49f3b302768de6f9f2e5cd377024af15",
+  "scripts": [
+    {
+      "url": "https://ourostack.github.io/ouro-ui/assets/index-BV6QS0ZE.js",
+      "sha256": "0f313f288fc4caf7b86a933d7d42253899d02b30f859fedf416ce31f907355a0"
+    }
+  ],
+  "browser": "Google Chrome 155.0.8059.40",
+  "input": "Mushroom risotto (fictional demo input)",
+  "versionScope": "Published docs at capture time; install examples identify v0.7.0. This is not a claim about unreleased main or full-library readiness.",
+  "method": "Actual published component; trusted pointer/keyboard input and stable opaque popup states. Viewport PNG cropped to measured popup bounds, then lossless WebP. No image generation, recreated UI or simulated agent.",
+  "interactionChecks": [
+    "fictional field edit",
+    "visible keyboard focus",
+    "Escape dismisses"
+  ],
+  "usageExample": "<Dialog title=\"Edit recipe\" trigger={<Button>Edit</Button>}>\n  <RecipeForm />\n</Dialog>",
+  "usageExampleScope": "The published docs example, not the entire Rename recipe demo implementation.",
+  "assets": [
+    {
+      "file": "hx-dialog-desktop-light.png",
+      "width": 512,
+      "height": 244,
+      "sha256": "d85fd20430b34c816bbb7c68dbde82ce82cdf5d153d310c270ba591d59d8c3c9",
+      "theme": "light",
+      "presentation": "dialog",
+      "viewport": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "visualHeight": 1000,
+        "scrollY": 0
+      },
+      "crop": {
+        "x": 464,
+        "y": 378,
+        "width": 512,
+        "height": 244
+      }
+    },
+    {
+      "file": "hx-dialog-desktop-light.webp",
+      "width": 512,
+      "height": 244,
+      "sha256": "5189e9c8c0bbe67bf8c027989dd3ec42bf2217196fee19dda32255b0f8b0bf40",
+      "theme": "light",
+      "presentation": "dialog",
+      "viewport": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "visualHeight": 1000,
+        "scrollY": 0
+      },
+      "crop": {
+        "x": 464,
+        "y": 378,
+        "width": 512,
+        "height": 244
+      }
+    },
+    {
+      "file": "hx-dialog-desktop-dark.png",
+      "width": 512,
+      "height": 244,
+      "sha256": "e6415b5719e3e507179cef97bb854c58503cdcf7a88560bf83363d15501003f3",
+      "theme": "dark",
+      "presentation": "dialog",
+      "viewport": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "visualHeight": 1000,
+        "scrollY": 0
+      },
+      "crop": {
+        "x": 464,
+        "y": 378,
+        "width": 512,
+        "height": 244
+      }
+    },
+    {
+      "file": "hx-dialog-desktop-dark.webp",
+      "width": 512,
+      "height": 244,
+      "sha256": "3d5bf653232ee8eff67add20276271d6379d85d2899f3b1ede6cfe49af3d0dbd",
+      "theme": "dark",
+      "presentation": "dialog",
+      "viewport": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "visualHeight": 1000,
+        "scrollY": 0
+      },
+      "crop": {
+        "x": 464,
+        "y": 378,
+        "width": 512,
+        "height": 244
+      }
+    },
+    {
+      "file": "hx-dialog-phone-light.png",
+      "width": 390,
+      "height": 321,
+      "sha256": "c4249a0ae652ec147b0bc9fec260f9bd37d5429f4a25db8c65b177585834728d",
+      "theme": "light",
+      "presentation": "sheet",
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "visualHeight": 844,
+        "scrollY": 85
+      },
+      "crop": {
+        "x": 0,
+        "y": 275,
+        "width": 390,
+        "height": 321
+      }
+    },
+    {
+      "file": "hx-dialog-phone-light.webp",
+      "width": 390,
+      "height": 321,
+      "sha256": "bbefee13e32f38178956950979c7a0c2ab5673a5f4fbed57aa5436a449e1c6db",
+      "theme": "light",
+      "presentation": "sheet",
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "visualHeight": 844,
+        "scrollY": 85
+      },
+      "crop": {
+        "x": 0,
+        "y": 275,
+        "width": 390,
+        "height": 321
+      }
+    },
+    {
+      "file": "hx-dialog-phone-dark.png",
+      "width": 390,
+      "height": 321,
+      "sha256": "6b8680f7c943f7cf169f88a02b3b009057d52f26d0c4614f83d56e0321e358cd",
+      "theme": "dark",
+      "presentation": "sheet",
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "visualHeight": 844,
+        "scrollY": 85
+      },
+      "crop": {
+        "x": 0,
+        "y": 275,
+        "width": 390,
+        "height": 321
+      }
+    },
+    {
+      "file": "hx-dialog-phone-dark.webp",
+      "width": 390,
+      "height": 321,
+      "sha256": "f86f116cc86035e8ec95e39de3e3a713908e08683dbb235f148c60b32395d747",
+      "theme": "dark",
+      "presentation": "sheet",
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "visualHeight": 844,
+        "scrollY": 85
+      },
+      "crop": {
+        "x": 0,
+        "y": 275,
+        "width": 390,
+        "height": 321
+      }
+    }
+  ]
+}

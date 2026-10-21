@@ -1,5 +1,10 @@
+import { redirectResponse } from './redirects.mjs';
+
 export default {
   async fetch(request: Request, env: any): Promise<Response> {
+    const moved = redirectResponse(request);
+    if (moved) return moved;
+
     const response = await env.ASSETS.fetch(request);
     const url = new URL(request.url);
     const path = url.pathname;

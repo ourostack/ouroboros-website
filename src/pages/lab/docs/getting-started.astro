@@ -1,0 +1,51 @@
+---
+import DocsPageShell from '../../../components/DocsPageShell.astro'
+import SerpentGuidePreview from '../../../components/SerpentGuidePreview.astro'
+import PromptCard from '../../../components/PromptCard.astro'
+import { ogPathFor } from '../../../data/og'
+import { labelFor } from '../../../data/readiness.mjs'
+
+const harness = labelFor('harness')
+---
+
+<DocsPageShell
+  title="Get started with Ouroboros in 3 minutes"
+  description="Run one command. The serpent guide handles the rest."
+  eyebrow="Operator guide"
+  ogImage={ogPathFor('/lab/docs/getting-started')}
+  canonical="https://ouroboros.bot/lab/docs/getting-started/"
+  intro="Setup is a conversation. The serpent guide walks you through provider setup, naming, and personality — you just answer its questions."
+>
+  <section class="space-y-4" aria-label="Install Ouroboros">
+    <p class="text-sm text-mist leading-relaxed">You'll need <a href="https://nodejs.org/en/download/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Node.js 22 or newer</a>.</p>
+    <PromptCard label="Open Terminal" prompt="npx ouro.bot" />
+  </section>
+
+  {/* What setup will ask for, for a builder deciding whether to run it. */}
+  <dl class="grid gap-4 sm:grid-cols-2 rounded-xl border border-canopy/50 bg-deep/70 p-5 text-sm" data-setup-facts>
+    <div><dt class="caption-mono">Status</dt><dd class="text-mist mt-1"><span class={`tag ${harness.tone}`}>{harness.label}</span> Expect breaking changes.</dd></div>
+    <div><dt class="caption-mono">Model provider</dt><dd class="text-mist mt-1">Pick one: Anthropic, Azure OpenAI, MiniMax, OpenAI Codex, or GitHub Copilot. You sign in or paste a key, and it's kept in your agent's own vault.</dd></div>
+    <div><dt class="caption-mono">Version</dt><dd class="text-mist mt-1">The 0.1.0 alpha series of <a href="https://www.npmjs.com/package/@ouro.bot/cli" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@ouro.bot/cli</a>. <a href="https://github.com/ourostack/ouroboros/blob/main/changelog.json" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Release notes</a>.</dd></div>
+    <div><dt class="caption-mono">How it's built</dt><dd class="text-mist mt-1"><a href="/lab/docs/architecture/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Architecture</a> and <a href="https://github.com/ourostack/ouroboros" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">source on GitHub</a>.</dd></div>
+  </dl>
+
+  <SerpentGuidePreview />
+
+  <div>
+    <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">Already running?</h2>
+    <PromptCard
+      prompt="Inspect the current Ouroboros install on this machine and tell me what's set up, what's missing, and what I should do next."
+      footnote="Use this if you already ran the setup and want your agent to check the current state."
+    />
+  </div>
+
+  <!-- Exit links -->
+  <div class="pt-6 border-t border-canopy/30 space-y-3">
+    <a href="/lab/what-is-an-agent-harness" class="group block text-sm text-mist hover:text-bone transition-colors">
+      Want to understand the philosophy behind Ouroboros? <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
+    </a>
+    <a href="/lab/story" class="group block text-sm text-mist hover:text-bone transition-colors">
+      Curious how we got here? <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
+    </a>
+  </div>
+</DocsPageShell>

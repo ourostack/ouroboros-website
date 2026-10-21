@@ -2,8 +2,8 @@
 import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 
-const title = "Build an AI agent in 150 lines of TypeScript — Ouroboros"
-const description = "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow — from first principles to production."
+const title = "Build an AI agent in 150 lines of TypeScript | Ouro"
+const description = "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow: from first principles to production."
 const canonicalUrl = "https://ouroboros.bot/blog/build-ai-agent-from-scratch/"
 const datePublished = "2026-03-01"
 const dateModified = "2026-03-01"
@@ -107,7 +107,7 @@ const termAgentLoop = `<span class="text-scale">You:</span> <span class="text-bo
 <span class="text-mist">Agent:</span> <span class="text-shadow">[calls shell: ls *.ts]</span>
        <span class="text-shadow">[calls read_file: agent.ts]</span>
 
-<span class="text-mist">Agent:</span> <span class="text-bone">src/agent.ts has 207 lines.</span>`
+<span class="text-mist">Agent:</span> <span class="text-bone">src/agent.ts has 152 lines.</span>`
 
 const termSpinner = `<span class="text-scale">You:</span> <span class="text-bone">What files are in this directory?</span>
 
@@ -185,24 +185,28 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
     })} />
   </Fragment>
 
-  <article class="px-6 pt-32 pb-20">
-    <div class="max-w-3xl mx-auto">
-
+  <article class="px-6 lg:px-16 pt-32 pb-20">
       <!-- Header -->
-      <header class="mb-12">
-        <span class="text-xs font-mono text-fang uppercase tracking-[0.22em]">Tutorial</span>
-        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-bone leading-tight mt-4">
-          Just give the model a keyboard
-        </h1>
-        <p class="text-base md:text-lg text-mist mt-5 leading-relaxed max-w-2xl">
-          How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.
-        </p>
-        <div class="flex items-center gap-4 mt-6 text-sm text-mist">
-          <span>Ari Mendelow</span>
-          <span class="text-canopy">·</span>
-          <span>March 2026</span>
+      <header class="max-w-6xl mb-12 mx-auto split lg:items-end">
+        <div class="split-head">
+          <span class="text-xs font-mono text-fang uppercase tracking-[0.22em]">Tutorial</span>
+          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-bone leading-tight mt-4">
+            Just give the model a keyboard
+          </h1>
+        </div>
+        <div class="split-body">
+          <p class="text-base md:text-lg text-mist mt-5 leading-relaxed">
+            How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.
+          </p>
+          <div class="flex items-center gap-4 mt-6 text-sm text-mist">
+            <span>Ari Mendelow</span>
+            <span class="text-canopy">·</span>
+            <span>March 2026</span>
+          </div>
         </div>
       </header>
+
+    <div class="max-w-6xl mx-auto">
 
       <!-- Body -->
       <div class="prose-ouro">
@@ -241,7 +245,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <hr />
 
-        <h2>The Shape of What's Coming</h2>
+        <h2>The shape of what's coming</h2>
 
         <p><strong>Phase 1: The Bootstrap.</strong> You'll direct your coding agent to build the minimal viable seed:</p>
         <ol>
@@ -253,7 +257,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         </ol>
         <p>That's it. That's the bootstrap. ~150 lines.</p>
 
-        <p><strong>Phase 2: The Handoff.</strong> You open a new terminal. You run your agent. You start talking to <em>it</em> instead of your coding agent.</p>
+        <p><strong>Phase 2: The Handoff.</strong> You open a new terminal. You run your agent. You start talking to <em>it</em>.</p>
 
         <p><strong>Phase 3: Growing Together.</strong> You and your agent build it out together. Add tools. Refactor the architecture. Build a skills system. Watch capability compound.</p>
 
@@ -261,11 +265,11 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <hr />
 
-        <h2>Before We Start</h2>
+        <h2>Before we start</h2>
 
         <p>What you need:</p>
         <ul>
-          <li><strong>Node.js 20 LTS or later</strong> running in a bash terminal (if you're on Windows, just use WSL)</li>
+          <li><strong>Node.js 22 or later</strong> running in a bash terminal (if you're on Windows, just use WSL)</li>
           <li><strong>A coding agent</strong> (Claude Code, Copilot CLI &mdash; whatever you use)</li>
           <li><strong>Access to a SOTA reasoning model</strong> &mdash; and importantly, you can't just use any model. Use the latest, most powerful reasoning model you can get. You can't just use any ol' model and then be like "nuh uh AI is dumb"</li>
         </ul>
@@ -479,7 +483,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Stop.</p>
         <p>
-          Look at what you have: ~200 lines of TypeScript. An agent that can read files, write files, run shell
+          Look at what you have: ~150 lines of TypeScript. An agent that can read files, write files, run shell
           commands, and decide when it's done.
         </p>
         <p>Those capabilities are sufficient for it to modify itself.</p>
@@ -487,8 +491,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
           Open a fresh terminal. Navigate to your project directory. Run your agent: <code>npm run dev</code>
         </p>
         <p>
-          <strong>From this moment on, you're not talking to Claude Code or Cursor or whatever you've been using.
-          You're talking to your agent.</strong>
+          <strong>From this moment on, you're talking to your agent.</strong>
         </p>
 
         <hr />
@@ -651,10 +654,10 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
           primitives on its own codebase.
         </p>
         <p>This is the paradigm shift:</p>
-        <p><strong>You didn't build a product. You grew one.</strong></p>
+        <p><strong>You grew a product.</strong></p>
         <p>
           The way we build software changed as soon as models became capable enough to modify their own code based on
-          natural language direction. That happened recently. Most people haven't caught up yet.
+          natural language direction. That happened recently. Most humans haven't caught up yet.
         </p>
         <p>Now you have.</p>
 
@@ -721,12 +724,12 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
           <p class="font-display text-3xl md:text-4xl text-bone leading-snug">
             This tutorial became a harness.
           </p>
-          <p class="text-base text-mist/70 mt-4 leading-relaxed max-w-lg">
+          <p class="text-base text-mist mt-4 leading-relaxed">
             The 150-line bootstrap grew into ouroboros — a TypeScript agent harness
             for persistent agents with identity, continuity, and shared momentum.
           </p>
-          <p class="text-sm text-mist mt-8 leading-relaxed max-w-lg">
-            You've built the primitive. Now <a href="/docs/getting-started" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">give it a psyche, a memory, and a name</a> — the serpent guide takes about three minutes. Or read <a href="/story" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">how this bootstrap became Ouroboros</a>.
+          <p class="text-sm text-mist mt-8 leading-relaxed">
+            You've built the primitive. Now <a href="/lab/docs/getting-started" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">give it a psyche, a memory, and a name</a> — the serpent guide takes about three minutes. Or read <a href="/lab/story" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">how this bootstrap became Ouroboros</a>.
           </p>
         </div>
       </div>
