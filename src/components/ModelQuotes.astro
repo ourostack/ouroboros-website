@@ -17,18 +17,13 @@ import modelReviews from '../data/model-reviews.json'
 </ul>
 
 <style>
-  /* Four voices in a staggered column, so the verdicts read as a conversation. */
-  .quotes { display: grid; gap: 2.25rem; }
-  .quote { display: grid; gap: 0.7rem; max-width: 40rem; padding-left: 1.25rem; border-left: 2px solid color-mix(in srgb, var(--color-scale) 55%, transparent); transition: border-color 0.2s; }
+  /* Four parallel verdicts in a plain grid: two by two from 768px, read left to right. */
+  .quotes { display: grid; gap: 2.25rem 3rem; }
+  @media (min-width: 768px) { .quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .quote { display: grid; gap: 0.7rem; height: 100%; align-content: start; padding-left: 1.25rem; border-left: 2px solid color-mix(in srgb, var(--color-scale) 55%, transparent); transition: border-color 0.2s; }
   .quote:hover { border-color: var(--color-scale); }
-  @media (min-width: 1024px) {
-    .quotes { gap: 1.5rem; }
-    .quotes li:nth-child(even) { justify-self: end; }
-    .quotes li:nth-child(2) { margin-right: 6%; }
-    .quotes li:nth-child(3) { margin-left: 8%; }
-  }
-  .quote-text { font-family: var(--font-display); font-size: 1.55rem; line-height: 1.25; color: var(--color-bone); }
-  @media (min-width: 768px) { .quote-text { font-size: 1.9rem; } }
+  .quote-text { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.25; color: var(--color-bone); }
+  @media (min-width: 1024px) { .quote-text { font-size: 1.75rem; } }
   .quote-who { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); }
   .quote-vendor { color: var(--color-mist); }
 </style>

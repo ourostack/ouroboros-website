@@ -61,7 +61,7 @@ test('homepage head and hero follow the deck, with a small portrait linking to m
   assert.doesNotMatch(text, /People keep ending up as the glue/);
 });
 
-test('homepage leads with Ouroboros: every frontier model picked it, in their words, and what grew inside it', () => {
+test('homepage introduces Ouroboros, then shows that every frontier model picked it, in their words, and what grew inside it', () => {
   const html = readDist('index.html');
   const text = homeText();
   const reviews = JSON.parse(fs.readFileSync(new URL('../src/data/model-reviews.json', import.meta.url), 'utf8'));
@@ -69,10 +69,10 @@ test('homepage leads with Ouroboros: every frontier model picked it, in their wo
   assert.ok(section, 'Missing the Ouroboros section');
   // Ari, 2026-10-19: the headline is that every frontier model we asked picked Ouroboros, not a count.
   assertLines(text, [
-    'Ouroboros, the harness',
+    // Ari, 2026-10-20: introduce Ouroboros before the proof that it's good.
+    "Ouroboros Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.",
     'Every frontier model we asked picked Ouroboros.',
     `We asked each which of ${reviews.harnesses.length} harnesses it would most want to wake up in. In their words:`,
-    'Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.',
     'Grown inside it',
     'Friends Alpha Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.',
     'Ouro Shepherd Coming soon Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.',
@@ -91,11 +91,12 @@ test('homepage leads with Ouroboros: every frontier model picked it, in their wo
   for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
   const shepherd = section.match(/<li id="shepherd"[\s\S]*?<\/li>/)[0];
   assert.doesNotMatch(textOf(shepherd), /install|download|available now|\b20\d\d\b/i, 'Shepherd stays a coming-soon preview');
+  assert.ok(text.indexOf('Ouroboros is the agent harness I built from scratch') < text.indexOf('Every frontier model we asked picked Ouroboros.'), 'What Ouroboros is comes before the proof');
   // No product cards: the file-tree visual is gone.
   assert.doesNotMatch(html, /class="source-tree|class="product[ "]/);
 });
 
-test('homepage tools alternate media and prose, each with one strong visual and its links', () => {
+test('homepage tools pair media and prose, each with one strong visual and its links', () => {
   const html = readDist('index.html');
   const text = homeText();
   assertLines(text, [
@@ -118,9 +119,9 @@ test('homepage tools alternate media and prose, each with one strong visual and 
   const outside = html.replace(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/, '');
   assert.doesNotMatch(outside, /Microsoft 365/, 'Microsoft 365 is named only in the m365crawl entry');
   assert.equal((html.match(/<span class="tag tag-plain"[^>]*>Dramatization<\/span>/g) || []).length, 2, 'Ouro MD and Desk are labelled Dramatization');
-  // The zigzag: every even entry puts its media second from 1024px up.
+  // Ari, 2026-10-20: no zigzag; every entry reads the same way, media then prose.
   const page = fs.readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
-  assert.match(page, /\.tool:nth-child\(even\) > :global\(:first-child\) \{ order: 2; \}/);
+  assert.doesNotMatch(page, /nth-child\(even\)/);
   // The homepage shows only the agent-edit clip, in both themes, each with its poster and a Pause control.
   for (const theme of ['light', 'dark']) {
     const video = html.match(new RegExp(`<div class="clip-theme theme-${theme}-only"[^>]*>\\s*<div class="workshop-clip"[^>]*>\\s*<video\\b[^>]*poster="/images/workshop/ouro-md-agent-edit-${theme}-poster\\.png"[^>]*>\\s*<source src="/images/workshop/ouro-md-agent-edit-${theme}\\.webm" type="video/webm"[^>]*>\\s*<source src="/images/workshop/ouro-md-agent-edit-${theme}\\.mp4" type="video/mp4"`));
@@ -345,8 +346,8 @@ test('homepage sections appear in reading order', () => {
   const order = [
     'How can humans and agents do more together?',
     "Hello!! I'm Ari, and that question is behind everything I build.",
+    "Ouroboros is the agent harness I built from scratch",
     'Every frontier model we asked picked Ouroboros.',
-    'Most harnesses are built for a coding session.',
     'Grown inside it', 'Friends', 'Ouro Shepherd', 'Ouro Butler',
     'Built by watching agents work',
     "Desk keeps my agents' work in a Git repository",

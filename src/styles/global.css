@@ -162,6 +162,8 @@
 html {
   scroll-behavior: smooth;
 }
+/* Nothing may pan the page sideways, such as the hero's soft glow on a phone. clip, unlike hidden, keeps sticky positioning working. */
+html, body { overflow-x: clip; }
 
 /* Wide screens: from 1600px the root size grows with the viewport, so the 72rem
    container, the type and the spacing scale together instead of leaving a narrow

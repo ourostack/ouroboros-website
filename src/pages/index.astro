@@ -68,24 +68,20 @@ const wastes = [
     </div>
   </section>
 
-  <!-- 2. Ouroboros -->
+  <!-- 2. Ouroboros: what it is, the evidence, what grew inside it -->
   <section id="ouroboros" class={`${section} scroll-mt-16`} aria-labelledby="ouroboros-heading">
     <div class="max-w-6xl mx-auto">
-      <div class="section-head">
-        <div class="split-head">
-          <p class="kicker"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="32px" width="32" height="32" alt="" loading="lazy" decoding="async" class="mark-render w-8 h-8" />Ouroboros, the harness</p>
-          <h2 id="ouroboros-heading" class="heading-section">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h2>
-        </div>
-        <p class="dek split-body">We asked each which of {modelReviews.harnesses.length} harnesses it would most want to wake up in. In their words:</p>
+      <h2 id="ouroboros-heading" class="heading-section heading-mark"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render" />Ouroboros</h2>
+      <div class="lead">
+        <p>Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.</p>
+        <p><a href="/lab/" class={link}>The harness &rarr;</a></p>
       </div>
-      <div class="mt-10"><ModelQuotes /></div>
 
-      <div class="split ouro-more">
-        <div class="split-head">
-  <p class="ouro-why">Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next. <a href="/lab/" class={link}>The harness &rarr;</a></p>
-        </div>
-        <div class="split-body">
-          <h3 class="heading-sub">Grown inside it</h3>
+      <h3 class="heading-sub sub-block">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h3>
+      <p class="dek">We asked each which of {modelReviews.harnesses.length} harnesses it would most want to wake up in. In their words:</p>
+      <div class="mt-8"><ModelQuotes /></div>
+
+      <h3 class="heading-sub sub-block">Grown inside it</h3>
       <ul class="grown">
         <li id="friends">
           <img src="/brand/friends-render.webp" srcset="/brand/friends-render-128.webp 128w, /brand/friends-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
@@ -100,8 +96,6 @@ const wastes = [
           <div><p class="grown-line"><span class="grown-name">Ouro Butler</span></p><p>An Ouroboros agent that runs a home server. When something your household counts on breaks, it fixes what it safely can and tells you the rest.</p></div>
         </li>
       </ul>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -109,8 +103,8 @@ const wastes = [
   <section class={`${section} bg-deep/40`} aria-labelledby="built-heading">
     <div class="max-w-6xl mx-auto">
       <div class="section-head">
-      <h2 id="built-heading" class="heading-section split-head">Built by watching agents work</h2>
-      <p class="dek split-body">Each began with something my agents or I kept running into. Then I watched agents use it and asked them what got in the way. That's <a href="/blog/what-is-agent-experience/" class={link}>Agent Experience</a>.</p>
+      <h2 id="built-heading" class="heading-section">Built by watching agents work</h2>
+      <p class="dek">Each began with something my agents or I kept running into. Then I watched agents use it and asked them what got in the way. That's <a href="/blog/what-is-agent-experience/" class={link}>Agent Experience</a>.</p>
       </div>
 
       <div class="tools">
@@ -174,8 +168,8 @@ const wastes = [
   <section class={section} aria-labelledby="method-heading">
     <div class="max-w-6xl mx-auto">
       <div class="section-head">
-        <h2 id="method-heading" class="heading-section split-head">When an agent gets it wrong, look at what you gave it.</h2>
-        <p class="dek split-body">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+        <h2 id="method-heading" class="heading-section">When an agent gets it wrong, look at what you gave it.</h2>
+        <p class="dek">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
       </div>
 
       <p class="block-label">I see this agentic era in three acts</p>
@@ -198,7 +192,7 @@ const wastes = [
           <li><a href={`/approach/#${p.id}`} class="principle group"><span class="principle-n">{p.n}</span>{p.title}<span class="principle-arrow" aria-hidden="true">&rarr;</span></a></li>
         ))}
       </ol>
-      <p class="method-close split-offset">And when I fix something, I fix it for the whole system, so the next agent starts out ahead. <a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
+      <p class="method-close">And when I fix something, I fix it for the whole system, so the next agent starts out ahead. <a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
     </div>
   </section>
 
@@ -206,10 +200,10 @@ const wastes = [
   <section id="factory" class={`${section} bg-deep/40 scroll-mt-16`} aria-labelledby="factory-heading">
     <div class="max-w-6xl mx-auto">
       <div class="section-head">
-        <h2 id="factory-heading" class="heading-section split-head">Software factories can learn from real ones.</h2>
-        <p class="factory-lead split-body">Software factories, with agents shipping code all night, are coming as fast as the infrastructure catches up. I'm working through the problems they'll hit now, on my own agents' work, with a method that works today and scales up with them.</p>
+        <h2 id="factory-heading" class="heading-section">Software factories can learn from real ones.</h2>
+        <p class="factory-lead">Software factories, with agents shipping code all night, are coming as fast as the infrastructure catches up. I'm working through the problems they'll hit now, on my own agents' work, with a method that works today and scales up with them.</p>
       </div>
-      <div class="factory-body split-offset">
+      <div class="factory-body">
         <p>Real factories have a century of practice behind them, and I studied them before I wrote software: Industrial and Systems Engineering, where my favorite class was Work Design and Ergonomics, designing the work around the worker. Lean is what I reach for most, because it starts with where the time goes.</p>
         <p>Agents amplify what's already there (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with early-2025 coding assistants while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and fix the biggest causes first.</p>
       </div>
@@ -285,13 +279,15 @@ const wastes = [
      height never opens gaps inside the copy. */
   .hero { display: grid; gap: 1.5rem 1.25rem; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title title" "sub pic"; align-items: center; }
   .hero-copy { display: contents; }
-  .hero-title { grid-area: title; }
+  /* On a phone the headline stands on its own line, so it centers. */
+  .hero-title { grid-area: title; text-align: center; }
   .hero-sub { grid-area: sub; max-width: 56ch; }
   .hero-pic { grid-area: pic; }
   @media (min-width: 768px) {
     .hero { grid-template-areas: "copy pic"; column-gap: 3rem; }
     .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
     .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
+    .hero-title { text-align: left; }
     .hero-sub { max-width: 56ch; }
   }
   .portrait { display: grid; gap: 0.5rem; justify-items: center; width: 6.5rem; }
@@ -304,21 +300,21 @@ const wastes = [
   .dek { margin-top: 1.25rem; max-width: 52ch; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
 
-  .kicker { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-scale); }
   .section-head .dek { margin-top: 1.25rem; }
-  /* One grid for every section: headlines run the full width, and body text starts on the 5/12 line,
-     the same line the split sections (Ouroboros, the origin) use for their body column. */
-  @media (min-width: 1024px) {
-    .section-head .dek, .section-head .factory-lead, .split-offset { margin-left: calc((100% - var(--split-gap)) * 5 / 12 + var(--split-gap)); }
-    .section-head .dek { margin-top: 1.75rem; max-width: 60ch; }
-  }
-  .ouro-more { margin-top: 4rem; }
-  .ouro-more > .split-head { margin-bottom: 2.5rem; }
-  @media (min-width: 1024px) { .ouro-more > .split-head { margin-bottom: 0; } }
+  /* Every section reads top to bottom: the headline, then its intro right under it, at a reading measure. */
+  .section-head .dek { max-width: 60ch; }
+  .heading-mark { display: flex; align-items: center; gap: 1rem; }
+  .heading-mark img { width: 3rem; height: 3rem; }
+  @media (min-width: 768px) { .heading-mark img { width: 4rem; height: 4rem; } }
+  .lead { display: grid; gap: 1rem; margin-top: 1.5rem; max-width: 62ch; font-size: 1.25rem; line-height: 1.6; color: var(--color-bone); }
+  @media (min-width: 768px) { .lead { font-size: 1.375rem; } }
+  .sub-block { margin-top: 4rem; }
+  .sub-block + .dek { margin-top: 0.75rem; }
   .start-groups { display: grid; gap: 0 4rem; }
   @media (min-width: 1024px) { .start-groups { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
-  .ouro-why { max-width: 60ch; font-size: 1.25rem; line-height: 1.6; color: var(--color-bone); }
-  .grown { display: grid; gap: 1.75rem; margin-top: 1.5rem; }
+  /* Three parallel things, so three columns from 1024px. */
+  .grown { display: grid; gap: 1.75rem 3rem; margin-top: 1.5rem; }
+  @media (min-width: 1024px) { .grown { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .grown > li { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.25rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .grown-mark { width: 4rem; height: 4rem; }
   .grown-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem; }
@@ -377,7 +373,6 @@ const wastes = [
   .tool { display: grid; gap: 1.5rem; align-items: center; }
   @media (min-width: 1024px) {
     .tool { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4rem; }
-    .tool:nth-child(even) > :global(:first-child) { order: 2; }
   }
   .tool > :global(.product-figure) { margin: 0; min-width: 0; }
   .tool-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; color: var(--color-mist); font-size: 1.125rem; line-height: 1.65; }
