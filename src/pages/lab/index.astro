@@ -41,10 +41,10 @@ const pieces = [
     <div class="relative max-w-6xl mx-auto grid gap-5 split lg:items-end">
       <div class="grid gap-5 split-head">
         <p class="flex flex-wrap items-center gap-3"><span class="eyebrow">Lab</span><span class={`tag ${harness.tone}`}>{harness.label}</span></p>
-        <h1 class="heading-lead max-w-[18ch]">The harness: where all of this <span class="text-scale">started.</span></h1>
+        <h1 class="heading-lead">The harness: where all of this <span class="text-scale">started.</span></h1>
       </div>
       <div class="grid gap-5 split-body">
-        <p class="text-lg md:text-xl text-mist leading-relaxed max-w-[56ch]">Slugger was my OpenClaw agent. When he kept losing the thread, I built him a harness from scratch. Ouroboros is that harness, and it's where I test what agents need.</p>
+        <p class="text-lg md:text-xl text-mist leading-relaxed">Slugger was my OpenClaw agent. When he kept losing the thread, I built him a harness from scratch. Ouroboros is that harness, and it's where I test what agents need.</p>
         <p class="flex flex-wrap gap-3 mt-2">
           <a href="/lab/story/" class="btn-primary">Read the story &rarr;</a>
           <a href="https://github.com/ourostack/ouroboros" class="btn-ghost">The harness on GitHub &#8599;</a>
@@ -67,12 +67,12 @@ const pieces = [
       </div>
 
       <!-- ONE claim -->
-      <h2 class="heading-hero animate-fade-up stagger-1 max-w-5xl">
+      <h2 class="heading-hero animate-fade-up stagger-1">
         {reviewsHeading ? <>Every frontier model we asked picked <span class="text-scale">{winner}.</span></> : <>{heroLead} <span class="text-scale">{winner}.</span></>}
       </h2>
 
       <!-- ONE subhead — derived from the script output. Never hardcode the claim. -->
-      <p class="mt-6 md:mt-8 text-bone text-lg md:text-xl lg:text-2xl max-w-3xl leading-snug animate-fade-up stagger-2">
+      <p class="mt-6 md:mt-8 text-bone text-lg md:text-xl lg:text-2xl leading-snug animate-fade-up stagger-2">
         {reviewsHeading ? reviewsMethod : claimSentence}
       </p>
 
@@ -123,7 +123,7 @@ const pieces = [
             What survives when the context window <span class="text-scale">runs out?</span>
           </h2>
 
-          <p class="font-display text-2xl md:text-3xl text-mist mt-6 max-w-3xl">
+          <p class="font-display text-2xl md:text-3xl text-mist mt-6">
             Every conversation has a ceiling. Hit it, and something has to give.
           </p>
         </div>
@@ -175,7 +175,7 @@ const pieces = [
           A conversation.<br />
           <span class="text-scale">Hatched.</span>
         </h2>
-        <p class="text-sm xl:text-base text-mist mt-6 leading-relaxed max-w-xs">
+        <p class="text-sm xl:text-base text-mist mt-6 leading-relaxed">
           <code class="font-mono text-scale text-xs">npx ouro.bot</code> starts a guided setup: a conversation that hatches your agent and shapes its personality, name, and purpose.
         </p>
         <div class="mt-8 flex items-baseline gap-6">
@@ -195,7 +195,7 @@ const pieces = [
 
   <!-- ═══════════════ STILL HERE? ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 pt-16 sm:pt-20 pb-16 sm:pb-24 reveal">
-    <div class="max-w-2xl lg:max-w-6xl mx-auto split lg:items-baseline">
+    <div class="max-w-6xl mx-auto split lg:items-baseline">
       <p class="text-bone text-lg sm:text-xl leading-relaxed split-head">
         <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Your agent has a heartbeat.</a>
       </p>

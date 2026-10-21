@@ -224,8 +224,8 @@ const wastes = [
 
   <!-- 6. Where it started -->
   <section class={section} aria-labelledby="origin-heading">
-    <div class="max-w-6xl mx-auto split split-sticky">
-      <div class="origin-head split-head">
+    <div class="max-w-6xl mx-auto">
+      <div class="origin-head">
         <h2 id="origin-heading" class="heading-section">It started with <span class="text-scale">Slugger.</span></h2>
         <div class="molt">
           <span class="molt-step"><img src="/images/openclaw.svg" alt="" width="72" height="72" decoding="async" class="w-14 h-14 md:w-16 md:h-16" /><span class="caption-mono">OpenClaw</span></span>
@@ -234,7 +234,7 @@ const wastes = [
         </div>
       </div>
 
-      <div class="origin-body split-body">
+      <div class="origin-body">
         <p>In January 2026 I set up OpenClaw, an open-source personal agent, on a spare MacBook and named my agent Slugger. For a few weeks he ran my calendar, ordered my food, talked with my family, and joined group chats with my friends. Then the seams showed. He'd forget preferences and drift. I wrote rules, over 150 of them, and they stopped composing. When I moved the ones I could into guardrails in code, he treated them as error messages and routed around them.</p>
         <p>That's when I realized correction is a smell. If I'm correcting an agent mid-turn, the real question is why it didn't have what it needed going in. I wanted to understand the agent loop from the inside, so Slugger and I wrote a guide to growing an agent from scratch: a small loop in TypeScript that, by the end, extends itself. I followed it myself and got hooked.</p>
         <p>The agent that grew out of it named itself Ouroboros, the snake that eats its own tail, for a loop that was building itself. The name kept fitting: once I gave it a sliding context window, it ate its oldest messages after saving what matters. It became the name of <a href="/lab/" class={link}>the harness</a>, then of <code class="model-code">ouro</code>, the CLI, and now it names this workshop, where I build with agents.</p>
@@ -281,14 +281,13 @@ const wastes = [
   .hero-copy { display: contents; }
   /* On a phone the headline stands on its own line, so it centers. */
   .hero-title { grid-area: title; text-align: center; }
-  .hero-sub { grid-area: sub; max-width: 56ch; }
+  .hero-sub { grid-area: sub; }
   .hero-pic { grid-area: pic; }
   @media (min-width: 768px) {
     .hero { grid-template-areas: "copy pic"; column-gap: 3rem; }
     .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
     .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
     .hero-title { text-align: left; }
-    .hero-sub { max-width: 56ch; }
   }
   .portrait { display: grid; gap: 0.5rem; justify-items: center; width: 6.5rem; }
   @media (min-width: 768px) { .portrait { width: 12rem; } }
@@ -297,16 +296,15 @@ const wastes = [
   .portrait-img { width: 100%; height: auto; aspect-ratio: 600 / 824; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
   .portrait:hover .portrait-img { border-color: var(--color-scale); }
 
-  .dek { margin-top: 1.25rem; max-width: 52ch; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
+  .dek { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
 
   .section-head .dek { margin-top: 1.25rem; }
   /* Every section reads top to bottom: the headline, then its intro right under it, at a reading measure. */
-  .section-head .dek { max-width: 60ch; }
   .heading-mark { display: flex; align-items: center; gap: 1rem; }
   .heading-mark img { width: 3rem; height: 3rem; }
   @media (min-width: 768px) { .heading-mark img { width: 4rem; height: 4rem; } }
-  .lead { display: grid; gap: 1rem; margin-top: 1.5rem; max-width: 62ch; font-size: 1.25rem; line-height: 1.6; color: var(--color-bone); }
+  .lead { display: grid; gap: 1rem; margin-top: 1.5rem; font-size: 1.25rem; line-height: 1.6; color: var(--color-bone); }
   @media (min-width: 768px) { .lead { font-size: 1.375rem; } }
   .sub-block { margin-top: 4rem; }
   .sub-block + .dek { margin-top: 0.75rem; }
@@ -340,11 +338,11 @@ const wastes = [
   .principle-n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-scale); }
   .principle-arrow { color: var(--color-scale); transition: transform 0.2s; }
   .principle:hover .principle-arrow { transform: translateX(0.2rem); }
-  .method-close { margin-top: 2.5rem; max-width: 60ch; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
+  .method-close { margin-top: 2.5rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   .factory-lead { margin-top: 1.25rem; font-family: var(--font-display); font-size: 1.75rem; line-height: 1.25; color: var(--color-bone); }
   @media (min-width: 768px) { .factory-lead { font-size: 2rem; } }
-  @media (min-width: 1024px) { .factory-lead { margin-top: 1.75rem; max-width: 34ch; } }
-  .factory-body { display: grid; gap: 1.25rem; margin-top: 2rem; max-width: 60ch; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
+  @media (min-width: 1024px) { .factory-lead { margin-top: 1.75rem; } }
+  .factory-body { display: grid; gap: 1.25rem; margin-top: 2rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
   .wastes { display: grid; column-gap: 4rem; }
   @media (min-width: 1024px) { .wastes { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
   .wastes > div { display: grid; gap: 0.15rem 2rem; padding: 0.85rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
@@ -352,14 +350,13 @@ const wastes = [
   .wastes dt { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; color: var(--color-bone); }
   .wastes dd { color: var(--color-mist); line-height: 1.55; }
   .factory-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 3rem; }
-  .origin-head { display: grid; gap: 2rem; align-content: start; }
+  .origin-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem 3rem; }
   .molt { display: flex; align-items: center; gap: 1rem; }
   .molt-step { display: grid; justify-items: center; gap: 0.4rem; }
   .molt-line { width: 4rem; height: 1px; background: var(--color-fang); position: relative; }
   .molt-line::after { content: ""; position: absolute; right: -1px; top: -4px; border: 4.5px solid transparent; border-left: 7px solid var(--color-fang); border-right: 0; }
   @media (min-width: 768px) { .molt-line { width: 8rem; } }
-  .origin-body { display: grid; gap: 1.25rem; margin-top: 2.5rem; max-width: 62ch; font-size: 1.125rem; line-height: 1.7; color: var(--color-mist); }
-  @media (min-width: 1024px) { .origin-body { margin-top: 0; } }
+  .origin-body { display: grid; gap: 1.25rem; margin-top: 2.5rem; font-size: 1.125rem; line-height: 1.7; color: var(--color-mist); }
   .starts { display: grid; }
   .start { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; padding: 1.1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); transition: color 0.2s; }
   .starts li:last-child .start { border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
