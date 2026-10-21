@@ -299,6 +299,8 @@ html, body { overflow-x: clip; }
 @media (max-width: 767px) { .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
 .clip-stack .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
 .clip .product-caption { flex: 1; align-items: start; }
+/* A row of links, shared by every page. */
+.product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
 .product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--color-mist); background: var(--color-void); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
 .caption-tag-only { padding-top: 0.5rem; padding-bottom: 0.5rem; }
 
@@ -319,7 +321,8 @@ html, body { overflow-x: clip; }
 }
 
 /* ── Typography ── */
-h1, h2, h3, h4, h5, h6, .font-display { text-wrap: balance; }
+/* Headings fill the line before they wrap (pretty, not balance, which halves short headings), and still never leave one word alone. */
+h1, h2, h3, h4, h5, h6, .font-display { text-wrap: pretty; }
 p, li, dd, figcaption { text-wrap: pretty; }
 
 /* ── Focus ── */
@@ -329,6 +332,11 @@ p, li, dd, figcaption { text-wrap: pretty; }
   border-radius: 2px;
 }
 :focus:not(:focus-visible) { outline: none; }
+
+/* ── Links ──
+   Every underlined link shows a clear change on hover: the underline goes solid and thicker.
+   Shared idea with mendelow.me: a reader can always tell what is clickable. */
+a.underline:hover { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
 
 /* ── Hover gating ── */
 @media (hover: hover) and (pointer: fine) {

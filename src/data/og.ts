@@ -36,7 +36,7 @@ import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
 */
 
 // The approved product renders in src/og/marks. Pages without one show Ouro.
-export type OgMark = 'ouro' | 'desk' | 'ouro-md' | 'ouro-hx' | 'factory' | 'friends' | 'shepherd'
+export type OgMark = 'ouro' | 'desk' | 'ouro-md' | 'ouro-hx' | 'factory' | 'friends' | 'shepherd' | 'butler'
 
 export interface OgEntry {
   title: string
@@ -69,6 +69,12 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Give your agent one link and say "set this up". For Claude Code and GitHub Copilot CLI, with Crew for teams.',
     tag: 'Desk',
     mark: 'desk',
+  },
+  '/butler': {
+    title: 'Ouro Butler: an agent that looks after your home server.',
+    subtitle: 'It notices when something your household counts on stops working, fixes what it is allowed to, and tells you the rest.',
+    tag: 'Ouro Butler',
+    mark: 'butler',
   },
   '/ouro-md': {
     title: 'Ouro MD: read and answer what your agent writes.',

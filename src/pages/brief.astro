@@ -10,7 +10,7 @@ const brief = fs.readFileSync(path.join(process.cwd(), 'public', 'brief.md'), 'u
 
 const title = 'Hand this to your agent | Ouro'
 const description = 'A one-page brief with the five principles, written for your agent to read. Paste it into whatever agent you use now.'
-const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/brief')} canonical="https://ouroboros.bot/brief/">

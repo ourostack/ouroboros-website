@@ -43,7 +43,9 @@ test('the snapshot covers visible text, attribute text, share cards, and brief.m
   assert.ok(keys.includes('brief.md'));
   assert.ok(keys.includes('index attributes') && keys.includes('desk attributes'));
   assert.ok(keys.includes('share card /') && keys.includes('share card /desk'));
-  for (const route of Object.keys(pageOg)) assert.ok(keys.includes(`share card ${route}`) || route === '/brief', `No snapshot for share card ${route}`);
+  // Pages added after the snapshot have no published card to keep.
+  const newSinceSnapshot = ['/brief', '/butler'];
+  for (const route of Object.keys(pageOg)) assert.ok(keys.includes(`share card ${route}`) || newSinceSnapshot.includes(route), `No snapshot for share card ${route}`);
 });
 
 test('every published sentence is still on its page, unless a listed change replaced it', () => {

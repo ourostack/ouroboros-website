@@ -10,7 +10,7 @@ import modelReviews from '../data/model-reviews.json'
     <li>
       <a href={`/lab/model-reviews/${review.provider}`} class="quote group">
         <span class="quote-text">&#8220;{review.pullQuote}&#8221;</span>
-        <span class="quote-who">{review.displayName}<span class="quote-vendor"> · {review.vendor}</span></span>
+        <span class="quote-who">{review.displayName}<span class="quote-vendor"> · {review.vendor}</span><span class="quote-more">Read the transcript <span aria-hidden="true">&rarr;</span></span></span>
       </a>
     </li>
   ))}
@@ -21,7 +21,11 @@ import modelReviews from '../data/model-reviews.json'
   .quotes { display: grid; gap: 2.25rem 3rem; }
   @media (min-width: 768px) { .quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .quote { display: grid; gap: 0.7rem; height: 100%; align-content: start; padding-left: 1.25rem; border-left: 2px solid color-mix(in srgb, var(--color-scale) 55%, transparent); transition: border-color 0.2s; }
-  .quote:hover { border-color: var(--color-scale); }
+  .quote:hover, .quote:focus-visible { border-color: var(--color-scale); }
+  .quote-more { display: block; margin-top: 0.4rem; color: var(--color-scale); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); text-underline-offset: 4px; }
+  .quote:hover .quote-more, .quote:focus-visible .quote-more { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
+  .quote:hover .quote-text { color: var(--color-scale); }
+  .quote-text { transition: color 0.2s; }
   .quote-text { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.25; color: var(--color-bone); }
   @media (min-width: 1024px) { .quote-text { font-size: 1.75rem; } }
   .quote-who { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); }

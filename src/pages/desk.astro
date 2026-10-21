@@ -13,7 +13,7 @@ const hosted = labelFor('desk-hosted')
 // The three Claude Code hosts share the page's label, so they collapse into one row.
 const otherHosts = deskHosts.filter((host) => !host.id.startsWith('desk-claude-code-'))
 const supportPrompt = 'Something went wrong with Desk. Look at what happened in this session, then file a GitHub issue on ourostack/desk with the steps to reproduce it and the exact error. Show me the issue before you submit it.'
-const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
 ---
 

@@ -3,7 +3,7 @@
 // factory link stays on the page.
 interface Props { body: (string | { text: string; href: string })[]; home?: boolean }
 const { body, home = false } = Astro.props
-const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const hrefFor = (href: string) => (home && href.startsWith('/#') ? href.slice(1) : href)
 ---
 {body.map((part) => (typeof part === 'string' ? part : <a href={hrefFor(part.href)} class={link}>{part.text}</a>))}

@@ -76,9 +76,10 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
     'Every frontier model we asked picked Ouroboros.',
     `We asked each which of ${reviews.harnesses.length} harnesses it would most want to wake up in. In their words:`,
     'Grown inside it',
-    'Friends Alpha Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.',
-    'Ouro Shepherd Coming soon Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.',
-    'Ouro Butler An Ouroboros agent that runs a home server. When something your household counts on breaks, it fixes what it safely can and tells you the rest.',
+    // Ari, 2026-10-20: accurate statuses, and every entry has a link that looks like one.
+    'Friends Experimental On npm, and used by Ouroboros every day Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it. Friends on GitHub ↗',
+    'Ouro Shepherd Experimental Ships in Ouroboros, for cmux and Herdr Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
+    'Ouro Butler Not open yet Runs on our own home server so far An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest. Ouro Butler →',
   ]);
   // Each model's own verdict, from the published data, linked to its transcript.
   for (const review of reviews.reviews) {
@@ -90,7 +91,8 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
   assert.doesNotMatch(text, /Mendelow Cloud Butler/);
   // Shepherd, Friends and the butler live inside Ouroboros, not as their own product cards.
   for (const id of ['friends', 'shepherd', 'butler']) assert.match(section, new RegExp(`<li id="${id}"`));
-  for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
+  for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', '/butler/']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
+  assert.doesNotMatch(textOf(section), /Coming soon|Alpha\b/, 'Statuses come from the corrected readiness data');
   const shepherd = section.match(/<li id="shepherd"[\s\S]*?<\/li>/)[0];
   assert.doesNotMatch(textOf(shepherd), /install|download|available now|\b20\d\d\b/i, 'Shepherd stays a coming-soon preview');
   assert.ok(text.indexOf('Ouroboros is the agent harness I built from scratch') < text.indexOf('Every frontier model we asked picked Ouroboros.'), 'What Ouroboros is comes before the proof');

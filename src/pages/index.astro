@@ -7,7 +7,7 @@ import modelReviews from '../data/model-reviews.json'
 import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
 import { ogPathFor } from '../data/og'
 import { principles, smells, factoryUrl, deskSetupUrl } from '../data/principles.mjs'
-import { labelFor } from '../data/readiness.mjs'
+import { labelFor, entry } from '../data/readiness.mjs'
 import { acts } from '../data/acts.mjs'
 import ActBody from '../components/ActBody.astro'
 
@@ -23,8 +23,12 @@ const deskLabel = labelFor('desk-claude-code-macos')
 const hxLabel = labelFor('ouro-hx')
 const shepherdLabel = labelFor('shepherd')
 const friendsLabel = labelFor('friends')
+const friendsDetail = entry('friends').detail
+const shepherdDetail = entry('shepherd').detail
+const butlerLabel = labelFor('butler')
+const butlerDetail = entry('butler').detail
 const ouroMdPage = '/ouro-md/'
-const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const section = 'relative px-5 sm:px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20 reveal'
 
 
@@ -63,7 +67,7 @@ const wastes = [
       </div>
       <a href="https://mendelow.me" class="hero-pic portrait group animate-fade-up stagger-2">
         <img src="/images/workshop/ari-portrait.jpg" width="600" height="824" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." class="portrait-img" fetchpriority="high" />
-        <span class="text-sm md:text-base text-bone group-hover:text-scale transition-colors whitespace-nowrap">More about me &#8599;</span>
+        <span class="portrait-link text-sm md:text-base">More about me <span aria-hidden="true">&#8599;</span></span>
       </a>
     </div>
   </section>
@@ -85,15 +89,30 @@ const wastes = [
       <ul class="grown">
         <li id="friends">
           <img src="/brand/friends-render.webp" srcset="/brand/friends-render-128.webp 128w, /brand/friends-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
-          <div><p class="grown-line"><a href="https://github.com/ourostack/friends" class="grown-name">Friends</a> <span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span></p><p>Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.</p></div>
+          <div class="grown-body">
+            <h4 class="grown-name">Friends</h4>
+            <p class="grown-status"><span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span> {friendsDetail}</p>
+            <p>Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.</p>
+            <p><a href="https://github.com/ourostack/friends" class={link}>Friends on GitHub &#8599;</a></p>
+          </div>
         </li>
         <li id="shepherd">
           <img src="/brand/shepherd-render.webp" srcset="/brand/shepherd-render-128.webp 128w, /brand/shepherd-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
-          <div><p class="grown-line"><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class="grown-name">Ouro Shepherd</a> <span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span></p><p>Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.</p></div>
+          <div class="grown-body">
+            <h4 class="grown-name">Ouro Shepherd</h4>
+            <p class="grown-status"><span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span> {shepherdDetail}</p>
+            <p>Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.</p>
+            <p><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={link}>How Shepherd decides &#8599;</a></p>
+          </div>
         </li>
         <li id="butler">
           <img src="/brand/butler-render.webp" srcset="/brand/butler-render-128.webp 128w, /brand/butler-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
-          <div><p class="grown-line"><span class="grown-name">Ouro Butler</span></p><p>An Ouroboros agent that runs a home server. When something your household counts on breaks, it fixes what it safely can and tells you the rest.</p></div>
+          <div class="grown-body">
+            <h4 class="grown-name">Ouro Butler</h4>
+            <p class="grown-status"><span class={`tag ${butlerLabel.tone}`}>{butlerLabel.label}</span> {butlerDetail}</p>
+            <p>An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.</p>
+            <p><a href="/butler/" class={link}>Ouro Butler &rarr;</a></p>
+          </div>
         </li>
       </ul>
     </div>
@@ -128,12 +147,17 @@ const wastes = [
 
         <article class="tool" id="ouro-ui">
           <figure class="product-figure">
-            <div class="product-media hx-art"><img src="/brand/ouro-hx-render.webp" width="1024" height="1024" alt="The Ouro HX mark: a human hand uses an interface while a green agent hand builds it." loading="lazy" decoding="async" /></div>
+            <a href="https://ourostack.github.io/ouro-ui/voyage/" class="product-media media-shot hx-voyage">
+              <picture class="theme-light-only"><img src="/images/workshop/hx-voyage-light.webp" width="1200" height="1069" loading="lazy" decoding="async" alt="The Ouro HX showcase: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+              <picture class="theme-dark-only"><img src="/images/workshop/hx-voyage-dark.webp" width="1200" height="1069" loading="lazy" decoding="async" alt="The Ouro HX showcase in its dark theme: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+            </a>
+            <figcaption class="product-caption">Every control on this stage is an Ouro HX component, and each one changes the view through the porthole.</figcaption>
           </figure>
           <div class="tool-copy">
-            <h3 class="tool-name"><img src="/brand/ouro-hx-render.webp" srcset="/brand/ouro-hx-render-128.webp 128w, /brand/ouro-hx-render-256.webp 256w" sizes="44px" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-render w-11 h-11" />Ouro UI <span class={`tag ${hxLabel.tone}`}>Ouro HX · {hxLabel.label}</span></h3>
+            <h3 class="tool-name"><img src="/brand/ouro-hx-render.webp" srcset="/brand/ouro-hx-render-128.webp 128w, /brand/ouro-hx-render-256.webp 256w" sizes="44px" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-render w-11 h-11" />Ouro UI</h3>
+            <p class="grown-status"><span class={`tag ${hxLabel.tone}`}>Ouro HX · {hxLabel.label}</span></p>
             <p>Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.</p>
-            <p class="product-links"><a href="https://ourostack.github.io/ouro-ui/docs/" class={link}>Ouro HX components &#8599;</a> <a href="https://github.com/ourostack/ouro-ui" class={link}>Source &#8599;</a></p>
+            <p class="product-links"><a href="https://ourostack.github.io/ouro-ui/voyage/" class={link}>Try the showcase &#8599;</a> <a href="https://github.com/ourostack/ouro-ui" class={link}>Source &#8599;</a></p>
           </div>
         </article>
 
@@ -293,7 +317,12 @@ const wastes = [
   @media (min-width: 1024px) { .portrait { width: 17rem; } }
   @media (min-width: 1240px) { .portrait { width: 21rem; } }
   .portrait-img { width: 100%; height: auto; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
-  .portrait:hover .portrait-img { border-color: var(--color-scale); }
+  .portrait:hover .portrait-img, .portrait:focus-visible .portrait-img { border-color: var(--color-scale); }
+  .portrait-link { color: var(--color-scale); white-space: nowrap; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); text-underline-offset: 4px; }
+  .portrait:hover .portrait-link, .portrait:focus-visible .portrait-link { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
+  /* A picture that is a link shows it: a green ring on hover. */
+  a.product-media { outline: 2px solid transparent; outline-offset: -2px; transition: outline-color 0.2s; }
+  a.product-media:hover, a.product-media:focus-visible { outline-color: var(--color-scale); }
 
   .dek { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }
@@ -311,12 +340,12 @@ const wastes = [
   @media (min-width: 1024px) { .start-groups { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
   /* Three parallel things, so three columns from 1024px. */
   .grown { display: grid; gap: 1.75rem 3rem; margin-top: 1.5rem; }
-  @media (min-width: 1024px) { .grown { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) { .grown { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .grown > li { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.25rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .grown-body { display: grid; gap: 0.5rem; align-content: start; }
+  .grown-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
   .grown-mark { width: 4rem; height: 4rem; }
-  .grown-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem; }
   .grown-name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; color: var(--color-bone); }
-  a.grown-name:hover { color: var(--color-scale); }
   .block-label { margin-top: 3.5rem; margin-bottom: 1.25rem; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-scale); }
   .acts { display: grid; gap: 1.75rem; }
   .acts li { display: grid; gap: 0.4rem; align-content: start; color: var(--color-mist); line-height: 1.6; }
@@ -332,13 +361,13 @@ const wastes = [
   .smells li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; color: var(--color-mist); font-size: 1.0625rem; }
   .smells strong { font-family: var(--font-display); font-weight: 400; font-size: 1.85rem; line-height: 1.15; color: var(--color-bone); }
   .principles { display: flex; flex-wrap: wrap; gap: 0.75rem 2.25rem; }
-  .principle { display: inline-flex; align-items: baseline; gap: 0.6rem; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
+  .principle { display: inline; gap: 0.6rem; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
   .principle:hover { color: var(--color-scale); }
-  .principle-n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-scale); }
-  .principle-arrow { color: var(--color-scale); transition: transform 0.2s; }
+  .principle-n { margin-right: 0.5rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-scale); }
+  .principle-arrow { display: inline-block; margin-left: 0.4rem; color: var(--color-scale); transition: transform 0.2s; }
   .principle:hover .principle-arrow { transform: translateX(0.2rem); }
   .method-close { margin-top: 2.5rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
-  .factory-lead { margin-top: 1.25rem; font-family: var(--font-display); font-size: 1.75rem; line-height: 1.25; color: var(--color-bone); }
+  .factory-lead { margin-top: 1.25rem; font-family: var(--font-display); font-size: 1.375rem; line-height: 1.3; color: var(--color-bone); }
   @media (min-width: 768px) { .factory-lead { font-size: 2rem; } }
   @media (min-width: 1024px) { .factory-lead { margin-top: 1.75rem; } }
   .factory-body { display: grid; gap: 1.25rem; margin-top: 2rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
@@ -373,8 +402,7 @@ const wastes = [
   .tool > :global(.product-figure) { margin: 0; min-width: 0; }
   .tool-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; color: var(--color-mist); font-size: 1.125rem; line-height: 1.65; }
   .tool-name { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 2.25rem; line-height: 1.1; color: var(--color-bone); }
-  .hx-art { aspect-ratio: 4 / 3; display: grid; place-items: center; background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-scale) 14%, transparent), transparent 70%), var(--color-undergrowth); }
-  .hx-art img { width: 70%; height: auto; }
-  .product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+  .hx-voyage { display: block; }
+  .hx-voyage img { display: block; width: 100%; height: auto; }
 
 </style>
