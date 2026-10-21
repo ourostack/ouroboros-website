@@ -35,7 +35,7 @@ const assertLines = (text, lines, where = 'Homepage') => {
   for (const line of lines) assert.ok(text.includes(line), `${where} is missing "${line}"`);
 };
 
-test('homepage head and hero follow the deck, with a small portrait linking to mendelow.me', () => {
+test('homepage head and hero follow the deck, with a portrait linking to mendelow.me', () => {
   const html = readDist('index.html');
   // root misses ruling 2.13: one title suffix site-wide.
   // Ari, 2026-10-16: the suffix is the brand, Ouro; the h1 asks the question his work answers.
@@ -56,7 +56,9 @@ test('homepage head and hero follow the deck, with a small portrait linking to m
   assert.ok(distExists('images/workshop/ari-portrait.jpg'), 'The portrait is copied locally, never hotlinked');
   assert.doesNotMatch(html, /src="https?:\/\//, 'No hotlinked images');
   const css = fs.readdirSync(path.join(distDir, '_astro')).filter((n) => n.endsWith('.css')).map((n) => fs.readFileSync(path.join(distDir, '_astro', n), 'utf8')).join('\n') + html;
-  assert.match(css, /\.portrait(\[[^\]]+\])?\{[^}]*width:6\.5rem/);
+  // Ari, 2026-10-20: on a phone the photo leads at full width, cropped wide around the face; beside the copy from 768px.
+  assert.match(css, /\.portrait(\[[^\]]+\])?\{[^}]*width:100%/);
+  assert.match(css, /\.portrait-img(\[[^\]]+\])?\{[^}]*aspect-ratio:3\s*\/\s*2/);
   assert.doesNotMatch(html, /ouroboros-spin/, 'The ring lives on /lab/ only');
   assert.doesNotMatch(text, /People keep ending up as the glue/);
 });

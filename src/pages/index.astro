@@ -274,26 +274,25 @@ const wastes = [
 
 <style>
   /* The hero layout is shared with mendelow.me's (styles.css there): keep the two identical.
-     On a phone the headline spans the width, then the intro and the portrait sit side by side, centered
-     against each other. From 768px the copy is one block, centered beside the portrait, so the photo's
-     height never opens gaps inside the copy. */
-  .hero { display: grid; gap: 1.5rem 1.25rem; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title title" "sub pic"; align-items: center; }
+     On a phone the photo leads, full width and cropped wide around the face, and the text stacks
+     centered under it. From 768px the copy is one block, centered beside a portrait-shaped photo. */
+  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "pic" "title" "sub"; text-align: center; }
   .hero-copy { display: contents; }
-  /* On a phone the headline stands on its own line, so it centers. */
-  .hero-title { grid-area: title; text-align: center; }
+  .hero-title { grid-area: title; }
   .hero-sub { grid-area: sub; }
   .hero-pic { grid-area: pic; }
+  .portrait { display: grid; gap: 0.5rem; justify-items: end; width: 100%; }
+  .portrait-img { aspect-ratio: 3 / 2; object-position: 50% 26%; }
   @media (min-width: 768px) {
-    .hero { grid-template-areas: "copy pic"; column-gap: 3rem; }
+    .hero { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
     .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
     .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
-    .hero-title { text-align: left; }
+    .portrait { justify-items: center; width: 12rem; }
+    .portrait-img { aspect-ratio: 600 / 824; }
   }
-  .portrait { display: grid; gap: 0.5rem; justify-items: center; width: 6.5rem; }
-  @media (min-width: 768px) { .portrait { width: 12rem; } }
   @media (min-width: 1024px) { .portrait { width: 17rem; } }
   @media (min-width: 1240px) { .portrait { width: 21rem; } }
-  .portrait-img { width: 100%; height: auto; aspect-ratio: 600 / 824; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
+  .portrait-img { width: 100%; height: auto; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
   .portrait:hover .portrait-img { border-color: var(--color-scale); }
 
   .dek { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
