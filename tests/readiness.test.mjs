@@ -131,8 +131,9 @@ test('the Desk page shows real session-start output, links the factory once, its
   assert.ok(text.replace(/\s+([.,])/g, '$1').includes('Every job starts with one conversation and a go, and ends with evidence you accept or send back, the way How I work lays it out.'));
   // root final ruling F14: the H2 matches the session-start output under it.
   assert.ok(text.includes('What a new session looks like'), 'The sample terminal sits under its own heading');
-  // At 1440px, Known limits sits under the copy box in the left column, before the playback.
-  assert.ok(html.indexOf('Known limits today') < html.indexOf('data-desk-playback'), 'Known limits moves under the copy box');
+  // The page reads top to bottom with no boxes (2026-10-20): Known limits is its own section right after Where it runs.
+  assert.ok(html.indexOf('Where it runs') < html.indexOf('Known limits today') && html.indexOf('Known limits today') < html.indexOf('What a new session looks like'), 'Known limits follows Where it runs');
+  assert.doesNotMatch(html, /rounded-2xl border border-canopy\/40 bg-deep\/70/, 'No boxed cards on the Desk page');
   assert.doesNotMatch(text, /See what it does in practice/);
   // Once for the page, once on the Claude Code row and once on the Copilot CLI row; Desk itself is never branded alpha.
   assert.equal((text.match(/\bUse today\b/g) || []).length, 3, 'The Use today label shows for the page, Claude Code and Copilot CLI');

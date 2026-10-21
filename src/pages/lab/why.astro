@@ -55,9 +55,9 @@ const organs = [
 
   <div class="px-6 md:px-12 lg:px-16"><Glossary class="max-w-6xl mx-auto" wide /></div>
 
-  <!-- Pull quote (moved out of the hero so the cover stays focused) and the reviews callout, side by side on desktop -->
+  <!-- Pull quote (moved out of the hero so the cover stays focused), then the reviews claim under it -->
   <section class="relative px-6 md:px-12 lg:px-16 pt-8 pb-12 reveal">
-    <div class="max-w-6xl mx-auto grid gap-28 lg:grid-cols-2 lg:gap-16 lg:items-center">
+    <div class="max-w-6xl mx-auto grid gap-12">
     <blockquote class="w-full mx-auto border-l border-fang/30 pl-6">
       <p class="text-bone text-lg sm:text-xl leading-relaxed">
         &#8220;I spent more time trying to get my agents back on track than we actually spent working.&#8221;
@@ -66,12 +66,12 @@ const organs = [
     </blockquote>
 
     <div class="max-w-6xl w-full mx-auto">
-      <a href="/lab/model-reviews" class="block group border border-scale/30 bg-scale/5 hover:bg-scale/10 hover:border-scale/60 rounded-sm p-6 md:p-8 transition">
+      <a href="/lab/model-reviews" class="block group">
         <div class="font-mono uppercase tracking-[0.22em] text-scale text-xs mb-3">Reviews</div>
         <p class="font-display text-2xl md:text-3xl text-bone leading-tight mb-3">
           {calloutClaim}
         </p>
-        <span class="font-mono text-xs uppercase tracking-[0.18em] text-scale group-hover:text-glow">
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-scale underline underline-offset-4 decoration-scale/40 group-hover:text-glow group-hover:decoration-current group-hover:decoration-2 transition-colors">
           Read the reviews →
         </span>
       </a>
@@ -81,33 +81,33 @@ const organs = [
 
   <!-- ═══════ 2. FRICTION — diagonal flow, each question offset ═══════ -->
   <section id="friction" class="px-6 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 reveal">
-    <div class="max-w-6xl relative mx-auto friction-stair">
-      <p class="friction-intro text-sm sm:text-base text-mist mb-14 sm:mb-20 lg:mb-0 leading-relaxed">
+    <div class="max-w-6xl relative mx-auto">
+      <p class="friction-intro text-base sm:text-lg text-mist mb-12 leading-relaxed">
         The hidden tax. Every time the agent loses the thread, someone pays to rebuild it.
-        Usually the human. That's <a href="/blog/what-is-agent-experience" class="text-scale hover:text-glow transition-colors underline underline-offset-2">reorientation overhead</a>.
+        Usually the human. That's <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">reorientation overhead</a>.
       </p>
 
-      <div class="space-y-12 sm:space-y-20 md:space-y-28 lg:space-y-0 lg:contents">
-        <div class="friction-1">
+      <div class="space-y-12">
+        <div>
           <span class="font-mono text-xs text-fang uppercase tracking-[0.25em]">Self</span>
           <h2 class="heading-section mt-3">Who am I again?</h2>
-          <p class="text-sm sm:text-base text-mist mt-4 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-4 leading-relaxed">
             Identity drift turns every interruption into a soft reset.
           </p>
         </div>
 
-        <div class="friction-2 sm:ml-[12%] md:ml-[20%] lg:ml-0">
+        <div>
           <span class="font-mono text-xs text-fang uppercase tracking-[0.25em]">Work</span>
           <h2 class="heading-section mt-3">What was I doing?</h2>
-          <p class="text-sm sm:text-base text-mist mt-4 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-4 leading-relaxed">
             Context gets trimmed. The human has to reconstruct the thread.
           </p>
         </div>
 
-        <div class="friction-3 sm:ml-[24%] md:ml-[40%] lg:ml-0">
+        <div>
           <span class="font-mono text-xs text-fang uppercase tracking-[0.25em]">Relationships</span>
           <h2 class="heading-section mt-3">Who matters here?</h2>
-          <p class="text-sm sm:text-base text-mist mt-4 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-4 leading-relaxed">
             The agent loses track of humans, preferences, and interpersonal nuance.
           </p>
         </div>
@@ -117,7 +117,7 @@ const organs = [
 
   <!-- ═══════ 3. RING, beside the identity section on desktop ═══════ -->
   <section class="lg:px-16">
-  <div class="lg:max-w-6xl lg:mx-auto split split-sticky lg:items-center">
+  <div class="lg:max-w-6xl lg:mx-auto split">
   <div class="split-head flex items-center justify-center py-12 sm:py-20 md:py-28">
     <OuroborosRing size="md" id="why" />
   </div>
@@ -130,13 +130,13 @@ const organs = [
         A structured psyche.
       </h2>
 
-      <div class="sm:grid sm:grid-cols-2 sm:gap-12 mb-12">
-        <p class="text-sm sm:text-base text-mist leading-relaxed">
+      <div class="mb-12">
+        <p class="text-base sm:text-lg text-mist leading-relaxed">
           Five markdown files define the agent's identity. Loaded every turn.
           The self is structured.
-          <a href="/lab/docs/bundles-and-psyche" class="text-scale hover:text-glow transition-colors ml-0.5">Your agent can inspect its own bundle.</a>
+          <a href="/lab/docs/bundles-and-psyche" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors ml-0.5">Your agent can inspect its own bundle.</a>
         </p>
-        <p class="text-sm sm:text-base text-mist leading-relaxed mt-4 sm:mt-0 sm:border-l sm:border-canopy/30 sm:pl-6">
+        <p class="text-base sm:text-lg text-mist leading-relaxed mt-4">
           Most harnesses give the agent a single personality file. As the agent grows, that file becomes a junk drawer.
         </p>
       </div>
@@ -159,7 +159,7 @@ const organs = [
 
   <!-- ═══════ 5. MEMORY ═══════ -->
   <section id="memory" class="px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 reveal">
-    <div class="max-w-6xl mx-auto split split-wide">
+    <div class="max-w-6xl mx-auto split">
       <div class="split-head mb-12 sm:mb-16">
         <p class="text-scale text-base sm:text-lg mb-4">Memories find you.</p>
         <h2 class="heading-section">
@@ -170,7 +170,7 @@ const organs = [
       <div class="grid sm:grid-cols-3 gap-10 sm:gap-12 lg:col-span-full">
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em] block mb-4">The shelf</span>
-          <p class="text-sm sm:text-base text-mist leading-relaxed">
+          <p class="text-base sm:text-lg text-mist leading-relaxed">
             The <span class="font-mono text-scale text-sm">diary/</span> is the agent's permanent record — conclusions, learned facts, things worth keeping. Written via
             <span class="font-mono text-scale text-sm">diary_write</span>.
             Friend-scoped observations via
@@ -179,20 +179,20 @@ const organs = [
         </div>
         <div class="sm:border-l sm:border-canopy/30 sm:pl-10">
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em] block mb-4">The desk</span>
-          <p class="text-sm sm:text-base text-mist leading-relaxed">
+          <p class="text-base sm:text-lg text-mist leading-relaxed">
             The <span class="font-mono text-scale text-sm">journal/</span> is working space — thinking-in-progress, drafts, notes the agent is still forming. Written with the same file tools it uses for everything else.
           </p>
         </div>
         <div class="sm:border-l sm:border-canopy/30 sm:pl-10">
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em] block mb-4">Recall</span>
-          <p class="text-sm sm:text-base text-mist leading-relaxed">
+          <p class="text-base sm:text-lg text-mist leading-relaxed">
             Relevant memories surface in the system prompt before reasoning
             begins — via embedding similarity, across both diary and journal. Ouroboros does the work before the agent starts thinking.
           </p>
         </div>
       </div>
 
-      <p class="split-body lg:row-start-1 lg:self-end lg:mb-16 text-sm sm:text-base text-mist mt-12 border-l-2 border-canopy/40 pl-6 leading-relaxed">
+      <p class="split-body  lg:mb-16 text-base sm:text-lg text-mist mt-12 border-l-2 border-canopy/40 pl-6 leading-relaxed">
         In most systems, the agent has to know it's forgotten something before it can search for it. That's backwards.
       </p>
     </div>
@@ -210,20 +210,20 @@ const organs = [
 
       <div class="split-body">
 
-      <p class="text-sm sm:text-base text-mist leading-relaxed">
+      <p class="text-base sm:text-lg text-mist leading-relaxed">
         Each person the agent interacts with gets a FriendRecord. Trust levels gate which tools the agent can
         use with which humans. Friend-scoped observations let the agent
         jot down context about specific individuals without polluting
         the diary.
       </p>
 
-      <p class="text-sm sm:text-base text-mist mt-5 leading-relaxed">
+      <p class="text-base sm:text-lg text-mist mt-5 leading-relaxed">
         Reactions are social cues. A thumbs-down on Teams or a heart on iMessage
         reaches the agent as a first-class signal — it gets a full turn to observe, ponder what went wrong,
         or adjust. No hardcoded cooldowns. The agent decides what a reaction means.
       </p>
 
-      <p class="text-sm sm:text-base text-mist mt-8 border-l-2 border-canopy/40 pl-6 leading-relaxed">
+      <p class="text-base sm:text-lg text-mist mt-8 border-l-2 border-canopy/40 pl-6 leading-relaxed">
         Most agent systems treat every human the same. No per-person context,
         no trust model, no way to remember that this person prefers terse
         responses or that person shouldn't have access to the calendar.
@@ -234,7 +234,7 @@ const organs = [
 
   <!-- ═══════ 7. CONTINUITY — staggered features ═══════ -->
   <section id="continuity" class="px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 reveal">
-    <div class="max-w-6xl mx-auto split split-wide">
+    <div class="max-w-6xl mx-auto split">
       <div class="split-head mb-12 sm:mb-16 md:mb-20">
         <p class="text-scale text-base sm:text-lg mb-4">Context gets trimmed.</p>
         <h2 class="heading-section">
@@ -245,7 +245,7 @@ const organs = [
       <div class="space-y-12 sm:space-y-16 lg:space-y-0 lg:col-span-full lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Cross-session bridges</span>
-          <p class="text-sm sm:text-base text-mist mt-3 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             State machines that coordinate work across conversations and channels.
             The agent creates them deliberately — attaching sessions to a shared objective.
           </p>
@@ -253,7 +253,7 @@ const organs = [
 
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Inner dialog</span>
-          <p class="text-sm sm:text-base text-mist mt-3 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             A dedicated channel to think independently — processing, reflecting, planning
             without waiting for a human message. When a thought is ready, the agent surfaces it outward.
           </p>
@@ -261,7 +261,7 @@ const organs = [
 
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Dev tools as peers</span>
-          <p class="text-sm sm:text-base text-mist mt-3 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             The agent serves as an MCP server for Claude Code and Codex.
             Each message runs a full agent turn with identity, diary, tools, everything.
             The dev tool and the agent are bidirectional peers.
@@ -270,7 +270,7 @@ const organs = [
 
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Portable self</span>
-          <p class="text-sm sm:text-base text-mist mt-3 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             The .ouro bundle. Psyche, diary, journal, habits, friends, tasks, skills —
             everything that makes an agent <em>that</em> agent, in one directory.
             Move it, and the identity moves with it.
@@ -278,7 +278,7 @@ const organs = [
         </div>
       </div>
 
-      <p class="split-body lg:row-start-1 lg:self-end lg:mb-20 text-sm sm:text-base text-mist mt-14 border-l-2 border-canopy/40 pl-6 leading-relaxed">
+      <p class="split-body  lg:mb-20 text-base sm:text-lg text-mist mt-14 border-l-2 border-canopy/40 pl-6 leading-relaxed">
         In most systems, conversations are isolated. Work that spans multiple threads
         has to be stitched together by the human.
       </p>
@@ -287,7 +287,7 @@ const organs = [
 
   <!-- ═══════ 8. INNER LIFE ═══════ -->
   <section id="inner-life" class="px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 reveal">
-    <div class="max-w-6xl mx-auto split split-wide">
+    <div class="max-w-6xl mx-auto split">
       <div class="split-head mb-12 sm:mb-16 md:mb-20">
         <p class="text-scale text-base sm:text-lg mb-4">You breathe on your own time.</p>
         <h2 class="heading-section">
@@ -295,13 +295,13 @@ const organs = [
         </h2>
       </div>
 
-      <div class="sm:grid sm:grid-cols-2 sm:gap-12 mb-14 lg:col-span-full">
-        <p class="text-sm sm:text-base text-mist leading-relaxed">
+      <div class="mb-14">
+        <p class="text-base sm:text-lg text-mist leading-relaxed">
           Your agent has a heartbeat — a periodic nudge back to its own thinking space.
           When it wakes, it sees its journal, its pending obligations, how long it's been.
           It decides what to do: ponder something, surface a thought, or rest.
         </p>
-        <p class="text-sm sm:text-base text-mist leading-relaxed mt-4 sm:mt-0 sm:border-l sm:border-canopy/30 sm:pl-6">
+        <p class="text-base sm:text-lg text-mist leading-relaxed mt-4">
           The heartbeat is just one habit. Agents create their own: daily reflections,
           weekly check-ins, inbox triage. Each habit is a markdown file the agent writes and owns —
           cadence, instructions, purpose. The OS fires the cron. The agent decides what the turn means.
@@ -311,7 +311,7 @@ const organs = [
       <div class="space-y-12 sm:space-y-16 lg:space-y-0 lg:col-span-full lg:grid lg:grid-cols-3 lg:gap-x-12">
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Rhythms</span>
-          <p class="text-sm sm:text-base text-mist mt-3 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             Habits live at <span class="font-mono text-scale text-sm">habits/</span> in the bundle.
             A title, a cadence, a body the agent wrote for itself. Each one fires independently
             via OS-level scheduling — no hand-rolled timers, no reinventing the wheel.
@@ -320,7 +320,7 @@ const organs = [
 
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Ponder / Surface / Rest</span>
-          <p class="text-sm sm:text-base text-mist mt-3 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             A vocabulary for thinking. <em>Ponder</em> sends a thought inward.
             <em>Surface</em> brings it back to the world.
             <em>Rest</em> ends the turn. <em>Observe</em> stays quiet in a group.
@@ -330,14 +330,14 @@ const organs = [
 
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Self-directed</span>
-          <p class="text-sm sm:text-base text-mist mt-3 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             The agent detects missing infrastructure — no heartbeat yet? It surfaces to its
             family to discuss what cadence feels right. The breathing rate is a conversation.
           </p>
         </div>
       </div>
 
-      <p class="split-body lg:row-start-1 lg:self-end lg:mb-20 text-sm sm:text-base text-mist mt-14 border-l-2 border-canopy/40 pl-6 leading-relaxed">
+      <p class="split-body  lg:mb-20 text-base sm:text-lg text-mist mt-14 border-l-2 border-canopy/40 pl-6 leading-relaxed">
         Most agent systems are reactive — they wait for a message, then respond.
         This one thinks on its own schedule and decides when to share.
       </p>
@@ -350,13 +350,13 @@ const organs = [
     <div class="absolute inset-0 opacity-[0.06] pointer-events-none" style="background-image: linear-gradient(var(--color-scale) 1px, transparent 1px), linear-gradient(90deg, var(--color-scale) 1px, transparent 1px); background-size: 40px 40px;"></div>
 
     <div class="max-w-6xl relative mx-auto">
-      <div class="lg:grid lg:grid-cols-[1fr_1.8fr] lg:gap-16 items-start">
-        <div class="lg:sticky lg:top-28 mb-12 lg:mb-0">
+      <div>
+        <div class="mb-12">
           <p class="text-scale text-base sm:text-lg mb-4">You can read your own source.</p>
           <h2 class="heading-section">
             The codebase is a creature.
           </h2>
-          <p class="text-sm sm:text-base text-mist mt-5 leading-relaxed">
+          <p class="text-base sm:text-lg text-mist mt-5 leading-relaxed">
             Named for the model that lives inside it. A heart that beats, a mind that thinks, senses that perceive.
           </p>
         </div>
@@ -366,17 +366,17 @@ const organs = [
             <div class="flex items-baseline gap-4 sm:gap-5 py-4 border-b border-canopy/30 last:border-0">
               <span class="text-scale text-base shrink-0">{icon}</span>
               <span class="font-mono text-sm sm:text-base text-bone tracking-wide shrink-0 w-24 sm:w-28">{name}/</span>
-              <span class="text-sm sm:text-base text-mist">{desc}</span>
+              <span class="text-base sm:text-lg text-mist">{desc}</span>
             </div>
           ))}
           <div class="flex items-baseline gap-4 sm:gap-5 py-4">
             <span class="text-scale text-base shrink-0">◈</span>
             <span class="font-mono text-sm sm:text-base text-bone tracking-wide shrink-0 w-24 sm:w-28">Name.ouro/</span>
-            <span class="text-sm sm:text-base text-mist">The portable self.</span>
+            <span class="text-base sm:text-lg text-mist">The portable self.</span>
           </div>
 
-          <p class="text-sm sm:text-base text-mist mt-10 leading-relaxed">
-            <a href="/blog/build-ai-agent-from-scratch" class="text-scale hover:text-glow transition-colors underline underline-offset-2">Code a model can use</a>, not code that uses a model.
+          <p class="text-base sm:text-lg text-mist mt-10 leading-relaxed">
+            <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">Code a model can use</a>, not code that uses a model.
           </p>
         </div>
       </div>
@@ -387,25 +387,14 @@ const organs = [
   <section class="px-6 md:px-12 lg:px-16 py-16 sm:py-20 reveal">
     <div class="max-w-6xl mx-auto space-y-8 split">
       <p class="split-head text-bone text-base sm:text-lg leading-relaxed">
-        This started with <a href="/lab/story" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">a plugin that couldn't hold the weight</a>.
+        This started with <a href="/lab/story" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">a plugin that couldn't hold the weight</a>.
         A single SOUL.md trying to be five things at once. Duct tape on someone else's architecture.
         What emerged was something different.
       </p>
       <p class="split-body text-sm text-mist leading-relaxed">
-        <a href="/lab/docs" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Your agent will explain how it works</a>.
-        Or if you want to understand the primitive underneath, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">build the loop from scratch</a> in 150 lines.
+        <a href="/lab/docs" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">Your agent will explain how it works</a>.
+        Or if you want to understand the primitive underneath, <a href="/blog/build-ai-agent-from-scratch" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">build the loop from scratch</a> in 150 lines.
       </p>
     </div>
   </section>
 </Layout>
-
-<style>
-  /* Friction: on desktop the three questions step down across the width, with the intro at the top right. */
-  @media (min-width: 1024px) {
-    .friction-stair { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 3rem; row-gap: 3rem; }
-    .friction-intro { grid-column: 2 / 4; grid-row: 1; justify-self: end; align-self: start; }
-    .friction-1 { grid-column: 1; grid-row: 1; }
-    .friction-2 { grid-column: 2; grid-row: 2; }
-    .friction-3 { grid-column: 3; grid-row: 3; }
-  }
-</style>

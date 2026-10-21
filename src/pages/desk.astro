@@ -14,7 +14,6 @@ const hosted = labelFor('desk-hosted')
 const otherHosts = deskHosts.filter((host) => !host.id.startsWith('desk-claude-code-'))
 const supportPrompt = 'Something went wrong with Desk. Look at what happened in this session, then file a GitHub issue on ourostack/desk with the steps to reproduce it and the exact error. Show me the issue before you submit it.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
-const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/desk')} canonical="https://ouroboros.bot/desk/">
@@ -38,74 +37,72 @@ const card = 'rounded-2xl border border-canopy/40 bg-deep/70 p-6'
           </div>
         </div>
         <p class="text-sm text-mist">Setup also installs <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public <a href={factoryUrl} class={link}>factory</a>. It sends timings and sizes, and never transcript text, prompts, file contents, or names.</p>
-        <div class={card}>
-          <h2 class="caption-mono mb-3">Known limits today</h2>
-          <ul class="list-disc pl-5 grid gap-2 text-mist">
-            <li>Desk's own browser starts signed out, and on macOS it can steal focus.</li>
-            <li>We haven't yet tested a first install on a brand-new Mac account.</li>
-            <li>Turning reported problems into fixes is built, and it hasn't been proven on real work yet.</li>
-          </ul>
-        </div>
       </div>
 
-      <div class="grid gap-6 content-start min-w-0">
+      <div class="min-w-0">
         <DeskMedia />
-        <div class={card}>
-          <h2 class="caption-mono mb-3">Where it runs</h2>
-          <ul class="grid">
-            <li class="flex flex-wrap items-center justify-between gap-2 py-3 border-b border-dashed border-canopy/50">
-              <span class="text-bone">Claude Code<span class="block text-sm text-mist">macOS: tested daily. Linux and Windows: the full test suite runs on both in CI</span></span>
-              <span class={`tag ${status.tone}`}>{status.label}</span>
-            </li>
-            {otherHosts.map((host) => (
-              <li class="flex flex-wrap items-center justify-between gap-2 py-3 border-b border-dashed border-canopy/50 last:border-b-0">
-                <span class="text-bone">{host.name}<span class="block text-sm text-mist">{host.detail}</span></span>
-                <span class={`tag ${allowedLabels[host.label]}`}>{host.label}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   </section>
 
   <section class="px-6 md:px-12 lg:px-16 py-12 border-t border-canopy/15">
-    <div class="max-w-6xl mx-auto grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-x-12 lg:items-start">
-      <div class="grid gap-6 min-w-0">
-        <h2 class="heading-sub">What a new session looks like</h2>
-        <figure class="grid gap-3">
-          <DeskBootPreview />
-          <figcaption class="text-sm text-mist">A new session picks up where the last one left off. This is real output from Desk's session start, run on a sample desk: every task, its state, and its next step or blocker, before anyone asks.</figcaption>
-        </figure>
-      </div>
-      <div class={`${card} grid gap-3 content-start min-w-0 lg:mt-14`}>
-        <h2 class="heading-sub">Support goes through your agent</h2>
-        <p class="text-mist">Give your agent this:</p>
-        <pre id="desk-support" class="agent-text !text-xs">{supportPrompt}</pre>
-        <button type="button" data-copy-target="desk-support" class="justify-self-start inline-flex items-center rounded-xl border border-canopy text-bone px-4 py-2 text-sm font-medium hover:border-scale hover:text-scale transition-colors"><span data-copy-label>Copy</span></button>
-      </div>
+    <div class="max-w-6xl mx-auto grid gap-5">
+      <h2 class="heading-sub">Where it runs</h2>
+      <ul class="grid gap-4">
+        <li>
+          <span class="flex flex-wrap items-center gap-3"><span class="text-lg text-bone">Claude Code</span><span class={`tag ${status.tone}`}>{status.label}</span></span>
+          <span class="block text-mist">macOS: tested daily. Linux and Windows: the full test suite runs on both in CI.</span>
+        </li>
+        {otherHosts.map((host) => (
+          <li>
+            <span class="flex flex-wrap items-center gap-3"><span class="text-lg text-bone">{host.name}</span><span class={`tag ${allowedLabels[host.label]}`}>{host.label}</span></span>
+            <span class="block text-mist">{host.detail}{/[.!?]$/.test(host.detail) ? '' : '.'}</span>
+          </li>
+        ))}
+      </ul>
+      <h2 class="heading-sub mt-8">Known limits today</h2>
+      <ul class="list-disc pl-5 grid gap-2 text-lg text-mist">
+        <li>Desk's own browser starts signed out, and on macOS it can steal focus.</li>
+        <li>We haven't yet tested a first install on a brand-new Mac account.</li>
+        <li>Turning reported problems into fixes is built, and it hasn't been proven on real work yet.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 border-t border-canopy/15">
+    <div class="max-w-6xl mx-auto grid gap-6">
+      <h2 class="heading-sub">What a new session looks like</h2>
+      <figure class="grid gap-3 min-w-0">
+        <DeskBootPreview />
+        <figcaption class="text-sm text-mist">A new session picks up where the last one left off. This is real output from Desk's session start, run on a sample desk: every task, its state, and its next step or blocker, before anyone asks.</figcaption>
+      </figure>
+      <h2 class="heading-sub mt-8">Support goes through your agent</h2>
+      <p class="text-lg text-mist">Give your agent this:</p>
+      <pre id="desk-support" class="agent-text">{supportPrompt}</pre>
+      <button type="button" data-copy-target="desk-support" class="justify-self-start inline-flex items-center rounded-xl border border-canopy text-bone px-4 py-2 text-sm font-medium hover:border-scale hover:text-scale transition-colors"><span data-copy-label>Copy</span></button>
     </div>
   </section>
 
   <section id="crew" class="px-6 md:px-12 lg:px-16 py-12 border-t border-canopy/15 scroll-mt-16">
-    <div class="max-w-6xl mx-auto grid gap-6 lg:grid-cols-2 lg:gap-x-12 lg:items-start">
-      <div class="grid gap-5 min-w-0">
-        <h2 class="heading-sub">Crew: one repository for a whole team</h2>
-        <p class="text-lg text-mist leading-relaxed">Desk is one person's workspace. Crew turns one repository into a shared workspace for several people and their agents. Everyone reads all of it, and each person's agents write only in that person's own desk, so work from many hands merges cleanly.</p>
-        <p class="text-lg text-mist leading-relaxed">Facts, one person's view, and what the team actually decided each have their own place. Ask an agent what a teammate thinks, or what was agreed, and it answers from the right place and says whose view it is.</p>
-        <p class="text-sm text-mist">Crew is a separate plugin, <code class="model-code">crew@ourostack</code>, from the same marketplace as Desk. See the <a href="https://github.com/ourostack/desk/blob/main/plugins/crew/README.md" class={link}>Crew guide</a>.</p>
+    <div class="max-w-6xl mx-auto grid gap-5">
+      <h2 class="heading-sub">Crew: one repository for a whole team</h2>
+      <p class="text-lg text-mist leading-relaxed">Desk is one person's workspace. Crew turns one repository into a shared workspace for several people and their agents. Everyone reads all of it, and each person's agents write only in that person's own desk, so work from many hands merges cleanly.</p>
+      <p class="text-lg text-mist leading-relaxed">Facts, one person's view, and what the team actually decided each have their own place. Ask an agent what a teammate thinks, or what was agreed, and it answers from the right place and says whose view it is.</p>
+      <p class="text-mist">Crew is a separate plugin, <code class="model-code">crew@ourostack</code>, from the same marketplace as Desk. See the <a href="https://github.com/ourostack/desk/blob/main/plugins/crew/README.md" class={link}>Crew guide</a>.</p>
+    </div>
+  </section>
+
+  <section id="hosted" class="px-6 md:px-12 lg:px-16 py-12 border-t border-canopy/15 scroll-mt-16">
+    <div class="max-w-6xl mx-auto grid gap-5">
+      <div class="flex flex-wrap items-center gap-3">
+        <h2 class="heading-sub">Hosted Desk on claude.ai</h2>
+        <span class={`tag ${hosted.tone}`}>{hosted.label}</span>
       </div>
-      <div id="hosted" class={`${card} grid gap-4 content-start min-w-0 scroll-mt-16`}>
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <h2 class="heading-sub">Hosted Desk on claude.ai</h2>
-          <span class={`tag ${hosted.tone}`}>{hosted.label}</span>
-        </div>
-        <p class="text-mist">Hosted Desk lets claude.ai use Desk as a remote connector, so a chat in the browser can pick up the same work. Sign-in is by invitation for now. Tools that need a shell or a coding harness stay with your local agent.</p>
-        <figure class="grid gap-2">
-          <img src="/images/workshop/hosted-desk-connected.webp" width="1200" height="804" loading="lazy" decoding="async" alt="claude.ai connector settings showing Desk connected at desk.ouro.bot/mcp, with its read-only tools listed and each set to need approval." class="w-full h-auto rounded-xl border border-canopy/40" />
-          <figcaption class="text-sm text-mist">Desk connected in claude.ai, shown with the current Desk logo.</figcaption>
-        </figure>
-      </div>
+      <p class="text-lg text-mist leading-relaxed">Hosted Desk lets claude.ai use Desk as a remote connector, so a chat in the browser can pick up the same work. Sign-in is by invitation for now. Tools that need a shell or a coding harness stay with your local agent.</p>
+      <figure class="grid gap-2">
+        <img src="/images/workshop/hosted-desk-connected.webp" width="1200" height="804" loading="lazy" decoding="async" alt="claude.ai connector settings showing Desk connected at desk.ouro.bot/mcp, with its read-only tools listed and each set to need approval." class="w-full h-auto rounded-xl border border-canopy/40" />
+        <figcaption class="text-sm text-mist">Desk connected in claude.ai, shown with the current Desk logo.</figcaption>
+      </figure>
     </div>
   </section>
 

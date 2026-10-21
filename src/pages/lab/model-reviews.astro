@@ -57,15 +57,13 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
       <div class="divide-y divide-canopy/30">
         {reviews.map((review) => (
           <article id={review.provider} class="py-16 md:py-24 first:pt-0 last:pb-0">
-            <div class="grid grid-cols-1 md:grid-cols-[14rem_1fr] lg:grid-cols-[17rem_1fr] gap-y-8 gap-x-10 lg:gap-x-16">
-              <!-- LEFT: attribution column -->
+            <div class="grid gap-6">
+              <!-- Attribution, then the quote under it -->
               <div class="flex flex-col">
                 <div class="font-mono text-xs text-fang uppercase tracking-[0.22em] mb-3">{review.vendor}</div>
                 <h2 class="text-bone text-3xl md:text-4xl leading-tight font-light">{review.displayName}</h2>
 
-                <div class="h-px w-12 bg-canopy/60 mt-7 mb-6"></div>
-
-                <div class="space-y-4">
+                <div class="mt-4 flex flex-wrap items-baseline gap-x-8 gap-y-3">
                   <div class="flex items-baseline gap-3">
                     <span class="font-mono text-xs text-mist uppercase tracking-[0.22em]">Verdict</span>
                     <span class="font-mono text-scale text-sm uppercase tracking-[0.12em]">{review.verdict}</span>
@@ -81,7 +79,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
                 </div>
               </div>
 
-              <!-- RIGHT: full-width quote.
+              <!-- The quote, full width.
                    parseInlineMd renders backtick code spans (`src/arc/...`)
                    and **bold** that the model produced in its testimonial. -->
               <blockquote class="text-bone text-base md:text-lg lg:text-[1.1875rem] leading-[1.75]" set:html={`&#8220;${parseInlineMd(review.testimonial)}&#8221;`}></blockquote>
@@ -96,7 +94,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
   <section class="relative px-6 md:px-12 lg:px-16 py-20 md:py-28 reveal">
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-deep/30 to-transparent pointer-events-none"></div>
 
-    <div class="max-w-6xl relative mx-auto split split-sticky">
+    <div class="max-w-6xl relative mx-auto split">
       <div class="split-head">
         <span class="font-mono text-xs text-fang uppercase tracking-[0.25em] block mb-6">Per-harness rationale</span>
         <h2 class="heading-section mb-12 md:mb-16">

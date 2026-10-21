@@ -212,30 +212,33 @@ html, body { overflow-x: clip; }
   }
 }
 
-/* ── Desktop layout: every section composes across the full container ──
-   Shared with mendelow.me (same tokens and class names, so the sister sites
-   read as siblings). The container is 72rem (max-w-6xl) with a 4rem gutter
-   from 1024px. A split section puts the heading (with any kicker or intro) in
-   about 5/12 of the container and the body in about 7/12; .split-wide flips
-   the weights. Below 1024px the columns stack as before. */
+/* ── Reading order: every section reads top to bottom ──
+   A section's heading sits directly above its body at every width, and the
+   body fills the full container. No heading-left/body-right columns: they
+   make the reader hop sideways and leave the heading stranded beside a long
+   body. The one exception is copy beside its own media (a clip or a picture
+   of the thing the copy describes), opted into with .split-media: copy takes
+   about 5/12 and the media about 7/12 from 1024px, stacked below that.
+   .split, .split-head and .split-body stay as hooks so every page keeps its
+   markup; they no longer make columns. */
 :root {
   --split-cols: minmax(0, 5fr) minmax(0, 7fr);
-  --split-cols-wide: minmax(0, 7fr) minmax(0, 5fr);
   --split-gap: 4rem;
 }
 @media (min-width: 1024px) {
-  .split { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); }
-  .split.split-wide { grid-template-columns: var(--split-cols-wide); }
-  .split > .split-head { grid-column: 1; }
-  .split > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
-  .split > .heading-section.split-head { padding-top: 0.1em; }
-  .split > .split-body > :first-child { margin-top: 0; }
-  .split-sticky > .split-head { position: sticky; top: 6rem; }
+  .split.split-media { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); align-items: start; }
+  .split.split-media > .split-head { grid-column: 1; }
+  .split.split-media > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
 }
-/* Alignment sits in a layer so a page can change it with an lg:items-* utility. */
-@layer components {
-  @media (min-width: 1024px) { .split { align-items: start; } }
-}
+
+/* A list of posts or pages, read top to bottom: no cards, a hairline between
+   entries, an underlined title that thickens on hover. Used by /blog/ and /lab/. */
+.post-list { list-style: none; padding: 0; margin: 0; }
+.post-list > li { padding: 1.75rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 35%, transparent); }
+.post-title { font-family: var(--font-display); font-weight: 400; font-size: 1.35rem; line-height: 1.25; color: var(--color-bone); text-wrap: pretty; }
+@media (min-width: 768px) { .post-title { font-size: 1.6rem; } }
+.post-dek { margin-top: 0.6rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
+.post-byline { display: block; margin-top: 0.5rem; color: var(--color-mist); }
 
 /* Rich renders are the normal logos; the one-colour SVGs serve tiny uses. */
 .mark-render {

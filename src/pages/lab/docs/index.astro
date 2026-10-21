@@ -103,23 +103,19 @@ const pages = [
       </div>
       </div>
 
-      <!-- Card grid -->
-      <div class="docs-cards mt-16 grid md:grid-cols-2 gap-6">
+      <!-- Every docs page, read top to bottom -->
+      <ul class="post-list mt-16">
         {pages.map(page => (
-          <a href={page.href} class="group flex gap-5 rounded-2xl border border-canopy/40 bg-undergrowth/10 p-8 hover:border-scale/60 hover:bg-undergrowth/20 transition-all duration-300">
-            <span class="text-scale text-xl shrink-0 group-hover:text-glow transition-colors">{page.icon}</span>
+          <li class="flex gap-4">
+            <span class="text-scale text-xl shrink-0 leading-[2]" aria-hidden="true">{page.icon}</span>
             <div>
-              <h3 class="font-display text-bone text-xl group-hover:text-scale transition-colors">{page.title}</h3>
-              <p class="text-base text-mist mt-2 leading-relaxed">{page.description}</p>
+              <h3 class="post-title"><a href={page.href} class="text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors">{page.title}</a></h3>
+              <p class="post-dek">{page.description}</p>
             </div>
-          </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 </Layout>
 
-<style>
-  /* A lone last card spans the row, so the grid never leaves an empty cell. */
-  @media (min-width: 768px) { .docs-cards > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
-</style>

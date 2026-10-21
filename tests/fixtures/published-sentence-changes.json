@@ -2222,8 +2222,8 @@
  {
   "page": "desk",
   "was": "Copilot CLI Tested daily Use today, alpha Codex Runs, not yet proven in daily use Experimental Hosted Desk on claude.ai No sign-up yet Not open yet Known limits today Desk's own browser starts signed out, and on macOS it can steal focus.",
-  "now": "Copilot CLI Tested daily Use today Codex Runs, and hasn't been proven in daily use yet Experimental Hosted Desk on claude.ai Sign-in by invitation Not open yet What a new session looks like",
-  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail; root final ruling F12 (2026-10-11): readiness details have no trailing period; root final ruling F14: the H2 becomes \"What a new session looks like\"; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation."
+  "now": "GitHub Copilot CLI Use today Tested daily. Codex Experimental Runs, and hasn't been proven in daily use yet. Hosted Desk on claude.ai Not open yet Sign-in by invitation. Known limits today Desk's own browser starts signed out, and on macOS it can steal focus.",
+  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail; root final ruling F12 (2026-10-11): readiness details have no trailing period; root final ruling F14: the H2 becomes \"What a new session looks like\"; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation. Then (2026-10-20) the page reads top to bottom with no boxes: Where it runs and Known limits are their own sections under the hero, each status tag follows its host's name, and each detail ends with a full stop."
  },
  {
   "page": "desk",
@@ -4198,5 +4198,11 @@
   "was": "The agent that grew out of it named itself Ouroboros, which is a little silly, since an ouroboros is a snake eating its own tail.",
   "now": null,
   "why": "Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
+ },
+ {
+  "page": "desk",
+  "was": "Where it runs Claude Code macOS: tested daily.",
+  "now": "Where it runs Claude Code Use today macOS: tested daily.",
+  "why": "Layout only (2026-10-20): Where it runs is its own section read top to bottom, and each status tag now follows its host's name instead of sitting at the far right of a boxed row."
  }
 ]

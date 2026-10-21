@@ -208,15 +208,13 @@ const pieces = [
   <!-- ═══════════════ EVERYTHING IN THE LAB ═══════════════ -->
   <section class="px-6 md:px-12 lg:px-16 pb-16 reveal" aria-labelledby="lab-pieces">
     <div class="max-w-6xl mx-auto">
-      <h2 id="lab-pieces" class="eyebrow mb-8">Everything in the lab</h2>
-      <ul class="grid gap-4 md:grid-cols-2">
+      <h2 id="lab-pieces" class="heading-sub mb-4">Everything in the lab</h2>
+      <ul class="post-list">
         {pieces.map((piece) => (
-          <li>
-            <a href={piece.href} data-kind={piece.kind} class="group h-full rounded-2xl border border-canopy/50 bg-deep/70 p-6 grid gap-2 content-start hover:border-scale transition-colors">
-              <span class="caption-mono">{piece.kind}</span>
-              <span class="font-display text-2xl text-bone leading-tight group-hover:text-scale transition-colors">{piece.title}</span>
-              <span class="text-mist">{piece.summary}</span>
-            </a>
+          <li data-kind={piece.kind}>
+            <span class="caption-mono block mb-2">{piece.kind}</span>
+            <h3 class="post-title"><a href={piece.href} class="text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors">{piece.title}</a></h3>
+            <p class="post-dek">{piece.summary}</p>
           </li>
         ))}
       </ul>
