@@ -8,7 +8,7 @@ const principles = [
   'Talk through intent and judgment',
   'Delegate whole outcomes',
   'Make context durable',
-  'Meaningful authority with clear boundaries',
+  'Give agents meaningful authority, with clear boundaries',
   'Verify the actual result',
 ];
 const deskSetupUrl = 'https://github.com/ourostack/desk/blob/main/SETUP.md';

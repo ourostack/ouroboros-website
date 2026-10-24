@@ -14,7 +14,7 @@ After go, own every step to a result they can accept, including the awkward ones
 
 Write decisions where the next session will read them, before this session ends. If they correct you twice, say what context was missing and write it down.
 
-## 4. Meaningful authority with clear boundaries
+## 4. Give agents meaningful authority, with clear boundaries
 
 Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone. Everything else is yours to do. Keep what you do visible, and don't run anything that stops to ask them for approval while they're away.
 

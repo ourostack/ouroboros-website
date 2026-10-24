@@ -143,12 +143,12 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Essay',
   },
   '/blog/stop-being-the-glue': {
-    title: 'Stop being the glue between your AI tools.',
+    title: 'Stop being the glue between your agents.',
     subtitle: 'Stop copy-pasting between tools, and start collaborating with one persistent agent.',
     tag: 'Essay',
   },
   '/blog/build-ai-agent-from-scratch': {
-    title: 'Build an AI agent in 150 lines of TypeScript.',
+    title: 'Build an agent in 150 lines of TypeScript.',
     subtitle: 'A practical guide to building agents that read, think, act, and grow: from first principles to production.',
     tag: 'Tutorial',
   },

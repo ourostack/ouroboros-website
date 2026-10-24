@@ -266,7 +266,7 @@ test('homepage says how Ari works: three acts in sequence, three failure modes, 
   assert.ok(hrefsOf(method).includes('/desk/') && hrefsOf(method).includes('#factory') && hrefsOf(method).includes('/approach/#fix-the-system'));
   // The acts read left to right with arrows between them from 1024px up.
   assert.match(fs.readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8'), /\.acts li:not\(:last-child\)::after \{ content:/);
-  const titles = ['Talk through intent and judgment', 'Delegate whole outcomes', 'Make context durable', 'Meaningful authority with clear boundaries', 'Verify the actual result'];
+  const titles = ['Talk through intent and judgment', 'Delegate whole outcomes', 'Make context durable', 'Give agents meaningful authority, with clear boundaries', 'Verify the actual result'];
   const links = [...html.matchAll(/<a href="\/approach\/#([^"]+)" class="principle[^"]*"[^>]*>([\s\S]*?)<\/a>/g)];
   assert.deepEqual(links.map(([, , inner]) => textOf(inner).replace(/^\d\s*/, '').replace(/\s*→$/, '')), titles);
   for (const [, , inner] of links) assert.match(inner, /<span class="principle-arrow" aria-hidden="true"[^>]*>(→|&rarr;)<\/span>/);
@@ -487,7 +487,7 @@ const principleHeadings = [
   'Talk through intent and judgment',
   'Delegate whole outcomes',
   'Make context durable',
-  'Meaningful authority with clear boundaries',
+  'Give agents meaningful authority, with clear boundaries',
   'Verify the actual result',
 ];
 

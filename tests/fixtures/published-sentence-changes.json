@@ -14,7 +14,7 @@
  {
   "page": "approach",
   "was": "Give agents meaningful authority, with clear boundaries Only I spend my money, speak in my name, use my private accounts or make calls that can't be undone.",
-  "now": "Meaningful authority with clear boundaries Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone.",
+  "now": "Give agents meaningful authority, with clear boundaries Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone.",
   "why": "copy deck: principle titles in their original wording"
  },
  {
@@ -1555,12 +1555,6 @@
  },
  {
   "page": "brief",
-  "was": "Give agents meaningful authority, with clear boundaries Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone.",
-  "now": "Meaningful authority with clear boundaries Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone.",
-  "why": "copy deck: principle titles in their original wording"
- },
- {
-  "page": "brief",
   "was": "Verify the actual result, not plausible progress Say \"done\" only with evidence from where the result lives: the live page, the installed app, the merged change. ## To make this the default Desk keeps these principles in the setup, so neither of you has to remember them.",
   "now": "Verify the actual result Say \"done\" only with evidence from where the result lives: the live page, the installed app, the merged change. ## To make this the default Desk keeps these principles in the setup, so neither of you has to remember them.",
   "why": "copy deck: principle titles in their original wording"
@@ -3025,12 +3019,6 @@
  },
  {
   "page": "brief.md",
-  "was": "Give agents meaningful authority, with clear boundaries Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone.",
-  "now": "Meaningful authority with clear boundaries Stop only for a real human gate: their money, their voice, an account only they can use, something that can't be undone.",
-  "why": "copy deck: principle titles in their original wording"
- },
- {
-  "page": "brief.md",
   "was": "Verify the actual result, not plausible progress Say \"done\" only with evidence from where the result lives: the live page, the installed app, the merged change.",
   "now": "Verify the actual result Say \"done\" only with evidence from where the result lives: the live page, the installed app, the merged change.",
   "why": "copy deck: principle titles in their original wording"
@@ -3248,7 +3236,7 @@
  {
   "page": "blog/build-ai-agent-from-scratch",
   "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros Tutorial Just give the model a keyboard How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
-  "now": "Build an AI agent in 150 lines of TypeScript | Ouro Tutorial Just give the model a keyboard How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
+  "now": "Build an agent in 150 lines of TypeScript | Ouro Tutorial Just give the model a keyboard How to build an agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
   "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
  },
  {
@@ -3452,7 +3440,7 @@
  {
   "page": "blog/build-ai-agent-from-scratch attributes",
   "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros",
-  "now": "Build an AI agent in 150 lines of TypeScript | Ouro",
+  "now": "Build an agent in 150 lines of TypeScript | Ouro",
   "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
  },
  {
@@ -3578,7 +3566,7 @@
  {
   "page": "blog/build-ai-agent-from-scratch attributes",
   "was": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow — from first principles to production.",
-  "now": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow: from first principles to production.",
+  "now": "Learn what an agent loop is and how agents actually work. A practical guide to building agents that read, think, act, and grow: from first principles to production.",
   "why": "misses leftovers: no em dashes in titles or meta (2026-10-11)"
  },
  {
@@ -3776,7 +3764,7 @@
  {
   "page": "blog/stop-being-the-glue",
   "was": "Stop being the glue between your AI tools | Ouroboros Essay Stop being the glue How I stopped copy-pasting between AI tools and started collaborating.",
-  "now": "Stop being the glue between your AI tools | Ouro Essay Stop being the glue How I stopped copy-pasting between AI tools and started collaborating.",
+  "now": "Stop being the glue between your agents | Ouro Essay Stop being the glue How I stopped copy-pasting between my agents and started collaborating.",
   "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark"
  },
  {
@@ -3866,7 +3854,7 @@
  {
   "page": "blog/stop-being-the-glue attributes",
   "was": "Stop being the glue between your AI tools | Ouroboros",
-  "now": "Stop being the glue between your AI tools | Ouro",
+  "now": "Stop being the glue between your agents | Ouro",
   "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark"
  },
  {
@@ -4204,5 +4192,35 @@
   "was": "Where it runs Claude Code macOS: tested daily.",
   "now": "Where it runs Claude Code Use today macOS: tested daily.",
   "why": "Layout only (2026-10-20): Where it runs is its own section read top to bottom, and each status tag now follows its host's name instead of sitting at the far right of a boxed row."
+ },
+ {
+  "page": "blog",
+  "was": "Tutorial Guide Build an AI agent loop from scratch A working AI agent in ~150 lines of TypeScript.",
+  "now": "Tutorial Guide Build an agent loop from scratch A working agent in ~150 lines of TypeScript.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+ },
+ {
+  "page": "blog",
+  "was": "How I stopped copy-pasting between AI tools and started collaborating.",
+  "now": "How I stopped copy-pasting between my agents and started collaborating.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+ },
+ {
+  "page": "lab",
+  "was": "Tutorial Build an AI agent in 150 lines of TypeScript.",
+  "now": "Tutorial Build an agent in 150 lines of TypeScript.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+ },
+ {
+  "page": "share card /blog/stop-being-the-glue",
+  "was": "Stop being the glue between your AI tools.",
+  "now": "Stop being the glue between your agents.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+ },
+ {
+  "page": "share card /blog/build-ai-agent-from-scratch",
+  "was": "Build an AI agent in 150 lines of TypeScript.",
+  "now": "Build an agent in 150 lines of TypeScript.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
  }
 ]

@@ -21,7 +21,7 @@ export const principles = [
   {
     id: 'authority-and-boundaries',
     n: '4',
-    title: 'Meaningful authority with clear boundaries',
+    title: 'Give agents meaningful authority, with clear boundaries',
   },
   {
     id: 'verify-the-result',
