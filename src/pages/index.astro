@@ -148,8 +148,8 @@ const wastes = [
         <article class="tool" id="ouro-ui">
           <figure class="product-figure">
             <a href="https://ourostack.github.io/ouro-ui/voyage/" class="product-media media-shot hx-voyage">
-              <picture class="theme-light-only"><img src="/images/workshop/hx-voyage-light.webp" width="1200" height="1069" loading="lazy" decoding="async" alt="The Ouro HX showcase: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
-              <picture class="theme-dark-only"><img src="/images/workshop/hx-voyage-dark.webp" width="1200" height="1069" loading="lazy" decoding="async" alt="The Ouro HX showcase in its dark theme: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+              <picture class="theme-light-only"><img src="/images/workshop/hx-voyage-light.webp" width="1164" height="1051" loading="lazy" decoding="async" alt="The Ouro HX showcase: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+              <picture class="theme-dark-only"><img src="/images/workshop/hx-voyage-dark.webp" width="1164" height="1051" loading="lazy" decoding="async" alt="The Ouro HX showcase in its dark theme: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
             </a>
             <figcaption class="product-caption">The Ouro HX showcase, 180 fathoms down with the floodlights on.</figcaption>
           </figure>
@@ -320,9 +320,10 @@ const wastes = [
   .portrait:hover .portrait-img, .portrait:focus-visible .portrait-img { border-color: var(--color-scale); }
   .portrait-link { color: var(--color-scale); white-space: nowrap; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); text-underline-offset: 4px; }
   .portrait:hover .portrait-link, .portrait:focus-visible .portrait-link { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
-  /* A picture that is a link shows it: a green ring on hover. */
-  a.product-media { outline: 2px solid transparent; outline-offset: -2px; transition: outline-color 0.2s; }
-  a.product-media:hover, a.product-media:focus-visible { outline-color: var(--color-scale); }
+  /* A picture that is a link shows it: the rounded frame itself turns green on hover, so the ring follows the frame's corners. */
+  .product-figure:has(> a.product-media) { transition: border-color 0.2s, box-shadow 0.2s; }
+  .product-figure:has(> a.product-media:hover), .product-figure:has(> a.product-media:focus-visible) { border-color: var(--color-scale); box-shadow: 0 0 0 1px var(--color-scale); }
+  a.product-media:focus-visible { outline: none; }
 
   .dek { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
   @media (min-width: 768px) { .dek { font-size: 1.25rem; } }

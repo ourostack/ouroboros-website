@@ -329,10 +329,10 @@ h1, h2, h3, h4, h5, h6, .font-display { text-wrap: pretty; }
 p, li, dd, figcaption { text-wrap: pretty; }
 
 /* ── Focus ── */
+/* The outline follows each element's own corners; never set a radius here, or rounded buttons and cards go square when focused. */
 :focus-visible {
   outline: 2px solid var(--color-scale);
   outline-offset: 2px;
-  border-radius: 2px;
 }
 :focus:not(:focus-visible) { outline: none; }
 
