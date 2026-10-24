@@ -15,6 +15,8 @@ const routes = [
   ['/desk/', 'desk/index.html'],
   ['/ouro-md/', 'ouro-md/index.html'],
   ['/blog/', 'blog/index.html'],
+  ['/blog/trust-the-agent/', 'blog/trust-the-agent/index.html'],
+  ['/blog/take-the-agents-seat/', 'blog/take-the-agents-seat/index.html'],
   ['/blog/stop-being-the-glue/', 'blog/stop-being-the-glue/index.html'],
   ['/blog/designing-with-your-agent/', 'blog/designing-with-your-agent/index.html'],
   ['/lab/', 'lab/index.html'],
@@ -251,7 +253,7 @@ test('old URLs redirect to their new homes and published posts keep theirs', asy
     ['/why', '/lab/why/'],
     ['/what-is-an-agent-harness/', '/lab/what-is-an-agent-harness/'],
     ['/essays/', '/blog/'],
-    ['/essays/stop-being-the-glue', '/blog/stop-being-the-glue/'],
+    ['/essays/trust-the-agent', '/blog/trust-the-agent/'],
     ['/lab/what-is-agent-experience/', '/blog/what-is-agent-experience/'],
   ];
   for (const [from, to] of cases) {

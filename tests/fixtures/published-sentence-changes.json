@@ -50,8 +50,8 @@
  {
   "page": "blog",
   "was": "Ari Mendelow Essays Trust the Fucking Agent Agents have all the agency.",
-  "now": "Ari Mendelow Essays The work spoke back The task scanner produced 184 false errors.",
-  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
+  "now": "Ari Mendelow Essays Trust the Fucking Agent We keep doing the agent's job along with our own.",
+  "why": "essays deck: the new dek on the blog index"
  },
  {
   "page": "blog",
@@ -80,8 +80,8 @@
  {
   "page": "blog",
   "was": "Read what we wrote, before the agent does.",
-  "now": null,
-  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
+  "now": "Read what you wrote the way the agent will, before you hit send.",
+  "why": "essays deck: the new dek on the blog index"
  },
  {
   "page": "blog",
@@ -2186,13 +2186,13 @@
  {
   "page": "blog/trust-the-agent",
   "was": "We ask the agent to ship the feature, then narrate every step.",
-  "now": "We ask one to look into a bug, then dictate the grep.",
+  "now": "We ask one to look into a bug, then hold its hand as it walks through each step.",
   "why": "copy deck round 2: Trust the Fucking Agent"
  },
  {
   "page": "blog/trust-the-agent",
   "was": "We ask it to investigate the bug, then dictate the grep.",
-  "now": "We ask one to look into a bug, then dictate the grep.",
+  "now": "We ask one to look into a bug, then hold its hand as it walks through each step.",
   "why": "copy deck round 2: Trust the Fucking Agent"
  },
  {
@@ -4224,15 +4224,9 @@
   "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
  },
  {
-  "page": "blog",
-  "was": "Ari Mendelow Take the agent's seat Half of every prompt we send lives in our head.",
-  "now": null,
-  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
- },
- {
-  "page": "blog",
-  "was": "Ari Mendelow The work spoke back The task scanner produced 184 false errors.",
-  "now": "Ari Mendelow Essays The work spoke back The task scanner produced 184 false errors.",
-  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
+  "page": "blog/take-the-agents-seat",
+  "was": "We sent half a prompt.",
+  "now": "Our agent only had the context we gave it, and we only gave it half a prompt.",
+  "why": "Ari's essay review, 2026-10-24"
  }
 ]

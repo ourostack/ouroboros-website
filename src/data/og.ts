@@ -117,6 +117,16 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Agent Experience, persistent agents, and software designed for the agents working inside it.',
     tag: 'Blog',
   },
+  '/blog/trust-the-agent': {
+    title: 'Trust the Fucking Agent.',
+    subtitle: "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
+    tag: 'Essay',
+  },
+  '/blog/take-the-agents-seat': {
+    title: "Take the agent's seat.",
+    subtitle: 'Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.',
+    tag: 'Essay',
+  },
   '/blog/give-your-agent-a-home': {
     title: 'Give your agent a home.',
     subtitle: 'One folder. One identity. One place to back up, move, and grow.',
