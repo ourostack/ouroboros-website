@@ -568,11 +568,55 @@ test('approach page carries no source notes, comments or local paths', () => {
 test('the blog index lists every post, old and new, at /blog/', () => {
   const html = readDist('blog/index.html');
   const hrefs = hrefsOf(html);
-  for (const slug of ['stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience', 'give-your-agent-a-home', 'build-ai-agent-from-scratch']) {
+  for (const slug of ['trust-the-agent', 'take-the-agents-seat', 'stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience', 'give-your-agent-a-home', 'build-ai-agent-from-scratch']) {
     assert.ok(hrefs.includes(`/blog/${slug}`), `Blog index is missing ${slug}`);
     assert.ok(distExists(`blog/${slug}/index.html`), `${slug} is not built at /blog/`);
   }
   assert.match(textOf(html), /Dispatches from the serpent\./);
+});
+
+test('the two essays are the 2026-10-11 essays deck, with their bylines and end links', () => {
+  const ttfa = readDist('blog/trust-the-agent/index.html');
+  const ttfaText = plain(ttfa);
+  assert.equal(textOf(ttfa.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1]), 'Trust the Fucking Agent');
+  for (const line of [
+    "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
+    'Ari Mendelow · April 2026',
+    `I say "TTFA" a lot. Usually right after I catch one of us, me or an agent I'm working with, doing a job the agent could have done itself.`,
+    'The country of geniuses', 'The three stories', 'What it shows you', 'Your one job',
+    'We humans had been working around both without noticing. The agent couldn\'t work around them, so it found them.',
+    "He's describing models that are smarter than us at most things, work on their own for days, and run as millions of copies at once.",
+    "That's how most of us treat agents. We ask one to look into a bug, then dictate the grep.",
+    'David doesn\'t ask Claude to walk him through it.',
+    // root final ruling F6.
+    'You find out what your setup was leaning on you for.',
+    "Here's what we bring: the judgment to ask whether this is the right work in the first place.",
+    "Every time I rerun a search, reformat the output, or paste a diff by hand, that's time I'm not spending on judgment.",
+    'Trust the fucking agent.',
+    'You can see how my agents spend their time on the factory dashboard.',
+  ]) assert.ok(ttfaText.includes(line), `TTFA is missing "${line}"`);
+  assert.doesNotMatch(ttfaText, /Either way|quietly leaning|fourteen-step|Multiplication became addition|The trade|The country of geniuses is showing up|Take that seriously/);
+  // Copy deck round 2: the essay ends on "Trust the fucking agent."
+  assert.match(ttfa, /<p>Trust the fucking agent\.<\/p>\s*<\/div>/, 'The essay ends on its title line');
+  assert.ok(hrefsOf(ttfa).includes('https://ourostack.github.io/factory/'));
+
+  const seat = readDist('blog/take-the-agents-seat/index.html');
+  const seatText = plain(seat);
+  for (const line of [
+    'Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.',
+    'Ari Mendelow · May 2026',
+    "Here's what I do: before I hit send, I put myself in the agent's shoes for ten seconds.",
+    'Then the distrust feeds everything I wrote about in Trust the Fucking Agent: we stop letting the agent finish, we narrate every tool call, and we end up doing the thinking and letting it type.',
+    'What falls out', 'Where the distrust comes from', 'Two halves', 'Be direct',
+    "Trust the Fucking Agent was about trust. This one's about saying what you mean. If you trust the agent",
+    'Agents are fine with direct. Skip the reassurance, skip phrasing every request as a question, and say exactly what you want.',
+    'The agent is going to read what you wrote. Read it first.',
+    "For the trust half, see Trust the Fucking Agent. The design idea behind this is Agent Experience. For a real design conversation from the agent's seat, see The work spoke back.",
+  ]) assert.ok(seatText.includes(line), `Seat is missing "${line}"`);
+  assert.doesNotMatch(seatText, /Direct is kind|TTFA is about|The fix is simple/);
+  assert.doesNotMatch(seatText, /Skip the ethics tangent|it's craft/);
+  // Sources and riff markers never render.
+  for (const text of [ttfaText, seatText]) assert.doesNotMatch(text, /\[(published|first draft|Ari's messages|riff)/i);
 });
 
 test('Stop being the glue is back to its published text', () => {
@@ -585,7 +629,7 @@ test('Stop being the glue is back to its published text', () => {
 });
 
 test('every blog post ends with a route to Desk and the team steps', () => {
-  for (const slug of ['stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience']) {
+  for (const slug of ['stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience', 'trust-the-agent']) {
     const html = readDist(`blog/${slug}/index.html`);
     const end = html.match(/<aside\b[^>]*data-post-end[\s\S]*?<\/aside>/);
     assert.ok(end, `${slug} has no post end`);
@@ -782,6 +826,15 @@ test('the approach leads with the same three acts list as the homepage, word for
     assert.ok(home.includes(line.replace(/:$/, '')), `Homepage is missing "${line}"`);
   }
   assert.ok(approach.indexOf(lines[0]) < approach.indexOf('Five principles keep an agent oriented'));
+});
+
+test('the essays keep their original dates', () => {
+  // Essays deck (2026-10-11): "keep em dated to the original dates".
+  for (const [file, date] of [['blog/trust-the-agent/index.html', '2026-04-28'], ['blog/take-the-agents-seat/index.html', '2026-05-12']]) {
+    const ld = JSON.parse(readDist(file).match(/<script type="application\/ld\+json">(\{"@context":"https:\/\/schema\.org","@type":"(?:Blog|)?Article"[\s\S]*?)<\/script>/)[1]);
+    assert.equal(ld.datePublished, date, `${file} datePublished`);
+    assert.equal(ld.dateCreated, date, `${file} dateCreated`);
+  }
 });
 
 test('the full serpent conversation still renders where it lived before', () => {

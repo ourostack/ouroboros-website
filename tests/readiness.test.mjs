@@ -145,3 +145,8 @@ test('the Desk page shows real session-start output, links the factory once, its
   assert.doesNotMatch(text, /friction-to-fix|Its browser|fresh user profile/);
 });
 
+test('the Take the agent\'s seat essay no longer cites a checklist TTFA never had', () => {
+  const text = textOf(readDist('blog/take-the-agents-seat/index.html'));
+  assert.ok(text.includes("Trust the Fucking Agent was about trust. This one's about saying what you mean."));
+  assert.doesNotMatch(text, /fourteen-step/);
+});

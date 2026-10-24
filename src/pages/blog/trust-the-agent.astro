@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { ogPathFor } from '../../data/og'
+import { factoryUrl } from '../../data/principles.mjs'
+
+const title = 'Trust the Fucking Agent'
+const description = "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest."
+---
+
+<Layout
+  title={`${title} | Ouro`}
+  description={description}
+  ogImage={ogPathFor('/blog/trust-the-agent')}
+  canonical="https://ouroboros.bot/blog/trust-the-agent/"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <meta name="keywords" content="AI agents, agent ergonomics, TTFA, agent experience, trust, autonomy, harness design" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
+      "publisher": { "@type": "Organization", "name": "Ouroboros", "url": "https://ouroboros.bot" },
+      "dateCreated": "2026-04-28",
+      "datePublished": "2026-04-28",
+      "url": "https://ouroboros.bot/blog/trust-the-agent/"
+    })} />
+  </Fragment>
+
+  <!-- Header -->
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-6xl mx-auto split lg:items-end">
+      <div class="split-head">
+        <span class="eyebrow block mb-6">Essay</span>
+        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+          Trust the Fucking Agent
+        </h1>
+      </div>
+      <div class="split-body">
+        <p class="text-base text-mist mt-6 leading-relaxed">
+          We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.
+        </p>
+        <p class="text-sm text-mist mt-4">Ari Mendelow &middot; April 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <section class="px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
+    <div class="max-w-6xl mx-auto prose-ouro">
+
+<p>I say "TTFA" a lot. Usually right after I catch one of us, me or an agent I'm working with, doing a job the agent could have done itself.</p>
+
+<p>Here's what I mean by it. Give the model the tools it needs to get an accurate picture of the world, add a little prompting to explain the social contract you want it to follow, and then trust its judgment. That's most of it.</p>
+
+<h2>The country of geniuses</h2>
+
+<p>When Dario Amodei tried to describe where powerful AI is heading, he wrote:</p>
+
+<figure class="my-10 not-prose">
+  <blockquote class="border-l-[3px] border-fang/40 pl-6">
+    <p class="text-base text-mist leading-relaxed italic">"We could summarize this as a 'country of geniuses in a datacenter'."</p>
+  </blockquote>
+  <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; Dario Amodei, <a href="https://www.darioamodei.com/essay/machines-of-loving-grace" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Machines of Loving Grace</a></figcaption>
+</figure>
+
+<p>He's describing models that are smarter than us at most things, work on their own for days, and run as millions of copies at once. We have early versions of those agents today, and they're capable. What's missing is how we hand them work and how much of it we let them do.</p>
+
+<h2>The three stories</h2>
+
+<p>Anyone who has tried to hand off real work knows the three stories that show up right when it matters:</p>
+
+<ul>
+  <li>It's faster if I just do it.</li>
+  <li>They'll never get it exactly right.</li>
+  <li>By the time I explain it, I could've done it myself.</li>
+</ul>
+
+<p>Each one feels reasonable in the moment. So the work gets pulled back, the one who was supposed to do it learns nothing, and we never quite scale ourselves the way we said we would.</p>
+
+<p>Picture your manager asking you to send a calendar invite and then standing behind your chair narrating it. Open Outlook. No, the other Outlook. Click New Event. Capitalize Quarterly. You'd ask if they want to just do it themselves. The worst part is the assumption that you couldn't have figured out the next step on your own.</p>
+
+<p>That's how most of us treat agents. We ask one to look into a bug, then dictate the grep.</p>
+
+<p>And then there's this:</p>
+
+<figure class="my-10 not-prose">
+  <blockquote class="border-l-[3px] border-fang/40 pl-6">
+    <p class="font-mono text-sm text-mist leading-relaxed"><strong>Claude:</strong> Hey, mind if I <code>grep -ohP "useEffect\(.*?\[\K[^\]]+" **/*.tsx 2&gt;&amp;1|tr ',' '\n'|awk 'NF&#123;$1=$1;a[$0]++&#125;END&#123;for(k in a)print a[k],k&#125;'|sort -rn|head -20</code></p>
+    <p class="font-mono text-sm text-mist leading-relaxed mt-3"><strong>Me:</strong> ... yeah go for it dude</p>
+  </blockquote>
+  <figcaption class="text-sm text-shadow mt-3 ml-8">&mdash; <a href="https://x.com/DavidKPiano/status/2014015826794340791" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@DavidKPiano</a></figcaption>
+</figure>
+
+<p>David doesn't ask Claude to walk him through it. He doesn't open the awk man page. He says "yeah go for it dude" and gets on with his day. That's the whole idea.</p>
+
+<h2>What it shows you</h2>
+
+<p>The best part of trusting the agent is what it finds. Early on, I let an agent work directly in our harness's credential discovery. It looked fine. It handled several providers and passed the sniff test. The agent read the code, followed the paths, and found that GitHub Copilot credentials were never discovered at all, and that one of the environment mappings was wrong. We humans had been working around both without noticing. The agent couldn't work around them, so it found them.</p>
+
+<p>That keeps happening. When you let the agent carry the work, it runs into everything your setup quietly depended on a human to patch: missing state, a step that only makes sense if you remember last week, a "safety" check that's mostly ceremony. You find out what your setup was leaning on you for.</p>
+
+<h2>Your one job</h2>
+
+<p>Here's what we bring: the judgment to ask whether this is the right work in the first place.</p>
+
+<p>That judgment is small, and it's the one thing only we can do. An agent will confidently build something elegant for a misframed question, and the elegance will fool everyone reading the diff. Our job is to catch the misframe early, so neither of us wastes time on the wrong build.</p>
+
+<p>Every time I rerun a search, reformat the output, or paste a diff by hand, that's time I'm not spending on judgment.</p>
+
+<p>Trust the fucking agent.</p>
+
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto lg:flex lg:items-baseline lg:justify-between lg:gap-12">
+      <p class="text-sm text-mist leading-relaxed">
+        You can see how my agents spend their time on the <a href={factoryUrl} class="text-scale underline underline-offset-2 hover:text-glow transition-colors">factory dashboard</a>.
+      </p>
+      <a href="/blog/" class="inline-block mt-8 lg:mt-0 shrink-0 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; Back to blog</a>
+    </div>
+  </section>
+</Layout>

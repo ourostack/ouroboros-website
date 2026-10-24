@@ -18,12 +18,8 @@ import { pageOg } from '../src/data/og.ts';
 // the text that replaced it (null when the deck or a ruling removed it outright).
 
 const fixture = (name) => JSON.parse(fs.readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'));
-// Two essays drafted for this release were never live and are held back until Ari
-// signs off on them (2026-10-24); their snapshots wait with them.
-const heldBack = ['blog/trust-the-agent', 'blog/take-the-agents-seat', 'share card /blog/trust-the-agent', 'share card /blog/take-the-agents-seat'];
-const isHeld = (page) => heldBack.some((held) => page === held || page === `${held} attributes`);
-const snapshot = Object.fromEntries(Object.entries({ ...fixture('published-sentences.json'), ...fixture('published-attributes.json') }).filter(([page]) => !isHeld(page)));
-const changes = fixture('published-sentence-changes.json').filter((change) => !isHeld(change.page));
+const snapshot = { ...fixture('published-sentences.json'), ...fixture('published-attributes.json') };
+const changes = fixture('published-sentence-changes.json');
 
 const fileFor = (page) => (page === 'index' ? 'index.html' : page === '404' ? '404.html' : `${page}/index.html`);
 const shareCards = shareCardTextsOf(pageOg);
