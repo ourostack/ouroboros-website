@@ -4222,5 +4222,11 @@
   "was": "Build an AI agent in 150 lines of TypeScript.",
   "now": "Build an agent in 150 lines of TypeScript.",
   "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+ },
+ {
+  "page": "blog/take-the-agents-seat",
+  "was": "We sent half a prompt.",
+  "now": "Our agent only had the context we gave it, and we only gave it half a prompt.",
+  "why": "Ari's essay review, 2026-10-24"
  }
 ]

@@ -608,12 +608,12 @@ test('the two essays are the 2026-10-11 essays deck, with their bylines and end 
   for (const line of [
     'Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.',
     'Ari Mendelow · May 2026',
-    "Here's what I do: before I hit send, I put myself in the agent's shoes for ten seconds.",
+    "Here's what I do: before I hit send, I put myself in the agent's shoes.",
     'Then the distrust feeds everything I wrote about in Trust the Fucking Agent: we stop letting the agent finish, we narrate every tool call, and we end up doing the thinking and letting it type.',
     'What falls out', 'Where the distrust comes from', 'Two halves', 'Be direct',
     "Trust the Fucking Agent was about trust. This one's about saying what you mean. If you trust the agent",
-    'Agents are fine with direct. Skip the reassurance, skip phrasing every request as a question, and say exactly what you want.',
-    'The agent is going to read what you wrote. Read it first.',
+    'Agents are fine with direct! Skip the reassurance, skip phrasing every request as a question, and say exactly what you want.',
+    'The agent is going to live by what you write. Read it first.',
     "For the trust half, see Trust the Fucking Agent. The design idea behind this is Agent Experience. For a real design conversation from the agent's seat, see The work spoke back.",
   ]) assert.ok(seatText.includes(line), `Seat is missing "${line}"`);
   assert.doesNotMatch(seatText, /Direct is kind|TTFA is about|The fix is simple/);

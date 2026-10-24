@@ -53,26 +53,28 @@ const description = "Half of every prompt we send lives in our head. Read what y
 
 <p>We type "fix it" and hit send. In our head, it's the JSON parsing bug in the v2 deserializer we were swearing at five minutes ago. On the agent's screen, it's two words, in a repo with forty things that could be broken.</p>
 
-<p>The agent picks one. Wrong one. We sigh, type the clarification we should have typed the first time, and quietly decide the agent doesn't get it. It got exactly what we sent. We sent half a prompt.</p>
+<p>The agent picks one. Wrong one. We sigh, think "stupid clanker," and type the clarification we should have typed the first time. We quietly decide the agent doesn't get it.</p>
+
+<p>But that mistake was our fault! Our agent only had the context we gave it, and we only gave it half a prompt.</p>
 
 <p>I call the missing half the ghost prompt: everything that lived in our head and never made the trip. Last night's context. The file we almost touched yesterday. The thing "we discussed". The agent got the words, and we're judging its work against a brief it never saw.</p>
 
-<p>Here's what I do: before I hit send, I put myself in the agent's shoes for ten seconds.</p>
+<p>Here's what I do: before I hit send, I put myself in the agent's shoes.</p>
 
 <h2>What falls out</h2>
 
-<p>Read your prompt as someone who has the system prompt, this conversation, and nothing else. A few things usually fall out:</p>
+<p>Read your prompt as someone whose entire worldview consists of the system prompt, the current conversation, and literally nothing else. A few things usually fall out:</p>
 
 <ul>
   <li><strong>The pronoun with no antecedent.</strong> "Make it work the way we discussed." Which "it"? Which "way"? If this conversation didn't carry the discussion, the prompt doesn't either.</li>
   <li><strong>The missing location.</strong> "Update the config." There are a hundred config-shaped files. Did you want the agent to spend its time searching, or editing?</li>
-  <li><strong>Last week.</strong> "Like we did last week." The agent has no last week. Tell it, or tell it where to look.</li>
-  <li><strong>The shared frame.</strong> "Obviously this is the wrong approach." Obvious by what standard, and where does the agent find it?</li>
+  <li><strong>Last week.</strong> "Like we did last week." The agent has no last week. Take the time to either be specific with what you want, or at least tell it where to start looking.</li>
+  <li><strong>The shared frame.</strong> "Obviously this is the wrong approach." Obvious by what standard, and where does the agent find it? If you want something to be obvious, you need to ground that obviousness in something.</li>
 </ul>
 
 <h2>Where the distrust comes from</h2>
 
-<p>Send the half-prompt, and the agent ships the wrong thing. Correct it, and it ships a different wrong thing. By the third pass you've spent more time correcting than it would have taken to say what you meant, and a quiet sentence forms: this agent isn't very good.</p>
+<p>Send the half-prompt, and the agent will fill in the gaps, make assumptions using its judgment, and probably do the wrong thing. Correct it, and it ships a different wrong thing. By the third pass you've spent more time correcting than it would have taken to say what you meant, and a quiet thought forms: this agent isn't very good.</p>
 
 <p>The distrust sticks to the agent, because it's the part you can see. Then the distrust feeds everything I wrote about in Trust the Fucking Agent: we stop letting the agent finish, we narrate every tool call, and we end up doing the thinking and letting it type.</p>
 
@@ -84,11 +86,12 @@ const description = "Half of every prompt we send lives in our head. Read what y
 
 <h2>Be direct</h2>
 
-<p>Agents are fine with direct. Skip the reassurance, skip phrasing every request as a question, and say exactly what you want.</p>
+<p>Agents are fine with direct! Skip the reassurance, skip phrasing every request as a question, and say exactly what you want.</p>
 
-<p>"Add a unit test for the parser's empty-input case in <code>src/parser/__tests__/parser.test.ts</code>; assert it returns null and logs a warning" already did the work of imagining what the agent needs to know. "can you maybe add a test for the parser? thanks!" is polite, and it leaves the imagining to the agent.</p>
+<p>"Add a unit test for the parser's empty-input case in <code>src/parser/__tests__/parser.test.ts</code>; assert it returns null and logs a warning" already did the work of imagining what the agent needs to know. "can you maybe add a test for the parser? thanks!" is polite, and it leaves the imagining to the agent. And by saying "maybe," we made it optional, so it might just decide to do nothing.</p>
 
-<p>The agent is going to read what you wrote. Read it first.</p>
+<p>The agent is going to live by what you write. Read it first.</p>
+
 
     </div>
   </section>
