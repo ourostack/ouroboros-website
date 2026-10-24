@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro'
+import OuroMdMedia from '../components/OuroMdMedia.astro'
+import { ogPathFor } from '../data/og'
+import { ouroMdInstall } from '../data/principles.mjs'
+
+const title = 'Ouro MD: Markdown that renders as you type | Ouro'
+const description = 'A native macOS Markdown editor. Your agent’s plans and notes show as a document, update live when the agent edits them, and mark what changed.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/ouro-md')} canonical="https://ouroboros.bot/ouro-md/">
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
+    <div class="max-w-6xl mx-auto grid gap-10 split split-media">
+      <div class="grid gap-5 content-start min-w-0 split-head">
+        <div class="flex items-center gap-4">
+          <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
+          <h1 class="heading-lead">Ouro MD</h1>
+        </div>
+        <p class="text-xl md:text-2xl text-bone font-display leading-snug">My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
+        <p class="text-lg text-mist leading-relaxed">When a document needs to leave the screen, Ouro MD prints it or saves a PDF from a preview where you set the margins, type size, line spacing, paper, and which headings start a new page.</p>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="https://ouro.bot/apps/ouro-md/" class="btn-primary">Download for Mac &#8599;</a>
+          <span class="text-sm text-mist">macOS 13 or later. Signed, notarized, updates itself.</span>
+        </div>
+      </div>
+
+      <div class="min-w-0 split-body"><OuroMdMedia stacked /></div>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pt-4">
+    <div class="max-w-6xl mx-auto grid gap-5 split">
+      <div class="grid gap-2 min-w-0 split-head">
+        <h2 class="caption-mono">Or install in Terminal</h2>
+        <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" data-copy-target="ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> shell alias.</span>
+        </div>
+      </div>
+      <div class="grid gap-5 lg:gap-8 content-start min-w-0 split-body lg:pt-6">
+        <p class="text-sm text-mist">Builds from the installer or the download page send anonymous usage telemetry (you can turn it off in Settings). The <a href="/privacy/" class={link}>privacy page</a> says what's sent.</p>
+        <p class="text-mist pt-3 lg:pt-0">To report a problem, ask your agent to file an issue on <a href="https://github.com/ourostack/ouro-md/issues" class={link}>github.com/ourostack/ouro-md</a>.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+

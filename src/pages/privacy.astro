@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+
+// Draft for Ari's review. Facts come from the public Desk, factory and
+// Ouro MD repositories; re-check them before publishing.
+const title = 'Privacy | Ouro'
+const description = 'What this site, hosted Desk, the factory, and Ouro MD collect, in plain language.'
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/privacy')} canonical="https://ouroboros.bot/privacy/">
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-16 md:pt-44">
+    <div class="max-w-6xl mx-auto split">
+      <div class="split-head">
+        <span class="eyebrow block mb-6">Privacy</span>
+        <h1 class="heading-lead">Privacy</h1>
+        <p class="mt-6 inline-flex tag tag-alpha">Draft for review</p>
+      </div>
+
+      <article class="split-body prose-ouro pt-8 lg:pt-0">
+      <h2>This site</h2>
+      <p>No account, no cookies, no analytics script of our own. Cloudflare serves the pages and, like any host, sees each request.</p>
+
+      <h2>Hosted Desk</h2>
+      <p>Not open yet. When it opens, you sign in with GitHub and only allow-listed accounts get in. It keeps a copy of your desk's Git repository on our server to read and write your tasks and notes, and pushes its changes back. It can't run commands or change code. We'll publish a full notice before it opens to anyone else.</p>
+
+      <h2>The factory</h2>
+      <p>Desk asks once whether you want to contribute to <a href="https://ourostack.github.io/factory/">the factory</a>. It's off unless you say yes. Desk keeps its session notes on your machine either way.</p>
+      <p>If you say yes, Desk publishes measurements of how your sessions ran to the public <a href="https://github.com/ourostack/factory">ourostack/factory</a> repository:</p>
+      <ul>
+        <li>durations</li>
+        <li>how time split between turns, tools, and waits</li>
+        <li>failed or retried tools</li>
+        <li>models and plugin versions</li>
+        <li>public pull requests a session touched</li>
+        <li>the day a job finished</li>
+        <li>whether you accepted the result</li>
+        <li>the rough size of each prompt and reply</li>
+      </ul>
+      <p>Never transcript text, prompts, file contents, names, or time of day. Each contribution is a pull request, so your GitHub account and when you contributed are visible.</p>
+
+      <h2>Ouro MD</h2>
+      <p>Builds from the installer or the download page send anonymous usage telemetry to PostHog, on by default: launches, update steps, and documents opened, saved, renamed, or exported, with app and macOS version and a random install id. Never document contents, filenames, folder paths, search queries, or clipboard contents. Turn it off in Settings &rsaquo; Telemetry. The app checks GitHub for updates. Full list: <a href="https://github.com/ourostack/ouro-md/blob/main/PRIVACY.md">Ouro MD's PRIVACY.md</a>.</p>
+
+      <h2>Questions</h2>
+      <p>Ask your agent to file an issue on the project on <a href="https://github.com/ourostack">GitHub</a>.</p>
+      </article>
+    </div>
+  </section>
+</Layout>

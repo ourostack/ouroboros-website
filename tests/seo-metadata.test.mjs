@@ -10,20 +10,30 @@ const sitemapPath = path.join(distDir, 'sitemap-0.xml');
 
 const routes = [
   ['/', 'index.html'],
-  ['/docs/', 'docs/index.html'],
-  ['/docs/architecture/', 'docs/architecture/index.html'],
-  ['/docs/getting-started/', 'docs/getting-started/index.html'],
-  ['/story/', 'story/index.html'],
-  ['/why/', 'why/index.html'],
-  ['/what-is-an-agent-harness/', 'what-is-an-agent-harness/index.html'],
-  ['/model-reviews/', 'model-reviews/index.html'],
-  ['/model-reviews/anthropic/', 'model-reviews/anthropic/index.html'],
-  ['/model-reviews/openai/', 'model-reviews/openai/index.html'],
-  ['/model-reviews/gemini/', 'model-reviews/gemini/index.html'],
-  ['/model-reviews/minimax/', 'model-reviews/minimax/index.html'],
-  ['/blog/build-ai-agent-from-scratch/', 'blog/build-ai-agent-from-scratch/index.html'],
+  ['/approach/', 'approach/index.html'],
+  ['/brief/', 'brief/index.html'],
+  ['/desk/', 'desk/index.html'],
+  ['/ouro-md/', 'ouro-md/index.html'],
+  ['/blog/', 'blog/index.html'],
   ['/blog/stop-being-the-glue/', 'blog/stop-being-the-glue/index.html'],
+  ['/blog/designing-with-your-agent/', 'blog/designing-with-your-agent/index.html'],
+  ['/lab/', 'lab/index.html'],
+  ['/lab/docs/', 'lab/docs/index.html'],
+  ['/lab/docs/architecture/', 'lab/docs/architecture/index.html'],
+  ['/lab/docs/getting-started/', 'lab/docs/getting-started/index.html'],
+  ['/lab/story/', 'lab/story/index.html'],
+  ['/lab/why/', 'lab/why/index.html'],
+  ['/lab/what-is-an-agent-harness/', 'lab/what-is-an-agent-harness/index.html'],
+  ['/lab/model-reviews/', 'lab/model-reviews/index.html'],
+  ['/lab/model-reviews/anthropic/', 'lab/model-reviews/anthropic/index.html'],
+  ['/lab/model-reviews/openai/', 'lab/model-reviews/openai/index.html'],
+  ['/lab/model-reviews/gemini/', 'lab/model-reviews/gemini/index.html'],
+  ['/lab/model-reviews/minimax/', 'lab/model-reviews/minimax/index.html'],
+  ['/blog/build-ai-agent-from-scratch/', 'blog/build-ai-agent-from-scratch/index.html'],
   ['/blog/what-is-agent-experience/', 'blog/what-is-agent-experience/index.html'],
+  ['/blog/give-your-agent-a-home/', 'blog/give-your-agent-a-home/index.html'],
+  ['/privacy/', 'privacy/index.html'],
+  ['/terms/', 'terms/index.html'],
 ];
 
 function readDistFile(relativePath) {
@@ -42,36 +52,37 @@ function extractOgUrl(html) {
   return match[1];
 }
 
-test('review headlines lead with the result and retain the model count in methodology', () => {
+test('review claims derive from the data and retain the model count in methodology', () => {
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
   const claims = getModelReviewClaims(data);
-  const home = readDistFile('index.html');
-  const headline = home.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-  assert.equal(headline, claims.shortClaim);
-  if (claims.allChose) assert.match(headline, /^All frontier models tested chose /);
 
-  for (const filePath of ['index.html', 'model-reviews/index.html', 'why/index.html', 'blog/what-is-agent-experience/index.html']) {
+  for (const filePath of ['lab/model-reviews/index.html', 'lab/why/index.html', 'blog/what-is-agent-experience/index.html']) {
     assert.ok(readDistFile(filePath).includes(claims.claimSentence), `Missing shared claim on ${filePath}`);
   }
-  const methodology = readDistFile('model-reviews/index.html').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  // root final ruling F10: /lab states the claim once, then the method, with the harness count spelled out.
+  const lab = readDistFile('lab/index.html').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  assert.ok(lab.includes('Every frontier model we asked picked Ouroboros .') || lab.includes('Every frontier model we asked picked Ouroboros.'));
+  const word = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'][data.harnesses.length];
+  assert.ok(lab.includes(`We asked each model separately, with the same ${word} harnesses.`));
+  assert.ok(!lab.includes(claims.claimSentence), '/lab no longer repeats the claim under its heading');
+  const methodology = readDistFile('lab/model-reviews/index.html').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   assert.ok(methodology.includes(`runs the ${claims.totalReviews} selected models in parallel`));
 });
 
 test('start links lead directly to the setup guide', () => {
   for (const [filePath, label] of [
-    ['index.html', 'Get started'],
-    ['story/index.html', 'start building'],
-    ['what-is-an-agent-harness/index.html', 'the serpent guide takes three minutes'],
+    ['lab/story/index.html', 'start building'],
+    ['lab/what-is-an-agent-harness/index.html', 'the serpent guide takes three minutes'],
   ]) {
     const links = [...readDistFile(filePath).matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
     const link = links.find(([, , content]) => content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() === label);
     assert.ok(link, `Missing ${label} link on ${filePath}`);
-    assert.equal(link[1], '/docs/getting-started/');
+    assert.equal(link[1], '/lab/docs/getting-started/');
   }
 });
 
 test('setup guide provides prerequisites and a copyable command before the demo', () => {
-  const html = readDistFile('docs/getting-started/index.html');
+  const html = readDistFile('lab/docs/getting-started/index.html');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   assert.match(text, /Node\.js 22 or newer/);
   assert.match(html, /href="https:\/\/nodejs\.org\/en\/download\/?"/);
@@ -82,13 +93,13 @@ test('setup guide provides prerequisites and a copyable command before the demo'
 
 test('each prompt card registers one copy handler, including pages with multiple cards', () => {
   for (const filePath of [
-    'docs/index.html',
-    'docs/architecture/index.html',
-    'docs/bundles-and-psyche/index.html',
-    'docs/continuity-and-memory/index.html',
-    'docs/getting-started/index.html',
-    'docs/skills-and-prompts/index.html',
-    'docs/tasks-and-work/index.html',
+    'lab/docs/index.html',
+    'lab/docs/architecture/index.html',
+    'lab/docs/bundles-and-psyche/index.html',
+    'lab/docs/continuity-and-memory/index.html',
+    'lab/docs/getting-started/index.html',
+    'lab/docs/skills-and-prompts/index.html',
+    'lab/docs/tasks-and-work/index.html',
   ]) {
     const html = readDistFile(filePath);
     const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)]
@@ -139,10 +150,14 @@ test('sampled built pages emit trailing-slash canonical metadata', async (t) => 
 });
 
 test('review rerun instructions describe private output without relabeling the published experiment', () => {
-  const html = readDistFile('model-reviews/index.html');
+  const html = readDistFile('lab/model-reviews/index.html');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
-  const count = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][data.harnesses.length] ?? String(data.harnesses.length);
+  // root misses ruling 2.2: spelled out past ten, so the page says eleven, as the Lab and mendelow.me do.
+  const count = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'][data.harnesses.length] ?? String(data.harnesses.length);
+  assert.equal(count, 'eleven');
+  // root misses ruling 7.6: the run date sits under the subhead.
+  assert.match(text, /Run on September 8, 2026\./);
 
   assert.match(text, /Results are saved privately/);
   assert.match(text, /do not update this page/);
@@ -153,7 +168,7 @@ test('review rerun instructions describe private output without relabeling the p
 });
 
 test('review methodology describes the process without editorial disclaimers', () => {
-  const html = readDistFile('model-reviews/index.html');
+  const html = readDistFile('lab/model-reviews/index.html');
   const methodology = [...html.matchAll(/<section\b[^>]*>([\s\S]*?)<\/section>/g)]
     .find(([, section]) => /<span\b[^>]*>Methodology<\/span>/.test(section));
   assert.ok(methodology, 'Missing methodology section');
@@ -173,7 +188,7 @@ test('review methodology describes the process without editorial disclaimers', (
 });
 
 test('rerun instructions offer API-only inference without a required Copilot subscription', () => {
-  const html = readDistFile('model-reviews/index.html');
+  const html = readDistFile('lab/model-reviews/index.html');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   assert.match(text, /--inference direct-api/);
   assert.match(text, /--inference copilot-first/);
@@ -191,4 +206,80 @@ test('Agent Experience article derives the reviewed harness count from the accep
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/model-reviews.json'), 'utf8'));
 
   assert.match(text, new RegExp(`research the ${data.harnesses.length} selected agent harnesses`));
+});
+
+test('the sitemap has no docs or model-review URL outside the Lab, and no /essays/', () => {
+  const sitemap = fs.readFileSync(sitemapPath, 'utf8');
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, loc]) => new URL(loc).pathname);
+  assert.ok(locs.length > 10, 'Sitemap looks empty');
+  const stray = locs.filter((p) => /^\/(essays|docs|model-reviews|story|why|what-is-an-agent-harness)(\/|$)/.test(p));
+  assert.deepEqual(stray, []);
+});
+
+test('every internal link resolves to a built file', () => {
+  const isBuilt = (pathname) => {
+    const clean = decodeURIComponent(pathname);
+    const candidates = clean.endsWith('/') ? [path.join(clean, 'index.html')] : [clean, path.join(clean, 'index.html')];
+    return candidates.some((c) => {
+      const full = path.join(distDir, c);
+      return fs.existsSync(full) && fs.statSync(full).isFile();
+    });
+  };
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory() ? walk(path.join(dir, e.name)) : e.name.endsWith('.html') ? [path.join(dir, e.name)] : []);
+  const broken = [];
+  for (const file of walk(distDir)) {
+    const rel = path.relative(distDir, file);
+    const html = fs.readFileSync(file, 'utf8');
+    for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]*)"/g)) {
+      if (href.startsWith('#') || href.startsWith('mailto:')) continue;
+      const url = new URL(href.replace(/&amp;/g, '&'), `https://ouroboros.bot/${rel}`);
+      if (url.host !== 'ouroboros.bot') continue;
+      if (!isBuilt(url.pathname)) broken.push(`${rel} -> ${href}`);
+    }
+  }
+  assert.deepEqual(broken, []);
+});
+
+test('old URLs redirect to their new homes and published posts keep theirs', async () => {
+  const { redirectFor } = await import('../src/worker/redirects.mjs');
+  const cases = [
+    ['/docs/getting-started/', '/lab/docs/getting-started/'],
+    ['/docs', '/lab/docs/'],
+    ['/model-reviews/anthropic/', '/lab/model-reviews/anthropic/'],
+    ['/story', '/lab/story/'],
+    ['/why', '/lab/why/'],
+    ['/what-is-an-agent-harness/', '/lab/what-is-an-agent-harness/'],
+    ['/essays/', '/blog/'],
+    ['/essays/stop-being-the-glue', '/blog/stop-being-the-glue/'],
+    ['/lab/what-is-agent-experience/', '/blog/what-is-agent-experience/'],
+  ];
+  for (const [from, to] of cases) {
+    assert.equal(redirectFor(from), to, `${from} should go to ${to}`);
+    assert.ok(fs.existsSync(path.join(distDir, to, 'index.html')), `Redirect target ${to} is not built`);
+  }
+  // The URLs the Desk RFC and old shares point at are served directly.
+  for (const post of ['/blog/', '/blog/stop-being-the-glue/', '/blog/designing-with-your-agent/', '/blog/what-is-agent-experience/', '/blog/build-ai-agent-from-scratch/']) {
+    assert.equal(redirectFor(post), null, `${post} must not redirect`);
+    assert.ok(fs.existsSync(path.join(distDir, post, 'index.html')), `${post} is not built`);
+  }
+  assert.equal(redirectFor('/docs/skills/manifest.json'), '/lab/docs/skills/manifest.json', 'File paths keep their name');
+  assert.equal(redirectFor('/approach/'), null);
+  for (const old of ['docs', 'docs-architecture', 'docs-bundles-and-psyche', 'docs-continuity-and-memory', 'docs-getting-started', 'docs-skills-and-prompts', 'docs-tasks-and-work', 'model-reviews', 'story', 'why', 'what-is-an-agent-harness']) {
+    const target = redirectFor(`/og/og-${old}.png`);
+    assert.equal(target, `/og/og-lab-${old}.png`, `Old share card og-${old}.png`);
+    assert.ok(fs.existsSync(path.join(distDir, target)), `${target} is not built`);
+  }
+  assert.equal(redirectFor('/og/og-home.png'), null);
+  assert.equal(redirectFor('/lab/docs/'), null);
+});
+
+test('the worker answers an old URL with a 301 that keeps the query string', async () => {
+  const { redirectResponse } = await import('../src/worker/redirects.mjs');
+  const res = redirectResponse(new Request('https://ouroboros.bot/docs?utm_source=x'));
+  assert.equal(res.status, 301);
+  assert.equal(res.headers.get('location'), 'https://ouroboros.bot/lab/docs/?utm_source=x');
+  const odd = redirectResponse(new Request('https://ouroboros.bot/docs//evil.com'));
+  assert.equal(new URL(odd.headers.get('location')).host, 'ouroboros.bot', 'No open redirect');
+  assert.equal(redirectResponse(new Request('https://ouroboros.bot/approach/')), null);
 });

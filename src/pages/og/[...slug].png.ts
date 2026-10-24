@@ -12,15 +12,12 @@
   - Manual regeneration scripts are NOT needed (and the old
     scripts/generate-og.ts has been removed).
 
-  DESIGN RULES (matching the design system header at the top of global.css):
-  - Sentence case for all titles
-  - Cormorant Garamond REGULAR (not italic) for the title
-  - Outfit for body / subtitle
-  - JetBrains-style mono for the eyebrow tag (we use Outfit caps tracked-out
-    here since Satori needs the actual font and we don't want to ship a
-    third TTF for one element)
-  - Centered layout for mobile-friendly previews on Twitter, Slack, iMessage
-  - Atmospheric dark organic background matching the site palette
+  DESIGN (the Ouro brand, light theme):
+  - Warm paper background, a scale-green rule across the top
+  - Sentence-case title in Cormorant Garamond, subtitle in Outfit
+  - Optional tag as a tracked-out fang-red eyebrow
+  - The page's product mark (an approved rich render) on the right, and the
+    "ouro" wordmark bottom left; see `mark` in src/data/og.ts
 */
 import type { APIRoute, GetStaticPaths } from 'astro'
 import satori from 'satori'
@@ -33,19 +30,28 @@ const fontsDir = join(process.cwd(), 'src/og/fonts')
 const cormorantRegular = readFileSync(join(fontsDir, 'CormorantGaramond-Regular.ttf'))
 const outfit = readFileSync(join(fontsDir, 'Outfit-Regular.ttf'))
 
-// Site colors — keep in sync with @theme block in src/styles/global.css
+// Light-theme tokens from src/styles/global.css (the warm Ouro palette).
 const COLOR = {
-  void: '#050A07',
-  deep: '#0D1F13',
-  undergrowth: '#152A1C',
-  canopy: '#1E3D28',
-  scale: '#2D9447',
-  glow: '#4AE36C',
-  fang: '#D3483D',
-  bone: '#EDF2EE',
-  mist: '#9AAE9F',
-  shadow: '#6A7E6F',
+  paper: '#FFFAF0',
+  cream: '#F5EFE0',
+  line: '#ECE3CC',
+  scale: '#1F6A37',
+  fang: '#A8352A',
+  ink: '#1A2118',
+  mist: '#3D4839',
 } as const
+
+// The approved rich renders, exported at card size (src/og/marks, from
+// ouro-public-web icons/final). Satori embeds PNG data URIs.
+const marksDir = join(process.cwd(), 'src/og/marks')
+const markCache = new Map<string, string>()
+function markSrc(mark: string): string {
+  if (!markCache.has(mark)) {
+    const png = readFileSync(join(marksDir, `${mark}.png`))
+    markCache.set(mark, `data:image/png;base64,${png.toString('base64')}`)
+  }
+  return markCache.get(mark)!
+}
 
 export const getStaticPaths: GetStaticPaths = () => {
   return Object.keys(pageOg).map((routePath) => ({
@@ -62,205 +68,99 @@ export const GET: APIRoute = async ({ params }) => {
   if (!entry) return new Response('Not found', { status: 404 })
 
   const { title, subtitle, tag } = entry
+  const mark = entry.mark ?? 'ouro'
 
-  // Title sizing — bigger when shorter so the card reads well on mobile
-  // share previews (which shrink the 1200x630 image to ~200-400px wide).
+  // Bigger when shorter, so the title still reads when a feed shrinks the
+  // card to ~300px wide.
   const titleSize =
-    title.length > 60 ? 76 :
-    title.length > 40 ? 92 :
-    title.length > 25 ? 108 : 120
+    title.length > 60 ? 62 :
+    title.length > 40 ? 72 :
+    title.length > 25 ? 84 : 96
+
+  const div = (style: Record<string, unknown>, children?: unknown) => ({ type: 'div', props: { style, children } })
 
   const svg = await satori(
-    {
-      type: 'div',
-      props: {
-        style: {
-          width: '1200px',
-          height: '630px',
+    div({
+      width: '1200px',
+      height: '630px',
+      display: 'flex',
+      position: 'relative',
+      background: `linear-gradient(160deg, ${COLOR.paper} 0%, ${COLOR.cream} 100%)`,
+      fontFamily: 'Outfit',
+      overflow: 'hidden',
+    }, [
+      div({ position: 'absolute', top: 0, left: 0, right: 0, height: '6px', background: COLOR.scale }),
+      // Text column
+      div({
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '760px',
+        padding: '64px 0 120px 80px',
+      }, [
+        ...(tag ? [div({
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '80px 100px',
-          background: `linear-gradient(180deg, ${COLOR.deep} 0%, ${COLOR.void} 100%)`,
-          fontFamily: 'Outfit',
-          position: 'relative',
-          overflow: 'hidden',
-        },
-        children: [
-          // Atmospheric scale-tinted glow, top-left
-          {
-            type: 'div',
-            props: {
-              style: {
-                position: 'absolute',
-                top: '-200px',
-                left: '-200px',
-                width: '700px',
-                height: '700px',
-                borderRadius: '50%',
-                background: `radial-gradient(circle, rgba(45,148,71,0.10) 0%, transparent 70%)`,
-              },
-            },
-          },
-          // Atmospheric scale-tinted glow, bottom-right
-          {
-            type: 'div',
-            props: {
-              style: {
-                position: 'absolute',
-                bottom: '-200px',
-                right: '-200px',
-                width: '600px',
-                height: '600px',
-                borderRadius: '50%',
-                background: `radial-gradient(circle, rgba(45,148,71,0.07) 0%, transparent 70%)`,
-              },
-            },
-          },
-          // Top accent line
-          {
-            type: 'div',
-            props: {
-              style: {
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                right: '0',
-                height: '3px',
-                background: `linear-gradient(90deg, transparent 0%, rgba(45,148,71,0.6) 50%, transparent 100%)`,
-              },
-            },
-          },
-          // Eyebrow row: hairline + tag + hairline (matches HeroCover)
-          ...(tag ? [{
-            type: 'div',
-            props: {
-              style: {
-                display: 'flex',
-                alignItems: 'center',
-                gap: '20px',
-                marginBottom: '40px',
-              },
-              children: [
-                {
-                  type: 'div',
-                  props: {
-                    style: {
-                      width: '60px',
-                      height: '1px',
-                      background: 'rgba(30,61,40,0.8)',
-                    },
-                  },
-                },
-                {
-                  type: 'div',
-                  props: {
-                    style: {
-                      fontSize: '20px',
-                      letterSpacing: '0.28em',
-                      textTransform: 'uppercase' as const,
-                      color: COLOR.fang,
-                      fontFamily: 'Outfit',
-                      fontWeight: 500,
-                    },
-                    children: tag,
-                  },
-                },
-                {
-                  type: 'div',
-                  props: {
-                    style: {
-                      width: '60px',
-                      height: '1px',
-                      background: 'rgba(30,61,40,0.8)',
-                    },
-                  },
-                },
-              ],
-            },
-          }] : []),
-          // Title — non-italic Cormorant Regular, sized for mobile readability
-          {
-            type: 'div',
-            props: {
-              style: {
-                fontSize: `${titleSize}px`,
-                fontFamily: 'Cormorant Garamond',
-                fontWeight: 400,
-                color: COLOR.bone,
-                lineHeight: 1.05,
-                textAlign: 'center' as const,
-                maxWidth: '1000px',
-                letterSpacing: '-0.01em',
-              },
-              children: title,
-            },
-          },
-          // Subtitle (optional)
-          ...(subtitle ? [{
-            type: 'div',
-            props: {
-              style: {
-                fontSize: '28px',
-                color: COLOR.mist,
-                marginTop: '32px',
-                lineHeight: 1.4,
-                maxWidth: '900px',
-                fontFamily: 'Outfit',
-                textAlign: 'center' as const,
-              },
-              children: subtitle,
-            },
-          }] : []),
-          // Bottom brand wordmark (centered) — just the wordmark, no URL.
-          // The social platform shows the domain alongside the card already,
-          // so repeating it here was redundant SaaS-y noise.
-          {
-            type: 'div',
-            props: {
-              style: {
-                position: 'absolute',
-                bottom: '50px',
-                left: '0',
-                right: '0',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-              children: [
-                {
-                  type: 'div',
-                  props: {
-                    style: {
-                      fontSize: '36px',
-                      fontFamily: 'Cormorant Garamond',
-                      fontWeight: 400,
-                      color: COLOR.bone,
-                    },
-                    children: 'ouroboros',
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
+          fontSize: '22px',
+          letterSpacing: '0.22em',
+          textTransform: 'uppercase',
+          color: COLOR.fang,
+          marginBottom: '28px',
+        }, tag)] : []),
+        div({
+          display: 'flex',
+          fontFamily: 'Cormorant Garamond',
+          fontWeight: 400,
+          fontSize: `${titleSize}px`,
+          lineHeight: 1.04,
+          letterSpacing: '-0.01em',
+          color: COLOR.ink,
+          textWrap: 'balance',
+        }, title),
+        ...(subtitle ? [div({
+          display: 'flex',
+          fontSize: '27px',
+          lineHeight: 1.4,
+          color: COLOR.mist,
+          marginTop: '28px',
+          textWrap: 'balance',
+        }, subtitle)] : []),
+      ]),
+      // Product mark
+      div({
+        position: 'absolute',
+        right: '72px',
+        top: '0',
+        bottom: '40px',
+        width: '320px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }, [{ type: 'img', props: { src: markSrc(mark), width: 320, height: 320 } }]),
+      // Wordmark
+      div({
+        position: 'absolute',
+        left: '80px',
+        bottom: '48px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '14px',
+      }, [
+        ...(mark === 'ouro' ? [] : [{ type: 'img', props: { src: markSrc('ouro'), width: 48, height: 48 } }]),
+        div({ display: 'flex', fontFamily: 'Cormorant Garamond', fontWeight: 400, fontSize: '40px', color: COLOR.ink }, 'ouro'),
+      ]),
+    ]),
     {
       width: 1200,
       height: 630,
       fonts: [
         { name: 'Cormorant Garamond', data: cormorantRegular, weight: 400, style: 'normal' as const },
         { name: 'Outfit', data: outfit, weight: 400, style: 'normal' as const },
-        { name: 'Outfit', data: outfit, weight: 500, style: 'normal' as const },
       ],
     }
   )
 
   const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } })
-  const png = resvg.render()
-  const pngBuffer = png.asPng()
+  const pngBuffer = resvg.render().asPng()
 
   return new Response(pngBuffer, {
     headers: { 'Content-Type': 'image/png' },

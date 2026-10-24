@@ -1,0 +1,38 @@
+---
+/**
+ * An illustration of one Shepherd answer, matching the preview on the
+ * Shepherd page (ourostack/ouro-apps-site, apps/shepherd). Not real output.
+ */
+const lines: { text: string; kind: 'agent' | 'answer' | 'status' }[] = [
+  { text: "I've drafted the migration plan.", kind: 'agent' },
+  { text: 'Want me to go ahead and apply it?', kind: 'agent' },
+  { text: "› [Ouro for Ari] Go ahead and apply it. It's in your task.", kind: 'answer' },
+  { text: 'status: answered for Ari: plan is inside the task', kind: 'status' },
+]
+---
+
+<figure class="product-figure">
+  <div class="product-media media-terminal">
+    <div class="shepherd-term">
+      <div class="sh-bar">
+        <span class="sh-dot"></span><span class="sh-dot"></span><span class="sh-dot"></span>
+        <span class="sh-title">api-refactor · Codex</span>
+      </div>
+      <pre class="sh-body">{lines.map((line) => <span class={`sh-row sh-${line.kind}`}>{line.text}</span>)}</pre>
+    </div>
+  </div>
+  <figcaption class="product-caption">What an answer could look like in the terminal. Illustration, not real output.</figcaption>
+</figure>
+
+<style>
+  .shepherd-term { height: 100%; display: flex; flex-direction: column; background: var(--color-deep); }
+  .sh-bar { display: flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0.45rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .sh-dot { flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
+  .sh-title { margin-left: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
+  .sh-body { flex: 1; display: grid; align-content: center; gap: 0.35rem; margin: 0; padding: 1.25rem 1rem; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.6; color: var(--color-bone); white-space: pre-wrap; overflow-wrap: anywhere; }
+  @media (min-width: 640px) { .sh-body { font-size: 0.8125rem; } }
+  .sh-row { display: block; }
+  .sh-agent { color: var(--color-bone); }
+  .sh-answer { color: var(--color-scale); margin-top: 0.6rem; }
+  .sh-status { color: var(--color-mist); }
+</style>

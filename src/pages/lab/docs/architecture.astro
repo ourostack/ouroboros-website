@@ -1,0 +1,39 @@
+---
+import DocsPageShell from '../../../components/DocsPageShell.astro'
+import PromptCard from '../../../components/PromptCard.astro'
+import { ogPathFor } from '../../../data/og'
+---
+
+<DocsPageShell
+  title="Heart, mind, and senses: code named for the agent inside"
+  description="Ouroboros uses a body metaphor because naming and structure affect how an agent navigates the code it has to inhabit."
+  eyebrow="Operator guide"
+  ogImage={ogPathFor('/lab/docs/architecture')}
+  canonical="https://ouroboros.bot/lab/docs/architecture/"
+  intro="The body metaphor is an attempt to make the runtime easier for the agent to place, traverse, and modify from the inside."
+>
+  <PromptCard
+    prompt="Inspect the current Ouroboros codebase and explain the main body parts to me in plain English. Tell me what each top-level area does and why the naming matters."
+    footnote="Your agent walks the actual source tree — the answer reflects what's there right now."
+  />
+
+  <div>
+    <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">What to ask next</h2>
+    <ul class="space-y-3 text-sm text-mist leading-relaxed">
+      <li>Which part of the body owns this behavior right now?</li>
+      <li>How do habits and the inner dialog work together?</li>
+      <li>How does the MCP server let dev tools talk to the agent?</li>
+      <li>If I want to extend this safely, where should the change live?</li>
+    </ul>
+  </div>
+
+  <!-- Exit links -->
+  <div class="pt-6 border-t border-canopy/30 space-y-3">
+    <a href="/lab/why#body" class="group block text-sm text-mist hover:text-bone transition-colors">
+      The body metaphor runs deeper than naming. <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
+    </a>
+    <a href="/blog/build-ai-agent-from-scratch" class="group block text-sm text-mist hover:text-bone transition-colors">
+      Build the loop that runs inside it. <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
+    </a>
+  </div>
+</DocsPageShell>

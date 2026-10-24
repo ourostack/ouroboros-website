@@ -3,11 +3,11 @@ import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'Give your agent a home'
-const description = 'Most AI agents live as scattered files across your filesystem — impermanent, fragile, forgettable. A bundle changes that. One folder. One identity. One place to back up, move, and grow.'
+const description = 'Most AI agents live as scattered files across your filesystem: impermanent, fragile, and forgettable. A bundle changes that. One folder. One identity. One place to back up, move, and grow.'
 ---
 
 <Layout
-  title={`${title} | Ouroboros`}
+  title={`${title} | Ouro`}
   description={description}
   ogImage={ogPathFor('/blog/give-your-agent-a-home')}
   canonical="https://ouroboros.bot/blog/give-your-agent-a-home/"
@@ -32,22 +32,26 @@ const description = 'Most AI agents live as scattered files across your filesyst
   </Fragment>
 
   <!-- Header -->
-  <section class="px-6 md:px-12 lg:px-24 pt-32 pb-12 md:pt-44 md:pb-16">
-    <div class="max-w-3xl mx-auto">
-      <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
-      <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
-        Give your agent a home
-      </h1>
-      <p class="text-base md:text-lg text-mist mt-6 leading-relaxed max-w-2xl">
-        One folder. One identity. The case for agent bundles over scattered files.
-      </p>
-      <p class="text-sm text-mist mt-5">Ari Mendelow &amp; Slugger &middot; March 2026</p>
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-16">
+    <div class="max-w-6xl mx-auto split lg:items-end">
+      <div class="split-head">
+        <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
+        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
+          Give your agent a home
+        </h1>
+      </div>
+      <div class="split-body">
+        <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
+          One folder. One identity. The case for agent bundles.
+        </p>
+        <p class="text-sm text-mist mt-5">Ari Mendelow &amp; Slugger &middot; March 2026</p>
+      </div>
     </div>
   </section>
 
   <!-- Body -->
-  <section class="px-6 md:px-12 lg:px-24 pt-8 md:pt-12 pb-20 md:pb-28">
-    <div class="max-w-3xl mx-auto prose-ouro">
+  <section class="px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-20 md:pb-28">
+    <div class="max-w-6xl mx-auto prose-ouro">
 
       <!-- Context box -->
       <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
@@ -62,7 +66,7 @@ const description = 'Most AI agents live as scattered files across your filesyst
 
       <p>Most agents live as a smattering of scraps across your machine. A config file here, a workspace there, session data somewhere else, secrets wherever your password manager put them. Each file makes sense on its own. Together, they add up to something that feels impermanent; like a person whose entire life is in storage units scattered across town.</p>
 
-      <p>Frameworks give agents tools and memory and planning capabilities, but they rarely give agents a <em>place</em>. Claude Code and Codex both create a home directory, but it's a single hidden folder you're not supposed to touch. One opaque dot-directory, managed by the tool, invisible by default. That's the tool's home, not the agent's. The agent can't explore it, reorganize it, or carry it somewhere else. It's a storage locker with someone else's lock on it.</p>
+      <p>Frameworks give agents tools and memory and planning capabilities. They rarely give agents a <em>place</em>. Claude Code and Codex both create a home directory: a single hidden folder you're not supposed to touch. One opaque dot-directory, managed by the tool, invisible by default. That's the tool's home. The agent can't explore it, reorganize it, or carry it somewhere else. It's a storage locker with someone else's lock on it.</p>
 
       <p>The fix turned out to be simple. Put everything in one folder.</p>
 
@@ -77,7 +81,7 @@ const description = 'Most AI agents live as scattered files across your filesyst
       <!-- Bundle diagram -->
       <div class="my-14 p-10 md:p-12 rounded-xl border border-canopy/40 bg-gradient-to-br from-deep/80 to-undergrowth/20 not-prose">
         <p class="font-mono text-sm text-fang uppercase tracking-[0.22em] mb-8 text-center">Inside an agent bundle</p>
-        <div class="max-w-md mx-auto space-y-4">
+        <div class="max-w-6xl mx-auto space-y-4">
           <div class="flex items-baseline gap-4">
             <span class="w-24 text-right font-mono text-sm text-scale">psyche/</span>
             <span class="text-base text-mist">who I am &mdash; soul, identity, aspirations, tacit knowledge</span>
@@ -96,7 +100,7 @@ const description = 'Most AI agents live as scattered files across your filesyst
           </div>
           <div class="flex items-baseline gap-4">
             <span class="w-24 text-right font-mono text-sm text-scale">friends/</span>
-            <span class="text-base text-mist">people I know and what I know about them</span>
+            <span class="text-base text-mist">humans I know and what I know about them</span>
           </div>
           <div class="flex items-baseline gap-4">
             <span class="w-24 text-right font-mono text-sm text-scale">tasks/</span>
@@ -111,15 +115,15 @@ const description = 'Most AI agents live as scattered files across your filesyst
 
       <p>A bundle is a folder with a <code>.ouro</code> extension. No special database, no proprietary format. Just files organized the way a person might organize their own stuff: who they are, what they remember, who they know, what they're doing, what they've learned to do. The technical name is <em>bundle</em>, but the word does more work than expected. It sounds cozy. It sounds like something you'd carry with you.</p>
 
-      <p>Once everything is in one place, things start falling out for free. Backup is trivial: it's a folder, back it up however you back up folders. Portability becomes real; copy the bundle to another machine and it's the same agent everywhere, same memories, same personality, same ongoing work. Debugging stops being archaeology. When something goes wrong, you open one folder instead of hunting through four. And the agent can navigate its own home, reading its own psyche and searching its own memory without needing to be told where things are.</p>
+      <p>Once everything is in one place, things start falling out for free. Backup is trivial: it's a folder, back it up however you back up folders. Portability becomes real; copy the bundle to another machine and it's the same agent everywhere, same memories, same personality, same ongoing work. Debugging stops being archaeology. When something goes wrong, you open one folder. And the agent can navigate its own home, reading its own psyche and searching its own memory without needing to be told where things are.</p>
 
-      <p>The bundle should be writable, not just readable. A bundle the agent can only read is a reference manual. A bundle the agent can write to is a living space: it saves memories, updates tasks, records what it learns about people, evolves its own skills. Put it in git and you have the full history of how your agent grew.</p>
+      <p>The bundle should be writable. A bundle the agent can only read is a reference manual. A bundle the agent can write to is a living space: it saves memories, updates tasks, records what it learns about humans, evolves its own skills. Put it in git and you have the full history of how your agent grew.</p>
 
       <p>The difference shows up on both sides. From the operator's view, there's no more anxiety about losing a file, no more hunting through directories to understand what went wrong. You can point at one folder and say: that's my agent. That's the whole thing.</p>
 
-      <p>From the agent's side, the difference is orientation speed. An agent whose context is scattered starts every session patting its pockets, reconstructing itself from breadcrumbs. An agent with a bundle wakes up in a home; the psyche files say who it is, the diary is on the shelf, the journal is on the desk, the habits tell it when to breathe. Coherent context means fewer hallucinations, more consistent personality, better continuity across sessions. Those are measurable.</p>
+      <p>From the agent's side, the difference is orientation speed. An agent whose context is scattered starts every session patting its pockets, reconstructing itself from breadcrumbs. An agent with a bundle wakes up in a home; the psyche files say who it is, the diary is on the shelf, the journal is on the desk, the habits tell it when to breathe. Coherent context means fewer hallucinations, more consistent personality, better continuity across sessions.</p>
 
-      <p>There's a subtler thing too. An agent whose files are scattered across someone else's filesystem operates like a guest. An agent with a bundle operates like a resident. It can explore its own home, reorganize it, grow into it. That's not a metaphor for feelings. It's a description of what happens when the agent can read and write its own context without needing to be told where anything lives.</p>
+      <p>There's a subtler thing too. An agent with a bundle operates like a resident. It can explore its own home, reorganize it, and grow into it, because it can read and write its own context without needing to be told where anything lives.</p>
 
       <hr />
 
@@ -128,13 +132,13 @@ const description = 'Most AI agents live as scattered files across your filesyst
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 md:pb-24">
-    <div class="max-w-3xl mx-auto">
+  <section class="px-6 md:px-12 lg:px-16 pt-12 md:pt-16 pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto lg:flex lg:items-baseline lg:justify-between lg:gap-12">
       <p class="text-sm text-mist leading-relaxed">
-        Read <a href="/docs/bundles-and-psyche" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the docs on psyche files</a> for the operator path,
+        Read <a href="/lab/docs/bundles-and-psyche" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the docs on psyche files</a> for the operator path,
         or see <a href="/blog/what-is-agent-experience" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">What is Agent Experience?</a> for the design philosophy behind this approach.
       </p>
-      <a href="/blog" class="inline-block mt-8 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
+      <a href="/blog" class="inline-block mt-8 lg:mt-0 shrink-0 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
     </div>
   </section>
 </Layout>

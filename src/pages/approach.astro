@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+import { factoryUrl, rfcUrl, smells } from '../data/principles.mjs'
+import { acts } from '../data/acts.mjs'
+import ActBody from '../components/ActBody.astro'
+
+/*
+  Copy is verbatim from copy deck round 2 (2026-10-11): no quotes of Ari on
+  his own site and no labels. Keep the source notes out of this repository,
+  and use Astro comments (not HTML comments) so nothing leaks into the built page.
+*/
+
+const title = 'How I work with agents | Ouro'
+const description = "The three acts, the failure modes I watch for, and the five principles I use to work with agents on jobs that take days."
+
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
+const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-24 mt-12 mb-4'
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/approach')} canonical="https://ouroboros.bot/approach/" ogType="article">
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "When an agent gets it wrong, look at what you gave it.",
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow" },
+      "datePublished": "2026-10-10",
+      "url": "https://ouroboros.bot/approach/"
+    })} />
+  </Fragment>
+
+  <section class="relative overflow-hidden px-5 sm:px-6 md:px-12 lg:px-16 pt-32 pb-8 md:pt-44">
+    <div class="absolute -top-20 -right-40 w-[480px] h-[480px] rounded-full bg-scale/10 blur-[140px] pointer-events-none" aria-hidden="true"></div>
+    <div class="max-w-6xl relative mx-auto approach">
+      <h1 class="heading-lead">When an agent gets it wrong, look at what you gave it.</h1>
+      <div class="mt-6">
+        <p class="text-lg md:text-xl text-bone leading-relaxed">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+        <p class="text-lg md:text-xl text-bone leading-relaxed mt-6">I see this agentic era in three acts:</p>
+        <ol class="acts">
+          {acts.map((act) => (
+            <li><strong>{act.name}</strong> <ActBody body={act.body} /></li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <article class="px-5 sm:px-6 md:px-12 lg:px-16 pb-16">
+    <div class="max-w-6xl mx-auto prose-ouro approach">
+
+      <p>Five principles keep an agent oriented on jobs that take days. The long version is in <a href={rfcUrl}>Desk's design doc</a>.</p>
+
+      <h2 id="smells" class={h2}>Failure modes I watch for</h2>
+
+      <ul class="smells not-prose">
+        {smells.map((smell) => (
+          <li><strong>{smell.name}</strong> {smell.short}</li>
+        ))}
+      </ul>
+
+      <h2 id="working" class={h2}>What's been working</h2>
+
+      <h3 id="intent-and-judgement" class={h3}>1. Talk through intent and judgment</h3>
+
+      <p>I'd rather talk something through with an agent once, for as long as it takes, than answer it twenty times along the way. So every job starts with one real conversation about what we're doing and why, and then I say go.</p>
+
+      <h3 id="whole-outcomes" class={h3}>2. Delegate whole outcomes</h3>
+
+      <p>I say what done looks like and why it matters, and the how is the agent's. When I handed over a tool built for agents, all I asked was that it work as well as it possibly could, and that's the only thing I judged.</p>
+
+      <h3 id="durable-context" class={h3}>3. Make context durable</h3>
+
+      <p>Decisions live in files the next session reads. <a href="/desk/">Desk</a> keeps them in a Git repository. I once asked my agents to stop pinning dependencies to exact commits. They did it about a dozen more times anyway, because each one trusted an older agent's handoff note over what I'd said, and one of those notes was written twelve minutes after I said it. Now my words outrank any handoff note, and every agent's instructions say so.</p>
+
+      <h3 id="authority-and-boundaries" class={h3}>4. Give agents meaningful authority, with clear boundaries</h3>
+
+      <p>Only I spend my money, speak in my name, use my private accounts, or make calls that can't be undone. The rest is the agent's, and its work stays visible. One night a cleanup command stopped to ask me for a click, and the run sat there until morning. Now my agents work under a rule never to run a command that asks for one.</p>
+
+      <h3 id="verify-the-result" class={h3}>5. Verify the actual result</h3>
+
+      <p>I look where the result lives: the live page, the installed app, the merged change. I ask for proof that it works end to end, with screenshots I can check.</p>
+
+      {/* The proposed "+1" became this section (copy deck round 2, 2026-10-11). It keeps the old anchor so links land. */}
+      <h2 id="fix-the-system" class={h2}>Fix it for the next agent</h2>
+
+      <p>When I fix something, I fix it for the whole system: in the agent's instructions, in a skill, or in the tool itself, so the next agent starts out ahead.</p>
+
+      <section id="for-teams" class="teams not-prose scroll-mt-24" aria-labelledby="teams-heading">
+        <h2 id="teams-heading" class={h2}>For teams</h2>
+        <ol>
+          <li>Pick one real job this week that will take more than a day.</li>
+          <li>Talk it through once with the agent, then say go.</li>
+          <li>Keep plans in a repository the agent reads. <a href="/desk/">Desk</a> sets that up.</li>
+          <li>Judge the merged result.</li>
+        </ol>
+        <p>One number to watch: per job, how long the agent sat waiting on a human. <a href={factoryUrl}>The factory</a> measures it in public.</p>
+      </section>
+
+      <p class="not-prose mt-12 flex flex-wrap gap-3">
+        <a href="/brief/" class="btn-primary">Hand this to your agent &rarr;</a>
+        <a href="/blog/" class="btn-ghost">Read the blog &rarr;</a>
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .approach :global(.smells) { display: grid; gap: 1rem; margin: 1.5rem 0; list-style: none; padding-left: 0; }
+  .approach :global(.smells li) { padding-left: 1.1rem; border-left: 3px solid var(--color-fang); color: var(--color-mist); font-size: 1.05rem; }
+  .approach :global(.smells strong) { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; line-height: 1.2; color: var(--color-bone); }
+  /* For teams is its own section, read in line with the rest: no box. */
+  .approach :global(.teams ol) { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0; display: grid; gap: 0.4rem; color: var(--color-bone); font-size: 1.05rem; }
+  .approach :global(.teams p) { color: var(--color-mist); }
+  .approach :global(.teams a) { color: var(--color-scale); text-decoration: underline; text-underline-offset: 3px; }
+  .approach :global(.teams a:hover) { color: var(--color-glow); text-decoration-thickness: 2px; }
+  .approach :global(.acts) { counter-reset: act; display: grid; gap: 1.1rem; margin-top: 1.5rem; list-style: none; padding: 0; }
+  .approach :global(.acts li) { counter-increment: act; position: relative; padding-left: 2.5rem; font-size: 1.0625rem; line-height: 1.65; color: var(--color-mist); }
+  .approach :global(.acts li::before) { content: counter(act); position: absolute; left: 0; top: 0.05rem; font-family: var(--font-mono); color: var(--color-scale); }
+  .approach :global(.acts strong) { color: var(--color-bone); font-weight: 500; }
+</style>

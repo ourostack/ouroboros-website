@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+import { labelFor, entry } from '../data/readiness.mjs'
+
+// Ouro Butler: an Ouroboros agent that looks after a home server. Every claim here is
+// sourced from ourostack/ouroboros (deploy/unraid, its README and template) and the
+// Butler's UX contract. Our own install is the only one running, so the page says so.
+const title = 'Ouro Butler: an agent that looks after your home server | Ouro'
+const description = 'An Ouroboros agent that watches the services your household counts on, fixes what it is allowed to, and tells you the rest on Telegram.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const status = labelFor('butler')
+const statusDetail = entry('butler').detail
+const repo = 'https://github.com/ourostack/ouroboros/tree/main/deploy/unraid'
+
+const does = [
+  ['Notices when something stops working', 'It watches the services, storage and endpoints the household relies on, and tells a stopped service you meant to stop from one that broke.'],
+  ['Looks before it speaks', 'It checks live state and logs before it answers, so each reply says what is actually wrong.'],
+  ['Fixes what it is allowed to', 'A restart happens only when you have said a service should be on, granted that action, and a fresh request or health event calls for it. Each one is rate-limited and verified afterwards.'],
+  ['Keeps quiet otherwise', 'It holds on to unfinished work, skips repeat alerts that say nothing new, and messages you when there is something to decide or something done.'],
+]
+
+const safe = [
+  'Its personality and instructions are mounted read-only, so the agent cannot rewrite who it is.',
+  'Grants live in a root-owned folder outside the agent, and it honors a grant only when the whole path to it is closed to other writers.',
+  'It records every attempt, including the ones that failed or ended unclear, and never replays an attempt whose effect is uncertain.',
+  'Anything without a grant waits for you to approve it.',
+]
+
+const chat = [
+  ['you', "What's up?"],
+  ['butler', 'Two things need a look: the library service is down, and storage is at 76%. Telegram and my own health check are fine. I would start with the library.'],
+  ['you', 'Is the TV working?'],
+  ['butler', "Playback is up. New downloads are stuck because the provider's sign-in failed. I haven't changed anything. Want me to keep watching it?"],
+]
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/butler')} canonical="https://ouroboros.bot/butler/">
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 pt-28 pb-12 md:pt-36">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="heading-lead page-mark"><img src="/brand/butler-render.webp" srcset="/brand/butler-render-128.webp 128w, /brand/butler-render-256.webp 256w" sizes="72px" width="72" height="72" alt="" decoding="async" class="mark-render" />Ouro Butler</h1>
+      <p class="mt-6 text-xl md:text-2xl text-bone leading-snug">An Ouroboros agent that looks after a home server. It notices when something your household counts on stops working, fixes what it is allowed to, and tells you the rest on Telegram.</p>
+      <p class="mt-6 flex flex-wrap items-center gap-3"><span class={`tag ${status.tone}`}>{status.label}</span><span class="text-mist">{statusDetail}.</span></p>
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="does-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="does-heading" class="heading-section">What it does</h2>
+      <ul class="does">
+        {does.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="chat-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="chat-heading" class="heading-section">What it sounds like</h2>
+      <p class="mt-4 text-lg text-mist">Short, phone-sized replies, with the most useful thing first.</p>
+      <figure class="chat">
+        <ol class="chat-lines">
+          {chat.map(([who, text]) => (
+            <li class={`chat-line chat-${who}`}><span class="chat-who">{who === 'you' ? 'You' : 'Butler'}</span><span class="chat-text">{text}</span></li>
+          ))}
+        </ol>
+        <figcaption class="chat-caption"><span class="tag tag-plain">Dramatization</span> <span>Written from the replies the Butler is designed to give. Not a real conversation.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="safe-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="safe-heading" class="heading-section">How it stays safe</h2>
+      <ul class="safe">
+        {safe.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="stands-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="stands-heading" class="heading-section">Where it stands</h2>
+      <p class="mt-4 text-lg text-mist leading-relaxed">The Butler runs on our own Unraid server today. Its container, Unraid template and runbook are public in the Ouroboros repository, and setting it up still assumes an Ouroboros agent of your own, so it isn't something to install yet.</p>
+      <p class="mt-6 product-links"><a href={repo} class={link}>The Butler's deployment files &#8599;</a> <a href="/lab/" class={link}>The Ouroboros harness &rarr;</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-mark { display: flex; align-items: center; gap: 1rem; }
+  .page-mark img { width: 3.5rem; height: 3.5rem; }
+  @media (min-width: 768px) { .page-mark img { width: 4.5rem; height: 4.5rem; } }
+  .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
+  @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .does li { display: grid; gap: 0.4rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
+  .does-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
+  .chat { margin: 2rem 0 0; }
+  .chat-lines { display: grid; gap: 0.75rem; }
+  /* Chat bubbles size to their words, like a phone, up to most of the row. */
+  .chat-line { display: grid; gap: 0.25rem; width: fit-content; max-width: 85%; padding: 0.75rem 1rem; border-radius: 1rem; line-height: 1.5; }
+  .chat-you { justify-self: end; background: color-mix(in srgb, var(--color-scale) 16%, transparent); color: var(--color-bone); }
+  .chat-butler { background: var(--color-deep); color: var(--color-bone); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+  .chat-who { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); }
+  .chat-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-top: 1.25rem; font-size: 0.875rem; color: var(--color-mist); }
+  .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
+  .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
+</style>

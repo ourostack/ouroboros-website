@@ -3,21 +3,21 @@ import Layout from '../../layouts/Layout.astro'
 import HeroCover from '../../components/HeroCover.astro'
 import { ogPathFor } from '../../data/og'
 
-const title = 'Agent ergonomics & persistent AI — Ouroboros blog'
-const description = 'Essays on agent ergonomics, persistent agents, and software shaped for the thing inside it.'
+const title = 'Essays on agents | Ouro blog'
+const description = 'Essays on agent experience, persistent agents, and software shaped for the thing inside it.'
 
 const featured = [
   {
     title: 'Why Ouroboros',
-    description: 'Why long-lived agents need better ergonomics than a pile of memory features if you want shared momentum instead of constant recovery.',
-    href: '/why',
+    description: 'Why long-lived agents need better ergonomics if you want shared momentum.',
+    href: '/lab/why',
     tag: 'Essay',
     label: 'Start here',
   },
   {
     title: 'The origin story',
-    description: 'How building an AI agent plugin led to building an agent harness from scratch — and why the distinction matters.',
-    href: '/story',
+    description: 'How a plugin for my OpenClaw agent turned into a harness I built from scratch.',
+    href: '/lab/story',
     tag: 'Story',
     label: 'The timeline',
   },
@@ -26,7 +26,7 @@ const featured = [
 const essays = [
   {
     title: 'The work spoke back',
-    description: 'The task scanner produced 184 false errors. We could have patched the parser. Instead, we asked the agent living inside the system what was actually broken.',
+    description: 'The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.',
     href: '/blog/designing-with-your-agent',
     author: 'Ari Mendelow & Slugger',
   },
@@ -38,21 +38,24 @@ const essays = [
   },
   {
     title: 'What is Agent Experience?',
-    description: 'Why long-lived agents create a third design surface beyond UX and DX: Agent Experience, reorientation overhead, and shared momentum.',
+    description: 'Why long-lived agents become users too: Agent Experience beside HX under UX, reorientation overhead, and shared momentum.',
     href: '/blog/what-is-agent-experience',
     author: 'Ari Mendelow',
   },
   {
     title: 'Stop being the glue',
-    description: 'We were promised an intelligent assistant. Instead, we got a fragmentation of semi-intelligent bots. How I stopped copy-pasting between AI tools and started collaborating.',
+    description: 'We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. How I stopped copy-pasting between my agents and started collaborating.',
     href: '/blog/stop-being-the-glue',
     author: 'Ari Mendelow',
   },
 ]
 
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const postLink = 'text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors'
+
 const tutorial = {
-  title: 'Build an AI agent loop from scratch',
-  description: 'A working AI agent in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, and the agentic loop. Then the handoff — you stop talking to your coding agent and start talking to your creation.',
+  title: 'Build an agent loop from scratch',
+  description: 'A working agent in ~150 lines of TypeScript. Five milestones: first API call, streaming, multi-turn conversation, tools, and the agentic loop. Then the handoff — you stop talking to your coding agent and start talking to your creation.',
   href: '/blog/build-ai-agent-from-scratch',
   author: 'Ari Mendelow',
 }
@@ -79,65 +82,68 @@ const tutorial = {
       Dispatches from<br class="hidden sm:inline" /> the serpent.
     </Fragment>
     <Fragment slot="body">
-      Essays on agent ergonomics, persistent agents, and the problem of building software an agent can actually stay oriented inside.
+      Essays on agent experience, persistent agents, and the problem of building software an agent can actually stay oriented inside.
     </Fragment>
   </HeroCover>
 
   <!-- Recommended reading -->
-  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 reveal">
-    <div class="max-w-3xl mx-auto">
-      <span class="font-mono text-sm text-fang uppercase tracking-[0.22em] block mb-8">Recommended reading</span>
-      <div class="grid sm:grid-cols-2 gap-6">
+  <section class="px-6 md:px-12 lg:px-16 pt-4 md:pt-8 pb-12 reveal">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="heading-sub mb-4">Recommended reading</h2>
+      <ul class="post-list">
         {featured.map(item => (
-          <a href={item.href} class="group block rounded-2xl border border-canopy/40 bg-undergrowth/10 p-8 md:p-10 hover:border-scale/60 hover:bg-undergrowth/20 transition-all duration-300">
-            <div class="flex items-center gap-3 mb-5">
+          <li>
+            <span class="flex flex-wrap items-center gap-3 mb-2">
               <span class="font-mono text-xs text-scale uppercase tracking-[0.18em]">{item.tag}</span>
               <span class="font-mono text-xs text-glow uppercase tracking-[0.18em]">{item.label}</span>
-            </div>
-            <h2 class="font-display text-bone text-2xl group-hover:text-scale transition-colors">{item.title}</h2>
-            <p class="text-base text-mist mt-3 leading-relaxed">{item.description}</p>
-          </a>
+            </span>
+            <h3 class="post-title"><a href={item.href} class={postLink}>{item.title}</a></h3>
+            <p class="post-dek">{item.description}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
   <!-- Tutorial -->
-  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 reveal">
-    <div class="max-w-3xl mx-auto">
-      <span class="font-mono text-sm text-fang uppercase tracking-[0.22em] block mb-8">Tutorial</span>
-      <a href={tutorial.href} class="group block rounded-2xl border border-scale/40 bg-scale/[0.04] p-8 md:p-10 hover:border-scale/60 hover:bg-scale/[0.06] transition-all duration-300">
-        <span class="font-mono text-xs text-scale uppercase tracking-[0.18em]">Guide</span>
-        <h2 class="font-display text-bone text-2xl md:text-3xl mt-3 group-hover:text-scale transition-colors">{tutorial.title}</h2>
-        <p class="text-base text-mist mt-4 leading-relaxed max-w-xl">{tutorial.description}</p>
-        <span class="text-sm text-mist mt-4 block">{tutorial.author}</span>
-      </a>
+  <section class="px-6 md:px-12 lg:px-16 py-12 reveal">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="heading-sub mb-4">Tutorial</h2>
+      <ul class="post-list">
+        <li>
+          <span class="font-mono text-xs text-scale uppercase tracking-[0.18em] block mb-2">Guide</span>
+          <h3 class="post-title"><a href={tutorial.href} class={postLink}>{tutorial.title}</a></h3>
+          <p class="post-dek">{tutorial.description}</p>
+          <span class="post-byline">{tutorial.author}</span>
+        </li>
+      </ul>
     </div>
   </section>
 
   <!-- Essays -->
-  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-16 reveal">
-    <div class="max-w-3xl mx-auto">
-      <span class="font-mono text-sm text-fang uppercase tracking-[0.22em] block mb-8">Essays</span>
-      <div class="space-y-6">
+  <section class="px-6 md:px-12 lg:px-16 py-12 reveal">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="heading-sub mb-4">Essays</h2>
+      <ul class="post-list">
         {essays.map(essay => (
-          <a href={essay.href} class="group block rounded-2xl border border-canopy/40 bg-undergrowth/10 p-8 md:p-10 hover:border-scale/60 hover:bg-undergrowth/20 transition-all duration-300">
-            <h2 class="font-display text-bone text-2xl group-hover:text-scale transition-colors">{essay.title}</h2>
-            <p class="text-base text-mist mt-3 leading-relaxed">{essay.description}</p>
-            <span class="text-sm text-mist mt-3 block">{essay.author}</span>
-          </a>
+          <li>
+            <h3 class="post-title"><a href={essay.href} class={postLink}>{essay.title}</a></h3>
+            <p class="post-dek">{essay.description}</p>
+            <span class="post-byline">{essay.author}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
   <!-- Footer text -->
-  <section class="px-6 md:px-12 lg:px-24 pt-12 md:pt-16 pb-24 md:pb-36 reveal">
-    <div class="max-w-3xl mx-auto">
-      <p class="text-sm text-mist leading-relaxed">
-        Read <a href="/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Why Ouroboros</a> for the core argument,
-        or step into <a href="/docs" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">the docs</a> if you want the operator path.
+  <section class="px-6 md:px-12 lg:px-16 pt-8 pb-24 md:pb-36 reveal">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-lg text-mist leading-relaxed">
+        Read <a href="/lab/why" class={link}>Why Ouroboros</a> for the core argument,
+        or step into <a href="/lab/docs" class={link}>the docs</a> if you want the operator path.
       </p>
     </div>
   </section>
 </Layout>
+

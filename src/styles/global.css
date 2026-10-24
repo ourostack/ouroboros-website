@@ -145,12 +145,15 @@
   --color-deep: #0D1F13;
   --color-undergrowth: #152A1C;
   --color-canopy: #1E3D28;
-  --color-scale: #2D9447;
+  --color-scale: #36A452;
   --color-glow: #4AE36C;
-  --color-fang: #D3483D;
+  /* Lightened from #D3483D so 12px red labels pass WCAG AA (4.5:1) on every
+     dark surface, down to the undergrowth #152A1C (4.51:1). */
+  --color-fang: #E5625A;
   --color-bone: #EDF2EE;
   --color-mist: #9AAE9F;
-  --color-shadow: #6A7E6F;
+  --color-shadow: #82968A;
+  --color-amber: #E2B44D;
 
   /* Expo-out easing from Griflan */
   --ease-expo: cubic-bezier(.19, 1, .22, 1);
@@ -159,9 +162,170 @@
 html {
   scroll-behavior: smooth;
 }
+/* Nothing may pan the page sideways, such as the hero's soft glow on a phone. clip, unlike hidden, keeps sticky positioning working. */
+html, body { overflow-x: clip; }
+
+/* Wide screens: from 1600px the root size grows with the viewport, so the 72rem
+   container, the type and the spacing scale together instead of leaving a narrow
+   strip in the middle of a large display. 16px at 1600px, about 20px at 2560px,
+   capped at 24px (a 4K display at 1x). Shared with ouroboros.bot and mendelow.me. */
+@media (min-width: 1600px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
+/* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about half its width in content, not a third. */
+@media (min-width: 2000px) { :root { --container-6xl: 84rem; } }
+
+/* ── Light theme ──
+   The serpent palette above is the dark theme. Light is the same serpent
+   on parchment: warm paper, moss green, the fang red kept. Same token
+   names, remapped, so every utility follows. The system setting decides
+   unless the visitor picks a theme with the toggle, which sets
+   data-theme on <html>. Keep every text token at WCAG AA on void, deep
+   and undergrowth (tests/site-shell.test.mjs checks). */
+:root { color-scheme: dark; }
+:root[data-theme="light"] {
+    color-scheme: light;
+    --color-void: #F5EFE0;
+    --color-deep: #FFFAF0;
+    --color-undergrowth: #ECE3CC;
+    --color-canopy: #CBBD98;
+    --color-scale: #1F6A37;
+    --color-glow: #14502A;
+    --color-fang: #A8352A;
+    --color-bone: #1A2118;
+    --color-mist: #3D4839;
+    --color-shadow: #535E50;
+    --color-amber: #7A5308;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+      color-scheme: light;
+      --color-void: #F5EFE0;
+      --color-deep: #FFFAF0;
+      --color-undergrowth: #ECE3CC;
+      --color-canopy: #CBBD98;
+      --color-scale: #1F6A37;
+      --color-glow: #14502A;
+      --color-fang: #A8352A;
+      --color-bone: #1A2118;
+      --color-mist: #3D4839;
+      --color-shadow: #535E50;
+      --color-amber: #7A5308;
+  }
+}
+
+/* ── Reading order: every section reads top to bottom ──
+   A section's heading sits directly above its body at every width, and the
+   body fills the full container. No heading-left/body-right columns: they
+   make the reader hop sideways and leave the heading stranded beside a long
+   body. The one exception is copy beside its own media (a clip or a picture
+   of the thing the copy describes), opted into with .split-media: copy takes
+   about 5/12 and the media about 7/12 from 1024px, stacked below that.
+   .split, .split-head and .split-body stay as hooks so every page keeps its
+   markup; they no longer make columns. */
+:root {
+  --split-cols: minmax(0, 5fr) minmax(0, 7fr);
+  --split-gap: 4rem;
+}
+@media (min-width: 1024px) {
+  .split.split-media { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); align-items: start; }
+  .split.split-media > .split-head { grid-column: 1; }
+  .split.split-media > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
+}
+
+/* A list of posts or pages, read top to bottom: no cards, a hairline between
+   entries, an underlined title that thickens on hover. Used by /blog/ and /lab/. */
+.post-list { list-style: none; padding: 0; margin: 0; }
+.post-list > li { padding: 1.75rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 35%, transparent); }
+.post-title { font-family: var(--font-display); font-weight: 400; font-size: 1.35rem; line-height: 1.25; color: var(--color-bone); text-wrap: pretty; }
+@media (min-width: 768px) { .post-title { font-size: 1.6rem; } }
+.post-dek { margin-top: 0.6rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
+.post-byline { display: block; margin-top: 0.5rem; color: var(--color-mist); }
+
+/* Rich renders are the normal logos; the one-colour SVGs serve tiny uses. */
+.mark-render {
+  display: block;
+  flex: none;
+  object-fit: contain;
+}
+.spoonjoy-mark {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: url('/brand/spoonjoy.svg') center / contain no-repeat;
+  mask: url('/brand/spoonjoy.svg') center / contain no-repeat;
+}
+.mark-tile {
+  border-radius: 22%;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-bone) 22%, transparent);
+}
+
+/* ── Readiness tags ──
+   Labels come only from src/data/readiness.mjs. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+/* The label text is always bone so it passes WCAG AA on every tint; the
+   tone shows in the dot and the tinted background. */
+.tag { color: var(--color-bone); background: color-mix(in srgb, var(--tag-tone) 14%, transparent); }
+.tag::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--tag-tone); }
+.tag-today  { --tag-tone: var(--color-scale); }
+.tag-alpha  { --tag-tone: var(--color-amber); }
+.tag-exp    { --tag-tone: var(--color-shadow); }
+.tag-closed { --tag-tone: var(--color-fang); }
+.tag-plain  { --tag-tone: var(--color-mist); }
+
+/* ── Product media: the card figure with its caption strip (shared kit) ──
+   The homepage cards, /desk/ and /ouro-md/ share these, so the media looks the same everywhere. */
+.product-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); display: flex; flex-direction: column; }
+.product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); }
+.product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
+.product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
+.product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; }
+/* The window recordings have rounded corners baked into every frame. A 4% scale crops them, so no notches show. */
+.product-media.media-clip video, .product-media.media-clip img { transform: scale(1.04); }
+.clip-theme { height: 100%; }
+.product-media.media-shot img { display: block; width: 100%; height: auto; }
+.product-media.media-photo { display: block; background: #f7f5f0; }
+.clip-pair { display: grid; }
+@media (min-width: 768px) { .clip-pair:not(.clip-stack) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.clip { margin: 0; min-width: 0; display: flex; flex-direction: column; }
+@media (min-width: 768px) { .clip-pair:not(.clip-stack) .clip + .clip { border-left: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
+@media (max-width: 767px) { .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
+.clip-stack .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+.clip .product-caption { flex: 1; align-items: start; }
+/* A row of links, shared by every page. */
+.product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--color-mist); background: var(--color-void); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+.caption-tag-only { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
+/* ── Copyable text for agents ──
+   Long URLs must wrap at 375px; never scroll the page sideways. */
+.agent-text {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  color: var(--color-bone);
+  background: var(--color-undergrowth);
+  border-radius: 0.75rem;
+  padding: 1.1rem 1.25rem;
+  margin: 0;
+}
 
 /* ── Typography ── */
-h1, h2, h3, h4, h5, h6, .font-display { text-wrap: balance; }
+/* Headings fill the line before they wrap (pretty, not balance, which halves short headings), and still never leave one word alone. */
+h1, h2, h3, h4, h5, h6, .font-display { text-wrap: pretty; }
 p, li, dd, figcaption { text-wrap: pretty; }
 
 /* ── Focus ── */
@@ -171,6 +335,11 @@ p, li, dd, figcaption { text-wrap: pretty; }
   border-radius: 2px;
 }
 :focus:not(:focus-visible) { outline: none; }
+
+/* ── Links ──
+   Every underlined link shows a clear change on hover: the underline goes solid and thicker.
+   Shared idea with mendelow.me: a reader can always tell what is clickable. */
+a.underline:hover { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
 
 /* ── Hover gating ── */
 @media (hover: hover) and (pointer: fine) {
@@ -184,8 +353,8 @@ p, li, dd, figcaption { text-wrap: pretty; }
 
 /* ── Animations ── */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(16px); }
+  to { transform: translateY(0); }
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -196,7 +365,11 @@ p, li, dd, figcaption { text-wrap: pretty; }
   50% { opacity: 0.25; transform: scale(1.05); }
 }
 
-.animate-fade-up { animation: fade-up 0.8s var(--ease-expo) both; }
+/* Text is visible from the first frame: the entrance moves, it never fades
+   in from nothing, so screenshots and slow devices never see a blank hero. */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-up { animation: fade-up 0.8s var(--ease-expo) both; }
+}
 .stagger-1 { animation-delay: 100ms; }
 .stagger-2 { animation-delay: 250ms; }
 .stagger-3 { animation-delay: 400ms; }
@@ -213,12 +386,10 @@ p, li, dd, figcaption { text-wrap: pretty; }
 
 @media (prefers-reduced-motion: no-preference) {
   html.reveal-ready .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s var(--ease-expo), transform 0.8s var(--ease-expo);
+    transform: translateY(16px);
+    transition: transform 0.8s var(--ease-expo);
   }
   html.reveal-ready .reveal.visible {
-    opacity: 1;
     transform: translateY(0);
   }
 }
@@ -276,6 +447,9 @@ p, li, dd, figcaption { text-wrap: pretty; }
   transition: color 0.2s;
 }
 .prose-ouro a:hover { color: var(--color-glow); }
+/* A filled button inside prose keeps its own text colour, not the link green. */
+.prose-ouro a.bg-bone,
+.prose-ouro a.bg-bone:hover { color: var(--color-void); text-decoration: none; }
 .prose-ouro blockquote {
   border-left: 2px solid var(--color-canopy);
   padding-left: 1.25rem;
@@ -317,11 +491,21 @@ p, li, dd, figcaption { text-wrap: pretty; }
     color: var(--color-bone);
     line-height: 0.95;
     letter-spacing: -0.02em;
-    font-size: 2.5rem;
+    /* One smooth curve: about 2.5rem on a phone, 3.3rem at 820px, 4.7rem at 1440px. */
+    font-size: clamp(2.5rem, 1.5rem + 3.6vw, 5rem);
   }
-  @media (min-width: 640px) { .heading-hero { font-size: 3.5rem; } }
-  @media (min-width: 768px) { .heading-hero { font-size: 5rem; } }
-  @media (min-width: 1024px) { .heading-hero { font-size: 6.5rem; } }
+
+  /* Lead question (h1 on the method pages). Smaller than .heading-hero
+     because the method pages open on a full sentence, not a slogan. */
+  .heading-lead {
+    font-family: var(--font-display);
+    color: var(--color-bone);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    font-size: 2.6rem;
+  }
+  @media (min-width: 640px) { .heading-lead { font-size: 3.4rem; } }
+  @media (min-width: 1024px) { .heading-lead { font-size: 4.4rem; } }
 
   /* Section headline (h2) */
   .heading-section {
@@ -377,3 +561,29 @@ p, li, dd, figcaption { text-wrap: pretty; }
   font-size: 0.85em;
   overflow-wrap: anywhere;
 }
+
+/* ── Media with a light and a dark version: show the one for the theme ── */
+.theme-light-only { display: none; }
+:root[data-theme="light"] .theme-light-only { display: block; }
+:root[data-theme="light"] .theme-dark-only { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-light-only { display: block; }
+  :root:not([data-theme="dark"]) .theme-dark-only { display: none; }
+}
+
+/* ── Theme toggle icon: show the theme you'd switch to ── */
+.theme-icon-sun { display: block; }
+.theme-icon-moon { display: none; }
+:root[data-theme="light"] .theme-icon-sun { display: none; }
+:root[data-theme="light"] .theme-icon-moon { display: block; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-icon-sun { display: none; }
+  :root:not([data-theme="dark"]) .theme-icon-moon { display: block; }
+}
+
+/* ── Buttons ── */
+.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; background: var(--color-scale); color: var(--color-void); padding: 0.75rem 1.25rem; font-weight: 500; transition: background 0.2s, box-shadow 0.3s; }
+.btn-primary:hover { background: var(--color-glow); box-shadow: 0 0 30px color-mix(in srgb, var(--color-scale) 35%, transparent); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; border: 1px solid var(--color-canopy); color: var(--color-bone); padding: 0.75rem 1.25rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: var(--color-scale); color: var(--color-scale); }
+.prose-ouro a.btn-primary, .prose-ouro a.btn-primary:hover { color: var(--color-void); text-decoration: none; }

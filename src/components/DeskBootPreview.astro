@@ -1,0 +1,58 @@
+---
+/**
+ * Real Desk session-start output, not hand-written. Produced on 2026-10-20 by
+ * running Desk 3.2.0-alpha.333's `mcp/scripts/session-boot.js` (ourostack/desk
+ * db844212f) against a throwaway sample desk with the four tasks the playback
+ * above uses: `spoonjoy/app-store` (blocked, with a `**Blocker:**` line) and
+ * three tasks with a `**Next step:**` line, `mendelow-me/hero` (validating)
+ * and `spoonjoy/recipe-import` and `ouro-md/print-preview` (processing), dated
+ * so the recipe import is the newest, as in the playback's story. These are
+ * the "Active tasks" lines of that output, verbatim and in Desk's order; the
+ * rest of the output (the boot headline with machine paths, the sign-in
+ * check, and the agent's instructions) is left out.
+ */
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props
+
+const lines = [
+  { text: 'Active tasks (4):', tone: 'bone' },
+  { text: '', tone: 'mist' },
+  { text: 'BLOCKED (1): these cannot move until the blocker clears', tone: 'fang' },
+  { text: '- spoonjoy/app-store "Ship Spoonjoy to the App Store" (updated 2026-10-07)', tone: 'bone' },
+  { text: '  blocker: waiting on App Review', tone: 'mist' },
+  { text: '', tone: 'mist' },
+  { text: 'processing (2)', tone: 'scale' },
+  { text: '- spoonjoy/recipe-import "Import recipes from any webpage" (updated 2026-10-10)', tone: 'bone' },
+  { text: '  next: run the three test recipes', tone: 'glow' },
+  { text: '- ouro-md/print-preview "Print preview with page breaks" (updated 2026-10-09)', tone: 'bone' },
+  { text: '  next: check margins on A4 and Letter', tone: 'glow' },
+  { text: '', tone: 'mist' },
+  { text: 'validating (1)', tone: 'scale' },
+  { text: '- mendelow-me/hero "Tighten the homepage hero" (updated 2026-10-08)', tone: 'bone' },
+  { text: "  next: waiting on Ari's review", tone: 'glow' },
+]
+---
+
+<div class:list={['desk-boot', { 'desk-boot-compact': compact }]}>
+  <div class="desk-boot-bar">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="desk-boot-title">a new session starts</span>
+  </div>
+  <pre class="desk-boot-body">{lines.map((line) => <span class={`line tone-${line.tone}`}>{line.text || ' '}</span>)}</pre>
+</div>
+
+<style>
+  .desk-boot { height: 100%; display: flex; flex-direction: column; border-radius: 0.75rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); background: var(--color-deep); }
+  .desk-boot-compact { border: 0; border-radius: 0; }
+  .desk-boot-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); background: color-mix(in srgb, var(--color-undergrowth) 40%, transparent); }
+  .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: color-mix(in srgb, var(--color-canopy) 80%, transparent); }
+  .desk-boot-title { margin-left: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
+  .desk-boot-body { flex: 1; margin: 0; padding: 1rem 1.1rem; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }
+  .desk-boot-compact .desk-boot-body { font-size: 0.75rem; }
+  .line { display: block; }
+  .tone-bone { color: var(--color-bone); }
+  .tone-mist { color: var(--color-mist); }
+  .tone-scale { color: var(--color-scale); }
+  .tone-glow { color: var(--color-glow); }
+  .tone-fang { color: var(--color-fang); }
+</style>
