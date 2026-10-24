@@ -15,14 +15,14 @@ const repo = 'https://github.com/ourostack/ouroboros/tree/main/deploy/unraid'
 
 const does = [
   ['Notices when something stops working', 'It watches the services, storage and endpoints the household relies on, and tells a stopped service you meant to stop from one that broke.'],
-  ['Looks before it speaks', 'It checks live state and logs before it answers, so a reply says what is actually wrong, not what might be.'],
+  ['Looks before it speaks', 'It checks live state and logs before it answers, so each reply says what is actually wrong.'],
   ['Fixes what it is allowed to', 'A restart happens only when you have said a service should be on, granted that action, and a fresh request or health event calls for it. Each one is rate-limited and verified afterwards.'],
   ['Keeps quiet otherwise', 'It holds on to unfinished work, skips repeat alerts that say nothing new, and messages you when there is something to decide or something done.'],
 ]
 
 const safe = [
   'Its personality and instructions are mounted read-only, so the agent cannot rewrite who it is.',
-  'Grants live in a root-owned folder outside the agent, and it honours a grant only when the whole path to it is closed to other writers.',
+  'Grants live in a root-owned folder outside the agent, and it honors a grant only when the whole path to it is closed to other writers.',
   'It records every attempt, including the ones that failed or ended unclear, and never replays an attempt whose effect is uncertain.',
   'Anything without a grant waits for you to approve it.',
 ]
