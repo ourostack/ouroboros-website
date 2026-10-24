@@ -50,8 +50,8 @@
  {
   "page": "blog",
   "was": "Ari Mendelow Essays Trust the Fucking Agent Agents have all the agency.",
-  "now": "Ari Mendelow Essays Trust the Fucking Agent We keep doing the agent's job along with our own.",
-  "why": "essays deck: the new dek on the blog index"
+  "now": "Ari Mendelow Essays The work spoke back The task scanner produced 184 false errors.",
+  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
  },
  {
   "page": "blog",
@@ -80,8 +80,8 @@
  {
   "page": "blog",
   "was": "Read what we wrote, before the agent does.",
-  "now": "Read what you wrote the way the agent will, before you hit send.",
-  "why": "essays deck: the new dek on the blog index"
+  "now": null,
+  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
  },
  {
   "page": "blog",
@@ -4222,5 +4222,17 @@
   "was": "Build an AI agent in 150 lines of TypeScript.",
   "now": "Build an agent in 150 lines of TypeScript.",
   "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+ },
+ {
+  "page": "blog",
+  "was": "Ari Mendelow Take the agent's seat Half of every prompt we send lives in our head.",
+  "now": null,
+  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
+ },
+ {
+  "page": "blog",
+  "was": "Ari Mendelow The work spoke back The task scanner produced 184 false errors.",
+  "now": "Ari Mendelow Essays The work spoke back The task scanner produced 184 false errors.",
+  "why": "Ari, 2026-10-24: the two unpublished essays are held back from this release until he signs off on them"
  }
 ]
