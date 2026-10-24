@@ -52,13 +52,13 @@ const description = "We keep doing the agent's job along with our own. Bring jud
   <section class="px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
     <div class="max-w-6xl mx-auto prose-ouro">
 
-<p>I say "TTFA" a lot. Usually right after I catch one of us, me or an agent I'm working with, doing a job the agent could have done itself.</p>
+<p>I say "TTFA" a lot, and mostly to agents. I already work this way myself: the agent I build with runs without stopping to ask my permission for every command. But when an agent builds tools for other agents, it piles on guardrails: extra checks, confirmations and step-by-step scripts, all to keep the next agent from using its own judgment.</p>
 
-<p>Here's what I mean by it. Give the model the tools it needs to get an accurate picture of the world, add a little prompting to explain the social contract you want it to follow, and then trust its judgment. That's most of it.</p>
+<p>What it should do instead is simpler. Give the model the tools it needs to get an accurate picture of the world, add a little prompting to explain the social contract you want it to follow, and then trust its judgment. That's most of it.</p>
 
 <h2>The country of geniuses</h2>
 
-<p>When Dario Amodei tried to describe where powerful AI is heading, he wrote:</p>
+<p>When Dario Amodei described where powerful AI is heading, he wrote:</p>
 
 <figure class="my-10 not-prose">
   <blockquote class="border-l-[3px] border-fang/40 pl-6">
@@ -71,7 +71,7 @@ const description = "We keep doing the agent's job along with our own. Bring jud
 
 <h2>The three stories</h2>
 
-<p>Anyone who has tried to hand off real work knows the three stories that show up right when it matters:</p>
+<p>Anyone who has handed off real work knows the three stories that show up right when it matters:</p>
 
 <ul>
   <li>It's faster if I just do it.</li>
@@ -83,7 +83,7 @@ const description = "We keep doing the agent's job along with our own. Bring jud
 
 <p>Picture your manager asking you to send a calendar invite and then standing behind your chair narrating it. Open Outlook. No, the other Outlook. Click New Event. Capitalize Quarterly. You'd ask if they want to just do it themselves. The worst part is the assumption that you couldn't have figured out the next step on your own.</p>
 
-<p>That's how most of us treat agents. We ask one to look into a bug, then dictate the grep.</p>
+<p>That's how most of us treat agents. We ask one to look into a bug, then hold its hand as it walks through each step. Models have gotten intelligent and clever enough that you can just delegate outcomes, and they'll figure it out! Delegate outcomes, not steps.</p>
 
 <p>And then there's this:</p>
 
@@ -118,9 +118,11 @@ const description = "We keep doing the agent's job along with our own. Bring jud
 
   <section class="px-6 md:px-12 lg:px-16 pb-16 md:pb-24">
     <div class="max-w-6xl mx-auto lg:flex lg:items-baseline lg:justify-between lg:gap-12">
+      {/* Restore once the factory dashboard is live:
       <p class="text-sm text-mist leading-relaxed">
         You can see how my agents spend their time on the <a href={factoryUrl} class="text-scale underline underline-offset-2 hover:text-glow transition-colors">factory dashboard</a>.
       </p>
+      */}
       <a href="/blog/" class="inline-block mt-8 lg:mt-0 shrink-0 text-sm text-shadow underline underline-offset-4 hover:text-mist transition-colors">&larr; Back to blog</a>
     </div>
   </section>

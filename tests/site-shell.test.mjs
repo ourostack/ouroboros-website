@@ -582,23 +582,26 @@ test('the two essays are the 2026-10-11 essays deck, with their bylines and end 
   for (const line of [
     "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
     'Ari Mendelow · April 2026',
-    `I say "TTFA" a lot. Usually right after I catch one of us, me or an agent I'm working with, doing a job the agent could have done itself.`,
+    // Ari's review, 2026-10-24: TTFA is said mostly to agents building tools for agents.
+    `I say "TTFA" a lot, and mostly to agents. I already work this way myself: the agent I build with runs without stopping to ask my permission for every command.`,
+    'What it should do instead is simpler.',
     'The country of geniuses', 'The three stories', 'What it shows you', 'Your one job',
     'We humans had been working around both without noticing. The agent couldn\'t work around them, so it found them.',
     "He's describing models that are smarter than us at most things, work on their own for days, and run as millions of copies at once.",
-    "That's how most of us treat agents. We ask one to look into a bug, then dictate the grep.",
+    "That's how most of us treat agents. We ask one to look into a bug, then hold its hand as it walks through each step.",
+    'Delegate outcomes, not steps.',
     'David doesn\'t ask Claude to walk him through it.',
     // root final ruling F6.
     'You find out what your setup was leaning on you for.',
     "Here's what we bring: the judgment to ask whether this is the right work in the first place.",
     "Every time I rerun a search, reformat the output, or paste a diff by hand, that's time I'm not spending on judgment.",
     'Trust the fucking agent.',
-    'You can see how my agents spend their time on the factory dashboard.',
   ]) assert.ok(ttfaText.includes(line), `TTFA is missing "${line}"`);
+  // The factory dashboard line stays hidden until the factory is live (Ari, 2026-10-24).
+  assert.doesNotMatch(ttfaText, /factory dashboard|tried to/);
   assert.doesNotMatch(ttfaText, /Either way|quietly leaning|fourteen-step|Multiplication became addition|The trade|The country of geniuses is showing up|Take that seriously/);
   // Copy deck round 2: the essay ends on "Trust the fucking agent."
   assert.match(ttfa, /<p>Trust the fucking agent\.<\/p>\s*<\/div>/, 'The essay ends on its title line');
-  assert.ok(hrefsOf(ttfa).includes('https://ourostack.github.io/factory/'));
 
   const seat = readDist('blog/take-the-agents-seat/index.html');
   const seatText = plain(seat);

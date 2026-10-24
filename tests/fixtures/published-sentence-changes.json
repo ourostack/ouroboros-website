@@ -2186,13 +2186,13 @@
  {
   "page": "blog/trust-the-agent",
   "was": "We ask the agent to ship the feature, then narrate every step.",
-  "now": "We ask one to look into a bug, then dictate the grep.",
+  "now": "We ask one to look into a bug, then hold its hand as it walks through each step.",
   "why": "copy deck round 2: Trust the Fucking Agent"
  },
  {
   "page": "blog/trust-the-agent",
   "was": "We ask it to investigate the bug, then dictate the grep.",
-  "now": "We ask one to look into a bug, then dictate the grep.",
+  "now": "We ask one to look into a bug, then hold its hand as it walks through each step.",
   "why": "copy deck round 2: Trust the Fucking Agent"
  },
  {
