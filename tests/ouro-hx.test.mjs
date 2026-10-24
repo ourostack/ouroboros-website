@@ -38,7 +38,7 @@ test('the Ouro UI entry shows the Voyage showcase in both themes, linked to the 
   const provenance = JSON.parse(fs.readFileSync(path.join(distDir, 'images/workshop/hx-voyage-provenance.json'), 'utf8'));
   assert.equal(provenance.source, voyage);
   for (const theme of ['light', 'dark']) {
-    assert.match(html, new RegExp(`<picture class="theme-${theme}-only"[^>]*><img src="/images/workshop/hx-voyage-${theme}\\.webp" width="1200" height="1069"[^>]*alt="[^"]{40,}"`));
+    assert.match(html, new RegExp(`<picture class="theme-${theme}-only"[^>]*><img src="/images/workshop/hx-voyage-${theme}\\.webp" width="1164" height="1051"[^>]*alt="[^"]{40,}"`));
     const bytes = fs.readFileSync(path.join(distDir, `images/workshop/hx-voyage-${theme}.webp`));
     assert.equal(bytes.toString('ascii', 8, 12), 'WEBP');
   }
