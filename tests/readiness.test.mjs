@@ -150,3 +150,11 @@ test('the Take the agent\'s seat essay no longer cites a checklist TTFA never ha
   assert.ok(text.includes("Trust the Fucking Agent was about trust. This one's about saying what you mean."));
   assert.doesNotMatch(text, /fourteen-step/);
 });
+
+// Ari, 2026-10-24: the factory is still being built, so every page that sends readers to it says so.
+test('the factory is marked under construction where the homepage and Desk link to it', { skip: !distExists }, () => {
+  const home = textOf(readDist('index.html'));
+  assert.match(home, /The numbers are public, alarms and all\.\s*Under construction Dashboard and method in development/);
+  const desk = textOf(readDist('desk/index.html'));
+  assert.match(desk, /Under construction The factory: Dashboard and method in development/);
+});

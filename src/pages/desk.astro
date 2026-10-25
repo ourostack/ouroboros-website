@@ -3,13 +3,15 @@ import Layout from '../layouts/Layout.astro'
 import DeskBootPreview from '../components/DeskBootPreview.astro'
 import DeskMedia from '../components/DeskMedia.astro'
 import { ogPathFor } from '../data/og'
-import { deskHosts, labelFor, allowedLabels } from '../data/readiness.mjs'
+import { deskHosts, labelFor, allowedLabels, entry } from '../data/readiness.mjs'
 import { deskSetupUrl, factoryUrl, rfcUrl } from '../data/principles.mjs'
 
 const title = 'Desk: where my agents keep their work | Ouro'
 const description = 'Desk keeps the principles in the setup: your agent’s work lives in a Git repository you own, every job starts with one alignment conversation, and a job is done when you’ve seen it work. For Claude Code and GitHub Copilot CLI, with Crew for teams.'
 const status = labelFor('desk-claude-code-macos')
 const hosted = labelFor('desk-hosted')
+const factoryStatus = labelFor('factory')
+const factoryEntry = entry('factory')
 // The three Claude Code hosts share the page's label, so they collapse into one row.
 const otherHosts = deskHosts.filter((host) => !host.id.startsWith('desk-claude-code-'))
 const supportPrompt = 'Something went wrong with Desk. Look at what happened in this session, then file a GitHub issue on ourostack/desk with the steps to reproduce it and the exact error. Show me the issue before you submit it.'
@@ -37,6 +39,7 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
           </div>
         </div>
         <p class="text-sm text-mist">Setup also installs <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public <a href={factoryUrl} class={link}>factory</a>. It sends timings and sizes, and never transcript text, prompts, file contents, or names.</p>
+        <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist"><span class={`tag ${factoryStatus.tone}`}>{factoryStatus.label}</span> {factoryEntry.name}: {factoryEntry.detail}</p>
       </div>
 
       <div class="min-w-0">

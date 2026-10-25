@@ -27,6 +27,8 @@ const friendsDetail = entry('friends').detail
 const shepherdDetail = entry('shepherd').detail
 const butlerLabel = labelFor('butler')
 const butlerDetail = entry('butler').detail
+const factoryLabel = labelFor('factory')
+const factoryDetail = entry('factory').detail
 const ouroMdPage = '/ouro-md/'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const section = 'relative px-5 sm:px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20 reveal'
@@ -240,7 +242,10 @@ const wastes = [
       </dl>
       <div class="factory-cta">
         <img src="/brand/factory-render.webp" srcset="/brand/factory-render-128.webp 128w, /brand/factory-render-256.webp 256w, /brand/factory-render.webp 1024w" sizes="(min-width: 768px) 80px, 64px" width="80" height="80" alt="" loading="lazy" decoding="async" class="mark-render w-16 h-16 md:w-20 md:h-20" />
-        <p class="text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
+        <div>
+          <p class="text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
+          <p class="grown-status mt-2"><span class={`tag ${factoryLabel.tone}`}>{factoryLabel.label}</span> {factoryDetail}</p>
+        </div>
         <a href={factoryUrl} class="btn-primary">See my agents' numbers &#8599;</a>
       </div>
     </div>
