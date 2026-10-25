@@ -28,6 +28,7 @@ export const readiness = [
   { id: 'friends', name: 'Friends', label: 'Experimental', detail: 'On npm, and used by Ouroboros every day' },
   { id: 'butler', name: 'Ouro Butler', label: 'Not open yet', detail: 'Runs on our own home server so far' },
   { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },
+  { id: 'factory', name: 'The factory', label: 'Under construction', detail: 'Dashboard and method in development' },
 ]
 
 export function entry(id) {
