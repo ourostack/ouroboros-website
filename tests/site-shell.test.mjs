@@ -78,7 +78,7 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
     'Grown inside it',
     // Ari, 2026-10-20: accurate statuses, and every entry has a link that looks like one.
     'Friends Experimental On npm, and used by Ouroboros every day Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it. Friends on GitHub ↗',
-    'Ouro Shepherd Experimental Ships in Ouroboros, for cmux and Herdr Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
+    'Ouro Shepherd Use today Ships in Ouroboros, for cmux and Herdr; reply from any chat Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
     'Ouro Butler Not open yet Runs on our own home server so far An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest. Ouro Butler →',
   ]);
   // Each model's own verdict, from the published data, linked to its transcript.
@@ -94,7 +94,7 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
   for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', '/butler/']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
   assert.doesNotMatch(textOf(section), /Coming soon|Alpha\b/, 'Statuses come from the corrected readiness data');
   const shepherd = section.match(/<li id="shepherd"[\s\S]*?<\/li>/)[0];
-  assert.doesNotMatch(textOf(shepherd), /install|download|available now|\b20\d\d\b/i, 'Shepherd stays a coming-soon preview');
+  assert.doesNotMatch(textOf(shepherd), /install|download|available now|\b20\d\d\b/i, 'Shepherd ships inside Ouroboros, so the card never offers its own install (Ari, 2026-10-27: Shepherd goes both ways and is out of preview)');
   assert.ok(text.indexOf('Ouroboros is the agent harness I built from scratch') < text.indexOf('Every frontier model we asked picked Ouroboros.'), 'What Ouroboros is comes before the proof');
   // No product cards: the file-tree visual is gone.
   assert.doesNotMatch(html, /class="source-tree|class="product[ "]/);

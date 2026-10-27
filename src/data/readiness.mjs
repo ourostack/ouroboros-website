@@ -24,7 +24,7 @@ export const readiness = [
   { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'Sign-in by invitation' },
   { id: 'ouro-md', name: 'Ouro MD', label: 'Use today', detail: 'macOS 13 or later' },
   { id: 'ouro-hx', name: 'Ouro HX', label: 'Under construction', detail: 'Component library in development' },
-  { id: 'shepherd', name: 'Ouro Shepherd', label: 'Experimental', detail: 'Ships in Ouroboros, for cmux and Herdr' },
+  { id: 'shepherd', name: 'Ouro Shepherd', label: 'Use today', detail: 'Ships in Ouroboros, for cmux and Herdr; reply from any chat' },
   { id: 'friends', name: 'Friends', label: 'Experimental', detail: 'On npm, and used by Ouroboros every day' },
   { id: 'butler', name: 'Ouro Butler', label: 'Not open yet', detail: 'Runs on our own home server so far' },
   { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },
