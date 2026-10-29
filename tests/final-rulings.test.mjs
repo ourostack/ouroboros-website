@@ -70,3 +70,11 @@ test('root final ruling F18: the AX essay says "the human" for the human side', 
   assert.ok(text.includes('DX is a separate question: how the system feels to the humans and agents building on it.'));
   assert.ok(!/the person (using|building)/.test(text));
 });
+
+test('the Butler install commands wrap at phone width instead of hiding the download URL off-screen', () => {
+  const page = fs.readFileSync(new URL('../src/pages/butler.astro', import.meta.url), 'utf8');
+  const rule = page.match(/\.install \{[^}]*\}/)[0];
+  assert.match(rule, /white-space: pre-wrap;/);
+  assert.match(rule, /overflow-wrap: anywhere;/);
+  assert.doesNotMatch(rule, /overflow-x: auto/);
+});
