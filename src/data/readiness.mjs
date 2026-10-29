@@ -26,7 +26,7 @@ export const readiness = [
   { id: 'ouro-hx', name: 'Ouro HX', label: 'Under construction', detail: 'Component library in development' },
   { id: 'shepherd', name: 'Ouro Shepherd', label: 'Use today', detail: 'Ships in Ouroboros, for cmux and Herdr; reply from any chat' },
   { id: 'friends', name: 'Friends', label: 'Experimental', detail: 'On npm, and used by Ouroboros every day' },
-  { id: 'butler', name: 'Ouro Butler', label: 'Not open yet', detail: 'Runs on our own home server so far' },
+  { id: 'butler', name: 'Ouro Butler', label: 'Alpha', detail: 'Installs on Unraid 7.2 or newer with one script' },
   { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },
   { id: 'factory', name: 'The factory', label: 'Under construction', detail: 'Dashboard and method in development' },
 ]

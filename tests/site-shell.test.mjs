@@ -79,7 +79,7 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
     // Ari, 2026-10-20: accurate statuses, and every entry has a link that looks like one.
     'Friends Experimental On npm, and used by Ouroboros every day Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it. Friends on GitHub ↗',
     'Ouro Shepherd Use today Ships in Ouroboros, for cmux and Herdr; reply from any chat Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
-    'Ouro Butler Not open yet Runs on our own home server so far An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest. Ouro Butler →',
+    'Ouro Butler Alpha Installs on Unraid 7.2 or newer with one script An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest. Ouro Butler →',
   ]);
   // Each model's own verdict, from the published data, linked to its transcript.
   for (const review of reviews.reviews) {
@@ -92,7 +92,10 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
   // Shepherd, Friends and the butler live inside Ouroboros, not as their own product cards.
   for (const id of ['friends', 'shepherd', 'butler']) assert.match(section, new RegExp(`<li id="${id}"`));
   for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', '/butler/']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
-  assert.doesNotMatch(textOf(section), /Coming soon|Alpha\b/, 'Statuses come from the corrected readiness data');
+  // The Butler became an installable alpha on 2026-10-29; the other entries keep their corrected labels.
+  const butlerItem = section.match(/<li id="butler"[\s\S]*?<\/li>/)[0];
+  assert.match(textOf(butlerItem), /Alpha Installs on Unraid 7\.2 or newer with one script/);
+  assert.doesNotMatch(textOf(section.replace(butlerItem, '')), /Coming soon|Alpha\b/, 'Statuses come from the corrected readiness data');
   const shepherd = section.match(/<li id="shepherd"[\s\S]*?<\/li>/)[0];
   assert.doesNotMatch(textOf(shepherd), /install|download|available now|\b20\d\d\b/i, 'Shepherd ships inside Ouroboros, so the card never offers its own install (Ari, 2026-10-27: Shepherd goes both ways and is out of preview)');
   assert.ok(text.indexOf('Ouroboros is the agent harness I built from scratch') < text.indexOf('Every frontier model we asked picked Ouroboros.'), 'What Ouroboros is comes before the proof');

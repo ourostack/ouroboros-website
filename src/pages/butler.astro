@@ -5,13 +5,22 @@ import { labelFor, entry } from '../data/readiness.mjs'
 
 // Ouro Butler: an Ouroboros agent that looks after a home server. Every claim here is
 // sourced from ourostack/ouroboros (deploy/unraid, its README and template) and the
-// Butler's UX contract. Our own install is the only one running, so the page says so.
+// Butler's UX contract. The install steps mirror deploy/unraid/INSTALL.md and install.sh in that repository.
 const title = 'Ouro Butler: an agent that looks after your home server | Ouro'
 const description = 'An Ouroboros agent that watches the services your household counts on, fixes what it is allowed to, and tells you the rest on Telegram.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const status = labelFor('butler')
 const statusDetail = entry('butler').detail
 const repo = 'https://github.com/ourostack/ouroboros/tree/main/deploy/unraid'
+const guide = 'https://github.com/ourostack/ouroboros/blob/main/deploy/unraid/INSTALL.md'
+const installer = 'https://github.com/ourostack/ouroboros/releases/latest/download/install.sh'
+
+const needs = [
+  'Unraid 7.2 or newer, with Docker enabled.',
+  'An Anthropic API key with credit on the account. The Butler thinks with Claude models.',
+  'A Telegram bot of its own: message @BotFather, send /newbot, and keep the token.',
+  'An email address for the Butler\'s vault account, one no other Butler uses.',
+]
 
 const does = [
   ['Notices when something stops working', 'It watches the services, storage and endpoints the household relies on, and tells a stopped service you meant to stop from one that broke.'],
@@ -79,11 +88,19 @@ const chat = [
     </div>
   </section>
 
-  <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="stands-heading">
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="install-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="stands-heading" class="heading-section">Where it stands</h2>
-      <p class="mt-4 text-lg text-mist leading-relaxed">The Butler runs on our own Unraid server today. Its container, Unraid template and runbook are public in the Ouroboros repository, and setting it up still assumes an Ouroboros agent of your own, so it isn't something to install yet.</p>
-      <p class="mt-6 product-links"><a href={repo} class={link}>The Butler's deployment files &#8599;</a> <a href="/lab/" class={link}>The Ouroboros harness &rarr;</a></p>
+      <h2 id="install-heading" class="heading-section">Install it</h2>
+      <p class="mt-4 text-lg text-mist leading-relaxed">The Butler is an alpha: it runs our own server every day, and the installer is new. Expect rough edges, and keep your own backups.</p>
+      <h3 class="does-name mt-8">What you need</h3>
+      <ul class="safe">
+        {needs.map((line) => <li>{line}</li>)}
+      </ul>
+      <h3 class="does-name mt-8">Run the installer</h3>
+      <p class="mt-4 text-lg text-mist leading-relaxed">Open the Unraid web terminal, download the installer, read it if you like, and run it. It asks a few questions, reads secrets with the echo off, and says what it is doing at each step. When it finishes, say hello to your bot on Telegram.</p>
+      <pre class="install"><code>curl -fsSLo /tmp/ouro-butler-install.sh {installer}
+bash /tmp/ouro-butler-install.sh</code></pre>
+      <p class="mt-6 product-links"><a href={guide} class={link}>The full install guide &#8599;</a> <a href={repo} class={link}>The Butler's deployment files &#8599;</a> <a href="/lab/" class={link}>The Ouroboros harness &rarr;</a></p>
     </div>
   </section>
 </Layout>
@@ -104,6 +121,7 @@ const chat = [
   .chat-butler { background: var(--color-deep); color: var(--color-bone); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
   .chat-who { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); }
   .chat-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-top: 1.25rem; font-size: 0.875rem; color: var(--color-mist); }
+  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; overflow-x: auto; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
   .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
   .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
