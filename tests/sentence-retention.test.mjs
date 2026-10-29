@@ -44,7 +44,7 @@ test('the snapshot covers visible text, attribute text, share cards, and brief.m
   assert.ok(keys.includes('index attributes') && keys.includes('desk attributes'));
   assert.ok(keys.includes('share card /') && keys.includes('share card /desk'));
   // Pages added after the snapshot have no published card to keep.
-  const newSinceSnapshot = ['/brief', '/butler'];
+  const newSinceSnapshot = ['/brief', '/butler', '/lab/how-desk-started'];
   for (const route of Object.keys(pageOg)) assert.ok(keys.includes(`share card ${route}`) || newSinceSnapshot.includes(route), `No snapshot for share card ${route}`);
 });
 

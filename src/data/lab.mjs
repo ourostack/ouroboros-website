@@ -6,6 +6,7 @@ export const labStatusTones = { Origin: 'tag-today', Experiment: 'tag-alpha' }
 
 export const labPieces = [
   { route: '/lab/story', status: 'Origin' },
+  { route: '/lab/how-desk-started', status: 'Origin' },
   { route: '/lab/why', status: 'Origin' },
   { route: '/lab/what-is-an-agent-harness', status: 'Origin' },
   { route: '/lab/model-reviews', status: 'Experiment' },

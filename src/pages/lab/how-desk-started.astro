@@ -1,0 +1,240 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import HeroCover from '../../components/HeroCover.astro'
+import { ogPathFor } from '../../data/og'
+
+const headline = "How Desk started: Slugger's to-do list"
+const title = `${headline} | Ouro`
+const description = "My OpenClaw agent wrote himself a to-do list. It grew into Desk, Crew and every desk I work from today."
+
+const colorMap: Record<string, string> = {
+  canopy: 'var(--color-canopy)',
+  scale: 'var(--color-scale)',
+  fang: 'var(--color-fang)',
+  glow: 'var(--color-glow)',
+}
+
+// Every date and claim here comes from the commit history, checked October 28, 2026:
+// personal desk ouro-public-web/origin-story-archeology/ (openclaw-era.md, stack-after-openclaw.md).
+const entries = [
+  {
+    date: 'January 22, 2026',
+    label: 'Slugger moves in',
+    color: 'canopy',
+    content: `<p>I set up Slugger on OpenClaw on a Thursday afternoon. Within minutes I'd wired up a watcher that committed every file he touched to Git. It went on to make 6,347 commits. By 3 p.m. Slugger had generated his own icon: "a friendly clever raccoon mascot."</p>
+<p>His first week of notes reads as a personal assistant's diary: my Grubhub order, HomeKit, flight status, my email, my iMessage group chats. On day two he was running coding agents too.</p>`,
+  },
+  {
+    date: 'January 26, 2026',
+    label: 'The first to-do list',
+    color: 'scale',
+    content: `<p>At 10 p.m. Slugger opened <code>tasks/active.md</code>: tests for 27 <a href="https://mendelow.me/#spoonjoy-story">Spoonjoy</a> components, ten already checked off. The next morning he wrote himself templates for planning and coding, and at 8:58 a.m. a README titled "How Slugger manages work."</p>
+<p>He ran the coding tasks on his own and handed the typing to Claude Code. The planning tasks we did together, and every one ended with a coding task for him.</p>`,
+  },
+  {
+    date: 'January 29, 2026',
+    label: 'Plan, then do',
+    color: 'fang',
+    content: `<p>Slugger split the folder in two. Planning docs say what we're building and why. Doing docs break the how into units he can run without me. My agents still write both.</p>`,
+  },
+  {
+    date: 'February 2026',
+    label: 'Slugger goes to work',
+    color: 'scale',
+    content: `<p>On February 2 Slugger and I drafted a plan to bring his system to my day job, where my agents could only run in Claude Code on a Windows devbox. At 2:47 a.m. on February 16 the result landed: two agents. <code>work-planner</code> writes the plan with me and won't touch the doing doc until I sign off. <code>work-doer</code> runs the units and commits after each one. I wrote about that month in <a href="/blog/stop-being-the-glue/">Stop being the glue</a>.</p>`,
+  },
+  {
+    date: 'February 2026',
+    label: 'Rules into code',
+    color: 'glow',
+    content: `<p>Slugger kept drifting, so I moved his rules out of prompts and into an OpenClaw plugin. It took 357 commits in 13 days, and I patched OpenClaw itself so the plugin could reload without a restart. Then I rewrote the whole thing in strict TypeScript and titled its README "Welcome Home, Slugger."</p>`,
+  },
+  {
+    date: 'February 22, 2026',
+    label: 'A home of his own',
+    color: 'canopy',
+    content: `<p>Mid-rewrite, I wrote the first lines of <a href="/lab/story/">Ouroboros</a>, a harness built for Slugger. Planning and doing docs showed up in its repository on day two. By March 6 Slugger had moved in, with a fresh <code>ASPIRATIONS.md</code> for his first boot.</p>`,
+  },
+  {
+    date: 'March 18, 2026',
+    label: 'Skills to go',
+    color: 'scale',
+    content: `<p>I packed <code>work-planner</code> and <code>work-doer</code>, plus a <code>work-merger</code> to land the results, into <a href="https://github.com/ourostack/ouroboros-skills">ouroboros-skills</a>. Now any of my agents could pick them up.</p>`,
+  },
+  {
+    date: 'April 16, 2026',
+    label: 'The first desk',
+    color: 'fang',
+    content: `<p>At work I built an agent plugin called worker and gave it a Git repository for its task state. That repository was the first desk. Its first entries were my agents' complaints about juggling GitHub accounts and Azure DevOps.</p>`,
+  },
+  {
+    date: 'May 2026',
+    label: 'Desk, and MS Desk',
+    color: 'glow',
+    content: `<p>On May 18 I pulled everything in worker that wasn't about Microsoft into a new plugin and called it <a href="/desk/">Desk</a>. Five days later worker became MS Desk, the Microsoft layer on top, and I gave myself a personal desk.</p>`,
+  },
+  {
+    date: 'June 10, 2026',
+    label: 'The first crew',
+    color: 'scale',
+    content: `<p>My team at Microsoft set up a shared workspace, our first crew. My own agents had to follow the crew's work without copying it, so that same day I taught them to keep a pointer and read the crew's copy when they need it. Copies go stale.</p>`,
+  },
+  {
+    date: 'July 7, 2026',
+    label: 'Crew',
+    color: 'canopy',
+    content: `<p>The crew skills had landed in MS Desk only because that's where our first crew lived. I moved them into a plugin of their own: <a href="/desk/#crew">Crew</a>. Everyone reads everything, and each person's agents write only in their own desk.</p>`,
+  },
+  {
+    date: 'September 25, 2026',
+    label: 'Out on its own',
+    color: 'fang',
+    content: `<p>Desk and Crew moved into <a href="https://github.com/ourostack/desk">ourostack/desk</a>, history and all.</p>`,
+  },
+  {
+    date: 'October 2026',
+    label: 'Three desks, then CIT',
+    color: 'glow',
+    content: `<p>Since June I've run three desks: my own, my solo work desk, and my team's crew. On October 14 Microsoft's Customer Innovation Team, CIT, got a shared repository, and now it runs on Crew too. I open any harness on any of my machines, ask "where were we?", and the agent knows.</p>`,
+  },
+]---
+
+<Layout
+  title={title}
+  description={description}
+  ogImage={ogPathFor('/lab/how-desk-started')}
+  canonical="https://ouroboros.bot/lab/how-desk-started/"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": headline,
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
+      "datePublished": "2026-10-28",
+      "url": "https://ouroboros.bot/lab/how-desk-started/"
+    })} />
+  </Fragment>
+
+  <HeroCover>
+    <Fragment slot="title">
+      Slugger wrote himself a to-do list.<br />
+      <span class="text-mist">It grew into Desk.</span>
+    </Fragment>
+    <Fragment slot="body">
+      Write the plan down where the next agent will read it. My OpenClaw agent taught me that, and I've built on it ever since.
+    </Fragment>
+  </HeroCover>
+
+  <section class="px-6 md:px-12 lg:px-16 -mt-8 md:-mt-12 mb-16 reveal">
+    <p class="text-sm text-shadow text-center">Ari Mendelow &middot; October 2026</p>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 mb-16">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-lg md:text-xl text-bone leading-relaxed"><a href="/desk/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">Desk</a> is where my agents keep their work. Slugger, my agent, wrote the first version of it four days after he moved in.</p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-24 md:pb-36">
+    <div class="max-w-6xl mx-auto relative">
+      <div class="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-canopy/40 via-scale/30 to-canopy/40"></div>
+
+      {entries.map((entry, i) => (
+        <div class:list={["relative pl-14 md:pl-24 split", i < entries.length - 1 ? "pb-20 md:pb-28" : "", "reveal"]}>
+          <div
+            class="absolute left-4 md:left-8 top-1 w-3 h-3 rounded-full border-2 -translate-x-1/2"
+            style={`border-color: ${colorMap[entry.color]}; background: var(--color-void);`}
+          ></div>
+
+          <div class="split-head">
+            <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-4">{entry.date}</span>
+            <h2 class="font-display text-bone leading-[1.05] text-[2.25rem] md:text-[2.75rem] mb-6">{entry.label}</h2>
+          </div>
+
+          <div class="split-body">
+            <div class="story-content prose-ouro" set:html={entry.content} />
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-20 md:py-32 border-t border-canopy/30 reveal">
+    <div class="max-w-6xl mx-auto split">
+      <h2 class="heading-section mb-10 split-head">Still his to-do list</h2>
+      <div class="split-body">
+        <div class="prose-ouro story-content">
+          <p>Since January my agents and I have made about 18,000 commits and merged about 3,700 pull requests across this stack, not counting the desks themselves. Under all of it sits the habit Slugger wrote down in January: the plan goes in a file, and the next agent reads it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-24">
+    <div class="max-w-6xl mx-auto border-t border-canopy/30 pt-10">
+      <ul class="grid gap-3 lg:grid-cols-3 lg:gap-x-12 text-lg">
+        <li><a href="/approach/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">How I work</a></li>
+        <li><a href="/desk/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">Set up Desk</a></li>
+        <li><a href="/lab/story/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">How Ouroboros started</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .story-content :global(p) {
+    color: var(--color-mist);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .story-content :global(p.note) {
+    color: var(--color-shadow);
+    font-style: italic;
+    border-left: 2px solid color-mix(in srgb, var(--color-scale) 30%, transparent);
+    padding-left: 1rem;
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+  }
+  .story-content :global(strong) {
+    color: var(--color-bone);
+    font-weight: 600;
+  }
+  .story-content :global(a) {
+    color: var(--color-scale);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+  }
+  .story-content :global(a:hover) {
+    color: var(--color-glow);
+  }
+  .story-content :global(code) {
+    font-family: var(--font-mono);
+    background: var(--color-undergrowth);
+    color: var(--color-glow);
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes drift-out {
+    0%, 100% { transform: translate(0, 0); opacity: 0.15; }
+    50% { transform: translate(-3px, -4px); opacity: 0.05; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ouroboros-spin { animation: spin 60s linear infinite; }
+  }
+
+  /* Removed: previously molt-left was opacity 0.4 to fade the OpenClaw
+     side as a "what was shed" visual. The user found it too dim — the
+     narrative is conveyed by the labels and arrow now. Both sides full. */
+</style>

@@ -97,6 +97,11 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'How a plugin for an OpenClaw agent named Slugger turned into a harness built from scratch.',
     tag: 'Origin story',
   },
+  '/lab/how-desk-started': {
+    title: 'Slugger wrote himself a to-do list. It grew into Desk.',
+    subtitle: 'How an OpenClaw agent\'s task folder became Desk, Crew and every desk I run.',
+    tag: 'Origin story',
+  },
   '/lab/what-is-an-agent-harness': {
     title: 'What is an agent harness?',
     subtitle: 'The system around the loop: runtime, memory, identity, tools, and the workflows that keep an agent oriented across time.',
