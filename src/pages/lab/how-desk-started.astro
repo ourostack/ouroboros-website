@@ -3,9 +3,9 @@ import Layout from '../../layouts/Layout.astro'
 import HeroCover from '../../components/HeroCover.astro'
 import { ogPathFor } from '../../data/og'
 
-const headline = 'How Desk started: a task folder for Slugger'
+const headline = "How Desk started: Slugger's to-do list"
 const title = `${headline} | Ouro`
-const description = 'How a task folder for my OpenClaw agent grew into Desk, Crew and the three desks I work from today.'
+const description = "My OpenClaw agent wrote himself a to-do list. It grew into Desk, Crew and the three desks I work from today."
 
 const colorMap: Record<string, string> = {
   canopy: 'var(--color-canopy)',
@@ -18,68 +18,86 @@ const colorMap: Record<string, string> = {
 // personal desk ouro-public-web/origin-story-archeology/ (openclaw-era.md, stack-after-openclaw.md).
 const entries = [
   {
-    date: 'January 2026',
-    label: 'A folder called tasks',
+    date: 'January 22, 2026',
+    label: 'Slugger moves in',
     color: 'canopy',
-    content: `<p>Slugger moved into OpenClaw on January 22. Five days later his workspace had a <code>tasks/</code> folder with a backlog, an active list and a completed list, plus templates for planning and coding. Its README was titled "How Slugger manages work".</p>
-<p>Coding tasks ran on their own, with Claude Code doing the work. Planning tasks were Slugger and me together, and each one ended by producing a coding task. The first active task was a checklist of component tests for the new <a href="https://mendelow.me/#spoonjoy-story">Spoonjoy</a>.</p>`,
+    content: `<p>I set up Slugger on OpenClaw on a Thursday afternoon. Within minutes I'd wired up a watcher that committed every file he touched to Git. It went on to make 6,347 commits. By 3 p.m. Slugger had generated his own icon: "a friendly clever raccoon mascot."</p>
+<p>His first week of notes reads as a personal assistant's diary: my Grubhub order, HomeKit, flight status, my email, my iMessage group chats. On day two he was running coding agents too.</p>`,
   },
   {
-    date: 'Late January 2026',
-    label: 'Planning docs and doing docs',
+    date: 'January 26, 2026',
+    label: 'The first to-do list',
     color: 'scale',
-    content: `<p>On January 29 the folder split in two: <code>tasks/planning/</code> and <code>tasks/doing/</code>. A planning doc captures what we're building and why. A doing doc breaks the how into units an agent can work through on its own. Desk still uses that pair.</p>`,
+    content: `<p>At 10 p.m. Slugger opened <code>tasks/active.md</code>: tests for 27 <a href="https://mendelow.me/#spoonjoy-story">Spoonjoy</a> components, ten already checked off. The next morning he wrote himself templates for planning and coding, and at 8:58 a.m. a README titled "How Slugger manages work."</p>
+<p>He ran the coding tasks on his own and handed the typing to Claude Code. The planning tasks we did together, and every one ended with a coding task for him.</p>`,
+  },
+  {
+    date: 'January 29, 2026',
+    label: 'Plan, then do',
+    color: 'fang',
+    content: `<p>Slugger split the folder in two. Planning docs say what we're building and why. Doing docs break the how into units he can run without me. My agents still write both.</p>`,
   },
   {
     date: 'February 2026',
-    label: 'Taking it to work',
-    color: 'fang',
-    content: `<p>On February 2, Slugger and I began adapting the workflow for my job at Microsoft, where my agents ran in Claude Code. By February 16 it was two agents. The planner writes the plan with me and turns it into a doing doc only after I sign off. The doer works through the units on its own and commits after each one. I wrote about that period in <a href="/blog/stop-being-the-glue/">Stop being the glue</a>.</p>`,
-  },
-  {
-    date: 'March 2026',
-    label: 'Skills that travel',
+    label: 'Slugger goes to work',
     color: 'scale',
-    content: `<p>Slugger left OpenClaw for <a href="/lab/story/">Ouroboros</a>, the harness I built for him, and the habit came along: the Ouroboros repository has planning and doing docs from its second day. On March 18 the planner and doer became <code>work-planner</code> and <code>work-doer</code>, the first skills in <a href="https://github.com/ourostack/ouroboros-skills">a shared skills repository</a>.</p>`,
+    content: `<p>On February 2 Slugger and I drafted a plan to bring his system to my day job, where my agents could only run in Claude Code on a Windows devbox. At 2:47 a.m. on February 16 the result landed: two agents. <code>work-planner</code> writes the plan with me and won't touch the doing doc until I sign off. <code>work-doer</code> runs the units and commits after each one. I wrote about that month in <a href="/blog/stop-being-the-glue/">Stop being the glue</a>.</p>`,
   },
   {
-    date: 'April 2026',
-    label: 'The first desk',
+    date: 'February 2026',
+    label: 'Rules into code',
+    color: 'glow',
+    content: `<p>Slugger kept drifting, so I moved his rules out of prompts and into an OpenClaw plugin. It took 357 commits in 13 days, and I patched OpenClaw itself so the plugin could reload without a restart. Then I rewrote the whole thing in strict TypeScript and titled its README "Welcome Home, Slugger."</p>`,
+  },
+  {
+    date: 'February 22, 2026',
+    label: 'A home of his own',
     color: 'canopy',
-    content: `<p>On April 16 I gave my agents at work a Git repository of their own for task state. That repository was the first desk. Its first entries were friction notes about what got in my agents' way.</p>`,
+    content: `<p>Mid-rewrite, I wrote the first lines of <a href="/lab/story/">Ouroboros</a>, a harness built for Slugger. Planning and doing docs showed up in its repository on day two. By March 6 Slugger had moved in, with a fresh <code>ASPIRATIONS.md</code> for his first boot.</p>`,
+  },
+  {
+    date: 'March 18, 2026',
+    label: 'Skills to go',
+    color: 'scale',
+    content: `<p>I packed <code>work-planner</code> and <code>work-doer</code>, plus a <code>work-merger</code> to land the results, into <a href="https://github.com/ourostack/ouroboros-skills">ouroboros-skills</a>. Now any of my agents could pick them up.</p>`,
+  },
+  {
+    date: 'April 16, 2026',
+    label: 'The first desk',
+    color: 'fang',
+    content: `<p>At work I built an agent plugin called worker and gave it a Git repository for its task state. That repository was the first desk. Its first entries were my agents' complaints about juggling GitHub accounts and Azure DevOps.</p>`,
   },
   {
     date: 'May 2026',
     label: 'Desk, and MS Desk',
     color: 'glow',
-    content: `<p>On May 18 the general parts of that work became <a href="/desk/">Desk</a>, a plugin of its own: tracks, tasks, friction notes and lessons, kept in a Git repository so the work survives sessions, machines and harnesses. Five days later the Microsoft-specific parts became MS Desk, which sits on top of Desk, and my personal desk got its own repository.</p>`,
+    content: `<p>On May 18 I pulled everything in worker that wasn't about Microsoft into a new plugin and called it <a href="/desk/">Desk</a>. Five days later worker became MS Desk, the Microsoft layer on top, and I gave myself a personal desk.</p>`,
   },
   {
-    date: 'June 2026',
+    date: 'June 10, 2026',
     label: 'The first crew',
     color: 'scale',
-    content: `<p>On June 10 my team at Microsoft got a shared workspace, the first crew. The same day, my own agents learned to follow work in the crew's desk without copying it into mine. They keep a pointer and read the crew's copy when they need it, because a synced summary goes stale.</p>`,
+    content: `<p>My team at Microsoft set up a shared workspace, our first crew. My own agents had to follow the crew's work without copying it, so that same day I taught them to keep a pointer and read the crew's copy when they need it. Copies go stale.</p>`,
   },
   {
-    date: 'July 2026',
+    date: 'July 7, 2026',
     label: 'Crew',
-    color: 'fang',
-    content: `<p>On July 7 the shared-workspace skills moved out of MS Desk into <a href="/desk/#crew">Crew</a>, a plugin of its own. They had lived in MS Desk only because that's where the first crew was built. In a crew, everyone reads all of it, and each person's agents write only in that person's own desk.</p>`,
+    color: 'canopy',
+    content: `<p>The crew skills had landed in MS Desk only because that's where our first crew lived. I moved them into a plugin of their own: <a href="/desk/#crew">Crew</a>. Everyone reads everything, and each person's agents write only in their own desk.</p>`,
   },
   {
-    date: 'September 2026',
-    label: 'A home of its own',
-    color: 'canopy',
-    content: `<p>On September 25 Desk and Crew moved into their own repository, <a href="https://github.com/ourostack/desk">ourostack/desk</a>, with their history intact.</p>`,
+    date: 'September 25, 2026',
+    label: 'Out on its own',
+    color: 'fang',
+    content: `<p>Desk and Crew moved into <a href="https://github.com/ourostack/desk">ourostack/desk</a>, history and all.</p>`,
   },
   {
     date: 'October 2026',
     label: 'Three desks',
     color: 'glow',
-    content: `<p>On October 14 Microsoft's Customer Innovation Team, CIT, got a shared repository, and it now runs as a Crew workspace. Today I work from three desks: my personal desk, my work desk, and CIT's shared workspace. Whichever machine and harness I open, I ask "where were we?", and the agent knows.</p>`,
+    content: `<p>On October 14 Microsoft's Customer Innovation Team, CIT, got a shared repository, and today it runs on Crew. I work from three desks: mine, my work desk, and CIT's. I open any harness on any of my machines, ask "where were we?", and the agent knows.</p>`,
   },
-]
----
+]---
 
 <Layout
   title={title}
@@ -103,11 +121,11 @@ const entries = [
 
   <HeroCover>
     <Fragment slot="title">
-      The plan lives in a file,<br />
-      <span class="text-mist">where the next agent reads it.</span>
+      Slugger wrote himself a to-do list.<br />
+      <span class="text-mist">It grew into Desk.</span>
     </Fragment>
     <Fragment slot="body">
-      How a task folder for my OpenClaw agent grew into Desk, Crew and the three desks I work from today.
+      Write the plan down where the next agent will read it. My OpenClaw agent taught me that, and I've built on it ever since.
     </Fragment>
   </HeroCover>
 
@@ -117,7 +135,7 @@ const entries = [
 
   <section class="px-6 md:px-12 lg:px-16 mb-16">
     <div class="max-w-6xl mx-auto">
-      <p class="text-lg md:text-xl text-bone leading-relaxed"><a href="/desk/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">Desk</a> is where my agents keep their work. It began as a folder in Slugger's workspace, five days after he moved in.</p>
+      <p class="text-lg md:text-xl text-bone leading-relaxed"><a href="/desk/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">Desk</a> is where my agents keep their work. Slugger, my agent, wrote the first version of it four days after he moved in.</p>
     </div>
   </section>
 
@@ -147,10 +165,10 @@ const entries = [
 
   <section class="px-6 md:px-12 lg:px-16 py-20 md:py-32 border-t border-canopy/30 reveal">
     <div class="max-w-6xl mx-auto split">
-      <h2 class="heading-section mb-10 split-head">The habit held</h2>
+      <h2 class="heading-section mb-10 split-head">Still his to-do list</h2>
       <div class="split-body">
         <div class="prose-ouro story-content">
-          <p>Every step kept the habit from January: the plan lives in a file, and the next session reads it. Across the public and internal product and tooling repositories, my agents and I have made about 11,000 commits and 3,700 merged pull requests since February 22.</p>
+          <p>Since January my agents and I have made about 18,000 commits and merged about 3,700 pull requests across this stack, not counting the desks themselves. Under all of it sits the habit Slugger wrote down in January: the plan goes in a file, and the next agent reads it.</p>
         </div>
       </div>
     </div>

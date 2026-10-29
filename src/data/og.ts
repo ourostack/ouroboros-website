@@ -98,8 +98,8 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Origin story',
   },
   '/lab/how-desk-started': {
-    title: 'The plan lives in a file, where the next agent reads it.',
-    subtitle: 'How a task folder for an OpenClaw agent named Slugger grew into Desk, Crew and three desks.',
+    title: 'Slugger wrote himself a to-do list. It grew into Desk.',
+    subtitle: 'How an OpenClaw agent\'s task folder became Desk, Crew and three desks.',
     tag: 'Origin story',
   },
   '/lab/what-is-an-agent-harness': {
