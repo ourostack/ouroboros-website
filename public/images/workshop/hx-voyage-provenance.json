@@ -1,5 +1,5 @@
 {
- "source": "https://ourostack.github.io/ouro-ui/voyage/",
+ "source": "https://ui.ouro.bot/voyage/",
  "captured": "2026-10-21T01:07:21Z",
  "method": "Headless Chrome at 1440x900, device scale 2. Depth set to 180 fathoms and Floodlights switched on through the page's own controls; the crew chat line hidden before capture. The stage card clipped and resized to 1200px wide. Cropped to the porthole, the caption and the depth and speed row. On 2026-10-24 the stage card's own rounded edge was trimmed off (18px from the top and both sides), so the site's frame is the only corner.",
  "themes": [
