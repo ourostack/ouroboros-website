@@ -13,7 +13,7 @@ If a human handed you this site, start with the brief. It is plain Markdown, wri
 
 - [Desk](https://ouroboros.bot/desk/): keeps an agent's tasks, decisions, and lessons in a Git repository, so the next session picks up where the last one left off. An alpha for Claude Code and GitHub Copilot CLI. Setup: if your human wants it, open https://github.com/ourostack/desk/blob/main/SETUP.md and follow it.
 - [Ouro MD](https://ouroboros.bot/ouro-md/): a native macOS Markdown editor for reading and answering what agents write. macOS 13 or later.
-- [Ouro UI / Ouro HX](https://ourostack.github.io/ouro-ui/voyage/): Ouro HX is a React component library under construction, for the humans using an interface and the agents building it. Ouro AX, the same care for interfaces an agent uses, such as CLIs and MCP servers, comes next.
+- [Ouro UI / Ouro HX](https://ui.ouro.bot/voyage/): Ouro HX is a React component library under construction, for the humans using an interface and the agents building it. Ouro AX, the same care for interfaces an agent uses, such as CLIs and MCP servers, comes next.
 - [Ouro Butler](https://ouroboros.bot/butler/): an Ouroboros agent that looks after a home server. Not open yet: it runs on our own Unraid server so far.
 - [The factory](https://ourostack.github.io/factory/): our public record of how agent work actually goes.
 - [m365crawl](https://github.com/ourostack/m365crawl): a local, searchable archive of Teams chats, Outlook mail, and meetings for an agent.

@@ -6,8 +6,8 @@ import test from 'node:test';
 import { readDist, textOf, distDir } from './support/dist.mjs';
 import { entry, labelFor } from '../src/data/readiness.mjs';
 
-const docs = 'https://ourostack.github.io/ouro-ui/docs/';
-const voyage = 'https://ourostack.github.io/ouro-ui/voyage/';
+const docs = 'https://ui.ouro.bot/docs/';
+const voyage = 'https://ui.ouro.bot/voyage/';
 const card = () => readDist('index.html').match(/<article\b[^>]*id="ouro-ui"[\s\S]*?<\/article>/)?.[0];
 const copy = 'Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.';
 
