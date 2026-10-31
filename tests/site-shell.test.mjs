@@ -11,6 +11,7 @@ const navLinks = [
   ['Ouro MD', '/ouro-md/'],
   ['Lab', '/lab/'],
   ['Blog', '/blog/'],
+  ['Apps', 'https://ouro.bot/'],
   ['Try it', '/#try'],
 ];
 
@@ -385,10 +386,10 @@ test('the footer is the shared kit: the line, then one row with the sister link,
     const text = plain(footer);
     assert.ok(text.includes('You bring judgment. Your agents bring the rest.'), `${file} footer line`);
     // On ouroboros.bot the row carries Privacy and Terms, and GitHub goes to ourostack (ruling 2026-10-11), labeled so (root misses ruling 2.18).
-    assert.match(text, /© 2026 Ari Mendelow · mendelow\.me · ourostack on GitHub · LinkedIn · Privacy · Terms/);
+    assert.match(text, /© 2026 Ari Mendelow · ouro\.bot · mendelow\.me · ourostack on GitHub · LinkedIn · Privacy · Terms/);
     // root misses ruling 8.4: each sentence of the line is its own span, as on mendelow.me.
     assert.match(footer, /<span[^>]*>You bring judgment\.<\/span> <span[^>]*>Your agents bring the rest\.<\/span>/);
-    assert.deepEqual(hrefsOf(footer), ['https://mendelow.me', 'https://github.com/ourostack', 'https://www.linkedin.com/in/arimendelow', '/privacy/', '/terms/']);
+    assert.deepEqual(hrefsOf(footer), ['https://ouro.bot/', 'https://mendelow.me', 'https://github.com/ourostack', 'https://www.linkedin.com/in/arimendelow', '/privacy/', '/terms/']);
   }
 });
 
