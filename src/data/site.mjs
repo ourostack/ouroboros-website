@@ -6,6 +6,9 @@ export const navLinks = [
   { href: '/ouro-md/', label: 'Ouro MD' },
   { href: '/lab/', label: 'Lab' },
   { href: '/blog/', label: 'Blog' },
+  // ouro.bot is the same family: it is where the tools are downloaded and
+  // installed, and its header carries this same nav with Apps current.
+  { href: 'https://ouro.bot/', label: 'Apps' },
   { href: '/#try', label: 'Try it' },
 ]
 
@@ -17,6 +20,7 @@ export const footerLine = 'You bring judgment. Your agents bring the rest.'
 // On ouroboros.bot the row also carries Privacy and Terms, which Ouro MD and the
 // hosted Desk depend on, and GitHub goes to the ourostack organization (ruling 2026-10-11).
 export const footerRow = [
+  { href: 'https://ouro.bot/', label: 'ouro.bot' },
   { href: 'https://mendelow.me', label: 'mendelow.me' },
   { href: githubOrg, label: 'ourostack on GitHub' },
   { href: 'https://www.linkedin.com/in/arimendelow', label: 'LinkedIn' },
