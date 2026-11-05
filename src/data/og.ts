@@ -78,7 +78,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/ouro-md': {
     title: 'Ouro MD: read and answer what your agent writes.',
-    subtitle: 'A native Markdown editor for macOS 13 or later. Live updates, quiet marks where your agent changed things.',
+    subtitle: 'A native Markdown editor for macOS 15 or later. Live updates, quiet marks where your agent changed things.',
     tag: 'Ouro MD',
     mark: 'ouro-md',
   },

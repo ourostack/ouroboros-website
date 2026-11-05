@@ -73,7 +73,7 @@ test('no page calls Desk, Ouro MD or Ouroboros stable, supported or production-r
 test('the Ouro MD page carries the install line and the macOS floor', () => {
   const text = textOf(readDist('ouro-md/index.html'));
   assert.ok(text.includes('curl -fsSL https://ouro.bot/ouro-md-install.sh | bash'));
-  assert.ok(text.includes('macOS 13'));
+  assert.ok(text.includes('macOS 15'));
 });
 
 test('the Ouro MD page leads with the card copy and the stacked clips, with no second demo and no badge', () => {
