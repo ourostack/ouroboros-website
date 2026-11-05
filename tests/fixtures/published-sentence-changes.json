@@ -3428,8 +3428,8 @@
  {
   "page": "ouro-md",
   "was": "Download for Mac → macOS 13 or later.",
-  "now": "Download for Mac ↗ macOS 13 or later.",
-  "why": "root misses ruling 4.14 (2026-10-11)"
+  "now": "Download for Mac ↗ macOS 15 or later.",
+  "why": "root misses ruling 4.14 (2026-10-11); then a factual fix (2026-11-05): Ouro MD needs macOS 15, as its Package.swift declares"
  },
  {
   "page": "404 attributes",
@@ -4228,5 +4228,11 @@
   "was": "We sent half a prompt.",
   "now": "Our agent only had the context we gave it, and we only gave it half a prompt.",
   "why": "Ari's essay review, 2026-10-24"
+ },
+ {
+  "page": "share card /ouro-md",
+  "was": "A native Markdown editor for macOS 13 or later. Live updates, quiet marks where your agent changed things.",
+  "now": "A native Markdown editor for macOS 15 or later. Live updates, quiet marks where your agent changed things.",
+  "why": "factual fix (2026-11-05): Ouro MD needs macOS 15, as its Package.swift declares"
  }
 ]
