@@ -283,10 +283,13 @@ html, body { overflow-x: clip; }
 .tag-closed { --tag-tone: var(--color-fang); }
 .tag-plain  { --tag-tone: var(--color-mist); }
 
-/* ── Product media: the card figure with its caption strip (shared kit) ──
-   The homepage cards, /desk/ and /ouro-md/ share these, so the media looks the same everywhere. */
-.product-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); display: flex; flex-direction: column; }
-.product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); }
+/* ── Product media: a demo standing open on the page (shared kit) ──
+   The homepage, /apps/, /desk/ and /ouro-md/ share these, so the media looks the
+   same everywhere. No card: the window or picture sits on the page with soft
+   corners and a warm dawn glow under it, and a light caption below, never a
+   bordered box around both (lesson "No unnecessary cards in UI"). */
+.product-figure { margin: 0 0 0.25rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); border-radius: 0.9rem; box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-canopy) 45%, transparent); }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
 .product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; }
@@ -294,18 +297,20 @@ html, body { overflow-x: clip; }
 .product-media.media-clip video, .product-media.media-clip img { transform: scale(1.04); }
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
-.product-media.media-photo { display: block; background: #f7f5f0; }
-.clip-pair { display: grid; }
+.product-media.media-photo { display: block; background: var(--color-deep); }
+/* A picture that is a link shows it: its own rounded edge turns green on hover. */
+a.product-media { transition: box-shadow 0.2s; }
+a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 2px var(--color-scale); }
+.clip-pair { display: grid; gap: 1.5rem; }
 @media (min-width: 768px) { .clip-pair:not(.clip-stack) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.clip { margin: 0; min-width: 0; display: flex; flex-direction: column; }
-@media (min-width: 768px) { .clip-pair:not(.clip-stack) .clip + .clip { border-left: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
-@media (max-width: 767px) { .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); } }
-.clip-stack .clip + .clip { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
-.clip .product-caption { flex: 1; align-items: start; }
+.clip { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 0.7rem; }
 /* A row of links, shared by every page. */
 .product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-.product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--color-mist); background: var(--color-void); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
-.caption-tag-only { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+/* The caption: a light line under the demo, its "Dramatization" note in small mono beside it. */
+.product-caption { display: block; padding: 0 0.15rem; font-size: 0.9375rem; line-height: 1.5; color: var(--color-mist); }
+.caption-note { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-shadow); white-space: nowrap; }
+.caption-note::after { content: " \00B7 "; letter-spacing: 0; }
+.caption-note:last-child::after { content: none; }
 
 /* ── Copyable text for agents ──
    Long URLs must wrap at 375px; never scroll the page sideways. */
@@ -596,7 +601,8 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    viewport, never from the image, so nothing shifts when it lands. */
 .story-scene { position: relative; overflow: hidden; }
 .story-scene img { display: block; width: 100%; height: auto; }
-.story-hero { width: 100%; }
+/* The scene starts just under the header, so nothing in it (Ouro's head least of all) hides behind the bar. */
+.story-hero { width: 100%; margin-top: 4rem; }
 .story-hero img { aspect-ratio: 1536 / 576; max-height: 72vh; object-fit: cover; object-position: 50% 62%; }
 .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: 3 / 1; }
 .story-hero, .story-meadow {
@@ -629,3 +635,39 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-meadow { margin-top: 3rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); }
 .story-meadow img { height: clamp(11rem, 26vw, 24rem); object-fit: cover; object-position: 50% 72%; }
 .story-meadow + .site-footer { margin-top: 0; border-top: 0; }
+
+/* ── The glowing trail between sections ──
+   The scenes' golden trail runs on down the page as the divider between
+   sections, so the page stays inside the world after the arrival. It replaces
+   the hairline on every section that drew one (main > section.border-t) and
+   on anything marked .trail-top. Drawn in CSS: a wandering line of light with
+   a soft glow and a few fireflies, fading out at both ends. Decoration only,
+   so it sits in the section's own top padding and never moves layout. */
+:root {
+  --trail-core: #FFE7A3;
+  --trail-glow: #F4B63F;
+  --trail-path: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='36' viewBox='0 0 1200 36'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23F4B63F'/%3E%3Cstop offset='.5' stop-color='%23FFE7A3'/%3E%3Cstop offset='1' stop-color='%23F4B63F'/%3E%3C/linearGradient%3E%3Cfilter id='b' x='-5%25' y='-100%25' width='110%25' height='300%25'%3E%3CfeGaussianBlur stdDeviation='3.2'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='%23F4B63F' stroke-width='7' stroke-linecap='round' opacity='.55' filter='url(%23b)'/%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cg fill='%23FFF6D6'%3E%3Ccircle cx='96' cy='8' r='1.6'/%3E%3Ccircle cx='312' cy='29' r='1.2'/%3E%3Ccircle cx='520' cy='7' r='1.4'/%3E%3Ccircle cx='705' cy='27' r='1.8'/%3E%3Ccircle cx='930' cy='9' r='1.3'/%3E%3Ccircle cx='1110' cy='28' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+}
+main > section.border-t, .trail-top { position: relative; border-top-color: transparent !important; }
+main > section.border-t::before, .trail-top::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 0;
+  right: 0;
+  height: 36px;
+  pointer-events: none;
+  background: var(--trail-path) center / 1200px 36px repeat-x;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  opacity: 0.9;
+}
+/* The trail breathes, slowly, like the light along it in the scenes. Opacity only. */
+@media (prefers-reduced-motion: no-preference) {
+  main > section.border-t::before, .trail-top::before { animation: trail-breathe 7s ease-in-out infinite alternate; }
+}
+@keyframes trail-breathe { from { opacity: 0.6; } to { opacity: 1; } }
+
+/* A note beside the essay: open on the page, set off by a thread of trail light, no box. */
+.post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
+.post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: 3px; background: linear-gradient(180deg, transparent, var(--trail-glow) 20%, var(--trail-core) 50%, var(--trail-glow) 80%, transparent); box-shadow: 0 0 10px color-mix(in srgb, var(--trail-glow) 60%, transparent); }

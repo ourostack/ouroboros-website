@@ -29,6 +29,7 @@ export const scenes = {
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
+  m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
 }
 
@@ -86,9 +87,13 @@ export function sceneFor(pathname) {
 /** The scene a route's share card is set in. */
 export const ogSceneFor = (route) => sceneFor(route).og
 
+// The character beside each tool on the homepage, so the world carries on below the panorama.
+export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
+
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
-  const used = new Set([meadowScene, 'friends', 'shepherd', 'factory', 'ouroboros'])
+  // The homepage's grown-inside rows and the factory, then the character beside each tool (homeTools).
+  const used = new Set([meadowScene, 'friends', 'shepherd', 'factory', 'ouroboros', ...Object.values(homeTools)])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
@@ -97,5 +102,5 @@ export function usedScenes() {
   return [...used].sort()
 }
 
-/** The width:height of a scene's wide art. The whole-world panorama is 3:1; the rest are 8:3. */
-export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : [1536, 576])
+/** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
+export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' ? [1536, 614] : [1536, 576])

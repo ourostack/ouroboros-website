@@ -11,6 +11,7 @@ import { labelFor, entry } from '../data/readiness.mjs'
 import { acts } from '../data/acts.mjs'
 import ActBody from '../components/ActBody.astro'
 import StoryScene from '../components/StoryScene.astro'
+import { homeTools } from '../data/scenes.mjs'
 
 // Every visible word on this page is transcribed from the copy deck
 // (ouroboros.bot homepage, 2026-10-11). Builders never write copy here.
@@ -136,7 +137,7 @@ const wastes = [
         <article class="tool" id="desk">
           <DeskMedia />
           <div class="tool-copy">
-            <h3 class="tool-name"><img src="/brand/desk-render.webp" srcset="/brand/desk-render-128.webp 128w, /brand/desk-render-256.webp 256w" sizes="44px" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-render w-11 h-11" />Desk</h3>
+            <h3 class="tool-name"><StoryScene scene={homeTools.desk} variant="vignette" alt="" class="tool-scene" />Desk</h3>
             <p>Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
             <p class="product-links"><a href="/desk/" class={link}>Desk &rarr;</a></p>
           </div>
@@ -145,7 +146,7 @@ const wastes = [
         <article class="tool" id="ouro-md">
           <OuroMdMedia only="agent" />
           <div class="tool-copy">
-            <h3 class="tool-name"><img src="/brand/ouro-md-icon.png" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-tile w-11 h-11" />Ouro MD</h3>
+            <h3 class="tool-name"><StoryScene scene={homeTools['ouro-md']} variant="vignette" alt="" class="tool-scene" />Ouro MD</h3>
             <p>My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
             <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
           </div>
@@ -160,7 +161,7 @@ const wastes = [
             <figcaption class="product-caption">The Ouro HX showcase, 180 fathoms down with the floodlights on.</figcaption>
           </figure>
           <div class="tool-copy">
-            <h3 class="tool-name"><img src="/brand/ouro-hx-render.webp" srcset="/brand/ouro-hx-render-128.webp 128w, /brand/ouro-hx-render-256.webp 256w" sizes="44px" width="44" height="44" alt="" loading="lazy" decoding="async" class="mark-render w-11 h-11" />Ouro UI</h3>
+            <h3 class="tool-name"><StoryScene scene={homeTools['ouro-ui']} variant="vignette" alt="" class="tool-scene" />Ouro UI</h3>
             <p class="grown-status"><span class={`tag ${hxLabel.tone}`}>Ouro HX · {hxLabel.label}</span></p>
             <p>Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.</p>
             <p class="product-links"><a href="/ouro-hx/" class={link}>Ouro HX &rarr;</a> <a href="https://ui.ouro.bot/voyage/" class={link}>Try the showcase &#8599;</a> <a href="https://github.com/ourostack/ouro-ui" class={link}>Source &#8599;</a></p>
@@ -173,7 +174,7 @@ const wastes = [
             <figcaption class="product-caption">The doctor, giving an archive its checkup.</figcaption>
           </figure>
           <div class="tool-copy">
-            <h3 class="tool-name">m365crawl</h3>
+            <h3 class="tool-name"><StoryScene scene={homeTools.m365crawl} variant="vignette" alt="" class="tool-scene" />m365crawl</h3>
             <p>m365crawl gives my agent one searchable archive of my Teams chats, Outlook mail, and meetings, so it can find the conversation and walk into the meeting prepared, without me pasting a thing.</p>
             <p class="product-links"><a href="https://github.com/ourostack/m365crawl" class={link}>m365crawl on GitHub &#8599;</a></p>
           </div>
@@ -181,11 +182,11 @@ const wastes = [
 
         <article class="tool" id="spoonjoy">
           <figure class="product-figure">
-            <a href="https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z" class="product-media media-shot media-photo"><img src="/images/workshop/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." /></a>
+            <a href="https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z" class="product-media media-shot media-photo"><picture class="theme-light-only"><img src="/images/workshop/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." /></picture><picture class="theme-dark-only"><img src="/images/workshop/spoonjoy-recipe-dark.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy, after dark: three bowls of risotto topped with parmesan and green onion." /></picture></a>
             <figcaption class="product-caption">My mushroom risotto in Spoonjoy, one tap from cook mode.</figcaption>
           </figure>
           <div class="tool-copy">
-            <h3 class="tool-name"><span class="spoonjoy-mark w-11 h-11" aria-hidden="true"></span>Spoonjoy</h3>
+            <h3 class="tool-name"><StoryScene scene={homeTools.spoonjoy} variant="vignette" alt="" class="tool-scene" />Spoonjoy</h3>
             <p>Spoonjoy is my recipe app, and where I work out what an app's interface is for once an agent is in the loop. The easy things stay in the app. Writing up a recipe or importing one from a messy webpage goes to an agent that uses the <a href="https://github.com/spoonjoy/spoonjoy-v2/blob/main/app/lib/spoonjoy-api.server.ts" class={link}>same operations</a> the app does. Eventually, the app will draw its own interface for everything in between.</p>
             <p class="product-links"><a href="https://mendelow.me/#spoonjoy-story" class={link}>Spoonjoy, from the start &#8599;</a> <a href="https://spoonjoy.app" class={link}>spoonjoy.app &#8599;</a></p>
           </div>
@@ -335,8 +336,6 @@ const wastes = [
   .portrait-link { color: var(--color-scale); white-space: nowrap; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); text-underline-offset: 4px; }
   .portrait:hover .portrait-link, .portrait:focus-visible .portrait-link { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
   /* A picture that is a link shows it: the rounded frame itself turns green on hover, so the ring follows the frame's corners. */
-  .product-figure:has(> a.product-media) { transition: border-color 0.2s, box-shadow 0.2s; }
-  .product-figure:has(> a.product-media:hover), .product-figure:has(> a.product-media:focus-visible) { border-color: var(--color-scale); box-shadow: 0 0 0 1px var(--color-scale); }
   a.product-media:focus-visible { outline: none; }
 
   .dek { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
@@ -420,7 +419,11 @@ const wastes = [
   }
   .tool > :global(.product-figure) { margin: 0; min-width: 0; }
   .tool-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; color: var(--color-mist); font-size: 1.125rem; line-height: 1.65; }
-  .tool-name { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 2.25rem; line-height: 1.1; color: var(--color-bone); }
+  /* Each tool's character stands beside its name: a small window onto its scene, so the world carries on below the panorama. */
+  .tool-name :global(.tool-scene) { flex: none; width: 6.5rem; border-radius: 1rem; box-shadow: 0 14px 30px -18px color-mix(in srgb, var(--color-amber) 70%, transparent); }
+  .tool-name :global(.tool-scene img) { aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (min-width: 768px) { .tool-name :global(.tool-scene) { width: 8rem; } }
+  .tool-name { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.1rem; font-family: var(--font-display); font-size: 2.25rem; line-height: 1.1; color: var(--color-bone); }
   .hx-voyage { display: block; }
   .hx-voyage img { display: block; width: 100%; height: auto; }
 

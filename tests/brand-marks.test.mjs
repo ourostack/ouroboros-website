@@ -3,12 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { readDist, listHtmlFiles, distDir, distExists } from './support/dist.mjs';
+import { homeTools } from '../src/data/scenes.mjs';
 
 test('normal logo placements use the approved rich renders, not the old vector marks', () => {
   const home = readDist('index.html');
   assert.match(home, /<img\b[^>]*src="\/brand\/ouro-render\.webp"[^>]*class="[^"]*brand-mark/);
   assert.match(home, /id="ouroboros-heading" class="heading-section heading-mark"[^>]*><img src="\/brand\/ouro-render\.webp"/);
-  assert.match(home, /id="desk"[\s\S]*?class="tool-name"[^>]*>[\s\S]*?src="\/brand\/desk-render\.webp"/);
+  // Taste review r2 (2026-11-06): each tool's name stands beside its own scene character, so the world carries on below the panorama.
+  for (const [id, scene] of Object.entries(homeTools)) assert.match(home, new RegExp(`id="${id}"[\\s\\S]*?class="tool-name"[^>]*><div class="story-scene story-vignette[^"]*" data-brand-scene="${scene}"`));
   // Storybook (2026-11-06): what grew inside Ouroboros shows each one's own scene, not a small mark.
   for (const mark of ['friends', 'shepherd', 'butler']) assert.match(home, new RegExp(`id="${mark}"[\\s\\S]*?data-brand-scene="${mark}"`));
   assert.match(readDist('desk/index.html'), /src="\/brand\/desk-render\.webp"/);
@@ -45,10 +47,10 @@ test('the snake hover moves clockwise and is enabled only without reduced motion
   assert.doesNotMatch(nav, /rotate\(\s*-|rotate-\[-/);
 });
 
-test('the Spoonjoy card shows its existing mark in the heading, with theme-aware colour', () => {
+test('the Spoonjoy mark ships with theme-aware colour, and its card heading stands beside its scene', () => {
   const home = readDist('index.html');
   const card = home.match(/<article\b[^>]*id="spoonjoy"[\s\S]*?<\/article>/)[0];
-  assert.match(card, /<h3 class="tool-name"[^>]*><span class="spoonjoy-mark[^"]*"[^>]*aria-hidden="true"[^>]*><\/span>Spoonjoy<\/h3>/);
+  assert.match(card, /<h3 class="tool-name"[^>]*><div class="story-scene story-vignette[^"]*" data-brand-scene="homebrew-tap">[\s\S]*?<\/div>Spoonjoy<\/h3>/);
   assert.ok(distExists('brand/spoonjoy.svg'));
   const svg = fs.readFileSync(path.join(distDir, 'brand/spoonjoy.svg'), 'utf8');
   assert.match(svg, /viewBox="0 0 500 300"/);

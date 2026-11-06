@@ -11,8 +11,10 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
 ---
 
 <nav class="fixed top-0 inset-x-0 z-40" id="main-nav" aria-label="Main">
-  {/* Glass on every page, the homepage too: each one now opens on a bright dawn scene under it. */}
-  <div id="nav-bg" class="bg-deep/75 backdrop-blur-lg border-b border-canopy/15">
+  {/* The header reads cleanly over the bright dawn on every page: nearly solid paper
+      (or night) with only a whisper of the scene through it, so nothing smears
+      under the words, and a thin line of trail light along its foot. */}
+  <div id="nav-bg" class="nav-glass">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 h-16 px-4 sm:px-6 md:px-12 lg:px-16">
       <a href="/" class="brand-home group flex items-center gap-3 text-bone" aria-label="Ouro home">
         <img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w, /brand/ouro-render.webp 1024w" sizes="32px" width="32" height="32" alt="" class="mark-render brand-mark w-8 h-8" />
@@ -70,6 +72,21 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
 </nav>
 
 <style>
+  .nav-glass {
+    position: relative;
+    background: color-mix(in srgb, var(--color-deep) 94%, transparent);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    backdrop-filter: blur(10px) saturate(1.1);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--color-canopy) 40%, transparent);
+  }
+  .nav-glass::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px; height: 1px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, #F4B63F 70%, transparent) 30%, color-mix(in srgb, #FFE7A3 80%, transparent) 50%, color-mix(in srgb, #F4B63F 70%, transparent) 70%, transparent);
+    opacity: 0.6;
+  }
   @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
     .brand-mark { transition: transform 0.5s var(--ease-expo); }
     .brand-home:hover .brand-mark { transform: rotate(25deg); }
@@ -97,31 +114,31 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
   })();
 </script>
 <script is:inline>
+  // The phone menu: the toggle opens and closes it; a link, Escape or the
+  // toggle again closes it. Closing unlocks the page scroll, and Escape hands
+  // focus back to the toggle so a keyboard reader is never left stranded.
   (function() {
     var toggle = document.getElementById('menu-toggle');
     var menu = document.getElementById('mobile-menu');
     var iconOpen = document.getElementById('menu-icon-open');
     var iconClose = document.getElementById('menu-icon-close');
-    if (toggle) {
-      toggle.addEventListener('click', function() {
-        var isOpen = !menu.classList.contains('hidden');
-        menu.classList.toggle('hidden');
-        iconOpen.classList.toggle('hidden');
-        iconClose.classList.toggle('hidden');
-        toggle.setAttribute('aria-expanded', String(!isOpen));
-        document.body.style.overflow = isOpen ? '' : 'hidden';
-      });
+    if (!toggle || !menu) return;
+    function isOpen() { return !menu.classList.contains('hidden'); }
+    function setOpen(open) {
+      menu.classList.toggle('hidden', !open);
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
     }
-    if (menu) {
-      menu.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function() {
-          menu.classList.add('hidden');
-          iconOpen.classList.remove('hidden');
-          iconClose.classList.add('hidden');
-          toggle.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        });
-      });
-    }
+    toggle.addEventListener('click', function() { setOpen(!isOpen()); });
+    menu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() { setOpen(false); });
+    });
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && isOpen()) { setOpen(false); toggle.focus(); }
+    });
+    // Widening past the phone layout hides the menu, so never leave the page locked.
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', function(e) { if (e.matches && isOpen()) setOpen(false); });
   })();
 </script>

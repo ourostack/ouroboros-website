@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro'
 import SerpentGuidePreview from '../../components/SerpentGuidePreview.astro'
 import OuroborosRing from '../../components/OuroborosRing.astro'
+import StoryScene from '../../components/StoryScene.astro'
 import modelReviews from '../../data/model-reviews.json'
 import { ogPathFor, pageOg } from '../../data/og'
 import { labelFor } from '../../data/readiness.mjs'
@@ -196,13 +197,17 @@ const pieces = [
 
   <!-- ═══════════════ STILL HERE? ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 pt-16 sm:pt-20 pb-16 sm:pb-24 reveal">
-    <div class="max-w-6xl mx-auto split lg:items-baseline">
-      <p class="text-bone text-lg sm:text-xl leading-relaxed split-head">
-        <a href="/lab/why" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Your agent has a heartbeat.</a>
+    {/* The heartbeat line stands with its own scene (the open storybook: a diary and a journal) instead of floating alone. */}
+    <div class="max-w-6xl mx-auto heartbeat">
+      <StoryScene scene="gatefold" variant="vignette" alt="" class="heartbeat-scene" sizes="(min-width: 768px) 14rem, 9rem" />
+      <div class="grid gap-4 min-w-0">
+      <p class="font-display text-3xl md:text-4xl text-bone leading-tight">
+        <a href="/lab/why" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Your agent has a heartbeat.</a>
       </p>
-      <p class="text-sm md:text-base text-mist mt-6 leading-relaxed split-body">
+      <p class="text-base md:text-lg text-mist leading-relaxed">
         A diary, a journal, habits it writes for itself, and a <a href="/lab/why#inner-life" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">vocabulary for thinking</a>.
       </p>
+      </div>
     </div>
   </section>
 
@@ -222,3 +227,11 @@ const pieces = [
     </div>
   </section>
 </Layout>
+
+<style>
+  .heartbeat { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem 2.25rem; }
+  .heartbeat :global(.heartbeat-scene) { flex: none; width: 9rem; border-radius: 1.1rem; overflow: hidden; box-shadow: 0 18px 36px -20px color-mix(in srgb, var(--color-amber) 70%, transparent); }
+  .heartbeat :global(.heartbeat-scene img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (min-width: 768px) { .heartbeat :global(.heartbeat-scene) { width: 14rem; } }
+  .heartbeat > div { flex: 1 1 18rem; }
+</style>

@@ -43,7 +43,7 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     assert.match(sources[3], /type="image\/webp"/);
     const img = block.match(/<img\b[^>]*>/)[0];
     assert.match(img, /fetchpriority="high"/);
-    assert.match(img, /width="1536" height="(?:512|576)"/);
+    assert.match(img, /width="1536" height="(?:512|576|614)"/);
     assert.doesNotMatch(img, /loading=/, `${pageOf(file)}: the hero is never lazy`);
   }
 });
@@ -53,7 +53,7 @@ test('scenes further down wait for the arrival, and no page shows one scene twic
     const html = fs.readFileSync(file, 'utf8');
     const used = [...html.matchAll(/data-brand-scene="([^"]+)"/g)].map(([, s]) => s);
     assert.equal(new Set(used).size, used.length, `${pageOf(file)} repeats a scene: ${used}`);
-    for (const [block] of html.matchAll(/<div class="story-scene story-(?:inline|meadow)[\s\S]*?<\/picture>/g)) {
+    for (const [block] of html.matchAll(/<div class="story-scene story-(?:inline|meadow|vignette)[\s\S]*?<\/picture>/g)) {
       assert.match(block, /<picture data-defer>/);
       assert.doesNotMatch(block, /\ssrcset=|<img\b[^>]*\ssrc=/, 'a deferred scene names no source the preload scanner could fetch');
       assert.match(block.match(/<img\b[^>]*>/)[0], /loading="lazy" decoding="async"/);
