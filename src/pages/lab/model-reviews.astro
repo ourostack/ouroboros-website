@@ -21,7 +21,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
   title="Which agent harness do frontier models prefer? | Ouro"
   description={`${claimSentence} Read the full methodology and transcripts.`}
   ogImage={ogPathFor('/lab/model-reviews')}
->
+ crumbs={["Reviews"]}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -36,7 +36,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
   </Fragment>
 
   <!-- Hero — uses the shared HeroCover so this page matches every other top-level page -->
-  <HeroCover eyebrow="Reviews">
+  <HeroCover>
     <Fragment slot="title">
       Which agent harness do<br class="hidden sm:inline" /> frontier models prefer?
     </Fragment>

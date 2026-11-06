@@ -31,7 +31,8 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
 
         <div class="grid gap-2">
           <span class="caption-mono">Give your agent</span>
-          <pre id="desk-setup" class="agent-text">{`${deskSetupUrl}\nset this up`}</pre>
+          {/* A break opportunity after each slash, so a phone wraps the address between its parts, never mid-word ("ourostac / k", taste review r4). <wbr> adds no text, so Copy copies the address whole. */}
+          <pre id="desk-setup" class="agent-text">{deskSetupUrl.split('/').map((part, i, all) => <>{part}{i < all.length - 1 && <>/<wbr /></>}</>)}{`\nset this up`}</pre>
           <div class="flex flex-wrap items-center gap-3">
             <button type="button" data-copy-target="desk-setup" class="inline-flex items-center rounded-xl bg-bone text-void px-4 py-2.5 text-sm font-medium hover:bg-scale transition-colors"><span data-copy-label>Copy</span></button>
             <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>

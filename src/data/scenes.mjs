@@ -127,7 +127,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 432], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 432] }
+const phoneSizes = { ourostack: [768, 432], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 432], factory: [768, 384] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */

@@ -20,7 +20,7 @@ const cards = [
   ogImage={ogPathFor('/lab/what-is-an-agent-harness')}
   canonical="https://ouroboros.bot/lab/what-is-an-agent-harness/"
   ogType="article"
->
+ crumbs={["Guide"]}>
   <Fragment slot="head">
     <meta name="author" content="Ari Mendelow" />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -33,7 +33,7 @@ const cards = [
     })} />
   </Fragment>
 
-  <HeroCover eyebrow="Guide">
+  <HeroCover>
     <Fragment slot="title">What is an agent harness?</Fragment>
     <Fragment slot="body">
       If an agent loop is the primitive that lets a model act, an agent harness is the larger system that helps the same agent stay oriented, persist across sessions, and work across time.

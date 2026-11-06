@@ -55,34 +55,35 @@ function markSrc(mark: string): string {
 const sceneDir = join(process.cwd(), 'public/brand/storybook/og')
 
 // Where the words may stand in each card scene: [x0, y0, x1, y1] in the 1200x630
-// card, hand-picked from public/brand/storybook/og on a 100px grid (taste review
-// r2, 2026-11-06). Each zone is open sky, distant hills or open grass, and holds
-// no character, so neither the words nor their scrim ever cover Ouro or a friend.
+// card (after any FRAME below), hand-picked on a 100px grid (taste review r2,
+// re-picked in r5 so every title fits at the one TITLE_SIZE). Each zone is open
+// sky, distant hills or open grass, and holds no character, post, vine or
+// lantern, so neither the words nor their scrim ever cover anything drawn.
 const TITLE_ZONE: Record<string, [number, number, number, number]> = {
-  'apple-distribution-kit': [780, 20, 1170, 290],
-  'butler': [230, 436, 760, 616],
-  'desk': [280, 14, 1170, 142],
-  'factory': [480, 20, 1170, 296],
-  'flow-review': [40, 20, 740, 256],
-  'friends': [40, 14, 1160, 126],
-  'friends-relay': [770, 20, 1170, 350],
-  'gatefold': [40, 16, 680, 156],
-  'homebrew-tap': [690, 8, 1190, 134],
-  'm365crawl': [840, 14, 1180, 180],
-  'ouro-apps-site': [806, 8, 1190, 174],
-  'ouro-hx': [660, 20, 1170, 296],
-  'ouro-md': [380, 8, 1190, 148],
-  'ouro-native-apple-app-shell': [10, 8, 232, 250],
-  'ouro-ui-apple': [30, 16, 390, 196],
-  'ouro-ui-core': [30, 14, 840, 146],
-  'ouro-work': [800, 8, 1190, 168],
-  'ouro-workbench': [880, 16, 1190, 225],
-  'ouroboros': [800, 10, 1190, 170],
-  'ouroboros-skills': [830, 8, 1190, 228],
-  'ouroboros-website': [290, 30, 620, 226],
-  'ourostack': [330, 8, 1070, 190],
-  'playwright-focus-proof': [30, 16, 520, 310],
-  'shepherd': [250, 16, 800, 270],
+  'apple-distribution-kit': [780, 6, 1194, 290],
+  'butler': [200, 446, 760, 628],
+  'desk': [280, 6, 1194, 172],
+  'factory': [450, 6, 1194, 250],
+  'flow-review': [16, 6, 760, 268],
+  'friends': [40, 4, 1160, 132],
+  'friends-relay': [772, 6, 1194, 330],
+  'gatefold': [16, 6, 1194, 140],
+  'homebrew-tap': [320, 6, 1194, 150],
+  'm365crawl': [820, 6, 1194, 196],
+  'ouro-apps-site': [560, 4, 1196, 166],
+  'ouro-hx': [640, 6, 1194, 316],
+  'ouro-md': [390, 6, 1194, 190],
+  'ouro-native-apple-app-shell': [720, 6, 1194, 240],
+  'ouro-ui-apple': [16, 6, 1194, 138],
+  'ouro-ui-core': [16, 6, 1194, 132],
+  'ouro-work': [800, 6, 1194, 172],
+  'ouro-workbench': [760, 6, 1194, 270],
+  'ouroboros': [680, 6, 1194, 180],
+  'ouroboros-skills': [830, 6, 1194, 240],
+  'ouroboros-website': [770, 6, 1194, 196],
+  'ourostack': [330, 6, 1060, 190],
+  'playwright-focus-proof': [16, 6, 540, 300],
+  'shepherd': [240, 6, 800, 250],
 }
 // Busy ground (the butler's flowered lawn) needs a firmer vignette than open sky.
 const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-ui-apple': 0.8, 'ouro-native-apple-app-shell': 0.8 }
@@ -91,15 +92,24 @@ const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-ui-apple': 0.8
 // card takes the whole-world header at card height and slides the window right,
 // so the picnic, both robots and the sheep fit whole (taste review r3). The
 // art's bytes are only resized and cropped here, never repainted.
-const FRAME: Record<string, { file: string; left: number }> = {
+// Taste review r5 reframed three more: the workbench zooms in a little so its
+// open sky clears the timber post, vines and lantern; the shell and the apps
+// stall slide right so the words get the wide sunset sky instead of a sliver.
+const FRAME: Record<string, { file: string; left: number; height?: number }> = {
   ourostack: { file: 'headers/ourostack.webp', left: 690 },
+  'ouro-workbench': { file: 'headers/ouro-workbench.webp', left: 816, height: 756 },
+  'ouro-native-apple-app-shell': { file: 'headers/ouro-native-apple-app-shell.webp', left: 480 },
+  'ouro-apps-site': { file: 'headers/ouro-apps-site.webp', left: 480 },
 }
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.
-const INSET = 16
+const INSET = 10
 const HEAD = 34
-const HEAD_GAP = 10
+const HEAD_GAP = 8
 const CHAR_EM = 0.4 // Cormorant runs about 0.4em a character (measured on these cards)
+// One type scale on every card (taste review r5): the title is always this size,
+// and only the line count changes. A zone too small for it fails the build.
+export const TITLE_SIZE = 46
 
 export const getStaticPaths: GetStaticPaths = () => {
   return Object.keys(pageOg).map((routePath) => ({
@@ -132,8 +142,8 @@ export const GET: APIRoute = async ({ params }) => {
   const titleRoom = zone[3] - zone[1] - INSET * 2 - headH - HEAD_GAP
 
   // Balanced lines broken only between words (so "to-do" stays whole), each
-  // drawn on its own so none can wrap again. Pick the line count, up to five,
-  // whose title is largest while it still fits the zone's width and height.
+  // drawn on its own so none can wrap again. Take the fewest lines, up to five,
+  // that fit the zone's width at TITLE_SIZE, and check they fit its height.
   const words = title.split(' ')
   const balance = (n: number): string[] => {
     if (n === 1) return [title]
@@ -151,14 +161,14 @@ export const GET: APIRoute = async ({ params }) => {
     go(0, n, [])
     return best
   }
-  let lines = [title]
-  let titleSize = 0
-  for (let n = 1; n <= Math.min(5, words.length); n++) {
+  const titleSize = TITLE_SIZE
+  let lines: string[] | null = null
+  for (let n = 1; n <= Math.min(5, words.length) && !lines; n++) {
     const candidate = balance(n)
     const longest = Math.max(...candidate.map((l) => l.length))
-    const size = Math.floor(Math.min(92, colWidth / (longest * CHAR_EM), titleRoom / (n * 1.04)))
-    if (size > titleSize) { titleSize = size; lines = candidate }
+    if (longest * CHAR_EM * titleSize <= colWidth && n * titleSize * 1.04 <= titleRoom) lines = candidate
   }
+  if (!lines) throw new Error(`og: "${title}" does not fit the ${scene} title zone at ${TITLE_SIZE}px`)
 
   const div = (style: Record<string, unknown>, children?: unknown) => ({ type: 'div', props: { style, children } })
   // A soft, edgeless parchment vignette behind the words (taste review r3,
@@ -235,7 +245,7 @@ export const GET: APIRoute = async ({ params }) => {
   const wordsLayer = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
   const frame = FRAME[scene]
   const base = frame
-    ? await sharp(join(process.cwd(), 'public/brand/storybook', frame.file)).resize({ height: 630 }).extract({ left: frame.left, top: 0, width: 1200, height: 630 }).toBuffer()
+    ? await sharp(join(process.cwd(), 'public/brand/storybook', frame.file)).resize({ height: frame.height ?? 630 }).extract({ left: frame.left, top: 0, width: 1200, height: 630 }).toBuffer()
     : join(sceneDir, `${scene}.jpg`)
   const jpeg = await sharp(base)
     .composite([{ input: Buffer.from(scrimSvg) }, { input: Buffer.from(wordsLayer) }])

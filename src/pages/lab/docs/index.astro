@@ -59,7 +59,7 @@ const pages = [
   description={description}
   ogImage={ogPathFor('/lab/docs')}
   canonical="https://ouroboros.bot/lab/docs/"
->
+ crumbs={["Documentation"]}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -72,7 +72,7 @@ const pages = [
     })} />
   </Fragment>
 
-  <HeroCover eyebrow="Documentation">
+  <HeroCover>
     <Fragment slot="title">
       Docs for humans.<br class="hidden sm:inline" /> Skills for agents.
     </Fragment>

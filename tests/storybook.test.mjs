@@ -54,7 +54,9 @@ test('scenes further down wait for the arrival, and no page shows one scene twic
     const used = [...html.matchAll(/data-brand-scene="([^"]+)"/g)].map(([, s]) => s);
     assert.equal(new Set(used).size, used.length, `${pageOf(file)} repeats a scene: ${used}`);
     for (const [block] of html.matchAll(/<div class="story-scene story-(?:inline|meadow|vignette)[\s\S]*?<\/picture>/g)) {
-      assert.match(block, /<picture data-defer>/);
+      // The meadow above the footer is marked "far": it starts loading a few
+      // screens ahead, so a quick scroll to the foot never meets an empty band.
+      assert.match(block, block.includes('story-meadow') ? /<picture data-defer="far">/ : /<picture data-defer>/);
       assert.doesNotMatch(block, /\ssrcset=|<img\b[^>]*\ssrc=/, 'a deferred scene names no source the preload scanner could fetch');
       assert.match(block.match(/<img\b[^>]*>/)[0], /loading="lazy" decoding="async"/);
     }
