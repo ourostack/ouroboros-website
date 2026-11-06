@@ -10,6 +10,7 @@ import { principles, smells, factoryUrl, deskSetupUrl } from '../data/principles
 import { labelFor, entry } from '../data/readiness.mjs'
 import { acts } from '../data/acts.mjs'
 import ActBody from '../components/ActBody.astro'
+import StoryScene from '../components/StoryScene.astro'
 
 // Every visible word on this page is transcribed from the copy deck
 // (ouroboros.bot homepage, 2026-10-11). Builders never write copy here.
@@ -78,9 +79,12 @@ const wastes = [
   <section id="ouroboros" class={`${section} scroll-mt-16`} aria-labelledby="ouroboros-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="ouroboros-heading" class="heading-section heading-mark"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render" />Ouroboros</h2>
-      <div class="lead">
+      <div class="split split-media ouroboros-intro">
+      <div class="lead split-head">
         <p>Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.</p>
         <p><a href="/lab/" class={link}>The harness &rarr;</a></p>
+      </div>
+      <StoryScene scene="ouroboros" class="split-body" sizes="(min-width: 1024px) 40rem, 100vw" />
       </div>
 
       <h3 class="heading-sub sub-block">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h3>
@@ -90,7 +94,7 @@ const wastes = [
       <h3 class="heading-sub sub-block">Grown inside it</h3>
       <ul class="grown">
         <li id="friends">
-          <img src="/brand/friends-render.webp" srcset="/brand/friends-render-128.webp 128w, /brand/friends-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
+          <StoryScene scene="friends" sizes="(min-width: 1200px) 22rem, (min-width: 640px) 36rem, 100vw" />
           <div class="grown-body">
             <h4 class="grown-name">Friends</h4>
             <p class="grown-status"><span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span> {friendsDetail}</p>
@@ -99,7 +103,7 @@ const wastes = [
           </div>
         </li>
         <li id="shepherd">
-          <img src="/brand/shepherd-render.webp" srcset="/brand/shepherd-render-128.webp 128w, /brand/shepherd-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
+          <StoryScene scene="shepherd" sizes="(min-width: 1200px) 22rem, (min-width: 640px) 36rem, 100vw" />
           <div class="grown-body">
             <h4 class="grown-name">Ouro Shepherd</h4>
             <p class="grown-status"><span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span> {shepherdDetail}</p>
@@ -108,7 +112,7 @@ const wastes = [
           </div>
         </li>
         <li id="butler">
-          <img src="/brand/butler-render.webp" srcset="/brand/butler-render-128.webp 128w, /brand/butler-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render grown-mark" />
+          <StoryScene scene="butler" sizes="(min-width: 1200px) 22rem, (min-width: 640px) 36rem, 100vw" />
           <div class="grown-body">
             <h4 class="grown-name">Ouro Butler</h4>
             <p class="grown-status"><span class={`tag ${butlerLabel.tone}`}>{butlerLabel.label}</span> {butlerDetail}</p>
@@ -229,9 +233,12 @@ const wastes = [
         <h2 id="factory-heading" class="heading-section">Software factories can learn from real ones.</h2>
         <p class="factory-lead">Software factories, with agents shipping code all night, are coming as fast as the infrastructure catches up. I'm working through the problems they'll hit now, on my own agents' work, with a method that works today and scales up with them.</p>
       </div>
-      <div class="factory-body">
+      <div class="split split-media factory-split">
+      <div class="factory-body split-head">
         <p>Real factories have a century of practice behind them, and I studied them before I wrote software: Industrial and Systems Engineering, where my favorite class was Work Design and Ergonomics, designing the work around the worker. Lean is what I reach for most, because it starts with where the time goes.</p>
         <p>Agents amplify what's already there (<a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report" class={link}>DORA 2025</a>). In one study, experienced developers took 19% longer with early-2025 coding assistants while believing they'd gone about 20% faster (<a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" class={link}>METR</a>). So I measure where my agents' time actually goes, task by task, and fix the biggest causes first.</p>
+      </div>
+      <StoryScene scene="factory" class="split-body" sizes="(min-width: 1024px) 40rem, 100vw" />
       </div>
 
       <p class="block-label">Lean's eight wastes, as they show up with agents</p>
@@ -349,10 +356,14 @@ const wastes = [
   /* Three parallel things, so three columns from 1024px. */
   .grown { display: grid; gap: 1.75rem 3rem; margin-top: 1.5rem; }
   @media (min-width: 1200px) { .grown { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .grown > li { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.25rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .grown > li { display: grid; gap: 1.25rem; align-content: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .grown-body { display: grid; gap: 0.5rem; align-content: start; }
   .grown-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
-  .grown-mark { width: 4rem; height: 4rem; }
+  @media (min-width: 640px) and (max-width: 1199.98px) { .grown > li { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; } }
+  .ouroboros-intro, .factory-split { margin-top: 1.5rem; row-gap: 2rem; }
+  .ouroboros-intro .lead { margin-top: 0; }
+  .factory-split .factory-body { margin-top: 0; }
+  @media (min-width: 1024px) { .ouroboros-intro, .factory-split { align-items: center; } }
   .grown-name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; color: var(--color-bone); }
   .block-label { margin-top: 3.5rem; margin-bottom: 1.25rem; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-scale); }
   .acts { display: grid; gap: 1.75rem; }

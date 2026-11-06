@@ -587,3 +587,45 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; border: 1px solid var(--color-canopy); color: var(--color-bone); padding: 0.75rem 1.25rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
 .btn-ghost:hover { border-color: var(--color-scale); color: var(--color-scale); }
 .prose-ouro a.btn-primary, .prose-ouro a.btn-primary:hover { color: var(--color-void); text-decoration: none; }
+
+/* ── The storybook world (src/components/StoryScene.astro) ──
+   A page arrives in its scene: full bleed under the glass nav, the dawn
+   fading into the page at the bottom edge so it sits softly on parchment and
+   on the dark theme alike (no frames, no boxes). The art is served byte for
+   byte; CSS only sizes and crops it. Heights come from the width and the
+   viewport, never from the image, so nothing shifts when it lands. */
+.story-scene { position: relative; overflow: hidden; }
+.story-scene img { display: block; width: 100%; height: auto; }
+.story-hero { width: 100%; }
+.story-hero img { aspect-ratio: 1536 / 576; max-height: 72vh; object-fit: cover; object-position: 50% 62%; }
+.story-hero[data-brand-scene="ourostack"] img { aspect-ratio: 3 / 1; }
+.story-hero, .story-meadow {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+}
+@media (max-width: 640px) {
+  .story-hero img, .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: 4 / 3; max-height: none; }
+}
+/* The first section after a scene no longer has to clear the nav. Unlayered,
+   so it wins over each page's own pt-* utility. */
+.story-hero + section, .story-hero + article, .story-hero + div,
+.story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 2rem; }
+@media (min-width: 768px) {
+  .story-hero + section, .story-hero + article, .story-hero + div,
+  .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 3rem; }
+}
+/* A slow drift, as if the morning breeze were moving the camera. Compositor
+   only, never layout; off entirely for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .story-hero img { transform-origin: 62% 70%; animation: story-drift 60s ease-in-out infinite alternate; }
+}
+@keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.05) translate(-0.8%, -0.6%); } }
+/* Scenes further down: soft rounded corners, no border, a whisper of glow. */
+.story-inline { border-radius: 1rem; }
+.story-inline img { aspect-ratio: 1536 / 576; object-fit: cover; }
+@media (max-width: 640px) { .story-inline img { aspect-ratio: 4 / 3; } }
+.story-inline { box-shadow: 0 20px 50px -30px color-mix(in srgb, var(--color-amber) 55%, transparent); }
+/* The meadow above the footer: a low band of the open gate, fading in from the page. */
+.story-meadow { margin-top: 3rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); }
+.story-meadow img { height: clamp(11rem, 26vw, 24rem); object-fit: cover; object-position: 50% 72%; }
+.story-meadow + .site-footer { margin-top: 0; border-top: 0; }

@@ -4,6 +4,7 @@ import OuroMdMedia from '../components/OuroMdMedia.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor, entry } from '../data/readiness.mjs'
 import { ouroMdInstall } from '../data/principles.mjs'
+import StoryScene from '../components/StoryScene.astro'
 
 // The apps shelf. It moved here from the ouro.bot homepage (ourostack/ouro-apps-site#15)
 // when ouro.bot forwarded to ouroboros.bot (Ari, 2026-11-06: "we need a unified domain").
@@ -23,19 +24,19 @@ const why = [
 ]
 
 const shelf = [
-  { id: 'ouroboros', mark: 'ouro', name: 'Ouroboros', readiness: 'harness',
+  { id: 'ouroboros', scene: 'ouroboros', name: 'Ouroboros', readiness: 'harness',
     body: 'Ouroboros is the agent harness I built from scratch, and it’s where I test what agents need. npx ouro.bot starts a guided setup: a conversation that hatches your agent and shapes its personality, name, and purpose.',
     links: [['/lab/', 'The harness →']] },
-  { id: 'shepherd', mark: 'shepherd', name: 'Ouro Shepherd', readiness: 'shepherd',
+  { id: 'shepherd', scene: 'shepherd', name: 'Ouro Shepherd', readiness: 'shepherd',
     body: 'Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.',
     links: [['https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', 'How Shepherd decides ↗']] },
-  { id: 'ouro-hx', mark: 'ouro-hx', name: 'Ouro HX', readiness: 'ouro-hx',
+  { id: 'ouro-hx', scene: 'ouro-hx', name: 'Ouro HX', readiness: 'ouro-hx',
     body: 'Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it.',
     links: [['/ouro-hx/', 'Meet Ouro HX →'], ['https://ui.ouro.bot/', 'See it live ↗']] },
-  { id: 'desk', mark: 'desk', name: 'Desk', readiness: 'desk-claude-code-macos',
+  { id: 'desk', scene: 'desk', name: 'Desk', readiness: 'desk-claude-code-macos',
     body: 'Desk keeps my agents’ work in a Git repository: every track, task, decision, and lesson. Ask “where were we?” on any machine, and the agent knows.',
     links: [['/desk/', 'Desk →']] },
-  { id: 'butler', mark: 'butler', name: 'Ouro Butler', readiness: 'butler',
+  { id: 'butler', scene: 'butler', name: 'Ouro Butler', readiness: 'butler',
     body: 'An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.',
     links: [['/butler/', 'Ouro Butler →']] },
 ].map((item) => ({ ...item, status: labelFor(item.readiness), detail: entry(item.readiness).detail }))
@@ -73,13 +74,16 @@ const shelf = [
   </section>
 
   <section id="why" class={`${section} bg-deep/40 scroll-mt-16`} aria-labelledby="why-heading">
-    <div class="max-w-6xl mx-auto">
-      <h2 id="why-heading" class="heading-section">Made the way desktop software used to be made.</h2>
-      <ul class="does">
+    <h2 id="why-heading" class="heading-section max-w-6xl mx-auto">Made the way desktop software used to be made.</h2>
+    <div class="max-w-6xl mx-auto split split-media why-split">
+      <div class="split-head">
+      <ul class="does does-stack">
         {why.map(([name, body]) => (
           <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
         ))}
       </ul>
+      </div>
+      <StoryScene scene="ouro-md" class="split-body" sizes="(min-width: 1024px) 40rem, 100vw" />
     </div>
   </section>
 
@@ -90,7 +94,7 @@ const shelf = [
       <ul class="shelf">
         {shelf.map((item) => (
           <li id={item.id}>
-            <img src={`/brand/${item.mark}-render.webp`} srcset={`/brand/${item.mark}-render-128.webp 128w, /brand/${item.mark}-render-256.webp 256w`} sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render shelf-mark" />
+            <StoryScene scene={item.scene} sizes="(min-width: 900px) 34rem, 100vw" />
             <div class="shelf-body">
               <h3 class="shelf-name">{item.name}</h3>
               <p class="shelf-status"><span class={`tag ${item.status.tone}`}>{item.status.label}</span> {item.detail}</p>
@@ -111,12 +115,13 @@ const shelf = [
   .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
   @media (min-width: 768px) { .does { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .does li { display: grid; gap: 0.4rem; align-content: start; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
+  .why-split { row-gap: 2.5rem; }
+  @media (min-width: 1024px) { .why-split { align-items: center; } .does-stack { grid-template-columns: minmax(0, 1fr); } }
   .does-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
-  .shelf { display: grid; gap: 2.25rem 3rem; margin-top: 2.5rem; }
+  .shelf { display: grid; gap: 3.5rem 3rem; margin-top: 2.5rem; }
   @media (min-width: 900px) { .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .shelf > li { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1.25rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .shelf > li { display: grid; gap: 1.25rem; align-content: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .shelf-body { display: grid; gap: 0.5rem; align-content: start; }
   .shelf-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
-  .shelf-mark { width: 4rem; height: 4rem; }
   .shelf-name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; color: var(--color-bone); }
 </style>
