@@ -92,6 +92,8 @@ test('setup guide provides prerequisites and a copyable command before the demo'
   assert.match(html, /href="https:\/\/nodejs\.org\/en\/download\/?"/);
   assert.match(html, /<button\b[^>]*data-prompt="npx ouro\.bot"[^>]*>/);
   assert.match(text, /Open Terminal/i);
+  // Only the copyable command wears a frame; its label sits above it in the page type.
+  assert.match(html, /<pre class="prompt-frame[^"]*"[^>]*>npx ouro\.bot<\/pre>/);
   assert.ok(html.indexOf('data-prompt="npx ouro.bot"') < html.indexOf("welcome to ouroboros"));
 });
 

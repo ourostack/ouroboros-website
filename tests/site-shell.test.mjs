@@ -85,7 +85,7 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
   // Each model's own verdict, from the published data, linked to its transcript.
   for (const review of reviews.reviews) {
     assert.ok(text.includes(`“${review.pullQuote}”`), `Missing ${review.displayName}'s verdict`);
-    assert.ok(hrefsOf(section).includes(`/lab/model-reviews/${review.provider}`));
+    assert.ok(hrefsOf(section).includes(`/lab/model-reviews/${review.provider}/`));
   }
   assert.doesNotMatch(text, /four frontier models|four models/i);
   // Ari, 2026-10-20: the product is Ouro Butler; Mendelow Cloud Butler is only our install of it.
@@ -578,7 +578,7 @@ test('the blog index lists every post, old and new, at /blog/', () => {
   const html = readDist('blog/index.html');
   const hrefs = hrefsOf(html);
   for (const slug of ['trust-the-agent', 'take-the-agents-seat', 'stop-being-the-glue', 'designing-with-your-agent', 'what-is-agent-experience', 'give-your-agent-a-home', 'build-ai-agent-from-scratch']) {
-    assert.ok(hrefs.includes(`/blog/${slug}`), `Blog index is missing ${slug}`);
+    assert.ok(hrefs.includes(`/blog/${slug}/`), `Blog index is missing ${slug}`);
     assert.ok(distExists(`blog/${slug}/index.html`), `${slug} is not built at /blog/`);
   }
   assert.match(textOf(html), /Dispatches from the serpent\./);
@@ -675,7 +675,7 @@ test('the Lab opens with the harness as the origin and keeps the live homepage i
   for (const line of ['What survives when the context window runs out?', 'The tail is consumed. The self survives.', 'One command. A conversation. Hatched.', 'Your agent has a heartbeat.']) {
     assert.ok(text.includes(line), `Lab is missing "${line}"`);
   }
-  for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) assert.ok(hrefsOf(html).includes(`/lab/model-reviews/${provider}`));
+  for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) assert.ok(hrefsOf(html).includes(`/lab/model-reviews/${provider}/`));
   for (const href of ['/lab/story/', '/lab/why/', '/lab/docs/', '/lab/model-reviews/', '/blog/what-is-agent-experience/', '/blog/build-ai-agent-from-scratch/']) {
     assert.ok(hrefsOf(html).includes(href), `Lab is missing ${href}`);
   }
@@ -715,7 +715,9 @@ test('the story opens with who Slugger is and ends with where it went, with no d
 test('the harness pages define their own words without touching the prose', () => {
   for (const file of ['lab/why/index.html', 'lab/docs/index.html', 'lab/docs/getting-started/index.html']) {
     const html = readDist(file);
-    const glossary = html.match(/<details\b[^>]*data-glossary[\s\S]*?<\/details>/);
+    // Open on the page, no box and no fold (taste review r2, 2026-11-06).
+    const glossary = html.match(/<section\b[^>]*data-glossary[\s\S]*?<\/section>/);
+    assert.doesNotMatch(html, /<details\b[^>]*data-glossary/);
     assert.ok(glossary, `${file} has no glossary`);
     for (const term of ['Psyche', 'Bundle', 'Reorientation overhead']) assert.match(textOf(glossary[0]), new RegExp(term));
   }
@@ -864,4 +866,22 @@ test('unknown URLs get the custom 404 page in production and in previews', () =>
   assert.match(worker, /"not_found_handling":\s*"404-page"/);
   assert.match(preview, /"not_found_handling":\s*"404-page"/);
   assert.match(readDist('404.html'), /Lost in the coils/);
+});
+
+// ── Internal links ──
+
+test('every internal page link ends in a slash, so no click takes a redirect (taste review r2, 2026-11-06)', () => {
+  const misses = [];
+  for (const full of listHtmlFiles()) {
+    const file = path.relative(distDir, full);
+    const html = fs.readFileSync(full, 'utf8');
+    for (const href of hrefsOf(html)) {
+      const path = href.replace(/^https:\/\/ouroboros\.bot/, '');
+      if (!path.startsWith('/') || path.startsWith('//')) continue;
+      const bare = path.split(/[?#]/)[0];
+      if (bare === '/' || bare.endsWith('/') || /\.[a-z0-9]+$/i.test(bare)) continue;
+      misses.push(`${file}: ${href}`);
+    }
+  }
+  assert.deepEqual([...new Set(misses)], []);
 });

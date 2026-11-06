@@ -313,9 +313,9 @@ const wastes = [
 
 <style>
   /* The hero layout is shared with mendelow.me's (styles.css there): keep the two identical.
-     On a phone the photo leads, full width and cropped wide around the face, and the text stacks
-     centered under it. From 768px the copy is one block, centered beside a portrait-shaped photo. */
-  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "pic" "title" "sub"; text-align: center; }
+     On a phone the question and the hello lead, centered, and the photo follows them, full width and
+     cropped wide around the face (taste review r2, 2026-11-06: the h1 comes before the portrait). From 768px the copy is one block, centered beside a portrait-shaped photo. */
+  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "sub" "pic"; text-align: center; }
   .hero-copy { display: contents; }
   .hero-title { grid-area: title; }
   .hero-sub { grid-area: sub; }

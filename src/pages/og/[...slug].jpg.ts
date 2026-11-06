@@ -15,9 +15,9 @@
   DESIGN (the storybook world, 2026-11-06):
   - The page's canonical storybook card scene (public/brand/storybook/og/<scene>.jpg,
     the same bytes the site serves, chosen in src/data/scenes.mjs) fills the card.
-  - The title stands where Ouro is not: on the scene's free side (OURO_IN_SCENE),
-    over a soft local parchment scrim that fades out well before him. No wash
-    across the whole card, so the scene keeps its colour.
+  - The title stands in the scene's own title zone (TITLE_ZONE): open sky or
+    grass, picked by hand so it holds no character. A soft parchment scrim sits
+    behind the words, clipped to that zone, so it never washes over anyone.
   - The optional tag as a tracked-out fang-red eyebrow; the product's mark
     and the "ouro" wordmark sit at the top, like a storybook's running head.
   - Satori draws the words on a transparent layer; sharp lays it over the scene
@@ -54,34 +54,45 @@ function markSrc(mark: string): string {
 
 const sceneDir = join(process.cwd(), 'public/brand/storybook/og')
 
-// Where Ouro stands in each card scene: [left x, right x, top y] in the 1200x630
-// card, measured from his green in public/brand/storybook/og (2026-11-06).
-const OURO_IN_SCENE: Record<string, [number, number, number]> = {
-  'butler': [747, 1118, 147],
-  'desk': [747, 1055, 191],
-  'factory': [920, 1199, 249],
-  'flow-review': [777, 1154, 136],
-  'friends': [422, 778, 210],
-  'friends-relay': [636, 856, 379],
-  'gatefold': [700, 1081, 115],
-  'homebrew-tap': [718, 1136, 134],
-  'm365crawl': [782, 1115, 191],
-  'ouro-apps-site': [696, 1059, 170],
-  'ouro-hx': [820, 1094, 314],
-  'ouro-md': [727, 1036, 158],
-  'ouro-ui-apple': [775, 1199, 120],
-  'ouro-ui-core': [865, 1199, 121],
-  'ouro-work': [786, 1171, 171],
-  'ouro-workbench': [936, 1186, 243],
-  'ouroboros': [805, 1101, 275],
-  'ouroboros-skills': [478, 887, 125],
-  'ouroboros-website': [724, 1103, 171],
-  'ourostack': [94, 545, 130],
-  'playwright-focus-proof': [789, 1196, 186],
-  'shepherd': [809, 1180, 101],
+// Where the words may stand in each card scene: [x0, y0, x1, y1] in the 1200x630
+// card, hand-picked from public/brand/storybook/og on a 100px grid (taste review
+// r2, 2026-11-06). Each zone is open sky, distant hills or open grass, and holds
+// no character, so neither the words nor their scrim ever cover Ouro or a friend.
+const TITLE_ZONE: Record<string, [number, number, number, number]> = {
+  'apple-distribution-kit': [780, 20, 1170, 290],
+  'butler': [230, 436, 760, 616],
+  'desk': [280, 14, 1170, 142],
+  'factory': [480, 20, 1170, 296],
+  'flow-review': [40, 20, 740, 256],
+  'friends': [40, 14, 1160, 126],
+  'friends-relay': [770, 20, 1170, 350],
+  'gatefold': [40, 16, 680, 156],
+  'homebrew-tap': [690, 8, 1190, 134],
+  'm365crawl': [840, 14, 1180, 180],
+  'ouro-apps-site': [806, 8, 1190, 174],
+  'ouro-hx': [660, 20, 1170, 296],
+  'ouro-md': [380, 8, 1190, 148],
+  'ouro-native-apple-app-shell': [10, 8, 240, 300],
+  'ouro-ui-apple': [30, 16, 390, 196],
+  'ouro-ui-core': [30, 14, 840, 146],
+  'ouro-work': [800, 8, 1190, 168],
+  'ouro-workbench': [30, 24, 920, 206],
+  'ouroboros': [800, 10, 1190, 170],
+  'ouroboros-skills': [830, 8, 1190, 228],
+  'ouroboros-website': [290, 30, 620, 226],
+  'ourostack': [590, 24, 1150, 230],
+  'playwright-focus-proof': [30, 16, 520, 310],
+  'shepherd': [250, 16, 800, 270],
 }
-const PAD = 64
-const GAP = 40
+// Busy ground (the workbench's pegboard, the butler's flowered lawn) needs a
+// firmer scrim than open sky; it still stays inside the zone.
+const FIRM_SCRIM: Record<string, number> = { 'ouro-workbench': 0.9, 'butler': 0.88, 'ouro-ui-apple': 0.8, 'ouro-native-apple-app-shell': 0.84 }
+
+// Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.
+const INSET = 16
+const HEAD = 34
+const HEAD_GAP = 10
+const CHAR_EM = 0.4 // Cormorant runs about 0.4em a character (measured on these cards)
 
 export const getStaticPaths: GetStaticPaths = () => {
   return Object.keys(pageOg).map((routePath) => ({
@@ -101,21 +112,21 @@ export const GET: APIRoute = async ({ params }) => {
   const mark = entry.mark ?? 'ouro'
   const scene = ogSceneForRoute(routePath)
 
-  // The title stands where Ouro is not. Each scene's Ouro box (measured from
-  // his green in public/brand/storybook/og, 2026-11-06) leaves a free side; the
-  // words take that side's column, or the whole sky when Ouro sits low.
-  const ouro = OURO_IN_SCENE[scene] ?? [700, 1100, 150]
-  const [ox0, ox1, oy0] = ouro
-  const freeLeft = ox0 - PAD - GAP
-  const freeRight = 1200 - ox1 - PAD - GAP
-  const low = oy0 >= 300
-  const side: 'left' | 'right' = low || freeLeft >= freeRight ? 'left' : 'right'
-  const colWidth = low ? 1072 : Math.min(1072, side === 'left' ? freeLeft : freeRight)
-  const colLeft = side === 'left' ? PAD : 1200 - PAD - colWidth
+  // The words stand in the scene's own title zone (TITLE_ZONE), never on a character.
+  const zone = TITLE_ZONE[scene]
+  if (!zone) throw new Error(`og: no title zone for scene ${scene}`)
+  const colLeft = zone[0] + INSET
+  const colTop = zone[1] + INSET
+  const colWidth = zone[2] - zone[0] - INSET * 2
+  // The tag rides beside the wordmark, or on its own line under it when the zone is narrow.
+  const headWidth = HEAD + 12 + 56 + (tag ? 26 + tag.length * 16 * 0.86 : 0)
+  const tagBelow = Boolean(tag) && headWidth > colWidth
+  const headH = HEAD + (tagBelow ? 30 : 0)
+  const titleRoom = zone[3] - zone[1] - INSET * 2 - headH - HEAD_GAP
 
   // Balanced lines broken only between words (so "to-do" stays whole), each
-  // drawn on its own so none can wrap again. Cormorant runs about 0.4em a
-  // character (measured on these cards): pick the fewest lines, up to four, that still read large.
+  // drawn on its own so none can wrap again. Pick the line count, up to five,
+  // whose title is largest while it still fits the zone's width and height.
   const words = title.split(' ')
   const balance = (n: number): string[] => {
     if (n === 1) return [title]
@@ -135,21 +146,29 @@ export const GET: APIRoute = async ({ params }) => {
   }
   let lines = [title]
   let titleSize = 0
-  for (let n = 1; n <= Math.min(4, words.length); n++) {
+  for (let n = 1; n <= Math.min(5, words.length); n++) {
     const candidate = balance(n)
     const longest = Math.max(...candidate.map((l) => l.length))
-    const size = Math.min(92, Math.floor(colWidth / (longest * 0.4)))
+    const size = Math.floor(Math.min(92, colWidth / (longest * CHAR_EM), titleRoom / (n * 1.04)))
     if (size > titleSize) { titleSize = size; lines = candidate }
-    if (size >= 72) break
   }
 
   const div = (style: Record<string, unknown>, children?: unknown) => ({ type: 'div', props: { style, children } })
-  const blockHeight = 46 + 22 + lines.length * titleSize * 1.04
-  // A soft local scrim of parchment behind the words only: a blurred rounded
-  // block that fades out before Ouro, so the scene keeps its own colour elsewhere.
-  const widest = Math.min(colWidth, Math.max(...lines.map((l) => l.length)) * titleSize * 0.4)
-  const scrimX = side === 'right' ? colLeft + colWidth - widest - 36 : colLeft - 36
-  const scrimSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><filter id="b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="34"/></filter></defs><rect x="${Math.round(scrimX)}" y="10" width="${Math.round(widest + 72)}" height="${Math.round(blockHeight + 60)}" rx="48" fill="rgb(${COLOR.paper})" fill-opacity="0.8" filter="url(#b)"/></svg>`
+  // A soft parchment scrim behind the words only, clipped to the zone, so it
+  // can never wash over a character outside it and the scene keeps its colour.
+  const widest = Math.min(colWidth, Math.max(...lines.map((l) => l.length)) * titleSize * CHAR_EM)
+  const blockW = Math.min(colWidth, Math.max(widest, tagBelow ? HEAD + 74 : headWidth))
+  const blockH = headH + HEAD_GAP + lines.length * titleSize * 1.04
+  const [zx0, zy0, zx1, zy1] = zone
+  // The glow's core stays three blur radii inside the zone, so it has faded out before the clip.
+  const SIGMA = 12
+  const firm = FIRM_SCRIM[scene]
+  const keep = firm ? SIGMA : SIGMA * 3
+  const sx0 = Math.round(Math.max(zx0 + keep, colLeft - 6))
+  const sy0 = Math.round(Math.max(zy0 + keep, colTop - 6))
+  const sx1 = Math.round(Math.min(zx1 - keep, colLeft + blockW + 6))
+  const sy1 = Math.round(Math.min(zy1 - keep, colTop + blockH + 6))
+  const scrimSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><clipPath id="z"><rect x="${zx0}" y="${zy0}" width="${zx1 - zx0}" height="${zy1 - zy0}" rx="28"/></clipPath><filter id="b" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="${SIGMA}"/></filter></defs><g clip-path="url(#z)"><rect x="${sx0}" y="${sy0}" width="${Math.max(0, sx1 - sx0)}" height="${Math.max(0, sy1 - sy0)}" rx="22" fill="rgb(${COLOR.paper})" fill-opacity="${firm ?? 0.66}" filter="url(#b)"/></g></svg>`
 
   const svg = await satori(
     div({
@@ -162,26 +181,27 @@ export const GET: APIRoute = async ({ params }) => {
       div({
         position: 'absolute',
         left: `${colLeft}px`,
-        top: '44px',
+        top: `${colTop}px`,
         width: `${colWidth}px`,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: side === 'right' ? 'flex-end' : 'flex-start',
+        alignItems: 'flex-start',
       }, [
         // Running head: mark, wordmark, tag
-        div({ display: 'flex', alignItems: 'center', gap: '14px' }, [
-          { type: 'img', props: { src: markSrc(mark), width: 46, height: 46 } },
-          div({ display: 'flex', fontFamily: 'Cormorant Garamond', fontWeight: 400, fontSize: '38px', color: COLOR.ink, lineHeight: 1 }, 'ouro'),
-          ...(tag ? [
-            div({ display: 'flex', width: '2px', height: '26px', background: 'rgba(26, 33, 24, 0.25)', marginLeft: '8px', marginRight: '8px' }),
-            div({ display: 'flex', fontSize: '21px', letterSpacing: '0.22em', textTransform: 'uppercase', color: COLOR.fang }, tag),
+        div({ display: 'flex', alignItems: 'center', gap: '12px', height: `${HEAD}px` }, [
+          { type: 'img', props: { src: markSrc(mark), width: HEAD, height: HEAD } },
+          div({ display: 'flex', fontFamily: 'Cormorant Garamond', fontWeight: 400, fontSize: '30px', color: COLOR.ink, lineHeight: 1 }, 'ouro'),
+          ...(tag && !tagBelow ? [
+            div({ display: 'flex', width: '2px', height: '24px', background: 'rgba(26, 33, 24, 0.25)', marginLeft: '6px', marginRight: '6px' }),
+            div({ display: 'flex', fontSize: '16px', letterSpacing: '0.2em', textTransform: 'uppercase', color: COLOR.fang }, tag),
           ] : []),
         ]),
+        ...(tagBelow ? [div({ display: 'flex', marginTop: '8px', height: '22px', fontSize: '17px', letterSpacing: '0.18em', textTransform: 'uppercase', color: COLOR.fang, whiteSpace: 'nowrap' }, tag)] : []),
         div({
           display: 'flex',
           flexDirection: 'column',
-          alignItems: side === 'right' ? 'flex-end' : 'flex-start',
-          marginTop: '22px',
+          alignItems: 'flex-start',
+          marginTop: `${HEAD_GAP}px`,
           fontFamily: 'Cormorant Garamond',
           fontWeight: 400,
           fontSize: `${titleSize}px`,

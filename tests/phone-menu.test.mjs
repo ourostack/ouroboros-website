@@ -39,6 +39,9 @@ function fakeElement(id, classes = []) {
     dispatch(type, event = {}) { for (const fn of listeners[type] || []) fn(event); },
     focus() { this.focused = true; },
     querySelectorAll: () => [],
+    children: [],
+    get firstElementChild() { return this.children[0] ?? null; },
+    contains(node) { return node === this || this.children.some((child) => child === node || child.contains?.(node)); },
   };
 }
 
@@ -50,6 +53,14 @@ function boot() {
     'menu-icon-close': fakeElement('menu-icon-close', ['hidden']),
   };
   els['menu-toggle'].setAttribute('aria-expanded', 'false');
+  // The panel holds a column of links; a tap can land on a link, on the column's
+  // open space, on the panel around it, or outside the panel altogether.
+  const link = fakeElement('link');
+  const column = fakeElement('column');
+  column.children.push(link);
+  els['mobile-menu'].children.push(column);
+  els.link = link;
+  els.column = column;
   const doc = fakeElement('document');
   doc.getElementById = (id) => els[id] || null;
   doc.body = { style: { overflow: '' } };
@@ -86,4 +97,21 @@ test('Escape with the menu shut does nothing and steals no focus', () => {
   doc.dispatch('keydown', { key: 'Escape' });
   assert.equal(els['menu-toggle'].focused, false);
   assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'false');
+});
+
+test('a tap outside the links closes the phone menu and returns focus; a tap on the toggle is left to the toggle', () => {
+  for (const where of ['column', 'mobile-menu', 'outside']) {
+    const { els, doc } = boot();
+    els['menu-toggle'].dispatch('click');
+    const target = where === 'outside' ? fakeElement('page') : els[where];
+    doc.dispatch('click', { target });
+    assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'false', `a tap on ${where} closes it`);
+    assert.equal(doc.body.style.overflow, '');
+    assert.equal(els['menu-toggle'].focused, true);
+  }
+  const { els, doc } = boot();
+  els['menu-toggle'].dispatch('click');
+  doc.dispatch('click', { target: els['menu-toggle'] });
+  doc.dispatch('click', { target: els.link });
+  assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'true', 'the toggle and a link handle their own taps');
 });

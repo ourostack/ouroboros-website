@@ -115,7 +115,7 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
 </script>
 <script is:inline>
   // The phone menu: the toggle opens and closes it; a link, Escape or the
-  // toggle again closes it. Closing unlocks the page scroll, and Escape hands
+  // toggle again closes it, as does a tap outside the links. Closing unlocks the page scroll, and Escape hands
   // focus back to the toggle so a keyboard reader is never left stranded.
   (function() {
     var toggle = document.getElementById('menu-toggle');
@@ -137,6 +137,12 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
     });
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape' && isOpen()) { setOpen(false); toggle.focus(); }
+    });
+    // A tap on the panel's open space, or anywhere outside the panel and the
+    // toggle, closes it too, the same as ouro.bot's menu.
+    document.addEventListener('click', function(event) {
+      if (!isOpen() || toggle.contains(event.target)) return;
+      if (event.target === menu || event.target === menu.firstElementChild || !menu.contains(event.target)) { setOpen(false); toggle.focus(); }
     });
     // Widening past the phone layout hides the menu, so never leave the page locked.
     window.matchMedia('(min-width: 1024px)').addEventListener('change', function(e) { if (e.matches && isOpen()) setOpen(false); });

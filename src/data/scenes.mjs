@@ -30,6 +30,8 @@ export const scenes = {
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
+  'ouro-native-apple-app-shell': 'A pearly snail shell on a mossy rock by a pond, opened up like a dollhouse: bookshelves, a reading chair and a warm lamp curled up inside. Ouro rests against it, as if he grew the house himself.',
+  'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
 }
 
@@ -52,15 +54,26 @@ const pages = {
   '/blog/designing-with-your-agent': { hero: 'ouro-workbench' },
   '/blog/stop-being-the-glue': { hero: 'friends-relay' },
   '/blog/build-ai-agent-from-scratch': { hero: 'homebrew-tap' },
+  // Each Lab page has its own corner of the world (taste review r2, 2026-11-06):
+  // the harness's burrow for the Lab itself, the shell that grew into a home for
+  // the origin story, friends for identity, the library for the docs, and Ouro
+  // leading the flock for getting started.
   '/lab': { hero: 'ouroboros' },
-  '/lab/why': { hero: 'ouroboros' },
-  '/lab/story': { hero: 'ouroboros' },
-  '/lab/what-is-an-agent-harness': { hero: 'ouroboros' },
+  '/lab/why': { hero: 'friends' },
+  '/lab/story': { hero: 'ouro-native-apple-app-shell' },
+  '/lab/what-is-an-agent-harness': { hero: 'factory' },
   '/lab/how-desk-started': { hero: 'desk' },
   '/lab/model-reviews': { hero: 'flow-review' },
-  '/lab/docs': { hero: 'ouroboros' },
-  '/privacy': { hero: null, og: 'ouroboros-website' },
-  '/terms': { hero: null, og: 'ouroboros-website' },
+  '/lab/docs': { hero: 'm365crawl' },
+  '/lab/docs/getting-started': { hero: 'shepherd' },
+  '/lab/docs/bundles-and-psyche': { hero: 'apple-distribution-kit' },
+  '/lab/docs/continuity-and-memory': { hero: 'gatefold' },
+  '/lab/docs/architecture': { hero: 'ouro-workbench' },
+  '/lab/docs/tasks-and-work': { hero: 'desk' },
+  '/lab/docs/skills-and-prompts': { hero: 'ouroboros-skills' },
+  // The legal pages open on their words; a small scene sits beside the title (`aside`).
+  '/privacy': { hero: null, aside: 'ouro-work', og: 'ouro-work' },
+  '/terms': { hero: null, aside: 'gatefold', og: 'gatefold' },
   // Ouro has wandered off the trail; the footer meadow stays off so the gate shows once.
   '/404': { hero: 'ouroboros-website', meadow: false },
 }
@@ -81,7 +94,7 @@ export function sceneFor(pathname) {
   }
   const page = match ? pages[match] : { hero: null }
   const hero = page.hero ?? null
-  return { hero, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
+  return { hero, aside: page.aside ?? null, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
 }
 
 /** The scene a route's share card is set in. */
@@ -97,10 +110,17 @@ export function usedScenes() {
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
+    if (page.aside) used.add(page.aside)
   }
   for (const scene of ['desk', 'ouro-md', 'ouro-hx', 'butler']) used.add(scene)
   return [...used].sort()
 }
+
+// The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
+// 4:3 by default; 16:9 or 2:1 where the characters stand too far apart for 4:3.
+// The phone hero box takes the file's own aspect, so nothing is cropped again.
+const phoneSizes = { ourostack: [768, 432], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 384] }
+export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
 export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' ? [1536, 614] : [1536, 576])

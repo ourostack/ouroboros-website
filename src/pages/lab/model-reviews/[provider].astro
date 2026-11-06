@@ -53,7 +53,7 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
 
     <div class="max-w-6xl relative mx-auto split lg:items-end">
       <div class="split-head">
-      <a href="/lab/model-reviews" class="inline-flex items-center gap-2 font-mono text-xs text-mist uppercase tracking-[0.22em] hover:text-scale transition-colors mb-10">
+      <a href="/lab/model-reviews/" class="inline-flex items-center gap-2 font-mono text-xs text-mist uppercase tracking-[0.22em] hover:text-scale transition-colors mb-10">
         &#8592; All reviews
       </a>
 
@@ -174,10 +174,8 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
 
   <!-- ═══════════════ FOOTER NAV ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 py-12 md:py-16">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4">
-      <a href="/lab/model-reviews" class="inline-flex items-center gap-2 text-bone font-medium hover:text-scale transition-colors">
-        &#8592; Back to all reviews
-      </a>
+    {/* One way back: the "All reviews" link above the title (taste review r2, 2026-11-06). */}
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-baseline sm:justify-end gap-4">
       <a href="https://github.com/ourostack/ouroboros-website/blob/main/scripts/model-reviews.cjs" target="_blank" rel="noopener noreferrer" class="text-mist hover:text-bone transition-colors text-sm">
         View the script on GitHub &#8594;
       </a>

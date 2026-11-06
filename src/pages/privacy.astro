@@ -1,11 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import StoryScene from '../components/StoryScene.astro'
 import { ogPathFor } from '../data/og'
+import { sceneFor } from '../data/scenes.mjs'
 
 // Draft for Ari's review. Facts come from the public Desk, factory and
 // Ouro MD repositories; re-check them before publishing.
 const title = 'Privacy | Ouro'
 const description = 'What this site, hosted Desk, the factory, and Ouro MD collect, in plain language.'
+// A small scene beside the title, under the draft badge (Ari, 2026-11-06): no full hero here.
+const aside = sceneFor('/privacy').aside
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/privacy')} canonical="https://ouroboros.bot/privacy/">
@@ -15,6 +19,7 @@ const description = 'What this site, hosted Desk, the factory, and Ouro MD colle
         <span class="eyebrow block mb-6">Privacy</span>
         <h1 class="heading-lead">Privacy</h1>
         <p class="mt-6 inline-flex tag tag-alpha">Draft for review</p>
+        {aside && <StoryScene scene={aside} class="legal-scene mt-10" sizes="(min-width: 1024px) 22rem, calc(100vw - 3rem)" />}
       </div>
 
       <article class="split-body prose-ouro pt-8 lg:pt-0">
@@ -48,3 +53,7 @@ const description = 'What this site, hosted Desk, the factory, and Ouro MD colle
     </div>
   </section>
 </Layout>
+
+<style>
+  :global(.legal-scene) { width: min(22rem, 100%); border-radius: 1rem; overflow: hidden; }
+</style>

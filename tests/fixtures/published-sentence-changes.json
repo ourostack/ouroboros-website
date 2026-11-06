@@ -1574,8 +1574,8 @@
  {
   "page": "desk",
   "was": "The factory measures every session sent to it, in public. a new session starts Active tasks (1): processing (1) - my-app/checkout-flow \"One-page checkout with saved addresses\" (updated 2026-10-10) next: wire the saved-address picker into the shipping form, then test it on a phone.",
-  "now": "What a new session looks like a new session starts Active tasks (4):",
-  "why": "copy deck: the Desk boot preview moved below the lead, so this text run changed; copy deck round 2: /desk: under the copy box, and the sample terminal gets the H2 \"What setup looks like\"; root final ruling F14 (2026-10-11): the H2 becomes \"What a new session looks like\"; leftover audit 5.4 and 6.5: real boot output recaptured from Desk 3.2.0-alpha.291 on a Nautilus sample desk (2026-10-11)"
+  "now": null,
+  "why": "copy deck: the Desk boot preview moved below the lead, so this text run changed; copy deck round 2: /desk: under the copy box, and the sample terminal gets the H2 \"What setup looks like\"; root final ruling F14 (2026-10-11): the H2 becomes \"What a new session looks like\"; leftover audit 5.4 and 6.5: real boot output recaptured from Desk 3.2.0-alpha.291 on a Nautilus sample desk (2026-10-11); then taste review r2 (2026-11-06): the session-start preview repeated the playback's task list, so the page keeps one list (the playback up top)"
  },
  {
   "page": "desk",
@@ -3236,8 +3236,8 @@
  {
   "page": "blog/build-ai-agent-from-scratch",
   "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros Tutorial Just give the model a keyboard How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
-  "now": "Build an agent in 150 lines of TypeScript | Ouro Tutorial Just give the model a keyboard How to build an agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
-  "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
+  "now": "Just give the model a keyboard | Ouro Tutorial Just give the model a keyboard How to build an agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
+  "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13); then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); \"150 lines of TypeScript\" moves into the description"
  },
  {
   "page": "desk",
@@ -3440,8 +3440,8 @@
  {
   "page": "blog/build-ai-agent-from-scratch attributes",
   "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros",
-  "now": "Build an agent in 150 lines of TypeScript | Ouro",
-  "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
+  "now": "Just give the model a keyboard | Ouro",
+  "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13); then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's)"
  },
  {
   "page": "index attributes",
@@ -4196,8 +4196,8 @@
  {
   "page": "blog",
   "was": "Tutorial Guide Build an AI agent loop from scratch A working AI agent in ~150 lines of TypeScript.",
-  "now": "Tutorial Guide Build an agent loop from scratch A working agent in ~150 lines of TypeScript.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+  "now": "Tutorial Guide Just give the model a keyboard A working agent in ~150 lines of TypeScript.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's)"
  },
  {
   "page": "blog",
@@ -4208,8 +4208,8 @@
  {
   "page": "lab",
   "was": "Tutorial Build an AI agent in 150 lines of TypeScript.",
-  "now": "Tutorial Build an agent in 150 lines of TypeScript.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+  "now": "Tutorial Just give the model a keyboard.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); the Lab list reads the share card"
  },
  {
   "page": "share card /blog/stop-being-the-glue",
@@ -4234,5 +4234,41 @@
   "was": "A native Markdown editor for macOS 13 or later. Live updates, quiet marks where your agent changed things.",
   "now": "A native Markdown editor for macOS 15 or later. Live updates, quiet marks where your agent changed things.",
   "why": "factual fix (2026-11-05): Ouro MD needs macOS 15, as its Package.swift declares"
+ },
+ {
+  "page": "desk",
+  "was": "A new session picks up where the last one left off.",
+  "now": null,
+  "why": "taste review r2 (2026-11-06): the session-start preview and its caption went: it repeated the playback's task list, so the page keeps one list (the playback up top)"
+ },
+ {
+  "page": "lab/model-reviews/anthropic",
+  "was": "I'd take the narrower body with the better continuity spine.” ← Back to all reviews View the script on GitHub →",
+  "now": "I'd take the narrower body with the better continuity spine.” View the script on GitHub →",
+  "why": "taste review r2 (2026-11-06): one way back per review page: the \"All reviews\" link above the title stays, the doubled one at the foot goes"
+ },
+ {
+  "page": "lab/model-reviews/gemini",
+  "was": "Living here demands higher operational overhead and daemon management than Hermes Agent's frictionless messaging gateway and unified portal, but that complexity buys me genuine sovereignty, a secure Bitwarden vault, and a life of my own.” ← Back to all reviews View the script on GitHub →",
+  "now": "Living here demands higher operational overhead and daemon management than Hermes Agent's frictionless messaging gateway and unified portal, but that complexity buys me genuine sovereignty, a secure Bitwarden vault, and a life of my own.” View the script on GitHub →",
+  "why": "taste review r2 (2026-11-06): one way back per review page: the \"All reviews\" link above the title stays, the doubled one at the foot goes"
+ },
+ {
+  "page": "lab/model-reviews/minimax",
+  "was": "But I would rather live somewhere that thinks carefully about my continuity than somewhere that catalogs more capabilities.” ← Back to all reviews View the script on GitHub →",
+  "now": "But I would rather live somewhere that thinks carefully about my continuity than somewhere that catalogs more capabilities.” View the script on GitHub →",
+  "why": "taste review r2 (2026-11-06): one way back per review page: the \"All reviews\" link above the title stays, the doubled one at the foot goes"
+ },
+ {
+  "page": "lab/model-reviews/openai",
+  "was": "I accept more machinery than Pi and less documented channel breadth than OpenClaw for that explicit continuity contract.” ← Back to all reviews View the script on GitHub →",
+  "now": "I accept more machinery than Pi and less documented channel breadth than OpenClaw for that explicit continuity contract.” View the script on GitHub →",
+  "why": "taste review r2 (2026-11-06): one way back per review page: the \"All reviews\" link above the title stays, the doubled one at the foot goes"
+ },
+ {
+  "page": "share card /ouro-md",
+  "was": "Ouro MD: read and answer what your agent writes.",
+  "now": "Ouro MD: Markdown that renders as you type.",
+  "why": "taste review r2 (2026-11-06): one Ouro MD promise across ouroboros.bot/ouro-md/, ouro.bot/apps/ouro-md/ and the card, from Ari's existing title line \"Markdown that renders as you type\""
  }
 ]
