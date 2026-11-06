@@ -82,6 +82,17 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Ouro MD',
     mark: 'ouro-md',
   },
+  '/apps': {
+    title: 'Fresh from the workshop, ready to install.',
+    subtitle: 'Ouro MD, Ouroboros, Ouro Shepherd, Ouro HX, Desk and Ouro Butler: small, sharp tools for people and their agents.',
+    tag: 'Ouro apps',
+  },
+  '/ouro-hx': {
+    title: 'Ouro HX: designed down to the last tap.',
+    subtitle: 'A React component library that feels right to people and is obvious to agents. Already cooking in Spoonjoy.',
+    tag: 'Ouro HX',
+    mark: 'ouro-hx',
+  },
   '/lab': {
     title: 'The harness: where all of this started.',
     subtitle: 'Slugger, the Ouroboros harness, and the model reviews. Our Agent Experience lab.',

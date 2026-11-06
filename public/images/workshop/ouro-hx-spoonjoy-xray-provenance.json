@@ -1,0 +1,7 @@
+{
+  "files": ["ouro-hx-spoonjoy-xray-light.webp", "ouro-hx-spoonjoy-xray-dark.webp", "ouro-hx-spoonjoy-xray-og.png"],
+  "source": "https://spoonjoy.app/test-kitchen?xray",
+  "captured": "2026-10-31",
+  "method": "Playwright Chromium, 1280x900 viewport at 2x, prefers-color-scheme light and dark, scrolled 500px, cropped to the top 690 CSS px and resized to 1600 wide",
+  "notes": "Unedited screenshots of the live Spoonjoy app with its X-ray overlay, which outlines and names each Ouro HX component on the page."
+}
