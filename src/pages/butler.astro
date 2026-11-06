@@ -55,7 +55,7 @@ const chat = [
 
   <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="does-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="does-heading" class="heading-section">What it does</h2>
+      <h2 id="does-heading" class="heading-section">What it <span class="text-scale">does</span></h2>
       <ul class="does">
         {does.map(([name, body]) => (
           <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
@@ -66,7 +66,7 @@ const chat = [
 
   <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="chat-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="chat-heading" class="heading-section">What it sounds like</h2>
+      <h2 id="chat-heading" class="heading-section">What it <span class="text-scale">sounds like</span></h2>
       <p class="mt-4 text-lg text-mist">Short, phone-sized replies, with the most useful thing first.</p>
       <figure class="chat">
         <ol class="chat-lines">
@@ -74,14 +74,14 @@ const chat = [
             <li class={`chat-line chat-${who}`}><span class="chat-who">{who === 'you' ? 'You' : 'Butler'}</span><span class="chat-text">{text}</span></li>
           ))}
         </ol>
-        <figcaption class="chat-caption"><span class="tag tag-plain">Dramatization</span> <span>Written from the replies the Butler is designed to give. Not a real conversation.</span></figcaption>
+        <figcaption class="chat-caption"><span class="caption-note">Dramatization</span> <span>Written from the replies the Butler is designed to give. Not a real conversation.</span></figcaption>
       </figure>
     </div>
   </section>
 
   <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="safe-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="safe-heading" class="heading-section">How it stays safe</h2>
+      <h2 id="safe-heading" class="heading-section">How it stays <span class="text-scale">safe</span></h2>
       <ul class="safe">
         {safe.map((line) => <li>{line}</li>)}
       </ul>
@@ -90,7 +90,7 @@ const chat = [
 
   <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="install-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="install-heading" class="heading-section">Install it</h2>
+      <h2 id="install-heading" class="heading-section"><span class="text-scale">Install</span> it</h2>
       <p class="mt-4 text-lg text-mist leading-relaxed">The Butler is an alpha: it runs our own server every day, and the installer is new. Expect rough edges, and keep your own backups.</p>
       <h3 class="does-name mt-8">What you need</h3>
       <ul class="safe">

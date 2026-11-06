@@ -7,6 +7,8 @@
                    (fetchpriority high, never lazy), the 4:3 phone crop below 640px.
   variant="inline" a scene further down the page, sized by `sizes`, deferred.
   variant="meadow" the short band above the footer, deferred.
+  variant="vignette" a small 4:3 portrait of a product's character beside its
+                   name (the phone crop, which frames Ouro and the product), deferred.
 
   The art is never re-encoded or cropped in a build step; CSS crops the
   meadow band with object-fit. Every variant fades at its edges into the page,
@@ -16,7 +18,7 @@ import { scenes, sceneRatio } from '../data/scenes.mjs'
 
 interface Props {
   scene: string
-  variant?: 'hero' | 'inline' | 'meadow'
+  variant?: 'hero' | 'inline' | 'meadow' | 'vignette'
   sizes?: string
   alt?: string
   class?: string
@@ -35,6 +37,7 @@ const wideAvif = `${base}/scenes/${scene}-640.avif 640w, ${base}/scenes/${scene}
 const wideWebp = `${base}/scenes/${scene}-640.webp 640w, ${base}/scenes/${scene}-960.webp 960w, ${base}/headers/${scene}.webp 1536w`
 const fallback = `${base}/headers/${scene}.webp`
 const altText = alt ?? scenes[scene]
+const vignette = variant === 'vignette'
 ---
 
 <div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene}>
@@ -46,6 +49,15 @@ const altText = alt ?? scenes[scene]
       <source type="image/webp" srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
       <img src={fallback} width={w} height={h} alt={altText} fetchpriority="high" />
     </picture>
+  ) : vignette ? (
+    <>
+      <picture data-defer>
+        <source type="image/avif" data-srcset={phoneAvif} sizes={sizes ?? '8rem'} width="768" height="576" />
+        <source type="image/webp" data-srcset={phoneWebp} sizes={sizes ?? '8rem'} width="768" height="576" />
+        <img data-src={`${base}/phone/${scene}-384.webp`} width="384" height="288" alt={altText} loading="lazy" decoding="async" />
+      </picture>
+      <noscript><img src={`${base}/phone/${scene}-384.webp`} width="384" height="288" alt={altText} loading="lazy" decoding="async" /></noscript>
+    </>
   ) : (
     <>
       {/* Deferred: the sources wait in data-srcset until the hero has landed and the

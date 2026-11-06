@@ -189,7 +189,8 @@ const last = scenes.length - 1
         show(s)
         const lines = [...bodies[s].querySelectorAll<HTMLElement>('.dp-line')].filter((line) => !(s === 0 && line.hasAttribute('data-opening')))
         lines.forEach((line) => { restore(line); line.setAttribute('data-off', '') })
-        await wait(s === 0 ? 900 : 500)
+        // Scene 1 picks up at once from its still, so the terminal never sits half empty (taste review r2).
+        await wait(s === 0 ? 150 : 500)
         for (const line of lines) {
           if (token !== run) return
           if (line.classList.contains('tone-prompt')) {
@@ -218,7 +219,7 @@ const last = scenes.length - 1
         io.disconnect()
         play()
       }
-    }, { threshold: 0.4 })
+    }, { threshold: 0.15 })
     io.observe(root)
   })
 </script>

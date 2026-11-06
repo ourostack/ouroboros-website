@@ -126,7 +126,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
   for (const href of ['/ouro-md/', '/desk/', '/blog/what-is-agent-experience/', 'https://mendelow.me/#spoonjoy-story', 'https://spoonjoy.app', 'https://github.com/ourostack/m365crawl']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
   const outside = html.replace(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/, '');
   assert.doesNotMatch(outside, /Microsoft 365/, 'Microsoft 365 is named only in the m365crawl entry');
-  assert.equal((html.match(/<span class="tag tag-plain"[^>]*>Dramatization<\/span>/g) || []).length, 2, 'Ouro MD and Desk are labelled Dramatization');
+  assert.equal((html.match(/<span class="caption-note"[^>]*>Dramatization<\/span>/g) || []).length, 2, 'Ouro MD and Desk are labelled Dramatization');
   // Ari, 2026-10-20: no zigzag; every entry reads the same way, media then prose.
   const page = fs.readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
   assert.doesNotMatch(page, /nth-child\(even\)/);
@@ -137,7 +137,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
     assert.match(video[0], /width="840" height="630"[\s\S]*\bmuted\b|\bmuted\b[\s\S]*width="840" height="630"/);
     assert.doesNotMatch(video[0], /\bautoplay\b/);
   }
-  assert.doesNotMatch(html, /ouro-md-typing-(light|dark)\.mp4/, 'The typing clip lives on /ouro-md/');
+  assert.doesNotMatch(html, /ouro-md-typing-(light|dark)\.mp4/, 'The homepage shows only the agent-edit clip');
   assert.match(html, /<button type="button" class="clip-toggle"[^>]*data-clip-toggle[^>]*>Pause<\/button>/);
 });
 
@@ -400,8 +400,11 @@ test('the nav ends with the sister link and is glass from the top, over the dawn
   assert.ok(sister > 0, 'Nav has the sister link');
   assert.ok(textOf(nav).includes('About me ↗'));
   for (const [, href] of navLinks) assert.ok(nav.indexOf(`href="${href}"`) < sister, 'The sister link is last');
-  // Storybook (2026-11-06): every page opens on a bright scene, so the nav is glass from the first frame.
-  assert.match(nav, /id="nav-bg" class="bg-deep\/75 backdrop-blur-lg/);
+  // Storybook (2026-11-06): every page opens on a bright scene. Taste review r2: the
+  // header is nearly solid paper (or night) so nothing smears under the words.
+  assert.match(nav, /id="nav-bg" class="nav-glass"/);
+  const navSrc = fs.readFileSync(new URL('../src/components/Nav.astro', import.meta.url), 'utf8');
+  assert.match(navSrc, /\.nav-glass\s*\{[^}]*background:\s*color-mix\(in srgb, var\(--color-deep\) 9\d%/);
   assert.doesNotMatch(html, /bg-transparent/);
 });
 
