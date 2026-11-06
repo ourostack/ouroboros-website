@@ -651,7 +651,10 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor
    only, never layout; off entirely for reduced motion. */
-@media (prefers-reduced-motion: no-preference) {
+/* Wide screens only: on a phone the hero shows the whole crop at its own aspect,
+   and a 5% zoom would trim the characters at its edges (taste review r4: the
+   blue robot and a sheep cut off at 320). */
+@media (prefers-reduced-motion: no-preference) and (min-width: 641px) {
   .story-hero img { transform-origin: 62% 70%; animation: story-drift 60s ease-in-out infinite alternate; }
 }
 @keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.05) translate(-0.8%, -0.6%); } }
@@ -664,9 +667,15 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-meadow { margin-top: 3rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); }
 .story-meadow img { height: clamp(11rem, 26vw, 24rem); object-fit: cover; object-position: 50% 72%; }
 .story-meadow + .site-footer { margin-top: 0; border-top: 0; }
-/* A scene still on its way shows a wash of dawn: never a broken-image glyph,
-   never a hairline (the deferred <img> has no src until it is near). */
-.story-inline, .story-vignette, .story-meadow { background: linear-gradient(180deg, #F7C9A8 0%, #F3DDB0 55%, #CFD9A0 100%); }
+/* A scene still on its way shows a wash: never a broken-image glyph, never a
+   hairline (the deferred <img> has no src until it is near). By day the wash is
+   dawn; by night it is dusk, the page's own dark ground with a faint warm glow
+   low down, so nothing flashes bright peach before the art lands (taste review r4). */
+.story-hero, .story-inline, .story-vignette, .story-meadow { background: radial-gradient(120% 90% at 50% 100%, color-mix(in srgb, var(--color-amber) 16%, transparent), transparent 70%), var(--color-deep); }
+:root[data-theme="light"] :is(.story-hero, .story-inline, .story-vignette, .story-meadow) { background: linear-gradient(180deg, #F7C9A8 0%, #F3DDB0 55%, #CFD9A0 100%); }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) :is(.story-hero, .story-inline, .story-vignette, .story-meadow) { background: linear-gradient(180deg, #F7C9A8 0%, #F3DDB0 55%, #CFD9A0 100%); }
+}
 .story-scene img { border: 0; }
 .story-scene img:not([src]) { visibility: hidden; }
 
@@ -712,3 +721,14 @@ main > section.border-t::before, .trail-top::before {
 .bundle-list dl > div + div { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 22%, transparent); }
 .bundle-list dd { margin: 0; }
 @media (max-width: 420px) { .bundle-list dl > div { grid-template-columns: minmax(0, 1fr); } }
+
+/* The Lab's one line (Layout.astro): the way back, what the page is, its status.
+   Each item carries its own dot before it; the line is clipped just left of its
+   edge, so an item that starts a line on a phone hides its dot and none dangles
+   at a line's end. */
+.lab-line { overflow: hidden; padding: 0.25rem; margin: -0.25rem; }
+.lab-line .lab-items { display: flex; flex-wrap: wrap; align-items: center; row-gap: 0.4rem; margin: 0 0 0 -1.25rem; }
+.lab-line .lab-item { position: relative; display: inline-flex; align-items: center; padding-left: 1.25rem; }
+.lab-line .lab-item::before { content: "\00B7"; position: absolute; left: 0.5rem; color: var(--color-shadow); }
+.lab-line .lab-crumb { color: var(--color-mist); }
+.hero-cover-glow { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%); mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%); }

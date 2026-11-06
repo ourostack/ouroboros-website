@@ -35,6 +35,8 @@ function fakeElement(id, classes = []) {
     },
     setAttribute: (k, v) => { attrs[k] = String(v); },
     getAttribute: (k) => attrs[k],
+    removeAttribute: (k) => { delete attrs[k]; },
+    hasAttribute: (k) => k in attrs,
     addEventListener: (type, fn) => { (listeners[type] ||= []).push(fn); },
     dispatch(type, event = {}) { for (const fn of listeners[type] || []) fn(event); },
     focus() { this.focused = true; },
@@ -61,9 +63,18 @@ function boot() {
   els['mobile-menu'].children.push(column);
   els.link = link;
   els.column = column;
+  // The page around the menu: the nav (which holds the bar and the panel), then
+  // main, the meadow and the footer, plus the home mark inside the bar.
+  const brandHome = fakeElement('brand-home');
+  els['main-nav'] = fakeElement('main-nav');
+  els['main-nav'].querySelectorAll = (sel) => (sel === '.brand-home' ? [brandHome] : []);
+  els['main-nav'].tagName = 'NAV';
+  const page = ['main', 'meadow', 'footer'].map((id) => Object.assign(fakeElement(id), { tagName: 'DIV' }));
+  els.page = page;
+  els.brandHome = brandHome;
   const doc = fakeElement('document');
   doc.getElementById = (id) => els[id] || null;
-  doc.body = { style: { overflow: '' } };
+  doc.body = { style: { overflow: '' }, children: [els['main-nav'], ...page, Object.assign(fakeElement('s'), { tagName: 'SCRIPT' })] };
   const window = { matchMedia: () => ({ matches: false, addEventListener() {} }) };
   vm.runInNewContext(menuScript(readDist('index.html')), { document: doc, window });
   return { els, doc };
@@ -114,4 +125,29 @@ test('a tap outside the links closes the phone menu and returns focus; a tap on 
   doc.dispatch('click', { target: els['menu-toggle'] });
   doc.dispatch('click', { target: els.link });
   assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'true', 'the toggle and a link handle their own taps');
+});
+
+// Taste review r4: Tab moved to page links hidden behind the open menu. While it
+// is open, everything outside it is inert; closing wakes the page and returns
+// focus to the toggle.
+test('while the phone menu is open, the page behind it is inert', () => {
+  for (const close of ['toggle', 'Escape', 'outside']) {
+    const { els, doc } = boot();
+    els['menu-toggle'].dispatch('click');
+    for (const el of [...els.page, els.brandHome]) assert.ok(el.hasAttribute('inert'), `${el.id} is inert while the menu is open`);
+    assert.ok(!els['main-nav'].hasAttribute('inert'), 'the nav holding the menu and its toggle stays live');
+    if (close === 'toggle') els['menu-toggle'].dispatch('click');
+    else if (close === 'Escape') doc.dispatch('keydown', { key: 'Escape' });
+    else doc.dispatch('click', { target: fakeElement('page') });
+    for (const el of [...els.page, els.brandHome]) assert.ok(!el.hasAttribute('inert'), `${el.id} wakes when the menu closes by ${close}`);
+    assert.equal(els['menu-toggle'].focused, true, `focus returns to the toggle after ${close}`);
+  }
+});
+
+test('every item in the phone menu is set in the same size, GitHub included', () => {
+  const html = readDist('index.html');
+  const panel = html.match(/<div id="mobile-menu"[\s\S]*?<\/div>\s*<\/div>/)[0];
+  const sizes = [...panel.matchAll(/<a\b[^>]*class="([^"]*)"/g)].map(([, c]) => (c.match(/\btext-(xl|2xl|3xl|4xl)\b/) || [])[1]);
+  assert.ok(sizes.length >= 7, 'found the menu links');
+  assert.deepEqual([...new Set(sizes)], ['3xl']);
 });

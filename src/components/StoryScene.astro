@@ -67,7 +67,7 @@ const vignette = variant === 'vignette'
     <>
       {/* Deferred: the sources wait in data-srcset until the hero has landed and the
           scene is near (Layout.astro), so the arrival gets the whole connection. */}
-      <picture data-defer>
+      <picture data-defer={variant === 'meadow' ? 'far' : ''}>
         <source media="(max-width: 640px)" type="image/avif" data-srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
         <source media="(max-width: 640px)" type="image/webp" data-srcset={phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
         <source type="image/avif" data-srcset={wideAvif} sizes={wideSizes} width={w} height={h} />

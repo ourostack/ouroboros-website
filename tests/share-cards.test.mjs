@@ -73,3 +73,13 @@ test('the homepage card says what the card shows', () => {
   const entry = pageOg['/'];
   assert.equal(meta(html, 'property', 'og:image:alt'), `${entry.title} ${scenes.ourostack}`);
 });
+
+// One type scale on every card (taste review r5, 2026-11-06): the title is set
+// at a single size and only its line count changes, and a zone too small for it
+// fails the build instead of shrinking the words.
+test('every share card sets its title at the one title size', () => {
+  const src = fs.readFileSync('src/pages/og/[...slug].jpg.ts', 'utf8');
+  assert.match(src, /export const TITLE_SIZE = \d+/);
+  assert.match(src, /const titleSize = TITLE_SIZE\n/);
+  assert.match(src, /if \(!lines\) throw new Error/);
+});

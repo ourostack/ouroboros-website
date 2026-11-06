@@ -30,7 +30,7 @@ const organs = [
 ]
 ---
 
-<Layout title={title} description={description} ogImage={ogPathFor('/lab/why')} canonical="https://ouroboros.bot/lab/why/" ogType="article">
+<Layout title={title} description={description} ogImage={ogPathFor('/lab/why')} canonical="https://ouroboros.bot/lab/why/" ogType="article" crumbs={["Why Ouroboros"]}>
   <Fragment slot="head">
     <meta name="author" content="Ari Mendelow" />
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -45,7 +45,7 @@ const organs = [
   </Fragment>
 
   <!-- ═══════ 1. HERO ═══════ -->
-  <HeroCover eyebrow="Why Ouroboros">
+  <HeroCover>
     <Fragment slot="title">Persistence is not enough.</Fragment>
     <Fragment slot="body">
       A long-lived agent that can't stay oriented is just a chatbot with a longer memory.

@@ -14,6 +14,8 @@ interface Props {
   ogImage?: string
   canonical?: string
   ogType?: string
+  /** What a Lab page is ("Operator guide", a reviewer and its date): set on the Lab's own line, so the labels never stack. */
+  crumbs?: string[]
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   ogImage = '/og/og-home.jpg',
   canonical = `https://ouroboros.bot${Astro.url.pathname}`,
   ogType = 'website',
+  crumbs = [],
 } = Astro.props
 const lab = labStatusFor(Astro.url.pathname)
 // The card's alt text says what the generated card shows: its title, set in its scene.
@@ -103,11 +106,14 @@ const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { hr
       {scene.hero && <StoryScene scene={scene.hero} variant="hero" class={scene.band ? 'story-hero-band' : contentHero ? 'story-hero-content' : undefined} />}
       {lab && (
         <div class:list={['lab-status z-20 px-6 md:px-12 lg:px-16', scene.hero ? 'relative pt-5' : 'absolute top-16 inset-x-0 pt-3']} data-lab-status={lab.status}>
-          <p class="max-w-6xl mx-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist">
-            <a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; Lab</a>
-            {lab.status !== 'Origin' && <span class={`tag ${lab.tone}`}>{lab.status}</span>}
-            {labParent && <a href={labParent.href} class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; {labParent.label}</a>}
-          </p>
+          {/* One line, never two stacked rows (taste reviews r3 and r4): the way back, what
+              the page is, then its status. "← Lab · Operator guide · Experiment". */}
+          <div class="lab-line max-w-6xl mx-auto text-sm text-mist"><p class="lab-items">
+            <span class="lab-item"><a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; Lab</a></span>
+            {labParent && <span class="lab-item"><a href={labParent.href} class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">{labParent.label}</a></span>}
+            {crumbs.map((crumb) => <span class="lab-item lab-crumb">{crumb}</span>)}
+            {lab.status !== 'Origin' && <span class="lab-item"><span class={`tag ${lab.tone}`}>{lab.status}</span></span>}
+          </p></div>
         </div>
       )}
       <slot />
@@ -194,7 +200,12 @@ const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { hr
           var io = new IntersectionObserver(function(entries) {
             entries.forEach(function(e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
           }, { rootMargin: '600px 0px' });
-          deferred.forEach(function(p) { io.observe(p); });
+          // The meadow above the footer starts far earlier, a few screens ahead, so a
+          // quick scroll to the foot never meets an empty band (taste review r4).
+          var far = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) { show(e.target); far.unobserve(e.target); } });
+          }, { rootMargin: '2400px 0px' });
+          deferred.forEach(function(p) { (p.getAttribute('data-defer') === 'far' ? far : io).observe(p); });
         }
         var hero = document.querySelector('.story-hero img');
         if (!hero || hero.complete) { start(); return; }

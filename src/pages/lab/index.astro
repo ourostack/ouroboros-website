@@ -39,7 +39,8 @@ const pieces = [
 <Layout title={title} description={description} ogImage={ogPathFor('/lab')} canonical="https://ouroboros.bot/lab/">
   <!-- The Lab's own opening: what the harness is to everything else -->
   <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-32 md:pt-40 pb-6">
-    <div class="absolute top-0 left-1/4 w-[600px] h-[400px] rounded-full bg-scale/[0.06] blur-[160px] pointer-events-none" aria-hidden="true"></div>
+    {/* The glow fades out before the section edge, so the overflow clip never cuts it (taste review r5). */}
+    <div class="hero-cover-glow absolute inset-0 pointer-events-none" aria-hidden="true"><div class="absolute top-0 left-1/4 w-[600px] h-[400px] rounded-full bg-scale/[0.06] blur-[160px] pointer-events-none"></div></div>
     <div class="relative max-w-6xl mx-auto grid gap-5 split lg:items-end">
       <div class="grid gap-5 split-head">
         <p class="flex flex-wrap items-center gap-3"><span class="eyebrow">Lab</span><span class={`tag ${harness.tone}`}>{harness.label}</span></p>
@@ -58,7 +59,7 @@ const pieces = [
   <!-- ═══════════════ HERO — DECK SLIDE ═══════════════ -->
   <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-10 pb-20 md:pt-12 md:pb-24 flex flex-col">
     <div class="absolute inset-0 bg-gradient-to-b from-deep via-undergrowth/15 to-void pointer-events-none"></div>
-    <div class="absolute top-1/3 left-1/4 w-[500px] h-[400px] md:w-[800px] md:h-[500px] rounded-full bg-scale/[0.04] blur-[150px] md:blur-[220px] pointer-events-none"></div>
+    <div class="hero-cover-glow absolute inset-0 pointer-events-none" aria-hidden="true"><div class="absolute top-1/3 left-1/4 w-[500px] h-[400px] md:w-[800px] md:h-[500px] rounded-full bg-scale/[0.04] blur-[150px] md:blur-[220px] pointer-events-none"></div></div>
 
     <div class="relative max-w-6xl mx-auto w-full flex-1 flex flex-col justify-center">
       <!-- Eyebrow -->

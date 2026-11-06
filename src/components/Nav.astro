@@ -63,9 +63,7 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
           {link.label}
         </a>
       ))}
-      <a href={githubOrg} target="_blank" rel="noopener" class="text-mist hover:text-scale transition-colors mt-2 font-display text-xl">
-        GitHub &#8599;
-      </a>
+      <a href={githubOrg} target="_blank" rel="noopener" class="font-display text-3xl tracking-wide text-mist hover:text-scale transition-colors duration-200">GitHub <span aria-hidden="true">&#8599;</span></a>
       <a href={sisterNav.href} class="font-display text-3xl tracking-wide text-mist hover:text-scale transition-colors duration-200">{sisterText}<span aria-hidden="true">{sisterArrow}</span></a>
     </div>
   </div>
@@ -115,8 +113,8 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
 </script>
 <script is:inline>
   // The phone menu: the toggle opens and closes it; a link, Escape or the
-  // toggle again closes it, as does a tap outside the links. Closing unlocks the page scroll, and Escape hands
-  // focus back to the toggle so a keyboard reader is never left stranded.
+  // toggle again closes it, as does a tap outside the links. While it is open the page behind is inert;
+  // closing unlocks it and hands focus back to the toggle so a keyboard reader is never left stranded.
   (function() {
     var toggle = document.getElementById('menu-toggle');
     var menu = document.getElementById('mobile-menu');
@@ -124,27 +122,38 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
     var iconClose = document.getElementById('menu-icon-close');
     if (!toggle || !menu) return;
     function isOpen() { return !menu.classList.contains('hidden'); }
-    function setOpen(open) {
+    // While the menu is open, everything it covers is inert, so Tab walks the
+    // menu and the bar's buttons, never the page hidden behind the panel
+    // (taste review r4). The home mark goes inert too, keeping the keyboard in the menu.
+    var nav = document.getElementById('main-nav');
+    function behind() {
+      var els = Array.prototype.filter.call(document.body.children, function (el) { return el !== nav && el.tagName !== 'SCRIPT'; });
+      nav.querySelectorAll('.brand-home').forEach(function (el) { els.push(el); });
+      return els;
+    }
+    function setOpen(open, refocus) {
+      behind().forEach(function (el) { if (open) el.setAttribute('inert', ''); else el.removeAttribute('inert'); });
       menu.classList.toggle('hidden', !open);
       iconOpen.classList.toggle('hidden', open);
       iconClose.classList.toggle('hidden', !open);
       toggle.setAttribute('aria-expanded', String(open));
       document.body.style.overflow = open ? 'hidden' : '';
+      if (!open && refocus) toggle.focus();
     }
-    toggle.addEventListener('click', function() { setOpen(!isOpen()); });
+    toggle.addEventListener('click', function() { setOpen(!isOpen(), true); });
     menu.querySelectorAll('a').forEach(function(link) {
-      link.addEventListener('click', function() { setOpen(false); });
+      link.addEventListener('click', function() { setOpen(false, false); });
     });
     document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape' && isOpen()) { setOpen(false); toggle.focus(); }
+      if (event.key === 'Escape' && isOpen()) setOpen(false, true);
     });
     // A tap on the panel's open space, or anywhere outside the panel and the
     // toggle, closes it too, the same as ouro.bot's menu.
     document.addEventListener('click', function(event) {
       if (!isOpen() || toggle.contains(event.target)) return;
-      if (event.target === menu || event.target === menu.firstElementChild || !menu.contains(event.target)) { setOpen(false); toggle.focus(); }
+      if (event.target === menu || event.target === menu.firstElementChild || !menu.contains(event.target)) setOpen(false, true);
     });
     // Widening past the phone layout hides the menu, so never leave the page locked.
-    window.matchMedia('(min-width: 1024px)').addEventListener('change', function(e) { if (e.matches && isOpen()) setOpen(false); });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', function(e) { if (e.matches && isOpen()) setOpen(false, false); });
   })();
 </script>
