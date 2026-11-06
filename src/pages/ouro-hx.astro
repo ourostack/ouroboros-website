@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+import { labelFor } from '../data/readiness.mjs'
+
+// Ouro HX's page. It moved here from ouro.bot/apps/ouro-hx/ (ourostack/ouro-apps-site#15)
+// when ouro.bot forwarded to ouroboros.bot (Ari, 2026-11-06: "we need a unified domain").
+// The copy is that page's, kept playful. The install commands mirror ui.ouro.bot/docs/installing/.
+// Spoonjoy and the Voyage are showcases of HX, never the list of what is built with it.
+const title = 'Ouro HX: React components designed down to the last tap | Ouro'
+const description = "Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Copy-in source for shadcn's CLI, already cooking in Spoonjoy."
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const status = labelFor('ouro-hx')
+
+const features = [
+  ['Yours to keep', 'Copy-in source in the shadcn/ui registry format. Each component lands in <code>components/ouro/</code>, and your app’s own Tailwind CSS v4 compiles it.'],
+  ['Keeps your theme', 'Components read shadcn’s theme variables (<code>--primary</code>, <code>--background</code>, <code>--radius</code>…), so your shadcn theme stays put. Want the Ouro look? Add <code>ouro-theme</code>.'],
+  ['Phones get sheets', 'A dialog sits centered on wide screens and becomes a bottom sheet you can drag away on a phone.'],
+  ['Motion, minus the library', 'Motion is CSS, and reduced motion is honored in CSS. No animation library comes along for the ride.'],
+  ['Tests, if you want them', 'Each component’s browser tests, stories and Playwright spec come as an optional <code>-tests</code> item, right beside it.'],
+]
+
+const install = `# once per app
+npx shadcn@latest init --base base --preset nova --yes --no-monorepo
+
+# once, in components.json
+"registries": { "@ouro": "https://ui.ouro.bot/r/{name}.json" }
+
+# the tokens every component needs, then a component
+npx shadcn@latest add @ouro/ouro-base
+npx shadcn@latest add @ouro/dialog`
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/ouro-hx')} canonical="https://ouroboros.bot/ouro-hx/">
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 pt-28 pb-12 md:pt-36">
+    <div class="max-w-6xl mx-auto grid gap-10 split split-media">
+      <div class="grid gap-5 content-start min-w-0 split-head">
+        <h1 class="heading-lead page-mark"><img src="/brand/ouro-hx-render.webp" srcset="/brand/ouro-hx-render-128.webp 128w, /brand/ouro-hx-render-256.webp 256w" sizes="72px" width="72" height="72" alt="" decoding="async" class="mark-render" />Ouro HX</h1>
+        <p class="text-xl md:text-2xl text-bone font-display leading-snug">Designed down to the last tap. And down to the last prop.</p>
+        <p class="flex flex-wrap items-center gap-3"><span class={`tag ${status.tone}`}>{status.label}</span><span class="text-mist">React 19 and Tailwind CSS v4.</span></p>
+        <p class="text-lg text-mist leading-relaxed">Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. It's copy-in source, not an npm package: shadcn's CLI drops each component into your app, where it's yours to read, keep and tinker with.</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="https://ui.ouro.bot/" class="btn-primary">See it live &#8599;</a>
+          <a href="#install" class="btn-ghost">Install it</a>
+        </div>
+      </div>
+
+      <figure class="product-figure min-w-0 split-body">
+        <a href="https://spoonjoy.app/test-kitchen?xray" class="product-media media-shot">
+          <picture class="theme-light-only"><img src="/images/workshop/ouro-hx-spoonjoy-xray-light.webp" width="1600" height="863" decoding="async" alt="Spoonjoy's Crispy Lemon Chickpeas recipe with X-ray on: the navbar, a number field, a button and a checklist are outlined and labeled with their Ouro HX component names." /></picture>
+          <picture class="theme-dark-only"><img src="/images/workshop/ouro-hx-spoonjoy-xray-dark.webp" width="1600" height="863" decoding="async" alt="Spoonjoy's Crispy Lemon Chickpeas recipe in dark mode with X-ray on: the navbar, a number field, a button and a checklist are outlined and labeled with their Ouro HX component names." /></picture>
+        </a>
+        <figcaption class="product-caption">Spoonjoy's Test Kitchen with X-ray on: every outline is an Ouro HX component, wearing its name tag. Real app, real recipe, real chickpeas.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="wild-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="wild-heading" class="heading-section">Already cooking in production.</h2>
+      <p class="mt-4 text-lg text-mist leading-relaxed"><a href="https://spoonjoy.app/" class={link}>Spoonjoy</a>, a recipe app, is one showcase built with Ouro HX. Each component's docs page links to where Spoonjoy uses it, so you can watch a component do its day job before you take it home. <a href="https://spoonjoy.app/test-kitchen?xray" class={link}>Turn on X-ray yourself &#8599;</a></p>
+      <ul class="does">
+        {features.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p set:html={body} /></li>
+        ))}
+        <li><h3 class="does-name">Agents read the manual too</h3><p><a href="https://ui.ouro.bot/llms.txt" class={link}>llms.txt</a> lists every item and the exact commands, so your coding agent installs components without guessing.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="install" class="px-5 sm:px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20 scroll-mt-16" aria-labelledby="install-heading">
+    <div class="max-w-6xl mx-auto grid gap-8 split split-media">
+      <div class="grid gap-5 content-start min-w-0 split-head">
+        <h2 id="install-heading" class="heading-section">A few commands, then a dialog.</h2>
+        <p class="text-lg text-mist leading-relaxed">In a Vite or Next.js app with Tailwind CSS v4 and an <code class="font-mono">@/*</code> path alias: run shadcn's init, add <code class="font-mono">ouro-base</code> once, then add any component. The <code class="font-mono">@ouro</code> namespace always serves the newest release.</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="https://ui.ouro.bot/docs/installing/" class="btn-primary">Install guide &#8599;</a>
+          <a href="https://ui.ouro.bot/docs/" class={link}>Browse the docs &#8599;</a>
+        </div>
+      </div>
+      <pre class="install min-w-0 split-body"><code>{install}</code></pre>
+    </div>
+    <p class="max-w-6xl mx-auto mt-10 product-links"><a href="https://github.com/ourostack/ouro-ui" class={link}>Ouro HX source &#8599;</a> <a href="https://ui.ouro.bot/storybook/" class={link}>Storybook &#8599;</a> <a href="https://github.com/ourostack/ouro-ui/releases" class={link}>Releases &#8599;</a> <a href="/apps/" class={link}>More from the workshop &rarr;</a></p>
+  </section>
+</Layout>
+
+<style>
+  .page-mark { display: flex; align-items: center; gap: 1rem; }
+  .page-mark img { width: 3.5rem; height: 3.5rem; }
+  @media (min-width: 768px) { .page-mark img { width: 4.5rem; height: 4.5rem; } }
+  .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
+  @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .does { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .does li { display: grid; gap: 0.4rem; align-content: start; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
+  .does code { font-family: var(--font-mono); font-size: 0.9em; overflow-wrap: anywhere; }
+  .does-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
+  .install { margin: 0; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; }
+  .product-figure:has(> a.product-media) { transition: border-color 0.2s, box-shadow 0.2s; }
+  .product-figure:has(> a.product-media:hover), .product-figure:has(> a.product-media:focus-visible) { border-color: var(--color-scale); box-shadow: 0 0 0 1px var(--color-scale); }
+</style>

@@ -14,6 +14,8 @@ const routes = [
   ['/brief/', 'brief/index.html'],
   ['/desk/', 'desk/index.html'],
   ['/ouro-md/', 'ouro-md/index.html'],
+  ['/apps/', 'apps/index.html'],
+  ['/ouro-hx/', 'ouro-hx/index.html'],
   ['/blog/', 'blog/index.html'],
   ['/blog/trust-the-agent/', 'blog/trust-the-agent/index.html'],
   ['/blog/take-the-agents-seat/', 'blog/take-the-agents-seat/index.html'],

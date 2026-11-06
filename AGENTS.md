@@ -165,6 +165,7 @@ src/
     approach.astro       ← /approach
     brief.astro          ← /brief (shows public/brief.md)
     desk.astro, ouro-md.astro ← /desk, /ouro-md
+    apps.astro, ouro-hx.astro ← /apps (the shelf), /ouro-hx; both moved here from ouro.bot
     blog/                ← /blog index and every post, at the URLs they were published under
     lab/                 ← /lab: why, story, what-is-an-agent-harness, model-reviews (+ [provider]), docs/* (use DocsPageShell); index.astro carries the old harness homepage
     privacy.astro, terms.astro
@@ -188,6 +189,10 @@ public/
   og/                    ← EMPTY — OG cards are generated dynamically, never committed
   skills/                ← skills/manifest.json + skill markdown for agent consumption
 ```
+
+## ouro.bot forwards here
+
+ouro.bot's website moved onto this site on 2026-11-06 (Ari: "we need a unified domain"). The `ouro-apex` Worker in ourostack/ouro-apps-site forwards each old ouro.bot page to its home here (`/` and `/apps/` to `/apps/`, `/apps/ouro-hx/` to `/ouro-hx/`, unknown paths to `/`). ouro.bot still serves only Ouro MD's download page (`/apps/ouro-md/`, its App Store marketing URL), `stable.json`, the installer and their assets. `tests/ouro-bot-forwards.test.mjs` fails if a forward target disappears; when you move one of those pages, update that Worker's map too.
 
 ## Conventions
 
