@@ -1,3 +1,9 @@
+<!-- ourostack:brand:start -->
+<p align="center">
+  <a href="https://github.com/ourostack"><img src="https://raw.githubusercontent.com/ourostack/.github/main/brand/headers/ouroboros-website.webp" alt="Ouro inside an open rose-arch garden gate beside a signpost, the trail leading to a desk, a lectern and a factory in the valley" width="100%"></a>
+</p>
+<!-- ourostack:brand:end -->
+
 # ouroboros.bot
 
 How to collaborate with agents: Ari Mendelow's approach, the tools that support it ([Desk](https://github.com/ourostack/desk), [Ouro MD](https://github.com/ourostack/ouro-md) and [the factory](https://ourostack.github.io/factory/)), the blog, and the Lab: the [Ouroboros harness](https://github.com/ourostack/ouroboros) and Slugger's story, where the method came from.
