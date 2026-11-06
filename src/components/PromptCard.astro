@@ -1,4 +1,6 @@
 ---
+// A prompt or command to copy. Only the copyable text wears a frame; the label
+// sits above it in the page's own type, not in a header strip (taste review r2).
 interface Props {
   label?: string
   prompt: string
@@ -8,11 +10,11 @@ interface Props {
 const { label = 'Ask your agent', prompt, footnote } = Astro.props
 ---
 
-<div class="rounded-2xl border border-canopy/40 bg-undergrowth/20 overflow-hidden">
-  <div class="flex items-center justify-between px-6 py-4 border-b border-canopy/30">
-    <span class="font-mono text-xs text-scale uppercase tracking-[0.22em]">{label}</span>
+<div class="prompt-card">
+  <div class="flex items-center justify-between gap-4 mb-2">
+    <p class="prompt-label">{label}</p>
     <button
-      class="prompt-copy-btn flex items-center gap-2 text-xs text-mist hover:text-bone transition-colors font-mono uppercase tracking-[0.18em] cursor-pointer"
+      class="prompt-copy-btn flex flex-none items-center gap-2 text-xs text-mist hover:text-bone transition-colors font-mono uppercase tracking-[0.18em] cursor-pointer"
       data-prompt={prompt}
     >
       <svg class="prompt-copy-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,13 +27,16 @@ const { label = 'Ask your agent', prompt, footnote } = Astro.props
       <span class="prompt-copy-label">Copy</span>
     </button>
   </div>
-  <div class="px-6 py-5">
-    <pre class="font-mono text-sm text-mist leading-relaxed whitespace-pre-wrap">{prompt}</pre>
-    {footnote && (
-      <p class="text-sm text-mist mt-4 leading-relaxed">{footnote}</p>
-    )}
-  </div>
+  <pre class="prompt-frame font-mono text-sm text-bone leading-relaxed whitespace-pre-wrap">{prompt}</pre>
+  {footnote && (
+    <p class="text-sm text-mist mt-3 leading-relaxed">{footnote}</p>
+  )}
 </div>
+
+<style>
+  .prompt-label { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.2; color: var(--color-bone); }
+  .prompt-frame { margin: 0; padding: 0.9rem 1.1rem; border-radius: 0.75rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); background: color-mix(in srgb, var(--color-deep) 60%, transparent); }
+</style>
 
 <script>
   document.querySelectorAll('.prompt-copy-btn').forEach(function(btn) {

@@ -80,7 +80,7 @@ export const pageOg: Record<string, OgEntry> = {
     mark: 'butler',
   },
   '/ouro-md': {
-    title: 'Ouro MD: read and answer what your agent writes.',
+    title: 'Ouro MD: Markdown that renders as you type.',
     subtitle: 'A native Markdown editor for macOS 15 or later. Live updates, quiet marks where your agent changed things.',
     tag: 'Ouro MD',
     mark: 'ouro-md',
@@ -167,8 +167,8 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Essay',
   },
   '/blog/build-ai-agent-from-scratch': {
-    title: 'Build an agent in 150 lines of TypeScript.',
-    subtitle: 'A practical guide to building agents that read, think, act, and grow: from first principles to production.',
+    title: 'Just give the model a keyboard.',
+    subtitle: 'Build an agent in 150 lines of TypeScript. A practical guide to building agents that read, think, act, and grow: from first principles to production.',
     tag: 'Tutorial',
   },
   '/privacy': {

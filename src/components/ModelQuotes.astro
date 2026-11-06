@@ -8,7 +8,7 @@ import modelReviews from '../data/model-reviews.json'
 <ul class="quotes">
   {modelReviews.reviews.map((review) => (
     <li>
-      <a href={`/lab/model-reviews/${review.provider}`} class="quote group">
+      <a href={`/lab/model-reviews/${review.provider}/`} class="quote group">
         <span class="quote-text">&#8220;{review.pullQuote}&#8221;</span>
         <span class="quote-who">{review.displayName}<span class="quote-vendor"> · {review.vendor}</span><span class="quote-more">Read the transcript <span aria-hidden="true">&rarr;</span></span></span>
       </a>

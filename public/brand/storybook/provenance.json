@@ -53,6 +53,211 @@
     "sha256": "8cb6a56611aea72a73857779202f71eaa842c70a1649addcff78ea1493755669"
   },
   {
+    "file": "headers/apple-distribution-kit.webp",
+    "for": "https://github.com/ourostack/apple-distribution-kit",
+    "model": "GitHub Copilot CLI built-in image_generation tool, 1536x1024, quality high",
+    "generated": "2026-11-05/06 overnight, for Ari (\"make every header beautiful and fitting to each product\")",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\"",
+    "crop": "1536x576 from the 1536x1024 master, WebP q86",
+    "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a",
+    "generation": [
+      {
+        "master": "dist-kit-a",
+        "master_sha256": "e1ace89eb76627edca7f182f1f5328e816860044003cc79d98f540dfe21762fd",
+        "prompt": "Wide storybook banner in \"Ouro's world\" at dawn, the same world, light and rendering as the LAST reference image: premium Pixar-like 3D, warm golden sunrise from the right, pastel peach-and-blue sky, misty hills, dewy green meadow with tiny warm glints, and a glowing braided trail of green and warm amber light winding through the meadow.\n\nOuro (reference image 1): exactly the same glossy green cartoon snake, pale-green segmented belly, big friendly black-and-white eyes, gentle smile, body curled into a round \"O\" with the short tail tip curling up beside its head. One head, one tail, no limbs, never biting its tail.\n\nScene for apple-distribution-kit, \"reusable automation that packages and ships native apps\": a small rustic wooden packing station and loading dock in the meadow, slightly left of centre. On the bench, neat cream gift boxes are being wrapped in green paper and tied with amber ribbon, then stamped with a plain wax seal (no symbol). The finished boxes ride a short wooden roller conveyor onto a little red post wagon hitched and ready to roll along the glowing trail. Ouro, large, is curled at the right end of the bench, tying a perfect bow with its tail tip, pleased.\n\nComposition: a very wide banner. Keep the bench, conveyor, wagon, Ouro and props inside the middle horizontal band between 30% and 72% of the image height; the top quarter is open sky, the bottom quarter is soft meadow foreground. Nothing important touches the left or right edge.\n\nNo text, letters, numbers, logos or symbols anywhere; boxes and wagon are plain.",
+        "input_images": [
+          "brand/ouro.png",
+          "master:hero-c (sha256 062445636216ed5d8a1756fa2afb44daa57401900b23c29993f70fc62e9aa45d)"
+        ]
+      },
+      {
+        "master": "hero-c",
+        "master_sha256": "062445636216ed5d8a1756fa2afb44daa57401900b23c29993f70fc62e9aa45d",
+        "prompt": "Edit the first image. Keep it exactly the same: same Ouro (the green snake, identical face, same \"O\" curl with the tail tip beside its head), same light, sky, trail, desk, factory, lectern, green card easel and picnic group, same rendering.\n\nChanges only:\n1. On the hillside just above and behind the picnic group, at the far right but not touching the right edge, add three or four small round fluffy white sheep with tiny friendly robot faces grazing, and the wooden shepherd's crook from the third reference image leaning on a short wooden fence beside them.\n2. Shift the toy factory a little to the right so its left wall has a small gap of meadow before the left edge of the image.\n3. Give the picnic group a little more breathing room from the right edge.\n\nNo text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "master:hero-b (sha256 c6e1638ca88c888f89c1ff67f44b40ba98939bdef0cb372d21bd64f68a498cab)",
+          "brand/ouro.png",
+          "brand/shepherd.png"
+        ]
+      },
+      {
+        "master": "hero-b",
+        "master_sha256": "c6e1638ca88c888f89c1ff67f44b40ba98939bdef0cb372d21bd64f68a498cab",
+        "prompt": "Wide storybook panorama of \"Ouro's world\" at dawn, the same world, light and rendering as the LAST reference image: premium Pixar-like 3D, warm golden sunrise from the right, pastel peach-and-blue sky with small soft clouds, misty valleys, dewy green meadows with tiny warm glints, and a glowing braided trail of green and warm amber light winding through the meadow and looping into a big circle.\n\nOuro (reference image 1) is the hero: exactly the same glossy green cartoon snake, pale-green segmented belly, big friendly black-and-white eyes, gentle smile, its body curled into a round \"O\" with the short tail tip curling up beside its head. One head, one tail, no limbs, never biting its tail. Ouro sits large in the exact centre on the glowing trail, smiling at the viewer.\n\nOuro's places, spread along the trail on the same middle band, each small and charming:\n- the warm walnut wooden table from reference image 2 under a blossom tree, with a neat stack of papers and a small brass lamp;\n- the cosy cream-and-charcoal toy factory from reference image 4 on a hill, a wisp of steam from its chimney;\n- a wooden reading lectern holding one large clean white page covered only in soft grey lines;\n- a glossy green card with rounded pale buttons and a toggle (from reference image 5) standing on a little easel;\n- the two people and the white and slate-blue robots from reference image 3 sitting on a checked picnic blanket, waving.\n\nComposition: a very wide banner. Keep ALL characters and places inside the middle horizontal band between 33% and 72% of the image height; the top third is open sky, the bottom quarter is soft meadow foreground. Ouro is the largest figure. Nothing touches the left or right edge. Balanced and uncluttered.\n\nNo text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "brand/ouro.png",
+          "brand/desk.png",
+          "brand/friends.png",
+          "brand/factory.png",
+          "brand/ouro-hx.png",
+          "master:hero-a (sha256 bdaf810e6226ba32a2761e13c0c516faf8864e6fec716ecbdff4dcb7df160901)"
+        ]
+      },
+      {
+        "master": "hero-a",
+        "master_sha256": "bdaf810e6226ba32a2761e13c0c516faf8864e6fec716ecbdff4dcb7df160901",
+        "prompt": "Wide storybook panorama of \"Ouro's world\" at dawn. Premium Pixar-like 3D rendering, warm golden sunrise light from the right, pastel peach-and-blue sky with small soft clouds, misty valleys, rolling green meadows sparkling with dew and tiny warm glints. Use the LAST reference image only for light, palette and storybook mood: do NOT include its glass characters or its bicycle.\n\nOuro (reference image 1) is the hero: exactly the same glossy green cartoon snake, pale-green segmented belly, big friendly black-and-white eyes, gentle smile, the body curled into a round \"O\" with the short tail tip curling up beside its head. One head, one tail, no limbs, never biting its tail. Ouro sits large in the exact centre of the frame on a gentle grassy knoll, on a glowing braided trail of green and warm amber light that winds across the valley and loops into a great circle around the knoll.\n\nAround Ouro, its friends and places, all in the same warm 3D style and all on the same middle horizontal band:\n- Left of centre: the warm walnut wooden table from reference image 2, standing in the meadow under a small blossom tree, with a tidy stack of paper and a little lamp on it.\n- Far left, on a hill: the cosy cream-and-charcoal toy factory with a chimney and a warm glowing window from reference image 4, a wisp of white steam from the chimney.\n- Right of centre: the two people and two small robots from reference image 3 (the woman in a rust sweater, the man in a navy sweater, the white robot and the slate-blue robot) sitting together on a checked picnic blanket, waving at Ouro.\n- Far right in the distant hills: a few small round white robots grazing like sheep beside a wooden shepherd's crook leaning on a fence.\n\nComposition: a very wide banner. Keep ALL characters and landmarks inside the middle horizontal band between 33% and 72% of the image height; the top third is open sky, the bottom quarter is soft meadow foreground. Ouro is the largest figure. Nothing touches the left or right edge.\n\nNo text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "brand/ouro.png",
+          "brand/desk.png",
+          "brand/friends.png",
+          "brand/factory.png",
+          "0-hero-C-dawn.png"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "scenes/apple-distribution-kit-640.webp",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 47718,
+    "sha256": "c8bf546c56f12c4c918ca7d0bf097258d7456500957e6c00eeed4f4870a4e8e1"
+  },
+  {
+    "file": "scenes/apple-distribution-kit-640.avif",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 42252,
+    "sha256": "52a557285f570173f53d9bef6c2c913671d99e628756d6454e6fa14dcf275dcb"
+  },
+  {
+    "file": "scenes/apple-distribution-kit-960.webp",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 95312,
+    "sha256": "af27d3e8e3b67b684158ee4025305a118686a9a89e3d2a4f6028d4078f33fd38"
+  },
+  {
+    "file": "scenes/apple-distribution-kit-960.avif",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 79827,
+    "sha256": "67b401de28078e3cca0798dc2b402ace17dee36ebdc9846dd1f015b989e432cf"
+  },
+  {
+    "file": "scenes/apple-distribution-kit-1536.avif",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 156719,
+    "sha256": "c0ba2230b27995610198457c9a6e00e8329887ecdacc0a2f661007d18e94c6c1"
+  },
+  {
+    "file": "phone/apple-distribution-kit-384.webp",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [316, 0, 1084, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 32180,
+    "sha256": "6e58b09c24a0db6fb3fd4b79ae17945f295e1ecca7f7300bc5ea9be8f4293206"
+  },
+  {
+    "file": "phone/apple-distribution-kit-384.avif",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [316, 0, 1084, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 27877,
+    "sha256": "ff697ffcd37c4808dc3802e0a760d3bf7a99d4765ddcd49655d9d15f81159958"
+  },
+  {
+    "file": "phone/apple-distribution-kit-768.webp",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [316, 0, 1084, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 95766,
+    "sha256": "703d255f417695cd02e571580c8140cceda9e22f1805ffc6894719777e3b0ea6"
+  },
+  {
+    "file": "phone/apple-distribution-kit-768.avif",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [316, 0, 1084, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 75211,
+    "sha256": "49b75f733896112b8e040025fe401cfc9d5a331800d1374b52fc16269519d48a"
+  },
+  {
+    "file": "og/apple-distribution-kit.jpg",
+    "derivedFrom": {
+      "file": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [252, 0, 1349, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 284835,
+    "sha256": "89cacf7c1c2589ce7fd178c57fa0d5a61b9d623778e7b38a98ebba758bc5cf7b"
+  },
+  {
     "file": "headers/butler.webp",
     "for": "butler",
     "model": "GitHub Copilot CLI built-in image_generation tool, 1536x1024, quality high",
@@ -2257,14 +2462,14 @@
       "file": "headers/ouro-hx.webp",
       "sha256": "e65a8db90a3292c632c1c35bcbbc9139edd256f6f1199a5a98107eb54ad368f1"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [436, 0, 1204, 576] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [248, 0, 1272, 576] then resize to 384x216 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 31618,
-    "sha256": "0e8f4dc2f8890121e8579a0c9d2b12ccdd880883d8f162baa1a61e369aa7dee2"
+    "height": 216,
+    "bytes": 25668,
+    "sha256": "571df27b703b726ad440d8c96f3a9bed0709886d2817537263eb08ce32937d60"
   },
   {
     "file": "phone/ouro-hx-384.avif",
@@ -2272,14 +2477,14 @@
       "file": "headers/ouro-hx.webp",
       "sha256": "e65a8db90a3292c632c1c35bcbbc9139edd256f6f1199a5a98107eb54ad368f1"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [436, 0, 1204, 576] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [248, 0, 1272, 576] then resize to 384x216 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 26952,
-    "sha256": "af2140a1dafb178307263be6119dd3456e4184477f6e836248cf075f96b38a5d"
+    "height": 216,
+    "bytes": 22301,
+    "sha256": "81bfb3cc77c5e06007466e2549309a41fee864b3c376cd5ecbb1629c4d0d60fd"
   },
   {
     "file": "phone/ouro-hx-768.webp",
@@ -2287,14 +2492,14 @@
       "file": "headers/ouro-hx.webp",
       "sha256": "e65a8db90a3292c632c1c35bcbbc9139edd256f6f1199a5a98107eb54ad368f1"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [436, 0, 1204, 576] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [248, 0, 1272, 576] then resize to 768x432 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 92824,
-    "sha256": "eacd9da77996925c2aba23b594a33138ad6be73cd24248ca00254bdf830861b9"
+    "height": 432,
+    "bytes": 79858,
+    "sha256": "7b68fa51119b0a93df3ae3b47e82bb176d61a053f391cdf423815de1ef5cf354"
   },
   {
     "file": "phone/ouro-hx-768.avif",
@@ -2302,14 +2507,14 @@
       "file": "headers/ouro-hx.webp",
       "sha256": "e65a8db90a3292c632c1c35bcbbc9139edd256f6f1199a5a98107eb54ad368f1"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [436, 0, 1204, 576] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [248, 0, 1272, 576] then resize to 768x432 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 72805,
-    "sha256": "f4c8ae06b04cdb55c301e14e8cc5f99898ceb83f1dffea4414c3a1a8cba01de5"
+    "height": 432,
+    "bytes": 64644,
+    "sha256": "a02953c1b0b7c9efa5a095b03803a56489d3cd7f23c4d4c6fc25d3cfa04fbf9f"
   },
   {
     "file": "og/ouro-hx.jpg",
@@ -2531,6 +2736,211 @@
     "height": 630,
     "bytes": 278208,
     "sha256": "ed94c2c2a91c112727f6728b0f870c7c7cbfba4af9c595e6b18867c6ac3ef55a"
+  },
+  {
+    "file": "headers/ouro-native-apple-app-shell.webp",
+    "for": "https://github.com/ourostack/ouro-native-apple-app-shell",
+    "model": "GitHub Copilot CLI built-in image_generation tool, 1536x1024, quality high",
+    "generated": "2026-11-05/06 overnight, for Ari (\"make every header beautiful and fitting to each product\")",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\"",
+    "crop": "1536x576 from the 1536x1024 master, WebP q86",
+    "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43",
+    "generation": [
+      {
+        "master": "app-shell-a",
+        "master_sha256": "d04a0fc9a80d4a215ca66d82f42da206dd8bcc253876523ddeca921e8051ee34",
+        "prompt": "Wide storybook banner in \"Ouro's world\" at dawn, the same world, light and rendering as the LAST reference image: premium Pixar-like 3D, warm golden sunrise from the right, pastel peach-and-blue sky, misty hills, dewy green meadow with tiny warm glints, and a glowing braided trail of green and warm amber light winding through the meadow.\n\nOuro (reference image 1): exactly the same glossy green cartoon snake, pale-green segmented belly, big friendly black-and-white eyes, gentle smile, body curled into a round \"O\" with the short tail tip curling up beside its head. One head, one tail, no limbs, never biting its tail.\n\nScene for Ouro's native Apple app shell, \"the shared shell every Ouro app lives in\": on a smooth pale stone by a small clear pond in the meadow, slightly left of centre, rests a large, beautiful, pearly spiral seashell, softly glowing from within. Inside its open mouth are tiny cosy rooms, like a doll's house: a little desk with a lamp, a tiny reading lectern, a tiny shelf, each softly lit. Ouro, large, is curled beside the shell on the right, peeking in proudly. Gentle ripples on the pond reflect the dawn.\n\nComposition: a very wide banner. Keep the shell, pond, Ouro and props inside the middle horizontal band between 30% and 72% of the image height; the top quarter is open sky, the bottom quarter is soft meadow foreground. Nothing important touches the left or right edge.\n\nNo text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "brand/ouro.png",
+          "master:hero-c (sha256 062445636216ed5d8a1756fa2afb44daa57401900b23c29993f70fc62e9aa45d)"
+        ]
+      },
+      {
+        "master": "hero-c",
+        "master_sha256": "062445636216ed5d8a1756fa2afb44daa57401900b23c29993f70fc62e9aa45d",
+        "prompt": "Edit the first image. Keep it exactly the same: same Ouro (the green snake, identical face, same \"O\" curl with the tail tip beside its head), same light, sky, trail, desk, factory, lectern, green card easel and picnic group, same rendering.\n\nChanges only:\n1. On the hillside just above and behind the picnic group, at the far right but not touching the right edge, add three or four small round fluffy white sheep with tiny friendly robot faces grazing, and the wooden shepherd's crook from the third reference image leaning on a short wooden fence beside them.\n2. Shift the toy factory a little to the right so its left wall has a small gap of meadow before the left edge of the image.\n3. Give the picnic group a little more breathing room from the right edge.\n\nNo text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "master:hero-b (sha256 c6e1638ca88c888f89c1ff67f44b40ba98939bdef0cb372d21bd64f68a498cab)",
+          "brand/ouro.png",
+          "brand/shepherd.png"
+        ]
+      },
+      {
+        "master": "hero-b",
+        "master_sha256": "c6e1638ca88c888f89c1ff67f44b40ba98939bdef0cb372d21bd64f68a498cab",
+        "prompt": "Wide storybook panorama of \"Ouro's world\" at dawn, the same world, light and rendering as the LAST reference image: premium Pixar-like 3D, warm golden sunrise from the right, pastel peach-and-blue sky with small soft clouds, misty valleys, dewy green meadows with tiny warm glints, and a glowing braided trail of green and warm amber light winding through the meadow and looping into a big circle.\n\nOuro (reference image 1) is the hero: exactly the same glossy green cartoon snake, pale-green segmented belly, big friendly black-and-white eyes, gentle smile, its body curled into a round \"O\" with the short tail tip curling up beside its head. One head, one tail, no limbs, never biting its tail. Ouro sits large in the exact centre on the glowing trail, smiling at the viewer.\n\nOuro's places, spread along the trail on the same middle band, each small and charming:\n- the warm walnut wooden table from reference image 2 under a blossom tree, with a neat stack of papers and a small brass lamp;\n- the cosy cream-and-charcoal toy factory from reference image 4 on a hill, a wisp of steam from its chimney;\n- a wooden reading lectern holding one large clean white page covered only in soft grey lines;\n- a glossy green card with rounded pale buttons and a toggle (from reference image 5) standing on a little easel;\n- the two people and the white and slate-blue robots from reference image 3 sitting on a checked picnic blanket, waving.\n\nComposition: a very wide banner. Keep ALL characters and places inside the middle horizontal band between 33% and 72% of the image height; the top third is open sky, the bottom quarter is soft meadow foreground. Ouro is the largest figure. Nothing touches the left or right edge. Balanced and uncluttered.\n\nNo text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "brand/ouro.png",
+          "brand/desk.png",
+          "brand/friends.png",
+          "brand/factory.png",
+          "brand/ouro-hx.png",
+          "master:hero-a (sha256 bdaf810e6226ba32a2761e13c0c516faf8864e6fec716ecbdff4dcb7df160901)"
+        ]
+      },
+      {
+        "master": "hero-a",
+        "master_sha256": "bdaf810e6226ba32a2761e13c0c516faf8864e6fec716ecbdff4dcb7df160901",
+        "prompt": "Wide storybook panorama of \"Ouro's world\" at dawn. Premium Pixar-like 3D rendering, warm golden sunrise light from the right, pastel peach-and-blue sky with small soft clouds, misty valleys, rolling green meadows sparkling with dew and tiny warm glints. Use the LAST reference image only for light, palette and storybook mood: do NOT include its glass characters or its bicycle.\n\nOuro (reference image 1) is the hero: exactly the same glossy green cartoon snake, pale-green segmented belly, big friendly black-and-white eyes, gentle smile, the body curled into a round \"O\" with the short tail tip curling up beside its head. One head, one tail, no limbs, never biting its tail. Ouro sits large in the exact centre of the frame on a gentle grassy knoll, on a glowing braided trail of green and warm amber light that winds across the valley and loops into a great circle around the knoll.\n\nAround Ouro, its friends and places, all in the same warm 3D style and all on the same middle horizontal band:\n- Left of centre: the warm walnut wooden table from reference image 2, standing in the meadow under a small blossom tree, with a tidy stack of paper and a little lamp on it.\n- Far left, on a hill: the cosy cream-and-charcoal toy factory with a chimney and a warm glowing window from reference image 4, a wisp of white steam from the chimney.\n- Right of centre: the two people and two small robots from reference image 3 (the woman in a rust sweater, the man in a navy sweater, the white robot and the slate-blue robot) sitting together on a checked picnic blanket, waving at Ouro.\n- Far right in the distant hills: a few small round white robots grazing like sheep beside a wooden shepherd's crook leaning on a fence.\n\nComposition: a very wide banner. Keep ALL characters and landmarks inside the middle horizontal band between 33% and 72% of the image height; the top third is open sky, the bottom quarter is soft meadow foreground. Ouro is the largest figure. Nothing touches the left or right edge.\n\nNo text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "brand/ouro.png",
+          "brand/desk.png",
+          "brand/friends.png",
+          "brand/factory.png",
+          "0-hero-C-dawn.png"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-640.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 48156,
+    "sha256": "778d753ceafdeecb85debc5981ca51a14ecd74cbc4d33ffef3dd753798153524"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-640.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 41940,
+    "sha256": "e97fdc4e6ae83bebf859cc4193ffda1ea9367d0863eed67c80a75a8154ce554c"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-960.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 94892,
+    "sha256": "340a397bbe6f68fcff99f881fbf7998c0fac7df5cd4b99beca3cfa3e04a912e8"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-960.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 79258,
+    "sha256": "4aace7c2cd287602500c1f8ccc2221c21756b24a9b7f7ce2d948765c422bc5fe"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-1536.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 157821,
+    "sha256": "4c41b11fefa40e619a97c8d6ff4d87371ac20ce3f307101440f91833ca81e443"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-384.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [408, 0, 1176, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 28794,
+    "sha256": "74a4a6a4ed3fd2cb37980bf7cef1e65af91ceff3013a4fcaeafec18fba2b95e7"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-384.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [408, 0, 1176, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 24027,
+    "sha256": "a7af92eac013c780731ab3bc29e623092763b4d91a725deafe0a4c0ff01e8edc"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-768.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [408, 0, 1176, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 85420,
+    "sha256": "52c2bfad25cd2953fbabf8f3fb303199ebc6b7c3417097bc4332acd295765d16"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-768.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [408, 0, 1176, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 64372,
+    "sha256": "b64269780190f60cddfc927a3bff6b95d9d2be9b603558db4390b89048591c01"
+  },
+  {
+    "file": "og/ouro-native-apple-app-shell.jpg",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [152, 0, 1249, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 285899,
+    "sha256": "d51b56448d649695a293d9978087e28776cd2b5d3d6d7b04e758729d2fb3d8af"
   },
   {
     "file": "headers/ouro-ui-apple.webp",
@@ -3703,14 +4113,14 @@
       "file": "headers/ouroboros-skills.webp",
       "sha256": "ff378cd148c24a9bb749aeacf7ba81c6c27957a6b9c51d3643e598e651b9429c"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [376, 0, 1144, 576] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [104, 0, 1256, 576] then resize to 384x192 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 34704,
-    "sha256": "65d0597a6e15d4b1fb707d37c79a615f3df7758734a4980603e90ee71c3623e8"
+    "height": 192,
+    "bytes": 27024,
+    "sha256": "ddc1da0f87f64c9a38ce087337107c453deb01f6503670e0408dc55d7ac1a68e"
   },
   {
     "file": "phone/ouroboros-skills-384.avif",
@@ -3718,14 +4128,14 @@
       "file": "headers/ouroboros-skills.webp",
       "sha256": "ff378cd148c24a9bb749aeacf7ba81c6c27957a6b9c51d3643e598e651b9429c"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [376, 0, 1144, 576] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [104, 0, 1256, 576] then resize to 384x192 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 30144,
-    "sha256": "17b852cbc59c319fbd8d74c20039a4997ada29c19f2dd1da92b12c1c2549e5a5"
+    "height": 192,
+    "bytes": 24022,
+    "sha256": "bb29831899f3fbf340141e386e5cfae3a2f98e9decabdb91f91946876f5d8208"
   },
   {
     "file": "phone/ouroboros-skills-768.webp",
@@ -3733,14 +4143,14 @@
       "file": "headers/ouroboros-skills.webp",
       "sha256": "ff378cd148c24a9bb749aeacf7ba81c6c27957a6b9c51d3643e598e651b9429c"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [376, 0, 1144, 576] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [104, 0, 1256, 576] then resize to 768x384 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 102016,
-    "sha256": "ee4e3d7f8c424b5af0eb9a2cfe7b93d1fc18ddf048933512b2287baf9c12fc9b"
+    "height": 384,
+    "bytes": 81694,
+    "sha256": "2241cab2db46832db51154e59392866dd1c46123be1a1bd4300bed2f25cf1731"
   },
   {
     "file": "phone/ouroboros-skills-768.avif",
@@ -3748,14 +4158,14 @@
       "file": "headers/ouroboros-skills.webp",
       "sha256": "ff378cd148c24a9bb749aeacf7ba81c6c27957a6b9c51d3643e598e651b9429c"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [376, 0, 1144, 576] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [104, 0, 1256, 576] then resize to 768x384 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 79394,
-    "sha256": "b40a53d692acf4a6650194a6444129b2961be10aedc6fdc68a6aee4cf9176d21"
+    "height": 384,
+    "bytes": 68608,
+    "sha256": "c0617a67a062c7791caa1baa794dcf19be717294ab754f5d811be339a20bacbb"
   },
   {
     "file": "og/ouroboros-skills.jpg",
@@ -4113,14 +4523,14 @@
       "file": "headers/ourostack.webp",
       "sha256": "39b88009a7a666f8dd994cdf63c96935c4090d3782ee17281424a62f5809a9cf"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [378, 0, 1061, 512] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [530, 0, 1440, 512] then resize to 384x216 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 32234,
-    "sha256": "caaf4803c4a22c1faf2992ff6144c0ef771ee56353e460a4d05b2e949e7c3786"
+    "height": 216,
+    "bytes": 25872,
+    "sha256": "c53c3da4876d8b9b2e25158a5789e35dfaff7d5baa38c55ce18f9af847000294"
   },
   {
     "file": "phone/ourostack-384.avif",
@@ -4128,14 +4538,14 @@
       "file": "headers/ourostack.webp",
       "sha256": "39b88009a7a666f8dd994cdf63c96935c4090d3782ee17281424a62f5809a9cf"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [378, 0, 1061, 512] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [530, 0, 1440, 512] then resize to 384x216 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 27715,
-    "sha256": "a5deeccfde7b19facf1ca13654b02bbfc9521964abdcf3fae91819d3394a7955"
+    "height": 216,
+    "bytes": 22496,
+    "sha256": "36d6890f3e4c11890066dd8c73d4642f56e42d0073ed6b90e5e833d5285d3d60"
   },
   {
     "file": "phone/ourostack-768.webp",
@@ -4143,14 +4553,14 @@
       "file": "headers/ourostack.webp",
       "sha256": "39b88009a7a666f8dd994cdf63c96935c4090d3782ee17281424a62f5809a9cf"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [378, 0, 1061, 512] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [530, 0, 1440, 512] then resize to 768x432 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 82430,
-    "sha256": "a87879587d213be26c5d16060324ca77a45e9c6ef97eed59d81d885780436648"
+    "height": 432,
+    "bytes": 73154,
+    "sha256": "5fcd5055ce99187e2997bafcf685ac214e55c5f1d84d9cce00bd0456bc083d7f"
   },
   {
     "file": "phone/ourostack-768.avif",
@@ -4158,14 +4568,14 @@
       "file": "headers/ourostack.webp",
       "sha256": "39b88009a7a666f8dd994cdf63c96935c4090d3782ee17281424a62f5809a9cf"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [378, 0, 1061, 512] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (16:9)",
+    "operation": "crop box [530, 0, 1440, 512] then resize to 768x432 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 61877,
-    "sha256": "be3d8b394bdd0ad6cb558bf2922b4a93da10028188d267172831d7ae1f62b0e6"
+    "height": 432,
+    "bytes": 57626,
+    "sha256": "66db8f76f9c06394682c8ca12d670bfb6a21b439165fef181a3e21184762fd68"
   },
   {
     "file": "og/ourostack.jpg",
@@ -4318,14 +4728,14 @@
       "file": "headers/playwright-focus-proof.webp",
       "sha256": "b13887e66eacb73ad761eb2fb52313191f4cd4b3fd377ae771f3bf8feb02ecd7"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [704, 0, 1472, 576] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [204, 0, 1356, 576] then resize to 384x192 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 28628,
-    "sha256": "c4fe120d50dd8473e0b2f7fb195a435c074d2cd96636498982a62644a114ce3b"
+    "height": 192,
+    "bytes": 21574,
+    "sha256": "f130fd676da3700456b29feef833c801d707d9ba6b22583827d593a723b6248c"
   },
   {
     "file": "phone/playwright-focus-proof-384.avif",
@@ -4333,14 +4743,14 @@
       "file": "headers/playwright-focus-proof.webp",
       "sha256": "b13887e66eacb73ad761eb2fb52313191f4cd4b3fd377ae771f3bf8feb02ecd7"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [704, 0, 1472, 576] then resize to 384x288 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [204, 0, 1356, 576] then resize to 384x192 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
-    "height": 288,
-    "bytes": 24009,
-    "sha256": "3fc0c4e998425fa7447a117b720ec799402a9b7705f657785bae6d291e5b636f"
+    "height": 192,
+    "bytes": 18431,
+    "sha256": "a16c382bfefa3f71c669cbfa89ee404a1f2e2af3df16bb951230c245e1de37ed"
   },
   {
     "file": "phone/playwright-focus-proof-768.webp",
@@ -4348,14 +4758,14 @@
       "file": "headers/playwright-focus-proof.webp",
       "sha256": "b13887e66eacb73ad761eb2fb52313191f4cd4b3fd377ae771f3bf8feb02ecd7"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [704, 0, 1472, 576] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [204, 0, 1356, 576] then resize to 768x384 (Lanczos)",
     "encoder": "Pillow WebP quality 82 method 6",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 83860,
-    "sha256": "910fa5992c80ccbbfdbae9ef8ee6707a16afac463bef2df15934956dc5cb7508"
+    "height": 384,
+    "bytes": 66920,
+    "sha256": "0b562a44f2ccd1fbe12d2e8243658cdb09a2672fda3b6850fefc4714a3ca45d4"
   },
   {
     "file": "phone/playwright-focus-proof-768.avif",
@@ -4363,14 +4773,14 @@
       "file": "headers/playwright-focus-proof.webp",
       "sha256": "b13887e66eacb73ad761eb2fb52313191f4cd4b3fd377ae771f3bf8feb02ecd7"
     },
-    "use": "phone hero (4:3)",
-    "operation": "crop box [704, 0, 1472, 576] then resize to 768x576 (Lanczos)",
+    "use": "phone hero (2:1)",
+    "operation": "crop box [204, 0, 1356, 576] then resize to 768x384 (Lanczos)",
     "encoder": "Pillow AVIF quality 60 speed 4",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
-    "height": 576,
-    "bytes": 62370,
-    "sha256": "9d198e12fbe464330a7eb7ca2fde7dec2e9ad583989988f9a51d7c77972c5ee7"
+    "height": 384,
+    "bytes": 53140,
+    "sha256": "9b4e7346699e5e0331fd1629a74fdb86910806e8f8f9740a1a9ea521167a2119"
   },
   {
     "file": "og/playwright-focus-proof.jpg",

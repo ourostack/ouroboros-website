@@ -1,6 +1,7 @@
 ---
-// Three harness words the Lab pages use before defining them. Shown as a
-// small strip so the published prose stays as it was.
+// Three harness words the Lab pages use before defining them, laid out open
+// on the page as a definition list in the storybook type (taste review r2,
+// 2026-11-06: no box, no fold), so the published prose stays as it was.
 const terms = [
   { term: 'Psyche', def: 'Five Markdown files that define who the agent is, loaded every turn.', href: '/lab/docs/bundles-and-psyche/' },
   { term: 'Bundle', def: "One folder holding an agent's identity, memory, and tools, so you can back it up and move it.", href: '/blog/give-your-agent-a-home/' },
@@ -10,8 +11,8 @@ const terms = [
 const { class: extra = '', wide = false } = Astro.props
 ---
 
-<details class={`glossary group rounded-xl border border-canopy/50 bg-deep/70 px-5 py-3 ${extra}`} data-glossary>
-  <summary class="cursor-pointer font-mono text-xs uppercase tracking-[0.2em] text-scale">Words used here</summary>
+<section class={`glossary ${extra}`} data-glossary aria-label="Words used here">
+  <p class="font-display text-2xl text-bone">Words used here</p>
   <dl class:list={["grid gap-3 mt-4 mb-1", { "lg:grid-cols-3 lg:gap-x-8": wide }]}>
     {terms.map((t) => (
       <div>
@@ -20,4 +21,4 @@ const { class: extra = '', wide = false } = Astro.props
       </div>
     ))}
   </dl>
-</details>
+</section>

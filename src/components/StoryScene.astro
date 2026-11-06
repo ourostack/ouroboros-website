@@ -4,7 +4,8 @@
   /brand/storybook/ (see scripts/sync-storybook.mjs and src/data/scenes.mjs).
 
   variant="hero"   the page's arrival: full bleed under the nav, loaded first
-                   (fetchpriority high, never lazy), the 4:3 phone crop below 640px.
+                   (fetchpriority high, never lazy), the phone crop below 640px
+                   at its own size (4:3, or wider where the cast stands apart).
   variant="inline" a scene further down the page, sized by `sizes`, deferred.
   variant="meadow" the short band above the footer, deferred.
   variant="vignette" a small 4:3 portrait of a product's character beside its
@@ -14,7 +15,7 @@
   meadow band with object-fit. Every variant fades at its edges into the page,
   so the dawn sits softly on the parchment and on the dark theme alike.
 */
-import { scenes, sceneRatio } from '../data/scenes.mjs'
+import { scenes, sceneRatio, phoneSize } from '../data/scenes.mjs'
 
 interface Props {
   scene: string
@@ -28,6 +29,10 @@ const { scene, variant = 'inline', sizes, alt, class: className } = Astro.props
 if (!(scene in scenes)) throw new Error(`StoryScene: unknown scene ${scene}`)
 const base = '/brand/storybook'
 const [w, h] = sceneRatio(scene)
+// The phone crop's own size (4:3, or 16:9 / 2:1 for the wide-cast scenes); the
+// phone box takes this aspect, so the crop is shown whole, never cut again.
+const [pw, ph] = phoneSize(scene)
+const phoneAspect = `--phone-ar: ${pw} / ${ph}`
 const hero = variant === 'hero'
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
@@ -40,11 +45,11 @@ const altText = alt ?? scenes[scene]
 const vignette = variant === 'vignette'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} style={phoneAspect}>
   {hero ? (
     <picture>
-      <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width="768" height="576" />
-      <source media="(max-width: 640px)" type="image/webp" srcset={phoneWebp} sizes={phoneSizes} width="768" height="576" />
+      <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+      <source media="(max-width: 640px)" type="image/webp" srcset={phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
       <source type="image/avif" srcset={wideAvif} sizes={wideSizes} width={w} height={h} />
       <source type="image/webp" srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
       <img src={fallback} width={w} height={h} alt={altText} fetchpriority="high" />
@@ -52,19 +57,19 @@ const vignette = variant === 'vignette'
   ) : vignette ? (
     <>
       <picture data-defer>
-        <source type="image/avif" data-srcset={phoneAvif} sizes={sizes ?? '8rem'} width="768" height="576" />
-        <source type="image/webp" data-srcset={phoneWebp} sizes={sizes ?? '8rem'} width="768" height="576" />
-        <img data-src={`${base}/phone/${scene}-384.webp`} width="384" height="288" alt={altText} loading="lazy" decoding="async" />
+        <source type="image/avif" data-srcset={phoneAvif} sizes={sizes ?? '8rem'} width={pw} height={ph} />
+        <source type="image/webp" data-srcset={phoneWebp} sizes={sizes ?? '8rem'} width={pw} height={ph} />
+        <img data-src={`${base}/phone/${scene}-384.webp`} width={pw / 2} height={ph / 2} alt={altText} loading="lazy" decoding="async" />
       </picture>
-      <noscript><img src={`${base}/phone/${scene}-384.webp`} width="384" height="288" alt={altText} loading="lazy" decoding="async" /></noscript>
+      <noscript><img src={`${base}/phone/${scene}-384.webp`} width={pw / 2} height={ph / 2} alt={altText} loading="lazy" decoding="async" /></noscript>
     </>
   ) : (
     <>
       {/* Deferred: the sources wait in data-srcset until the hero has landed and the
           scene is near (Layout.astro), so the arrival gets the whole connection. */}
       <picture data-defer>
-        <source media="(max-width: 640px)" type="image/avif" data-srcset={phoneAvif} sizes={phoneSizes} width="768" height="576" />
-        <source media="(max-width: 640px)" type="image/webp" data-srcset={phoneWebp} sizes={phoneSizes} width="768" height="576" />
+        <source media="(max-width: 640px)" type="image/avif" data-srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" type="image/webp" data-srcset={phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
         <source type="image/avif" data-srcset={wideAvif} sizes={wideSizes} width={w} height={h} />
         <source type="image/webp" data-srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
         <img data-src={fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" />

@@ -22,18 +22,19 @@ const harness = labelFor('harness')
   </section>
 
   {/* What setup will ask for, for a builder deciding whether to run it. */}
-  <dl class="grid gap-4 sm:grid-cols-2 rounded-xl border border-canopy/50 bg-deep/70 p-5 text-sm" data-setup-facts>
-    <div><dt class="caption-mono">Status</dt><dd class="text-mist mt-1"><span class={`tag ${harness.tone}`}>{harness.label}</span> Expect breaking changes.</dd></div>
-    <div><dt class="caption-mono">Model provider</dt><dd class="text-mist mt-1">Pick one: Anthropic, Azure OpenAI, MiniMax, OpenAI Codex, or GitHub Copilot. You sign in or paste a key, and it's kept in your agent's own vault.</dd></div>
-    <div><dt class="caption-mono">Where you talk to it</dt><dd class="text-mist mt-1">The terminal, Telegram, iMessage (through BlueBubbles), Teams, email and voice. Reply to an earlier message in Telegram, iMessage or Teams and the agent sees what you replied to.</dd></div>
-    <div><dt class="caption-mono">Version</dt><dd class="text-mist mt-1">The 0.1.0 alpha series of <a href="https://www.npmjs.com/package/@ouro.bot/cli" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@ouro.bot/cli</a>. <a href="https://github.com/ourostack/ouroboros/blob/main/changelog.json" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Release notes</a>.</dd></div>
-    <div><dt class="caption-mono">How it's built</dt><dd class="text-mist mt-1"><a href="/lab/docs/architecture/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Architecture</a> and <a href="https://github.com/ourostack/ouroboros" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">source on GitHub</a>.</dd></div>
+  {/* Laid out openly, in the storybook type: no box, only the command above wears a frame. */}
+  <dl class="setup-facts" data-setup-facts>
+    <div><dt>Status</dt><dd><span class={`tag ${harness.tone}`}>{harness.label}</span> Expect breaking changes.</dd></div>
+    <div><dt>Model provider</dt><dd>Pick one: Anthropic, Azure OpenAI, MiniMax, OpenAI Codex, or GitHub Copilot. You sign in or paste a key, and it's kept in your agent's own vault.</dd></div>
+    <div><dt>Where you talk to it</dt><dd>The terminal, Telegram, iMessage (through BlueBubbles), Teams, email and voice. Reply to an earlier message in Telegram, iMessage or Teams and the agent sees what you replied to.</dd></div>
+    <div><dt>Version</dt><dd>The 0.1.0 alpha series of <a href="https://www.npmjs.com/package/@ouro.bot/cli" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">@ouro.bot/cli</a>. <a href="https://github.com/ourostack/ouroboros/blob/main/changelog.json" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Release notes</a>.</dd></div>
+    <div><dt>How it's built</dt><dd><a href="/lab/docs/architecture/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">Architecture</a> and <a href="https://github.com/ourostack/ouroboros" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">source on GitHub</a>.</dd></div>
   </dl>
 
   <SerpentGuidePreview />
 
   <div>
-    <h2 class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">Already running?</h2>
+    <h2 class="heading-sub mb-4">Already running?</h2>
     <PromptCard
       prompt="Inspect the current Ouroboros install on this machine and tell me what's set up, what's missing, and what I should do next."
       footnote="Use this if you already ran the setup and want your agent to check the current state."
@@ -42,11 +43,19 @@ const harness = labelFor('harness')
 
   <!-- Exit links -->
   <div class="pt-6 border-t border-canopy/30 space-y-3">
-    <a href="/lab/what-is-an-agent-harness" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/what-is-an-agent-harness/" class="group block text-sm text-mist hover:text-bone transition-colors">
       Want to understand the philosophy behind Ouroboros? <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
-    <a href="/lab/story" class="group block text-sm text-mist hover:text-bone transition-colors">
+    <a href="/lab/story/" class="group block text-sm text-mist hover:text-bone transition-colors">
       Curious how we got here? <span class="text-scale group-hover:text-glow transition-colors">&rarr;</span>
     </a>
   </div>
 </DocsPageShell>
+
+<style>
+  .setup-facts { display: grid; column-gap: 3rem; }
+  @media (min-width: 640px) { .setup-facts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .setup-facts > div { display: grid; gap: 0.3rem; align-content: start; padding: 1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 55%, transparent); }
+  .setup-facts dt { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.15; color: var(--color-bone); }
+  .setup-facts dd { color: var(--color-mist); line-height: 1.6; }
+</style>

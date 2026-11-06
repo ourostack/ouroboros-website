@@ -109,6 +109,15 @@ const heroBase = scene.hero ? `/brand/storybook` : ''
     <Footer />
 
     <script is:inline>
+      // A deep link (/#try, /approach/#durable-context) lands on its anchor at
+      // once; smooth scrolling starts only after arrival, for clicks within the
+      // page (global.css applies it only without reduced motion).
+      (function () {
+        function ready() { requestAnimationFrame(function () { document.documentElement.classList.add('smooth-scroll'); }); }
+        if (document.readyState === 'complete') ready(); else window.addEventListener('load', ready, { once: true });
+      })();
+    </script>
+    <script is:inline>
       // Copy buttons: <button data-copy-target="id"> copies that element's text.
       // Without the Clipboard API, select the text so the visitor can copy it.
       (function () {

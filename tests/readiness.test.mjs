@@ -124,19 +124,20 @@ test('the Desk page leads with the card copy and the playback, and links the RFC
   assert.ok(hrefsOf(html).includes('https://github.com/ourostack/desk/blob/main/plugins/desk/docs/agentic-engineering-v2-rfc.md'));
 });
 
-test('the Desk page shows real session-start output, links the factory once, its label once, and limits in plain words', () => {
+test('the Desk page shows its task list once, links the factory once, its label once, and limits in plain words', () => {
   const html = readDist('desk/index.html');
   const text = textOf(html);
-  assert.ok(text.includes('Active tasks (4):'));
-  assert.ok(text.includes('- spoonjoy/recipe-import "Import recipes from any webpage" (updated 2026-10-10)'));
+  // The playback up top is the one task list on the page (taste review r2, 2026-11-06: the
+  // session-start preview under it repeated the same list, so it went).
+  assert.equal((text.match(/Active tasks \(4\):/g) || []).length, 1, 'one task list');
+  assert.ok(text.includes('- spoonjoy/recipe-import'));
+  assert.doesNotMatch(html, /class="desk-boot/);
   assert.equal(hrefsOf(html).filter((href) => href === 'https://ourostack.github.io/factory/').length, 1 + (hrefsOf(html.match(/<footer\b[\s\S]*?<\/footer>/)[0]).includes('https://ourostack.github.io/factory/') ? 1 : 0), 'The factory is linked once outside the footer');
   assert.ok(text.replace(/\s+([.,])/g, '$1').includes("Setup also installs Superpowers, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public factory. It sends timings and sizes, and never transcript text, prompts, file contents, or names."));
   // root misses ruling 3.5: the Desk page points at the principles it encodes.
   assert.ok(text.replace(/\s+([.,])/g, '$1').includes('Every job starts with one conversation and a go, and ends with evidence you accept or send back, the way How I work lays it out.'));
-  // root final ruling F14: the H2 matches the session-start output under it.
-  assert.ok(text.includes('What a new session looks like'), 'The sample terminal sits under its own heading');
   // The page reads top to bottom with no boxes (2026-10-20): Known limits is its own section right after Where it runs.
-  assert.ok(html.indexOf('Where it runs') < html.indexOf('Known limits today') && html.indexOf('Known limits today') < html.indexOf('What a new session looks like'), 'Known limits follows Where it runs');
+  assert.ok(html.indexOf('Where it runs') < html.indexOf('Known limits today') && html.indexOf('Known limits today') < html.indexOf('Support goes through your agent'), 'Known limits follows Where it runs');
   assert.doesNotMatch(html, /rounded-2xl border border-canopy\/40 bg-deep\/70/, 'No boxed cards on the Desk page');
   assert.doesNotMatch(text, /See what it does in practice/);
   // Once for the page, once on the Claude Code row and once on the Copilot CLI row; Desk itself is never branded alpha.
