@@ -1,14 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import StoryScene from '../components/StoryScene.astro'
 import { ogPathFor } from '../data/og'
-import { sceneFor } from '../data/scenes.mjs'
 
 // Draft for Ari's review. Plain language on purpose; this is not legal advice.
 const title = 'Terms | Ouro'
 const description = 'The plain-language terms for this site and our open-source tools.'
-// A small scene beside the title, under the draft badge (Ari, 2026-11-06): no full hero here.
-const aside = sceneFor('/terms').aside
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/terms')} canonical="https://ouroboros.bot/terms/">
@@ -18,7 +14,6 @@ const aside = sceneFor('/terms').aside
         <span class="eyebrow block mb-6">Terms</span>
         <h1 class="heading-lead">Terms</h1>
         <p class="mt-6 inline-flex tag tag-alpha">Draft for review</p>
-        {aside && <StoryScene scene={aside} class="legal-scene mt-10" sizes="(min-width: 1024px) 22rem, calc(100vw - 3rem)" />}
       </div>
 
       <article class="split-body prose-ouro pt-8 lg:pt-0">
@@ -36,6 +31,3 @@ const aside = sceneFor('/terms').aside
   </section>
 </Layout>
 
-<style>
-  :global(.legal-scene) { width: min(22rem, 100%); border-radius: 1rem; overflow: hidden; }
-</style>

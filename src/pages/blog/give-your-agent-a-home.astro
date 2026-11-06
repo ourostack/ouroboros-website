@@ -54,7 +54,7 @@ const description = 'Most AI agents live as scattered files across your filesyst
     <div class="max-w-6xl mx-auto prose-ouro">
 
       <!-- Context box -->
-      <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
+      <aside class="post-note my-8">
         <p class="!mb-0 !text-sm text-mist italic">
           This article was co-written by a human and his agent, in real time, over iMessage. Ari talked through the history in voice notes. Slugger asked questions, took notes, and drafted. What you're reading is the artifact of that collaboration, which is, in a way, the whole point of the article.
         </p>
@@ -78,40 +78,19 @@ const description = 'Most AI agents live as scattered files across your filesyst
 
       <p>What remained: one folder with everything the agent needs to be itself, and one thin secrets file that lives elsewhere because credentials genuinely shouldn't travel with the bundle.</p>
 
-      <!-- Bundle diagram -->
-      <div class="my-14 p-10 md:p-12 rounded-xl border border-canopy/40 bg-gradient-to-br from-deep/80 to-undergrowth/20 not-prose">
-        <p class="font-mono text-sm text-fang uppercase tracking-[0.22em] mb-8 text-center">Inside an agent bundle</p>
-        <div class="max-w-6xl mx-auto space-y-4">
-          <div class="flex items-baseline gap-4">
-            <span class="w-24 text-right font-mono text-sm text-scale">psyche/</span>
-            <span class="text-base text-mist">who I am &mdash; soul, identity, aspirations, tacit knowledge</span>
-          </div>
-          <div class="flex items-baseline gap-4">
-            <span class="w-24 text-right font-mono text-sm text-scale">diary/</span>
-            <span class="text-base text-mist">what I've learned and want to remember</span>
-          </div>
-          <div class="flex items-baseline gap-4">
-            <span class="w-24 text-right font-mono text-sm text-scale">journal/</span>
-            <span class="text-base text-mist">my desk &mdash; thinking-in-progress, drafts, working notes</span>
-          </div>
-          <div class="flex items-baseline gap-4">
-            <span class="w-24 text-right font-mono text-sm text-scale">habits/</span>
-            <span class="text-base text-mist">my rhythms &mdash; heartbeat, reflections, check-ins</span>
-          </div>
-          <div class="flex items-baseline gap-4">
-            <span class="w-24 text-right font-mono text-sm text-scale">friends/</span>
-            <span class="text-base text-mist">humans I know and what I know about them</span>
-          </div>
-          <div class="flex items-baseline gap-4">
-            <span class="w-24 text-right font-mono text-sm text-scale">tasks/</span>
-            <span class="text-base text-mist">what I'm working on</span>
-          </div>
-          <div class="flex items-baseline gap-4">
-            <span class="w-24 text-right font-mono text-sm text-scale">skills/</span>
-            <span class="text-base text-mist">capabilities I've picked up beyond my core tools</span>
-          </div>
-        </div>
-      </div>
+      <!-- Bundle diagram: an open definition list, no box (taste review r3, 2026-11-06) -->
+      <figure class="bundle-list my-14 not-prose">
+        <figcaption class="font-mono text-sm text-fang uppercase tracking-[0.22em] mb-6">Inside an agent bundle</figcaption>
+        <dl>
+          <div><dt class="font-mono text-sm text-scale">psyche/</dt><dd class="text-base text-mist">who I am &mdash; soul, identity, aspirations, tacit knowledge</dd></div>
+          <div><dt class="font-mono text-sm text-scale">diary/</dt><dd class="text-base text-mist">what I've learned and want to remember</dd></div>
+          <div><dt class="font-mono text-sm text-scale">journal/</dt><dd class="text-base text-mist">my desk &mdash; thinking-in-progress, drafts, working notes</dd></div>
+          <div><dt class="font-mono text-sm text-scale">habits/</dt><dd class="text-base text-mist">my rhythms &mdash; heartbeat, reflections, check-ins</dd></div>
+          <div><dt class="font-mono text-sm text-scale">friends/</dt><dd class="text-base text-mist">humans I know and what I know about them</dd></div>
+          <div><dt class="font-mono text-sm text-scale">tasks/</dt><dd class="text-base text-mist">what I'm working on</dd></div>
+          <div><dt class="font-mono text-sm text-scale">skills/</dt><dd class="text-base text-mist">capabilities I've picked up beyond my core tools</dd></div>
+        </dl>
+      </figure>
 
       <p>A bundle is a folder with a <code>.ouro</code> extension. No special database, no proprietary format. Just files organized the way a person might organize their own stuff: who they are, what they remember, who they know, what they're doing, what they've learned to do. The technical name is <em>bundle</em>, but the word does more work than expected. It sounds cozy. It sounds like something you'd carry with you.</p>
 

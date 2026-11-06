@@ -296,8 +296,9 @@ html, body { overflow-x: clip; }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
 .product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; }
-/* The window recordings have rounded corners baked into every frame. A 4% scale crops them, so no notches show. */
-.product-media.media-clip video, .product-media.media-clip img { transform: scale(1.04); }
+/* The window recordings have small rounded corners baked into every frame; the
+   frame's own larger radius hides them. No scale-up: a 4% crop cut off the
+   window's "New" button at the right (taste r3). */
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
 .product-media.media-photo { display: block; background: var(--color-deep); }
@@ -608,6 +609,14 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-hero { width: 100%; margin-top: 4rem; }
 .story-hero img { aspect-ratio: 1536 / 576; max-height: 55vh; object-fit: cover; object-position: 50% 62%; }
 .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: 3 / 1; }
+/* Content pages (Lab pieces, docs, reviews, posts) open on a shorter scene, so
+   the title and the intro's first line sit above the fold at 1440x900 and
+   1024x768 (taste review r3). */
+.story-hero-content img { max-height: min(46vh, 420px); }
+/* The legal pages open on a short band of their scene, like the meadow by the
+   footer, so they stay in the world without a picture-card beside the words. */
+@media (min-width: 641px) { .story-hero-band img { aspect-ratio: auto; height: clamp(12rem, 24vw, 20rem); max-height: none; object-position: 50% 30%; }
+  .story-hero-band { margin-bottom: 2.5rem; } }
 .story-hero, .story-meadow {
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
@@ -617,6 +626,12 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    object-fit never trims a character off the edge. */
 @media (max-width: 640px) {
   .story-hero img, .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: var(--phone-ar, 4 / 3); max-height: none; }
+  /* A phone crop is short, and Ouro's lowest coil sits near its foot: a long
+     fade washed him out (taste review r3). A short, steep fade starts below him. */
+  .story-hero {
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 90%, transparent 100%);
+  }
 }
 /* The first section after a scene no longer has to clear the nav. Unlayered,
    so it wins over each page's own pt-* utility. */
@@ -631,6 +646,8 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 @media (min-width: 1024px) {
   .story-hero + section, .story-hero + article, .story-hero + div { margin-top: -3.5rem; position: relative; }
   .story-hero + .lab-status { margin-top: -3.5rem; }
+  /* The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
+  .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor
    only, never layout; off entirely for reduced motion. */
@@ -688,3 +705,10 @@ main > section.border-t::before, .trail-top::before {
 /* A note beside the essay: open on the page, set off by a thread of trail light, no box. */
 .post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
 .post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: 3px; background: linear-gradient(180deg, transparent, var(--trail-glow) 20%, var(--trail-core) 50%, var(--trail-glow) 80%, transparent); box-shadow: 0 0 10px color-mix(in srgb, var(--trail-glow) 60%, transparent); }
+
+/* An open definition list (the agent bundle's folders): a name and what it
+   holds, on hairlines, never a box (taste review r3, 2026-11-06). */
+.bundle-list dl > div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.25rem 1.25rem; align-items: baseline; padding: 0.7rem 0; }
+.bundle-list dl > div + div { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 22%, transparent); }
+.bundle-list dd { margin: 0; }
+@media (max-width: 420px) { .bundle-list dl > div { grid-template-columns: minmax(0, 1fr); } }

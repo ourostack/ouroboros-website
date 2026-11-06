@@ -72,21 +72,28 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'ouro-apps-site': [806, 8, 1190, 174],
   'ouro-hx': [660, 20, 1170, 296],
   'ouro-md': [380, 8, 1190, 148],
-  'ouro-native-apple-app-shell': [10, 8, 240, 300],
+  'ouro-native-apple-app-shell': [10, 8, 232, 250],
   'ouro-ui-apple': [30, 16, 390, 196],
   'ouro-ui-core': [30, 14, 840, 146],
   'ouro-work': [800, 8, 1190, 168],
-  'ouro-workbench': [30, 24, 920, 206],
+  'ouro-workbench': [880, 16, 1190, 225],
   'ouroboros': [800, 10, 1190, 170],
   'ouroboros-skills': [830, 8, 1190, 228],
   'ouroboros-website': [290, 30, 620, 226],
-  'ourostack': [590, 24, 1150, 230],
+  'ourostack': [330, 8, 1070, 190],
   'playwright-focus-proof': [30, 16, 520, 310],
   'shepherd': [250, 16, 800, 270],
 }
-// Busy ground (the workbench's pegboard, the butler's flowered lawn) needs a
-// firmer scrim than open sky; it still stays inside the zone.
-const FIRM_SCRIM: Record<string, number> = { 'ouro-workbench': 0.9, 'butler': 0.88, 'ouro-ui-apple': 0.8, 'ouro-native-apple-app-shell': 0.84 }
+// Busy ground (the butler's flowered lawn) needs a firmer vignette than open sky.
+const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-ui-apple': 0.8, 'ouro-native-apple-app-shell': 0.8 }
+
+// A card can be set in a different framing of the same canonical art: the home
+// card takes the whole-world header at card height and slides the window right,
+// so the picnic, both robots and the sheep fit whole (taste review r3). The
+// art's bytes are only resized and cropped here, never repainted.
+const FRAME: Record<string, { file: string; left: number }> = {
+  ourostack: { file: 'headers/ourostack.webp', left: 690 },
+}
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.
 const INSET = 16
@@ -154,21 +161,24 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   const div = (style: Record<string, unknown>, children?: unknown) => ({ type: 'div', props: { style, children } })
-  // A soft parchment scrim behind the words only, clipped to the zone, so it
-  // can never wash over a character outside it and the scene keeps its colour.
+  // A soft, edgeless parchment vignette behind the words (taste review r3,
+  // 2026-11-06: the old blurred rectangle showed its edges). It is a radial
+  // gradient that has faded to nothing before it reaches the zone's edge, so
+  // there is no rim to see and nothing washes over a character outside the
+  // zone. Each glyph also carries a faint paper glow, so the words read on
+  // busy ground without a box.
   const widest = Math.min(colWidth, Math.max(...lines.map((l) => l.length)) * titleSize * CHAR_EM)
   const blockW = Math.min(colWidth, Math.max(widest, tagBelow ? HEAD + 74 : headWidth))
   const blockH = headH + HEAD_GAP + lines.length * titleSize * 1.04
-  const [zx0, zy0, zx1, zy1] = zone
-  // The glow's core stays three blur radii inside the zone, so it has faded out before the clip.
-  const SIGMA = 12
-  const firm = FIRM_SCRIM[scene]
-  const keep = firm ? SIGMA : SIGMA * 3
-  const sx0 = Math.round(Math.max(zx0 + keep, colLeft - 6))
-  const sy0 = Math.round(Math.max(zy0 + keep, colTop - 6))
-  const sx1 = Math.round(Math.min(zx1 - keep, colLeft + blockW + 6))
-  const sy1 = Math.round(Math.min(zy1 - keep, colTop + blockH + 6))
-  const scrimSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><clipPath id="z"><rect x="${zx0}" y="${zy0}" width="${zx1 - zx0}" height="${zy1 - zy0}" rx="28"/></clipPath><filter id="b" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="${SIGMA}"/></filter></defs><g clip-path="url(#z)"><rect x="${sx0}" y="${sy0}" width="${Math.max(0, sx1 - sx0)}" height="${Math.max(0, sy1 - sy0)}" rx="22" fill="rgb(${COLOR.paper})" fill-opacity="${firm ?? 0.66}" filter="url(#b)"/></g></svg>`
+  const cx = colLeft + blockW / 2
+  const cy = colTop + blockH / 2
+  // Sized from the words, not clipped to the zone: it fades to nothing at its
+  // rim, so it never draws an edge, and the zones leave room for its faint fringe.
+  const rx = blockW * 0.75 + 30
+  const ry = blockH * 0.8 + 24
+  const strength = FIRM_SCRIM[scene] ?? 0.62
+  const scrimSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><radialGradient id="v" cx="${cx}" cy="${cy}" r="${rx}" gradientUnits="userSpaceOnUse" gradientTransform="translate(${cx} ${cy}) scale(1 ${ry / rx}) translate(${-cx} ${-cy})"><stop offset="0" stop-color="rgb(${COLOR.paper})" stop-opacity="${strength}"/><stop offset="0.6" stop-color="rgb(${COLOR.paper})" stop-opacity="${(strength * 0.9).toFixed(3)}"/><stop offset="0.85" stop-color="rgb(${COLOR.paper})" stop-opacity="${(strength * 0.35).toFixed(3)}"/><stop offset="1" stop-color="rgb(${COLOR.paper})" stop-opacity="0"/></radialGradient></defs><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#v)"/></svg>`
+  const glow = `0 0 ${Math.round(titleSize * 0.28)}px rgba(${COLOR.paper}, 0.95)`
 
   const svg = await satori(
     div({
@@ -208,6 +218,7 @@ export const GET: APIRoute = async ({ params }) => {
           lineHeight: 1.04,
           letterSpacing: '-0.01em',
           color: COLOR.ink,
+          textShadow: glow,
         }, lines.map((line) => div({ display: 'flex', whiteSpace: 'nowrap' }, line))),
       ]),
     ]),
@@ -222,7 +233,11 @@ export const GET: APIRoute = async ({ params }) => {
   )
 
   const wordsLayer = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
-  const jpeg = await sharp(join(sceneDir, `${scene}.jpg`))
+  const frame = FRAME[scene]
+  const base = frame
+    ? await sharp(join(process.cwd(), 'public/brand/storybook', frame.file)).resize({ height: 630 }).extract({ left: frame.left, top: 0, width: 1200, height: 630 }).toBuffer()
+    : join(sceneDir, `${scene}.jpg`)
+  const jpeg = await sharp(base)
     .composite([{ input: Buffer.from(scrimSvg) }, { input: Buffer.from(wordsLayer) }])
     .jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' })
     .toBuffer()

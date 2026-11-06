@@ -41,7 +41,8 @@ const pages = {
   '/': { hero: 'ourostack' },
   '/apps': { hero: 'ouro-apps-site' },
   '/approach': { hero: 'ouro-work' },
-  '/brief': { hero: 'ouroboros-skills' },
+  // People and their robots on one blanket: the brief is how they get there.
+  '/brief': { hero: 'friends' },
   '/desk': { hero: 'desk' },
   '/ouro-md': { hero: 'ouro-md' },
   '/ouro-hx': { hero: 'ouro-hx' },
@@ -49,31 +50,39 @@ const pages = {
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
   '/blog/take-the-agents-seat': { hero: 'ouro-ui-apple' },
-  '/blog/give-your-agent-a-home': { hero: 'ouroboros' },
+  // The shell that grew into a home: the post about giving an agent one.
+  '/blog/give-your-agent-a-home': { hero: 'ouro-native-apple-app-shell' },
   '/blog/what-is-agent-experience': { hero: 'ouro-ui-core' },
   '/blog/designing-with-your-agent': { hero: 'ouro-workbench' },
   '/blog/stop-being-the-glue': { hero: 'friends-relay' },
   '/blog/build-ai-agent-from-scratch': { hero: 'homebrew-tap' },
-  // Each Lab page has its own corner of the world (taste review r2, 2026-11-06):
-  // the harness's burrow for the Lab itself, the shell that grew into a home for
-  // the origin story, friends for identity, the library for the docs, and Ouro
-  // leading the flock for getting started.
+  // Each Lab page has its own corner of the world (taste reviews r2 and r3,
+  // 2026-11-06), and no scene repeats between pages one click apart, a page and
+  // its parent, or siblings; a page in the nav or the footer shares its scene
+  // with no other page (tests/storybook.test.mjs checks all three).
   '/lab': { hero: 'ouroboros' },
   '/lab/why': { hero: 'friends' },
   '/lab/story': { hero: 'ouro-native-apple-app-shell' },
   '/lab/what-is-an-agent-harness': { hero: 'factory' },
-  '/lab/how-desk-started': { hero: 'desk' },
+  '/lab/how-desk-started': { hero: 'ouro-workbench' },
   '/lab/model-reviews': { hero: 'flow-review' },
+  // Each reviewer researches in its own corner: the scroll stacks, the card
+  // catalogue, the factory's gauges, the paint pots.
+  '/lab/model-reviews/anthropic': { hero: 'ouroboros-skills' },
+  '/lab/model-reviews/gemini': { hero: 'm365crawl' },
+  '/lab/model-reviews/minimax': { hero: 'factory' },
+  '/lab/model-reviews/openai': { hero: 'ouro-ui-core' },
   '/lab/docs': { hero: 'm365crawl' },
-  '/lab/docs/getting-started': { hero: 'shepherd' },
-  '/lab/docs/bundles-and-psyche': { hero: 'apple-distribution-kit' },
-  '/lab/docs/continuity-and-memory': { hero: 'gatefold' },
-  '/lab/docs/architecture': { hero: 'ouro-workbench' },
-  '/lab/docs/tasks-and-work': { hero: 'desk' },
+  '/lab/docs/getting-started': { hero: 'ouro-ui-apple' },
+  '/lab/docs/bundles-and-psyche': { hero: 'ouro-workbench' },
+  '/lab/docs/continuity-and-memory': { hero: 'friends-relay' },
+  '/lab/docs/architecture': { hero: 'factory' },
+  '/lab/docs/tasks-and-work': { hero: 'playwright-focus-proof' },
   '/lab/docs/skills-and-prompts': { hero: 'ouroboros-skills' },
-  // The legal pages open on their words; a small scene sits beside the title (`aside`).
-  '/privacy': { hero: null, aside: 'ouro-work', og: 'ouro-work' },
-  '/terms': { hero: null, aside: 'gatefold', og: 'gatefold' },
+  // The legal pages open on a short band of their own scene (`band`), under
+  // which the "Draft for review" badge stays (taste review r3).
+  '/privacy': { hero: 'apple-distribution-kit', band: true },
+  '/terms': { hero: 'shepherd', band: true },
   // Ouro has wandered off the trail; the footer meadow stays off so the gate shows once.
   '/404': { hero: 'ouroboros-website', meadow: false },
 }
@@ -94,7 +103,7 @@ export function sceneFor(pathname) {
   }
   const page = match ? pages[match] : { hero: null }
   const hero = page.hero ?? null
-  return { hero, aside: page.aside ?? null, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
+  return { hero, band: page.band === true, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
 }
 
 /** The scene a route's share card is set in. */
@@ -110,7 +119,6 @@ export function usedScenes() {
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
-    if (page.aside) used.add(page.aside)
   }
   for (const scene of ['desk', 'ouro-md', 'ouro-hx', 'butler']) used.add(scene)
   return [...used].sort()
@@ -119,7 +127,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 432], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432] }
+const phoneSizes = { ourostack: [768, 432], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */

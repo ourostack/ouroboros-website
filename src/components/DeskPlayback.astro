@@ -21,6 +21,9 @@
  * yet shown keeps its space, so the box is the final frame's height
  * throughout and the page below never moves.
  *
+ * Below 640px it opens on the finished frame instead of playing, with Replay
+ * to play it (taste review r3).
+ *
  * Below 640px, scene 2 drops the blocked group's explanation and the print
  * preview task, and its counts follow, so the reserved height is smaller on a phone
  * (root final ruling F4). The host bar wraps its title instead of truncating
@@ -208,6 +211,12 @@ const last = scenes.length - 1
     }
 
     replay.addEventListener('click', () => { play() })
+
+    // On a phone the final frame is far taller than scene 1, so playing it
+    // from the start left a tall, mostly empty frame while it typed (taste
+    // review r3, 2026-11-06). There it opens on the finished frame, and Replay
+    // plays it.
+    if (window.matchMedia('(max-width: 639.98px)').matches) { skip(); return }
 
     // Arm: the still replaces the final frame until it plays.
     still()

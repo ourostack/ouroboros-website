@@ -34,7 +34,7 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     const html = fs.readFileSync(file, 'utf8');
     const { hero } = sceneFor(pageOf(file));
     if (!hero) { assert.doesNotMatch(html, /class="story-scene story-hero/, `${pageOf(file)} has no hero scene`); continue; }
-    const block = html.match(/<div class="story-scene story-hero"[^>]*>[\s\S]*?<\/picture>/)?.[0];
+    const block = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>[\s\S]*?<\/picture>/)?.[0];
     assert.ok(block, `${pageOf(file)}: no hero scene`);
     assert.match(block, new RegExp(`data-brand-scene="${hero}"`), pageOf(file));
     const sources = [...block.matchAll(/<source\b[^>]*>/g)].map(([s]) => s);
@@ -94,4 +94,39 @@ test('every page has the Ouro favicon bytes, the touch icon and a manifest', () 
 
 test('every scene has words for people who cannot see it', () => {
   for (const [scene, alt] of Object.entries(scenes)) assert.ok(alt.length > 40 && /Ouro/.test(alt), scene);
+});
+
+// Taste review r3 (2026-11-06): 24 scenes for about 37 pages, so some reuse is
+// unavoidable, but never next door. No hero scene repeats between pages one
+// click apart (a link in the page body), between a page and its parent, or
+// between siblings; and a page linked from the nav or the footer, which is one
+// click from every page, shares its scene with no other page.
+test('no hero scene repeats between neighbouring pages', () => {
+  const heroOf = new Map();
+  const linksOf = new Map();
+  for (const file of pages()) {
+    const route = pageOf(file);
+    if (route === '/404') continue;
+    const { hero } = sceneFor(route);
+    if (!hero) continue;
+    heroOf.set(route, hero);
+    const body = fs.readFileSync(file, 'utf8').replace(/<nav\b[\s\S]*?<\/nav>/, '').replace(/<footer\b[\s\S]*?<\/footer>/, '');
+    linksOf.set(route, new Set([...body.matchAll(/href="(\/[^"#?]*)"/g)].map(([, href]) => (href.endsWith('/') ? href : `${href}/`))));
+  }
+  const parentOf = (route) => (route === '/' ? null : route.replace(/[^/]+\/$/, ''));
+  const html = readDist('index.html');
+  const everywhere = new Set(['/', ...[...html.match(/<nav\b[\s\S]*?<\/nav>/)[0].matchAll(/href="(\/[^"#?]*)"/g), ...html.match(/<footer\b[\s\S]*?<\/footer>/)[0].matchAll(/href="(\/[^"#?]*)"/g)].map(([, href]) => href)]);
+  const clashes = [];
+  const routes = [...heroOf.keys()];
+  for (const a of routes) {
+    for (const b of routes) {
+      if (a >= b || heroOf.get(a) !== heroOf.get(b)) continue;
+      const why = everywhere.has(a) || everywhere.has(b) ? 'nav or footer'
+        : linksOf.get(a).has(b) || linksOf.get(b).has(a) ? 'one click'
+        : parentOf(a) === b || parentOf(b) === a ? 'parent'
+        : parentOf(a) === parentOf(b) && parentOf(a) !== '/' ? 'siblings' : null;
+      if (why) clashes.push(`${a} and ${b} (${why}): ${heroOf.get(a)}`);
+    }
+  }
+  assert.deepEqual(clashes, []);
 });

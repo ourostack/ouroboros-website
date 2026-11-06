@@ -36,6 +36,13 @@ const scene = sceneFor(Astro.url.pathname)
 const showMeadow = scene.meadow && scene.hero !== meadowScene
 // The hero is the largest paint on most pages, so fetch it alongside the CSS.
 const heroBase = scene.hero ? `/brand/storybook` : ''
+// Content pages (a Lab piece, a doc, a review, a post) open on a shorter scene,
+// so the title and the first line of the intro sit above the fold on a laptop
+// (taste review r3, 2026-11-06).
+const contentHero = /^\/(lab|blog)\/[^/]+/.test(Astro.url.pathname)
+// A review transcript's way back to all the reviews shares the Lab's line, so
+// the breadcrumbs never stack (taste review r3).
+const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { href: '/lab/model-reviews/', label: 'All reviews' } : null
 ---
 
 <!doctype html>
@@ -93,12 +100,13 @@ const heroBase = scene.hero ? `/brand/storybook` : ''
 
     <Nav />
     <main class="relative z-10">
-      {scene.hero && <StoryScene scene={scene.hero} variant="hero" />}
+      {scene.hero && <StoryScene scene={scene.hero} variant="hero" class={scene.band ? 'story-hero-band' : contentHero ? 'story-hero-content' : undefined} />}
       {lab && (
         <div class:list={['lab-status z-20 px-6 md:px-12 lg:px-16', scene.hero ? 'relative pt-5' : 'absolute top-16 inset-x-0 pt-3']} data-lab-status={lab.status}>
           <p class="max-w-6xl mx-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist">
             <a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; Lab</a>
             {lab.status !== 'Origin' && <span class={`tag ${lab.tone}`}>{lab.status}</span>}
+            {labParent && <a href={labParent.href} class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; {labParent.label}</a>}
           </p>
         </div>
       )}
