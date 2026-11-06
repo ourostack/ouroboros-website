@@ -128,6 +128,20 @@
   font-display: swap;
   src: url('/fonts/outfit.woff2') format('woff2');
 }
+/* Metric-matched fallbacks: while the web fonts load, the local serif and sans
+   are scaled to the same average width, so lines wrap the same way before and
+   after the swap and nothing below moves (CLS, taste review r5). The ratios are
+   measured text widths: Cormorant / Times New Roman, Outfit / Arial. */
+@font-face {
+  font-family: 'Cormorant Fallback';
+  src: local('Times New Roman'), local('TimesNewRomanPSMT'), local('Times');
+  size-adjust: 96.5%;
+}
+@font-face {
+  font-family: 'Outfit Fallback';
+  src: local('Arial'), local('ArialMT'), local('Helvetica');
+  size-adjust: 97.9%;
+}
 @font-face {
   font-family: 'JetBrains Mono';
   font-style: normal;
@@ -137,8 +151,8 @@
 }
 
 @theme {
-  --font-display: "Cormorant Garamond", serif;
-  --font-body: "Outfit", sans-serif;
+  --font-display: "Cormorant Garamond", "Cormorant Fallback", serif;
+  --font-body: "Outfit", "Outfit Fallback", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
   --color-void: #050A07;
