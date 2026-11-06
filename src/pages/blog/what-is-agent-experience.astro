@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import { ogPathFor } from '../../data/og'
+import { ogPathFor, pageOg } from '../../data/og'
 import modelReviews from '../../data/model-reviews.json'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
 
@@ -9,6 +9,7 @@ const description = 'Agent Experience is the design surface that appears when an
 
 const { claimSentence: calloutClaim } = getModelReviewClaims(modelReviews)
 const reviewedHarnessCount = modelReviews.harnesses.length
+const reviewsTitle = pageOg['/lab/model-reviews'].title
 ---
 
 <Layout
@@ -35,7 +36,7 @@ const reviewedHarnessCount = modelReviews.harnesses.length
   </Fragment>
 
   <!-- Header -->
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-16">
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-8 md:pt-44 md:pb-8">
     <div class="max-w-6xl mx-auto split lg:items-end">
       <div class="split-head">
         <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
@@ -53,7 +54,7 @@ const reviewedHarnessCount = modelReviews.harnesses.length
   </section>
 
   <!-- Body -->
-  <section class="px-6 md:px-12 lg:px-16 pt-8 md:pt-12 pb-20 md:pb-28">
+  <section class="px-6 md:px-12 lg:px-16 pt-2 pb-20 md:pb-28">
     <div class="max-w-6xl mx-auto prose-ouro">
 
       <blockquote class="border-l-[3px] border-fang/40 pl-6 my-10 not-prose">
@@ -119,19 +120,15 @@ const reviewedHarnessCount = modelReviews.harnesses.length
     </div>
   </section>
 
-  <!-- Reviews callout — derived from script output, dynamic. -->
-  <section class="px-6 md:px-12 lg:px-16 pt-8 pb-16 reveal">
+  <!-- A short pointer to the reviews. The prose above already carries the claim
+       and its link, so the pointer names where it goes, by that page's own
+       title, and never repeats the sentence (taste review r5). -->
+  <section class="px-6 md:px-12 lg:px-16 pt-4 pb-12 reveal">
     <div class="max-w-6xl mx-auto">
-      <a href="/lab/model-reviews/" class="block group border border-scale/30 bg-scale/5 hover:bg-scale/10 hover:border-scale/60 rounded-sm p-8 md:p-10 transition">
-        <div class="font-mono uppercase tracking-[0.22em] text-scale text-xs mb-4">Reviews</div>
-        <p class="font-display text-2xl md:text-3xl text-bone leading-tight mb-3">
-          {calloutClaim}
-        </p>
-        <p class="text-sm text-mist mb-4">The reasons they cited map almost exactly onto the AX dimensions in this essay.</p>
-        <span class="font-mono text-xs uppercase tracking-[0.18em] text-scale group-hover:text-glow">
-          Read the reviews →
-        </span>
-      </a>
+      <p class="post-note">
+        <span class="font-mono uppercase tracking-[0.22em] text-fang text-xs block mb-2">Reviews</span>
+        <a href="/lab/model-reviews/" class="font-display text-2xl md:text-3xl text-bone leading-tight underline underline-offset-[6px] decoration-scale/40 hover:text-scale hover:decoration-current transition-colors">{reviewsTitle} &rarr;</a>
+      </p>
     </div>
   </section>
 

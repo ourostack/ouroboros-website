@@ -621,15 +621,20 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-scene img { display: block; width: 100%; height: auto; }
 /* The scene starts just under the header, so nothing in it (Ouro's head least of all) hides behind the bar. */
 .story-hero { width: 100%; margin-top: 4rem; }
-.story-hero img { aspect-ratio: 1536 / 576; max-height: 55vh; object-fit: cover; object-position: 50% 62%; }
+/* The height cap never trims the cast (taste review r5: the robot's head was cut
+   at 1440). StoryScene sets, per scene, --hero-need (the least share of the
+   art's height that holds every character, plus margin) and --hero-y (the
+   crop that keeps them inside it). The box is never shorter than that share of
+   the art's own height at this width, whatever the viewport cap. */
+.story-hero img { aspect-ratio: 1536 / 576; max-height: max(55vh, calc(var(--hero-need, 0) * var(--hero-arh, 0.375) * 100vw)); object-fit: cover; object-position: 50% var(--hero-y, 62%); }
 .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: 3 / 1; }
 /* Content pages (Lab pieces, docs, reviews, posts) open on a shorter scene, so
    the title and the intro's first line sit above the fold at 1440x900 and
    1024x768 (taste review r3). */
-.story-hero-content img { max-height: min(46vh, 420px); }
+.story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-need, 0) * var(--hero-arh, 0.375) * 100vw)); }
 /* The legal pages open on a short band of their scene, like the meadow by the
    footer, so they stay in the world without a picture-card beside the words. */
-@media (min-width: 641px) { .story-hero-band img { aspect-ratio: auto; height: clamp(12rem, 24vw, 20rem); max-height: none; object-position: 50% 30%; }
+@media (min-width: 641px) { .story-hero-band img { aspect-ratio: auto; height: clamp(12rem, 24vw, 20rem); max-height: none; object-position: 50% var(--hero-band-y, 30%); }
   .story-hero-band { margin-bottom: 2.5rem; } }
 .story-hero, .story-meadow {
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
@@ -669,9 +674,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    and a 5% zoom would trim the characters at its edges (taste review r4: the
    blue robot and a sheep cut off at 320). */
 @media (prefers-reduced-motion: no-preference) and (min-width: 641px) {
-  .story-hero img { transform-origin: 62% 70%; animation: story-drift 60s ease-in-out infinite alternate; }
+  .story-hero img { transform-origin: 58% 50%; animation: story-drift 60s ease-in-out infinite alternate; }
 }
-@keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.05) translate(-0.8%, -0.6%); } }
+/* A 3% zoom about the middle moves the top and bottom edges 1.5% each: inside
+   the margin heroFrame() keeps around the cast. */
+@keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.03) translateX(-0.6%); } }
 /* Scenes further down: soft rounded corners, no border, a whisper of glow. */
 .story-inline { border-radius: 1rem; }
 .story-inline img { aspect-ratio: 1536 / 576; object-fit: cover; }
@@ -740,9 +747,32 @@ main > section.border-t::before, .trail-top::before {
    Each item carries its own dot before it; the line is clipped just left of its
    edge, so an item that starts a line on a phone hides its dot and none dangles
    at a line's end. */
-.lab-line { overflow: hidden; padding: 0.25rem; margin: -0.25rem; }
+/* The line sits in the same centred column as the heading below it (taste
+   review r5: a bare margin here overrode mx-auto and left it 80px to the left).
+   Clipped at the column's edge, with a sliver of room for focus rings. */
+.lab-line { overflow: hidden; overflow: clip; overflow-clip-margin: 0.25rem; padding-block: 0.25rem; margin-block: -0.25rem; }
 .lab-line .lab-items { display: flex; flex-wrap: wrap; align-items: center; row-gap: 0.4rem; margin: 0 0 0 -1.25rem; }
 .lab-line .lab-item { position: relative; display: inline-flex; align-items: center; padding-left: 1.25rem; }
 .lab-line .lab-item::before { content: "\00B7"; position: absolute; left: 0.5rem; color: var(--color-shadow); }
 .lab-line .lab-crumb { color: var(--color-mist); }
 .hero-cover-glow { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%); mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%); }
+
+/* The page you are on, in the nav: the ink colour and a line of trail light
+   beneath it, so it reads at a glance in both themes (taste review r5: the
+   light theme marked it with a green barely darker than its neighbours). */
+#main-nav a[aria-current="page"], #mobile-menu a[aria-current="page"] {
+  color: var(--color-bone);
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-scale);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.5em;
+}
+
+/* A post on the blog index, with a small vignette of its own scene beside it:
+   no frame, no shadow, just the scene's corner of the world with soft corners,
+   shown whole at its own aspect (taste review r5). */
+.post-with-scene { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0 1.25rem; align-items: start; }
+.post-scene { display: block; padding-top: 0.3rem; }
+.post-scene .story-vignette { border-radius: 0.75rem; }
+.post-scene .story-vignette img { width: 100%; height: auto; }
+@media (min-width: 768px) { .post-with-scene { grid-template-columns: 8rem minmax(0, 1fr); gap: 0 2rem; } }

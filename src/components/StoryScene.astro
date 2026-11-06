@@ -15,7 +15,7 @@
   meadow band with object-fit. Every variant fades at its edges into the page,
   so the dawn sits softly on the parchment and on the dark theme alike.
 */
-import { scenes, sceneRatio, phoneSize } from '../data/scenes.mjs'
+import { scenes, sceneRatio, phoneSize, heroFrame } from '../data/scenes.mjs'
 
 interface Props {
   scene: string
@@ -32,8 +32,14 @@ const [w, h] = sceneRatio(scene)
 // The phone crop's own size (4:3, or 16:9 / 2:1 for the wide-cast scenes); the
 // phone box takes this aspect, so the crop is shown whole, never cut again.
 const [pw, ph] = phoneSize(scene)
-const phoneAspect = `--phone-ar: ${pw} / ${ph}`
 const hero = variant === 'hero'
+// The desktop hero keeps the whole cast in frame at every width (taste review
+// r5): global.css never lets the box show less of the art than `need`, and
+// object-position `y` keeps the cast inside whatever it shows.
+const frame = heroFrame(scene)
+const phoneAspect = hero
+  ? `--phone-ar: ${pw} / ${ph}; --hero-need: ${frame.need}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%; --hero-band-y: ${frame.bandY}%`
+  : `--phone-ar: ${pw} / ${ph}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
 const phoneAvif = `${base}/phone/${scene}-384.avif 384w, ${base}/phone/${scene}-768.avif 768w`

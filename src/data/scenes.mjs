@@ -67,11 +67,12 @@ const pages = {
   '/lab/how-desk-started': { hero: 'ouro-workbench' },
   '/lab/model-reviews': { hero: 'flow-review' },
   // Each reviewer researches in its own corner: the scroll stacks, the card
-  // catalogue, the factory's gauges, the paint pots.
-  '/lab/model-reviews/anthropic': { hero: 'ouroboros-skills' },
-  '/lab/model-reviews/gemini': { hero: 'm365crawl' },
-  '/lab/model-reviews/minimax': { hero: 'factory' },
-  '/lab/model-reviews/openai': { hero: 'ouro-ui-core' },
+  // catalogue, the factory's gauges, the paint pots. Their share cards all sit
+  // in the reviews' gallery of easels, each under its own model's name (taste review r5).
+  '/lab/model-reviews/anthropic': { hero: 'ouroboros-skills', og: 'flow-review' },
+  '/lab/model-reviews/gemini': { hero: 'm365crawl', og: 'flow-review' },
+  '/lab/model-reviews/minimax': { hero: 'factory', og: 'flow-review' },
+  '/lab/model-reviews/openai': { hero: 'ouro-ui-core', og: 'flow-review' },
   '/lab/docs': { hero: 'm365crawl' },
   '/lab/docs/getting-started': { hero: 'ouro-ui-apple' },
   '/lab/docs/bundles-and-psyche': { hero: 'ouro-workbench' },
@@ -129,6 +130,57 @@ export function usedScenes() {
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
 const phoneSizes = { ourostack: [768, 432], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 432], factory: [768, 384] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
+
+// Where the characters stand in each scene's wide art, as [top, bottom]
+// fractions of its height: the highest head (or the subject's roof or tower)
+// and the lowest coil or paw worth keeping. Read by eye off a 10% grid
+// (taste review r5, 2026-11-06: a capped desktop hero cut the robot's head off
+// on two pages). heroFrame() turns it into the hero's crop.
+export const heroFocus = {
+  'apple-distribution-kit': [0.13, 0.82],
+  butler: [0.18, 0.84],
+  desk: [0.22, 0.88],
+  factory: [0.2, 0.92],
+  'flow-review': [0.18, 0.84],
+  friends: [0.2, 0.97],
+  'friends-relay': [0.05, 0.92],
+  gatefold: [0.15, 0.88],
+  'homebrew-tap': [0.06, 0.88],
+  m365crawl: [0.22, 0.92],
+  'ouro-apps-site': [0.05, 0.9],
+  'ouro-hx': [0.1, 0.86],
+  'ouro-md': [0.2, 0.86],
+  'ouro-native-apple-app-shell': [0.1, 0.8],
+  'ouro-ui-apple': [0.05, 0.9],
+  'ouro-ui-core': [0.18, 0.88],
+  'ouro-work': [0.2, 0.88],
+  'ouro-workbench': [0.28, 0.86],
+  'ouroboros-skills': [0.05, 0.92],
+  'ouroboros-website': [0.24, 0.92],
+  ouroboros: [0.12, 0.9],
+  ourostack: [0.15, 0.85],
+  'playwright-focus-proof': [0.13, 0.97],
+  shepherd: [0.12, 0.96],
+}
+
+// Breathing room kept above and below the cast, so the slow drift (a 3% zoom)
+// never pushes a head out of the frame.
+const FOCUS_MARGIN = 0.06
+
+/**
+ * The desktop hero's crop for a scene. `need` is the least share of the art's
+ * height the box may show (the cast plus margin): the hero's height cap never
+ * goes below it, at any width. `y` is the object-position that, at that least
+ * share or any taller one, keeps the whole cast in view. `bandY` frames the
+ * legal pages' short band on the heads.
+ */
+export function heroFrame(scene) {
+  const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
+  const need = Math.min(1, bottom - top + FOCUS_MARGIN)
+  const y = need >= 1 ? 0.5 : Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - need)))
+  const bandY = Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / 0.4))
+  return { need: +need.toFixed(3), y: +(y * 100).toFixed(1), bandY: +(bandY * 100).toFixed(1) }
+}
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
 export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' ? [1536, 614] : [1536, 576])

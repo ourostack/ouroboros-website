@@ -49,7 +49,7 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
 <Layout
   title={`${review.displayName}: review transcript | Ouro`}
   description={`Full transcript of ${review.displayName}'s evaluation: ${review.rounds} rounds of research across ${review.searchCount} searches and ${review.fetchCount} URL fetches.`}
-  ogImage={ogPathFor('/lab/model-reviews')}
+  ogImage={ogPathFor(`/lab/model-reviews/${provider}`)}
   crumbs={[review.vendor, generatedDate]}
 >
   <!-- ═══════════════ HEADER ═══════════════ -->
