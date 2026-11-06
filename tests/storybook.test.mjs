@@ -33,7 +33,7 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
     const { hero } = sceneFor(pageOf(file));
-    if (!hero) { assert.doesNotMatch(html, /story-hero/, `${pageOf(file)} has no hero scene`); continue; }
+    if (!hero) { assert.doesNotMatch(html, /class="story-scene story-hero/, `${pageOf(file)} has no hero scene`); continue; }
     const block = html.match(/<div class="story-scene story-hero"[^>]*>[\s\S]*?<\/picture>/)?.[0];
     assert.ok(block, `${pageOf(file)}: no hero scene`);
     assert.match(block, new RegExp(`data-brand-scene="${hero}"`), pageOf(file));
@@ -48,12 +48,14 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
   }
 });
 
-test('scenes further down load lazily, and no page shows one scene twice', () => {
+test('scenes further down wait for the arrival, and no page shows one scene twice', () => {
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
     const used = [...html.matchAll(/data-brand-scene="([^"]+)"/g)].map(([, s]) => s);
     assert.equal(new Set(used).size, used.length, `${pageOf(file)} repeats a scene: ${used}`);
     for (const [block] of html.matchAll(/<div class="story-scene story-(?:inline|meadow)[\s\S]*?<\/picture>/g)) {
+      assert.match(block, /<picture data-defer>/);
+      assert.doesNotMatch(block, /\ssrcset=|<img\b[^>]*\ssrc=/, 'a deferred scene names no source the preload scanner could fetch');
       assert.match(block.match(/<img\b[^>]*>/)[0], /loading="lazy" decoding="async"/);
     }
   }

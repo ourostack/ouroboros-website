@@ -156,5 +156,32 @@ const heroBase = scene.hero ? `/brand/storybook` : ''
         reveals.forEach(function(el) { if (!el.classList.contains('visible')) observer.observe(el); });
       })();
     </script>
+    <script is:inline>
+      // Storybook scenes below the arrival (StoryScene.astro) load only after the
+      // hero scene has landed, and then as they come within reach, so on a slow
+      // phone the hero has the connection to itself.
+      (function() {
+        var deferred = document.querySelectorAll('picture[data-defer]');
+        if (!deferred.length) return;
+        function show(p) {
+          p.querySelectorAll('source[data-srcset]').forEach(function(s) { s.srcset = s.dataset.srcset; });
+          var img = p.querySelector('img[data-src]');
+          if (img) img.src = img.dataset.src;
+        }
+        function start() {
+          if (!('IntersectionObserver' in window)) { deferred.forEach(show); return; }
+          var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+          }, { rootMargin: '600px 0px' });
+          deferred.forEach(function(p) { io.observe(p); });
+        }
+        var hero = document.querySelector('.story-hero img');
+        if (!hero || hero.complete) { start(); return; }
+        var started = false;
+        function once() { if (!started) { started = true; start(); } }
+        hero.addEventListener('load', once); hero.addEventListener('error', once);
+        setTimeout(once, 4000);
+      })();
+    </script>
   </body>
 </html>
