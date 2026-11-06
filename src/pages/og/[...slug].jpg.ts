@@ -63,30 +63,30 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'apple-distribution-kit': [780, 6, 1194, 290],
   'butler': [200, 446, 760, 628],
   'desk': [280, 6, 1194, 172],
-  'factory': [450, 6, 1194, 250],
+  'factory': [16, 6, 1194, 172],
   'flow-review': [16, 6, 760, 268],
   'friends': [40, 4, 1160, 132],
-  'friends-relay': [772, 6, 1194, 330],
+  'friends-relay': [16, 6, 1194, 142],
   'gatefold': [16, 6, 1194, 140],
-  'homebrew-tap': [320, 6, 1194, 150],
+  'homebrew-tap': [16, 6, 1194, 172],
   'm365crawl': [820, 6, 1194, 196],
   'ouro-apps-site': [560, 4, 1196, 166],
   'ouro-hx': [640, 6, 1194, 316],
   'ouro-md': [390, 6, 1194, 190],
   'ouro-native-apple-app-shell': [720, 6, 1194, 240],
-  'ouro-ui-apple': [16, 6, 1194, 138],
-  'ouro-ui-core': [16, 6, 1194, 132],
+  'ouro-ui-apple': [16, 6, 1194, 172],
+  'ouro-ui-core': [16, 6, 1194, 172],
   'ouro-work': [800, 6, 1194, 172],
   'ouro-workbench': [760, 6, 1194, 270],
   'ouroboros': [680, 6, 1194, 180],
   'ouroboros-skills': [830, 6, 1194, 240],
   'ouroboros-website': [770, 6, 1194, 196],
   'ourostack': [330, 6, 1060, 190],
-  'playwright-focus-proof': [16, 6, 540, 300],
+  'playwright-focus-proof': [16, 6, 1194, 172],
   'shepherd': [240, 6, 800, 250],
 }
 // Busy ground (the butler's flowered lawn) needs a firmer vignette than open sky.
-const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-ui-apple': 0.8, 'ouro-native-apple-app-shell': 0.8 }
+const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-native-apple-app-shell': 0.8 }
 
 // A card can be set in a different framing of the same canonical art: the home
 // card takes the whole-world header at card height and slides the window right,
@@ -95,11 +95,45 @@ const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-ui-apple': 0.8
 // Taste review r5 reframed three more: the workbench zooms in a little so its
 // open sky clears the timber post, vines and lantern; the shell and the apps
 // stall slide right so the words get the wide sunset sky instead of a sliver.
-const FRAME: Record<string, { file: string; left: number; height?: number }> = {
+// Taste review r5 found three scenes whose cast is wider than any card-height
+// window: the canonical card crop cut the robot's head (Ouro UI for Apple), Ouro's
+// coil (the paint pots) and the person at her laptop (the focus proof). Those are
+// set `sky`: the whole header, scaled to the card's width, stands at the foot of
+// the card, and the sky above it is the scene's own top rows of sky, stretched
+// and softened, so every character is whole and the title has open sky.
+const FRAME: Record<string, { file: string; left: number; height?: number } | { file: string; sky: true }> = {
   ourostack: { file: 'headers/ourostack.webp', left: 690 },
   'ouro-workbench': { file: 'headers/ouro-workbench.webp', left: 816, height: 756 },
   'ouro-native-apple-app-shell': { file: 'headers/ouro-native-apple-app-shell.webp', left: 480 },
   'ouro-apps-site': { file: 'headers/ouro-apps-site.webp', left: 480 },
+  'ouro-ui-apple': { file: 'headers/ouro-ui-apple.webp', sky: true },
+  'ouro-ui-core': { file: 'headers/ouro-ui-core.webp', sky: true },
+  'playwright-focus-proof': { file: 'headers/playwright-focus-proof.webp', sky: true },
+  // The same sweep found three more: the factory's card cut Ouro's tail at the
+  // right, the dovecote's cut the robot waving at the left, and the still's
+  // barrel stood behind the title.
+  factory: { file: 'headers/factory.webp', sky: true },
+  'friends-relay': { file: 'headers/friends-relay.webp', sky: true },
+  'homebrew-tap': { file: 'headers/homebrew-tap.webp', sky: true },
+}
+
+// The sky frame: the header at card width (1200x450) at the foot, and above it a
+// band of its own top rows of sky, stretched and softened, meeting the scene
+// through a short fade that stays clear of every head.
+async function skyFrame(file: string): Promise<Buffer> {
+  const W = 1200
+  const H = 630
+  const scene = await sharp(join(process.cwd(), 'public/brand/storybook', file)).resize({ width: W }).toBuffer()
+  const sceneH = (await sharp(scene).metadata()).height!
+  const band = H - sceneH
+  const sky = await sharp(scene).extract({ left: 0, top: 0, width: W, height: 10 }).resize(W, band + 40, { fit: 'fill' }).blur(36).toBuffer()
+  const seam = 24
+  const fade = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${sceneH}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="${(seam / sceneH).toFixed(4)}" stop-color="#fff" stop-opacity="1"/></linearGradient></defs><rect width="${W}" height="${sceneH}" fill="url(#g)"/></svg>`)
+  const faded = await sharp(scene).ensureAlpha().composite([{ input: fade, blend: 'dest-in' }]).png().toBuffer()
+  return sharp({ create: { width: W, height: H, channels: 3, background: '#F3C6A8' } })
+    .composite([{ input: sky, top: 0, left: 0 }, { input: faded, top: band, left: 0 }])
+    .png()
+    .toBuffer()
 }
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.
@@ -244,7 +278,9 @@ export const GET: APIRoute = async ({ params }) => {
 
   const wordsLayer = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
   const frame = FRAME[scene]
-  const base = frame
+  const base = frame && 'sky' in frame
+    ? await skyFrame(frame.file)
+    : frame
     ? await sharp(join(process.cwd(), 'public/brand/storybook', frame.file)).resize({ height: frame.height ?? 630 }).extract({ left: frame.left, top: 0, width: 1200, height: 630 }).toBuffer()
     : join(sceneDir, `${scene}.jpg`)
   const jpeg = await sharp(base)

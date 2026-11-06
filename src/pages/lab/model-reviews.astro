@@ -46,6 +46,23 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
     </Fragment>
   </HeroCover>
 
+  <!-- Jump links: the page runs long, so each model's verdict and its
+       per-harness rationale are one tap from the top (taste review r5). Plain
+       anchors: every sentence stays on the page, and nothing needs JS. -->
+  <nav aria-label="Jump to a model" class="relative px-6 md:px-12 lg:px-16 pt-2 pb-4">
+    <div class="max-w-6xl mx-auto">
+      <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-3">Jump to</span>
+      <ul class="review-jumps">
+        {reviews.map((review) => (
+          <li>
+            <a href={`#${review.provider}`} class="review-jump-name">{review.displayName}</a>
+            <span class="review-jump-more"><a href={`#${review.provider}-rationale`}>Per-harness rationale</a><a href={`/lab/model-reviews/${review.provider}/`}>Transcript</a></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
   <!-- ═══════════════ THE TESTIMONIALS — FULL WIDTH EDITORIAL ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 py-20 md:py-28 reveal">
     <div class="relative max-w-6xl mx-auto">
@@ -56,7 +73,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
       <div class="divide-y divide-canopy/30">
         {reviews.map((review) => (
-          <article id={review.provider} class="py-16 md:py-24 first:pt-0 last:pb-0">
+          <article id={review.provider} class="scroll-mt-24 py-16 md:py-24 first:pt-0 last:pb-0">
             <div class="grid gap-6">
               <!-- Attribution, then the quote under it -->
               <div class="flex flex-col">
@@ -104,7 +121,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
       <div class="split-body space-y-12 md:space-y-16">
         {reviews.map((review) => (
-          <div class="border-l-2 border-canopy/40 pl-6 md:pl-8">
+          <div id={`${review.provider}-rationale`} class="border-l-2 border-canopy/40 pl-6 md:pl-8 scroll-mt-24">
             <div class="flex items-baseline gap-3 mb-6">
               <span class="font-mono text-xs text-fang uppercase tracking-[0.22em]">{review.vendor}</span>
               <h3 class="heading-sub">{review.displayName}</h3>
@@ -221,3 +238,14 @@ npm run reviews -- --inference copilot-first</code></pre>
     </div>
   </section>
 </Layout>
+
+<style>
+  .review-jumps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem 2.5rem; }
+  @media (min-width: 768px) { .review-jumps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .review-jumps li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; padding: 0.55rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 30%, transparent); }
+  .review-jump-name { font-family: var(--font-display); font-size: 1.35rem; color: var(--color-bone); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); }
+  .review-jump-name:hover { color: var(--color-scale); }
+  .review-jump-more { display: inline-flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; font-size: 0.875rem; }
+  .review-jump-more a { color: var(--color-scale); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); }
+  .review-jump-more a:hover { color: var(--color-glow); }
+</style>

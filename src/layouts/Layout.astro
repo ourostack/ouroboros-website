@@ -107,7 +107,7 @@ const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { hr
       {lab && (
         <div class:list={['lab-status z-20 px-6 md:px-12 lg:px-16', scene.hero ? 'relative pt-5' : 'absolute top-16 inset-x-0 pt-3']} data-lab-status={lab.status}>
           {/* One line, never two stacked rows (taste reviews r3 and r4): the way back, what
-              the page is, then its status. "← Lab · Operator guide · Experiment". */}
+              the page is, then its status. "← Lab · Operator guide · Experimental". */}
           <div class="lab-line max-w-6xl mx-auto text-sm text-mist"><p class="lab-items">
             <span class="lab-item"><a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; Lab</a></span>
             {labParent && <span class="lab-item"><a href={labParent.href} class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">{labParent.label}</a></span>}

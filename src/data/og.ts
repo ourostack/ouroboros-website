@@ -185,6 +185,9 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it.',
   },
 
+  // ── Each review transcript: its own card, titled with the page's own h1 (the
+  // model's name), on the reviews' shared scene (taste review r5). Added below. ──
+
   // ── Docs sub-pages ──
   '/lab/docs/getting-started': {
     title: 'Get started with Ouroboros in 3 minutes.',
@@ -216,6 +219,14 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Prompts for quick questions. Skills for repeatable operator flows that need the latest local truth.',
     tag: 'Operator guide',
   },
+}
+
+for (const review of modelReviews.reviews) {
+  pageOg[`/lab/model-reviews/${review.provider}`] = {
+    title: review.displayName,
+    subtitle: `Full transcript of ${review.displayName}'s evaluation: ${review.rounds} rounds of research across ${review.searchCount} searches and ${review.fetchCount} URL fetches.`,
+    tag: 'Reviews',
+  }
 }
 
 // Convert a route path (e.g. '/lab/why' or '/lab/give-your-agent-a-home') to

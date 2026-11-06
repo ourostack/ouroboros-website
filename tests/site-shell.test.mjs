@@ -816,9 +816,17 @@ test('the harness setup guide says what setup asks for before the command runs',
   assert.ok(hrefsOf(facts[0]).includes('/lab/docs/architecture/'));
 });
 
-test('the review transcripts share the Lab review card', () => {
+// Taste review r5 (2026-11-06): each transcript has its own card, titled with the
+// page's own h1, set on the reviews' shared scene.
+test('each review transcript has its own card, titled with its h1, on the reviews scene', async () => {
+  const { pageOg } = await import('../src/data/og.ts');
+  const { ogSceneFor } = await import('../src/data/scenes.mjs');
   for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) {
-    assert.match(readDist(`lab/model-reviews/${provider}/index.html`), /og:image" content="https:\/\/ouroboros\.bot\/og\/og-lab-model-reviews\.jpg"/);
+    const html = readDist(`lab/model-reviews/${provider}/index.html`);
+    assert.match(html, new RegExp(`og:image" content="https://ouroboros\\.bot/og/og-lab-model-reviews-${provider}\\.jpg"`));
+    const h1 = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1].replace(/<[^>]+>/g, '').trim();
+    assert.equal(pageOg[`/lab/model-reviews/${provider}`].title, h1);
+    assert.equal(ogSceneFor(`/lab/model-reviews/${provider}`), ogSceneFor('/lab/model-reviews'));
   }
 });
 

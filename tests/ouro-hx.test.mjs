@@ -17,9 +17,13 @@ test('the Ouro UI entry marks HX ready to use, and AX as what comes next', () =>
   const html = card();
   assert.ok(html, 'Ouro UI entry is missing');
   const text = textOf(html).replace(/\s+/g, ' ');
-  assert.match(html, /<h3\b[^>]*>[\s\S]*?Ouro UI[\s\S]*?<\/h3>/);
+  // Taste review r5 (2026-11-06): one name for the product on every page. The
+  // heading said "Ouro UI" over an "Ouro HX" badge; the product, and
+  // ui.ouro.bot's own name, is Ouro HX.
+  assert.match(html, /<h3\b[^>]*>[\s\S]*?Ouro HX[\s\S]*?<\/h3>/);
+  assert.doesNotMatch(html, /<h3\b[^>]*>[\s\S]*?Ouro UI[\s\S]*?<\/h3>/);
   assert.ok(text.includes(copy));
-  assert.ok(text.includes('Ouro HX · Use today'));
+  assert.match(html, /class="tag tag-today"[^>]*>Use today</);
   assert.doesNotMatch(text, /under construction/i);
   assert.doesNotMatch(text, /still being defined/);
   assert.match(html, /data-brand-scene="ouro-ui-core"/);

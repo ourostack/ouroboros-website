@@ -2,6 +2,12 @@
 import Layout from '../../layouts/Layout.astro'
 import HeroCover from '../../components/HeroCover.astro'
 import { ogPathFor } from '../../data/og'
+import StoryScene from '../../components/StoryScene.astro'
+import { sceneFor } from '../../data/scenes.mjs'
+
+// Each post opens on its own scene; the index shows a small vignette of it
+// beside the title (taste review r5), so the list reads as a walk through the world.
+const sceneOf = (href: string) => sceneFor(href).hero
 
 const title = 'Essays on agents | Ouro blog'
 const description = 'Essays on agent experience, persistent agents, and software shaped for the thing inside it.'
@@ -122,11 +128,13 @@ const tutorial = {
     <div class="max-w-6xl mx-auto">
       <h2 class="heading-sub mb-4">Tutorial</h2>
       <ul class="post-list">
-        <li>
-          <span class="font-mono text-xs text-scale uppercase tracking-[0.18em] block mb-2">Guide</span>
-          <h3 class="post-title"><a href={tutorial.href} class={postLink}>{tutorial.title}</a></h3>
-          <p class="post-dek">{tutorial.description}</p>
-          <span class="post-byline">{tutorial.author}</span>
+        <li class="post-with-scene">
+          <a href={tutorial.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(tutorial.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, 5.5rem" /></a>
+          <div>
+            <h3 class="post-title"><a href={tutorial.href} class={postLink}>{tutorial.title}</a></h3>
+            <p class="post-dek">{tutorial.description}</p>
+            <span class="post-byline">{tutorial.author}</span>
+          </div>
         </li>
       </ul>
     </div>
@@ -138,10 +146,13 @@ const tutorial = {
       <h2 class="heading-sub mb-4">Essays</h2>
       <ul class="post-list">
         {essays.map(essay => (
-          <li>
-            <h3 class="post-title"><a href={essay.href} class={postLink}>{essay.title}</a></h3>
-            <p class="post-dek">{essay.description}</p>
-            <span class="post-byline">{essay.author}</span>
+          <li class="post-with-scene">
+            <a href={essay.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(essay.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, 5.5rem" /></a>
+            <div>
+              <h3 class="post-title"><a href={essay.href} class={postLink}>{essay.title}</a></h3>
+              <p class="post-dek">{essay.description}</p>
+              <span class="post-byline">{essay.author}</span>
+            </div>
           </li>
         ))}
       </ul>
