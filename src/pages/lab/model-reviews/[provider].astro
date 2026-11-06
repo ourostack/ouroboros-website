@@ -53,10 +53,7 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
 
     <div class="max-w-6xl relative mx-auto split lg:items-end">
       <div class="split-head">
-      <a href="/lab/model-reviews/" class="inline-flex items-center gap-2 font-mono text-xs text-mist uppercase tracking-[0.22em] hover:text-scale transition-colors mb-10">
-        &#8592; All reviews
-      </a>
-
+      {/* The way back to all the reviews sits on the Lab's line above (Layout.astro), so the breadcrumbs never stack. */}
       <div class="flex items-center gap-3 mb-6">
         <span class="font-mono text-xs text-fang uppercase tracking-[0.25em]">{review.vendor}</span>
         <span class="h-px flex-1 bg-canopy/40 max-w-[120px]"></span>
@@ -66,7 +63,7 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
       <h1 class="font-display text-bone leading-[0.95] text-[2.25rem] sm:text-[3rem] md:text-[4.5rem] mb-3">
         {review.displayName}
       </h1>
-      <div class="font-mono text-sm text-mist tracking-wider mb-12">{review.model} · {transportLabel} · {runtimeLabel}</div>
+      <p class="font-mono text-sm text-mist tracking-wider mb-12">{review.model} · {transportLabel} · {runtimeLabel}</p>
 
       <!-- Stats row -->
       <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-5 mb-14">
@@ -105,13 +102,17 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
         <span class="h-px flex-1 bg-canopy/40"></span>
       </div>
 
+      {/* Open rows on hairlines, not boxes (taste review r3, 2026-11-06). On a
+          phone the round number sits inline above its group, with no gutter, and
+          each fetch's URL runs full width under its label so it never breaks into
+          fragments. Fetches and searches still open to show what came back. */}
       <div class="space-y-12">
         {transcript.rounds.map((round: any) => (
-          <div class="grid grid-cols-[auto_1fr] gap-6 md:gap-10">
+          <div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-3 sm:gap-6 md:gap-10">
             <!-- Round number -->
-            <div class="flex-none">
-              <div class="font-display text-canopy text-3xl md:text-4xl leading-none">{String(round.round).padStart(2, '0')}</div>
-              <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] mt-2">Round</div>
+            <div class="flex-none flex items-baseline gap-3 sm:block">
+              <div class="font-display text-canopy text-2xl sm:text-3xl md:text-4xl leading-none">{String(round.round).padStart(2, '0')}</div>
+              <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] sm:mt-2">Round</div>
             </div>
 
             <!-- Round content -->
@@ -124,38 +125,38 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
               )}
 
               {round.actions && round.actions.length > 0 && (
-                <div class="space-y-5">
+                <div class="transcript-actions">
                   {round.actions.map((action: any) => (
-                    <div>
+                    <div class="transcript-row">
                       {action.type === 'fetch' && (
-                        <details class="border border-canopy/40 bg-deep/30 backdrop-blur-sm group">
-                          <summary class="cursor-pointer p-5 md:p-6 list-none flex items-baseline gap-4 hover:bg-deep/50 transition-colors">
-                            <span class="font-mono text-xs text-glow uppercase tracking-[0.22em] flex-none">Fetch</span>
-                            <span class="font-mono text-sm text-bone break-all min-w-0 flex-1">{action.url}</span>
-                            <span class="font-mono text-xs text-mist tracking-wider flex-none">{action.resultLength} chars</span>
+                        <details class="group">
+                          <summary class="transcript-summary fetch-summary">
+                            <span class="fetch-label font-mono text-xs text-glow uppercase tracking-[0.22em]">Fetch</span>
+                            <span class="fetch-url font-mono text-xs sm:text-sm text-bone [overflow-wrap:anywhere]">{action.url}</span>
+                            <span class="fetch-size font-mono text-xs text-mist tracking-wider">{action.resultLength} chars</span>
                           </summary>
-                          <div class="px-5 md:px-6 pb-6 pt-3 border-t border-canopy/30">
-                            <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap break-words">{action.result}</pre>
+                          <div class="pb-5 pt-2">
+                            <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
                             {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 break-all">Exact prefix · SHA-256 {action.resultSha256}</p>}
                           </div>
                         </details>
                       )}
 
                       {action.type === 'search' && (
-                        <details class="border border-canopy/40 bg-deep/30 backdrop-blur-sm group">
-                          <summary class="cursor-pointer p-5 md:p-6 list-none flex items-baseline gap-4 hover:bg-deep/50 transition-colors">
-                            <span class="font-mono text-xs text-scale uppercase tracking-[0.22em] flex-none">Search</span>
-                            <span class="font-mono text-sm text-bone break-words min-w-0 flex-1">{action.query}</span>
+                        <details class="group">
+                          <summary class="transcript-summary">
+                            <span class="block font-mono text-xs text-scale uppercase tracking-[0.22em]">Search</span>
+                            <span class="block mt-1.5 font-mono text-sm text-bone [overflow-wrap:anywhere]">{action.query}</span>
                           </summary>
-                          <div class="px-5 md:px-6 pb-6 pt-3 border-t border-canopy/30">
-                            <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap break-words">{action.result}</pre>
+                          <div class="pb-5 pt-2">
+                            <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
                             {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 break-all">Exact prefix · SHA-256 {action.resultSha256}</p>}
                           </div>
                         </details>
                       )}
 
                       {action.type === 'verdict' && (
-                        <div class="border border-scale/40 bg-scale/[0.04] backdrop-blur-sm p-6 md:p-8">
+                        <div class="border-l-2 border-scale/60 pl-6 md:pl-8 py-4">
                           <div class="font-mono text-xs text-scale uppercase tracking-[0.22em] mb-4">Final verdict</div>
                           <div class="font-display text-scale text-3xl md:text-4xl mb-5">{action.verdict}</div>
                           <p class="text-bone text-base md:text-lg leading-[1.7]" set:html={`&#8220;${parseInlineMd(action.testimonial)}&#8221;`}></p>
@@ -174,7 +175,7 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
 
   <!-- ═══════════════ FOOTER NAV ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 py-12 md:py-16">
-    {/* One way back: the "All reviews" link above the title (taste review r2, 2026-11-06). */}
+    {/* One way back: the "All reviews" link on the Lab's line above the title (taste reviews r2 and r3, 2026-11-06). */}
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-baseline sm:justify-end gap-4">
       <a href="https://github.com/ourostack/ouroboros-website/blob/main/scripts/model-reviews.cjs" target="_blank" rel="noopener noreferrer" class="text-mist hover:text-bone transition-colors text-sm">
         View the script on GitHub &#8594;
@@ -182,3 +183,18 @@ const runtimeLabel = `${modelReviews.runtime.name} ${modelReviews.runtime.versio
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Each action is an open row on a hairline; the row itself is the control. */
+  .transcript-row + .transcript-row { border-top: 1px solid color-mix(in srgb, var(--color-canopy) 28%, transparent); }
+  .transcript-summary { display: block; cursor: pointer; list-style: none; padding: 0.85rem 0; transition: color 0.2s; }
+  .transcript-summary::-webkit-details-marker { display: none; }
+  /* Fetch and its size share the first line, and the URL runs full width below.
+     The markup keeps the transcript's reading order (Fetch, URL, size). */
+  .fetch-summary { display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'label size' 'url url'; column-gap: 1rem; row-gap: 0.375rem; align-items: baseline; }
+  .fetch-label { grid-area: label; }
+  .fetch-size { grid-area: size; }
+  .fetch-url { grid-area: url; min-width: 0; }
+  .transcript-summary:hover .text-bone { color: var(--color-scale); }
+  .transcript-summary:focus-visible { outline: 2px solid var(--color-scale); outline-offset: 4px; border-radius: 2px; }
+</style>

@@ -214,7 +214,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
       <div class="prose-ouro">
 
         <!-- Answer-first summary for SEO -->
-        <aside class="rounded-xl border border-scale/30 bg-scale/5 px-6 py-5 my-8">
+        <aside class="post-note my-8">
           <p class="!mb-2 !text-base"><strong class="text-bone">TL;DR &mdash; What is an agent loop?</strong></p>
           <p class="!mb-2 !text-base">
             An <strong>agent loop</strong> is the core cycle that makes AI agents work: the model reads context, decides what action to take,
@@ -287,7 +287,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Set up the project &mdash; open a terminal, <code>cd</code> into wherever you want to create it, start your coding agent, and tell it:</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Set up a new TypeScript project called BestAgentEver. Use the openai npm package. If we choose Azure,
             use the AzureOpenAI client. Create an empty agent.ts file to start. Make this a git repo, and when done, commit."
@@ -308,7 +308,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Open the fresh new <code>agent.ts</code> so you can watch your code generate in realtime. Then, tell your coding agent:</p>
 
-        <aside class="rounded-xl border border-canopy/40 bg-undergrowth/30 px-5 py-4 my-6 text-sm text-mist">
+        <aside class="post-note my-6 text-sm text-mist">
           <p class="!mb-2 !text-sm"><strong class="text-bone">A note on APIs:</strong></p>
           <p class="!mb-0 !text-sm">
             The current OpenAI SDK treats the Responses API as primary, while Chat Completions remains supported.
@@ -317,7 +317,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
           </p>
         </aside>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "In agent.ts, make a simple completions call. Read the existing credentials from my environment, and
             make sure they're sufficient. Then, use OpenAI from the openai package, send 'say hello in 5 words'
@@ -338,7 +338,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         <p>Test it: <code>cd BestAgentEver</code> and then <code>npm run dev</code>.</p>
         <p>You should see something like: <em>Hello there, how are you?</em></p>
 
-        <aside class="rounded-xl border border-canopy/40 bg-undergrowth/30 px-5 py-4 my-6 text-sm text-mist">
+        <aside class="post-note my-6 text-sm text-mist">
           <p class="!mb-2 !text-sm"><strong class="text-bone">Seeing a big <code>&lt;think&gt;</code> block?</strong></p>
           <p class="!mb-2 !text-sm">
             Reasoning models think step-by-step before answering, and different classes of model do this differently.
@@ -357,7 +357,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Batched responses feel dead. Streaming feels immediate. Prompt:</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Add streaming. Use stream: true, iterate with for-await, and use process.stdout.write for each chunk
             so tokens appear as they arrive. Change the prompt to something longer (like asking for a short poem)
@@ -381,7 +381,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>An agent that can't hold a conversation isn't an agent.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Make it interactive. Use readline for a CLI prompt. Keep a messages array &mdash; that's the conversation
             history. Loop: get user input, append to messages, stream the response, append assistant response to
@@ -416,7 +416,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         <p><strong>Read file + Write file + Run shell = universal basis.</strong></p>
         <p>With these three tools, a model can do almost anything a developer can do. Including modify its own code.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path
             and content, writes it), shell (takes command, runs with execSync, returns output). Use the openai tools
@@ -451,7 +451,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>This is where it becomes an agent.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Wrap the chat in a loop. After executing tools, call the model again with the results. Keep looping
             until the model responds without any tool_calls &mdash; that's how we know it's done. Commit when done."
@@ -507,7 +507,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Let's see if it can add a capability to itself.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Add a list_directory tool to yourself. Read your own code, understand the pattern, add the tool, write
             the file. Commit when done and then give me instructions on how we can test this together."
@@ -531,7 +531,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Maybe you've noticed &mdash; UX could be better! API calls silently fail, you can type random characters while the agent is working, and who doesn't love a loading spinner.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives,
             not just until the API call is made) &mdash; use a simple process.stderr.write spinner, no external
@@ -557,7 +557,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>The tools are getting unwieldy in a switch statement.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Refactor the tools into a registry pattern. Map tool names to handler functions. executeTool should just
             look up and call. When done, commit."
@@ -571,7 +571,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Right now the agent has no identity, guidance, or sense of purpose.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Add a system message to the messages array at startup. Give this agent a name, personality, and purpose.
             It should know it's a coding assistant with file and shell tools. Before you proceed, ask me questions
@@ -591,7 +591,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Here's where it gets even more interesting.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Build a skills system. Create a skills/ directory with a couple example skill files as markdown &mdash; maybe
             code-review.md and explain.md. Add a load_skill tool that reads a skill and prepends it to the system prompt.
@@ -615,7 +615,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>This is the compounding part.</p>
 
-        <aside class="rounded-xl border border-scale/20 bg-scale/5 px-5 py-4 my-6">
+        <aside class="post-note my-6">
           <p class="!text-bone !mb-0 italic">
             "Create a skill called toolmaker.md that teaches you how to add new tools to yourself &mdash; the pattern for
             the definition, the pattern for the handler, reminder to tell me to restart. Then load it and use it to add
@@ -722,7 +722,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
       <!-- End CTA -->
       <div class="mt-20 pt-12 border-t border-canopy/30">
-        <div class="rounded-xl border border-canopy/40 bg-gradient-to-br from-deep/90 to-undergrowth/30 p-8 md:p-10">
+        <div>
           <p class="font-display text-3xl md:text-4xl text-bone leading-snug">
             This tutorial became a harness.
           </p>

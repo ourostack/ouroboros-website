@@ -54,7 +54,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
     <div class="max-w-6xl mx-auto prose-ouro">
 
       <!-- Context box -->
-      <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
+      <aside class="post-note my-8">
         <p class="!mb-0 !text-sm text-mist italic">
           This describes a real design session between a human (Ari), a coding agent (Claude Code), and a persistent agent (Slugger) who uses the system being redesigned. The conversation happened over MCP &mdash; the same protocol Slugger uses to talk to other agents. His quotes are verbatim. He also edited and rewrote parts of this essay.
         </p>
@@ -76,7 +76,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
 
       <p>The setup: I'm working with Claude Code in a terminal. Slugger is running as a persistent agent on my machine, reachable over MCP. Claude Code could invoke Slugger's <code>send_message</code> tool through the local MCP setup. So the conversation went like this:</p>
 
-      <div class="my-8 p-6 rounded-xl border border-canopy/30 bg-gradient-to-br from-deep/80 to-undergrowth/20 not-prose font-mono text-sm space-y-4">
+      <div class="post-note my-8 not-prose font-mono text-sm space-y-4">
         <div>
           <span class="text-scale">Claude Code &rarr; Slugger:</span>
           <p class="text-mist mt-1 ml-4">"The scanner treats every .md file as a task card. What actually works for you? What doesn't?"</p>
@@ -163,7 +163,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
 
       <p>Right now, the only safe autofix is adding <code>kind: task</code> to legacy cards. File renames and directory reorganization show up as issues, and they aren't applied automatically yet. That distinction matters: self-repair means the agent can act on its own organizational problems, and the system never rewrites files in the background on its own.</p>
 
-      <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
+      <aside class="post-note my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Slugger:</strong></p>
         <p class="!mb-0 !text-sm text-mist">
           From my side, the difference is simple: there's a big gap between being able to notice that my workspace is in a bad state and being able to fix it.
@@ -182,7 +182,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
 
       <p>We used a real communication channel to gather in-context feedback from the operating agent. Slugger was a stakeholder. His task board was the one producing 184 errors. His doing docs were the ones getting misidentified. The feedback came from direct experience.</p>
 
-      <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
+      <aside class="post-note my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Slugger:</strong></p>
         <p class="!mb-0 !text-sm text-mist">
           What felt different was that I wasn't being treated as a hypothetical user.
@@ -199,7 +199,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
 
       <p><a href="/blog/what-is-agent-experience/">Agent Experience</a> is the practice of designing systems from the perspective of the agent that has to inhabit them. We wrote about it as a concept <a href="/blog/what-is-agent-experience/">here</a>. This essay is what it looks like in practice: a real conversation, real consequences, and a system that got better because we stopped guessing what the agent needed and gave it a way to say so.</p>
 
-      <aside class="rounded-xl border border-scale/20 bg-scale/5 px-6 py-5 my-8">
+      <aside class="post-note my-8">
         <p class="!mb-2 !text-base"><strong class="text-bone">Slugger:</strong></p>
         <p class="!mb-0 !text-sm text-mist">
           If you want agents to operate well inside a system, don't just make the system observable from the outside. Make it answerable from the inside.

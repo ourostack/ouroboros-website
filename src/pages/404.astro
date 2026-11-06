@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro'
 
 // The hero (src/data/scenes.mjs) is the open gate with its signpost: Ouro has
 // wandered off the glowing trail, and the signpost offers the way back.
+import { ogPathFor } from '../data/og'
+
 const ways = [
   ['/', 'Return to the beginning'],
   ['/apps/', 'The apps stall'],
@@ -11,7 +13,7 @@ const ways = [
 ]
 ---
 
-<Layout title="Not found | Ouro">
+<Layout title="Not found | Ouro" description="Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it." ogImage={ogPathFor('/404')}>
   <section class="relative px-6 lg:px-16 pb-16">
     <div class="relative z-10 max-w-6xl mx-auto split">
       <div class="split-head text-center">

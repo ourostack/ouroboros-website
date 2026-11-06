@@ -179,6 +179,11 @@ export const pageOg: Record<string, OgEntry> = {
     title: 'Terms.',
     subtitle: 'The plain-language terms for this site and our open-source tools.',
   },
+  // The 404 shares its own card, the garden gate, not the home's (taste review r3).
+  '/404': {
+    title: 'Lost in the coils.',
+    subtitle: 'Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it.',
+  },
 
   // ── Docs sub-pages ──
   '/lab/docs/getting-started': {
