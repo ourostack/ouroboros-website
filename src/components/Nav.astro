@@ -5,17 +5,14 @@ const currentPath = Astro.url.pathname
 // The longest matching link is the active one, so /lab/story/ lights Story, not Lab too.
 const active = navLinks.map((l) => l.href).filter((href) => currentPath.startsWith(href)).sort((a, b) => b.length - a.length)[0]
 const isActive = (href: string) => href === active
-const isHomepage = currentPath === '/'
 // The arrow is decoration; screen readers read only the words.
 const sisterText = sisterNav.label.replace(/↗$/, '')
 const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
 ---
 
-<nav class="fixed top-0 inset-x-0 z-40" id="main-nav" aria-label="Main" data-homepage={isHomepage ? 'true' : undefined}>
-  <div id="nav-bg" class:list={[
-    'transition-all duration-500',
-    isHomepage ? 'bg-transparent' : 'bg-deep/75 backdrop-blur-lg border-b border-canopy/15'
-  ]}>
+<nav class="fixed top-0 inset-x-0 z-40" id="main-nav" aria-label="Main">
+  {/* Glass on every page, the homepage too: each one now opens on a bright dawn scene under it. */}
+  <div id="nav-bg" class="bg-deep/75 backdrop-blur-lg border-b border-canopy/15">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 h-16 px-4 sm:px-6 md:px-12 lg:px-16">
       <a href="/" class="brand-home group flex items-center gap-3 text-bone" aria-label="Ouro home">
         <img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w, /brand/ouro-render.webp 1024w" sizes="32px" width="32" height="32" alt="" class="mark-render brand-mark w-8 h-8" />
@@ -125,27 +122,6 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
           document.body.style.overflow = '';
         });
       });
-    }
-    // Homepage: transparent at the very top, glass as soon as anything scrolls under it (1px).
-    var nav = document.getElementById('main-nav');
-    var navBg = document.getElementById('nav-bg');
-    if (nav && nav.dataset.homepage && navBg) {
-      var scrolled = false;
-      function updateNav() {
-        var shouldBeOpaque = window.scrollY > 0;
-        if (shouldBeOpaque !== scrolled) {
-          scrolled = shouldBeOpaque;
-          if (scrolled) {
-            navBg.classList.remove('bg-transparent');
-            navBg.classList.add('bg-deep/75', 'backdrop-blur-lg', 'border-b', 'border-canopy/15');
-          } else {
-            navBg.classList.add('bg-transparent');
-            navBg.classList.remove('bg-deep/75', 'backdrop-blur-lg', 'border-b', 'border-canopy/15');
-          }
-        }
-      }
-      window.addEventListener('scroll', updateNav, { passive: true });
-      updateNav();
     }
   })();
 </script>

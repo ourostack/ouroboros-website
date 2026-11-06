@@ -1,5 +1,6 @@
 import modelReviews from './model-reviews.json' with { type: 'json' }
 import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
+import { ogSceneFor } from './scenes.mjs'
 
 /*
   Open Graph metadata — single source of truth for every shareable page.
@@ -7,8 +8,10 @@ import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
   HOW IT WORKS:
   - Every page route on the site has an entry in `pageOg` below.
   - Each page imports `ogPathFor` and passes the result to <Layout ogImage="...">.
-  - The dynamic OG image endpoint at src/pages/og/[...slug].png.ts imports
-    this manifest and renders one PNG per entry at build time.
+  - The dynamic OG image endpoint at src/pages/og/[...slug].jpg.ts imports
+    this manifest and renders one JPEG per entry at build time: the title set
+    over the page's storybook scene (its `og` scene in src/data/scenes.mjs,
+    served byte for byte from /brand/storybook/og/).
   - On every push to main, Cloudflare Pages runs `astro build`, which
     pre-renders all OG images from this file. Update copy here, ship,
     done — no manual regeneration ever.
@@ -35,7 +38,7 @@ import { getModelReviewClaims } from '../lib/model-review-claims.mjs'
     read as "reviews of what?" to a fresh viewer. When in doubt, omit it.
 */
 
-// The approved product renders in src/og/marks. Pages without one show Ouro.
+// The approved product renders in src/og/marks, shown small beside the wordmark. Pages without one show Ouro.
 export type OgMark = 'ouro' | 'desk' | 'ouro-md' | 'ouro-hx' | 'factory' | 'friends' | 'shepherd' | 'butler'
 
 export interface OgEntry {
@@ -223,10 +226,15 @@ export function slugFor(routePath: string): string {
 
 // The full ogImage path the page should pass to <Layout ogImage="...">.
 //
-//   ogPathFor('/')      → '/og/og-home.png'
-//   ogPathFor('/lab/why')   → '/og/og-lab-why.png'
+//   ogPathFor('/')      → '/og/og-home.jpg'
+//   ogPathFor('/lab/why')   → '/og/og-lab-why.jpg'
 export function ogPathFor(routePath: string): string {
-  return `/og/${slugFor(routePath)}.png`
+  return `/og/${slugFor(routePath)}.jpg`
+}
+
+// The storybook scene a route's card is set in (src/data/scenes.mjs).
+export function ogSceneForRoute(routePath: string): string {
+  return ogSceneFor(routePath)
 }
 
 // Reverse lookup: given a slug (the URL parameter), find the route path

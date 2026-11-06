@@ -9,7 +9,8 @@ test('normal logo placements use the approved rich renders, not the old vector m
   assert.match(home, /<img\b[^>]*src="\/brand\/ouro-render\.webp"[^>]*class="[^"]*brand-mark/);
   assert.match(home, /id="ouroboros-heading" class="heading-section heading-mark"[^>]*><img src="\/brand\/ouro-render\.webp"/);
   assert.match(home, /id="desk"[\s\S]*?class="tool-name"[^>]*>[\s\S]*?src="\/brand\/desk-render\.webp"/);
-  for (const mark of ['friends', 'shepherd', 'butler']) assert.match(home, new RegExp(`id="${mark}"[\\s\\S]*?src="/brand/${mark}-render\\.webp"`));
+  // Storybook (2026-11-06): what grew inside Ouroboros shows each one's own scene, not a small mark.
+  for (const mark of ['friends', 'shepherd', 'butler']) assert.match(home, new RegExp(`id="${mark}"[\\s\\S]*?data-brand-scene="${mark}"`));
   assert.match(readDist('desk/index.html'), /src="\/brand\/desk-render\.webp"/);
   assert.match(readDist('lab/story/index.html'), /src="\/brand\/ouro-render\.webp"/);
   for (const file of listHtmlFiles()) {

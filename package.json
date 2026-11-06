@@ -24,7 +24,8 @@
   "devDependencies": {
     "@github/copilot-sdk": "^1.0.13",
     "@resvg/resvg-js": "^2.6.2",
-    "satori": "^0.25.0"
+    "satori": "^0.25.0",
+    "sharp": "^0.34.5"
   },
   "overrides": {
     "wrangler": "^4.59.1",

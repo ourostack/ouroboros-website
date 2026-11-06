@@ -18,7 +18,7 @@ export default {
       headers.set('Cache-Control', 'public, max-age=31536000, immutable');
     }
     // Images, fonts — cache for a week
-    else if (path.match(/\.(png|jpg|jpeg|gif|svg|webp|ico|woff2?|ttf|eot)$/)) {
+    else if (path.match(/\.(png|jpg|jpeg|gif|svg|webp|avif|ico|woff2?|ttf|eot|webmanifest)$/)) {
       headers.set('Cache-Control', 'public, max-age=604800');
     }
     // HTML pages — short cache with revalidation

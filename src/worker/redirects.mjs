@@ -6,7 +6,9 @@ const moved = [
   [/^\/essays(\/.*)?$/, '/blog$1'],
   [/^\/lab\/(what-is-agent-experience|give-your-agent-a-home|build-ai-agent-from-scratch)\/?$/, '/blog/$1/'],
   // Share cards already posted keep their image: the old card names gained "lab-".
-  [/^\/og\/og-(docs(?:-[a-z-]+)?|model-reviews|story|why|what-is-an-agent-harness)\.png$/, '/og/og-lab-$1.png'],
+  [/^\/og\/og-(docs(?:-[a-z-]+)?|model-reviews|story|why|what-is-an-agent-harness)\.png$/, '/og/og-lab-$1.jpg'],
+  // The storybook cards (2026-11-06) are JPEGs; a card already posted as .png finds its new self.
+  [/^\/og\/(og-[a-z0-9-]+)\.png$/, '/og/$1.jpg'],
 ]
 
 /** The new path for an old one, or null. Page paths end in a slash, so a

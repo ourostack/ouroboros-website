@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro'
 import { labStatusFor } from '../data/lab.mjs'
 import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
+import StoryScene from '../components/StoryScene.astro'
+import { sceneFor, meadowScene, scenes } from '../data/scenes.mjs'
 
 interface Props {
   title: string
@@ -17,17 +19,23 @@ interface Props {
 const {
   title,
   description = "How can humans and agents do more together? Here's how I believe it works, what I use to support it, and what you can try.",
-  ogImage = '/og/og-home.png',
+  ogImage = '/og/og-home.jpg',
   canonical = `https://ouroboros.bot${Astro.url.pathname}`,
   ogType = 'website',
 } = Astro.props
 const lab = labStatusFor(Astro.url.pathname)
-// The card's alt text says what the generated card says.
-const ogSlug = ogImage.match(/\/og\/(og-[^/]+)\.png$/)?.[1]
+// The card's alt text says what the generated card shows: its title, set in its scene.
+const ogSlug = ogImage.match(/\/og\/(og-[^/]+)\.jpg$/)?.[1]
 const ogEntry = ogSlug ? pageOg[routePathForSlug(ogSlug) ?? ''] : undefined
-const ogAlt = ogEntry ? [ogEntry.title, ogEntry.subtitle].filter(Boolean).join(' ') : title
+const ogRoute = ogSlug ? routePathForSlug(ogSlug) : null
+const ogAlt = ogEntry && ogRoute ? `${ogEntry.title} ${scenes[sceneFor(ogRoute).og]}` : title
 // Every blog post ends with the same short route onward: Desk, the factory, the approach.
 const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
+// The page's storybook scene (src/data/scenes.mjs): the arrival, and the meadow by the footer.
+const scene = sceneFor(Astro.url.pathname)
+const showMeadow = scene.meadow && scene.hero !== meadowScene
+// The hero is the largest paint on most pages, so fetch it alongside the CSS.
+const heroBase = scene.hero ? `/brand/storybook` : ''
 ---
 
 <!doctype html>
@@ -41,6 +49,14 @@ const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
     </script>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/brand/ouro.svg" />
+    <link rel="apple-touch-icon" href="/brand/storybook/icons/ouro-180.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    {scene.hero && (
+      <>
+        <link rel="preload" as="image" type="image/avif" media="(max-width: 640px)" imagesrcset={`${heroBase}/phone/${scene.hero}-384.avif 384w, ${heroBase}/phone/${scene.hero}-768.avif 768w`} imagesizes="100vw" fetchpriority="high" />
+        <link rel="preload" as="image" type="image/avif" media="(min-width: 641px)" imagesrcset={`${heroBase}/scenes/${scene.hero}-640.avif 640w, ${heroBase}/scenes/${scene.hero}-960.avif 960w, ${heroBase}/scenes/${scene.hero}-1536.avif 1536w`} imagesizes="100vw" fetchpriority="high" />
+      </>
+    )}
     <title>{title}</title>
 
     <meta property="og:title" content={title} />
@@ -77,8 +93,9 @@ const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
 
     <Nav />
     <main class="relative z-10">
+      {scene.hero && <StoryScene scene={scene.hero} variant="hero" />}
       {lab && (
-        <div class="absolute top-16 inset-x-0 z-20 px-6 md:px-12 lg:px-16 pt-3" data-lab-status={lab.status}>
+        <div class:list={['lab-status z-20 px-6 md:px-12 lg:px-16', scene.hero ? 'relative pt-5' : 'absolute top-16 inset-x-0 pt-3']} data-lab-status={lab.status}>
           <p class="max-w-6xl mx-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist">
             <a href="/lab/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">&larr; Lab</a>
             {lab.status !== 'Origin' && <span class={`tag ${lab.tone}`}>{lab.status}</span>}
@@ -88,6 +105,7 @@ const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
       <slot />
       {isPost && <PostEnd />}
     </main>
+    {showMeadow && <StoryScene scene={meadowScene} variant="meadow" alt="" />}
     <Footer />
 
     <script is:inline>
@@ -136,6 +154,37 @@ const isPost = /^\/blog\/[^/]+\/?$/.test(Astro.url.pathname)
           });
         }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
         reveals.forEach(function(el) { if (!el.classList.contains('visible')) observer.observe(el); });
+      })();
+    </script>
+    <script is:inline>
+      // Storybook scenes below the arrival (StoryScene.astro) and video posters
+      // (WorkshopVideo.astro) load only after the hero scene has landed, the scenes
+      // then as they come within reach, so on a slow phone the hero has the
+      // connection to itself.
+      (function() {
+        var deferred = document.querySelectorAll('picture[data-defer]');
+        function show(p) {
+          p.querySelectorAll('source[data-srcset]').forEach(function(s) { s.srcset = s.dataset.srcset; });
+          var img = p.querySelector('img[data-src]');
+          if (img) img.src = img.dataset.src;
+        }
+        function start() {
+          // Anything else waiting on the arrival (video posters) goes now too.
+          document.documentElement.setAttribute('data-arrived', '');
+          document.dispatchEvent(new Event('story:arrived'));
+          if (!deferred.length) return;
+          if (!('IntersectionObserver' in window)) { deferred.forEach(show); return; }
+          var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+          }, { rootMargin: '600px 0px' });
+          deferred.forEach(function(p) { io.observe(p); });
+        }
+        var hero = document.querySelector('.story-hero img');
+        if (!hero || hero.complete) { start(); return; }
+        var started = false;
+        function once() { if (!started) { started = true; start(); } }
+        hero.addEventListener('load', once); hero.addEventListener('error', once);
+        setTimeout(once, 4000);
       })();
     </script>
   </body>

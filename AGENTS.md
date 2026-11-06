@@ -73,9 +73,9 @@ The brand name in nav links, page titles, and section eyebrows is fine — those
 OG cards are generated dynamically at build time from a single manifest. There is **no manual regeneration step**.
 
 - `src/data/og.ts` exports `pageOg` mapping page route → `{ title, subtitle, tag }` plus `ogPathFor()` and `slugFor()` helpers.
-- `src/pages/og/[...slug].png.ts` reads the manifest and renders one PNG per entry via Satori + Resvg at build time.
+- `src/pages/og/[...slug].jpg.ts` reads the manifest and renders one JPEG per entry at build time: Satori draws the title, sharp lays it over the page's storybook scene (`og` in `src/data/scenes.mjs`, served byte for byte from `/brand/storybook/og/`).
 - Every page imports `ogPathFor` and passes the result to `<Layout ogImage={ogPathFor('/route')}>`. Never hardcode an OG path string.
-- On every push, Cloudflare runs `astro build` → all OG PNGs regenerate from the manifest → live.
+- On every push, the deploy runs `astro build` → every card regenerates from the manifest → live.
 
 **Adding a new page:**
 
@@ -150,6 +150,7 @@ src/
     PromptCard.astro
   data/
     og.ts                ← OG metadata manifest (single source of truth)
+    scenes.mjs           ← which storybook scene each page opens on and shares with
     site.mjs             ← nav and footer links
     principles.mjs       ← the five principles, the smells, shared setup and install lines
     readiness.mjs        ← the only source of readiness labels
@@ -169,7 +170,7 @@ src/
     blog/                ← /blog index and every post, at the URLs they were published under
     lab/                 ← /lab: why, story, what-is-an-agent-harness, model-reviews (+ [provider]), docs/* (use DocsPageShell); index.astro carries the old harness homepage
     privacy.astro, terms.astro
-    og/[...slug].png.ts  ← dynamic OG image endpoint (build-time pre-render)
+    og/[...slug].jpg.ts  ← dynamic OG image endpoint (build-time pre-render)
     404.astro
   styles/
     global.css           ← @theme tokens, light theme, @apply utility classes, design rules header
@@ -189,6 +190,10 @@ public/
   og/                    ← EMPTY — OG cards are generated dynamically, never committed
   skills/                ← skills/manifest.json + skill markdown for agent consumption
 ```
+
+## The storybook world
+
+Since 2026-11-06 every page opens on a scene from Ari's storybook brand (ourostack/.github `brand/`): `src/data/scenes.mjs` maps each route to its hero scene and card scene, `Layout.astro` draws the hero and the footer meadow, and `src/components/StoryScene.astro` is the one `<picture>`. The art is copied **byte for byte** into `public/brand/storybook/` by `node scripts/sync-storybook.mjs <brand folder>`; never re-encode, optimize or crop it in a build step, because the brand audit compares the served bytes with `provenance.json` (`tests/storybook.test.mjs` checks too). A new page gets a route in `scenes.mjs`; a new scene means re-running the sync.
 
 ## ouro.bot forwards here
 

@@ -10,6 +10,11 @@ import path from 'node:path'
  *
  * An optional WebM goes first, and the MP4 is the fallback.
  *
+ * The poster waits in data-poster until the page's storybook hero has landed
+ * (Layout.astro marks <html data-arrived>), and only the clip for the active
+ * theme fetches it, so a slow phone spends its first bytes on the arrival.
+ * Without JS, a <noscript> image shows the poster instead.
+ *
  * Once a clip plays, a visible Pause/Play button appears on it (WCAG 2.2.2).
  * A clip the reader paused stays paused when it scrolls back into view.
  */
@@ -20,10 +25,11 @@ const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
 
 {hasClip ? (
   <div class="workshop-clip" data-workshop-clip>
-    <video class="workshop-video" muted playsinline loop preload="none" poster={poster} width={width} height={height} aria-label={alt || undefined} data-workshop-video>
+    <video class="workshop-video" muted playsinline loop preload="none" data-poster={poster} width={width} height={height} aria-label={alt || undefined} data-workshop-video>
       {webm && <source src={webm} type="video/webm" />}
       <source src={src} type="video/mp4" />
     </video>
+    <noscript><img class="workshop-video clip-noscript" src={poster} width={width} height={height} alt="" /></noscript>
     <button type="button" class="clip-toggle" data-clip-toggle hidden>Pause</button>
   </div>
 ) : (
@@ -31,6 +37,20 @@ const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
 )}
 
 <script>
+  // Posters: set once the arrival has landed, and only on the clips that show.
+  const showPosters = () => {
+    document.querySelectorAll<HTMLVideoElement>('video[data-poster]').forEach((video) => {
+      if (video.offsetParent !== null || video.getClientRects().length) { video.poster = video.dataset.poster!; delete video.dataset.poster }
+    })
+  }
+  const whenArrived = () => {
+    showPosters()
+    new MutationObserver(showPosters).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', showPosters)
+  }
+  if (document.documentElement.hasAttribute('data-arrived')) whenArrived()
+  else document.addEventListener('story:arrived', whenArrived, { once: true })
+
   const clips = document.querySelectorAll<HTMLElement>('[data-workshop-clip]')
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true
@@ -64,4 +84,5 @@ const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
   .clip-toggle { position: absolute; right: 0.6rem; bottom: 0.6rem; padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 500; color: var(--color-bone); background: color-mix(in srgb, var(--color-void) 85%, transparent); border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); backdrop-filter: blur(6px); }
   .clip-toggle:hover { color: var(--color-scale); }
   .clip-toggle[hidden] { display: none; }
+  .clip-noscript { position: absolute; inset: 0; }
 </style>

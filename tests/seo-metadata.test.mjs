@@ -271,10 +271,12 @@ test('old URLs redirect to their new homes and published posts keep theirs', asy
   assert.equal(redirectFor('/approach/'), null);
   for (const old of ['docs', 'docs-architecture', 'docs-bundles-and-psyche', 'docs-continuity-and-memory', 'docs-getting-started', 'docs-skills-and-prompts', 'docs-tasks-and-work', 'model-reviews', 'story', 'why', 'what-is-an-agent-harness']) {
     const target = redirectFor(`/og/og-${old}.png`);
-    assert.equal(target, `/og/og-lab-${old}.png`, `Old share card og-${old}.png`);
+    assert.equal(target, `/og/og-lab-${old}.jpg`, `Old share card og-${old}.png`);
     assert.ok(fs.existsSync(path.join(distDir, target)), `${target} is not built`);
   }
-  assert.equal(redirectFor('/og/og-home.png'), null);
+  // The storybook cards are JPEGs; an old .png card link lands on its new self.
+  assert.equal(redirectFor('/og/og-home.png'), '/og/og-home.jpg');
+  assert.equal(redirectFor('/og/og-home.jpg'), null);
   assert.equal(redirectFor('/lab/docs/'), null);
 });
 

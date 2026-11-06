@@ -393,14 +393,16 @@ test('the footer is the shared kit: the line, then one row with the sister link,
   }
 });
 
-test('the nav ends with the sister link and turns to glass at 1px of scroll', () => {
+test('the nav ends with the sister link and is glass from the top, over the dawn scene', () => {
   const html = readDist('index.html');
   const nav = navOf(html);
   const sister = nav.indexOf('href="https://mendelow.me"');
   assert.ok(sister > 0, 'Nav has the sister link');
   assert.ok(textOf(nav).includes('About me ↗'));
   for (const [, href] of navLinks) assert.ok(nav.indexOf(`href="${href}"`) < sister, 'The sister link is last');
-  assert.match(html, /window\.scrollY > 0/);
+  // Storybook (2026-11-06): every page opens on a bright scene, so the nav is glass from the first frame.
+  assert.match(nav, /id="nav-bg" class="bg-deep\/75 backdrop-blur-lg/);
+  assert.doesNotMatch(html, /bg-transparent/);
 });
 
 test('no built page or agent file contains a deny-listed string', (t) => {
@@ -811,7 +813,7 @@ test('the harness setup guide says what setup asks for before the command runs',
 
 test('the review transcripts share the Lab review card', () => {
   for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) {
-    assert.match(readDist(`lab/model-reviews/${provider}/index.html`), /og:image" content="https:\/\/ouroboros\.bot\/og\/og-lab-model-reviews\.png"/);
+    assert.match(readDist(`lab/model-reviews/${provider}/index.html`), /og:image" content="https:\/\/ouroboros\.bot\/og\/og-lab-model-reviews\.jpg"/);
   }
 });
 

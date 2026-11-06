@@ -1,0 +1,63 @@
+---
+/*
+  StoryScene: one storybook scene, served byte for byte from
+  /brand/storybook/ (see scripts/sync-storybook.mjs and src/data/scenes.mjs).
+
+  variant="hero"   the page's arrival: full bleed under the nav, loaded first
+                   (fetchpriority high, never lazy), the 4:3 phone crop below 640px.
+  variant="inline" a scene further down the page, sized by `sizes`, deferred.
+  variant="meadow" the short band above the footer, deferred.
+
+  The art is never re-encoded or cropped in a build step; CSS crops the
+  meadow band with object-fit. Every variant fades at its edges into the page,
+  so the dawn sits softly on the parchment and on the dark theme alike.
+*/
+import { scenes, sceneRatio } from '../data/scenes.mjs'
+
+interface Props {
+  scene: string
+  variant?: 'hero' | 'inline' | 'meadow'
+  sizes?: string
+  alt?: string
+  class?: string
+}
+
+const { scene, variant = 'inline', sizes, alt, class: className } = Astro.props
+if (!(scene in scenes)) throw new Error(`StoryScene: unknown scene ${scene}`)
+const base = '/brand/storybook'
+const [w, h] = sceneRatio(scene)
+const hero = variant === 'hero'
+const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
+const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
+const phoneAvif = `${base}/phone/${scene}-384.avif 384w, ${base}/phone/${scene}-768.avif 768w`
+const phoneWebp = `${base}/phone/${scene}-384.webp 384w, ${base}/phone/${scene}-768.webp 768w`
+const wideAvif = `${base}/scenes/${scene}-640.avif 640w, ${base}/scenes/${scene}-960.avif 960w, ${base}/scenes/${scene}-1536.avif 1536w`
+const wideWebp = `${base}/scenes/${scene}-640.webp 640w, ${base}/scenes/${scene}-960.webp 960w, ${base}/headers/${scene}.webp 1536w`
+const fallback = `${base}/headers/${scene}.webp`
+const altText = alt ?? scenes[scene]
+---
+
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene}>
+  {hero ? (
+    <picture>
+      <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width="768" height="576" />
+      <source media="(max-width: 640px)" type="image/webp" srcset={phoneWebp} sizes={phoneSizes} width="768" height="576" />
+      <source type="image/avif" srcset={wideAvif} sizes={wideSizes} width={w} height={h} />
+      <source type="image/webp" srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
+      <img src={fallback} width={w} height={h} alt={altText} fetchpriority="high" />
+    </picture>
+  ) : (
+    <>
+      {/* Deferred: the sources wait in data-srcset until the hero has landed and the
+          scene is near (Layout.astro), so the arrival gets the whole connection. */}
+      <picture data-defer>
+        <source media="(max-width: 640px)" type="image/avif" data-srcset={phoneAvif} sizes={phoneSizes} width="768" height="576" />
+        <source media="(max-width: 640px)" type="image/webp" data-srcset={phoneWebp} sizes={phoneSizes} width="768" height="576" />
+        <source type="image/avif" data-srcset={wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source type="image/webp" data-srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
+        <img data-src={fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" />
+      </picture>
+      <noscript><img src={fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" /></noscript>
+    </>
+  )}
+</div>

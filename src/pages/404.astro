@@ -1,29 +1,54 @@
 ---
 import Layout from '../layouts/Layout.astro'
+
+// The hero (src/data/scenes.mjs) is the open gate with its signpost: Ouro has
+// wandered off the glowing trail, and the signpost offers the way back.
+const ways = [
+  ['/', 'Return to the beginning'],
+  ['/apps/', 'The apps stall'],
+  ['/blog/', 'The essays'],
+  ['/lab/', 'The Lab, where it all started'],
+]
 ---
 
 <Layout title="Not found | Ouro">
-  <section class="relative overflow-hidden min-h-[80vh] flex flex-col items-center justify-center px-6 lg:px-16">
-    <div class="absolute inset-0 bg-gradient-to-b from-deep/40 via-transparent to-transparent pointer-events-none"></div>
-
-    <div class="relative z-10 text-center max-w-6xl w-full split">
-      <div class="split-head">
+  <section class="relative px-6 lg:px-16 pb-16">
+    <div class="relative z-10 max-w-6xl mx-auto split">
+      <div class="split-head text-center">
         <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">404</span>
 
-        <h1 class="font-display text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[8rem] text-bone leading-[0.95]">
+        <h1 class="font-display text-[3rem] sm:text-[4rem] md:text-[6rem] text-bone leading-[0.95]">
           Lost in the coils.
         </h1>
       </div>
 
-      <div class="split-body lg:pb-4">
-        <p class="text-base text-mist mt-6 lg:mt-0 leading-relaxed">
+      <div class="split-body text-center">
+        <p class="text-lg md:text-xl text-bone mt-6 leading-relaxed">
+          Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it.
+        </p>
+        <p class="text-base text-mist mt-3 leading-relaxed">
           This page has been consumed by the context window. Nothing remains.
         </p>
 
-        <a href="/" class="inline-block mt-10 px-8 py-3.5 border border-canopy text-mist rounded-lg hover:border-scale hover:text-bone transition-all duration-300">
-          Return to the beginning
-        </a>
+        <ul class="signpost mt-10" aria-label="Ways back to the trail">
+          {ways.map(([href, label], i) => (
+            <li><a href={href} class:list={['sign', i % 2 ? 'sign-left' : 'sign-right']}>{label}<span aria-hidden="true">{i % 2 ? ' ←' : ' →'}</span></a></li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  /* The signpost from the scene, in words: wooden arrows pointing both ways. */
+  .signpost { display: grid; justify-items: center; gap: 0.6rem; }
+  .sign { display: inline-block; padding: 0.55rem 1.4rem; font-family: var(--font-display); font-size: 1.35rem; color: var(--color-bone); background: color-mix(in srgb, var(--color-amber) 16%, var(--color-deep)); border: 1px solid color-mix(in srgb, var(--color-amber) 40%, transparent); transition: color 0.2s, border-color 0.2s, transform 0.3s var(--ease-expo); }
+  .sign-right { clip-path: polygon(0 0, calc(100% - 0.9rem) 0, 100% 50%, calc(100% - 0.9rem) 100%, 0 100%); padding-right: 2rem; }
+  .sign-left { clip-path: polygon(0.9rem 0, 100% 0, 100% 100%, 0.9rem 100%, 0 50%); padding-left: 2rem; }
+  .sign:hover, .sign:focus-visible { color: var(--color-scale); border-color: var(--color-scale); }
+  @media (prefers-reduced-motion: no-preference) {
+    .sign-right:hover { transform: translateX(0.25rem) rotate(-1deg); }
+    .sign-left:hover { transform: translateX(-0.25rem) rotate(1deg); }
+  }
+</style>
