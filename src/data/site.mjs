@@ -7,7 +7,8 @@ export const navLinks = [
   { href: '/lab/', label: 'Lab' },
   { href: '/blog/', label: 'Blog' },
   // The apps shelf moved here from ouro.bot, which now forwards to ouroboros.bot
-  // (Ari, 2026-11-06: "we need a unified domain"). Ouro MD's download page stays on ouro.bot.
+  // (Ari, 2026-11-06: "we need a unified domain"). Ouro MD's download page followed
+  // on 2026-11-07, to /ouro-md/download/.
   { href: '/apps/', label: 'Apps' },
   { href: '/#try', label: 'Try it' },
 ]

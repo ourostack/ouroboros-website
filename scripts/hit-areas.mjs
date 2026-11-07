@@ -4,8 +4,7 @@
 // widened it to every link and button that is not inline in a sentence: the
 // footer links, the logo, the breadcrumbs, the Desk demo's Replay, the home
 // page's principle rows and the standalone "->" links). The look may stay
-// small; the area a finger can hit may not. ouro.bot/apps/ouro-md/ runs the
-// same check (ourostack/ouro-apps-site, scripts/hit-areas.mjs).
+// small; the area a finger can hit may not.
 //
 //   npm run build && node scripts/hit-areas.mjs
 //   node scripts/hit-areas.mjs --base https://ouroboros.bot   (a live site)

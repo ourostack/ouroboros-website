@@ -1,7 +1,8 @@
 // Real-browser check that nothing framed starts inside the hero's art (taste
 // review r11, 2026-11-06: the demo window on /ouro-md/ and /ouro-hx/ started
 // 8 to 9px inside the hero's fading meadow at every desktop width, while
-// ouro.bot/apps/ouro-md/ starts its window just below the fade).
+// ouro.bot/apps/ouro-md/, now /ouro-md/download/, started its window just
+// below the fade).
 //
 //   npm run build && node scripts/hero-joins.mjs
 //   node scripts/hero-joins.mjs --base https://ouroboros.bot   (a live site)

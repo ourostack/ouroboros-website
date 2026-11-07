@@ -3428,8 +3428,8 @@
  {
   "page": "ouro-md",
   "was": "Download for Mac → macOS 13 or later.",
-  "now": "Download for Mac ↗ macOS 15 or later.",
-  "why": "root misses ruling 4.14 (2026-10-11); then a factual fix (2026-11-05): Ouro MD needs macOS 15, as its Package.swift declares"
+  "now": "Download for Mac → macOS 15 or later.",
+  "why": "root misses ruling 4.14 (2026-10-11); then a factual fix (2026-11-05): Ouro MD needs macOS 15, as its Package.swift declares; then the download page moved from ouro.bot to /ouro-md/download/ on this site (Ari, 2026-11-07: \"move every surface to ouroboros.bot and have ouro.bot forward\"), so the button's arrow is the in-site → again"
  },
  {
   "page": "404 attributes",
@@ -4474,5 +4474,11 @@
   "was": "Both paths use the same research tools. git clone https://github.com/ourostack/ouroboros-website cd ouroboros-website npm install npm run reviews -- --inference direct-api # Or use a Copilot subscription: npm run reviews -- --inference copilot-first Use Node 22.",
   "now": "Both paths use the same research tools. git clone https://github.com/ourostack/ouroboros-website cd ouroboros-website npm install npm run reviews -- --inference direct-api # Or use a Copilot subscription: npm run reviews -- --inference copilot-first",
   "why": "taste review r16 (2026-11-07, round 17): the clone-and-run commands gained the shared Copy button, whose label now sits between them and the next sentence"
+ },
+ {
+  "page": "ouro-md",
+  "was": "Or install in Terminal curl -fsSL https://ouro.bot/ouro-md-install.sh | bash Copy Also adds an md shell alias.",
+  "now": "Or install in Terminal curl -fsSL https://ouroboros.bot/ouro-md-install.sh | bash Copy Also adds an md shell alias.",
+  "why": "the installer moved from ouro.bot to ouroboros.bot with Ouro MD's download page (Ari, 2026-11-07: \"move every surface to ouroboros.bot and have ouro.bot forward\"); ouro.bot/ouro-md-install.sh forwards here"
  }
 ]

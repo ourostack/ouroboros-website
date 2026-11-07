@@ -8,8 +8,7 @@
 // after it.
 //
 // Runs over the built HTML with code-wrap (astro.config.mjs), so it covers
-// every page alike. ouro.bot has the same module (ourostack/ouro-apps-site,
-// scripts/glue-arrows.mjs); keep the two copies in step. scripts/line-ends.mjs checks the result in a
+// every page alike. scripts/line-ends.mjs checks the result in a
 // real browser at 320, 390 and 430.
 
 // The arrows: the Arrows block (U+2190 to U+21FF) and the long arrows, as a

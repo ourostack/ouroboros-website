@@ -1,8 +1,7 @@
 // Real-browser test of swipe to close on the phone menu (taste review r17,
 // 2026-11-07: swipes up, down, left and right all left it open on both
 // sites). Dispatches real touch events through the DevTools protocol, the way
-// a finger would, at 390x844 and 320x568. ouro.bot runs the same test
-// (ourostack/ouro-apps-site, scripts/menu-swipe.mjs).
+// a finger would, at 390x844 and 320x568.
 //
 //   npm run build && node scripts/menu-swipe.mjs
 //   node scripts/menu-swipe.mjs --base https://ouroboros.bot   (a live site)

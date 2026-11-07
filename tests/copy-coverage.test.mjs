@@ -7,8 +7,7 @@ import { listHtmlFiles, distDir, textOf } from './support/dist.mjs';
 // Every code block and every prompt a reader might paste carries the shared
 // Copy button (taste review r16, 2026-11-07: the tutorial's 11 code blocks had
 // no Copy, and its prompts were italic blockquotes instead of the copyable
-// prompt box). ouro.bot runs the same check (ourostack/ouro-apps-site,
-// tests/copy-coverage.test.mjs).
+// prompt box).
 //
 // A <pre> passes when a button copies it (data-copy-target="<its id>"), when
 // it is a prompt box's frame (PromptCard copies its data-prompt), or when it

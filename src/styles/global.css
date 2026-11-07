@@ -354,8 +354,7 @@ a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow
 /* Headings fill the line before they wrap (pretty, not balance, which halves short headings), and still never leave one word alone. */
 .font-display { text-wrap: pretty; }
 /* Headings balance their lines, so a phone never leaves one word hanging
-   ("Skills / for agents.", "uses / a model.": taste review r15). ouro.bot
-   balances its headings the same way. */
+   ("Skills / for agents.", "uses / a model.": taste review r15). */
 :is(h1, h2, h3, h4, h5, h6), :is(h1, h2, h3, h4, h5, h6):is(.font-display, .post-title) { text-wrap: balance; }
 p, li, dd, figcaption { text-wrap: pretty; }
 /* An h1 of two clauses reads as two thoughts (Ari's ruling on taste review
@@ -563,7 +562,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 
   /* A product page's hero lede, the sentence under the h1: Cormorant, 20px
      on a phone and 24px from 768px, on every product page (taste review r9:
-     /butler/ set its lede in Outfit). ouro.bot's .lead matches it. */
+     /butler/ set its lede in Outfit). */
   .product-lede {
     font-family: var(--font-display);
     color: var(--color-bone);
@@ -675,7 +674,6 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    demo's Replay/Skip jumped from 66px to 52px). A Copy label is as wide as
    the longer of its own words and "Copied": an invisible, zero-height copy of
    "Copied" sits under it, and a longer label keeps its own width too.
-   ouro.bot's styles.css has the same rule;
    scripts/label-swap.mjs swaps every label and measures the box. */
 [data-copy-label], .prompt-copy-label { display: inline-flex; flex-direction: column; align-items: center; }
 [data-copy-label]::after, .prompt-copy-label::after { content: "Copied"; height: 0; overflow: hidden; visibility: hidden; white-space: nowrap; }
@@ -794,7 +792,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
   /* Words rise into the faded foot; pictures and windows do not. The demo
      window, screenshot or portrait beside the title starts at the hero
-     image's foot, just below the fade, as on ouro.bot/apps/ouro-md/ (taste
+     image's foot, just below the fade, as on /ouro-md/download/ (taste
      review r11: the windows on /ouro-md/ and /ouro-hx/ started 8px inside
      the meadow). scripts/hero-joins.mjs holds every page to it.
      (:is() carries .split.split-media > .split-body's weight, which would

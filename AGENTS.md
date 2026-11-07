@@ -166,6 +166,7 @@ src/
     approach.astro       ← /approach
     brief.astro          ← /brief (shows public/brief.md)
     desk.astro, ouro-md.astro ← /desk, /ouro-md
+    ouro-md/download.astro ← /ouro-md/download, Ouro MD's download page (moved here from ouro.bot)
     apps.astro, ouro-hx.astro ← /apps (the shelf), /ouro-hx; both moved here from ouro.bot
     blog/                ← /blog index and every post, at the URLs they were published under
     lab/                 ← /lab: why, story, what-is-an-agent-harness, model-reviews (+ [provider]), docs/* (use DocsPageShell); index.astro carries the old harness homepage
@@ -197,7 +198,15 @@ Since 2026-11-06 every page opens on a scene from Ari's storybook brand (ourosta
 
 ## ouro.bot forwards here
 
-ouro.bot's website moved onto this site on 2026-11-06 (Ari: "we need a unified domain"). The `ouro-apex` Worker in ourostack/ouro-apps-site forwards each old ouro.bot page to its home here (`/` and `/apps/` to `/apps/`, `/apps/ouro-hx/` to `/ouro-hx/`, unknown paths to `/`). ouro.bot still serves only Ouro MD's download page (`/apps/ouro-md/`, its App Store marketing URL), `stable.json`, the installer and their assets. `tests/ouro-bot-forwards.test.mjs` fails if a forward target disappears; when you move one of those pages, update that Worker's map too.
+ouro.bot's website moved onto this site on 2026-11-06 (Ari: "we need a unified domain"), and Ouro MD's download page followed on 2026-11-07 (Ari: "move every surface to ouroboros.bot and have ouro.bot forward"). The `ouro-apex` Worker in ourostack/ouro-apps-site forwards each old ouro.bot path to its home here with a 301 (`/` and `/apps/` to `/apps/`, `/apps/ouro-hx/` to `/ouro-hx/`, `/apps/ouro-md/` to `/ouro-md/download/`, `/apps/ouro-md/stable.json` to `/ouro-md/stable.json`, `/ouro-md-install.sh` to the same path here, each old `/assets/` file to its copy here, anything else to the same path here). ouro.bot serves no files of its own any more.
+
+Ouro MD's download page lives here now, so every change to it (and every taste round on it) is made in this repository:
+
+- The page is `src/pages/ouro-md/download.astro`; `/ouro-md/` stays the product page.
+- `public/ouro-md/stable.json` is the release metadata the page reads. `.github/workflows/refresh-ouromd-release.yml` rewrites it hourly from Ouro MD's latest GitHub release (`scripts/refresh-ouromd-release.mjs`), commits it, and deploys, because a push made by the workflow's own token does not start `deploy.yml`.
+- `public/ouro-md-install.sh` is the one-line installer, a copy of ourostack/ouro-md `web/ouro-md-install.sh`; keep the two byte for byte the same.
+
+`tests/ouro-bot-forwards.test.mjs` fails if a forward target disappears; when you move one of those pages or files, update that Worker's map too.
 
 ## Conventions
 
