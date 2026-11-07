@@ -1,0 +1,118 @@
+name: site-checks
+
+# Every PR and every push to main builds the site, runs the node tests, serves
+# the build on 127.0.0.1 the way the Worker does (scripts/serve-dist.mjs), and
+# runs every page check (npm run check:all) and the brand audit
+# (ourostack/.github brand/tools/audit.mjs --origin) against it. Taste
+# reviewers then judge only what a tool can't measure. LCP and the taste
+# reviews stay by hand: LCP is too noisy to gate on.
+#
+# The job is named site-checks so it can be the one required check on main.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: site-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  site-checks:
+    name: site-checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SITE_BASE: http://127.0.0.1:4321
+      CHECK_LOGS: ${{ github.workspace }}/check-logs
+      CHECK_JOBS: 2
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Cache Playwright's Chromium
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium and its OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Chromium's OS dependencies (browser cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Build and node tests (npm test)
+        id: test
+        continue-on-error: true
+        run: |
+          mkdir -p "$CHECK_LOGS"
+          set -o pipefail
+          npm test 2>&1 | tee "$CHECK_LOGS/npm-test.log"
+
+      - name: Serve the build on 127.0.0.1
+        id: serve
+        run: |
+          test -f dist/index.html
+          nohup node scripts/serve-dist.mjs --port 4321 > "$CHECK_LOGS/serve-dist.log" 2>&1 &
+          for i in $(seq 1 50); do curl -fsS -o /dev/null "$SITE_BASE/" && exit 0; sleep 0.2; done
+          echo "dist/ did not come up on $SITE_BASE" && exit 1
+
+      - name: Page checks (npm run check:all)
+        id: checks
+        continue-on-error: true
+        run: npm run check:all
+
+      - name: Check out ourostack/.github main for the brand audit
+        uses: actions/checkout@v4
+        with:
+          repository: ourostack/.github
+          ref: main
+          path: .brand-dotgithub
+          persist-credentials: false
+
+      - name: Brand audit against this build
+        id: audit
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          node .brand-dotgithub/brand/tools/audit.mjs --only site:ouroboros.bot --origin "$SITE_BASE" --format text 2>&1 | tee "$CHECK_LOGS/brand-audit.log"
+
+      - name: Upload check logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-checks-logs
+          path: check-logs/
+          if-no-files-found: warn
+
+      - name: Summary
+        if: always()
+        run: |
+          line() { printf '%-28s %s\n' "$1" "$2"; }
+          {
+            echo "## site-checks"
+            echo '```'
+            line "npm test" "${{ steps.test.outcome }}"
+            line "serve dist" "${{ steps.serve.outcome }}"
+            line "check:all" "${{ steps.checks.outcome }}"
+            [ -f check-logs/summary.txt ] && sed 's/^/  /' check-logs/summary.txt
+            line "brand audit" "${{ steps.audit.outcome }}"
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+          for o in "${{ steps.test.outcome }}" "${{ steps.serve.outcome }}" "${{ steps.checks.outcome }}" "${{ steps.audit.outcome }}"; do
+            [ "$o" = success ] || { echo "site-checks failed: see the steps above and the site-checks-logs artifact"; exit 1; }
+          done

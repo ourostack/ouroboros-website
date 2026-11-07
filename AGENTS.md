@@ -11,6 +11,7 @@ This file is the contract. The design system header at the top of `src/styles/gl
 - **Sibling repos:** `ourostack/ouroboros` (the harness), `ourostack/desk`, `ourostack/ouro-md`. Don't import from them; the site is independent.
 - **Deploy:** push to `main` → `.github/workflows/deploy.yml` builds and runs `wrangler deploy` → live. Every pull request gets a preview from `.github/workflows/preview.yml`.
 - **Tests:** `npm test` builds, then runs `node --test 'tests/*.test.*'` against `dist/`. Set `SITE_DENYLIST_FILE` (a file outside this repository, one string per line) to also check that no built page contains private names.
+- **Page checks:** `npm run check:all` serves `dist/` on 127.0.0.1 the way the Worker does (`scripts/serve-dist.mjs`: its redirects and its 404 page) and runs every `check:*` against it, or against `SITE_BASE` when set. A new `check:*` script must be added to `CHECKS` in `scripts/check-all.mjs`, or `check:all` fails. `.github/workflows/site-checks.yml` runs `npm test`, `check:all` and the brand audit (`ourostack/.github` `brand/tools/audit.mjs --origin`) on every PR and push to main, in one job named `site-checks`; it uploads the logs as the `site-checks-logs` artifact. LCP and taste reviews stay by hand.
 
 ---
 

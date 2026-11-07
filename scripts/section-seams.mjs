@@ -109,6 +109,7 @@ function changes() {
   return { at: [...out].filter(([v]) => v > WINDOW_ && v < height - 2).sort((a, b) => a[0] - b[0]), scenes, height };
 }
 
+const SLICE = 8000;
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 // Decodes a screenshot in the browser itself (no image library, so the same
 // script runs on both sites): the mean colour of each row in a 12px strip at
@@ -157,9 +158,17 @@ for (const page of pages) {
       await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
       await p.evaluate(() => document.fonts.ready);
       const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
-      const shot = await p.screenshot({ fullPage: true });
+      // In slices: a full-page PNG taller than about 32k px (the model-review
+      // transcripts at 1440) is past what the browser can decode in one image.
+      const edges = { left: [], right: [], height: 0 };
+      for (let top = 0; top < m.height; top += SLICE) {
+        const shot = await p.screenshot({ fullPage: true, clip: { x: 0, y: top, width, height: Math.min(SLICE, m.height - top) } });
+        const part = await sideStrips(shot);
+        edges.left.push(...part.left);
+        edges.right.push(...part.right);
+        edges.height += part.height;
+      }
       await ctx.close();
-      const edges = await sideStrips(shot);
       const inScene = (r) => m.scenes.some(([a, b]) => r >= a - 1 && r <= b + 1);
       const row = (r, side) => edges[side].slice(r * 3, r * 3 + 3);
       const band = (r0, side) => { const s = [0, 0, 0]; for (let r = r0; r < r0 + 3; r++) { const v = row(r, side); for (let c = 0; c < 3; c++) s[c] += v[c] / 3; } return s; };
