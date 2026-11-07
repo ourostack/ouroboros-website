@@ -375,3 +375,31 @@ export function heroFrame(scene) {
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
 export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' ? [1536, 614] : [1536, 576])
+
+// A thumbnail in a list shows every scene at one aspect, THUMB_ASPECT (Ari's
+// ruling on taste review r18, 2026-11-07: the blog index's vignettes came in
+// three aspects, 88x66, 88x50 and 88x37 at 390, and the column looked
+// ragged). The phone crop fills it (object-fit: cover), and thumbPosition()
+// keeps the cast in frame: across, centred on the cast (phoneCastX); down,
+// with the lowest foot (castFoot) just inside the bottom edge, since the sky
+// above the heads is what a 4:3 crop gives up. The bytes stay canonical.
+export const THUMB_ASPECT = 16 / 9
+export function thumbPosition(scene, aspect = THUMB_ASPECT) {
+  const [pw, ph] = phoneSize(scene)
+  const ar = pw / ph
+  const clamp = (v) => Math.min(100, Math.max(0, v))
+  let x = 50
+  let y = 50
+  if (ar > aspect) {
+    // Wider than the box: part of the width shows; centre the cast in it.
+    const shown = aspect / ar
+    const [l, r] = phoneCastX[scene] ?? [0.3, 0.7]
+    x = clamp((((l + r) / 2 - shown / 2) / (1 - shown)) * 100)
+  } else if (ar < aspect) {
+    // Taller than the box: part of the height shows; keep the feet in it.
+    const shown = ar / aspect
+    const foot = castFoot[scene] ?? (heroFocus[scene] ?? [0.2, 0.9])[1]
+    y = clamp(((foot + 0.02 - shown) / (1 - shown)) * 100)
+  }
+  return `${x.toFixed(1)}% ${y.toFixed(1)}%`
+}

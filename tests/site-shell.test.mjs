@@ -196,13 +196,13 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   const plainText = (h) => textOf(h).replace(/\s+([,.?])/g, '$1');
   // The wide frame: the narrow-only lines left out (root final ruling F4).
   // A line's text may hold the pieces src/lib/code-wrap.mjs splits a path into.
-  const lineSpan = (attr) => new RegExp(`<span class="dp-line[^"]*"[^>]*\\b${attr}\\b[^>]*>(?:[^<]|<wbr>|<span class="tok(?: tok-long)?">[^<]*<\\/span>|<span class="tok tok-long tok-url">[^<]*<wbr><span class="tok-host">[^<]*<\\/span><\\/span>)*<\\/span>`, 'g');
+  const lineSpan = (attr) => new RegExp(`<span class="dp-line[^"]*"[^>]*\\b${attr}\\b[^>]*>(?:[^<]|<wbr>|<span class="nobr">[^<]*<\\/span>|<span class="tok(?: tok-long)?">[^<]*<\\/span>|<span class="tok tok-long tok-url">[^<]*<wbr><span class="tok-host">[^<]*<\\/span><\\/span>)*<\\/span>`, 'g');
   const one = plainText(scenes[0][4].replace(lineSpan('data-narrow'), ''));
   const two = plainText(scenes[1][4].replace(lineSpan('data-narrow'), ''));
   // Ari, 2026-10-19: the Nautilus story was an in-joke; the playback runs on the same sample desk as the real output.
   assert.equal(one, "Desk boot: ok | host laptop / ari / claude > Plan the recipe import ⏺ task_create spoonjoy/recipe-import ⎿ Next step: run the three test recipes ⏺ Filed under spoonjoy. I'll start with the three test recipes tomorrow.");
   assert.match(playback[0], /data-scene-title="evening"[^>]*>ari@laptop · Claude Code</);
-  assert.match(playback[0], /data-scene-title="morning"[^>]*>ari@mac-mini · Copilot CLI · next morning</);
+  assert.match(playback[0], /data-scene-title="morning"[^>]*>(?:<span class="nobr">)?ari@mac-mini(?:<\/span>)? · Copilot CLI · next morning</);
   assert.doesNotMatch(playback[0], /periscope|Nautilus|Nemo|Conseil|Vanikoro/);
   assert.ok(two.startsWith('> where were we?'), 'Scene 2 starts with the prompt');
   for (const line of ['- spoonjoy/recipe-import', '- spoonjoy/app-store', 'blocker: waiting on App Review', '- ouro-md/print-preview', '- mendelow-me/hero', "waiting on Ari's review", 'processing (2)', 'validating (1)', 'next: run the three test recipes']) {

@@ -246,6 +246,8 @@ html, body { overflow-x: clip; }
    page, never flush against the last line (taste review r8: scene art touched
    "The harness ->" and "Trust, but audit." on a phone). */
 .split.split-media { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 2rem; }
+/* The copy column is the container a section heading sizes itself against (.heading-section). */
+.split.split-media > .split-head, .head-col { container-type: inline-size; }
 @media (min-width: 1024px) {
   .split.split-media { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); align-items: start; }
   .split.split-media > .split-head { grid-column: 1; }
@@ -309,7 +311,9 @@ html, body { overflow-x: clip; }
    same everywhere. No card: the window or picture sits on the page with soft
    corners and a warm dawn glow under it, and a light caption below, never a
    bordered box around both (lesson "No unnecessary cards in UI"). */
-.product-figure { margin: 0 0 0.25rem; display: flex; flex-direction: column; gap: 0.7rem; }
+/* One gap between a demo's frame and its caption, on every page (taste review r18). */
+:root { --caption-gap: 0.875rem; }
+.product-figure { margin: 0 0 0.25rem; display: flex; flex-direction: column; gap: var(--caption-gap); }
 .product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); border-radius: 0.9rem; box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-canopy) 45%, transparent); }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
@@ -325,14 +329,15 @@ a.product-media { transition: box-shadow 0.2s; }
 a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 2px var(--color-scale); }
 .clip-pair { display: grid; gap: 1.5rem; }
 @media (min-width: 768px) { .clip-pair:not(.clip-stack) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.clip { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+.clip { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: var(--caption-gap); }
 /* A row of links, shared by every page. */
 .product-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-/* The caption: a light line under the demo, its "Dramatization" note in small mono beside it. */
+/* The caption: a light line under the demo, its "Dramatization" note in small
+   mono on a line of its own above it (round 19: a "·" after the note was left
+   hanging at the end of the line whenever the caption wrapped). */
 .product-caption { display: block; padding: 0 0.15rem; font-size: 0.9375rem; line-height: 1.5; color: var(--color-mist); }
-.caption-note { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-shadow); white-space: nowrap; }
-.caption-note::after { content: " \00B7 "; letter-spacing: 0; }
-.caption-note:last-child::after { content: none; }
+.caption-note { display: block; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.6; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-shadow); white-space: nowrap; }
+.caption-note:not(:last-child) { margin-bottom: 0.25rem; }
 
 /* ── Copyable text for agents ──
    Long URLs must wrap at 375px; never scroll the page sideways. */
@@ -373,6 +378,9 @@ p, li, dd, figcaption { text-wrap: pretty; }
    r17, 2026-11-07: no phone h1 line holds a single word unless it is a whole
    clause). It meets the usual sizes again at 360px. */
 @media (max-width: 359.98px) { h1 { font-size: min(2.5rem, 10.5vw); } }
+/* A display h2 set as large as an h1 (/lab/'s "Every frontier model we asked
+   picked Ouroboros.") steps down a little further, so its last phrase fits whole. */
+@media (max-width: 359.98px) { h2.heading-hero { font-size: min(2.5rem, 9.5vw); } }
 
 /* On a phone the body starts one even step below the hero: 48px (3rem) where
    it carries on, 96px (6rem) where it opens a titled section (taste review
@@ -467,6 +475,12 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   margin-bottom: 1rem;
   line-height: 1.2;
 }
+/* On a phone a post's h2 steps down with the screen, so a short heading
+   ("What Just Happened", "Frequently Asked Questions") fits one line instead
+   of leaving one word alone on the next (Ari's ruling on taste review r18:
+   no heading line holds a single word unless it is a whole clause). */
+@media (max-width: 639.98px) { .prose-ouro h2 { font-size: min(2.25rem, (100vw - 3rem) / 11.2); } }
+@media (max-width: 359.98px) { .prose-ouro h3 { font-size: 1.3rem; } }
 .prose-ouro h3 {
   font-family: var(--font-display);
   color: var(--color-bone);
@@ -572,16 +586,24 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   @media (min-width: 768px) { .product-lede { font-size: 1.5rem; } }
 
   /* Section headline (h2) */
+  /* Its size follows the column it sits in (taste review r18, 2026-11-07: in
+     the 5/12 copy column beside a demo, 72px left "One / command. / A /
+     conversation. / Hatched." one word per line at 1024). In a heading column
+     (.split-media's copy column, or .head-col) it is at most 16% of the
+     column's width, so a phrase like "A conversation." fits on one line; a
+     full-width heading has no such column and keeps the stepped size. */
   .heading-section {
     font-family: var(--font-display);
     color: var(--color-bone);
     line-height: 0.95;
     letter-spacing: -0.01em;
-    font-size: 2rem;
+    --hs: 2rem;
+    font-size: clamp(1.75rem, 16cqi, var(--hs));
   }
-  @media (min-width: 640px) { .heading-section { font-size: 2.5rem; } }
-  @media (min-width: 768px) { .heading-section { font-size: 3.5rem; } }
-  @media (min-width: 1024px) { .heading-section { font-size: 4.5rem; } }
+  @media (max-width: 359.98px) { .heading-section { --hs: min(2rem, 8.75vw); } }
+  @media (min-width: 640px) { .heading-section { --hs: 2.5rem; } }
+  @media (min-width: 768px) { .heading-section { --hs: 3.5rem; } }
+  @media (min-width: 1024px) { .heading-section { --hs: 4.5rem; } }
 
   /* Sub-section headline (h3) */
   .heading-sub {
@@ -633,12 +655,24 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    one last resort). Short inline code stays whole. */
 .code-whole { white-space: nowrap; overflow-wrap: normal; word-break: normal; }
 .code-long { overflow-wrap: normal; word-break: normal; }
+/* On the narrowest phones a long code token (a path, a file name) steps down
+   a size, so a file name like "agent-orientation-substrate.md" fits a line of
+   its own instead of breaking at a hyphen (taste review r18, at 320 on
+   /lab/model-reviews/). */
+@media (max-width: 359.98px) { .prose-ouro code.code-long:not(pre code), code.code-long:not(pre code) { font-size: min(0.85em, 4vw); } }
 .tok { white-space: nowrap; }
 .tok-long { display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; text-decoration: inherit; }
 /* A long scheme and host breaks, if at all, only right after its "//"; the host stays whole (taste review r11). */
 .tok-host { white-space: nowrap; }
 /* A hyphenated word in a heading never breaks at its hyphen (taste review r11: "to-" / "do" at 320). */
 .nobr { white-space: nowrap; }
+
+/* A diagram that stacks on a phone points its arrows down the stack, and
+   sideways once its boxes stand in a row from 640px: the same
+   arrow, turned a quarter, so the text reads the same (taste review r18: the
+   lobster sat above the snake on /lab/story/ with a "→" between them). */
+.flow-turn { display: inline-block; width: 1em; height: 1em; line-height: 1; text-align: center; vertical-align: -0.1em; }
+@media (max-width: 639.98px) { .flow-turn { transform: rotate(90deg); margin-inline: 0.2em; } }
 
 /* ── Media with a light and a dark version: show the one for the theme ── */
 .theme-light-only { display: none; }
@@ -683,6 +717,13 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
 @media (max-width: 639.98px) { .btn-row > * { flex: 1 1 auto; } }
 .prose-ouro a.btn-primary, .prose-ouro a.btn-primary:hover { color: var(--color-void); text-decoration: none; }
+/* Buttons never underline, inside a post or anywhere else (taste review r18:
+   "Read the blog ->" on /approach/ was the one underlined button). The
+   ghost button keeps its own ink inside prose too. scripts/button-links.mjs
+   fails on any button-styled link with an underline. */
+.btn-primary, .btn-ghost, .btn-primary:hover, .btn-ghost:hover { text-decoration: none; }
+.prose-ouro a.btn-ghost { color: var(--color-bone); text-decoration: none; }
+.prose-ouro a.btn-ghost:hover { color: var(--color-scale); }
 /* Every button and link-button can be hit over at least 44x44, whatever its
    look (taste review r14, 2026-11-07: the docs Copy control was 61x16). The
    control keeps its size; an invisible ::after, centred on it, reaches out to
@@ -950,7 +991,12 @@ main > section.border-t::before, .trail-top::before {
 .post-with-scene { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0 1.25rem; align-items: start; }
 .post-scene { display: block; padding-top: 0.3rem; }
 .post-scene .story-vignette { border-radius: 0.75rem; }
-.post-scene .story-vignette img { width: 100%; height: auto; }
+/* Every thumbnail in the list has one aspect (taste review r18: three
+   aspects made the column ragged); the crop keeps the cast in frame
+   (thumbPosition in src/data/scenes.mjs). */
+.post-scene .story-vignette { aspect-ratio: 16 / 9; overflow: hidden; background-size: cover; background-position: var(--thumb-pos, 50% 50%); }
+.post-scene .story-vignette picture { display: block; height: 100%; }
+.post-scene .story-vignette img { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: var(--thumb-pos, 50% 50%); }
 @media (min-width: 768px) { .post-with-scene { grid-template-columns: 8rem minmax(0, 1fr); gap: 0 2rem; } }
 
 /* A tinted ground for a section that sets itself apart (taste review r13,
