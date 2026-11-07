@@ -191,7 +191,8 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
   <!-- ═══════════════ RUN IT YOURSELF ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 py-20 md:py-28 reveal">
-    <div class="absolute inset-0 bg-gradient-to-b from-void via-deep/40 to-void pointer-events-none"></div>
+    {/* Fades in and out from the page itself, so the section runs into the footer meadow with no seam (taste review r9 genre: a band ending hard above the meadow). */}
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-deep/40 to-transparent pointer-events-none"></div>
 
     <div class="max-w-6xl relative mx-auto split">
       <div class="split-head">
