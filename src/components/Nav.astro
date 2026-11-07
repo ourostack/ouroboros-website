@@ -77,6 +77,10 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
     backdrop-filter: blur(10px) saturate(1.1);
     box-shadow: 0 1px 0 color-mix(in srgb, var(--color-canopy) 40%, transparent);
   }
+  /* While the phone menu is open the bar is solid too, so the bar and the
+     panel read as one sheet and no page text shows through either (taste
+     review r6). Only the colour changes: the filter stays, so nothing moves. */
+  #main-nav:has(#menu-toggle[aria-expanded="true"]) .nav-glass { background: var(--color-deep); }
   .nav-glass::after {
     content: "";
     position: absolute;
