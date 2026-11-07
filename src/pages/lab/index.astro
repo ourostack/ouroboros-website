@@ -42,11 +42,11 @@ const pieces = [
     <div class="relative max-w-6xl mx-auto grid gap-5 split lg:items-end">
       <div class="grid gap-5 split-head">
         <p class="flex flex-wrap items-center gap-3"><span class="eyebrow">Lab</span><span class={`tag ${harness.tone}`}>{harness.label}</span></p>
-        <h1 class="heading-lead"><span class="t-clause">The harness:</span> <span class="t-clause"><span class="t-ph">where all of this</span> <span class="t-ph text-scale">started.</span></span></h1>
+        <h1 class="heading-lead"><span class="t-clause">The harness:</span> <span class="t-clause"><span class="t-ph">where all</span> <span class="t-ph">of this <span class="text-scale">started.</span></span></span></h1>
       </div>
       <div class="grid gap-5 split-body">
         <p class="text-lg md:text-xl text-mist leading-relaxed">Slugger was my OpenClaw agent. When he kept losing the thread, I built him a harness from scratch. Ouroboros is that harness, and it's where I test what agents need.</p>
-        <p class="flex flex-wrap gap-3 mt-2">
+        <p class="btn-row mt-2">
           <a href="/lab/story/" class="btn-primary">Read the story &rarr;</a>
           <a href="https://github.com/ourostack/ouroboros" class="btn-ghost">The harness on GitHub &#8599;</a>
         </p>
@@ -99,7 +99,7 @@ const pieces = [
 
       <!-- ONE CTA + secondary links -->
       <div class="mt-12 md:mt-16 flex flex-wrap items-center gap-x-7 gap-y-4 animate-fade-up stagger-4">
-        <a href="/lab/model-reviews/" class="group inline-flex items-center gap-2 px-6 py-3 bg-scale text-void text-sm md:text-base font-medium rounded-md transition-all duration-300 hover:bg-glow hover:shadow-[0_0_40px_rgba(45,148,71,0.2)]">
+        <a href="/lab/model-reviews/" class="group inline-flex items-center gap-2 whitespace-nowrap px-6 py-3 bg-scale text-void text-sm md:text-base font-medium rounded-md transition-all duration-300 hover:bg-glow hover:shadow-[0_0_40px_rgba(45,148,71,0.2)]">
           Read the methodology
           <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
         </a>
@@ -179,8 +179,8 @@ const pieces = [
         <p class="text-sm xl:text-base text-mist mt-6 leading-relaxed">
           <code class="font-mono text-scale text-xs">npx ouro.bot</code> starts a guided setup: a conversation that hatches your agent and shapes its personality, name, and purpose.
         </p>
-        <div class="mt-8 flex items-baseline gap-6">
-          <a href="/lab/docs/" class="hit inline-flex items-center gap-2 px-5 py-2.5 bg-scale text-void text-sm font-medium rounded-lg transition-all duration-300 hover:bg-glow hover:shadow-[0_0_30px_rgba(45,148,71,0.15)]">
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a href="/lab/docs/" class="hit inline-flex items-center gap-2 whitespace-nowrap px-5 py-2.5 bg-scale text-void text-sm font-medium rounded-lg transition-all duration-300 hover:bg-glow hover:shadow-[0_0_30px_rgba(45,148,71,0.15)]">
             Read the docs
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
           </a>

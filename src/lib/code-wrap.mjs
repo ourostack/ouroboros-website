@@ -29,6 +29,7 @@
 // alike. Copying the text is unchanged: <wbr> and spans add no characters.
 // scripts/text-breaks.mjs checks the result in a real browser.
 import fs from 'node:fs';
+import { glueArrows } from './glue-arrows.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -237,7 +238,7 @@ export default function codeWrap() {
       'astro:build:done': ({ dir }) => {
         for (const file of htmlFiles(fileURLToPath(dir))) {
           const html = fs.readFileSync(file, 'utf8');
-          const next = wrapCode(html);
+          const next = glueArrows(wrapCode(html));
           if (next !== html) fs.writeFileSync(file, next);
         }
       },

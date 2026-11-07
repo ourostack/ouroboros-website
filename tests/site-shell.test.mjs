@@ -235,7 +235,8 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   // root final ruling F3: the host bar wraps its title and never truncates it; titles and buttons each share a cell, so the bar keeps one height.
   assert.doesNotMatch(moduleSrc, /text-overflow: ellipsis/);
   assert.match(moduleSrc, /\.dp-title \{ grid-area: 1 \/ 1;/);
-  assert.match(moduleSrc, /\.dp-actions > \.dp-replay \{ grid-area: 1 \/ 1; justify-self: end; \}/);
+  // Skip and Replay fill one cell, so the control keeps one box when its label swaps (taste review r17).
+  assert.match(moduleSrc, /\.dp-actions > \.dp-replay \{ grid-area: 1 \/ 1; justify-self: stretch; text-align: center; \}/);
   assert.match(moduleSrc, /\.dp-title\[data-off\], \.dp-sizer \{ visibility: hidden; \}/);
   assert.match(playback[0], /<span class="dp-replay dp-sizer"[^>]*aria-hidden="true"[^>]*>Replay<\/span>/, 'An invisible Replay holds the buttons\' width');
   // root final ruling F4: below 640px, scene 2 drops the blocked group's explanation and the print preview task, and the counts follow.

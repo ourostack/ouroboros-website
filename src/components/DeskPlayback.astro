@@ -246,7 +246,10 @@ const last = scenes.length - 1
   .dp-titles { display: grid; flex: 1; min-width: 0; margin-left: 0.5rem; }
   .dp-title { grid-area: 1 / 1; min-width: 0; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.4; color: var(--color-mist); overflow-wrap: anywhere; }
   .dp-actions { display: grid; flex: none; margin-left: auto; }
-  .dp-actions > .dp-replay { grid-area: 1 / 1; justify-self: end; }
+  /* Skip and Replay both fill the cell, so the control keeps one box when
+     its label swaps (taste review r17: Replay was 66px and Skip 52px, so it
+     jumped sideways when pressed). scripts/label-swap.mjs measures both. */
+  .dp-actions > .dp-replay { grid-area: 1 / 1; justify-self: stretch; text-align: center; }
   .dp-title[data-off], .dp-sizer { visibility: hidden; }
   .dp-replay[hidden] { display: none; }
   /* Both scenes share one cell, and lines not yet shown keep their space, so

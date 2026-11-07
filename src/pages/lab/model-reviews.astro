@@ -38,10 +38,12 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
   <!-- Hero — uses the shared HeroCover so this page matches every other top-level page -->
   <HeroCover>
     <Fragment slot="title">
-      {/* Breaks only between phrases on a phone: "Which agent harness" (held
-          whole from 360px), then "do frontier", "models prefer?" (h1 sheet,
-          taste review r16: "frontier" stood alone at 320). */}
-      <span class="t-ph-soft"><span class="t-ph">Which agent</span> <span class="t-ph">harness</span></span> <span class="t-ph">do<br class="hidden sm:inline" /> frontier</span> <span class="t-ph">models prefer?</span>
+      {/* Breaks only between phrases on a phone: "Which agent harness" held
+          whole at every width (Ari's ruling on taste review r17: a compound
+          term never breaks, and "harness" stood alone at 320), then "do
+          frontier", "models prefer?" (taste review r16: "frontier" stood
+          alone at 320). */}
+      <span class="t-ph">Which agent harness</span> <span class="t-ph">do<br class="hidden sm:inline" /> frontier</span> <span class="t-ph">models prefer?</span>
     </Fragment>
     <Fragment slot="subhead">{shortClaim}<span class="block mt-4 text-base text-mist">Run on {runDate}.</span></Fragment>
     <Fragment slot="body">
@@ -231,7 +233,7 @@ npm run reviews -- --inference copilot-first</code></pre>
       </p>
 
       <div class="mt-10 flex flex-col sm:flex-row sm:items-baseline gap-6">
-        <a href="https://github.com/ourostack/ouroboros-website/blob/main/scripts/model-reviews.cjs" target="_blank" rel="noopener noreferrer" class="hit inline-flex items-center gap-2 px-5 py-2.5 bg-scale text-void text-sm font-medium rounded-lg transition-all duration-300 hover:bg-glow hover:shadow-[0_0_30px_rgba(45,148,71,0.15)]">
+        <a href="https://github.com/ourostack/ouroboros-website/blob/main/scripts/model-reviews.cjs" target="_blank" rel="noopener noreferrer" class="hit inline-flex items-center gap-2 whitespace-nowrap px-5 py-2.5 bg-scale text-void text-sm font-medium rounded-lg transition-all duration-300 hover:bg-glow hover:shadow-[0_0_30px_rgba(45,148,71,0.15)]">
           View the script on GitHub
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
         </a>

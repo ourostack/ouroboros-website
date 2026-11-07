@@ -42,7 +42,8 @@ const linkClass = 'underline decoration-canopy underline-offset-4 hover:text-bon
   @media (max-width: 639.98px) {
     .footer-sep { display: none; }
     .footer-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0 1rem; justify-items: center; align-items: center; }
-    .footer-row a { grid-column: span 3; display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; min-width: 2.75rem; }
+    /* Inline-blocks, not flex boxes, so a link's words keep their spaces (taste review r17). */
+    .footer-row a { grid-column: span 3; display: inline-block; box-sizing: border-box; text-align: center; min-height: 2.75rem; min-width: 2.75rem; padding-block: max(0px, calc((2.75rem - 1lh) / 2)); }
     .footer-row:has(> a:last-of-type:nth-of-type(odd)) > a:nth-last-of-type(-n + 3) { grid-column: span 2; }
     .footer-row > span:first-child { grid-column: 1 / -1; order: 1; margin-top: 0.75rem; }
   }
