@@ -84,39 +84,107 @@ test('every share card sets its title at the one title size', () => {
   assert.match(src, /if \(!lines\) throw new Error/);
 });
 
-// Taste review r12 (second time flagged): the Butler card's title sat on a
-// hard-edged light band that bleached the cottage roof. Ruling: no band. The
-// title stands in the scene's own sky, the roof clears it, and the sky meets
-// the scene without a line. These hold the measurable half; the look is checked
-// by eye next to three other cards.
-test('the Butler card sets its title in open sky, with no band over the roof', async () => {
+// The Butler card (flagged in taste reviews r7, r12 and r13): its cottage roof
+// runs to the top of the art, so there is no sky to set a title in, and every
+// sky made from the top rows washed the roof pink. Ari's ruling (r14): a
+// storybook title plate. A clean, solid plate in the light theme's page colour
+// across the top, a thin gold rule along its lower edge, and the canonical
+// scene below it at full strength, with no gradient, wash or made-up sky.
+// The look is checked by eye next to three other cards.
+test('the Butler card stands its title on a solid cream plate over the whole scene', async () => {
   const { default: sharp } = await import('sharp');
+  const { PLATE, plateFrame, W, H } = await import('../src/og/frames.mjs');
   const file = path.join(distDir, 'og/og-butler.jpg');
   assert.ok(fs.existsSync(file), 'og-butler.jpg was not built');
   const { data, info } = await sharp(file).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  assert.deepEqual([info.width, info.height], [1200, 630]);
+  assert.deepEqual([info.width, info.height], [W, H]);
+  const header = 'public/brand/storybook/headers/butler.webp';
+  const { plateH } = await plateFrame(header);
+  // The whole header at card width fills the card under the plate.
+  assert.equal(plateH, H - Math.round((576 * W) / 1536));
+  const px = (x, y) => { const i = (y * info.width + x) * 3; return [data[i], data[i + 1], data[i + 2]]; };
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const near = (a, b, tol) => a.every((v, i) => Math.abs(v - b[i]) <= tol);
+  // Solid paper wherever the words are not: the plate's margins and the band
+  // under the title, every pixel within JPEG noise of the page colour.
+  const paper = hex(PLATE.paper);
+  const blank = [];
+  for (let y = 2; y < plateH - PLATE.rule - 4; y++) for (const x of [2, 6, W - 7, W - 3]) blank.push([x, y]);
+  for (let x = 2; x < W - 2; x += 3) for (const y of [3, plateH - PLATE.rule - 6]) blank.push([x, y]);
+  for (const [x, y] of blank) assert.ok(near(px(x, y), paper, 6), `plate at ${x},${y} is ${px(x, y)}, not the page colour`);
+  // The gold rule runs the full width along the plate's lower edge.
+  const gold = hex(PLATE.gold);
+  for (let x = 4; x < W - 4; x += 7) assert.ok(near(px(x, plateH - PLATE.rule + 1), gold, 18), `no gold rule at x=${x}`);
+  // Under the plate, the scene at full strength: the canonical header resized,
+  // not washed or faded (mean difference within JPEG noise).
+  const scene = await sharp(header).resize({ width: W }).removeAlpha().raw().toBuffer();
+  let diff = 0;
+  let n = 0;
+  for (let y = 0; y < H - plateH; y += 3) for (let x = 0; x < W; x += 3) {
+    for (let c = 0; c < 3; c++) diff += Math.abs(scene[(y * W + x) * 3 + c] - data[((y + plateH) * W + x) * 3 + c]);
+    n += 3;
+  }
+  assert.ok(diff / n < 6, `the scene under the plate differs from the canonical art by ${(diff / n).toFixed(1)} levels`);
+  // The title on the plate is far past AA (ink on the page colour).
   const lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
-  const lum = (i) => 0.2126 * lin(data[i]) + 0.7152 * lin(data[i + 1]) + 0.0722 * lin(data[i + 2]);
+  const lum = ([r, g, b]) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  assert.ok((lum(paper) + 0.05) / (lum([0x1a, 0x21, 0x18]) + 0.05) >= 7);
+});
+
+// Taste review r13: the extended sky on the sky-frame cards showed vertical
+// streaks, because it stretched each column's top pixels down the card. The sky
+// is now one smooth gradient from the art's averaged top band. This fails on
+// strong column-to-column variance in that sky: each column's mean against a
+// wide moving average (the old stretched sky measured 0.57 to 1.10 RMS and up
+// to 3.7 levels; the smooth one about 0.15 and 0.5).
+test('the extended sky on every sky-frame card is smooth, with no column streaks', async () => {
+  const { default: sharp } = await import('sharp');
+  const { skyFrame, W } = await import('../src/og/frames.mjs');
+  const src = fs.readFileSync('src/pages/og/[...slug].jpg.ts', 'utf8');
+  assert.match(src, /import \{ skyFrame, plateFrame \} from '..\/..\/og\/frames.mjs'/);
+  const skyScenes = [...src.matchAll(/'?([a-z-]+)'?: \{ file: 'headers\/[a-z-]+\.webp', sky: true \}/g)].map((m) => m[1]);
+  assert.ok(skyScenes.length >= 6, `found sky scenes: ${skyScenes}`);
+  for (const scene of skyScenes) {
+    const { base, band } = await skyFrame(`public/brand/storybook/headers/${scene}.webp`);
+    const { data } = await sharp(base).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    const col = new Float64Array(W);
+    for (let x = 0; x < W; x++) {
+      let s = 0;
+      for (let y = 0; y < band; y++) { const i = (y * W + x) * 3; s += 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]; }
+      col[x] = s / band;
+    }
+    const R = 40;
+    let ss = 0;
+    let max = 0;
+    let n = 0;
+    for (let x = R; x < W - R; x++) {
+      let a = 0;
+      for (let k = -R; k <= R; k++) a += col[x + k];
+      const d = col[x] - a / (2 * R + 1);
+      ss += d * d;
+      n++;
+      max = Math.max(max, Math.abs(d));
+    }
+    const rms = Math.sqrt(ss / n);
+    assert.ok(rms < 0.35 && max < 1.2, `${scene}: column streaks in the sky (RMS ${rms.toFixed(2)}, peak ${max.toFixed(2)} levels)`);
+  }
+});
+
+// The sky-frame and plate cards carry no vignette (taste review r13 saw a haze
+// patch behind the factory card's title); their titles still read at AA.
+test('titles on sky-frame cards read at AA on the bare sky', async () => {
+  const { default: sharp } = await import('sharp');
+  const lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
   const ink = 0.2126 * lin(0x1a) + 0.7152 * lin(0x21) + 0.0722 * lin(0x18);
-  // AA behind the title: the sky's median in every 100px strip of the title rows.
-  for (let x0 = 16; x0 < 1100; x0 += 100) {
-    const ls = [];
-    for (let y = 16; y < 130; y++) for (let x = x0; x < x0 + 100; x++) ls.push(lum((y * info.width + x) * 3));
-    ls.sort((a, b) => a - b);
-    const ratio = (ls[ls.length >> 1] + 0.05) / (ink + 0.05);
-    assert.ok(ratio >= 4.5, `the sky behind the title at x=${x0} gives ${ratio.toFixed(2)}:1, under AA`);
-  }
-  // No line where the sky meets the scene: across the roof's columns, no
-  // four-row step in brightness between the title and the roof (the old band's
-  // edge stepped 22 levels at y=193).
-  const rows = [];
-  for (let y = 0; y < 240; y++) {
-    let s = 0;
-    for (let x = 200; x < 680; x++) s += lum((y * info.width + x) * 3) ** (1 / 2.2) * 255;
-    rows.push(s / 480);
-  }
-  for (let y = 140; y < 230; y++) {
-    const step = Math.abs(rows[y + 2] - rows[y - 2]);
-    assert.ok(step < 16, `a ${step.toFixed(1)}-level edge at y=${y} over the cottage roof`);
+  const skyCards = ['lab-docs-tasks-and-work', 'blog-trust-the-agent', 'lab-model-reviews-minimax', 'lab-what-is-an-agent-harness', 'lab-docs-architecture'];
+  for (const slug of skyCards) {
+    const { data, info } = await sharp(path.join(distDir, `og/og-${slug}.jpg`)).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    for (let x0 = 16; x0 < 1100; x0 += 100) {
+      const ls = [];
+      for (let y = 16; y < 130; y++) for (let x = x0; x < x0 + 100; x++) { const i = (y * info.width + x) * 3; ls.push(0.2126 * lin(data[i]) + 0.7152 * lin(data[i + 1]) + 0.0722 * lin(data[i + 2])); }
+      ls.sort((a, b) => a - b);
+      const ratio = (ls[ls.length >> 1] + 0.05) / (ink + 0.05);
+      assert.ok(ratio >= 4.5, `${slug}: the sky behind the title at x=${x0} gives ${ratio.toFixed(2)}:1, under AA`);
+    }
   }
 });

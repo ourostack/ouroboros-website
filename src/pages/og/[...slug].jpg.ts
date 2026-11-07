@@ -30,6 +30,7 @@ import sharp from 'sharp'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pageOg, slugFor, routePathForSlug, ogSceneForRoute } from '../../data/og'
+import { skyFrame, plateFrame } from '../../og/frames.mjs'
 
 const fontsDir = join(process.cwd(), 'src/og/fonts')
 const cormorantRegular = readFileSync(join(fontsDir, 'CormorantGaramond-Regular.ttf'))
@@ -61,7 +62,8 @@ const sceneDir = join(process.cwd(), 'public/brand/storybook/og')
 // lantern, so neither the words nor their scrim ever cover anything drawn.
 const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'apple-distribution-kit': [780, 6, 1194, 290],
-  'butler': [16, 6, 1194, 140],
+  // On its title plate (180px tall, gold rule at its foot): the words centred in it.
+  'butler': [16, 30, 1194, 172],
   'desk': [280, 6, 1194, 172],
   'factory': [16, 6, 1194, 172],
   'flow-review': [16, 6, 760, 268],
@@ -88,10 +90,11 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
 // Busy ground needs a firmer vignette than open sky. The butler's title moved
 // up into open sky (taste review r7 ruling: title at the top like every other
 // card, no milky scrim), so only the shell keeps a firmer one.
-// The butler's title stands in its own sky with no vignette at all (taste
-// review r12 ruling: no band); the glyphs' faint paper glow is enough there,
-// and tests/share-cards.test.mjs holds its contrast to AA.
-const FIRM_SCRIM: Record<string, number> = { 'ouro-native-apple-app-shell': 0.8, butler: 0 }
+// Cards on a sky frame or the title plate carry no vignette at all: their sky
+// is smooth, so the glyphs' faint paper glow is enough, and taste review r13
+// saw the vignette as a haze patch there. tests/share-cards.test.mjs holds
+// their contrast to AA.
+const FIRM_SCRIM: Record<string, number> = { 'ouro-native-apple-app-shell': 0.8 }
 
 // A card can be set in a different framing of the same canonical art: the home
 // card takes the whole-world header at card height and slides the window right,
@@ -104,10 +107,12 @@ const FIRM_SCRIM: Record<string, number> = { 'ouro-native-apple-app-shell': 0.8,
 // window: the canonical card crop cut the robot's head (Ouro UI for Apple), Ouro's
 // coil (the paint pots) and the person at her laptop (the focus proof). Those are
 // set `sky`: the whole header, scaled to the card's width, stands at the foot of
-// the card, and the sky above it is the scene's own top rows of sky, stretched
-// and softened, so every character is whole and the title has open sky.
-type SkyFrame = { file: string; sky: true; skyFrom?: number; roof?: [number, number]; band?: number; seam?: number }
-const FRAME: Record<string, { file: string; left: number; height?: number } | SkyFrame> = {
+// the card, and above it is one smooth sky sampled from the art's top band
+// (src/og/frames.mjs, skyFrame), so every character is whole and the title has
+// open sky.
+type SkyFrame = { file: string; sky: true }
+type PlateFrame = { file: string; plate: true }
+const FRAME: Record<string, { file: string; left: number; height?: number } | SkyFrame | PlateFrame> = {
   ourostack: { file: 'headers/ourostack.webp', left: 690 },
   'ouro-workbench': { file: 'headers/ouro-workbench.webp', left: 816, height: 756 },
   'ouro-native-apple-app-shell': { file: 'headers/ouro-native-apple-app-shell.webp', left: 480 },
@@ -121,85 +126,12 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Sk
   factory: { file: 'headers/factory.webp', sky: true },
   'friends-relay': { file: 'headers/friends-relay.webp', sky: true },
   'homebrew-tap': { file: 'headers/homebrew-tap.webp', sky: true },
-  // The butler's card crop has open sky only beside Ouro's head, too small for
-  // its title, so it takes the sky frame: the whole cottage at the foot, the
-  // title across the sky above (taste review r7).
-  // Its cottage roof reaches the art's top edge. Taste review r12 (second time
-  // flagged): no band. The sky above is the art's own sky, column by column, so
-  // it runs on unbroken from the clouds left of the roof to the sunset right of
-  // it (`roof` is the span, as fractions of the width, where the roof stands in
-  // the top rows; the sky there is drawn between its two sides). The scene sits
-  // low enough (`band`) that the roof clears the title, and its top melts into
-  // that sky over a long, soft `seam`, never a line.
-  butler: { file: 'headers/butler.webp', sky: true, roof: [0.17, 0.56], band: 172, seam: 88 },
-}
-
-// The sky frame: the header at card width (1200x450) at the foot, and above it a
-// band of its own top rows of sky, stretched and softened, meeting the scene
-// through a short fade that stays clear of every head. With `roof`, the sky is
-// the art's own top row column by column (the roof's span drawn across from its
-// two sides), the scene is scaled to stand `band` px down, and it fades in over
-// `seam` px, so the sky runs on without an edge (the butler, taste review r12).
-async function skyFrame(frame: SkyFrame): Promise<Buffer> {
-  const W = 1200
-  const H = 630
-  const src = join(process.cwd(), 'public/brand/storybook', frame.file)
-  if (frame.roof) {
-    const band = frame.band ?? 180
-    const seam = frame.seam ?? 24
-    // The art at the height that leaves `band` px above it, centred on the card.
-    const sceneH = H - band
-    const big = await sharp(src).resize({ height: sceneH }).toBuffer()
-    const bigW = (await sharp(big).metadata()).width!
-    const scene = bigW > W
-      ? await sharp(big).extract({ left: Math.round((bigW - W) / 2), top: 0, width: W, height: sceneH }).toBuffer()
-      : await sharp(src).resize({ width: W, height: sceneH, fit: 'cover' }).toBuffer()
-    // The sky's colour in each column: the mean of the art's top rows there,
-    // and across the roof a straight blend between the sky on either side.
-    const ROWS = 6
-    const { data } = await sharp(scene).extract({ left: 0, top: 0, width: W, height: ROWS }).removeAlpha().raw().toBuffer({ resolveWithObject: true })
-    const row = new Float64Array(W * 3)
-    for (let x = 0; x < W; x++) for (let c = 0; c < 3; c++) {
-      let sum = 0
-      for (let y = 0; y < ROWS; y++) sum += data[(y * W + x) * 3 + c]
-      row[x * 3 + c] = sum / ROWS
-    }
-    const [r0, r1] = [Math.round(frame.roof[0] * W), Math.round(frame.roof[1] * W)]
-    const side = (x0: number, x1: number) => [0, 1, 2].map((c) => { let s = 0; for (let x = x0; x < x1; x++) s += row[x * 3 + c]; return s / (x1 - x0) })
-    const left = side(Math.max(0, r0 - 24), r0)
-    const right = side(r1, Math.min(W, r1 + 24))
-    for (let x = r0; x < r1; x++) {
-      const t = (x - r0) / (r1 - r0)
-      for (let c = 0; c < 3; c++) row[x * 3 + c] = left[c] + (right[c] - left[c]) * t
-    }
-    const line = Buffer.from(Array.from(row, (v) => Math.round(v)))
-    const skyH = band + seam
-    const sky = await sharp(line, { raw: { width: W, height: 1, channels: 3 } }).resize(W, skyH, { fit: 'fill', kernel: 'nearest' }).blur(30).png().toBuffer()
-    // The scene's top melts into that sky: a long smoothstep, no visible line.
-    const stops = Array.from({ length: 9 }, (_, i) => {
-      const t = i / 8
-      return `<stop offset="${((t * seam) / sceneH).toFixed(4)}" stop-color="#fff" stop-opacity="${(t * t * (3 - 2 * t)).toFixed(3)}"/>`
-    }).join('')
-    const fade = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${sceneH}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">${stops}</linearGradient></defs><rect width="${W}" height="${sceneH}" fill="url(#g)"/></svg>`)
-    const faded = await sharp(scene).ensureAlpha().composite([{ input: fade, blend: 'dest-in' }]).png().toBuffer()
-    return sharp({ create: { width: W, height: H, channels: 3, background: '#F3C6A8' } })
-      .composite([{ input: sky, top: 0, left: 0 }, { input: faded, top: band, left: 0 }])
-      .png()
-      .toBuffer()
-  }
-  const skyFrom = frame.skyFrom ?? 0
-  const scene = await sharp(src).resize({ width: W }).toBuffer()
-  const sceneH = (await sharp(scene).metadata()).height!
-  const band = H - sceneH
-  const skyLeft = Math.round(W * skyFrom)
-  const sky = await sharp(scene).extract({ left: skyLeft, top: 0, width: W - skyLeft, height: 10 }).resize(W, band + 40, { fit: 'fill' }).blur(36).toBuffer()
-  const seam = 24
-  const fade = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${sceneH}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="${(seam / sceneH).toFixed(4)}" stop-color="#fff" stop-opacity="1"/></linearGradient></defs><rect width="${W}" height="${sceneH}" fill="url(#g)"/></svg>`)
-  const faded = await sharp(scene).ensureAlpha().composite([{ input: fade, blend: 'dest-in' }]).png().toBuffer()
-  return sharp({ create: { width: W, height: H, channels: 3, background: '#F3C6A8' } })
-    .composite([{ input: sky, top: 0, left: 0 }, { input: faded, top: band, left: 0 }])
-    .png()
-    .toBuffer()
+  // The butler's cottage roof runs to the very top of its art, so there is no
+  // real sky to set a title in, and any sky made from the top rows dissolves
+  // the roof (flagged in taste reviews r7, r12 and r13). Ari's ruling (r14):
+  // a storybook title plate, solid cream with a thin gold rule, and the whole
+  // scene below it at full strength (src/og/frames.mjs, plateFrame).
+  butler: { file: 'headers/butler.webp', plate: true },
 }
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.
@@ -286,7 +218,8 @@ export const GET: APIRoute = async ({ params }) => {
   // rim, so it never draws an edge, and the zones leave room for its faint fringe.
   const rx = blockW * 0.75 + 30
   const ry = blockH * 0.8 + 24
-  const strength = FIRM_SCRIM[scene] ?? 0.62
+  const framed = FRAME[scene]
+  const strength = framed && ('sky' in framed || 'plate' in framed) ? 0 : FIRM_SCRIM[scene] ?? 0.62
   const scrimSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><radialGradient id="v" cx="${cx}" cy="${cy}" r="${rx}" gradientUnits="userSpaceOnUse" gradientTransform="translate(${cx} ${cy}) scale(1 ${ry / rx}) translate(${-cx} ${-cy})"><stop offset="0" stop-color="rgb(${COLOR.paper})" stop-opacity="${strength}"/><stop offset="0.6" stop-color="rgb(${COLOR.paper})" stop-opacity="${(strength * 0.9).toFixed(3)}"/><stop offset="0.85" stop-color="rgb(${COLOR.paper})" stop-opacity="${(strength * 0.35).toFixed(3)}"/><stop offset="1" stop-color="rgb(${COLOR.paper})" stop-opacity="0"/></radialGradient></defs><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#v)"/></svg>`
   const glow = `0 0 ${Math.round(titleSize * 0.28)}px rgba(${COLOR.paper}, 0.95)`
 
@@ -344,8 +277,11 @@ export const GET: APIRoute = async ({ params }) => {
 
   const wordsLayer = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
   const frame = FRAME[scene]
-  const base = frame && 'sky' in frame
-    ? await skyFrame(frame)
+  const framePath = frame ? join(process.cwd(), 'public/brand/storybook', frame.file) : ''
+  const base = frame && 'plate' in frame
+    ? (await plateFrame(framePath)).base
+    : frame && 'sky' in frame
+    ? (await skyFrame(framePath)).base
     : frame
     ? await sharp(join(process.cwd(), 'public/brand/storybook', frame.file)).resize({ height: frame.height ?? 630 }).extract({ left: frame.left, top: 0, width: 1200, height: 630 }).toBuffer()
     : join(sceneDir, `${scene}.jpg`)

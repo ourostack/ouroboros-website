@@ -129,7 +129,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 432], factory: [768, 384], friends: [768, 432] }
+const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -202,6 +202,61 @@ export const castFoot = {
   'playwright-focus-proof': 0.97,
   // The big sheep's hooves at the right.
   shepherd: 0.935,
+}
+
+// Where the cast stands across each scene's phone crop (brand/phone/<scene>-768),
+// as [left, right] fractions of the crop's width: the leftmost and rightmost
+// point of any character (Ouro, a person, a robot, a sheep, a dove), not props.
+// Read by eye off a 1% grid of each crop's outer tenth (taste review r13,
+// 2026-11-06: Ouro touched the right edge of the factory's phone hero). The
+// phone hero shows the crop at the full viewport width, so a character within
+// PHONE_EDGE px of either side at 320, 390 or 430 fails tests/hero-crop.test.mjs
+// and scripts/hero-joins.mjs.
+export const PHONE_EDGE = 16
+export const phoneCastX = {
+  'apple-distribution-kit': [0.40, 0.82],
+  // Ouro's body; the cloche he holds out reaches 0.955.
+  butler: [0.43, 0.90],
+  desk: [0.48, 0.89],
+  // .github#14 moved this crop's centre to 850 (r14).
+  factory: [0.65, 0.92],
+  // .github#15: 2:1, centre 952.
+  'flow-review': [0.099, 0.901],
+  friends: [0.098, 0.906],
+  // The dove at the left (.github#15: centre 705).
+  'friends-relay': [0.063, 0.89],
+  gatefold: [0.42, 0.88],
+  'homebrew-tap': [0.38, 0.88],
+  m365crawl: [0.46, 0.885],
+  'ouro-apps-site': [0.43, 0.88],
+  // .github#15: centre 780.
+  'ouro-hx': [0.063, 0.936],
+  'ouro-md': [0.47, 0.87],
+  'ouro-native-apple-app-shell': [0.5, 0.885],
+  // .github#15: centre 840.
+  'ouro-ui-apple': [0.21, 0.931],
+  'ouro-ui-core': [0.4, 0.88],
+  'ouro-work': [0.42, 0.88],
+  'ouro-workbench': [0.55, 0.86],
+  ouroboros: [0.49, 0.88],
+  // The reading robot at the left, the robot taking the scroll at the right.
+  // .github#15: centre 734.
+  'ouroboros-skills': [0.068, 0.932],
+  'ouroboros-website': [0.43, 0.88],
+  // Ouro at the left, the waving robot's hand at the right.
+  ourostack: [0.069, 0.94],
+  // The person in the armchair at the left, Ouro at the right.
+  'playwright-focus-proof': [0.09, 0.923],
+  // The sheep by the gate at the left, the big sheep at the right.
+  // .github#16: 12:5 at centre 845, against the art's right edge.
+  shepherd: [0.06, 0.91],
+}
+// Named exemptions: a character the canonical art itself cuts at its own edge.
+// The crop already stands against the header's edge there, so no crop centre
+// can show more (accepted by the brand coordinator, r14). These are reported,
+// not failed, and only for the side named.
+export const phoneArtEdge = {
+  ourostack: { side: 'right', reason: 'the sheep by the fence: the phone crop is clamped to the art\'s own right edge, where the art cuts it' },
 }
 
 // Breathing room kept above and below the cast, so the slow drift (a 2% zoom)

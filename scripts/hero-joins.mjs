@@ -16,6 +16,13 @@
 // header counts, nor does a decorative glow (aria-hidden or an empty
 // absolutely placed box).
 //
+// On a phone (320, 390 and 430 wide) it also fails when any character in the
+// hero stands within 16px of either side of the screen (taste review r13: Ouro
+// touched the right edge of the factory's phone hero), from the rendered
+// image's box and the cast's place across the phone crop (phoneCastX in
+// src/data/scenes.mjs). A character the art itself cuts at its own edge
+// (phoneArtEdge) is reported, not failed.
+//
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.
 
@@ -25,6 +32,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { phoneCastX, phoneArtEdge, PHONE_EDGE } from '../src/data/scenes.mjs';
 
 const args = process.argv.slice(2);
 const opt = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
@@ -116,10 +124,39 @@ for (const page of pages) {
     for (const f of m.found) result.failures.push(`${width} ${page} ${f.el} starts ${Math.abs(f.gap)}px above the hero's foot (y=${f.top}, foot=${m.foot})`);
   }
 }
+// The phone pass: where the cast lands on screen.
+const PHONES = [[320, 640], [390, 844], [430, 932]];
+result.phoneChecked = 0;
+result.artEdge = [];
+for (const page of pages) {
+  for (const [width, height] of PHONES) {
+    const ctx = await browser.newContext({ viewport: { width, height }, reducedMotion: 'reduce', deviceScaleFactor: 1 });
+    const p = await ctx.newPage();
+    await p.goto(base + page, { waitUntil: 'load' });
+    const m = await p.evaluate(() => {
+      const wrap = document.querySelector('.story-hero[data-brand-scene], .story-hero [data-brand-scene]');
+      const img = document.querySelector('.story-hero img');
+      if (!wrap || !img) return null;
+      const r = img.getBoundingClientRect();
+      return { scene: wrap.getAttribute('data-brand-scene'), left: r.left, width: r.width, vw: document.documentElement.clientWidth };
+    });
+    await ctx.close();
+    if (!m) continue;
+    result.phoneChecked++;
+    const cast = phoneCastX[m.scene];
+    if (!cast) { result.failures.push(`${width} ${page}: no phoneCastX for ${m.scene}`); continue; }
+    const fromLeft = m.left + cast[0] * m.width;
+    const fromRight = m.vw - (m.left + cast[1] * m.width);
+    if (fromLeft < PHONE_EDGE - 0.01) result.failures.push(`${width} ${page} (${m.scene}): a character ${fromLeft.toFixed(1)}px from the left edge`);
+    if (fromRight < PHONE_EDGE - 0.01) result.failures.push(`${width} ${page} (${m.scene}): a character ${fromRight.toFixed(1)}px from the right edge`);
+    if (phoneArtEdge[m.scene] && width === 390) result.artEdge.push(`${page} (${m.scene}, ${phoneArtEdge[m.scene].side}): ${phoneArtEdge[m.scene].reason}`);
+  }
+}
 await browser.close();
 server?.close();
 
 if (opt('--json')) await writeFile(opt('--json'), JSON.stringify(result, null, 2));
-console.log(`${pages.length} pages at 1024, 1440 and 1920 (${result.checked} hero views): ${result.failures.length} frames start inside the hero`);
+console.log(`${pages.length} pages at 1024, 1440 and 1920 (${result.checked} hero views), and at 320, 390 and 430 (${result.phoneChecked} phone heroes): ${result.failures.length} failures`);
+for (const a of result.artEdge) console.log(`  art edge (not failed): ${a}`);
 for (const f of result.failures) console.log(`  ${f}`);
 process.exit(result.failures.length ? 1 : 0);

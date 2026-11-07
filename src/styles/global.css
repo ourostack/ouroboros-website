@@ -751,6 +751,8 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-meadow img { aspect-ratio: 1536 / 576; object-fit: cover; }
 @media (max-width: 640px) { .story-meadow img { aspect-ratio: var(--phone-ar, 4 / 3); } }
 .story-meadow + .site-footer { margin-top: 0; border-top: 0; }
+/* Where the meadow closes the page, the meadow is the change; no trail over it. */
+.story-meadow + .site-footer::before { display: none; }
 /* The page flows into the meadow (taste review r9: a tinted last section
    ended hard, leaving a strip of page colour above the meadow's fade). A
    tinted section that ends the page fades out over its last 6rem instead,
@@ -849,3 +851,15 @@ main > section.border-t::before, .trail-top::before {
 .post-scene .story-vignette { border-radius: 0.75rem; }
 .post-scene .story-vignette img { width: 100%; height: auto; }
 @media (min-width: 768px) { .post-with-scene { grid-template-columns: 8rem minmax(0, 1fr); gap: 0 2rem; } }
+
+/* A tinted ground for a section that sets itself apart (taste review r13,
+   2026-11-06: /lab/ stepped in colour in one row under its opening). The tint
+   rises from the page's own ground and settles back into it, so a section
+   change never shows as a seam; the trail marks the change instead. */
+.ground-band { background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-deep) 80%, transparent) 22%, color-mix(in srgb, var(--color-deep) 80%, transparent) 78%, transparent); }
+.ground-band-soft { background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-deep) 55%, transparent) 30%, color-mix(in srgb, var(--color-deep) 55%, transparent) 70%, transparent); }
+/* A section's own texture or tint fades in and out at its edges, never a hard line. */
+.ground-fade { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent); }
+/* A drawn grid is texture, so it stays clear of the section's edges entirely and
+   comes in over a long run, well past where a change of section is read. */
+.grid-fade { -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); }
