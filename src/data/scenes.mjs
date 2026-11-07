@@ -80,10 +80,11 @@ const pages = {
   '/lab/docs/architecture': { hero: 'factory' },
   '/lab/docs/tasks-and-work': { hero: 'playwright-focus-proof' },
   '/lab/docs/skills-and-prompts': { hero: 'ouroboros-skills' },
-  // The legal pages open on a short band of their own scene (`band`), under
-  // which the "Draft for review" badge stays (taste review r3).
-  '/privacy': { hero: 'apple-distribution-kit', band: true },
-  '/terms': { hero: 'shepherd', band: true },
+  // The legal pages open on their own scene at the content pages' height
+  // (`content`), under which the "Draft for review" badge stays (taste review
+  // r3). A short band cut Ouro in half on a desktop (taste review r8).
+  '/privacy': { hero: 'apple-distribution-kit', content: true },
+  '/terms': { hero: 'shepherd', content: true },
   // Ouro has wandered off the trail; the footer meadow stays off so the gate shows once.
   '/404': { hero: 'ouroboros-website', meadow: false },
 }
@@ -104,7 +105,7 @@ export function sceneFor(pathname) {
   }
   const page = match ? pages[match] : { hero: null }
   const hero = page.hero ?? null
-  return { hero, band: page.band === true, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
+  return { hero, content: page.content === true, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
 }
 
 /** The scene a route's share card is set in. */
@@ -167,19 +168,25 @@ export const heroFocus = {
 // never pushes a head out of the frame.
 const FOCUS_MARGIN = 0.06
 
+// The least share of the art's height any desktop hero shows, whatever its
+// cast: a hero never crops more than 18% of the scene away (taste review r8:
+// short heroes cut Ouro's body off; tests/hero-crop.test.mjs holds every page
+// to 20% at 1024, 1440 and 1920).
+export const HERO_FLOOR = 0.82
+
 /**
  * The desktop hero's crop for a scene. `need` is the least share of the art's
  * height the box may show (the cast plus margin): the hero's height cap never
  * goes below it, at any width. `y` is the object-position that, at that least
- * share or any taller one, keeps the whole cast in view. `bandY` frames the
- * legal pages' short band on the heads.
+ * share or any taller one, keeps the whole cast in view. `floor` is the
+ * share global.css actually holds the box to: `need`, but never under
+ * HERO_FLOOR.
  */
 export function heroFrame(scene) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
   const need = Math.min(1, bottom - top + FOCUS_MARGIN)
   const y = need >= 1 ? 0.5 : Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - need)))
-  const bandY = Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / 0.4))
-  return { need: +need.toFixed(3), y: +(y * 100).toFixed(1), bandY: +(bandY * 100).toFixed(1) }
+  return { need: +need.toFixed(3), floor: +Math.max(need, HERO_FLOOR).toFixed(3), y: +(y * 100).toFixed(1) }
 }
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */

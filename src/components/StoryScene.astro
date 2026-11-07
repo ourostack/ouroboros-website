@@ -34,11 +34,12 @@ const [w, h] = sceneRatio(scene)
 const [pw, ph] = phoneSize(scene)
 const hero = variant === 'hero'
 // The desktop hero keeps the whole cast in frame at every width (taste review
-// r5): global.css never lets the box show less of the art than `need`, and
+// r5): global.css never lets the box show less of the art than `floor` (the
+// cast's `need`, and never under 82%: taste review r8), and
 // object-position `y` keeps the cast inside whatever it shows.
 const frame = heroFrame(scene)
 const phoneAspect = hero
-  ? `--phone-ar: ${pw} / ${ph}; --hero-need: ${frame.need}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%; --hero-band-y: ${frame.bandY}%`
+  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`
   : `--phone-ar: ${pw} / ${ph}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'

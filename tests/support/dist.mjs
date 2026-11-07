@@ -38,6 +38,8 @@ export function textOf(html) {
       .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
       .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
       .replace(/<!--[\s\S]*?-->/g, ' ')
+      // src/lib/code-wrap.mjs splits long code into pieces that render with no gap.
+      .replace(/<span class="tok(?: tok-long)?">([^<]*)<\/span>(?:<wbr>)?/g, '$1')
       .replace(/<[^>]+>/g, ' '),
   ).replace(/\s+/g, ' ').trim();
 }
