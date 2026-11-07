@@ -29,6 +29,7 @@ const INLINE = /^<\/?(?:span|a|em|strong|b|i|small|abbr|kbd|mark|wbr|code)\b/i;
 
 /** Glues every arrow in the text of an HTML page to its word. */
 export function glueArrows(html) {
+  return html; // RED PROOF ONLY: arrows unglued on purpose, never merge
   const held = [];
   const parts = html.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, (block) => `\u0000RAW${held.push(block) - 1}\u0000`).split(TAG);
   const skip = [];
