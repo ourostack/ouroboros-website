@@ -13,8 +13,6 @@ const destinations = [
   '/apps/#ouro-md',
   '/apps/#shepherd',
   '/apps/#ouro-hx',
-  '/ouro-hx/',
-  '/ouro-hx/#install',
   '/favicon.ico',
 ];
 

@@ -39,7 +39,7 @@ import { ogSceneFor } from './scenes.mjs'
 */
 
 // The approved product renders in src/og/marks, shown small beside the wordmark. Pages without one show Ouro.
-export type OgMark = 'ouro' | 'desk' | 'ouro-md' | 'ouro-hx' | 'factory' | 'friends' | 'shepherd' | 'butler'
+export type OgMark = 'ouro' | 'desk' | 'ouro-md' | 'factory' | 'friends' | 'shepherd' | 'butler'
 
 export interface OgEntry {
   title: string
@@ -89,12 +89,6 @@ export const pageOg: Record<string, OgEntry> = {
     title: 'Fresh from the workshop, ready to install.',
     subtitle: 'Ouro MD, Ouroboros, Ouro Shepherd, Ouro HX, Desk and Ouro Butler: small, sharp tools for people and their agents.',
     tag: 'Ouro apps',
-  },
-  '/ouro-hx': {
-    title: 'Ouro HX: designed down to the last tap.',
-    subtitle: 'A React component library that feels right to people and is obvious to agents. Already cooking in Spoonjoy.',
-    tag: 'Ouro HX',
-    mark: 'ouro-hx',
   },
   '/lab': {
     title: 'The harness: where all of this started.',

@@ -45,7 +45,6 @@ const pages = {
   '/brief': { hero: 'friends' },
   '/desk': { hero: 'desk' },
   '/ouro-md': { hero: 'ouro-md' },
-  '/ouro-hx': { hero: 'ouro-hx' },
   '/butler': { hero: 'butler' },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
