@@ -69,7 +69,7 @@ const app = {
         <div class="product-media media-clip">
           {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} alt={typing} /></div>)}
         </div>
-        <figcaption class="product-caption">{typing} <span class="tag tag-plain">Dramatization</span></figcaption>
+        <figcaption class="product-caption"><span class="caption-note">Dramatization</span> <span>{typing}</span></figcaption>
       </figure>
     </div>
   </section>
@@ -100,7 +100,7 @@ const app = {
     <div class="max-w-6xl mx-auto">
       <div class="grid gap-4 dl-head">
         <p class="eyebrow">Features</p>
-        <h2 class="heading-section dl-h2">The whole Markdown vocabulary — rendered, not previewed.</h2>
+        <h2 class="heading-section dl-h2"><span class="t-ph">The whole</span> <span class="t-ph">Markdown vocabulary —</span> <span class="t-ph">rendered, not previewed.</span></h2>
         <p class="text-lg text-mist leading-relaxed">Everything a real document needs, in a real Mac app. Type it and watch it resolve in place.</p>
       </div>
       <ul class="dl-features">

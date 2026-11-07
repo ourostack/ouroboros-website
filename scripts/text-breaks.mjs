@@ -123,10 +123,15 @@ function analyse(checkOverflow) {
   const cjk = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
   // A heading never breaks at a hyphen (taste review r11: "to-" / "do" in
   // the /lab/how-desk-started/ h1 at 320); an en or em dash may still end a line.
+  // Outside headings, a short hyphenated word (HYPHEN_WHOLE_MAX characters or
+  // fewer, src/lib/code-wrap.mjs) never breaks at its hyphen either (taste
+  // review r18: "X- / ray" on /ouro-hx/ at 390).
+  const HYPHEN_WHOLE_MAX = 16;
+  const shortWord = (word) => word.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').length <= HYPHEN_WHOLE_MAX;
   const allowed = (word, isPath, host, inHeading = false) => (i) =>
     i > host &&
     ((word[i - 1] === '/' && word[i] !== '/') || /[?#]/.test(word[i]) ||
-      (!isPath && ((inHeading ? /[‒–—]/ : /[-‐-—­]/).test(word[i - 1]) || /[([{‐-—]/.test(word[i]) || cjk.test(word[i - 1]) || cjk.test(word[i]))));
+      (!isPath && ((inHeading || shortWord(word) ? /[‒–—]/ : /[-‐-—­]/).test(word[i - 1]) || /[([{‐-—]/.test(word[i]) || cjk.test(word[i - 1]) || cjk.test(word[i]))));
   // A break inside a file name's last segment, before its extension
   // ("latest-ready" / ".json", "https://ouroboros.bot/brief" / ".md"): Ari's
   // ruling, taste review r14, replacing round 11's break before a file
@@ -217,7 +222,11 @@ function analyse(checkOverflow) {
           let b = i;
           while (b < word.length && !ok(b)) b++;
           const seg = rectsOf(node, m.index + a, m.index + b).reduce((sum, r) => sum + r.width, 0);
-          if (seg <= box.width - 2) out.breaks.push(`${isPath ? 'path' : 'word'} ${label(el)}: "${word.slice(0, i)}|${word.slice(i)}"${extBreak(word, i)}`.slice(0, 180));
+          // Round 19 (Ari's ruling on taste review r18): a file name breaks
+          // only as the last resort, and never at a hyphen when the name fits
+          // on a line of its own ("agent-orientation- / substrate.md").
+          const atHyphen = isPath && /[-‐]/.test(word[i - 1]) ? ' (at a hyphen in a file name that fits its line)' : '';
+          if (seg <= box.width - 2) out.breaks.push(`${isPath ? 'path' : 'word'} ${label(el)}: "${word.slice(0, i)}|${word.slice(i)}"${extBreak(word, i)}${atHyphen}`.slice(0, 200));
         }
         prevTop = top;
       }

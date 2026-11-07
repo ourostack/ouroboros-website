@@ -17,7 +17,7 @@
   even without, the art. Every variant fades at its edges into the page,
   so the dawn sits softly on the parchment and on the dark theme alike.
 */
-import { scenes, sceneRatio, phoneSize, heroFrame } from '../data/scenes.mjs'
+import { scenes, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -54,7 +54,7 @@ const phoneAspect = hero
 // (taste review r10).
 const paint = paints[scene]
 if (!paint) throw new Error(`StoryScene: no paint for ${scene}; run node scripts/scene-paint.mjs`)
-const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
+const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
 const phoneAvif = `${base}/phone/${scene}-384.avif 384w, ${base}/phone/${scene}-768.avif 768w`

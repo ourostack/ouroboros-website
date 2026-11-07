@@ -60,8 +60,8 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
       <ul class="review-jumps">
         {reviews.map((review) => (
           <li>
-            <a href={`#${review.provider}`} class="review-jump-name">{review.displayName}</a>
-            <span class="review-jump-more"><a href={`#${review.provider}-rationale`}>Per-harness rationale</a><a href={`/lab/model-reviews/${review.provider}/`}>Transcript</a></span>
+            <a href={`#${review.provider}`} class="review-jump-name"><span>{review.displayName}</span></a>
+            <span class="review-jump-more"><a href={`#${review.provider}-rationale`}><span>Per-harness rationale</span></a><a href={`/lab/model-reviews/${review.provider}/`}>Transcript</a></span>
           </li>
         ))}
       </ul>

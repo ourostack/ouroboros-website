@@ -39,6 +39,9 @@ const STUB_MIN = 4;
 const PATH_MIN = 12;
 
 const entityLength = (raw) => raw.replace(/&#?[a-z0-9]+;/gi, 'x').length;
+// A word's letters, without the quotes, brackets and punctuation around it
+// (scripts/text-breaks.mjs measures the same way).
+const coreLength = (raw) => raw.replace(/&#?[a-z0-9]+;/gi, (e) => (/^&(?:amp|#\d+|#x[0-9a-f]+)$/i.test(e) ? 'x' : ' ')).replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '').length;
 
 /** Is this whitespace-free word (HTML-escaped) a URL, path, host or file name? */
 export function isPathy(word) {
@@ -172,6 +175,16 @@ const HEADING = /^h[1-6]$/i;
 // the self-hosted Cormorant, Outfit or JetBrains Mono, so it would render in
 // a fallback face.)
 const HYPHENATED = /[\p{L}\p{N}][-\u2010][\p{L}\p{N}]/u;
+// Outside headings, a short hyphenated word stays whole too (taste review
+// r18, 2026-11-07: "Turn on X- / ray yourself" at 390 on /ouro-hx/). Up to
+// HYPHEN_WHOLE_MAX characters it never breaks at its hyphen; a longer one may
+// still break there, as ordinary prose does.
+export const HYPHEN_WHOLE_MAX = 16;
+// Compound terms and product names never break across lines in a heading
+// (Ari's ruling on taste review r18: "Ouro / MD" on /apps/ at 1024). Each is
+// held in a .nobr span. scripts/heading-lines.mjs checks the same list.
+export const TERMS = ['agent harness', 'agent experience', 'Ouro MD', 'Ouro HX', 'Ouro UI', 'Ouro AX', 'Ouro Feel', 'Ouro Butler', 'Ouro Shepherd', 'Claude Code', 'GitHub Copilot', 'Copilot CLI', 'model reviews'];
+const TERM_RE = new RegExp(`\\b(${TERMS.map((t) => t.replace(/ /g, '(?: |&nbsp;)')).join('|')})\\b`, 'gi');
 const TAG = /(<!--[\s\S]*?-->|<(?:[^>"']|"[^"]*"|'[^']*')*>)/;
 const VOID = /^(?:area|base|br|col|embed|hr|img|input|link|meta|source|track|wbr)$/i;
 
@@ -199,9 +212,17 @@ function wrapText(html) {
       continue;
     }
     if (skip.length || !part.trim()) continue;
-    parts[i] = part.replace(/[^\s<>]+/g, (word) =>
-      isPathy(word) ? wrapToken(word) : heading && HYPHENATED.test(word) ? `<span class="nobr">${word}</span>` : word,
-    );
+    const words = (text) =>
+      text.replace(/[^\s<>]+/g, (word) =>
+        isPathy(word)
+          ? wrapToken(word)
+          : HYPHENATED.test(word) && (heading || coreLength(word) <= HYPHEN_WHOLE_MAX)
+            ? `<span class="nobr">${word}</span>`
+            : word,
+      );
+    parts[i] = heading
+      ? part.split(TERM_RE).map((piece, k) => (k % 2 ? `<span class="nobr">${piece}</span>` : words(piece))).join('')
+      : words(part);
   }
   return parts.join('').replace(/\u0000RAW(\d+)\u0000/g, (_, i) => held[Number(i)]);
 }

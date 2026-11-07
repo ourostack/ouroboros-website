@@ -46,7 +46,7 @@ test('every URL and path is wrapped: prose, links, mono spans and preformatted t
   assert.equal(wrapCode('<pre>curl -fsSL https://ouro.bot/x.sh | bash</pre>'), '<pre>curl <span class="tok">-fsSL</span> <span class="tok tok-long tok-url">https://<wbr><span class="tok-host">ouro.bot/</span></span><wbr><span class="tok">x.sh</span> | bash</pre>');
   assert.equal(wrapCode('<pre>npx init --no-monorepo</pre>'), '<pre>npx init <span class="tok">--no-monorepo</span></pre>');
   // Ordinary words, scripts, styles, attributes and the head stay as they are.
-  const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">re-explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
+  const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
   assert.equal(wrapCode(untouched), untouched);
 });
 
@@ -76,10 +76,18 @@ test('a long scheme and host offer one break, right after the "//", and keep the
   assert.equal(wrapToken('https://x.io/abcd'), '<span class="tok">https://x.io/</span><wbr><span class="tok">abcd</span>');
 });
 
+test('a short hyphenated word never breaks at its hyphen, outside headings too', () => {
+  // Round 19: "X- / ray" split at 390. A hyphenated word of up to 16 letters
+  // (surrounding punctuation aside) stays whole; a longer one may still break.
+  assert.equal(wrapCode('<p>re-explaining it</p>'), '<p><span class="nobr">re-explaining</span> it</p>');
+  assert.equal(wrapCode('<p>(&quot;self-improvement&quot;):</p>'), '<p><span class="nobr">(&quot;self-improvement&quot;):</span></p>');
+  assert.equal(wrapCode('<p>a very-long-hyphenated-compound word</p>'), '<p>a very-long-hyphenated-compound word</p>');
+});
+
 test('a heading never breaks at a hyphen', () => {
   // Taste review r11: the /lab/how-desk-started/ h1 broke as "to-" / "do" at 320.
   assert.equal(wrapCode("<h1 class=\"heading-lead\">Slugger's to-do list</h1>"), "<h1 class=\"heading-lead\">Slugger's <span class=\"nobr\">to-do</span> list</h1>");
-  assert.equal(wrapCode('<h2>A <em>follow-up</em> note</h2><p>a to-do list</p>'), '<h2>A <em><span class="nobr">follow-up</span></em> note</h2><p>a to-do list</p>');
+  assert.equal(wrapCode('<h2>A <em>follow-up</em> note</h2><p>a to-do list</p>'), '<h2>A <em><span class="nobr">follow-up</span></em> note</h2><p>a <span class="nobr">to-do</span> list</p>');
 });
 
 test('a character reference is never split, and code shows the characters, not the reference', () => {

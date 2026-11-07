@@ -65,23 +65,24 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
       <p class="font-mono text-sm text-mist tracking-wider mb-12">{review.model} · {transportLabel} · {runtimeLabel}</p>
 
       <!-- Stats row -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-5 mb-14">
-        <div class="border-l-2 border-canopy/40 pl-5">
+      {/* Three numbers share one row on a phone and the verdict takes the next, so no row is left with an empty cell (taste review r18: "59 FETCHES" sat beside a gap); four across from 640px, two by two beside the quote from 1024px. */}
+      <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-2 gap-3 sm:gap-5 mb-14">
+        <div class="border-l-2 border-canopy/40 pl-3 sm:pl-5">
           <div class="font-display text-bone text-3xl md:text-4xl">{review.rounds}</div>
-          <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] mt-2">Rounds</div>
+          <div class="font-mono text-xs text-mist uppercase tracking-[0.12em] sm:tracking-[0.22em] mt-2">Rounds</div>
         </div>
-        <div class="border-l-2 border-canopy/40 pl-5">
+        <div class="border-l-2 border-canopy/40 pl-3 sm:pl-5">
           <div class="font-display text-bone text-3xl md:text-4xl">{review.searchCount}</div>
-          <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] mt-2">Searches</div>
+          <div class="font-mono text-xs text-mist uppercase tracking-[0.12em] sm:tracking-[0.22em] mt-2">Searches</div>
         </div>
-        <div class="border-l-2 border-canopy/40 pl-5">
+        <div class="border-l-2 border-canopy/40 pl-3 sm:pl-5">
           <div class="font-display text-bone text-3xl md:text-4xl">{review.fetchCount}</div>
-          <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] mt-2">Fetches</div>
+          <div class="font-mono text-xs text-mist uppercase tracking-[0.12em] sm:tracking-[0.22em] mt-2">Fetches</div>
         </div>
         {/* On a phone the verdict takes its own full-width row: "Ouroboros" ran 23px past the column at 320 (taste review r7). */}
-        <div class="col-span-2 sm:col-span-1 border-l-2 border-scale pl-5">
+        <div class="col-span-3 sm:col-span-1 border-l-2 border-scale pl-3 sm:pl-5">
           <div class="font-display text-scale text-3xl md:text-4xl">{review.verdict}</div>
-          <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] mt-2">Verdict</div>
+          <div class="font-mono text-xs text-mist uppercase tracking-[0.12em] sm:tracking-[0.22em] mt-2">Verdict</div>
         </div>
       </div>
 
