@@ -74,6 +74,7 @@ function boot() {
   els.brandHome = brandHome;
   const doc = fakeElement('document');
   doc.getElementById = (id) => els[id] || null;
+  doc.documentElement = fakeElement('html');
   doc.body = { style: { overflow: '' }, children: [els['main-nav'], ...page, Object.assign(fakeElement('s'), { tagName: 'SCRIPT' })] };
   const window = { matchMedia: () => ({ matches: false, addEventListener() {} }) };
   vm.runInNewContext(menuScript(readDist('index.html')), { document: doc, window });
@@ -86,9 +87,13 @@ test('the phone menu opens and closes from its toggle', () => {
   assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'true');
   assert.equal(els['mobile-menu'].classList.contains('hidden'), false);
   assert.equal(doc.body.style.overflow, 'hidden');
+  // html carries overflow-x: clip, so body's overflow never reaches the
+  // viewport: the viewport itself locks (taste review r7: the page scrolled behind the menu).
+  assert.equal(doc.documentElement.classList.contains('menu-open'), true);
   els['menu-toggle'].dispatch('click');
   assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'false');
   assert.equal(doc.body.style.overflow, '');
+  assert.equal(doc.documentElement.classList.contains('menu-open'), false);
 });
 
 test('Escape closes the phone menu, unlocks scroll and returns focus to the toggle', () => {

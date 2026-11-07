@@ -684,9 +684,14 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-inline img { aspect-ratio: 1536 / 576; object-fit: cover; }
 @media (max-width: 640px) { .story-inline img { aspect-ratio: var(--phone-ar, 4 / 3); } }
 .story-inline { box-shadow: 0 20px 50px -30px color-mix(in srgb, var(--color-amber) 55%, transparent); }
-/* The meadow above the footer: a low band of the open gate, fading in from the page. */
-.story-meadow { margin-top: 3rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 80%, transparent 100%); }
-.story-meadow img { height: clamp(11rem, 26vw, 24rem); object-fit: cover; object-position: 50% 72%; }
+/* The meadow above the footer: the open gate, fading in from the page. It
+   takes the file's own aspect (the wide art, or the phone crop below 640px), so
+   nothing is cropped, and the fades stay clear of the cast: Ouro's head starts
+   about 27% down the art and his lowest coil ends about 89% down (taste review
+   r7: a fixed-height band and a 30% fade cut the top of his head). */
+.story-meadow { margin-top: 3rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 91%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 91%, transparent 100%); }
+.story-meadow img { aspect-ratio: 1536 / 576; object-fit: cover; }
+@media (max-width: 640px) { .story-meadow img { aspect-ratio: var(--phone-ar, 4 / 3); } }
 .story-meadow + .site-footer { margin-top: 0; border-top: 0; }
 /* A scene still on its way shows a wash: never a broken-image glyph, never a
    hairline (the deferred <img> has no src until it is near). By day the wash is

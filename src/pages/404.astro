@@ -48,6 +48,14 @@ const ways = [
   .sign { display: inline-block; padding: 0.55rem 1.4rem; font-family: var(--font-display); font-size: 1.35rem; color: var(--color-bone); background: color-mix(in srgb, var(--color-amber) 16%, var(--color-deep)); border: 1px solid color-mix(in srgb, var(--color-amber) 40%, transparent); transition: color 0.2s, border-color 0.2s, transform 0.3s var(--ease-expo); }
   .sign-right { clip-path: polygon(0 0, calc(100% - 0.9rem) 0, 100% 50%, calc(100% - 0.9rem) 100%, 0 100%); padding-right: 2rem; }
   .sign-left { clip-path: polygon(0.9rem 0, 100% 0, 100% 100%, 0.9rem 100%, 0 50%); padding-left: 2rem; }
+  /* Each sign stays on one line with its arrow (taste review r7: at 320 the
+     longest wrapped and orphaned it). Below 360px the signs letter smaller. */
+  .sign { white-space: nowrap; max-width: 100%; }
+  @media (max-width: 359.98px) {
+    .sign { font-size: 1.1rem; padding: 0.5rem 1rem; }
+    .sign-right { padding-right: 1.6rem; }
+    .sign-left { padding-left: 1.6rem; }
+  }
   .sign:hover, .sign:focus-visible { color: var(--color-scale); border-color: var(--color-scale); }
   @media (prefers-reduced-motion: no-preference) {
     .sign-right:hover { transform: translateX(0.25rem) rotate(-1deg); }

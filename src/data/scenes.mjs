@@ -67,12 +67,12 @@ const pages = {
   '/lab/how-desk-started': { hero: 'ouro-workbench' },
   '/lab/model-reviews': { hero: 'flow-review' },
   // Each reviewer researches in its own corner: the scroll stacks, the card
-  // catalogue, the factory's gauges, the paint pots. Their share cards all sit
-  // in the reviews' gallery of easels, each under its own model's name (taste review r5).
-  '/lab/model-reviews/anthropic': { hero: 'ouroboros-skills', og: 'flow-review' },
-  '/lab/model-reviews/gemini': { hero: 'm365crawl', og: 'flow-review' },
-  '/lab/model-reviews/minimax': { hero: 'factory', og: 'flow-review' },
-  '/lab/model-reviews/openai': { hero: 'ouro-ui-core', og: 'flow-review' },
+  // catalogue, the factory's gauges, the paint pots. Each share card is set in
+  // its own page's scene, under its own model's name (taste review r7 ruling).
+  '/lab/model-reviews/anthropic': { hero: 'ouroboros-skills' },
+  '/lab/model-reviews/gemini': { hero: 'm365crawl' },
+  '/lab/model-reviews/minimax': { hero: 'factory' },
+  '/lab/model-reviews/openai': { hero: 'ouro-ui-core' },
   '/lab/docs': { hero: 'm365crawl' },
   '/lab/docs/getting-started': { hero: 'ouro-ui-apple' },
   '/lab/docs/bundles-and-psyche': { hero: 'ouro-workbench' },
@@ -128,7 +128,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 432], factory: [768, 384] }
+const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 384], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 432], factory: [768, 384], friends: [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]

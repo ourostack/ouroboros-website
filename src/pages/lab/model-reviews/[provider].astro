@@ -79,7 +79,8 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
           <div class="font-display text-bone text-3xl md:text-4xl">{review.fetchCount}</div>
           <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] mt-2">Fetches</div>
         </div>
-        <div class="border-l-2 border-scale pl-5">
+        {/* On a phone the verdict takes its own full-width row: "Ouroboros" ran 23px past the column at 320 (taste review r7). */}
+        <div class="col-span-2 sm:col-span-1 border-l-2 border-scale pl-5">
           <div class="font-display text-scale text-3xl md:text-4xl">{review.verdict}</div>
           <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] mt-2">Verdict</div>
         </div>
@@ -113,7 +114,7 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
           <div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-3 sm:gap-6 md:gap-10">
             <!-- Round number -->
             <div class="flex-none flex items-baseline gap-3 sm:block">
-              <div class="font-display text-canopy text-2xl sm:text-3xl md:text-4xl leading-none">{String(round.round).padStart(2, '0')}</div>
+              <div class="font-display text-mist text-2xl sm:text-3xl md:text-4xl leading-none">{String(round.round).padStart(2, '0')}</div>
               <div class="font-mono text-xs text-mist uppercase tracking-[0.22em] sm:mt-2">Round</div>
             </div>
 
