@@ -12,7 +12,7 @@
   "notarized": true,
   "downloads": {
     "installerScript": {
-      "url": "https://ouro.bot/ouro-md-install.sh"
+      "url": "https://ouroboros.bot/ouro-md-install.sh"
     },
     "zip": {
       "name": "Ouro-MD-0.9.112.zip",
