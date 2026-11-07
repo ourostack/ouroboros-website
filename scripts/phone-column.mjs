@@ -7,8 +7,8 @@
 //   npm run build && node scripts/phone-column.mjs
 //   node scripts/phone-column.mjs --base https://ouroboros.bot   (a live site)
 //
-// The same check as ouro.bot's (ourostack/ouro-apps-site,
-// scripts/phone-column.mjs); keep the two in step. For every page it fails on:
+// Ouro MD's download page moved here from ouro.bot on 2026-11-07, so this
+// check now covers it with every other page. For every page it fails on:
 //  - gutter: at 320, 390 and 430, the page's column (the leftmost visible
 //    start of any heading or paragraph in main, clipped by any ancestor that
 //    clips) is not GUTTER px from the left edge, the one gutter Ari ruled
@@ -25,8 +25,7 @@
 //  - copy:   at 390, any Copy button (a button whose label reads "Copy")
 //    whose computed style differs from COPY_STYLE, the one bordered button
 //    both sites use (Ari's ruling on taste review r15: the docs' borderless
-//    mono "COPY" and Desk's filled Copy are gone). ouro.bot's check holds
-//    its Copy button to the same COPY_STYLE.
+//    mono "COPY" and Desk's filled Copy are gone).
 //
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.

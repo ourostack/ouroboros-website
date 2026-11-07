@@ -3,8 +3,7 @@
 // "→" of the docs exit links dropped onto a line of its own, and at 320 "Read
 // the docs" wrapped inside its button on /lab/). Ari's ruling: an arrow or
 // icon is always glued to the word before it, and a button label never wraps;
-// two buttons that don't fit side by side stack full width. ouro.bot runs the
-// same check (ourostack/ouro-apps-site, scripts/line-ends.mjs).
+// two buttons that don't fit side by side stack full width.
 //
 //   npm run build && node scripts/line-ends.mjs
 //   node scripts/line-ends.mjs --base https://ouroboros.bot   (a live site)

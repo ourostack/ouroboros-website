@@ -8,8 +8,8 @@ import StoryScene from '../components/StoryScene.astro'
 
 // The apps shelf. It moved here from the ouro.bot homepage (ourostack/ouro-apps-site#15)
 // when ouro.bot forwarded to ouroboros.bot (Ari, 2026-11-06: "we need a unified domain").
-// The copy is that homepage's, kept playful. Ouro MD's download page stays at
-// ouro.bot/apps/ouro-md/, its App Store marketing URL.
+// The copy is that homepage's, kept playful. Ouro MD's download page followed on
+// 2026-11-07, to /ouro-md/download/.
 const title = 'Apps: fresh from the workshop, ready to install | Ouro'
 const description = 'Download Ouro MD, hatch an agent with npx ouro.bot, and pick up Ouro Shepherd, Ouro HX, Desk and Ouro Butler.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
@@ -57,7 +57,7 @@ const shelf = [
         <p class="flex flex-wrap items-center gap-3"><span class={`tag ${md.tone}`}>{md.label}</span><span class="text-mist">{mdDetail}.</span></p>
         <p class="text-lg text-mist leading-relaxed">My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
         <div class="flex flex-wrap items-center gap-3">
-          <a href="https://ouro.bot/apps/ouro-md/" class="btn-primary">Download Ouro MD &#8599;</a>
+          <a href="/ouro-md/download/" class="btn-primary">Download Ouro MD &rarr;</a>
           <a href="/ouro-md/" class={`hit ${link}`}>Features and install details &rarr;</a>
         </div>
         <div class="grid gap-2">

@@ -72,7 +72,7 @@ test('no page calls Desk, Ouro MD or Ouroboros stable, supported or production-r
 
 test('the Ouro MD page carries the install line and the macOS floor', () => {
   const text = textOf(readDist('ouro-md/index.html'));
-  assert.ok(text.includes('curl -fsSL https://ouro.bot/ouro-md-install.sh | bash'));
+  assert.ok(text.includes('curl -fsSL https://ouroboros.bot/ouro-md-install.sh | bash'));
   assert.ok(text.includes('macOS 15'));
 });
 
@@ -93,7 +93,7 @@ test('the Ouro MD page leads with the card copy and one clip, with no second dem
   assert.doesNotMatch(textOf(html), /A demo: an agent's revision lands|Use today/);
   assert.doesNotMatch(textOf(html), /One ordinary Markdown plan|the person stays in place/);
   assert.ok(!distExists('images/ouro-md'), 'The rejected Ouro MD media must not ship');
-  assert.ok(html.indexOf('https://ouro.bot/apps/ouro-md/') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
+  assert.ok(html.indexOf('href="/ouro-md/download/"') > 0 && html.indexOf('href="/ouro-md/download/"') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
   const text = textOf(html);
   assert.match(text, /you can turn it off in Settings/);
   assert.doesNotMatch(text, /principles 3 and 5/);

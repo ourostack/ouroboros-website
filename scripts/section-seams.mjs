@@ -6,7 +6,7 @@
 //
 //   npm run build && node scripts/section-seams.mjs
 //   node scripts/section-seams.mjs --base https://ouroboros.bot
-//   node scripts/section-seams.mjs --base https://ouro.bot --pages /apps/ouro-md/
+//   node scripts/section-seams.mjs --base https://ouroboros.bot --pages /ouro-md/download/
 //
 // For every page, at 1440x900 and 390x844, light and dark, it finds every
 // section change: the top and foot of each section in <main> (and of any

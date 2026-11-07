@@ -2,8 +2,7 @@
 // (taste review r17, 2026-11-07: the Desk demo's Replay was 66px wide and its
 // Skip 52px, so the control jumped sideways when pressed). Ari's ruling: every
 // demo control has a fixed width that fits its longest label, as Pause/Play
-// already had. ouro.bot runs the same check (ourostack/ouro-apps-site,
-// scripts/label-swap.mjs).
+// already had.
 //
 //   npm run build && node scripts/label-swap.mjs
 //   node scripts/label-swap.mjs --base https://ouroboros.bot   (a live site)
