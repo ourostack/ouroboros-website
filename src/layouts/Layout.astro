@@ -56,9 +56,55 @@ const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { hr
     <script is:inline>
       // Apply a saved theme before first paint, so there is no flash.
       try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
-      // A scene image that fails (a 503, a dropped connection) steps aside for
-      // the scene's painted dawn behind it, instead of showing a broken glyph.
-      document.addEventListener('error', function(e) { var t = e.target; if (t && t.tagName === 'IMG' && t.closest && t.closest('.story-scene')) t.setAttribute('data-failed', ''); }, true);
+      // A scene image that fails (a 503, a dropped connection) falls back to the
+      // next smaller size of the same art, then to the 960 WebP, then to any
+      // size left; only when every size has failed does it step aside for the
+      // scene's painted dawn behind it, never a broken glyph or alt text (taste
+      // review r12: a one-off 503 on the 1536 AVIF left only the blurred paint).
+      // The same script runs on ouroboros.bot and ouro.bot; keep the two in step.
+      document.addEventListener('error', function (e) {
+        var img = e.target, pic = img && img.parentElement;
+        if (!img || img.tagName !== 'IMG' || !img.closest || !img.closest('.story-scene')) return;
+        var abs = function (u) { return new URL(u, location.href).href; };
+        var failed = abs(img.currentSrc || img.getAttribute('src') || '');
+        var tried = img.__tried || (img.__tried = {});
+        tried[failed] = 1;
+        var ladder = img.__ladder;
+        if (!ladder) {
+          // The sizes of the art this image was showing: the srcset that held
+          // the failed file, and its siblings for the same media.
+          var sets = [], media = null;
+          if (pic && pic.tagName === 'PICTURE') pic.querySelectorAll('source').forEach(function (s) {
+            var list = (s.getAttribute('srcset') || s.getAttribute('data-srcset') || '').split(',').map(function (p) {
+              var b = p.trim().split(/\s+/);
+              return { u: abs(b[0]), w: parseInt(b[1], 10) || 0, f: (s.type || '').split('/')[1] || (b[0].match(/\.(\w+)$/) || [])[1] };
+            });
+            sets.push({ media: s.media || '', list: list });
+            if (list.some(function (c) { return c.u === failed; })) media = s.media || '';
+          });
+          if (media === null) media = '';
+          ladder = [];
+          sets.forEach(function (s) { if (s.media === media) ladder = ladder.concat(s.list); });
+          var own = img.getAttribute('src') || img.getAttribute('data-src');
+          if (own && !media) ladder.push({ u: abs(own), w: +img.getAttribute('width') || 0, f: (own.match(/\.(\w+)$/) || [])[1] });
+          img.__ladder = ladder;
+        }
+        var me = ladder.filter(function (c) { return c.u === failed; })[0] || { w: Infinity, f: '' };
+        var byWidth = function (a, b) { return b.w - a.w; };
+        var order = ladder.filter(function (c) { return c.f === me.f && c.w < me.w; }).sort(byWidth)
+          .concat(ladder.filter(function (c) { return c.f === 'webp' && c.w === 960; }))
+          .concat(ladder.filter(function (c) { return c.f === 'webp'; }).sort(byWidth))
+          .concat(ladder.slice().sort(byWidth));
+        var next = order.filter(function (c) { return !tried[c.u]; })[0];
+        if (!next) { img.setAttribute('data-failed', ''); return; }
+        // Pin the image to that one file: the <source>s would pick the same
+        // failing size again.
+        if (pic && pic.tagName === 'PICTURE') pic.querySelectorAll('source').forEach(function (s) { s.remove(); });
+        img.removeAttribute('srcset');
+        img.removeAttribute('sizes');
+        img.setAttribute('data-fallback', next.w + 'w ' + next.f);
+        img.src = next.u;
+      }, true);
     </script>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/brand/ouro.svg" />

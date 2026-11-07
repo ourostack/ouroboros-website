@@ -160,8 +160,13 @@ test('every scene on every page is painted with its own dawn behind the art', ()
       assert.ok(style.includes(`--paint-phone: url(${paints[scene].phone.uri})`), `${pageOf(file)}: ${scene} is not painted with its phone crop`);
       count++;
     }
-    // A failed scene image steps aside for the paint (Layout.astro's head script).
-    if (/class="story-scene/.test(html)) assert.match(html, /addEventListener\('error'[^\n]*story-scene[^\n]*data-failed/, `${pageOf(file)} has no failed-image handler`);
+    // A failed scene image falls back to a smaller size, and steps aside for
+    // the paint only when every size has failed (Layout.astro's head script;
+    // taste review r12). scripts/image-fallback.mjs proves it in a browser.
+    if (/class="story-scene/.test(html)) {
+      assert.match(html, /addEventListener\('error', function \(e\) \{\s+var img = e\.target[\s\S]{0,400}closest\('\.story-scene'\)/, `${pageOf(file)} has no failed-image handler`);
+      assert.match(html, /c\.f === 'webp' && c\.w === 960[\s\S]{0,300}if \(!next\) \{ img\.setAttribute\('data-failed', ''\); return; \}/, `${pageOf(file)}: the failed-image handler does not step down to the 960 WebP before the paint`);
+    }
   }
   assert.ok(count > 60, `only ${count} scenes checked`);
   const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
