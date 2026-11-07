@@ -20,6 +20,13 @@
 // own parent, or of an inline ancestor up to the nearest block). Uses
 // Playwright's chromium; override with CHROME_PATH. --json <file> saves the
 // full result.
+//
+// Controls inside a demo window that only appear while it plays (a clip's
+// Pause/Play, a terminal demo's Skip and Replay, any tab) start out [hidden],
+// and under reduced motion they never show, so the first pass cannot see them
+// (taste review r16: the Ouro MD demo's Pause was 60x31 with a 32px hit area,
+// and this check missed it). A second pass shows each such button on its own,
+// probes it, and hides it again.
 
 import { chromium } from 'playwright';
 import { readFile, writeFile } from 'node:fs/promises';
@@ -95,6 +102,17 @@ function controls() {
   return all.length;
 }
 
+// Runs in the page: the [hidden] buttons whose own box would show once
+// unhidden (their parent is rendered), tagged for the second pass.
+function hiddenControls(start) {
+  const all = [...document.querySelectorAll('button[hidden], [role="button"][hidden], [role="tab"][hidden]')].filter((el) => {
+    const parent = el.parentElement;
+    return parent && parent.getClientRects().length && !parent.closest('[hidden], [inert], [aria-hidden="true"]');
+  });
+  all.forEach((el, i) => el.setAttribute('data-hit-probe', start + i));
+  return all.length;
+}
+
 function probe(i) {
   const el = document.querySelector(`[data-hit-probe="${i}"]`);
   el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'instant' });
@@ -138,6 +156,18 @@ for (const page of pages) {
         const line = `${width} ${page} ${r.label} ${r.size}: ${r.misses.length}/${r.probes} probes miss (e.g. ${r.misses[0].join(',')})`;
         const key = `${page} ${r.label}`;
         if (!seen.has(key)) result.failures.push(line);
+        seen.add(key);
+      }
+    }
+    const hiddenCount = await p.evaluate(hiddenControls, n);
+    result.controls += hiddenCount;
+    for (let i = n; i < n + hiddenCount; i++) {
+      await p.evaluate((i) => { document.querySelector(`[data-hit-probe="${i}"]`).hidden = false; }, i);
+      const r = await p.evaluate(probe, i);
+      await p.evaluate((i) => { document.querySelector(`[data-hit-probe="${i}"]`).hidden = true; }, i);
+      if (r.misses.length > r.probes / 3) {
+        const key = `${page} ${r.label}`;
+        if (!seen.has(key)) result.failures.push(`${width} ${page} ${r.label} ${r.size} (shown while a demo plays): ${r.misses.length}/${r.probes} probes miss (e.g. ${r.misses[0].join(',')})`);
         seen.add(key);
       }
     }

@@ -151,8 +151,8 @@ const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { hr
     })} />
   </head>
   <body class="bg-void text-bone font-body antialiased overflow-x-hidden">
-    {/* Atmospheric base — not pure black, a living dark gradient */}
-    <div class="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-void via-deep/50 to-void" aria-hidden="true"></div>
+    {/* The ground is the body's own colour. No full-page gradient wash under
+        it (taste review r16, 2026-11-07); ground bands tint sections. */}
     {/* Grain */}
     <div class="fixed inset-0 pointer-events-none z-50" style="background-image: url('/images/grain.png'); background-repeat: repeat; opacity: 0.03;" aria-hidden="true"></div>
 

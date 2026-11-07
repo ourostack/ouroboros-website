@@ -33,8 +33,13 @@ const ways = [
         </p>
 
         <ul class="signpost mt-10" aria-label="Ways back to the trail">
+          {/* Each arrow sits at its sign's pointed end: after the words on a
+              sign pointing right, before them on one pointing left (taste
+              review r16). */}
           {ways.map(([href, label], i) => (
-            <li><a href={href} class:list={['sign', i % 2 ? 'sign-left' : 'sign-right']}>{label}<span aria-hidden="true">{i % 2 ? ' ←' : ' →'}</span></a></li>
+            <li>{i % 2
+              ? <a href={href} class="sign sign-left"><span aria-hidden="true">← </span>{label}</a>
+              : <a href={href} class="sign sign-right">{label}<span aria-hidden="true"> →</span></a>}</li>
           ))}
         </ul>
       </div>

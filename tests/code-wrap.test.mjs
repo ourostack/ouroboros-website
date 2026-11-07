@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { hostEnd, wrapCode, wrapToken } from '../src/lib/code-wrap.mjs';
-import { listHtmlFiles, readDist } from './support/dist.mjs';
+import { listHtmlFiles, readDist, textOf } from './support/dist.mjs';
 import fs from 'node:fs';
 // Every named reference HTML knows (test only; the build does not need it).
 import { decodeHTML } from 'entities';
@@ -56,7 +56,10 @@ test('the built pages carry it, with no break-all anywhere', () => {
   assert.match(review, /class="fetch-url[^"]*code-long"[^>]*><span class="tok[^"]*">https:\/\/(?:<wbr><span class="tok-host">)?[a-z0-9.-]+\/(?:<\/span>)?<\/span><wbr>/);
   assert.match(review, /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host">hermes-agent\.nousresearch\.com\/<\/span><\/span>/);
   assert.match(readDist('blog/trust-the-agent/index.html'), /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host">github\.com\/<\/span><\/span><wbr><span class="tok">ourostack\/<\/span>/);
-  assert.match(readDist('lab/how-desk-started/index.html'), /<h1[^>]*>\s*(?:<span class="block"[^>]*>)?Slugger wrote himself a <span class="nobr">to-do<\/span> list\./);
+  // The h1 is held in phrases (.t-ph) since taste review r16; the hyphenated word still never breaks.
+  const deskH1 = readDist('lab/how-desk-started/index.html').match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1];
+  assert.match(deskH1, /<span class="nobr">to-do<\/span>/);
+  assert.match(textOf(deskH1), /^Slugger wrote himself a to-do list\. /);
   assert.match(readDist('lab/docs/index.html'), /<span class="tok">(?:[\w.-]+\/)?manifest\.json<\/span>/);
   for (const file of listHtmlFiles()) assert.doesNotMatch(fs.readFileSync(file, 'utf8'), /\bbreak-all\b|word-break:\s*break-all/, file);
 });

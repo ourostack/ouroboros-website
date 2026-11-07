@@ -38,13 +38,11 @@ const pieces = [
 
 <Layout title={title} description={description} ogImage={ogPathFor('/lab')} canonical="https://ouroboros.bot/lab/">
   <!-- The Lab's own opening: what the harness is to everything else -->
-  <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-32 md:pt-40 pb-6">
-    {/* The glow fades out before the section edge, so the overflow clip never cuts it (taste review r5). */}
-    <div class="hero-cover-glow absolute inset-0 pointer-events-none" aria-hidden="true"><div class="absolute top-0 left-1/4 w-[600px] h-[400px] rounded-full bg-scale/[0.06] blur-[160px] pointer-events-none"></div></div>
+  <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-32 md:pt-40 pb-14 md:pb-6">
     <div class="relative max-w-6xl mx-auto grid gap-5 split lg:items-end">
       <div class="grid gap-5 split-head">
         <p class="flex flex-wrap items-center gap-3"><span class="eyebrow">Lab</span><span class={`tag ${harness.tone}`}>{harness.label}</span></p>
-        <h1 class="heading-lead">The harness: where all of this <span class="text-scale">started.</span></h1>
+        <h1 class="heading-lead"><span class="t-clause">The harness:</span> <span class="t-clause"><span class="t-ph">where all of this</span> <span class="t-ph text-scale">started.</span></span></h1>
       </div>
       <div class="grid gap-5 split-body">
         <p class="text-lg md:text-xl text-mist leading-relaxed">Slugger was my OpenClaw agent. When he kept losing the thread, I built him a harness from scratch. Ouroboros is that harness, and it's where I test what agents need.</p>
@@ -62,7 +60,6 @@ const pieces = [
       (taste review r13: a hard seam under the opening at y≈853 in dark). */}
   <section class="trail-top relative px-6 md:px-12 lg:px-16 pt-10 pb-20 md:pt-12 md:pb-24 flex flex-col">
     <div class="ground-band ground-band-soft absolute inset-0 pointer-events-none overflow-hidden"></div>
-    <div class="hero-cover-glow absolute inset-0 pointer-events-none" aria-hidden="true"><div class="absolute top-1/3 left-1/4 w-[500px] h-[400px] md:w-[800px] md:h-[500px] rounded-full bg-scale/[0.04] blur-[150px] md:blur-[220px] pointer-events-none"></div></div>
 
     <div class="relative max-w-6xl mx-auto w-full flex-1 flex flex-col justify-center">
       <!-- Eyebrow -->
@@ -170,7 +167,6 @@ const pieces = [
 
   <!-- ═══════════════ BEGIN ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 py-24 sm:py-32 md:py-48 reveal">
-    <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent via-scale/[0.04] to-transparent pointer-events-none"></div>
 
     <div class="relative lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:items-start max-w-6xl mx-auto">
       <div class="mb-16 lg:mb-0 lg:sticky lg:top-32">

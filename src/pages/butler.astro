@@ -98,8 +98,10 @@ const chat = [
       </ul>
       <h3 class="does-name mt-8">Run the installer</h3>
       <p class="mt-4 text-lg text-mist leading-relaxed">Open the Unraid web terminal, download the installer, read it if you like, and run it. It asks a few questions, reads secrets with the echo off, and says what it is doing at each step. When it finishes, say hello to your bot on Telegram.</p>
-      <pre class="install"><code>curl -fsSLo /tmp/ouro-butler-install.sh {installer}
+      <pre id="butler-install" class="install"><code>curl -fsSLo /tmp/ouro-butler-install.sh {installer}
 bash /tmp/ouro-butler-install.sh</code></pre>
+      {/* Every command block carries the shared Copy button (taste review r16). */}
+      <div class="mt-3"><button type="button" data-copy-target="butler-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
       <p class="mt-6 product-links"><a href={guide} class={link}>The full install guide &#8599;</a> <a href={repo} class={link}>The Butler's deployment files &#8599;</a> <a href="/lab/" class={link}>The Ouroboros harness &rarr;</a></p>
     </div>
   </section>

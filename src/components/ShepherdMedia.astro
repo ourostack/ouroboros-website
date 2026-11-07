@@ -18,7 +18,7 @@ const lines: { text: string; kind: 'agent' | 'answer' | 'status' }[] = [
         <span class="sh-dot"></span><span class="sh-dot"></span><span class="sh-dot"></span>
         <span class="sh-title">api-refactor · Codex</span>
       </div>
-      <pre class="sh-body">{lines.map((line) => <span class={`sh-row sh-${line.kind}`}>{line.text}</span>)}</pre>
+      <pre class="sh-body" data-copy-exempt="a terminal demo">{lines.map((line) => <span class={`sh-row sh-${line.kind}`}>{line.text}</span>)}</pre>
     </div>
   </div>
   <figcaption class="product-caption">What an answer could look like in the terminal. Illustration, not real output.</figcaption>

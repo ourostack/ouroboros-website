@@ -54,7 +54,6 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
 >
   <!-- ═══════════════ HEADER ═══════════════ -->
   <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-40 md:pb-16">
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-undergrowth/10 to-void pointer-events-none"></div>
 
     <div class="max-w-6xl relative mx-auto split lg:items-end">
       <div class="split-head">
@@ -98,9 +97,9 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
   </section>
 
   <!-- ═══════════════ TRANSCRIPT ═══════════════ -->
-  <section class="relative px-6 md:px-12 lg:px-16 py-16 md:py-24">
+  <section class="relative px-6 md:px-12 lg:px-16 pt-10 pb-16 md:py-24">
     <div class="max-w-6xl relative mx-auto">
-      <div class="flex items-baseline gap-4 mb-14">
+      <div class="flex items-baseline gap-4 mb-14" data-section-start>
         <span class="font-mono text-sm text-fang uppercase tracking-[0.22em]">The transcript</span>
         <span class="h-px flex-1 bg-canopy/40"></span>
       </div>
@@ -139,7 +138,7 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
                             <span class="fetch-size font-mono text-xs text-mist tracking-wider">{action.resultLength} chars</span>
                           </summary>
                           <div class="pb-5 pt-2">
-                            <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
+                            <pre data-copy-exempt="what a model fetched or found, shown as evidence" class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
                             {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 [overflow-wrap:anywhere]">Exact prefix · SHA-256 {action.resultSha256}</p>}
                           </div>
                         </details>
@@ -152,7 +151,7 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
                             <span class="block mt-1.5 font-mono text-sm text-bone [overflow-wrap:anywhere]">{action.query}</span>
                           </summary>
                           <div class="pb-5 pt-2">
-                            <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
+                            <pre data-copy-exempt="what a model fetched or found, shown as evidence" class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
                             {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 [overflow-wrap:anywhere]">Exact prefix · SHA-256 {action.resultSha256}</p>}
                           </div>
                         </details>

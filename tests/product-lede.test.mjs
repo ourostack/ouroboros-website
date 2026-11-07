@@ -25,7 +25,9 @@ test('a tinted last section flows into the meadow', () => {
   const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
   assert.match(css, /main > \[class~="bg-deep\/40"\]:last-child \{ background: linear-gradient\(to bottom, [^;]*transparent\); \}/);
   assert.match(readDist('index.html'), /<section id="try" class="[^"]*\bbg-deep\/40\b/);
-  // /lab/model-reviews/ ends on a band that fades in and out from the page,
-  // not to opaque void, which sat as a lighter strip above the meadow in light.
-  assert.match(readDist('lab/model-reviews/index.html'), /bg-gradient-to-b from-transparent via-deep\/40 to-transparent/);
+  // /lab/model-reviews/ ends on the flat page ground, with no gradient wash
+  // behind its last section to sit as a strip above the meadow (taste review
+  // r16, 2026-11-07: no gradient washes outside the scene art; check:seams
+  // measures the join).
+  assert.doesNotMatch(readDist('lab/model-reviews/index.html'), /bg-gradient-to-b from-transparent via-deep\/\d+ to-transparent/);
 });

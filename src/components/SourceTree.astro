@@ -30,7 +30,7 @@ rows.push({ prefix: '└── ', name: '…', kind: 'more' })
     <span class="st-dot"></span><span class="st-dot"></span><span class="st-dot"></span>
     <a class="st-title" href={`https://github.com/ourostack/ouroboros/tree/${sourceSha}/src`}>ourostack/ouroboros</a>
   </div>
-  <pre class="st-body">{rows.map((row) => <span class="st-row"><span class="st-prefix" aria-hidden="true">{row.prefix}</span><span class={`st-${row.kind}`}>{row.name}</span></span>)}</pre>
+  <pre class="st-body" data-copy-exempt="a picture of a folder tree">{rows.map((row) => <span class="st-row"><span class="st-prefix" aria-hidden="true">{row.prefix}</span><span class={`st-${row.kind}`}>{row.name}</span></span>)}</pre>
 </div>
 
 <style>
