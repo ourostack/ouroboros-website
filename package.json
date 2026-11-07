@@ -21,7 +21,11 @@
     "check:menu": "node scripts/menu-fit.mjs",
     "check:hit": "node scripts/hit-areas.mjs",
     "check:h1": "node scripts/h1-lines.mjs",
-    "check:gap": "node scripts/hero-gap.mjs"
+    "check:gap": "node scripts/hero-gap.mjs",
+    "check:spaces": "node scripts/link-spaces.mjs",
+    "check:ends": "node scripts/line-ends.mjs",
+    "check:swap": "node scripts/label-swap.mjs",
+    "check:swipe": "node scripts/menu-swipe.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

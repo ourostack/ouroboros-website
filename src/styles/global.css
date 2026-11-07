@@ -368,6 +368,12 @@ p, li, dd, figcaption { text-wrap: pretty; }
 .t-ph { white-space: nowrap; }
 @media (max-width: 639.98px) { .t-clause { display: block; } }
 @media (min-width: 360px) { .t-ph-soft { white-space: nowrap; } }
+/* On the narrowest phones (under 360px) every h1 scales with the screen, so a
+   compound term ("Which agent harness", "Agent Experience?") fits whole on a
+   line and no line is left holding one word (Ari's ruling on taste review
+   r17, 2026-11-07: no phone h1 line holds a single word unless it is a whole
+   clause). It meets the usual sizes again at 360px. */
+@media (max-width: 359.98px) { h1 { font-size: min(2.5rem, 10.5vw); } }
 
 /* On a phone the body starts one even step below the hero: 48px (3rem) where
    it carries on, 96px (6rem) where it opens a titled section (taste review
@@ -659,6 +665,25 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .btn-primary:hover { background: var(--color-glow); box-shadow: 0 0 30px color-mix(in srgb, var(--color-scale) 35%, transparent); }
 .btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; border: 1px solid var(--color-canopy); color: var(--color-bone); padding: 0.75rem 1.25rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
 .btn-ghost:hover { border-color: var(--color-scale); color: var(--color-scale); }
+/* A button's label never wraps (Ari's ruling on taste review r17: "Read the
+   docs" wrapped inside its button at 320). Two buttons in a .btn-row sit side
+   by side while they fit; on a phone they share the row, and when they don't
+   fit they stack, each full width. scripts/line-ends.mjs checks every button
+   at 320, 390 and 430. */
+.btn-primary, .btn-ghost { white-space: nowrap; justify-content: center; }
+/* A control keeps one box when its label swaps (taste review r17: the Desk
+   demo's Replay/Skip jumped from 66px to 52px). A Copy label is as wide as
+   the longer of its own words and "Copied": an invisible, zero-height copy of
+   "Copied" sits under it, and a longer label keeps its own width too.
+   ouro.bot's styles.css has the same rule;
+   scripts/label-swap.mjs swaps every label and measures the box. */
+[data-copy-label], .prompt-copy-label { display: inline-flex; flex-direction: column; align-items: center; }
+[data-copy-label]::after, .prompt-copy-label::after { content: "Copied"; height: 0; overflow: hidden; visibility: hidden; white-space: nowrap; }
+/* A longer label names itself in data-copy-label ("Copy the brief"), so it
+   keeps its width while it reads "Copied". */
+[data-copy-label]::before { content: attr(data-copy-label); height: 0; overflow: hidden; visibility: hidden; white-space: nowrap; }
+.btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+@media (max-width: 639.98px) { .btn-row > * { flex: 1 1 auto; } }
 .prose-ouro a.btn-primary, .prose-ouro a.btn-primary:hover { color: var(--color-void); text-decoration: none; }
 /* Every button and link-button can be hit over at least 44x44, whatever its
    look (taste review r14, 2026-11-07: the docs Copy control was 61x16). The
@@ -675,7 +700,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    stand 44px tall themselves. Links inline in running prose are exempt, as
    WCAG allows. */
 .product-links { row-gap: 0; }
-.product-links a, .link-list a { display: inline-flex; align-items: center; min-height: 2.75rem; min-width: 2.75rem; }
+/* An inline-block, never a flex box: a flex box makes each run of its text a
+   flex item and drops the spaces between them, so "spoonjoy.app ↗", whose
+   host sits in a <span>, read "spoonjoy.app↗" (taste review r17). The padding
+   centres one line in the 44px. scripts/link-spaces.mjs checks every link. */
+.product-links a, .link-list a { display: inline-block; box-sizing: border-box; min-height: 2.75rem; min-width: 2.75rem; padding-block: max(0px, calc((2.75rem - 1lh) / 2)); }
 .exit-link { padding-block: 0.75rem; }
 
 /* ── The storybook world (src/components/StoryScene.astro) ──

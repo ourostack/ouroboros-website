@@ -9,6 +9,9 @@ const moved = [
   [/^\/og\/og-(docs(?:-[a-z-]+)?|model-reviews|story|why|what-is-an-agent-harness)\.png$/, '/og/og-lab-$1.jpg'],
   // The storybook cards (2026-11-06) are JPEGs; a card already posted as .png finds its new self.
   [/^\/og\/(og-[a-z0-9-]+)\.png$/, '/og/$1.jpg'],
+  // Crawlers and people try /sitemap.xml first; the sitemap is the index the
+  // build writes (taste review r17: /sitemap.xml served the 404 page).
+  [/^\/sitemap\.xml$/, '/sitemap-index.xml'],
 ]
 
 /** The new path for an old one, or null. Page paths end in a slash, so a

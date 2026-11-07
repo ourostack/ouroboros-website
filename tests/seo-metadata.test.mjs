@@ -280,6 +280,10 @@ test('old URLs redirect to their new homes and published posts keep theirs', asy
   assert.equal(redirectFor('/og/og-home.png'), '/og/og-home.jpg');
   assert.equal(redirectFor('/og/og-home.jpg'), null);
   assert.equal(redirectFor('/lab/docs/'), null);
+  // /sitemap.xml finds the sitemap the build writes (taste review r17: it served the 404 page).
+  assert.equal(redirectFor('/sitemap.xml'), '/sitemap-index.xml');
+  assert.ok(fs.existsSync(path.join(distDir, 'sitemap-index.xml')), 'sitemap-index.xml is not built');
+  assert.equal(redirectFor('/sitemap-index.xml'), null);
 });
 
 test('the worker answers an old URL with a 301 that keeps the query string', async () => {
