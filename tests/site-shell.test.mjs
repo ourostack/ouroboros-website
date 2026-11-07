@@ -49,7 +49,7 @@ test('homepage head and hero follow the deck, with a portrait linking to mendelo
   assert.equal(h1, 'How can humans and agents do more together?');
   const text = homeText();
   assert.ok(text.includes(description));
-  assert.match(html, /<a href="https:\/\/mendelow\.me" class="hero-pic[^"]*"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
+  assert.match(html, /<a href="https:\/\/mendelow\.me" class="hero-pic[^"]*"[^>]*>\s*<picture class="block w-full"[^>]*>\s*<source type="image\/avif" srcset="\/images\/workshop\/ari-portrait\.avif"[^>]*>\s*<source type="image\/webp" srcset="\/images\/workshop\/ari-portrait\.webp"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
   // root misses ruling 2.6: the sister site is off-site, so it takes ↗, as in the nav.
   assert.ok(text.includes('More about me ↗'));
   // root misses ruling 2.14: the portrait alt matches mendelow.me.

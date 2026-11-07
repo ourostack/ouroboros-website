@@ -71,7 +71,11 @@ const wastes = [
       <p class="hero-sub text-lg md:text-2xl text-bone leading-snug animate-fade-up stagger-1">Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.</p>
       </div>
       <a href="https://mendelow.me" class="hero-pic portrait group animate-fade-up stagger-2">
-        <img src="/images/workshop/ari-portrait.jpg" width="600" height="824" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." class="portrait-img" fetchpriority="high" />
+        <picture class="block w-full">
+          <source type="image/avif" srcset="/images/workshop/ari-portrait.avif" width="600" height="824" />
+          <source type="image/webp" srcset="/images/workshop/ari-portrait.webp" width="600" height="824" />
+          <img src="/images/workshop/ari-portrait.jpg" width="600" height="824" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." class="portrait-img" fetchpriority="high" />
+        </picture>
         <span class="portrait-link text-sm md:text-base">More about me <span aria-hidden="true">&#8599;</span></span>
       </a>
     </div>
