@@ -40,10 +40,12 @@ const hero = variant === 'hero'
 // r5): global.css never lets the box show less of the art than `floor` (the
 // cast's `need`, and never under 82%: taste review r8), and
 // object-position `y` keeps the cast inside whatever it shows; the bottom fade
-// starts at `fade`, below every character's foot (taste review r10).
+// starts at `fade`, below every character's foot (taste review r10). Where the
+// cast stands on the art's very foot, `apron` lays a little of the scene's own
+// paint below the art, so the fade has room below their feet (taste review r11).
 const frame = heroFrame(scene)
 const phoneAspect = hero
-  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%; --hero-fade: ${frame.fade}%`
+  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%; --hero-fade: ${frame.fade}%; --hero-origin: ${frame.origin}%${frame.apron ? `; --hero-apron: ${frame.apron}` : ''}`
   : `--phone-ar: ${pw} / ${ph}`
 // The scene's own dawn, painted behind the art (scripts/scene-paint.mjs): a
 // tiny soft preview of the wide art and of the phone crop, so a slow or failed
@@ -51,7 +53,7 @@ const phoneAspect = hero
 // (taste review r10).
 const paint = paints[scene]
 if (!paint) throw new Error(`StoryScene: no paint for ${scene}; run node scripts/scene-paint.mjs`)
-const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
+const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})${hero && frame.apron ? `; --paint-foot: url(${paint.foot.uri})` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
 const phoneAvif = `${base}/phone/${scene}-384.avif 384w, ${base}/phone/${scene}-768.avif 768w`

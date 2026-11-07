@@ -12,9 +12,13 @@
 //  - break:    at 320, 390 and 430, any line break inside a word of a URL or
 //    path (a word with "/", "\" or a host/file dot, or any text in code, kbd,
 //    pre or .font-mono) that is not right after a "/" or right before a ".",
-//    any break inside a URL's scheme and domain at all ("https://github" /
-//    ".com/...", "ouroboros" / ".bot/...": taste review r10), and any break
-//    inside an ordinary word that is not after a hyphen. A word is read
+//    any break inside a URL's scheme and domain ("https://github" /
+//    ".com/...", "ouroboros" / ".bot/...": taste review r10) except the one
+//    Ari allowed in round 11: right after the "//" when the scheme and host
+//    together are wider than the column, never inside the host unless it
+//    alone is ("https://hermes-agent.nousresearch.com/" at 320), and any
+//    break inside an ordinary word that is not after a hyphen; in a heading,
+//    not after a hyphen either ("to-" / "do": taste review r11). A word is read
 //    across the build's <wbr>-joined pieces (src/lib/code-wrap.mjs), so a
 //    break between two pieces counts like one inside a text node. A break
 //    inside a single segment wider than its whole column is the one allowed
@@ -102,7 +106,7 @@ function analyse(checkOverflow) {
   const FILE_EXT = /^(?:md|mdx|json|jsonc|jsonl|mjs|cjs|js|ts|tsx|jsx|html?|css|txt|ya?ml|sh|astro|png|jpe?g|webp|avif|gif|svg|toml|lock|plist|swift|py|rb|go|rs|zip|gz|tgz|pdf|xml|log|env|cfg|ini|conf|webmanifest|csv|wasm|dmg|pkg)$/i;
   const TLD = /^(?:com|org|net|io|dev|ai|app|bot|me|co|gg|xyz|so|to|us|uk|ca|de|fr|jp|ly|tv|fm|page|site|cloud|tech|run|build|link|blog|news|codes|tools|works|world|email|edu|gov|info)$/i;
   const hostEnd = (word) => {
-    const m = word.match(/^[("'[]*((?:[a-z][a-z0-9+.-]*:\/\/)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(?::\d+)?/);
+    const m = word.match(/^(?:[A-Za-z-]+=)?[("'[<]*((?:[a-z][a-z0-9+.-]*:\/\/)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(?::\d+)?/);
     if (!m) return 0;
     const [all, scheme, , tld] = m;
     const next = word[all.length];
@@ -115,10 +119,15 @@ function analyse(checkOverflow) {
   // the scheme and domain; in an ordinary word also after a hyphen or dash,
   // before an opening bracket or a dash, and anywhere next to CJK text.
   const cjk = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
-  const allowed = (word, isPath, host) => (i) =>
+  // A heading never breaks at a hyphen (taste review r11: "to-" / "do" in
+  // the /lab/how-desk-started/ h1 at 320); an en or em dash may still end a line.
+  const allowed = (word, isPath, host, inHeading = false) => (i) =>
     i > host &&
     ((word[i - 1] === '/' && word[i] !== '/') || /[.?#]/.test(word[i]) ||
-      (!isPath && (/[-‐-—­]/.test(word[i - 1]) || /[([{‐-—]/.test(word[i]) || cjk.test(word[i - 1]) || cjk.test(word[i]))));
+      (!isPath && ((inHeading ? /[‒–—]/ : /[-‐-—­]/).test(word[i - 1]) || /[([{‐-—]/.test(word[i]) || cjk.test(word[i - 1]) || cjk.test(word[i]))));
+  const headingOf = (el) => el.closest('h1,h2,h3,h4,h5,h6,[class*="heading-"]');
+  // Where a word's scheme ends, just after its "//"; 0 without one.
+  const schemeEnd = (word) => word.match(/^(?:[A-Za-z-]+=)?[("'[<]*[a-z][a-z0-9+.-]*:\/\//)?.[0].length ?? 0;
   // A URL, path, host or file name, a flag, or any word of inline code.
   const pathy = (el, word) =>
     /[/\\~]/.test(word) || /[A-Za-z0-9]\.[A-Za-z]{2,}/.test(word) || /^["'(]?--?[a-z]/.test(word) || !!el.closest('code,kbd,samp');
@@ -171,13 +180,26 @@ function analyse(checkOverflow) {
       const wr = rectsOf(node, m.index, m.index + word.length);
       if (!wr.length || !lines(wr)) continue;
       const isPath = pathy(el, word);
-      const ok = allowed(word, isPath, hostEnd(word));
+      const host = hostEnd(word);
+      const ok = allowed(word, isPath, host, !!headingOf(el));
       let prevTop = null;
       for (let i = 0; i < word.length; i++) {
         const q = rectsOf(node, m.index + i, m.index + i + 1)[0];
         if (!q) continue;
         const top = q.top;
         if (prevTop !== null && Math.abs(top - prevTop) > step && !ok(i)) {
+          // Inside the scheme and host, the last resort is narrower (taste
+          // review r11, Ari's ruling): right after the "//" only when the
+          // scheme and host together are wider than the column, and inside
+          // the host only when the host alone is.
+          const scheme = schemeEnd(word);
+          if (i <= host) {
+            const width = (a, b) => rectsOf(node, m.index + a, m.index + b).reduce((sum, r) => sum + r.width, 0);
+            const tooWide = i === scheme ? width(0, host) > box.width - 2 : i > scheme && width(scheme, host) > box.width - 2;
+            if (!tooWide) out.breaks.push(`${isPath ? 'path' : 'word'} ${label(el)}: "${word.slice(0, i)}|${word.slice(i)}"${i === scheme ? ' (scheme split from a host that fits with it)' : ' (inside the host)'}`.slice(0, 180));
+            prevTop = top;
+            continue;
+          }
           // The last resort: the segment holding this break, between the
           // nearest allowed break points, is wider than the whole column.
           let a = i;
@@ -224,6 +246,26 @@ function analyse(checkOverflow) {
       out.breaks.push(`path ${label(first.parentElement)}: "${word.slice(0, at)}|${word.slice(at)}"`.slice(0, 160));
     }
   }
+  // A long scheme and host (<span class="tok-url">https://<wbr><span
+  // class="tok-host">host/</span></span>) may break right after the "//" only
+  // when the two together are wider than the column, and the host never
+  // breaks unless it alone is (taste review r11, Ari's ruling).
+  for (const url of document.querySelectorAll('.tok-url')) {
+    const hostEl = url.querySelector('.tok-host');
+    if (!hostEl || hidden(url)) continue;
+    const range2 = document.createRange();
+    range2.selectNodeContents(url.firstChild);
+    const s1 = [...range2.getClientRects()].filter((q) => q.width > 0.5);
+    const h = [...hostEl.getClientRects()].filter((q) => q.width > 0.5);
+    if (!s1.length || !h.length) continue;
+    const box = contentBox(colOf(url.parentElement || url));
+    const step = Math.max(6, parseFloat(getComputedStyle(url).fontSize) * 0.6);
+    const schemeW = s1.reduce((sum, r) => sum + r.width, 0);
+    const hostW = hostEl.scrollWidth || h.reduce((sum, r) => sum + r.width, 0);
+    const text = url.textContent;
+    if (Math.abs(h[0].top - s1[s1.length - 1].top) > step && schemeW + hostW <= box.width - 2) out.breaks.push(`path ${label(url.parentElement)}: "${text.slice(0, url.firstChild.textContent.length)}|${text.slice(url.firstChild.textContent.length)}" (scheme split from a host that fits with it)`);
+    if (h.length > 1 && h.some((q) => Math.abs(q.top - h[0].top) > step) && hostW <= box.width - 2) out.breaks.push(`path ${label(url.parentElement)}: "${text}" (inside the host)`);
+  }
   out.overflow = [...new Set(out.overflow)];
   out.breaks = [...new Set(out.breaks)];
   return out;
@@ -237,6 +279,8 @@ for (const page of pages) {
     const p = await ctx.newPage();
     await p.goto(base + page, { waitUntil: 'load' });
     await p.evaluate(() => document.fonts.ready);
+    // Folded excerpts count too (taste review r11's hermes URL sat in one).
+    await p.evaluate(() => document.querySelectorAll('details').forEach((d) => (d.open = true)));
     const r = await p.evaluate(analyse, width === 320);
     for (const item of r.overflow) result.overflow.push(`${width} ${page} ${item}`);
     for (const item of r.breaks) result.breaks.push(`${width} ${page} ${item}`);
