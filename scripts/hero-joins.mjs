@@ -23,6 +23,13 @@
 // src/data/scenes.mjs). A character the art itself cuts at its own edge
 // (phoneArtEdge) is reported, not failed.
 //
+// At every width above, it also fails when a page's breadcrumb (the Lab's
+// "<- Lab · page · status" row) is not aligned like its h1 (Ari's ruling,
+// taste review r14): under a centred title, the breadcrumb's visible items
+// centre on the column, and so does the block that directly follows a
+// centred hero ("Words used here"); under a left-aligned title, the
+// breadcrumb starts at the column's left edge.
+//
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.
 
@@ -109,6 +116,36 @@ function measure() {
   return { foot: Math.round(foot), found };
 }
 
+// Runs in the page: does the breadcrumb (and the block after a centred hero) align with the h1?
+function alignment() {
+  const crumbs = document.querySelector('.lab-status .lab-items');
+  const h1 = document.querySelector('main h1');
+  if (!crumbs || !h1 || !crumbs.getClientRects().length) return null;
+  const problems = [];
+  const box = (el) => {
+    const r = el.getBoundingClientRect();
+    const s = getComputedStyle(el);
+    return { left: r.left + parseFloat(s.paddingLeft), right: r.right - parseFloat(s.paddingRight) };
+  };
+  // The visible span of the row, on every line it takes: each item's own
+  // content, after the padding that holds its leading dot.
+  const items = [...crumbs.children];
+  const left = Math.min(...items.map((i) => i.getBoundingClientRect().left + parseFloat(getComputedStyle(i).paddingLeft)));
+  const right = Math.max(...items.map((i) => i.getBoundingClientRect().right));
+  const col = box(crumbs.closest('.lab-line'));
+  const centred = getComputedStyle(h1).textAlign === 'center';
+  const mid = (left + right) / 2 - (col.left + col.right) / 2;
+  if (centred && Math.abs(mid) > 4) problems.push(`breadcrumb sits ${mid.toFixed(0)}px off the centre under a centred h1`);
+  if (!centred && Math.abs(left - col.left) > 2) problems.push(`breadcrumb starts ${(left - col.left).toFixed(0)}px from the column's left under a left-aligned h1`);
+  if (centred) {
+    const hero = h1.closest('section');
+    const next = hero?.nextElementSibling;
+    const block = next?.matches('[data-glossary]') ? next : next?.querySelector(':scope > [data-glossary]');
+    if (block && getComputedStyle(block).textAlign !== 'center') problems.push('the block after a centred hero ("Words used here") is not centred');
+  }
+  return problems;
+}
+
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 const result = { base, pages: pages.length, checked: 0, failures: [], joins: [] };
 for (const page of pages) {
@@ -118,6 +155,7 @@ for (const page of pages) {
     await p.goto(base + page, { waitUntil: 'load' });
     await p.evaluate(() => document.fonts.ready);
     const m = await p.evaluate(measure);
+    for (const a of (await p.evaluate(alignment)) ?? []) result.failures.push(`${width} ${page} ${a}`);
     await ctx.close();
     if (!m) continue;
     result.checked++;
@@ -140,6 +178,7 @@ for (const page of pages) {
       const r = img.getBoundingClientRect();
       return { scene: wrap.getAttribute('data-brand-scene'), left: r.left, width: r.width, vw: document.documentElement.clientWidth };
     });
+    for (const a of (await p.evaluate(alignment)) ?? []) result.failures.push(`${width} ${page} ${a}`);
     await ctx.close();
     if (!m) continue;
     result.phoneChecked++;

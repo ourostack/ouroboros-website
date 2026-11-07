@@ -11,7 +11,9 @@
 //    whose box extends past its column, unless the column scrolls sideways;
 //  - break:    at 320, 390 and 430, any line break inside a word of a URL or
 //    path (a word with "/", "\" or a host/file dot, or any text in code, kbd,
-//    pre or .font-mono) that is not right after a "/" or right before a ".",
+//    pre or .font-mono) that is not right after a "/" (or before a URL's "?"
+//    or "#"); a file name never breaks before its extension (Ari's ruling,
+//    taste review r14),
 //    any break inside a URL's scheme and domain ("https://github" /
 //    ".com/...", "ouroboros" / ".bot/...": taste review r10) except the one
 //    Ari allowed in round 11: right after the "//" when the scheme and host
@@ -115,7 +117,7 @@ function analyse(checkOverflow) {
     if (next !== undefined && !/[/?#:)"'\].,;!&]/.test(next)) return 0;
     return all.length;
   };
-  // Allowed: after a "/", before a "." or a URL's "?" or "#", never inside
+  // Allowed: after a "/" or before a URL's "?" or "#", never inside
   // the scheme and domain; in an ordinary word also after a hyphen or dash,
   // before an opening bracket or a dash, and anywhere next to CJK text.
   const cjk = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
@@ -123,8 +125,16 @@ function analyse(checkOverflow) {
   // the /lab/how-desk-started/ h1 at 320); an en or em dash may still end a line.
   const allowed = (word, isPath, host, inHeading = false) => (i) =>
     i > host &&
-    ((word[i - 1] === '/' && word[i] !== '/') || /[.?#]/.test(word[i]) ||
+    ((word[i - 1] === '/' && word[i] !== '/') || /[?#]/.test(word[i]) ||
       (!isPath && ((inHeading ? /[‒–—]/ : /[-‐-—­]/).test(word[i - 1]) || /[([{‐-—]/.test(word[i]) || cjk.test(word[i - 1]) || cjk.test(word[i]))));
+  // A break inside a file name's last segment, before its extension
+  // ("latest-ready" / ".json", "https://ouroboros.bot/brief" / ".md"): Ari's
+  // ruling, taste review r14, replacing round 11's break before a file
+  // name's ".". The last path segment never breaks; only "/" offers a break.
+  const extBreak = (word, i) => {
+    const seg = word.slice(word.lastIndexOf('/', i - 1) + 1);
+    return /\.[A-Za-z][\w-]*/.test(seg.slice(i - (word.length - seg.length))) && FILE_EXT.test((seg.match(/\.([A-Za-z0-9]+)\W*$/) || [])[1] || '') ? ' (before the extension)' : '';
+  };
   const headingOf = (el) => el.closest('h1,h2,h3,h4,h5,h6,[class*="heading-"]');
   // Where a word's scheme ends, just after its "//"; 0 without one.
   const schemeEnd = (word) => word.match(/^(?:[A-Za-z-]+=)?[("'[<]*[a-z][a-z0-9+.-]*:\/\//)?.[0].length ?? 0;
@@ -207,7 +217,7 @@ function analyse(checkOverflow) {
           let b = i;
           while (b < word.length && !ok(b)) b++;
           const seg = rectsOf(node, m.index + a, m.index + b).reduce((sum, r) => sum + r.width, 0);
-          if (seg <= box.width - 2) out.breaks.push(`${isPath ? 'path' : 'word'} ${label(el)}: "${word.slice(0, i)}|${word.slice(i)}"`.slice(0, 160));
+          if (seg <= box.width - 2) out.breaks.push(`${isPath ? 'path' : 'word'} ${label(el)}: "${word.slice(0, i)}|${word.slice(i)}"${extBreak(word, i)}`.slice(0, 180));
         }
         prevTop = top;
       }
@@ -243,7 +253,7 @@ function analyse(checkOverflow) {
         }
         if (seg > box.width - 2) continue;
       }
-      out.breaks.push(`path ${label(first.parentElement)}: "${word.slice(0, at)}|${word.slice(at)}"`.slice(0, 160));
+      out.breaks.push(`path ${label(first.parentElement)}: "${word.slice(0, at)}|${word.slice(at)}"${extBreak(word, at)}`.slice(0, 180));
     }
   }
   // A long scheme and host (<span class="tok-url">https://<wbr><span

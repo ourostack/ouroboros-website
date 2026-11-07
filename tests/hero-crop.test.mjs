@@ -79,11 +79,21 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
 // fullest. Where the cast stands on the art's very foot, the box runs on past
 // the art by --hero-apron, and the fade runs over that.
 test('global.css starts each hero\'s fade, and its drift, at the page\'s own --hero-fade', () => {
-  const at = css.indexOf('.story-hero {\n  -webkit-mask-image');
+  const at = css.indexOf('.story-hero {\n  --fade-at: var(--hero-fade');
   assert.ok(at >= 0, 'global.css has no .story-hero mask rule');
   const rule = css.slice(at, css.indexOf('}', at));
-  assert.match(rule, /-webkit-mask-image:[^;]*#000 var\(--hero-fade, [\d.]+%\), transparent 100%\)/);
-  assert.match(rule, /\bmask-image:[^;]*#000 var\(--hero-fade, [\d.]+%\), transparent 100%\)/);
+  assert.match(rule, /--fade-at: var\(--hero-fade, [\d.]+%\);\s+--fade-run: calc\(100% - var\(--hero-fade, [\d.]+%\)\);/);
+  // The fade eases (taste review r14), and over its first half, where a
+  // foot may sit, it never keeps less than the straight ramp heroFrame()
+  // and fadeAlpha() assume.
+  for (const prop of ['-webkit-mask-image', 'mask-image']) {
+    const value = rule.match(new RegExp(`(?:^|\\s)${prop}: ([^;]+);`))?.[1] ?? '';
+    assert.match(value, /^linear-gradient\(to bottom, #000 0%, #000 var\(--fade-at\), /, prop);
+    assert.match(value, /, transparent 100%\)$/, prop);
+    const stops = [...value.matchAll(/rgb\(0 0 0 \/ ([\d.]+)\) calc\(var\(--fade-at\) \+ var\(--fade-run\) \* ([\d.]+)\)/g)].map(([, a, t]) => [+t, +a]);
+    assert.ok(stops.length >= 5, `${prop}: an eased fade has its stops`);
+    for (const [t, a] of stops) if (t <= 0.5) assert.ok(a >= 1 - t, `${prop}: at ${t} of the fade it keeps ${a}, under the straight ramp's ${1 - t}`);
+  }
   assert.match(css, /\.story-hero img \{ transform-origin: 58% var\(--hero-origin, [\d.]+%\); animation: story-drift/);
   assert.match(css, /\.story-hero \{ padding-bottom: calc\(var\(--hero-apron, 0\) \* var\(--hero-arh, [\d.]+\) \* 100vw\); \}/);
   assert.match(css, /@keyframes story-drift \{ from \{[^}]*\} to \{ transform: scale\(1\.02\)/);

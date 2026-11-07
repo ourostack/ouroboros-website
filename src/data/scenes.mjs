@@ -294,6 +294,15 @@ export const DRIFT = 1.02
 // fades over that instead, starting at APRON_FADE of the box, so the feet
 // stay whole and the edge stays soft (taste review r11).
 export const APRON_FADE = 0.9
+// Taste review r14 (2026-11-07): at 1440 the picnic blanket on /lab/why/
+// smeared into an ochre band, because a short apron of one averaged row was
+// all the fade had to run over. An apron is now at least APRON_MIN of the
+// art's height, painted with a soft mirror of the art's own foot
+// (scripts/scene-paint.mjs), and its fade starts as early as the cast allows,
+// so the meadow dissolves over a long, eased edge instead of a short band.
+export const APRON_MIN = 0.16
+// The apron's melt stops this far (a share of the art's height) below the cast's lowest point.
+export const BLEND_CLEAR = 0.008
 
 /** Where a point of the art (a fraction of its height) lands in the image at this share and crop, before the drift. */
 export const inBox = (at, share, y) => (at - y * (1 - share)) / share
@@ -361,8 +370,12 @@ export function heroFrame(scene) {
     y = headClear(floor)
     fade = APRON_FADE
     origin = 1
-    const ok = (a) => shares(floor).every((s) => fadeAlpha(footInHero(scene, { share: s, y, apron: a, origin }), fade) >= FOOT_ALPHA)
+    const ok = (a, f = fade) => shares(floor).every((s) => fadeAlpha(footInHero(scene, { share: s, y, apron: a, origin }), f) >= FOOT_ALPHA)
+    apron = APRON_MIN
     while (!ok(apron)) apron = +(apron + 0.005).toFixed(3)
+    // The longest fade the cast allows: start it as early as the foot still
+    // keeps FOOT_ALPHA of itself (never above FADE_START).
+    while (fade - 0.005 >= FADE_START && ok(apron, +(fade - 0.005).toFixed(3))) fade = +(fade - 0.005).toFixed(3)
   }
   return {
     need: +need.toFixed(3),
@@ -372,6 +385,11 @@ export function heroFrame(scene) {
     fade: Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10,
     apron,
     origin: origin === undefined ? Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10 : origin * 100,
+    // How far up the art the apron's paint melts in: as far as it can while
+    // staying under the cast's lowest point (taste review r14: a short melt
+    // left the art's sharp foot showing as a line above the soft apron). In
+    // the art's height, from the foot the box shows at its least share.
+    blend: apron ? +Math.max(0.012, y * (1 - floor) + floor - foot - BLEND_CLEAR).toFixed(3) : 0,
     foot,
   }
 }

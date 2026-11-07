@@ -639,6 +639,13 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; border: 1px solid var(--color-canopy); color: var(--color-bone); padding: 0.75rem 1.25rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
 .btn-ghost:hover { border-color: var(--color-scale); color: var(--color-scale); }
 .prose-ouro a.btn-primary, .prose-ouro a.btn-primary:hover { color: var(--color-void); text-decoration: none; }
+/* Every button and link-button can be hit over at least 44x44, whatever its
+   look (taste review r14, 2026-11-07: the docs Copy control was 61x16). The
+   control keeps its size; an invisible ::after, centred on it, reaches out to
+   44px where the control is smaller. scripts/hit-areas.mjs checks every
+   control on every page at 320 and 390. */
+.btn-primary, .btn-ghost, .hit { position: relative; }
+.btn-primary::after, .btn-ghost::after, .hit::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 2.75rem); height: max(100%, 2.75rem); transform: translate(-50%, -50%); }
 
 /* ── The storybook world (src/components/StoryScene.astro) ──
    A page arrives in its scene: full bleed under the glass nav, the dawn
@@ -668,25 +675,39 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    StoryScene sets --hero-fade per scene from heroFrame(): 72% where the cast
    stands high, as late as 94% where it stands near the art's foot.
    tests/hero-crop.test.mjs holds every hero to it. */
+/* The fade eases in and out (a smoothstep, not a straight ramp), so a
+   saturated meadow dissolves into the page without a visible band at either
+   end of the fade (taste review r14: an ochre band under the picnic blanket
+   on /lab/why/ at 1440). Every stop keeps at least the straight ramp's
+   opacity over the fade's first half, where the cast's foot sits, so the
+   cast keeps at least as much of itself as heroFrame() promises. */
 .story-hero {
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--hero-fade, 72%), transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 var(--hero-fade, 72%), transparent 100%);
+  --fade-at: var(--hero-fade, 72%);
+  --fade-run: calc(100% - var(--hero-fade, 72%));
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--fade-at), rgb(0 0 0 / .972) calc(var(--fade-at) + var(--fade-run) * .1), rgb(0 0 0 / .896) calc(var(--fade-at) + var(--fade-run) * .2), rgb(0 0 0 / .784) calc(var(--fade-at) + var(--fade-run) * .3), rgb(0 0 0 / .648) calc(var(--fade-at) + var(--fade-run) * .4), rgb(0 0 0 / .5) calc(var(--fade-at) + var(--fade-run) * .5), rgb(0 0 0 / .352) calc(var(--fade-at) + var(--fade-run) * .6), rgb(0 0 0 / .216) calc(var(--fade-at) + var(--fade-run) * .7), rgb(0 0 0 / .104) calc(var(--fade-at) + var(--fade-run) * .8), rgb(0 0 0 / .028) calc(var(--fade-at) + var(--fade-run) * .9), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 var(--fade-at), rgb(0 0 0 / .972) calc(var(--fade-at) + var(--fade-run) * .1), rgb(0 0 0 / .896) calc(var(--fade-at) + var(--fade-run) * .2), rgb(0 0 0 / .784) calc(var(--fade-at) + var(--fade-run) * .3), rgb(0 0 0 / .648) calc(var(--fade-at) + var(--fade-run) * .4), rgb(0 0 0 / .5) calc(var(--fade-at) + var(--fade-run) * .5), rgb(0 0 0 / .352) calc(var(--fade-at) + var(--fade-run) * .6), rgb(0 0 0 / .216) calc(var(--fade-at) + var(--fade-run) * .7), rgb(0 0 0 / .104) calc(var(--fade-at) + var(--fade-run) * .8), rgb(0 0 0 / .028) calc(var(--fade-at) + var(--fade-run) * .9), transparent 100%);
 }
 /* Where the cast stands on the art's very foot (the picnic robots' shoes on
    /brief/ and /lab/why/), no fade inside the art keeps them whole (taste
    review r11). StoryScene sets --hero-apron, a share of the art's own height:
    the box runs that much past the art's foot, painted with the colours of
-   the art's own last rows (--paint-foot, scripts/scene-paint.mjs), which melt
-   over its final 1.2% so there is no seam, and the fade runs over that. Wide
+   a soft mirror of the art's own foot (--paint-foot, scripts/scene-paint.mjs;
+   taste review r14 replaced one averaged row, which smeared), which melt
+   over the art's foot below every character (--hero-blend) so there is no seam, and the fade runs over that. Wide
    screens only; a phone shows its own crop with its own short fade. */
 @media (min-width: 641px) {
   .story-hero { padding-bottom: calc(var(--hero-apron, 0) * var(--hero-arh, 0.375) * 100vw); }
   .story-hero[style*="--hero-apron"]::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none;
-    height: calc((var(--hero-apron, 0) + 0.012) * var(--hero-arh, 0.375) * 100vw + 1px);
-    background: var(--paint-foot, none) 0 0 / 100% 100% no-repeat;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 calc(0.012 * var(--hero-arh, 0.375) * 100vw));
-    mask-image: linear-gradient(to bottom, transparent 0, #000 calc(0.012 * var(--hero-arh, 0.375) * 100vw));
+    height: calc((var(--hero-apron, 0) + var(--hero-blend, 0.012)) * var(--hero-arh, 0.375) * 100vw + 1px);
+    /* The meadow's own colours, washed toward the page as they go down: a
+       light morning mist, never a darker mid-tone (taste review r14: the
+       blanket's reds and the meadow's greens mixed into an ochre band). */
+    background:
+      linear-gradient(to bottom, transparent calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 100vw), color-mix(in oklab, var(--color-void) 45%, transparent) 40%, color-mix(in oklab, var(--color-void) 80%, transparent) 75%, var(--color-void) 100%),
+      var(--paint-foot, none) 0 0 / 100% 100% no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / .5) calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 50vw), #000 calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 100vw));
+    mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / .5) calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 50vw), #000 calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 100vw));
   }
 }
 /* On a phone the box takes the phone crop's own aspect (StoryScene sets
@@ -696,10 +717,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero img, .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: var(--phone-ar, 4 / 3); max-height: none; }
   /* A phone crop is short, and Ouro's lowest coil sits near its foot: a long
      fade washed him out (taste review r3). A short, steep fade starts below him. */
-  .story-hero {
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 90%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 90%, transparent 100%);
-  }
+  .story-hero { --fade-at: 90%; --fade-run: 10%; }
 }
 /* The first section after a scene no longer has to clear the nav. Unlayered,
    so it wins over each page's own pt-* utility. */
@@ -830,6 +848,22 @@ main > section.border-t::before, .trail-top::before {
 .lab-line .lab-item { position: relative; display: inline-flex; align-items: center; padding-left: 1.25rem; }
 .lab-line .lab-item::before { content: "\00B7"; position: absolute; left: 0.5rem; color: var(--color-shadow); }
 .lab-line .lab-crumb { color: var(--color-mist); }
+/* A centred hero (HeroCover) centres the way in and out of it too: the
+   breadcrumb and its status chip, and the block that follows the lead, such
+   as "Words used here" (Ari's ruling, taste review r14: a left-aligned
+   breadcrumb above a centred title on six Lab pages, and the glossary flush
+   left under a centred lead on a phone). Centred, the row has no hidden
+   start for a dot to sit in, so the first item and the status chip carry
+   none: the chip is set off by the row's gap, which also falls away where
+   the chip wraps to a line of its own (/lab/docs/ at 320), so no line
+   starts on a stray dot. scripts/hero-joins.mjs holds every page's
+   breadcrumb to its h1's alignment. */
+.lab-status:has(+ .hero-cover) .lab-items { justify-content: center; margin-left: 0; column-gap: 0.625rem; }
+.lab-status:has(+ .hero-cover) .lab-item { padding-left: 0.625rem; }
+.lab-status:has(+ .hero-cover) .lab-item::before { left: 0; transform: translateX(-50%); }
+.lab-status:has(+ .hero-cover) :is(.lab-item:first-child, .lab-item:has(> .tag)) { padding-left: 0; }
+.lab-status:has(+ .hero-cover) :is(.lab-item:first-child, .lab-item:has(> .tag))::before { content: none; }
+.hero-cover + * > [data-glossary], .hero-cover + [data-glossary] { text-align: center; }
 .hero-cover-glow { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%); mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%); }
 
 /* The page you are on, in the nav: the ink colour and a line of trail light

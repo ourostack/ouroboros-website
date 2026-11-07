@@ -17,7 +17,9 @@
     "check:hero": "node scripts/hero-joins.mjs",
     "check:column": "node scripts/phone-column.mjs",
     "check:fallback": "node scripts/image-fallback.mjs",
-    "check:seams": "node scripts/section-seams.mjs"
+    "check:seams": "node scripts/section-seams.mjs",
+    "check:menu": "node scripts/menu-fit.mjs",
+    "check:hit": "node scripts/hit-areas.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

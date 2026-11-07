@@ -61,7 +61,7 @@ const TLD = /^(?:com|org|net|io|dev|ai|app|bot|me|co|gg|xyz|so|to|us|uk|ca|de|fr
 export function hostEnd(word) {
   // The word is HTML-escaped: a leading quote arrives as "&quot;". An
   // attribute name may come first, as in quoted markup: href="https://...".
-  const m = word.match(/^(?:[A-Za-z-]+=)?(?:[("'[]|&quot;|&#39;|&#x27;|&lt;)*((?:[a-z][a-z0-9+.-]*:\/\/)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(?::\d+)?/);
+  const m = word.match(/^(?:[A-Za-z-]+=)?(?:[("'[<]|&quot;|&#39;|&#x27;|&lt;)*((?:[a-z][a-z0-9+.-]*:\/\/)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(?::\d+)?/);
   if (!m) return 0;
   const [all, scheme, , tld] = m;
   const next = word[all.length];
@@ -70,41 +70,78 @@ export function hostEnd(word) {
   // ("client.chat.completions" is code), and a file extension with nothing
   // after it makes a file name ("install.sh").
   if (!TLD.test(tld) || (next !== '/' && FILE_EXT.test(tld))) return 0;
-  if (next !== undefined && !/[/?#:)"'\].,;!]/.test(next) && !word.startsWith('&', all.length)) return 0;
+  if (next !== undefined && !/[/?#:)"'\].,;!<>&]/.test(next)) return 0;
   return all.length;
 }
 
 /** Where a word's scheme ends, just after its "//" ("https://" in "https://x.io/a"); 0 when it has none. */
 export function schemeEnd(word) {
-  const m = word.match(/^(?:[A-Za-z-]+=)?(?:[("'[]|&quot;|&#39;|&#x27;|&lt;)*[a-z][a-z0-9+.-]*:\/\//);
+  const m = word.match(/^(?:[A-Za-z-]+=)?(?:[("'[<]|&quot;|&#39;|&#x27;|&lt;)*[a-z][a-z0-9+.-]*:\/\//);
   return m ? m[0].length : 0;
+}
+
+// Character references in the token's HTML (taste review r14: the old
+// splitter cut "&#123;" before its "#" and readers saw "&#123;", "&#125;" and
+// "&#39;" in code). A token is decoded to the text a reader sees, split and
+// measured as text, and each piece is escaped again on the way out, so a
+// break can never fall inside a reference. A named reference this table does
+// not know is held as one private-use character and restored unchanged.
+const NAMED = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: '\u00a0' };
+const ENTITY = /&(?:#(\d+)|#x([0-9a-f]+)|([a-z][a-z0-9]*));/gi;
+const HELD_BASE = 0xf0000;
+
+/** Decodes an HTML text fragment. Returns the text and the references it could not decode. */
+export function decodeEntities(html) {
+  const held = [];
+  const text = html.replace(ENTITY, (ref, dec, hex, name) => {
+    const code = dec ? Number(dec) : hex ? parseInt(hex, 16) : undefined;
+    if (code !== undefined && code > 0 && code <= 0x10ffff && !(code >= 0xd800 && code <= 0xdfff)) return String.fromCodePoint(code);
+    if (name && Object.hasOwn(NAMED, name.toLowerCase()) && name === name.toLowerCase()) return NAMED[name];
+    return String.fromCodePoint(HELD_BASE + held.push(ref) - 1);
+  });
+  return { text, held };
+}
+
+/** Escapes text for an HTML text node, restoring any held references. */
+export function escapeText(text, held = []) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/[\u{f0000}-\u{ffffd}]/gu, (c) => held[c.codePointAt(0) - HELD_BASE] ?? '');
 }
 
 /** The inner HTML for one token's text (already HTML-escaped). */
 export function wrapToken(raw) {
+  const { text, held } = decodeEntities(raw);
+  const esc = (t) => escapeText(t, held);
   // The scheme and domain are one piece, with the slash after them. Then
-  // pieces end after a run of slashes, before the dot of a file name, before
-  // a URL's "?" or "#", or at a space.
-  return raw
+  // pieces end after a run of slashes, before a URL's "?" or "#", or at a
+  // space. A file name with its extension is one piece and never breaks
+  // before its "." (Ari's ruling, taste review r14, replacing round 11's
+  // break before a file name's dot: "latest-ready" / ".json" read as two
+  // words). Only a piece wider than its whole column breaks inside, the one
+  // last resort.
+  return text
     .split(/( +)/)
     .map((word) => {
       if (/^ +$/.test(word) || word === '') return word;
       let head = word.slice(0, hostEnd(word));
       if (head) head += word.slice(head.length).match(/^\/*/)[0];
       const rest = word.slice(head.length);
-      const pieces = rest ? rest.split(/(?<=\/)(?=[^/])|(?<=[A-Za-z0-9])(?=\.[A-Za-z])|(?<=[^/])(?=[?#][^\s])/) : [];
+      const pieces = rest ? rest.split(/(?<=\/)(?=[^/])|(?<=[^/])(?=[?#][^\s])/) : [];
       if (head) pieces.unshift(head);
       // A stub joins its shorter neighbour, so "main/src?ref=<hash>" keeps
       // "main/src" together and "?ref=<hash>" free to move to its own line.
-      for (let i; pieces.length > 1 && (i = pieces.findIndex((p) => entityLength(p) < STUB_MIN)) >= 0; ) {
-        const prev = i > 0 ? entityLength(pieces[i - 1]) : Infinity;
-        const next = i < pieces.length - 1 ? entityLength(pieces[i + 1]) : Infinity;
+      for (let i; pieces.length > 1 && (i = pieces.findIndex((p) => [...p].length < STUB_MIN)) >= 0; ) {
+        const prev = i > 0 ? [...pieces[i - 1]].length : Infinity;
+        const next = i < pieces.length - 1 ? [...pieces[i + 1]].length : Infinity;
         if (prev <= next) pieces.splice(i - 1, 2, pieces[i - 1] + pieces[i]);
         else pieces.splice(i, 2, pieces[i] + pieces[i + 1]);
       }
       return pieces
         .map((piece, i) => {
-          if (entityLength(piece) <= NOWRAP_MAX) return `<span class="tok">${piece}</span>`;
+          if ([...piece].length <= NOWRAP_MAX) return `<span class="tok">${esc(piece)}</span>`;
           // A scheme and host too long to promise a line together (taste
           // review r11: "https://hermes-agent.nousresearch.com/" split inside
           // the host at 320) offer one break, right after the "//", and keep
@@ -112,8 +149,8 @@ export function wrapToken(raw) {
           // to the next line whole whenever the scheme and host fit there
           // together; it breaks after the "//" only when they do not.
           const scheme = i === 0 && head ? schemeEnd(piece) : 0;
-          if (scheme) return `<span class="tok tok-long tok-url">${piece.slice(0, scheme)}<wbr><span class="tok-host">${piece.slice(scheme)}</span></span>`;
-          return `<span class="tok tok-long">${piece}</span>`;
+          if (scheme) return `<span class="tok tok-long tok-url">${esc(piece.slice(0, scheme))}<wbr><span class="tok-host">${esc(piece.slice(scheme))}</span></span>`;
+          return `<span class="tok tok-long">${esc(piece)}</span>`;
         })
         .join('<wbr>');
     })

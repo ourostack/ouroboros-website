@@ -57,7 +57,7 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
   </div>
 
   <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 top-16 bg-deep z-30">
-    <div class="flex flex-col items-center gap-7 pt-14 pb-14 px-6 text-center">
+    <div class="menu-links flex flex-col items-center px-6 text-center">
       {navLinks.map(link => (
         <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined} class:list={[
           'font-display text-3xl tracking-wide transition-colors duration-200',
@@ -87,6 +87,21 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
   /* The panel scrolls on its own when its links outrun a short screen (320x568),
      and a swipe inside it never reaches the page (taste review r7). */
   #mobile-menu { overflow-y: auto; overscroll-behavior: contain; }
+  /* All nine links fit without scrolling down to a 320x568 phone (Ari's
+     ruling, taste review r14: the last two hid below the fold with no cue).
+     Each link is a 44px tap target; the space left over in the panel (the
+     viewport less the 4rem bar and nine 2.75rem links) goes to the padding
+     and the gaps, which tighten on short screens and open up to the roomy
+     3.5rem / 1.75rem on tall ones. The panel's own scroll above stays the
+     fallback for anything shorter. ouro.bot/apps/ouro-md/ uses the same rule. */
+  #mobile-menu .menu-links {
+    --menu-spare: calc(100dvh - 4rem - 9 * 2.75rem);
+    --menu-pad: clamp(1.5rem, calc(var(--menu-spare) / 6), 3.5rem);
+    padding-block: var(--menu-pad);
+    gap: clamp(0.25rem, calc((var(--menu-spare) - 2 * var(--menu-pad)) / 9), 1.75rem);
+  }
+  /* An inline-block, not a flex box, so "GitHub ↗" keeps its space. */
+  #mobile-menu .menu-links a { display: inline-block; padding-block: 0.25rem; min-height: 2.75rem; }
   :global(html.menu-open) { overflow: hidden; }
   .nav-glass::after {
     content: "";
