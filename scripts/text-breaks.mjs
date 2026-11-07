@@ -9,7 +9,7 @@
 // For every page in dist/ (or every sitemap page under --base) it fails on:
 //  - overflow: at 320, any line of text or inline box (code, a link, a span)
 //    whose box extends past its column, unless the column scrolls sideways;
-//  - break:    at 320, 390 and 430, any line break inside a word of a URL or
+//  - break:    at 320, 390, 430, 1024 and 1440, any line break inside a word of a URL or
 //    path (a word with "/", "\" or a host/file dot, or any text in code, kbd,
 //    pre or .font-mono) that is not right after a "/" (or before a URL's "?"
 //    or "#"); a file name never breaks before its extension (Ari's ruling,
@@ -20,7 +20,10 @@
 //    together are wider than the column, never inside the host unless it
 //    alone is ("https://hermes-agent.nousresearch.com/" at 320), and any
 //    break inside an ordinary word that is not after a hyphen; in a heading,
-//    not after a hyphen either ("to-" / "do": taste review r11). A word is read
+//    not after a hyphen either ("to-" / "do": taste review r11), and nowhere
+//    after the hyphen of a compound that fits on its line (Ari's ruling on
+//    taste review r19, which covers quoted model prose, review prose and
+//    blockquotes: "repository- / scoped", "agent- / graph-store"). A word is read
 //    across the build's <wbr>-joined pieces (src/lib/code-wrap.mjs), so a
 //    break between two pieces counts like one inside a text node. A break
 //    inside a single segment wider than its whole column is the one allowed
@@ -196,7 +199,12 @@ function analyse(checkOverflow) {
       if (!wr.length || !lines(wr)) continue;
       const isPath = pathy(el, word);
       const host = hostEnd(word);
-      const ok = allowed(word, isPath, host, !!headingOf(el));
+      // A hyphenated compound that fits on a line of its own never breaks at
+      // its hyphen, in quoted model prose and blockquotes as much as anywhere
+      // (Ari's ruling on taste review r19: "repository- / scoped",
+      // "agent- / graph-store"); only one wider than its line may.
+      const fitsLine = wr.reduce((sum, q) => sum + q.width, 0) <= box.width - 2;
+      const ok = allowed(word, isPath, host, !!headingOf(el) || fitsLine);
       let prevTop = null;
       for (let i = 0; i < word.length; i++) {
         const q = rectsOf(node, m.index + i, m.index + i + 1)[0];
@@ -293,8 +301,11 @@ function analyse(checkOverflow) {
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 const result = { base, pages: pages.length, overflow: [], breaks: [] };
 for (const page of pages) {
-  for (const width of [320, 390, 430]) {
-    const ctx = await browser.newContext({ viewport: { width, height: 800 }, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
+  // Phones for everything; 1024 and 1440 for breaks inside words too
+  // ("agent- / graph-store" broke on a desktop: taste review r19).
+  for (const width of [320, 390, 430, 1024, 1440]) {
+    const phone = width < 640;
+    const ctx = await browser.newContext({ viewport: { width, height: 800 }, isMobile: phone, hasTouch: phone, reducedMotion: 'reduce' });
     const p = await ctx.newPage();
     await p.goto(base + page, { waitUntil: 'load' });
     await p.evaluate(() => document.fonts.ready);
@@ -311,6 +322,6 @@ server?.close();
 
 if (opt('--json')) await writeFile(opt('--json'), JSON.stringify(result, null, 2));
 const failures = [...result.overflow.map((x) => `overflow ${x}`), ...result.breaks.map((x) => `break ${x}`)];
-console.log(`${pages.length} pages at 320, 390 and 430: ${result.overflow.length} overflow, ${result.breaks.length} breaks inside a word`);
+console.log(`${pages.length} pages at 320, 390, 430, 1024 and 1440: ${result.overflow.length} overflow, ${result.breaks.length} breaks inside a word`);
 for (const f of failures) console.log(`  ${f}`);
 process.exit(failures.length ? 1 : 0);

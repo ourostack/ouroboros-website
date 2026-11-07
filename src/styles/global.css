@@ -313,7 +313,11 @@ html, body { overflow-x: clip; }
    bordered box around both (lesson "No unnecessary cards in UI"). */
 /* One gap between a demo's frame and its caption, on every page (taste review r18). */
 :root { --caption-gap: 0.875rem; }
-.product-figure { margin: 0 0 0.25rem; display: flex; flex-direction: column; gap: var(--caption-gap); }
+/* No bottom margin of its own: the section's own rhythm (space-y, the grid gap)
+   sets the room under the caption. A fixed 0.25rem here outranked the docs
+   column's space-y-16 and left the getting-started caption 4px above the next
+   h2 (taste review r19). */
+.product-figure { margin-top: 0; margin-inline: 0; display: flex; flex-direction: column; gap: var(--caption-gap); }
 .product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); border-radius: 0.9rem; box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-canopy) 45%, transparent); }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
@@ -323,6 +327,17 @@ html, body { overflow-x: clip; }
    window's "New" button at the right (taste r3). */
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
+/* A product screenshot follows the theme (Ari's ruling on taste review r19).
+   One with a light and a dark capture shows the one for the theme
+   (.theme-light-only / .theme-dark-only). One that exists only in light, such
+   as Hosted Desk's claude.ai settings, which can't be captured in dark without
+   signing in, sits as a window on the night page: the demo windows' soft ring
+   and shadow, dimmed a little in dark only. Either way it is never wider than
+   960px on a desktop, so it never fills the screen. */
+.shot-capped { max-width: 960px; }
+.product-media.media-shot.shot-light-only { background: var(--color-undergrowth); }
+:root:not([data-theme="light"]) .shot-light-only img { filter: brightness(0.86); }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .shot-light-only img { filter: none; } }
 .product-media.media-photo { display: block; background: var(--color-deep); }
 /* A picture that is a link shows it: its own rounded edge turns green on hover. */
 a.product-media { transition: box-shadow 0.2s; }
@@ -661,6 +676,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    /lab/model-reviews/). */
 @media (max-width: 359.98px) { .prose-ouro code.code-long:not(pre code), code.code-long:not(pre code) { font-size: min(0.85em, 4vw); } }
 .tok { white-space: nowrap; }
+/* A hyphenated compound longer than HYPHEN_WHOLE_MAX (src/lib/code-wrap.mjs)
+   moves to the next line whole whenever it fits there, and breaks at a hyphen
+   only when it is wider than its whole line (Ari's ruling on taste review r19:
+   "repository- / scoped" and "agent- / graph-store" in quoted model prose). */
+.hy { display: inline-block; max-width: 100%; text-decoration: inherit; }
 .tok-long { display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; text-decoration: inherit; }
 /* A long scheme and host breaks, if at all, only right after its "//"; the host stays whole (taste review r11). */
 .tok-host { white-space: nowrap; }

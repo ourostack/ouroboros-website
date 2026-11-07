@@ -29,7 +29,8 @@
     "check:headings": "node scripts/heading-lines.mjs",
     "check:drama": "node scripts/dramatization.mjs",
     "check:buttons": "node scripts/button-links.mjs",
-    "check:grid": "node scripts/grid-rows.mjs"
+    "check:grid": "node scripts/grid-rows.mjs",
+    "check:captions": "node scripts/caption-proximity.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
