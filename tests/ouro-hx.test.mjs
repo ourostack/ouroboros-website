@@ -6,20 +6,20 @@ import test from 'node:test';
 import { readDist, textOf, distDir } from './support/dist.mjs';
 import { entry, labelFor } from '../src/data/readiness.mjs';
 
-const docs = 'https://ui.ouro.bot/docs/';
-const voyage = 'https://ui.ouro.bot/voyage/';
+const docs = 'https://ui.ouroboros.bot/docs/';
+const voyage = 'https://ui.ouroboros.bot/voyage/';
 const card = () => readDist('index.html').match(/<article\b[^>]*id="ouro-ui"[\s\S]*?<\/article>/)?.[0];
 const copy = 'Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.';
 
 // Ari, 2026-10-19: AX is the half for interfaces an agent uses, after HX; it is not "still being defined".
-// Ari, 2026-10-30: HX is used in production (Spoonjoy, ui.ouro.bot), so it is no longer "Under construction".
+// Ari, 2026-10-30: HX is used in production (Spoonjoy, ui.ouroboros.bot), so it is no longer "Under construction".
 test('the Ouro UI entry marks HX ready to use, and AX as what comes next', () => {
   const html = card();
   assert.ok(html, 'Ouro UI entry is missing');
   const text = textOf(html).replace(/\s+/g, ' ');
   // Taste review r5 (2026-11-06): one name for the product on every page. The
   // heading said "Ouro UI" over an "Ouro HX" badge; the product, and
-  // ui.ouro.bot's own name, is Ouro HX.
+  // ui.ouroboros.bot's own name, is Ouro HX.
   assert.match(html, /<h3\b[^>]*>[\s\S]*?Ouro HX[\s\S]*?<\/h3>/);
   assert.doesNotMatch(html, /<h3\b[^>]*>[\s\S]*?Ouro UI[\s\S]*?<\/h3>/);
   assert.ok(text.includes(copy));
