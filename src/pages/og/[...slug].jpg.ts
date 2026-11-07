@@ -61,7 +61,7 @@ const sceneDir = join(process.cwd(), 'public/brand/storybook/og')
 // lantern, so neither the words nor their scrim ever cover anything drawn.
 const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'apple-distribution-kit': [780, 6, 1194, 290],
-  'butler': [200, 446, 760, 628],
+  'butler': [16, 6, 1194, 172],
   'desk': [280, 6, 1194, 172],
   'factory': [16, 6, 1194, 172],
   'flow-review': [16, 6, 760, 268],
@@ -85,8 +85,10 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'playwright-focus-proof': [16, 6, 1194, 172],
   'shepherd': [240, 6, 800, 250],
 }
-// Busy ground (the butler's flowered lawn) needs a firmer vignette than open sky.
-const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-native-apple-app-shell': 0.8 }
+// Busy ground needs a firmer vignette than open sky. The butler's title moved
+// up into open sky (taste review r7 ruling: title at the top like every other
+// card, no milky scrim), so only the shell keeps a firmer one.
+const FIRM_SCRIM: Record<string, number> = { 'ouro-native-apple-app-shell': 0.8 }
 
 // A card can be set in a different framing of the same canonical art: the home
 // card takes the whole-world header at card height and slides the window right,
@@ -101,7 +103,7 @@ const FIRM_SCRIM: Record<string, number> = { 'butler': 0.9, 'ouro-native-apple-a
 // set `sky`: the whole header, scaled to the card's width, stands at the foot of
 // the card, and the sky above it is the scene's own top rows of sky, stretched
 // and softened, so every character is whole and the title has open sky.
-const FRAME: Record<string, { file: string; left: number; height?: number } | { file: string; sky: true }> = {
+const FRAME: Record<string, { file: string; left: number; height?: number } | { file: string; sky: true; skyFrom?: number }> = {
   ourostack: { file: 'headers/ourostack.webp', left: 690 },
   'ouro-workbench': { file: 'headers/ouro-workbench.webp', left: 816, height: 756 },
   'ouro-native-apple-app-shell': { file: 'headers/ouro-native-apple-app-shell.webp', left: 480 },
@@ -115,18 +117,25 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | { 
   factory: { file: 'headers/factory.webp', sky: true },
   'friends-relay': { file: 'headers/friends-relay.webp', sky: true },
   'homebrew-tap': { file: 'headers/homebrew-tap.webp', sky: true },
+  // The butler's card crop has open sky only beside Ouro's head, too small for
+  // its title, so it takes the sky frame: the whole cottage at the foot, the
+  // title across the sky above (taste review r7).
+  // Its cottage roof reaches the art's top edge, so its sky is sampled from the
+  // open sunset right of the roof (skyFrom, a fraction of the width), never the vines.
+  butler: { file: 'headers/butler.webp', sky: true, skyFrom: 0.62 },
 }
 
 // The sky frame: the header at card width (1200x450) at the foot, and above it a
 // band of its own top rows of sky, stretched and softened, meeting the scene
 // through a short fade that stays clear of every head.
-async function skyFrame(file: string): Promise<Buffer> {
+async function skyFrame(file: string, skyFrom = 0): Promise<Buffer> {
   const W = 1200
   const H = 630
   const scene = await sharp(join(process.cwd(), 'public/brand/storybook', file)).resize({ width: W }).toBuffer()
   const sceneH = (await sharp(scene).metadata()).height!
   const band = H - sceneH
-  const sky = await sharp(scene).extract({ left: 0, top: 0, width: W, height: 10 }).resize(W, band + 40, { fit: 'fill' }).blur(36).toBuffer()
+  const skyLeft = Math.round(W * skyFrom)
+  const sky = await sharp(scene).extract({ left: skyLeft, top: 0, width: W - skyLeft, height: 10 }).resize(W, band + 40, { fit: 'fill' }).blur(36).toBuffer()
   const seam = 24
   const fade = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${sceneH}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="${(seam / sceneH).toFixed(4)}" stop-color="#fff" stop-opacity="1"/></linearGradient></defs><rect width="${W}" height="${sceneH}" fill="url(#g)"/></svg>`)
   const faded = await sharp(scene).ensureAlpha().composite([{ input: fade, blend: 'dest-in' }]).png().toBuffer()
@@ -279,7 +288,7 @@ export const GET: APIRoute = async ({ params }) => {
   const wordsLayer = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
   const frame = FRAME[scene]
   const base = frame && 'sky' in frame
-    ? await skyFrame(frame.file)
+    ? await skyFrame(frame.file, frame.skyFrom)
     : frame
     ? await sharp(join(process.cwd(), 'public/brand/storybook', frame.file)).resize({ height: frame.height ?? 630 }).extract({ left: frame.left, top: 0, width: 1200, height: 630 }).toBuffer()
     : join(sceneDir, `${scene}.jpg`)

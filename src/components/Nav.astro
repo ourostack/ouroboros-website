@@ -54,7 +54,7 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
   </div>
 
   <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 top-16 bg-deep z-30">
-    <div class="flex flex-col items-center gap-7 pt-14 px-6 text-center">
+    <div class="flex flex-col items-center gap-7 pt-14 pb-14 px-6 text-center">
       {navLinks.map(link => (
         <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined} class:list={[
           'font-display text-3xl tracking-wide transition-colors duration-200',
@@ -81,6 +81,10 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
      panel read as one sheet and no page text shows through either (taste
      review r6). Only the colour changes: the filter stays, so nothing moves. */
   #main-nav:has(#menu-toggle[aria-expanded="true"]) .nav-glass { background: var(--color-deep); }
+  /* The panel scrolls on its own when its links outrun a short screen (320x568),
+     and a swipe inside it never reaches the page (taste review r7). */
+  #mobile-menu { overflow-y: auto; overscroll-behavior: contain; }
+  :global(html.menu-open) { overflow: hidden; }
   .nav-glass::after {
     content: "";
     position: absolute;
@@ -141,6 +145,11 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
       iconOpen.classList.toggle('hidden', open);
       iconClose.classList.toggle('hidden', !open);
       toggle.setAttribute('aria-expanded', String(open));
+      // Lock the viewport itself. html carries overflow-x: clip (global.css),
+      // so body's overflow never reaches the viewport, and the page scrolled
+      // behind the open menu (taste review r7). The nav is fixed, so locking
+      // <html> moves nothing and the scroll position is kept for closing.
+      document.documentElement.classList.toggle('menu-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
       if (!open && refocus) toggle.focus();
     }

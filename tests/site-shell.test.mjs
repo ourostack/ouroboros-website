@@ -817,8 +817,8 @@ test('the harness setup guide says what setup asks for before the command runs',
 });
 
 // Taste review r5 (2026-11-06): each transcript has its own card, titled with the
-// page's own h1, set on the reviews' shared scene.
-test('each review transcript has its own card, titled with its h1, on the reviews scene', async () => {
+// page's own h1. Taste review r7 ruling: each card is set in its own page's hero scene.
+test('each review transcript has its own card, titled with its h1, in its own page scene', async () => {
   const { pageOg } = await import('../src/data/og.ts');
   const { ogSceneFor } = await import('../src/data/scenes.mjs');
   for (const provider of ['anthropic', 'openai', 'gemini', 'minimax']) {
@@ -826,7 +826,8 @@ test('each review transcript has its own card, titled with its h1, on the review
     assert.match(html, new RegExp(`og:image" content="https://ouroboros\\.bot/og/og-lab-model-reviews-${provider}\\.jpg"`));
     const h1 = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1].replace(/<[^>]+>/g, '').trim();
     assert.equal(pageOg[`/lab/model-reviews/${provider}`].title, h1);
-    assert.equal(ogSceneFor(`/lab/model-reviews/${provider}`), ogSceneFor('/lab/model-reviews'));
+    const { sceneFor } = await import('../src/data/scenes.mjs');
+    assert.equal(ogSceneFor(`/lab/model-reviews/${provider}`), sceneFor(`/lab/model-reviews/${provider}`).hero);
   }
 });
 
