@@ -53,7 +53,7 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 top-16 bg-deep/95 backdrop-blur-2xl z-30">
+  <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 top-16 bg-deep z-30">
     <div class="flex flex-col items-center gap-7 pt-14 px-6 text-center">
       {navLinks.map(link => (
         <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined} class:list={[
@@ -77,6 +77,10 @@ const sisterArrow = sisterNav.label.endsWith('↗') ? '↗' : ''
     backdrop-filter: blur(10px) saturate(1.1);
     box-shadow: 0 1px 0 color-mix(in srgb, var(--color-canopy) 40%, transparent);
   }
+  /* While the phone menu is open the bar is solid too, so the bar and the
+     panel read as one sheet and no page text shows through either (taste
+     review r6). Only the colour changes: the filter stays, so nothing moves. */
+  #main-nav:has(#menu-toggle[aria-expanded="true"]) .nav-glass { background: var(--color-deep); }
   .nav-glass::after {
     content: "";
     position: absolute;
