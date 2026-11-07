@@ -12,7 +12,8 @@
     "test:model-reviews": "node --test tests/model-reviews.test.cjs tests/model-reviews-workflow.test.cjs tests/model-review-claims.test.mjs tests/md.test.mjs",
     "test:seo-metadata": "npm run build && node --test tests/seo-metadata.test.mjs",
     "test": "npm run build && node --test 'tests/*.test.*'",
-    "smoke": "node scripts/smoke-preview.mjs"
+    "smoke": "node scripts/smoke-preview.mjs",
+    "check:text": "node scripts/text-breaks.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@github/copilot-sdk": "^1.0.13",
     "@resvg/resvg-js": "^2.6.2",
+    "playwright": "^1.61.1",
     "satori": "^0.25.0",
     "sharp": "^0.34.5"
   },
