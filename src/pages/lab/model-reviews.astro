@@ -38,7 +38,10 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
   <!-- Hero — uses the shared HeroCover so this page matches every other top-level page -->
   <HeroCover>
     <Fragment slot="title">
-      Which agent harness do<br class="hidden sm:inline" /> frontier models prefer?
+      {/* Breaks only between phrases on a phone: "Which agent harness" (held
+          whole from 360px), then "do frontier", "models prefer?" (h1 sheet,
+          taste review r16: "frontier" stood alone at 320). */}
+      <span class="t-ph-soft"><span class="t-ph">Which agent</span> <span class="t-ph">harness</span></span> <span class="t-ph">do<br class="hidden sm:inline" /> frontier</span> <span class="t-ph">models prefer?</span>
     </Fragment>
     <Fragment slot="subhead">{shortClaim}<span class="block mt-4 text-base text-mist">Run on {runDate}.</span></Fragment>
     <Fragment slot="body">
@@ -49,7 +52,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
   <!-- Jump links: the page runs long, so each model's verdict and its
        per-harness rationale are one tap from the top (taste review r5). Plain
        anchors: every sentence stays on the page, and nothing needs JS. -->
-  <nav aria-label="Jump to a model" class="relative px-6 md:px-12 lg:px-16 pt-2 pb-4">
+  <nav aria-label="Jump to a model" class="relative px-6 md:px-12 lg:px-16 pt-0 md:pt-2 pb-4">
     <div class="max-w-6xl mx-auto">
       <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-3">Jump to</span>
       <ul class="review-jumps">
@@ -109,7 +112,6 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
   <!-- ═══════════════ FULL EVALUATIONS ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 py-20 md:py-28 reveal">
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-deep/30 to-transparent pointer-events-none"></div>
 
     <div class="max-w-6xl relative mx-auto split">
       <div class="split-head">
@@ -191,8 +193,6 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
   <!-- ═══════════════ RUN IT YOURSELF ═══════════════ -->
   <section class="relative px-6 md:px-12 lg:px-16 py-20 md:py-28 reveal">
-    {/* Fades in and out from the page itself, so the section runs into the footer meadow with no seam (taste review r9 genre: a band ending hard above the meadow). */}
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-deep/40 to-transparent pointer-events-none"></div>
 
     <div class="max-w-6xl relative mx-auto split">
       <div class="split-head">
@@ -208,8 +208,8 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
       <div class="split-body">
 
-      <div class="border border-canopy/40 bg-deep/60 backdrop-blur-sm p-6 md:p-8 mb-6">
-        <pre class="font-mono text-xs md:text-sm text-bone leading-relaxed overflow-x-auto"><code>git clone https://github.com/ourostack/ouroboros-website
+      <div class="border border-canopy/40 bg-deep/60 backdrop-blur-sm p-6 md:p-8 mb-3">
+        <pre id="reviews-run" class="font-mono text-xs md:text-sm text-bone leading-relaxed overflow-x-auto"><code>git clone https://github.com/ourostack/ouroboros-website
 cd ouroboros-website
 npm install
 npm run reviews -- --inference direct-api
@@ -217,6 +217,8 @@ npm run reviews -- --inference direct-api
 # Or use a Copilot subscription:
 npm run reviews -- --inference copilot-first</code></pre>
       </div>
+      {/* Every command block carries the shared Copy button (taste review r16). */}
+      <div class="mb-6"><button type="button" data-copy-target="reviews-run" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
 
       <p class="text-shadow text-sm leading-relaxed">
         Use Node 22. Direct API mode is the default and needs no Copilot account or subscription. For the selected panel, set <code class="font-mono text-scale text-xs">ANTHROPIC_API_KEY</code>, <code class="font-mono text-scale text-xs">OPENAI_API_KEY</code>, <code class="font-mono text-scale text-xs">GEMINI_API_KEY</code> (or <code class="font-mono text-scale text-xs">GOOGLE_API_KEY</code>), and <code class="font-mono text-scale text-xs">MINIMAX_API_KEY</code>. Both modes require <code class="font-mono text-scale text-xs">PERPLEXITY_API_KEY</code> for search and share the bundled SDK research runtime.

@@ -7,6 +7,10 @@ interface Props {
   canonical?: string
   intro?: string
   ogImage?: string
+  /** The h1 as clauses of phrases, for a two-clause title (see .t-clause in
+      global.css). "~" inside a phrase marks a break for the narrowest phones
+      only. Joined with spaces, it must read exactly as the title. */
+  lines?: string[][]
 }
 
 const {
@@ -16,7 +20,9 @@ const {
   canonical,
   intro,
   ogImage,
+  lines,
 } = Astro.props
+if (lines && lines.map((clause) => clause.join(' ')).join(' ').replaceAll('~', ' ') !== title) throw new Error(`DocsPageShell lines must read as the title: ${title}`)
 
 import Layout from '../layouts/Layout.astro'
 ---
@@ -43,9 +49,15 @@ import Layout from '../layouts/Layout.astro'
 
   <section class="px-6 md:px-12 lg:px-16 pt-32 pb-20 md:pt-40 md:pb-24">
     <div class="max-w-6xl mx-auto split">
-      <div class="split-head">
+      <div class="split-head" data-hero-text>
         <h1 class="font-display text-bone leading-[1.05] text-[2.25rem] sm:text-[2.75rem] md:text-[3.75rem]">
-          {title}
+          {lines ? lines.map((clause, i) => (
+            <>{i > 0 && ' '}<span class="t-clause">{clause.map((phrase, j) => (
+              <>{j > 0 && ' '}{phrase.includes('~')
+                ? <span class="t-ph-soft">{phrase.split('~').map((part, k) => <>{k > 0 && ' '}<span class="t-ph">{part}</span></>)}</span>
+                : <span class="t-ph">{phrase}</span>}</>
+            ))}</span></>
+          )) : title}
         </h1>
 
         <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">{description}</p>
@@ -59,7 +71,7 @@ import Layout from '../layouts/Layout.astro'
         <Glossary class="mt-10" />
       </div>
 
-      <div class="split-body mt-16 space-y-16">
+      <div class="split-body mt-12 md:mt-16 space-y-16">
         <slot />
       </div>
     </div>

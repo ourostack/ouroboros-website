@@ -138,7 +138,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
     assert.doesNotMatch(video[0], /\bautoplay\b/);
   }
   assert.doesNotMatch(html, /ouro-md-typing-(light|dark)\.mp4/, 'The homepage shows only the agent-edit clip');
-  assert.match(html, /<button type="button" class="clip-toggle"[^>]*data-clip-toggle[^>]*>Pause<\/button>/);
+  assert.match(html, /<button type="button" class="clip-toggle hit"[^>]*data-clip-toggle[^>]*>Pause<\/button>/);
 });
 
 test('no page ships a "Recording in progress" placeholder or a poster with no clip', () => {

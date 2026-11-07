@@ -4324,5 +4324,155 @@
   "was": "Read the reviews → AX is the lens.",
   "now": "→ AX is the lens.",
   "why": "taste review r5 (2026-11-06, round 6): the callout under the essay printed the prose's own sentence again as its headline; it is now a short pointer named with the reviews page's own title, and the claim stays in the prose just above with its link"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You can't just use any ol' model and then be like \"nuh uh AI is dumb\" Get your model credentials and add them to your shell profile ( .zshrc , etc.) — follow your model provider's guidance: .zshrc # Example: MiniMax export MINIMAX_API_KEY = \"your-api-key\" export MINIMAX_MODEL = \"MiniMax-M2.5\" # Example: Azure OpenAI export AZURE_OPENAI_ENDPOINT = \"your-endpoint\" export AZURE_OPENAI_MODEL_NAME = \"your-model\" export AZURE_OPENAI_DEPLOYMENT = \"your-deployment\" export AZURE_OPENAI_API_KEY = \"your-api-key\" Set up the project — open a terminal, cd into wherever you want to create it, start your coding agent, and tell it: \"Set up a new TypeScript project called BestAgentEver.",
+  "now": "Get your model credentials and add them to your shell profile ( .zshrc , etc.) — follow your model provider's guidance: .zshrc",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Make this a git repo, and when done, commit.\" It'll create the directory, initialize npm, install dependencies, set up tsconfig.",
+  "now": "Make this a git repo, and when done, commit. It'll create the directory, initialize npm, install dependencies, set up tsconfig.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"In agent.ts, make a simple completions call.",
+  "now": "In agent.ts, make a simple completions call.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit and tell me what command to run.\" The shape: agent.ts import { OpenAI } from \"openai\" const client = new OpenAI ({ /* endpoint, apiKey from env */ }) async function main () { const response = await client.chat.completions . create ({ model : deploymentName , messages : [{ role : \"user\" , content : \"Say hello in exactly 5 words.\" }] }) console . log ( response.choices [ 0 ]. message.content ) } Test it: cd BestAgentEver and then npm run dev .",
+  "now": "const client = new OpenAI ({ /* endpoint, apiKey from env */ }) async function main () { const response = await client.chat.completions . create ({ model : deploymentName , messages : [{ role :",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Prompt: \"Add streaming.",
+  "now": "Add streaming.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Build and run to verify, then commit.\" The shape: agent.ts const stream = await client.chat.completions . create ({ model : deploymentName , messages : [...], stream : true }) for await ( const chunk of stream ) { const content = chunk.choices [ 0 ]?. delta ?. content if ( content ) process.stdout . write ( content ) } Test it: rerun your agent and watch the tokens appear one by one.",
+  "now": "const stream = await client.chat.completions . create ({ model : deploymentName , messages : [...], stream : true }) for await ( const chunk of stream ) { const content = chunk.choices [ 0 ]?. delta ?. content if ( content ) process.stdout . write ( content ) } Test it: rerun your agent and watch the tokens appear one by one.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Make it interactive.",
+  "now": "Make it interactive.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" The shape: agent.ts type Message = { role : \"user\" | \"assistant\" , content : string } const messages : Message [] = [] // readline setup for interactive prompt while ( true ) { const input = await prompt ( \"You: \" ) if ( input === \"exit\" ) break messages . push ({ role : \"user\" , content : input }) const response = await streamChat ( messages ) messages . push ({ role : \"assistant\" , content : response }) } Test it: terminal You: What's 2 + 2?",
+  "now": ", content : string } const messages : Message [] = [] // readline setup for interactive prompt while ( true ) { const input = await prompt (",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path and content, writes it), shell (takes command, runs with execSync, returns output).",
+  "now": "Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path and content, writes it), shell (takes command, runs with execSync, returns output).",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" The shape: agent.ts const tools = [{ type : \"function\" , function : { name : \"read_file\" , description : \"Read the contents of a file\" , parameters : { type : \"object\" , properties : { path : { type : \"string\" } }, required : [ \"path\" ] } } }, /* write_file, shell similarly */ ] function executeTool ( name : string , args : Record < string, string >): string { switch ( name ) { case \"read_file\" : return fs . readFileSync ( args.path , \"utf-8\" ) case \"write_file\" : fs . writeFileSync ( args.path , args.content ); return \"ok\" case \"shell\" : return execSync ( args.command , { encoding : \"utf-8\" }) } } Test it: terminal You: What files are in this directory?",
+  "now": "] } } }, /* write_file, shell similarly */ ] function executeTool ( name : string , args : Record < string, string >): string { switch ( name ) { case",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Wrap the chat in a loop.",
+  "now": "Wrap the chat in a loop.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add a list_directory tool to yourself.",
+  "now": "Add a list_directory tool to yourself.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done and then give me instructions on how we can test this together.\" Watch it: Read its own code Understand the tool pattern Add the new tool definition and implementation Write the file Give you testing instructions Restart your agent, and then prompt it: what's in the src folder?",
+  "now": "Commit when done and then give me instructions on how we can test this together. Watch it: Read its own code Understand the tool pattern Add the new tool definition and implementation Write the file Give you testing instructions Restart your agent, and then prompt it: what's in the src folder?",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives, not just until the API call is made) — use a simple process.stderr.write spinner, no external dependencies.",
+  "now": "Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives, not just until the API call is made) — use a simple process.stderr.write spinner, no external dependencies.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit.\" Restart and test it: terminal You: What files are in this directory? ● Thinking...",
+  "now": "You: What files are in this directory? ● Thinking...",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Refactor the tools into a registry pattern.",
+  "now": "Refactor the tools into a registry pattern.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit.\" Watch it refactor itself.",
+  "now": "When done, commit. Watch it refactor itself.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add a system message to the messages array at startup.",
+  "now": "Add a system message to the messages array at startup.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit.\" Restart.",
+  "now": "When done, commit. Restart.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Build a skills system.",
+  "now": "Build a skills system.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" Watch it build a skills system.",
+  "now": "Commit when done. Watch it build a skills system.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Tell it: terminal You: list skills You: load code-review then review agent.ts Your agent now has a skills system.",
+  "now": "You: list skills You: load code-review then review agent.ts Your agent now has a skills system.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Create a skill called toolmaker.md that teaches you how to add new tools to yourself — the pattern for the definition, the pattern for the handler, reminder to tell me to restart.",
+  "now": "Create a skill called toolmaker.md that teaches you how to add new tools to yourself — the pattern for the definition, the pattern for the handler, reminder to tell me to restart.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" A skill that teaches the agent to make tools.",
+  "now": "Commit when done. A skill that teaches the agent to make tools.",
+  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
+ },
+ {
+  "page": "lab/model-reviews",
+  "was": "Both paths use the same research tools. git clone https://github.com/ourostack/ouroboros-website cd ouroboros-website npm install npm run reviews -- --inference direct-api # Or use a Copilot subscription: npm run reviews -- --inference copilot-first Use Node 22.",
+  "now": "Both paths use the same research tools. git clone https://github.com/ourostack/ouroboros-website cd ouroboros-website npm install npm run reviews -- --inference direct-api # Or use a Copilot subscription: npm run reviews -- --inference copilot-first",
+  "why": "taste review r16 (2026-11-07, round 17): the clone-and-run commands gained the shared Copy button, whose label now sits between them and the next sentence"
  }
 ]

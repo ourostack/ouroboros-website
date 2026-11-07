@@ -19,7 +19,9 @@
     "check:fallback": "node scripts/image-fallback.mjs",
     "check:seams": "node scripts/section-seams.mjs",
     "check:menu": "node scripts/menu-fit.mjs",
-    "check:hit": "node scripts/hit-areas.mjs"
+    "check:hit": "node scripts/hit-areas.mjs",
+    "check:h1": "node scripts/h1-lines.mjs",
+    "check:gap": "node scripts/hero-gap.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

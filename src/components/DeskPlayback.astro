@@ -100,7 +100,7 @@ const last = scenes.length - 1
   </div>
   <div class="dp-screen">
     {scenes.map((scene, i) => (
-      <pre class="dp-body" data-scene={scene.id} data-off={i !== last ? '' : undefined}>{scene.lines.map((line) => {
+      <pre class="dp-body" data-copy-exempt="a terminal demo that plays" data-scene={scene.id} data-off={i !== last ? '' : undefined}>{scene.lines.map((line) => {
         // The terminal glyphs are decoration; screen readers skip them.
         const glyph = line.text.match(/^(\s*)([⏺⎿])(.*)$/)
         const only = line.only ? { [`data-${line.only}`]: '' } : {}

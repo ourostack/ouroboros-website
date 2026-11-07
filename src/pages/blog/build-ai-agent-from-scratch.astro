@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
+import PromptCard from '../../components/PromptCard.astro'
 
 // One title everywhere (taste review r2, 2026-11-06): the post's own headline. The
 // "150 lines of TypeScript" promise lives in the description and the share card.
@@ -189,7 +190,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
   <article class="px-6 lg:px-16 pt-32 pb-20">
       <!-- Header -->
-      <header class="max-w-6xl mb-8 mx-auto split lg:items-end">
+      <header class="max-w-6xl mb-12 md:mb-8 mx-auto split lg:items-end">
         <div class="split-head">
           <span class="text-xs font-mono text-fang uppercase tracking-[0.22em]">Tutorial</span>
           <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-bone leading-tight mt-4">
@@ -279,20 +280,16 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         <p>Get your model credentials and add them to your shell profile (<code>.zshrc</code>, etc.) &mdash; follow your model provider's guidance:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">.zshrc</span>
+            <button type="button" data-copy-target="code-codeZshrc" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeZshrc} /></pre>
+          <pre id="code-codeZshrc" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeZshrc} /></pre>
         </div>
 
         <p>Set up the project &mdash; open a terminal, <code>cd</code> into wherever you want to create it, start your coding agent, and tell it:</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Set up a new TypeScript project called BestAgentEver. Use the openai npm package. If we choose Azure,
-            use the AzureOpenAI client. Create an empty agent.ts file to start. Make this a git repo, and when done, commit."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Set up a new TypeScript project called BestAgentEver. Use the openai npm package. If we choose Azure, use the AzureOpenAI client. Create an empty agent.ts file to start. Make this a git repo, and when done, commit." /></div>
 
         <p>It'll create the directory, initialize npm, install dependencies, set up tsconfig. That's its job.</p>
         <p>You're ready.</p>
@@ -317,22 +314,16 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
           </p>
         </aside>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "In agent.ts, make a simple completions call. Read the existing credentials from my environment, and
-            make sure they're sufficient. Then, use OpenAI from the openai package, send 'say hello in 5 words'
-            and log the response. Add an npm dev script for building + running my agent. When done, commit and
-            tell me what command to run."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="In agent.ts, make a simple completions call. Read the existing credentials from my environment, and make sure they're sufficient. Then, use OpenAI from the openai package, send 'say hello in 5 words' and log the response. Add an npm dev script for building + running my agent. When done, commit and tell me what command to run." /></div>
 
         <p>The shape:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">agent.ts</span>
+            <button type="button" data-copy-target="code-codeFirstContact" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeFirstContact} /></pre>
+          <pre id="code-codeFirstContact" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeFirstContact} /></pre>
         </div>
 
         <p>Test it: <code>cd BestAgentEver</code> and then <code>npm run dev</code>.</p>
@@ -357,21 +348,16 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Batched responses feel dead. Streaming feels immediate. Prompt:</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Add streaming. Use stream: true, iterate with for-await, and use process.stdout.write for each chunk
-            so tokens appear as they arrive. Change the prompt to something longer (like asking for a short poem)
-            so streaming is visible when running. Build and run to verify, then commit."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Add streaming. Use stream: true, iterate with for-await, and use process.stdout.write for each chunk so tokens appear as they arrive. Change the prompt to something longer (like asking for a short poem) so streaming is visible when running. Build and run to verify, then commit." /></div>
 
         <p>The shape:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">agent.ts</span>
+            <button type="button" data-copy-target="code-codeStreaming" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeStreaming} /></pre>
+          <pre id="code-codeStreaming" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeStreaming} /></pre>
         </div>
 
         <p>Test it: rerun your agent and watch the tokens appear one by one. That's the feeling we want.</p>
@@ -381,30 +367,26 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>An agent that can't hold a conversation isn't an agent.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Make it interactive. Use readline for a CLI prompt. Keep a messages array &mdash; that's the conversation
-            history. Loop: get user input, append to messages, stream the response, append assistant response to
-            messages, repeat. 'exit' to quit. Block input while not awaiting user input. Commit when done."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Make it interactive. Use readline for a CLI prompt. Keep a messages array — that's the conversation history. Loop: get user input, append to messages, stream the response, append assistant response to messages, repeat. 'exit' to quit. Block input while not awaiting user input. Commit when done." /></div>
 
         <p>The shape:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">agent.ts</span>
+            <button type="button" data-copy-target="code-codeMultiTurn" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeMultiTurn} /></pre>
+          <pre id="code-codeMultiTurn" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeMultiTurn} /></pre>
         </div>
 
         <p>Test it:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">terminal</span>
+            <button type="button" data-copy-target="code-termMultiTurn" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termMultiTurn} /></pre>
+          <pre id="code-termMultiTurn" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termMultiTurn} /></pre>
         </div>
 
         <p>It remembers. But it can't <em>do</em> anything yet.</p>
@@ -416,32 +398,26 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         <p><strong>Read file + Write file + Run shell = universal basis.</strong></p>
         <p>With these three tools, a model can do almost anything a developer can do. Including modify its own code.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path
-            and content, writes it), shell (takes command, runs with execSync, returns output). Use the openai tools
-            format. Keep streaming. After streaming a response, check for tool_calls, execute them, and log the
-            results &mdash; but don't loop back to the model yet, keep it simple. Wrap tool execution in try/catch
-            so errors are returned as the tool result instead of crashing. Commit when done."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path and content, writes it), shell (takes command, runs with execSync, returns output). Use the openai tools format. Keep streaming. After streaming a response, check for tool_calls, execute them, and log the results — but don't loop back to the model yet, keep it simple. Wrap tool execution in try/catch so errors are returned as the tool result instead of crashing. Commit when done." /></div>
 
         <p>The shape:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">agent.ts</span>
+            <button type="button" data-copy-target="code-codeTools" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeTools} /></pre>
+          <pre id="code-codeTools" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeTools} /></pre>
         </div>
 
         <p>Test it:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">terminal</span>
+            <button type="button" data-copy-target="code-termTools" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termTools} /></pre>
+          <pre id="code-termTools" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termTools} /></pre>
         </div>
 
         <p>It can see and act. But notice &mdash; after calling tools, it stops. It doesn't process results and respond. We need the loop.</p>
@@ -451,29 +427,26 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>This is where it becomes an agent.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Wrap the chat in a loop. After executing tools, call the model again with the results. Keep looping
-            until the model responds without any tool_calls &mdash; that's how we know it's done. Commit when done."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Wrap the chat in a loop. After executing tools, call the model again with the results. Keep looping until the model responds without any tool_calls — that's how we know it's done. Commit when done." /></div>
 
         <p>The shape:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">agent.ts</span>
+            <button type="button" data-copy-target="code-codeAgentLoop" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeAgentLoop} /></pre>
+          <pre id="code-codeAgentLoop" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={codeAgentLoop} /></pre>
         </div>
 
         <p>Test it:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">terminal</span>
+            <button type="button" data-copy-target="code-termAgentLoop" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termAgentLoop} /></pre>
+          <pre id="code-termAgentLoop" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termAgentLoop} /></pre>
         </div>
 
         <p>It called two tools, synthesized the results, and responded. It decided when it was done.</p>
@@ -507,12 +480,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Let's see if it can add a capability to itself.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Add a list_directory tool to yourself. Read your own code, understand the pattern, add the tool, write
-            the file. Commit when done and then give me instructions on how we can test this together."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your agent" prompt="Add a list_directory tool to yourself. Read your own code, understand the pattern, add the tool, write the file. Commit when done and then give me instructions on how we can test this together." /></div>
 
         <p>Watch it:</p>
         <ol>
@@ -531,25 +499,16 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Maybe you've noticed &mdash; UX could be better! API calls silently fail, you can type random characters while the agent is working, and who doesn't love a loading spinner.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives,
-            not just until the API call is made) &mdash; use a simple process.stderr.write spinner, no external
-            dependencies. Suppress terminal input while a turn is in progress so keystrokes don't echo during streaming
-            or tool execution. Add error handling around the API call so HTTP errors are logged clearly instead of
-            crashing. Use the SDK's built-in timeout option so the agent doesn't hang forever on unreachable endpoints.
-            Validate that all required environment variables are set before starting. On error during the agentic tool
-            loop, log the error and return to the prompt instead of killing the session. When done, commit."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your agent" prompt="Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives, not just until the API call is made) — use a simple process.stderr.write spinner, no external dependencies. Suppress terminal input while a turn is in progress so keystrokes don't echo during streaming or tool execution. Add error handling around the API call so HTTP errors are logged clearly instead of crashing. Use the SDK's built-in timeout option so the agent doesn't hang forever on unreachable endpoints. Validate that all required environment variables are set before starting. On error during the agentic tool loop, log the error and return to the prompt instead of killing the session. When done, commit." /></div>
 
         <p>Restart and test it:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">terminal</span>
+            <button type="button" data-copy-target="code-termSpinner" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termSpinner} /></pre>
+          <pre id="code-termSpinner" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termSpinner} /></pre>
         </div>
 
         <!-- Growth 3 -->
@@ -557,12 +516,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>The tools are getting unwieldy in a switch statement.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Refactor the tools into a registry pattern. Map tool names to handler functions. executeTool should just
-            look up and call. When done, commit."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your agent" prompt="Refactor the tools into a registry pattern. Map tool names to handler functions. executeTool should just look up and call. When done, commit." /></div>
 
         <p>Watch it refactor itself. Restart. Verify it still works.</p>
 
@@ -571,15 +525,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Right now the agent has no identity, guidance, or sense of purpose.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Add a system message to the messages array at startup. Give this agent a name, personality, and purpose.
-            It should know it's a coding assistant with file and shell tools. Before you proceed, ask me questions
-            (one per turn) so you can customize the system prompt to my preferences. Then, update its name tag, and
-            give the agent self-awareness &mdash; when running in its own codebase, it should be aware of this.
-            Make it introduce itself when booted up. When done, commit."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your agent" prompt="Add a system message to the messages array at startup. Give this agent a name, personality, and purpose. It should know it's a coding assistant with file and shell tools. Before you proceed, ask me questions (one per turn) so you can customize the system prompt to my preferences. Then, update its name tag, and give the agent self-awareness — when running in its own codebase, it should be aware of this. Make it introduce itself when booted up. When done, commit." /></div>
 
         <p>
           Restart. Feel the difference. It should feel like you've transitioned from building <em>an</em> agent to
@@ -591,21 +537,16 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>Here's where it gets even more interesting.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Build a skills system. Create a skills/ directory with a couple example skill files as markdown &mdash; maybe
-            code-review.md and explain.md. Add a load_skill tool that reads a skill and prepends it to the system prompt.
-            Add a list_skills tool. Commit when done."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your agent" prompt="Build a skills system. Create a skills/ directory with a couple example skill files as markdown — maybe code-review.md and explain.md. Add a load_skill tool that reads a skill and prepends it to the system prompt. Add a list_skills tool. Commit when done." /></div>
 
         <p>Watch it build a skills system. Restart. Tell it:</p>
 
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
+          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
             <span class="font-mono text-xs text-shadow">terminal</span>
+            <button type="button" data-copy-target="code-termSkills" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termSkills} /></pre>
+          <pre id="code-termSkills" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto"><code set:html={termSkills} /></pre>
         </div>
 
         <p>Your agent now has a skills system. And it built it itself. And then used said skill to review its own code.</p>
@@ -615,13 +556,7 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
 
         <p>This is the compounding part.</p>
 
-        <aside class="post-note my-6">
-          <p class="!text-bone !mb-0 italic">
-            "Create a skill called toolmaker.md that teaches you how to add new tools to yourself &mdash; the pattern for
-            the definition, the pattern for the handler, reminder to tell me to restart. Then load it and use it to add
-            a get_current_time tool. Commit when done."
-          </p>
-        </aside>
+        <div class="my-6"><PromptCard label="Tell your agent" prompt="Create a skill called toolmaker.md that teaches you how to add new tools to yourself — the pattern for the definition, the pattern for the handler, reminder to tell me to restart. Then load it and use it to add a get_current_time tool. Commit when done." /></div>
 
         <p>A skill that teaches the agent to make tools. Tools and skills building each other.</p>
         <p><strong>This is the shape of compounding capability.</strong></p>
