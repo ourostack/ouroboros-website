@@ -166,7 +166,7 @@ const addClass = (attrs, cls) =>
 
 // Elements whose text is never touched, and those already marked.
 const RAW = /^(?:script|style|textarea|title|svg|template|noscript|head|math)$/i;
-const DONE = /\b(?:code-whole|code-long|tok|nobr)\b/;
+const DONE = /\b(?:code-whole|code-long|tok|nobr|hy)\b/;
 const HEADING = /^h[1-6]$/i;
 // A hyphenated word in a heading ("to-do", "follow-up"). A heading never
 // breaks at its hyphen (taste review r11: the /lab/how-desk-started/ h1 broke
@@ -178,7 +178,11 @@ const HYPHENATED = /[\p{L}\p{N}][-\u2010][\p{L}\p{N}]/u;
 // Outside headings, a short hyphenated word stays whole too (taste review
 // r18, 2026-11-07: "Turn on X- / ray yourself" at 390 on /ouro-hx/). Up to
 // HYPHEN_WHOLE_MAX characters it never breaks at its hyphen; a longer one may
-// still break there, as ordinary prose does.
+// A longer one ("repository-scoped", "agent-graph-store") is held in a .hy
+// inline-block: it moves to the next line whole whenever it fits there, and
+// breaks at a hyphen only when it is wider than the whole line (Ari's ruling on
+// taste review r19, for quoted model prose and blockquotes as much as the
+// site's own prose).
 export const HYPHEN_WHOLE_MAX = 16;
 // Compound terms and product names never break across lines in a heading
 // (Ari's ruling on taste review r18: "Ouro / MD" on /apps/ at 1024). Each is
@@ -218,7 +222,11 @@ function wrapText(html) {
           ? wrapToken(word)
           : HYPHENATED.test(word) && (heading || coreLength(word) <= HYPHEN_WHOLE_MAX)
             ? `<span class="nobr">${word}</span>`
-            : word,
+            : HYPHENATED.test(word)
+              ? `<span class="hy">${word}</span>`
+              : /-/.test(word) && coreLength(word) === 0 && entityLength(word) <= 8
+                ? `<span class="nobr">${word}</span>` // "-->" in a transcript never splits as "--" / ">"
+                : word,
       );
     parts[i] = heading
       ? part.split(TERM_RE).map((piece, k) => (k % 2 ? `<span class="nobr">${piece}</span>` : words(piece))).join('')

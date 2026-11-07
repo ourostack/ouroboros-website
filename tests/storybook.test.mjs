@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, distExists, readDist, listHtmlFiles } from './support/dist.mjs';
-import { sceneFor, meadowScene, scenes } from '../src/data/scenes.mjs';
+import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes } from '../src/data/scenes.mjs';
 
 // The storybook world (Ari, 2026-11-06). The art is ourostack/.github brand/,
 // copied byte for byte by scripts/sync-storybook.mjs; the brand audit fetches
@@ -118,11 +118,15 @@ test('no hero scene repeats between neighbouring pages', () => {
   const parentOf = (route) => (route === '/' ? null : route.replace(/[^/]+\/$/, ''));
   const html = readDist('index.html');
   const everywhere = new Set(['/', ...[...html.match(/<nav\b[\s\S]*?<\/nav>/)[0].matchAll(/href="(\/[^"#?]*)"/g), ...html.match(/<footer\b[\s\S]*?<\/footer>/)[0].matchAll(/href="(\/[^"#?]*)"/g)].map(([, href]) => href)]);
+  // Two pages of one product share its scene on purpose (Ari's ruling on
+  // taste review r19): the download page is the product's front door.
+  const productOf = (route) => Object.keys(productScenes).find((p) => route === `${p}/` || route.startsWith(`${p}/`));
   const clashes = [];
   const routes = [...heroOf.keys()];
   for (const a of routes) {
     for (const b of routes) {
       if (a >= b || heroOf.get(a) !== heroOf.get(b)) continue;
+      if (productOf(a) && productOf(a) === productOf(b) && heroOf.get(a) === productScenes[productOf(a)]) continue;
       const why = everywhere.has(a) || everywhere.has(b) ? 'nav or footer'
         : linksOf.get(a).has(b) || linksOf.get(b).has(a) ? 'one click'
         : parentOf(a) === b || parentOf(b) === a ? 'parent'
@@ -131,6 +135,29 @@ test('no hero scene repeats between neighbouring pages', () => {
     }
   }
   assert.deepEqual(clashes, []);
+});
+
+// Ari's ruling on taste review r19: /ouro-md/download/ opened on the copper
+// still from a tutorial while its card showed Ouro MD's lectern. Every page of
+// a product (the product page, its download page, any /<product>/* page)
+// opens on that product's own scene and sets its share card in it.
+test("a product's pages open on its own scene, hero and share card alike", () => {
+  const seen = [];
+  for (const file of pages()) {
+    const route = pageOf(file);
+    const product = Object.keys(productScenes).find((p) => route === `${p}/` || route.startsWith(`${p}/`));
+    if (!product) continue;
+    const scene = productScenes[product];
+    seen.push(route);
+    const html = fs.readFileSync(file, 'utf8');
+    assert.equal(sceneFor(route).hero, scene, `${route} hero`);
+    assert.equal(ogSceneFor(route), scene, `${route} share card`);
+    assert.match(html, new RegExp(`<div class="story-scene story-hero[^"]*" data-brand-scene="${scene}"`), `${route} renders its product's hero`);
+    const og = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+    const tw = html.match(/<meta name="twitter:image" content="([^"]+)"/)?.[1];
+    assert.ok(og && og === tw, `${route} og:image and twitter:image agree`);
+  }
+  assert.ok(seen.includes('/ouro-md/download/') && seen.includes('/ouro-md/'), seen.join(' '));
 });
 
 // A painted placeholder behind every scene (taste review r10, 2026-11-06: a

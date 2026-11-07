@@ -13,13 +13,21 @@
 //     background, border, padding, radius) differs from the first one found,
 //   - a label is not inside a <figcaption>, or
 //   - its caption starts less than MIN_GAP px below the bottom of everything
-//     else in the figure (the frame), or overlaps it.
+//     else in the figure (the frame), or overlaps it, or
+//   - whatever follows the caption (text, media, a rule or a tinted band;
+//     scripts/lib/caption-gaps.mjs) starts closer than SECTION_RHYTHM px
+//     below it, so the caption would read as the next block's label (taste
+//     review r19: 4px above the "Already running?" h2 on
+//     /lab/docs/getting-started/). SECTION_RHYTHM is 2.5rem, the smallest
+//     room the site leaves between a block and the next one in a section.
 // Uses Playwright's chromium; override with CHROME_PATH.
 
 import { chromium } from 'playwright';
 import { launchOptions, openSite } from './lib/site-pages.mjs';
+import { captionGaps } from './lib/caption-gaps.mjs';
 
 const MIN_GAP = 10;
+const SECTION_RHYTHM = 40;
 const site = await openSite({ port: 6208, missing: '/no-such-page-dramatization/' });
 
 function labels(MIN_GAP) {
@@ -43,7 +51,7 @@ function labels(MIN_GAP) {
       }
       gap = Math.round((el.getBoundingClientRect().top - bottom) * 10) / 10;
     }
-    out.push({ look, inCaption: !!cap, gap, MIN_GAP });
+    out.push({ look, inCaption: !!cap, gap, MIN_GAP, capIndex: cap ? [...document.querySelectorAll('figure figcaption')].indexOf(cap) : -1 });
   }
   return out;
 }
@@ -61,7 +69,9 @@ for (const width of [390, 1440]) {
     for (const page of site.pages) {
       await p.goto(site.base + page, { waitUntil: 'load' });
       await p.evaluate(() => document.fonts.ready);
+      const follows = await p.evaluate(captionGaps);
       for (const [i, l] of (await p.evaluate(labels, MIN_GAP)).entries()) {
+        const follow = follows.find((c) => c.index === l.capIndex);
         count++;
         const where = `${width} ${scheme} ${page} label ${i + 1}`;
         const key = `${scheme}`;
@@ -71,7 +81,8 @@ for (const width of [390, 1440]) {
         if (diff.length) failures.push(`${where}: looks different from ${reference[key].where} (${diff.map((k) => `${k} ${l.look[k]} vs ${reference[key].look[k]}`).join(', ')})`);
         if (!l.inCaption) failures.push(`${where}: not a <figcaption> under its frame`);
         else if (l.gap === null || l.gap < MIN_GAP) failures.push(`${where}: sits ${l.gap}px below its frame (needs ${MIN_GAP}px)`);
-        console.log(`${where}: gap ${l.gap}px, ${l.look.fontFamily.split(',')[0]} ${l.look.fontSize} ${l.look.color}`);
+        if (follow && follow.next !== null && follow.next < SECTION_RHYTHM) failures.push(`${where}: sits ${follow.next}px above ${follow.what} (needs ${SECTION_RHYTHM}px, the section rhythm)`);
+        console.log(`${where}: gap ${l.gap}px, next ${follow?.next ?? 'none'}px, ${l.look.fontFamily.split(',')[0]} ${l.look.fontSize} ${l.look.color}`);
       }
     }
     await ctx.close();

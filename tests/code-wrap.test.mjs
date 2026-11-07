@@ -81,7 +81,20 @@ test('a short hyphenated word never breaks at its hyphen, outside headings too',
   // (surrounding punctuation aside) stays whole; a longer one may still break.
   assert.equal(wrapCode('<p>re-explaining it</p>'), '<p><span class="nobr">re-explaining</span> it</p>');
   assert.equal(wrapCode('<p>(&quot;self-improvement&quot;):</p>'), '<p><span class="nobr">(&quot;self-improvement&quot;):</span></p>');
-  assert.equal(wrapCode('<p>a very-long-hyphenated-compound word</p>'), '<p>a very-long-hyphenated-compound word</p>');
+});
+
+test('a long hyphenated compound moves to the next line whole, in quoted prose and blockquotes too', () => {
+  // Ari's ruling on taste review r19: "repository- / scoped" and "npm- /
+  // distributable" on /lab/model-reviews/ at 390, "agent- / graph-store" on
+  // /lab/model-reviews/minimax/ at 1440. A compound longer than 16 letters is
+  // an inline-block: whole whenever it fits a line, broken at a hyphen only
+  // when it is wider than the line.
+  assert.equal(wrapCode('<p>a very-long-hyphenated-compound word</p>'), '<p>a <span class="hy">very-long-hyphenated-compound</span> word</p>');
+  assert.equal(wrapCode('<blockquote><p>repository-scoped memory</p></blockquote>'), '<blockquote><p><span class="hy">repository-scoped</span> memory</p></blockquote>');
+  assert.equal(wrapCode('<div class="whitespace-pre-wrap">it has memories, agent-graph-store, agent-roles.</div>'), '<div class="whitespace-pre-wrap">it has memories, <span class="hy">agent-graph-store,</span> <span class="nobr">agent-roles.</span></div>');
+  assert.equal(wrapCode('<p>the <span class="hy">npm-distributable</span> one</p>'), '<p>the <span class="hy">npm-distributable</span> one</p>');
+  // A run of dashes and brackets (an HTML comment's "-->" in a transcript) stays whole too.
+  assert.equal(wrapCode('<pre>  --&gt; done</pre>'), '<pre>  <span class="nobr">--&gt;</span> done</pre>');
 });
 
 test('a heading never breaks at a hyphen', () => {
