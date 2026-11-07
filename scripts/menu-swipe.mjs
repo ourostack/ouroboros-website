@@ -64,7 +64,13 @@ for (const [width, height] of [[390, 844], [320, 568]]) {
     await p.route(/\.(?:avif|webp|jpg|png|mp4|webm)(?:\?|$)/, (r) => r.abort());
     for (const page of PAGES) {
       await p.goto(site.base + page, { waitUntil: 'load' });
-      await p.evaluate(() => window.scrollTo(0, 900));
+      // Wait for the scroll to land: on a slow runner a late layout or scroll
+      // restoration can leave the page at the top for the first case (CI, PR #40).
+      await p.waitForFunction(() => {
+        window.scrollTo(0, 900);
+        return Math.abs(window.scrollY - Math.min(900, document.documentElement.scrollHeight - innerHeight)) < 2;
+      });
+      await wait(100);
       const cx = width / 2, cy = Math.round(height * 0.55);
       const cases = [
         ['down', { x: cx, y: cy - 60 }, { x: cx, y: cy + 140 }, false],
