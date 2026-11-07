@@ -30,6 +30,12 @@
 // centred hero ("Words used here"); under a left-aligned title, the
 // breadcrumb starts at the column's left edge.
 //
+// At 1024, 1440 and 1920 it also fails when the hero's box runs past its
+// rendered image on any side (Ari's ruling on taste review r15: the round-11
+// apron ran the box 61 to 123px past the art on six pages, showing a smeared
+// band), or when, once the image has landed, the scene's painted placeholder
+// is still set behind it.
+//
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.
 
@@ -89,6 +95,13 @@ function measure() {
   const hero = document.querySelector('.story-hero img');
   if (!hero) return null;
   const foot = hero.getBoundingClientRect().bottom + scrollY;
+  // The hero's box against its image: no side may run past the art.
+  const scene = hero.closest('.story-hero');
+  const sb = scene.getBoundingClientRect();
+  const ib = hero.getBoundingClientRect();
+  const past = { top: ib.top - sb.top, bottom: sb.bottom - ib.bottom, left: ib.left - sb.left, right: sb.right - ib.right };
+  const overrun = Object.entries(past).filter(([, d]) => d > 0.5).map(([side, d]) => `${side} ${d.toFixed(1)}px`);
+  const paint = hero.complete && hero.naturalWidth && getComputedStyle(scene).backgroundImage !== 'none' ? getComputedStyle(scene).backgroundImage.slice(0, 40) : null;
   const label = (el) => {
     const c = typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\s+/).slice(0, 3).join('.') : '';
     return el.tagName.toLowerCase() + c;
@@ -113,7 +126,7 @@ function measure() {
     const top = r.top + scrollY;
     if (top < foot - 0.5 && r.bottom + scrollY > foot - 400) found.push({ el: label(el), top: Math.round(top), gap: +(top - foot).toFixed(1) });
   }
-  return { foot: Math.round(foot), found };
+  return { foot: Math.round(foot), found, overrun, paint };
 }
 
 // Runs in the page: does the breadcrumb (and the block after a centred hero) align with the h1?
@@ -160,6 +173,8 @@ for (const page of pages) {
     if (!m) continue;
     result.checked++;
     for (const f of m.found) result.failures.push(`${width} ${page} ${f.el} starts ${Math.abs(f.gap)}px above the hero's foot (y=${f.top}, foot=${m.foot})`);
+    if (m.overrun.length) result.failures.push(`${width} ${page} the hero's box runs past its image: ${m.overrun.join(', ')}`);
+    if (m.paint) result.failures.push(`${width} ${page} the hero's placeholder paint is still set after the image landed (${m.paint}...)`);
   }
 }
 // The phone pass: where the cast lands on screen.

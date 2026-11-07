@@ -58,9 +58,9 @@ test('root final ruling F15: every video is named by its poster alt text', () =>
 test('root final ruling F17: /brief has no "No install" kicker, and the footer row has no separator to dangle', () => {
   const html = readDist('brief/index.html');
   assert.doesNotMatch(pageText('brief/index.html'), /No install/i);
-  // Below 640px the row wraps, so the separators go and the gap separates the items.
+  // Below 640px the links stand in even rows (taste review r15), so the separators go.
   const css = fs.readFileSync(new URL('../src/components/Footer.astro', import.meta.url), 'utf8');
-  assert.match(css, /@media \(max-width: 639\.98px\) \{ \.footer-sep \{ display: none; \}/);
+  assert.match(css, /@media \(max-width: 639\.98px\) \{\s*\.footer-sep \{ display: none; \}/);
   assert.match(html, /footer-sep/);
 });
 

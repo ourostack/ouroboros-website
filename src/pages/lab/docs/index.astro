@@ -74,7 +74,7 @@ const pages = [
 
   <HeroCover>
     <Fragment slot="title">
-      Docs for humans.<br class="hidden sm:inline" /> Skills for agents.
+      Docs for humans.<br /> Skills for agents.
     </Fragment>
     <Fragment slot="body">
       These pages are the human version — context for the questions you'll ask your agent. Your agent can fetch the live version directly at <span class="font-mono text-scale text-sm [overflow-wrap:anywhere]">ouroboros.bot/skills/manifest.json</span>
@@ -109,7 +109,7 @@ const pages = [
           <li class="flex gap-4">
             <span class="text-scale text-xl shrink-0 leading-[2]" aria-hidden="true">{page.icon}</span>
             <div>
-              <h3 class="post-title"><a href={page.href} class="text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors">{page.title}</a></h3>
+              <h3 class="post-title"><a href={page.href} class="hit text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors">{page.title}</a></h3>
               <p class="post-dek">{page.description}</p>
             </div>
           </li>

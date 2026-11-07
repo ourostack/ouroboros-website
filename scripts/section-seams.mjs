@@ -18,7 +18,8 @@
 // are skipped: the art is meant to have detail. The trail of light the site
 // draws on a section change (any block whose ::before paints the trail on its
 // top edge, read from the computed style, so a plain hairline never passes as
-// one) is hidden while reading, so it never counts as a seam;
+// one, or whose ::after hangs it from its foot, as an edge hero's does) is
+// hidden while reading, so it never counts as a seam;
 // where a section change carries that trail, the change itself may step in
 // colour on its exact row (the trail marks it, as on the home page), but the
 // ground either side of it must still run smooth. Reveal animations are off
@@ -86,6 +87,7 @@ function changes() {
   const y = (v) => Math.round(v + scrollY);
   const out = new Map();
   const trailed = (el) => el.hasAttribute('data-seam-trail');
+  const footed = (el) => el.hasAttribute('data-seam-trail-foot');
   const main = document.querySelector('main');
   const blocks = main ? [...main.querySelectorAll(':scope > *, :scope > * > section, section')] : [];
   for (const el of blocks) {
@@ -93,7 +95,7 @@ function changes() {
     if (r.height < 40 || r.width < innerWidth * 0.9) continue;
     out.set(y(r.top), out.get(y(r.top)) || trailed(el));
     const next = el.nextElementSibling;
-    out.set(y(r.bottom), out.get(y(r.bottom)) || Boolean(next && trailed(next) && Math.abs(next.getBoundingClientRect().top - r.bottom) < 2));
+    out.set(y(r.bottom), out.get(y(r.bottom)) || footed(el) || Boolean(next && trailed(next) && Math.abs(next.getBoundingClientRect().top - r.bottom) < 2));
   }
   for (const sel of ['.story-meadow', 'footer']) {
     const el = document.querySelector(sel);
@@ -146,9 +148,13 @@ for (const page of pages) {
         for (const el of document.querySelectorAll('main *, footer')) {
           const b = getComputedStyle(el, '::before');
           if (b.display !== 'none' && b.content !== 'none' && /data:image\/svg/.test(b.backgroundImage) && Math.abs(parseFloat(b.top) + parseFloat(b.height) / 2) < 2) el.setAttribute('data-seam-trail', '');
+          // An edge hero hangs the trail from its foot instead (its ::after
+          // starts just above the art's bottom edge): the change below it is trailed.
+          const a = getComputedStyle(el, '::after');
+          if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && Math.abs(parseFloat(a.top) - el.getBoundingClientRect().height) < 8) el.setAttribute('data-seam-trail-foot', '');
         }
       });
-      await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before { display: none !important; }' });
+      await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
       await p.evaluate(() => document.fonts.ready);
       const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
       const shot = await p.screenshot({ fullPage: true });

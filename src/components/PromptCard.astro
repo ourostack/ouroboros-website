@@ -13,19 +13,10 @@ const { label = 'Ask your agent', prompt, footnote } = Astro.props
 <div class="prompt-card">
   <div class="flex items-center justify-between gap-4 mb-2">
     <p class="prompt-label">{label}</p>
-    <button
-      class="prompt-copy-btn hit flex flex-none items-center gap-2 text-xs text-mist hover:text-bone transition-colors font-mono uppercase tracking-[0.18em] cursor-pointer"
-      data-prompt={prompt}
-    >
-      <svg class="prompt-copy-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2" />
-        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-width="2" />
-      </svg>
-      <svg class="prompt-check-icon w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-      </svg>
-      <span class="prompt-copy-label">Copy</span>
-    </button>
+    {/* The site's one Copy button: bordered, in the page's own type, the same
+        as on every install block (Ari's ruling on taste review r15, which
+        retired the borderless mono "COPY"). */}
+    <button type="button" class="prompt-copy-btn btn-ghost !py-2 text-sm flex-none" data-prompt={prompt}><span class="prompt-copy-label">Copy</span></button>
   </div>
   <pre class="prompt-frame font-mono text-sm text-bone leading-relaxed whitespace-pre-wrap">{prompt}</pre>
   {footnote && (
@@ -44,17 +35,11 @@ const { label = 'Ask your agent', prompt, footnote } = Astro.props
       var prompt = btn.getAttribute('data-prompt');
       if (!prompt) return;
       navigator.clipboard.writeText(prompt).then(function() {
-        var copyIcon = btn.querySelector('.prompt-copy-icon');
-        var checkIcon = btn.querySelector('.prompt-check-icon');
         var label = btn.querySelector('.prompt-copy-label');
-        if (copyIcon) copyIcon.classList.add('hidden');
-        if (checkIcon) checkIcon.classList.remove('hidden');
         if (label) label.textContent = 'Copied';
         setTimeout(function() {
-          if (copyIcon) copyIcon.classList.remove('hidden');
-          if (checkIcon) checkIcon.classList.add('hidden');
           if (label) label.textContent = 'Copy';
-        }, 2000);
+        }, 1600);
       });
     });
   });

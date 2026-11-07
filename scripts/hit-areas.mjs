@@ -1,20 +1,25 @@
-// Real-browser check that every button and link-button has at least a 44x44
-// hit area on a phone (taste review r14, 2026-11-07: the docs Copy control on
-// /lab/docs/getting-started/ was 61x16). The look may stay small; the area a
-// finger can hit may not. ouro.bot/apps/ouro-md/ runs the same check
-// (ourostack/ouro-apps-site, scripts/hit-areas.mjs).
+// Real-browser check that every button and every link outside running prose
+// has at least a 44x44 hit area on a phone (taste review r14, 2026-11-07: the
+// docs Copy control on /lab/docs/getting-started/ was 61x16; taste review r15
+// widened it to every link and button that is not inline in a sentence: the
+// footer links, the logo, the breadcrumbs, the Desk demo's Replay, the home
+// page's principle rows and the standalone "->" links). The look may stay
+// small; the area a finger can hit may not. ouro.bot/apps/ouro-md/ runs the
+// same check (ourostack/ouro-apps-site, scripts/hit-areas.mjs).
 //
 //   npm run build && node scripts/hit-areas.mjs
 //   node scripts/hit-areas.mjs --base https://ouroboros.bot   (a live site)
 //
 // For every page in dist/ (or every sitemap page under --base), at 320x640 and
-// 390x844, every visible <button>, [role=button], <summary> and link-button
-// (a link with a btn class, or a link drawn as a box: a background or a
-// border of its own) is scrolled into view, and a 44x44 square centred on it
-// is probed with elementFromPoint on a 5x5 grid. Each probe inside the
-// viewport must land on the control itself, a child of it, or its own
-// pseudo-element hit area. Uses Playwright's chromium; override with
-// CHROME_PATH. --json <file> saves the full result.
+// 390x844, every visible <button>, [role=button], <summary> and link is
+// scrolled into view, and a 44x44 square centred on it is probed with
+// elementFromPoint on a 5x5 grid. Each probe inside the viewport must land on
+// the control itself, a child of it, or its own pseudo-element hit area.
+// Exempt, as WCAG 2.5.5 allows: a link inline in running prose, that is, one
+// with words of the sentence beside it in the same inline run (text of its
+// own parent, or of an inline ancestor up to the nearest block). Uses
+// Playwright's chromium; override with CHROME_PATH. --json <file> saves the
+// full result.
 
 import { chromium } from 'playwright';
 import { readFile, writeFile } from 'node:fs/promises';
@@ -66,19 +71,24 @@ if (base) {
 
 // Runs in the page: the controls to probe, tagged so the probe can find them again.
 function controls() {
-  const boxy = (a) => {
-    const s = getComputedStyle(a);
-    if (/\bbtn\b|\bbtn-/.test(a.className)) return true;
-    if (s.display === 'inline') return false;
-    const bg = s.backgroundColor && !/rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor);
-    const border = ['Top', 'Right', 'Bottom', 'Left'].every((side) => parseFloat(s[`border${side}Width`]) > 0 && s[`border${side}Style`] !== 'none');
-    return bg || border;
+  // A link inline in running prose: words of the sentence sit beside it, as
+  // text of its own parent or of an inline ancestor up to the nearest block.
+  const inProse = (a) => {
+    if (getComputedStyle(a).display !== 'inline') return false;
+    let child = a;
+    for (let el = a.parentElement; el; child = el, el = el.parentElement) {
+      for (const n of el.childNodes) if (n !== child && n.nodeType === 3 && /[A-Za-z0-9]/.test(n.textContent)) return true;
+      // Words in an inline sibling (an <em>, a <code>) count as the sentence too.
+      for (const sib of el.children) if (sib !== child && !sib.matches('a, button') && getComputedStyle(sib).display === 'inline' && !sib.closest('[aria-hidden="true"]') && /[A-Za-z0-9]{2}/.test(sib.textContent)) return true;
+      if (getComputedStyle(el).display !== 'inline') return false;
+    }
+    return false;
   };
   const all = [...document.querySelectorAll('button, [role="button"], summary, a[href]')].filter((el) => {
     if (!el.getClientRects().length || el.closest('[hidden], [inert], [aria-hidden="true"]')) return false;
     const s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none' || s.pointerEvents === 'none') return false;
-    if (el.matches('a[href]') && !el.matches('[role="button"]')) return boxy(el);
+    if (el.matches('a[href]') && !el.matches('[role="button"]')) return !inProse(el);
     return true;
   });
   all.forEach((el, i) => el.setAttribute('data-hit-probe', i));
@@ -137,6 +147,6 @@ for (const page of pages) {
 await browser.close();
 server?.close();
 if (opt('--json')) await writeFile(opt('--json'), JSON.stringify(result, null, 2));
-console.log(`${pages.length} pages at 320 and 390: ${result.controls} control views, ${result.failures.length} under a 44x44 hit area`);
+console.log(`${pages.length} pages at 320 and 390: ${result.controls} control views, ${result.failures.length} under a 44x44 hit area (links inline in prose exempt)`);
 for (const f of result.failures) console.log(`  ${f}`);
 process.exit(result.failures.length ? 1 : 0);

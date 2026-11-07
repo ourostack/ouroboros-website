@@ -279,31 +279,21 @@ export const HERO_FLOOR = 0.82
 export const FADE_START = 0.72
 export const FADE_LATEST = 0.94
 export const FOOT_ALPHA = 0.9
-// The drift (global.css story-drift) zooms 2% about the fade line (or, under
-// an apron, about the art's foot), so it never carries a foot down into the
-// fade, and lifts a head at most 2% of the box: inside the 3% heroFrame()
+// The drift (global.css story-drift) zooms 2% about the fade line (or, on an
+// edge hero, about the art's foot), so it never carries a foot down into the
+// fade or past the edge, and lifts a head at most 2% of the box: inside the 3% heroFrame()
 // keeps above the cast.
 export const DRIFT = 1.02
 
 // Where the cast stands on the art's very foot (the picnic robots' shoes, a
-// sneaker under the armchair), no fade inside the art can keep them whole:
-// the art runs out before a soft edge fits. Such a hero lays a short apron
-// of the scene's own paint below the art (StoryScene's --hero-apron, a share
-// of the art's own height; global.css paints it with the scene's soft
-// preview, mirrored, so the meadow's colours run on past the art's edge) and
-// fades over that instead, starting at APRON_FADE of the box, so the feet
-// stay whole and the edge stays soft (taste review r11).
-export const APRON_FADE = 0.9
-// Taste review r14 (2026-11-07): at 1440 the picnic blanket on /lab/why/
-// smeared into an ochre band, because a short apron of one averaged row was
-// all the fade had to run over. An apron is now at least APRON_MIN of the
-// art's height, painted with a soft mirror of the art's own foot
-// (scripts/scene-paint.mjs), and its fade starts as early as the cast allows,
-// so the meadow dissolves over a long, eased edge instead of a short band.
-export const APRON_MIN = 0.16
-// The apron's melt stops this far (a share of the art's height) below the cast's lowest point.
-export const BLEND_CLEAR = 0.008
-
+// sneaker under the armchair, the dovecote's robots), no fade inside the art
+// can keep them whole. Ari's ruling on taste review r15 (2026-11-07), which
+// replaces the round-11 and round-14 apron: no hero box ever runs past its
+// art. Such a hero ends exactly at the art's bottom edge, with no fade, and
+// the site's gold trail closes it (global.css, [data-hero-edge]), so the cast
+// stays whole and fully opaque and nothing synthetic shows below them. The
+// crop shows the art's own foot (y = 100%), and the box is tall enough that
+// the heads keep their margin at the top.
 /** Where a point of the art (a fraction of its height) lands in the image at this share and crop, before the drift. */
 export const inBox = (at, share, y) => (at - y * (1 - share)) / share
 
@@ -314,14 +304,12 @@ export const drifted = (p, origin) => (p <= origin ? p : origin + (p - origin) *
 export const fadeAlpha = (p, fade) => (p <= fade ? 1 : Math.max(0, 1 - (p - fade) / (1 - fade)))
 
 /**
- * Where the cast's foot lands in the whole hero box (the image plus any
- * apron), as a fraction of the box, with the drift at its fullest. `share`
- * is the image's height over the art's own height at this width, `apron`
- * the apron's height in the same unit.
+ * Where the cast's foot lands in the hero box, as a fraction of the box, with
+ * the drift at its fullest. `share` is the image's height over the art's own
+ * height at this width.
  */
-export function footInHero(scene, { share, y, apron = 0, origin }) {
-  const q = drifted(inBox(castFoot[scene] ?? heroFocus[scene]?.[1] ?? 0.88, share, y), origin)
-  return (q * share) / (share + apron)
+export function footInHero(scene, { share, y, origin }) {
+  return drifted(inBox(castFoot[scene] ?? heroFocus[scene]?.[1] ?? 0.88, share, y), origin)
 }
 
 const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - floor) * i) / 40)
@@ -333,10 +321,10 @@ const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - flo
  * share or any taller one, keeps the whole cast in view. `floor` is the
  * share global.css actually holds the box to: `need`, but never under
  * HERO_FLOOR. `fade` is where the bottom fade starts, as a share of the box:
- * below the cast's foot at every share from `floor` to the whole art.
- * `apron` (a share of the art's height, 0 for most scenes) is the paint laid
- * below the art where the cast stands on its very foot, and `origin` the
- * drift's centre, as a share of the image.
+ * below the cast's foot at every share from `floor` to the whole art, or
+ * none at all on an `edge` hero, where the cast stands on the art's very foot
+ * and the box ends at the art's bottom edge (Ari's ruling, taste review r15).
+ * `origin` is the drift's centre, as a share of the image.
  */
 export function heroFrame(scene) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
@@ -361,35 +349,22 @@ export function heroFrame(scene) {
     fade = fadeFor(floor, y)
     if (fade > FADE_LATEST) floor = Math.min(1, +(floor + 0.01).toFixed(3))
   }
-  let apron = 0
-  let origin
   if (fade > FADE_LATEST) {
-    // The cast stands on the art's very foot: keep the least box, show the
-    // most of the art's foot, and lay the apron below it.
-    floor = floor0
-    y = headClear(floor)
-    fade = APRON_FADE
-    origin = 1
-    const ok = (a, f = fade) => shares(floor).every((s) => fadeAlpha(footInHero(scene, { share: s, y, apron: a, origin }), f) >= FOOT_ALPHA)
-    apron = APRON_MIN
-    while (!ok(apron)) apron = +(apron + 0.005).toFixed(3)
-    // The longest fade the cast allows: start it as early as the foot still
-    // keeps FOOT_ALPHA of itself (never above FADE_START).
-    while (fade - 0.005 >= FADE_START && ok(apron, +(fade - 0.005).toFixed(3))) fade = +(fade - 0.005).toFixed(3)
+    // The cast stands on the art's very foot: show the art's own foot, end
+    // the box there with no fade, and keep the heads FOCUS_MARGIN / 2 clear
+    // of the top (a taller box where the cast stands high in the art).
+    floor = +Math.min(1, Math.max(floor0, 1 - (top - FOCUS_MARGIN / 2))).toFixed(3)
+    return { need: +need.toFixed(3), floor, y: 100, fade: 100, edge: true, origin: 100, foot }
   }
+  const at = Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10
   return {
     need: +need.toFixed(3),
     floor: +floor.toFixed(3),
     y: +(y * 100).toFixed(1),
     // Rounded up, so the shipped fade is never earlier than the one computed.
-    fade: Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10,
-    apron,
-    origin: origin === undefined ? Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10 : origin * 100,
-    // How far up the art the apron's paint melts in: as far as it can while
-    // staying under the cast's lowest point (taste review r14: a short melt
-    // left the art's sharp foot showing as a line above the soft apron). In
-    // the art's height, from the foot the box shows at its least share.
-    blend: apron ? +Math.max(0.012, y * (1 - floor) + floor - foot - BLEND_CLEAR).toFixed(3) : 0,
+    fade: at,
+    edge: false,
+    origin: at,
     foot,
   }
 }

@@ -352,7 +352,11 @@ a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow
 
 /* ── Typography ── */
 /* Headings fill the line before they wrap (pretty, not balance, which halves short headings), and still never leave one word alone. */
-h1, h2, h3, h4, h5, h6, .font-display { text-wrap: pretty; }
+.font-display { text-wrap: pretty; }
+/* Headings balance their lines, so a phone never leaves one word hanging
+   ("Skills / for agents.", "uses / a model.": taste review r15). ouro.bot
+   balances its headings the same way. */
+:is(h1, h2, h3, h4, h5, h6), :is(h1, h2, h3, h4, h5, h6):is(.font-display, .post-title) { text-wrap: balance; }
 p, li, dd, figcaption { text-wrap: pretty; }
 
 /* ── Focus ── */
@@ -646,6 +650,16 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    control on every page at 320 and 390. */
 .btn-primary, .btn-ghost, .hit { position: relative; }
 .btn-primary::after, .btn-ghost::after, .hit::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 2.75rem); height: max(100%, 2.75rem); transform: translate(-50%, -50%); }
+/* Every link that is not inline in a sentence gets a finger's 44px too (taste
+   review r15, 2026-11-07: footer links, the logo, breadcrumbs, the Desk
+   demo's Replay, the home page's principle rows and the standalone arrow
+   links measured 20 to 32px). A link on its own line takes .hit above; links
+   that sit in a row or a list, where a neighbour's hit area would overlap,
+   stand 44px tall themselves. Links inline in running prose are exempt, as
+   WCAG allows. */
+.product-links { row-gap: 0; }
+.product-links a, .link-list a { display: inline-flex; align-items: center; min-height: 2.75rem; min-width: 2.75rem; }
+.exit-link { padding-block: 0.75rem; }
 
 /* ── The storybook world (src/components/StoryScene.astro) ──
    A page arrives in its scene: full bleed under the glass nav, the dawn
@@ -688,27 +702,23 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   mask-image: linear-gradient(to bottom, #000 0%, #000 var(--fade-at), rgb(0 0 0 / .972) calc(var(--fade-at) + var(--fade-run) * .1), rgb(0 0 0 / .896) calc(var(--fade-at) + var(--fade-run) * .2), rgb(0 0 0 / .784) calc(var(--fade-at) + var(--fade-run) * .3), rgb(0 0 0 / .648) calc(var(--fade-at) + var(--fade-run) * .4), rgb(0 0 0 / .5) calc(var(--fade-at) + var(--fade-run) * .5), rgb(0 0 0 / .352) calc(var(--fade-at) + var(--fade-run) * .6), rgb(0 0 0 / .216) calc(var(--fade-at) + var(--fade-run) * .7), rgb(0 0 0 / .104) calc(var(--fade-at) + var(--fade-run) * .8), rgb(0 0 0 / .028) calc(var(--fade-at) + var(--fade-run) * .9), transparent 100%);
 }
 /* Where the cast stands on the art's very foot (the picnic robots' shoes on
-   /brief/ and /lab/why/), no fade inside the art keeps them whole (taste
-   review r11). StoryScene sets --hero-apron, a share of the art's own height:
-   the box runs that much past the art's foot, painted with the colours of
-   a soft mirror of the art's own foot (--paint-foot, scripts/scene-paint.mjs;
-   taste review r14 replaced one averaged row, which smeared), which melt
-   over the art's foot below every character (--hero-blend) so there is no seam, and the fade runs over that. Wide
-   screens only; a phone shows its own crop with its own short fade. */
-@media (min-width: 641px) {
-  .story-hero { padding-bottom: calc(var(--hero-apron, 0) * var(--hero-arh, 0.375) * 100vw); }
-  .story-hero[style*="--hero-apron"]::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none;
-    height: calc((var(--hero-apron, 0) + var(--hero-blend, 0.012)) * var(--hero-arh, 0.375) * 100vw + 1px);
-    /* The meadow's own colours, washed toward the page as they go down: a
-       light morning mist, never a darker mid-tone (taste review r14: the
-       blanket's reds and the meadow's greens mixed into an ochre band). */
-    background:
-      linear-gradient(to bottom, transparent calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 100vw), color-mix(in oklab, var(--color-void) 45%, transparent) 40%, color-mix(in oklab, var(--color-void) 80%, transparent) 75%, var(--color-void) 100%),
-      var(--paint-foot, none) 0 0 / 100% 100% no-repeat;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / .5) calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 50vw), #000 calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 100vw));
-    mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / .5) calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 50vw), #000 calc(var(--hero-blend, 0.012) * var(--hero-arh, 0.375) * 100vw));
-  }
+   /brief/ and /lab/why/, the sneaker under the armchair, the dovecote's
+   robots), no fade inside the art keeps them whole. Ari's ruling on taste
+   review r15 (2026-11-07), which replaces the round-11 and round-14 apron:
+   no hero box ever runs past its art. StoryScene marks such a hero
+   [data-hero-edge]; it ends exactly at the art's bottom edge with no fade, so
+   the cast stays whole and fully opaque, and the site's gold trail closes it,
+   as it closes a section. The trail hangs from the edge, below the cast's
+   feet, never across them. Words do not rise into it. scripts/hero-joins.mjs
+   fails any hero whose box runs past its image. */
+.story-hero[data-hero-edge] { -webkit-mask-image: none; mask-image: none; overflow: visible; }
+.story-hero[data-hero-edge] picture { display: block; overflow: hidden; }
+.story-hero[data-hero-edge]::after {
+  content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 6px); height: 36px; z-index: 30; pointer-events: none;
+  background: var(--trail-path) center / 1200px 36px repeat-x;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  opacity: 0.9;
 }
 /* On a phone the box takes the phone crop's own aspect (StoryScene sets
    --phone-ar from the file: 4:3, or 16:9 / 2:1 for the wide-cast scenes), so
@@ -732,6 +742,8 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 @media (min-width: 1024px) {
   .story-hero + section, .story-hero + article, .story-hero + div { margin-top: -3.5rem; position: relative; }
   .story-hero + .lab-status { margin-top: -3.5rem; }
+  /* An edge hero has no faded foot to rise into: the words start below its trail. */
+  .story-hero[data-hero-edge] + :is(section, article, div, .lab-status) { margin-top: 0; }
   /* The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
   /* Words rise into the faded foot; pictures and windows do not. The demo
@@ -751,7 +763,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 @media (prefers-reduced-motion: no-preference) and (min-width: 641px) {
   .story-hero img { transform-origin: 58% var(--hero-origin, 72%); animation: story-drift 60s ease-in-out infinite alternate; }
 }
-/* A 2% zoom about the fade line (about the art's foot over an apron): it never carries a foot down into the fade,
+/* A 2% zoom about the fade line (about the art's foot on an edge hero): it never carries a foot down into the fade,
    and lifts a head at most 2% of the box, inside the 3% heroFrame() keeps
    above the cast. */
 @keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.02) translateX(-0.4%); } }
@@ -790,6 +802,10 @@ main > [class~="bg-deep/40"]:last-child { background: linear-gradient(to bottom,
 @media (max-width: 640px) {
   .story-scene { background-image: var(--paint-phone, none); background-size: 100% 100%; }
 }
+/* Once the art has landed, its paint goes: nothing of the placeholder shows
+   anywhere, not even a sliver at an edge (Ari's ruling, taste review r15).
+   Layout.astro marks a scene [data-landed] when its image loads. */
+.story-scene[data-landed] { background: none; }
 .story-scene img { border: 0; color: transparent; }
 .story-scene img:not([src]), .story-scene img[data-failed] { visibility: hidden; }
 
@@ -821,7 +837,7 @@ main > section.border-t::before, .trail-top::before {
 }
 /* The trail breathes, slowly, like the light along it in the scenes. Opacity only. */
 @media (prefers-reduced-motion: no-preference) {
-  main > section.border-t::before, .trail-top::before { animation: trail-breathe 7s ease-in-out infinite alternate; }
+  main > section.border-t::before, .trail-top::before, .story-hero[data-hero-edge]::after { animation: trail-breathe 7s ease-in-out infinite alternate; }
 }
 @keyframes trail-breathe { from { opacity: 0.6; } to { opacity: 1; } }
 
@@ -848,6 +864,10 @@ main > section.border-t::before, .trail-top::before {
 .lab-line .lab-item { position: relative; display: inline-flex; align-items: center; padding-left: 1.25rem; }
 .lab-line .lab-item::before { content: "\00B7"; position: absolute; left: 0.5rem; color: var(--color-shadow); }
 .lab-line .lab-crumb { color: var(--color-mist); }
+/* The way back ("<- Lab", "All reviews") stands a finger tall, 44px (taste
+   review r15: it measured 20px). The row clips its leading dot, so the
+   link's own box, not an invisible hit area, carries the size. */
+.lab-line .lab-item > a { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; min-width: 2.75rem; }
 /* A centred hero (HeroCover) centres the way in and out of it too: the
    breadcrumb and its status chip, and the block that follows the lead, such
    as "Words used here" (Ari's ruling, taste review r14: a left-aligned

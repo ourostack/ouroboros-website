@@ -106,11 +106,11 @@ const pieces = [
           Read the methodology
           <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
         </a>
-        <a href="/lab/docs/getting-started/" class="inline-flex items-center gap-1.5 text-bone hover:text-scale transition-colors text-sm md:text-base">
+        <a href="/lab/docs/getting-started/" class="hit inline-flex items-center gap-1.5 text-bone hover:text-scale transition-colors text-sm md:text-base">
           Get started
           <svg class="w-3.5 h-3.5 text-scale" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
         </a>
-        <a href="/lab/why/" class="text-mist hover:text-bone transition-colors text-sm md:text-base">Why Ouroboros</a>
+        <a href="/lab/why/" class="hit text-mist hover:text-bone transition-colors text-sm md:text-base">Why Ouroboros</a>
       </div>
     </div>
   </section>
@@ -188,7 +188,7 @@ const pieces = [
             Read the docs
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
           </a>
-          <a href="/lab/story/" class="text-mist hover:text-bone transition-colors text-sm">The origin story &rarr;</a>
+          <a href="/lab/story/" class="hit text-mist hover:text-bone transition-colors text-sm">The origin story &rarr;</a>
         </div>
       </div>
 
@@ -205,7 +205,7 @@ const pieces = [
       <StoryScene scene="gatefold" variant="vignette" alt="" class="heartbeat-scene" sizes="(min-width: 768px) 14rem, 9rem" />
       <div class="grid gap-4 min-w-0">
       <p class="font-display text-3xl md:text-4xl text-bone leading-tight">
-        <a href="/lab/why/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Your agent has a heartbeat.</a>
+        <a href="/lab/why/" class="hit text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow transition-colors">Your agent has a heartbeat.</a>
       </p>
       <p class="text-base md:text-lg text-mist leading-relaxed">
         A diary, a journal, habits it writes for itself, and a <a href="/lab/why/#inner-life" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">vocabulary for thinking</a>.
@@ -222,7 +222,7 @@ const pieces = [
         {pieces.map((piece) => (
           <li data-kind={piece.kind}>
             <span class="caption-mono block mb-2">{piece.kind}</span>
-            <h3 class="post-title"><a href={piece.href} class="text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors">{piece.title}</a></h3>
+            <h3 class="post-title"><a href={piece.href} class="hit text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors">{piece.title}</a></h3>
             <p class="post-dek">{piece.summary}</p>
           </li>
         ))}
