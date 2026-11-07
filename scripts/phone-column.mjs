@@ -14,6 +14,11 @@
 //    clips) is not GUTTER px from the left edge, the one gutter Ari ruled
 //    for both sites. Text that is indented inside the column (a list, a
 //    quote, a heading beside its mark) is fine; text left of it is not.
+//  - header: at 320, 390 and 430, the bar's mark does not start GUTTER px from
+//    the left, the menu icon does not end GUTTER px from the right, or the
+//    menu or theme button is smaller than a 44px tap target (taste review
+//    r13: the mark started at 16px and the menu button ended 8px from the
+//    edge on both sites).
 //  - font:   at 390, any button, input, select or textarea whose computed
 //    font is not one of the sites' own faces (FACES), so no control ever
 //    falls back to the browser's Arial or system font.
@@ -98,7 +103,19 @@ function measure(faces) {
     const first = family.split(',')[0].trim().replace(/^["']|["']$/g, '');
     if (!faces.includes(first)) off.push(`${label(el)} "${(el.textContent || el.value || el.getAttribute('aria-label') || '').trim().slice(0, 24)}" in ${family}`);
   }
-  return { column: Math.round(column * 10) / 10, at, off };
+  // The header: the mark's left edge, the visible menu icon's right edge, and
+  // both buttons' tap targets.
+  const header = {};
+  const mark = document.querySelector('.brand-home img, .brand img');
+  if (mark) header.mark = Math.round(mark.getBoundingClientRect().left * 10) / 10;
+  const toggle = document.querySelector('#menu-toggle, .menu-toggle');
+  const icon = toggle && [...toggle.querySelectorAll('svg')].find((svg) => getComputedStyle(svg).display !== 'none');
+  if (icon) header.icon = Math.round((document.documentElement.clientWidth - icon.getBoundingClientRect().right) * 10) / 10;
+  header.targets = [toggle, document.querySelector('#theme-toggle, .theme-toggle')].filter(Boolean).map((b) => {
+    const r = b.getBoundingClientRect();
+    return { label: label(b), w: Math.round(r.width * 10) / 10, h: Math.round(r.height * 10) / 10 };
+  });
+  return { column: Math.round(column * 10) / 10, at, off, header };
 }
 
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
@@ -113,6 +130,11 @@ for (const width of WIDTHS) {
     (result.columns[page] ||= {})[width] = m.column;
     if (Math.abs(m.column - GUTTER) > 0.5) result.failures.push(`${width} ${page} column starts at ${m.column}px (${m.at}), not ${GUTTER}px`);
     if (width === 390) for (const o of m.off) result.failures.push(`${width} ${page} ${o}`);
+    const h = m.header;
+    (result.header ||= {})[`${width} ${page}`] = h;
+    if (h.mark === undefined || Math.abs(h.mark - GUTTER) > 0.5) result.failures.push(`${width} ${page} header mark starts at ${h.mark}px, not ${GUTTER}px`);
+    if (h.icon === undefined || Math.abs(h.icon - GUTTER) > 0.5) result.failures.push(`${width} ${page} menu icon ends ${h.icon}px from the right, not ${GUTTER}px`);
+    for (const t of h.targets) if (t.w < 44 || t.h < 44) result.failures.push(`${width} ${page} ${t.label} is ${t.w}x${t.h}, under a 44px tap target`);
   }
   await ctx.close();
 }
@@ -120,6 +142,6 @@ await browser.close();
 server?.close();
 
 if (opt('--json')) await writeFile(opt('--json'), JSON.stringify(result, null, 2));
-console.log(`${pages.length} pages at ${WIDTHS.join(', ')}: ${result.failures.length} off the ${GUTTER}px column or off the sites' faces (${FACES.join(', ')})`);
+console.log(`${pages.length} pages at ${WIDTHS.join(', ')}: ${result.failures.length} off the ${GUTTER}px column (text and header), under a 44px tap target, or off the sites' faces (${FACES.join(', ')})`);
 for (const f of result.failures) console.log(`  ${f}`);
 process.exit(result.failures.length ? 1 : 0);

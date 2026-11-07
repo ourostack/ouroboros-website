@@ -134,3 +134,27 @@ test('the cast\'s foot counts every character, not only Ouro', () => {
   assert.ok(castFoot['ouroboros-skills'] >= 0.84, 'the reading robot\'s feet');
   assert.ok(castFoot.shepherd >= 0.935, 'the big sheep\'s hooves');
 });
+
+// No character stands within PHONE_EDGE px of either side of a phone hero
+// (taste review r13, 2026-11-06: Ouro touched the right edge of the factory's
+// phone hero on /lab/docs/architecture/, /lab/model-reviews/minimax/ and
+// /lab/what-is-an-agent-harness/). The phone hero shows its crop at the full
+// viewport width (scripts/hero-joins.mjs checks that in a real browser), so the
+// cast's place across the crop (phoneCastX) is its place on the screen.
+test('every scene keeps its cast at least 16px clear of both sides on a phone', async () => {
+  const { phoneCastX, PHONE_EDGE, usedScenes, phoneArtEdge } = await import('../src/data/scenes.mjs');
+  // The one named exemption: the art itself cuts the home scene's fence sheep.
+  assert.deepEqual(Object.keys(phoneArtEdge), ['ourostack']);
+  const close = [];
+  for (const scene of usedScenes()) {
+    const cast = phoneCastX[scene];
+    assert.ok(cast, `${scene} has no phoneCastX`);
+    for (const w of [320, 390, 430]) {
+      const left = cast[0] * w;
+      const right = (1 - cast[1]) * w;
+      if (left < PHONE_EDGE - 0.01) close.push(`${scene} at ${w}: a character ${left.toFixed(1)}px from the left`);
+      if (right < PHONE_EDGE - 0.01) close.push(`${scene} at ${w}: a character ${right.toFixed(1)}px from the right`);
+    }
+  }
+  assert.deepEqual(close, []);
+});
