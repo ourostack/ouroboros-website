@@ -3,8 +3,7 @@
 // onouroboros.bot→" and the home page read "spoonjoy.app↗"). A flex or
 // inline-flex box turns each run of its text into its own flex item and drops
 // the spaces around them, so a link whose host name sits in a <span> lost the
-// space beside it. ouro.bot runs the same check (ourostack/ouro-apps-site,
-// scripts/link-spaces.mjs); keep the two in step.
+// space beside it.
 //
 //   npm run build && node scripts/link-spaces.mjs
 //   node scripts/link-spaces.mjs --base https://ouroboros.bot   (a live site)

@@ -16,7 +16,6 @@
 //
 //   npm run build && node scripts/hero-gap.mjs
 //   node scripts/hero-gap.mjs --base https://ouroboros.bot   (a live site)
-//   node scripts/hero-gap.mjs --base https://ouro.bot --sitemap sitemap.xml
 //
 // Uses Playwright's chromium; override with CHROME_PATH.
 

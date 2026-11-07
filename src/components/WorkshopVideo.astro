@@ -84,8 +84,7 @@ const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
   /* The demo's Pause/Play: one size on both sites (taste review r16: it was
      60x31 here and 51x28 on ouro.bot). A fixed box, so Pause and Play are the
      same width, and the shared .hit area reaches out to 44x44 for a finger
-     while staying inside the frame. ouro.bot's styles.css has the same rule;
-     scripts/hit-areas.mjs probes it on both sites. */
+     while staying inside the frame. scripts/hit-areas.mjs probes it. */
   .clip-toggle { position: absolute; right: 0.6rem; bottom: 0.6rem; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 4.25rem; height: 2rem; padding: 0 0.85rem; border-radius: 999px; font: 500 0.8125rem/1 var(--font-body); color: var(--color-bone); background: color-mix(in srgb, var(--color-void) 85%, transparent); border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); cursor: pointer; }
   .clip-toggle:hover { color: var(--color-scale); }
   .clip-toggle[hidden] { display: none; }

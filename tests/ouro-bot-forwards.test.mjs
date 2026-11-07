@@ -7,6 +7,7 @@ import { readDist, distExists } from './support/dist.mjs';
 // must exist in the built site, so moving or deleting one of these pages fails
 // here before a visitor from ouro.bot lands on a 404. Keep this list in step with
 // that map; its own test checks the same destinations against the live site.
+// Ouro HX's page and files forward to ui.ouroboros.bot instead (moved 2026-11-07), so they are not listed here.
 const destinations = [
   '/',
   '/apps/',
@@ -14,6 +15,31 @@ const destinations = [
   '/apps/#shepherd',
   '/apps/#ouro-hx',
   '/favicon.ico',
+  // Ouro MD's download page and its files (moved 2026-11-07).
+  '/ouro-md/',
+  '/ouro-md/download/',
+  '/ouro-md/download/#install',
+  '/ouro-md/stable.json',
+  '/ouro-md-install.sh',
+  '/robots.txt',
+  '/sitemap-index.xml',
+  '/brand/ouro-md-icon.png',
+  '/brand/ouro.svg',
+  '/brand/ouro-render.webp',
+  '/brand/ouro-render-128.webp',
+  '/brand/ouro-render-256.webp',
+  '/brand/shepherd-render.webp',
+  '/brand/shepherd-render-128.webp',
+  '/brand/shepherd-render-256.webp',
+  '/fonts/cormorant-regular.woff2',
+  '/fonts/jetbrains-mono.woff2',
+  '/fonts/outfit.woff2',
+  '/images/workshop/ouro-md-editing.png',
+  ...['typing', 'agent-edit'].flatMap((clip) => ['light', 'dark'].flatMap((theme) => [
+    `/images/workshop/ouro-md-${clip}-${theme}.mp4`,
+    `/images/workshop/ouro-md-${clip}-${theme}.webm`,
+    `/images/workshop/ouro-md-${clip}-${theme}-poster.png`,
+  ])),
 ];
 
 const fileFor = (pathname) => (pathname.endsWith('/') ? `${pathname.slice(1)}index.html` : pathname.slice(1));

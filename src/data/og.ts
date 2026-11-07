@@ -85,6 +85,12 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Ouro MD',
     mark: 'ouro-md',
   },
+  '/ouro-md/download': {
+    title: 'Ouro MD: Markdown that renders as you type.',
+    subtitle: 'A native macOS Markdown editor. No preview pane, no toggle — just the document. Download it free.',
+    tag: 'Download Ouro MD',
+    mark: 'ouro-md',
+  },
   '/apps': {
     title: 'Fresh from the workshop, ready to install.',
     subtitle: 'Ouro MD, Ouroboros, Ouro Shepherd, Ouro HX, Desk and Ouro Butler: small, sharp tools for people and their agents.',

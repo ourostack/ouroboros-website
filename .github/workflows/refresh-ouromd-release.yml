@@ -1,0 +1,72 @@
+name: Refresh Ouro MD release metadata
+
+# Rewrites public/ouro-md/stable.json from Ouro MD's latest GitHub release
+# (scripts/refresh-ouromd-release.mjs) and, when it changed, commits it and
+# deploys. It deploys itself because a push made with the workflow's own token
+# does not start deploy.yml. Moved here from ourostack/ouro-apps-site with Ouro
+# MD's download page (2026-11-07).
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  deployments: write
+
+concurrency:
+  group: refresh-ouromd-release
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    # Shared with deploy.yml, so two production deploys never run at once.
+    concurrency:
+      group: production-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: node scripts/refresh-ouromd-release.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - id: changes
+        run: |
+          if git diff --quiet -- public/ouro-md/stable.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit refreshed metadata
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/ouro-md/stable.json
+          git commit -m "data: refresh Ouro MD stable release metadata"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - if: steps.changes.outputs.changed == 'true'
+        run: npm ci
+
+      - if: steps.changes.outputs.changed == 'true'
+        run: npx astro build
+
+      - name: Deploy to Cloudflare Workers
+        if: steps.changes.outputs.changed == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --config wrangler-worker.jsonc

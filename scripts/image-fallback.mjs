@@ -5,8 +5,7 @@
 //   npm run build && node scripts/image-fallback.mjs
 //   node scripts/image-fallback.mjs --base https://ouroboros.bot   (a live site)
 //
-// The same check as ouro.bot's (ourostack/ouro-apps-site,
-// scripts/image-fallback.mjs); keep the two in step. On each page in PAGES it
+// On each page in PAGES it
 // answers chosen scene requests with a 503 and fails unless the hero lands on
 // the expected file:
 //  - 1920, the 1536 AVIF fails:          the 960 AVIF (the next size down);

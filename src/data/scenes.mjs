@@ -45,6 +45,10 @@ const pages = {
   '/brief': { hero: 'friends' },
   '/desk': { hero: 'desk' },
   '/ouro-md': { hero: 'ouro-md' },
+  // The download page (moved from ouro.bot/apps/ouro-md/, 2026-11-07): a tap
+  // pouring the first cup, since the lectern belongs to its parent page and no
+  // scene repeats between a page and its parent. Its card keeps the lectern.
+  '/ouro-md/download': { hero: 'homebrew-tap', og: 'ouro-md' },
   '/butler': { hero: 'butler' },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },

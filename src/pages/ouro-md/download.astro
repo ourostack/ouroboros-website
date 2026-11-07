@@ -1,0 +1,191 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import WorkshopVideo from '../../components/WorkshopVideo.astro'
+import { ogPathFor } from '../../data/og'
+import { ouroMdInstall } from '../../data/principles.mjs'
+
+// Ouro MD's download page. It moved here from ouro.bot/apps/ouro-md/ (Ari,
+// 2026-11-07: "move every surface to ouroboros.bot and have ouro.bot forward");
+// ouro.bot forwards the old address and its files here. The copy and the look
+// are that page's at the end of taste review r18, kept playful. /ouro-md/ stays
+// the product page; this is the second Ouro MD page, the one you download from.
+// The version, the download link and the signing line read /ouro-md/stable.json,
+// which .github/workflows/refresh-ouromd-release.yml rewrites hourly.
+const title = 'Download Ouro MD: Markdown that renders as you type | Ouro'
+const description = 'Ouro MD is a native macOS Markdown editor that renders as you type. Tables, code, math, and diagrams become themselves in place — no preview pane, no mode toggle. Download it free.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const section = 'px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20'
+const releases = 'https://github.com/ourostack/ouro-md/releases/latest'
+const themes = ['light', 'dark'] as const
+const typing = 'Lists and flowcharts render as you type.'
+
+const features = [
+  ['Tables that behave', 'Wide tables scroll inside their own block instead of dragging the page sideways.'],
+  ['Code, highlighted', 'Fenced blocks with syntax highlighting and block-local scrolling — no runaway overflow.'],
+  ['Math, typeset', 'Inline and display math rendered with KaTeX. <code>$e^{i\\pi}+1=0$</code> just works.'],
+  ['Diagrams', 'Mermaid flowcharts, sequence, and more — drawn live, and re-themed for dark mode.'],
+  ['Four themes', 'Quartz, Graphite, Manuscript, Newsprint — or drop in your own CSS.'],
+  ['Truly native', 'Transparent titlebar, standard menus, Open Recent, drag-to-open, and auto-save.'],
+  ['Outline &amp; search', 'A live document outline, a folder file tree, and full-text folder search (<code>⇧⌘F</code>).'],
+  ['Export', 'Save to themed, self-contained <strong>HTML</strong> or <strong>PDF</strong>. Images embed inline.'],
+  ['Yours, locally', 'Plain files on your disk. Pasted images inline as data URIs — no upload server, no broken links.'],
+]
+
+const app = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Ouro MD',
+  operatingSystem: 'macOS 15+',
+  applicationCategory: 'DeveloperApplication',
+  url: 'https://ouroboros.bot/ouro-md/download/',
+  description: 'A native macOS Markdown editor that renders as you type — no preview pane, no toggle.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: 'Ouro', url: 'https://ouroboros.bot/' },
+}
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/ouro-md/download')} canonical="https://ouroboros.bot/ouro-md/download/">
+  <Fragment slot="head"><script type="application/ld+json" is:inline set:html={JSON.stringify(app)} /></Fragment>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-9 md:pb-[4.5rem]">
+    <div class="max-w-6xl mx-auto dl-hero">
+      <div class="grid gap-5 lg:gap-4 content-start min-w-0">
+        <p class="eyebrow">Ouro MD · The Markdown app</p>
+        <h1 class="heading-lead"><span class="t-ph">Markdown that</span> <span class="t-ph">renders as you type.</span></h1>
+        <p class="product-lede">Ouro MD renders Markdown in place as you type. Headings, tables, code, math, and diagrams become themselves — right where your cursor is. No split preview. No mode toggle. Just the document, staying honest about the Markdown underneath.</p>
+        <div class="btn-row mt-2 lg:mt-1">
+          <a id="download" class="btn-primary" href={releases}>Download Ouro MD</a>
+          <a class="btn-ghost" href="#install">Install by terminal</a>
+        </div>
+        <p class="dl-trust">
+          <span id="version">Latest release</span>
+          <span>macOS 15+</span>
+          <span id="trust">Signed &amp; notarized</span>
+        </p>
+      </div>
+
+      <figure class="product-figure min-w-0 hero-media">
+        {/* Real Ouro MD recordings, the same clips /ouro-md/ draws on. One per theme. */}
+        <div class="product-media media-clip">
+          {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} alt={typing} /></div>)}
+        </div>
+        <figcaption class="product-caption">{typing} <span class="tag tag-plain">Dramatization</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class={`${section} bg-deep/40`}>
+    <div class="max-w-6xl mx-auto grid gap-10 split split-media items-center">
+      <div class="grid gap-4 content-start min-w-0 split-head dl-prose">
+        <p class="eyebrow">The idea</p>
+        <h2 class="heading-section dl-h2">Nice to write in. Nicer to read in.</h2>
+        <p>Most Markdown editors make you pick a side: a raw source-code cave, or a decorative preview aquarium you can't type into. Ouro MD keeps the document a document. Syntax markers are there the moment you need them and quiet when you don't — so the page you write is the page you'd want to read.</p>
+        <ul class="dl-list">
+          <li>Live in-place rendering (IR) — plus WYSIWYG and split, when you want them</li>
+          <li>Source Code Mode is one keystroke away (<code>⌘/</code>)</li>
+          <li>A distraction-free surface: no toolbar, just your words</li>
+        </ul>
+      </div>
+      <figure class="product-figure min-w-0 split-body">
+        {/* One shot per theme, both Ouro MD's own rendering of the same document. */}
+        <div class="product-media media-shot dl-shot">
+          <picture class="theme-light-only"><img src="/images/workshop/ouro-md-editing.png" width="1720" height="1480" loading="lazy" decoding="async" alt="Ouro MD rendering a table with emoji status, a KaTeX equation, and a checkbox task list." /></picture>
+          <picture class="theme-dark-only"><img src="/images/workshop/ouro-md-editing-dark.png" width="1720" height="1495" loading="lazy" decoding="async" alt="Ouro MD rendering a table with emoji status, a KaTeX equation, and a checkbox task list." /></picture>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section id="features" class={`${section} scroll-mt-16`}>
+    <div class="max-w-6xl mx-auto">
+      <div class="grid gap-4 dl-head">
+        <p class="eyebrow">Features</p>
+        <h2 class="heading-section dl-h2">The whole Markdown vocabulary — rendered, not previewed.</h2>
+        <p class="text-lg text-mist leading-relaxed">Everything a real document needs, in a real Mac app. Type it and watch it resolve in place.</p>
+      </div>
+      <ul class="dl-features">
+        {features.map(([name, body]) => (
+          <li><h3 class="dl-feature-name" set:html={name} /><p set:html={body} /></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="install" class={`${section} bg-deep/40 scroll-mt-16`}>
+    <div class="max-w-6xl mx-auto grid gap-10 split split-media items-center">
+      <div class="grid gap-4 content-start min-w-0 split-head">
+        <p class="eyebrow">Terminal install</p>
+        <h2 class="heading-section dl-h2">One line, fully auditable.</h2>
+        <p class="text-lg md:text-xl text-mist leading-relaxed">The installer fetches the latest release, verifies its manifest and SHA-256 checksum against the published metadata, then installs the app. Magic you can read.</p>
+        <div class="btn-row mt-3">
+          <a id="download-2" class="btn-primary" href={releases}>Or download the DMG</a>
+          <a class={`dl-link ${link}`} href="/ouro-md/stable.json">Release metadata</a>
+        </div>
+      </div>
+      {/* The same install block as /ouro-md/: the command, a Copy button that copies it, and the alias note. */}
+      <div class="grid gap-2 content-start min-w-0 split-body">
+        <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" data-copy-target="ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> shell alias.</span>
+        </div>
+      </div>
+    </div>
+    <p class="max-w-6xl mx-auto mt-6 product-links text-mist"><a href="https://github.com/ourostack/ouro-md" class={link}>Ouro MD source &#8599;</a> <a href="https://github.com/ourostack/ouro-md/issues/new" class={link}>Support &#8599;</a> <a href="https://github.com/ourostack/ouro-md/blob/main/PRIVACY.md" class={link}>Ouro MD privacy &#8599;</a> <a href="/ouro-md/" class={link}>All about Ouro MD &rarr;</a></p>
+  </section>
+</Layout>
+
+<script is:inline>
+  // Promote the real release: version, download link, signing truth.
+  fetch('/ouro-md/stable.json')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (release) {
+      if (!release) return;
+      document.getElementById('version').textContent = 'Ouro MD ' + release.version;
+      var dmg = release.downloads && release.downloads.dmg;
+      var zip = release.downloads && release.downloads.zip;
+      var href = (dmg && dmg.url) || (zip && zip.url) || release.releaseURL;
+      ['download', 'download-2'].forEach(function (id) {
+        var el = document.getElementById(id); if (el && href) el.href = href;
+      });
+      if (release.notarized === true && release.signingMode === 'developer-id') {
+        document.getElementById('trust').textContent = 'Signed, notarized & verified';
+      } else if (release.signingMode) {
+        document.getElementById('trust').textContent = release.signingMode + ' release';
+      }
+    })
+    .catch(function () {});
+</script>
+
+<style>
+  /* The words take the wider column from 1024px, so the headline sets on two
+     lines, and the demo lines up with the top of the words (taste reviews r3
+     and r4 on ouro.bot). */
+  .dl-hero { display: grid; gap: 2.5rem; }
+  @media (min-width: 1024px) {
+    .dl-hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 3rem; align-items: start; }
+    .dl-hero .heading-lead { font-size: clamp(3.4rem, 4.6vw, 4.4rem); }
+  }
+  /* Section heads at the size they had on ouro.bot. */
+  @media (min-width: 768px) { .dl-h2 { font-size: 3.25rem; line-height: 1; } }
+  .dl-trust { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 0.25rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
+  .dl-trust span { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .dl-trust span::before { content: ""; width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--color-scale); }
+  .product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; }
+  .dl-shot img { width: 100%; height: auto; }
+  .dl-prose { color: var(--color-mist); }
+  .dl-prose > p:not(.eyebrow) { font-size: 1.125rem; line-height: 1.7; }
+  .dl-list { display: grid; gap: 0.5rem; margin-top: 0.5rem; font-size: 1.0625rem; }
+  .dl-list li { position: relative; padding-left: 1.25rem; }
+  .dl-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-scale); }
+  .dl-list code, .dl-features :global(code) { font-family: var(--font-mono); font-size: 0.85em; white-space: nowrap; color: var(--color-bone); background: var(--color-undergrowth); padding: 0.1em 0.4em; border-radius: 0.25rem; }
+  .dl-head { margin-bottom: 2.5rem; }
+  .dl-features { display: grid; gap: 2rem 3rem; }
+  @media (min-width: 640px) { .dl-features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .dl-features { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .dl-features li { display: grid; gap: 0.4rem; align-content: start; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 45%, transparent); color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .dl-features :global(strong) { color: var(--color-bone); font-weight: 500; }
+  .dl-feature-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.15; color: var(--color-bone); }
+  /* A link beside a button stands a finger tall (44px), as every row link does. */
+  .dl-link { display: inline-block; box-sizing: border-box; min-height: 2.75rem; padding-block: max(0px, calc((2.75rem - 1lh) / 2)); }
+</style>

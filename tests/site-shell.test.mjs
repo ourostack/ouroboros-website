@@ -348,7 +348,7 @@ test('homepage ends with ways in, by what the reader wants, each one link', () =
   for (const href of rows.filter((h) => h.startsWith('/'))) assert.ok(distExists(`${href.replace(/^\//, '')}index.html`), `${href} exists`);
   assert.doesNotMatch(start, /class="btn-/, 'Rows, not buttons');
   assert.doesNotMatch(text, /\bfree\b/i, 'No App Store listing says free');
-  assert.ok(!hrefsOf(html).includes('https://ouro.bot/apps/ouro-md/'), 'The homepage sends Get Ouro MD to /ouro-md/ (root misses ruling 2.5)');
+  assert.ok(!hrefsOf(html).some((href) => href === 'https://ouro.bot/apps/ouro-md/' || href === '/ouro-md/download/'), 'The homepage sends Get Ouro MD to /ouro-md/ (root misses ruling 2.5)');
 });
 
 test('homepage sections appear in reading order', () => {
