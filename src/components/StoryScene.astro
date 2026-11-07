@@ -45,7 +45,7 @@ const hero = variant === 'hero'
 // paint below the art, so the fade has room below their feet (taste review r11).
 const frame = heroFrame(scene)
 const phoneAspect = hero
-  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%; --hero-fade: ${frame.fade}%; --hero-origin: ${frame.origin}%${frame.apron ? `; --hero-apron: ${frame.apron}` : ''}`
+  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%; --hero-fade: ${frame.fade}%; --hero-origin: ${frame.origin}%${frame.apron ? `; --hero-apron: ${frame.apron}; --hero-blend: ${frame.blend}` : ''}`
   : `--phone-ar: ${pw} / ${ph}`
 // The scene's own dawn, painted behind the art (scripts/scene-paint.mjs): a
 // tiny soft preview of the wide art and of the phone crop, so a slow or failed
