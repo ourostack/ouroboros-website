@@ -115,6 +115,24 @@ export function escapeText(text, held = []) {
     .replace(/[\u{f0000}-\u{ffffd}]/gu, (c) => held[c.codePointAt(0) - HELD_BASE] ?? '');
 }
 
+// A long hostname ("hermes-agent.nousresearch.com") breaks after a "." before
+// it ever breaks at a hyphen (Ari's ruling on taste review r20: a bare
+// "site:hermes-agent.nousresearch.com" in a fetch log broke as "hermes-" /
+// "agent" at 320). A host of HOST_SPLIT_MIN characters or more is held as one
+// nowrap piece per label, with a <wbr> after each ".", so a line can end only
+// after a dot; each label stays whole. Shorter hosts never need a line break.
+export const HOST_SPLIT_MIN = 24;
+const BARE_HOST = /^([^\p{L}\p{N}]*(?:[a-z]+:)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(\/*[)"'\].,;:!]*)$/u;
+
+/** A hostname's pieces (each ending in its "."), or null when the text is not a long host. */
+export function hostLabels(text) {
+  const m = text.match(BARE_HOST);
+  if (!m || !TLD.test(m[3]) || m[2].length < HOST_SPLIT_MIN) return null;
+  const labels = (m[1] + m[2]).split(/(?<=\.)(?=[A-Za-z0-9])/);
+  labels[labels.length - 1] += m[4];
+  return labels;
+}
+
 /** The inner HTML for one token's text (already HTML-escaped). */
 export function wrapToken(raw) {
   const { text, held } = decodeEntities(raw);
@@ -153,7 +171,14 @@ export function wrapToken(raw) {
           // to the next line whole whenever the scheme and host fit there
           // together; it breaks after the "//" only when they do not.
           const scheme = i === 0 && head ? schemeEnd(piece) : 0;
-          if (scheme) return `<span class="tok tok-long tok-url">${esc(piece.slice(0, scheme))}<wbr><span class="tok-host">${esc(piece.slice(scheme))}</span></span>`;
+          const labelled = (labels) => labels.map((l) => `<span class="tok">${esc(l)}</span>`).join('<wbr>');
+          if (scheme) {
+            const labels = hostLabels(piece.slice(scheme));
+            return `<span class="tok tok-long tok-url">${esc(piece.slice(0, scheme))}<wbr><span class="tok-host${labels ? ' tok-host-long' : ''}">${labels ? labelled(labels) : esc(piece.slice(scheme))}</span></span>`;
+          }
+          // A bare host, with no "/" to break at: after a "." only.
+          const labels = hostLabels(piece);
+          if (labels) return `<span class="tok tok-long tok-hostname">${labelled(labels)}</span>`;
           return `<span class="tok tok-long">${esc(piece)}</span>`;
         })
         .join('<wbr>');
@@ -226,7 +251,9 @@ function wrapText(html) {
               ? `<span class="hy">${word}</span>`
               : /-/.test(word) && coreLength(word) === 0 && entityLength(word) <= 8
                 ? `<span class="nobr">${word}</span>` // "-->" in a transcript never splits as "--" / ">"
-                : word,
+                : /^-{1,2}[\p{L}\p{N}]/u.test(word) && entityLength(word) <= NOWRAP_MAX
+                  ? `<span class="nobr">${word}</span>` // a flag ("-p") never splits as "-" / "p" (Linux Chromium breaks there; site-checks, round 21)
+                  : word,
       );
     parts[i] = heading
       ? part.split(TERM_RE).map((piece, k) => (k % 2 ? `<span class="nobr">${piece}</span>` : words(piece))).join('')

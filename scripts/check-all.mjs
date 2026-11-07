@@ -16,14 +16,14 @@
 
 import { spawn } from 'node:child_process';
 import { appendFileSync, createWriteStream, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve as resolvePath } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveDist } from './serve-dist.mjs';
 
 export const CHECKS = [
   'text', 'hero', 'column', 'fallback', 'seams', 'menu', 'hit', 'h1', 'gap',
   'spaces', 'ends', 'swap', 'swipe', 'headings', 'drama', 'buttons', 'grid',
-  'captions',
+  'captions', 'cta',
 ];
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -42,7 +42,7 @@ if (unlisted.length || stale.length) {
 
 const only = opt('--only')?.split(',');
 const run = only ? CHECKS.filter((n) => only.includes(n)) : CHECKS;
-const logs = join(ROOT, opt('--logs') || process.env.CHECK_LOGS || 'check-logs');
+const logs = resolvePath(ROOT, opt('--logs') || process.env.CHECK_LOGS || 'check-logs'); // an absolute CHECK_LOGS stays as given
 mkdirSync(logs, { recursive: true });
 const jobs = Math.max(1, Number(process.env.CHECK_JOBS || 3));
 

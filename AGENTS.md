@@ -16,6 +16,7 @@ Follow ourostack's shared rule, [every PR merges within 30 minutes](https://gith
 - **Deploy:** push to `main` → `.github/workflows/deploy.yml` builds and runs `wrangler deploy` → live. Every pull request gets a preview from `.github/workflows/preview.yml`.
 - **Tests:** `npm test` builds, then runs `node --test 'tests/*.test.*'` against `dist/`. Set `SITE_DENYLIST_FILE` (a file outside this repository, one string per line) to also check that no built page contains private names.
 - **Page checks:** `npm run check:all` serves `dist/` on 127.0.0.1 the way the Worker does (`scripts/serve-dist.mjs`: its redirects and its 404 page) and runs every `check:*` against it, or against `SITE_BASE` when set. A new `check:*` script must be added to `CHECKS` in `scripts/check-all.mjs`, or `check:all` fails. `.github/workflows/site-checks.yml` runs `npm test`, `check:all` and the brand audit (`ourostack/.github` `brand/tools/audit.mjs --origin`) on every PR and push to main, in one job named `site-checks`; it uploads the logs as the `site-checks-logs` artifact. LCP and taste reviews stay by hand.
+- **Product pages:** each page in `PRODUCT_PAGES` (`scripts/primary-action.mjs`) marks its hero lede `data-hero-lede` and its one primary action `data-primary-action`. `check:cta` holds the action fully in the first view with 24px to spare at 1024x768, 1280x800, 1440x900 and 1920x1080, and directly under the lede on phones. Make room by tightening the hero, never by shrinking the art below its floor. A new product page goes in `PRODUCT_PAGES`.
 
 ---
 
