@@ -253,6 +253,14 @@ html, body { overflow-x: clip; }
   .split.split-media > .split-head { grid-column: 1; }
   .split.split-media > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
 }
+/* A product hero whose copy runs long (/ouro-md/) stays stacked until 1280px,
+   so in a 5/12 column at 1024 its lede doesn't push the Download button below
+   the fold (Ari's ruling on taste review r20: a product page's primary action
+   is fully in the first view; scripts/primary-action.mjs). */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .split.split-media.product-hero { grid-template-columns: minmax(0, 1fr); }
+  .split.split-media.product-hero > .split-body { grid-column: 1; }
+}
 
 /* A list of posts or pages, read top to bottom: no cards, a hairline between
    entries, an underlined title that thickens on hover. Used by /blog/ and /lab/. */
@@ -684,6 +692,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .tok-long { display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; text-decoration: inherit; }
 /* A long scheme and host breaks, if at all, only right after its "//"; the host stays whole (taste review r11). */
 .tok-host { white-space: nowrap; }
+/* A long host (src/lib/code-wrap.mjs hostLabels) moves to the next line whole
+   when it fits there, and otherwise breaks only after a ".", never at a
+   hyphen (Ari's ruling on taste review r20: "hermes-" / "agent" at 320). */
+.tok-host-long { display: inline-block; max-width: 100%; white-space: normal; text-decoration: inherit; }
+.tok-hostname { overflow-wrap: normal; }
 /* A hyphenated word in a heading never breaks at its hyphen (taste review r11: "to-" / "do" at 320). */
 .nobr { white-space: nowrap; }
 

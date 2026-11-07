@@ -23,7 +23,7 @@ import { serveDist } from './serve-dist.mjs';
 export const CHECKS = [
   'text', 'hero', 'column', 'fallback', 'seams', 'menu', 'hit', 'h1', 'gap',
   'spaces', 'ends', 'swap', 'swipe', 'headings', 'drama', 'buttons', 'grid',
-  'captions',
+  'captions', 'cta',
 ];
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
