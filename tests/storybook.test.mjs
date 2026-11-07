@@ -132,3 +132,40 @@ test('no hero scene repeats between neighbouring pages', () => {
   }
   assert.deepEqual(clashes, []);
 });
+
+// A painted placeholder behind every scene (taste review r10, 2026-11-06: a
+// brief Cloudflare 503 left /apps/'s hero showing alt text on a beige box).
+// Each scene carries a tiny soft preview of its own art, painted from the
+// bytes it serves (scripts/scene-paint.mjs), and a failed image steps aside.
+const paints = JSON.parse(fs.readFileSync(new URL('../src/data/scene-paint.json', import.meta.url), 'utf8'));
+
+test('every scene paint comes from the art the site serves now, and stays tiny', () => {
+  for (const [scene, paint] of Object.entries(paints)) {
+    for (const kind of ['wide', 'phone']) {
+      const { from, sha256, uri } = paint[kind];
+      assert.equal(sha(path.join(distDir, 'brand/storybook', from)), sha256, `${scene} ${kind} paint is stale: run node scripts/scene-paint.mjs`);
+      assert.match(uri, /^data:image\/webp;base64,[A-Za-z0-9+/=]+$/);
+      assert.ok(uri.length < 600, `${scene} ${kind} paint is ${uri.length} characters`);
+    }
+  }
+});
+
+test('every scene on every page is painted with its own dawn behind the art', () => {
+  let count = 0;
+  for (const file of pages()) {
+    const html = fs.readFileSync(file, 'utf8');
+    for (const [, scene, style] of html.matchAll(/<div class="story-scene[^"]*"[^>]*data-brand-scene="([^"]+)"[^>]*style="([^"]*)"/g)) {
+      assert.ok(paints[scene], `${pageOf(file)}: ${scene} has no paint`);
+      assert.ok(style.includes(`--paint: url(${paints[scene].wide.uri})`), `${pageOf(file)}: ${scene} is not painted with its wide art`);
+      assert.ok(style.includes(`--paint-phone: url(${paints[scene].phone.uri})`), `${pageOf(file)}: ${scene} is not painted with its phone crop`);
+      count++;
+    }
+    // A failed scene image steps aside for the paint (Layout.astro's head script).
+    if (/class="story-scene/.test(html)) assert.match(html, /addEventListener\('error'[^\n]*story-scene[^\n]*data-failed/, `${pageOf(file)} has no failed-image handler`);
+  }
+  assert.ok(count > 60, `only ${count} scenes checked`);
+  const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
+  assert.match(css, /\.story-scene \{ background: var\(--paint, none\)/);
+  assert.match(css, /\.story-scene img \{ border: 0; color: transparent; \}/);
+  assert.match(css, /\.story-scene img\[data-failed\] \{ visibility: hidden; \}/);
+});

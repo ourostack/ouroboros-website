@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, listHtmlFiles } from './support/dist.mjs';
+import { castFoot, heroFocus, FOOT_ALPHA, inBox, drifted, fadeAlpha } from '../src/data/scenes.mjs';
 
 // No desktop hero crops more than about a fifth of its scene away (taste
 // review r8, 2026-11-06: the legal pages' short band and ouro.bot's capped
@@ -14,7 +15,7 @@ import { distDir, listHtmlFiles } from './support/dist.mjs';
 // scripts/hero-crop.mjs measures the same thing in a real browser.
 
 const MAX_CROP = 0.2;
-const viewports = [[1024, 768], [1440, 900], [1920, 1080]];
+const viewports = [[1024, 768], [1280, 800], [1440, 900], [1920, 1080]];
 const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
 
 const ruleFor = (selector) => {
@@ -62,6 +63,54 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
       const box = Math.min(natural, px(cap, { w, h, floor, arh }));
       const crop = 1 - box / natural;
       assert.ok(crop <= MAX_CROP, `/${path.relative(distDir, file)} at ${w}x${h} crops ${(crop * 100).toFixed(1)}% of its scene`);
+    }
+    checked++;
+  }
+  assert.ok(checked > 20, `only ${checked} heroes checked`);
+});
+
+// No character dissolves into the hero's bottom fade (taste review r10,
+// 2026-11-06: Ouro's lower coil faded into the page on /ouro-hx/ at 1024, 1440
+// and 1920, and the picnic robots' legs on /brief/). The mask runs from opaque
+// at the page's --hero-fade to clear at the box's foot; the lowest point of
+// every character (castFoot, read off the art) must keep FOOT_ALPHA of itself
+// at every laptop and desktop viewport, with the slow drift at its fullest.
+test('global.css starts each hero\'s fade, and its drift, at the page\'s own --hero-fade', () => {
+  const at = css.indexOf('.story-hero {\n  -webkit-mask-image');
+  assert.ok(at >= 0, 'global.css has no .story-hero mask rule');
+  const rule = css.slice(at, css.indexOf('}', at));
+  assert.match(rule, /-webkit-mask-image:[^;]*#000 var\(--hero-fade, [\d.]+%\), transparent 100%\)/);
+  assert.match(rule, /\bmask-image:[^;]*#000 var\(--hero-fade, [\d.]+%\), transparent 100%\)/);
+  assert.match(css, /\.story-hero img \{ transform-origin: 58% var\(--hero-fade, [\d.]+%\); animation: story-drift/);
+  assert.match(css, /@keyframes story-drift \{ from \{[^}]*\} to \{ transform: scale\(1\.02\)/);
+});
+
+test('every scene names its cast\'s lowest point, inside the crop it keeps', () => {
+  for (const [scene, [, bottom]] of Object.entries(heroFocus)) {
+    assert.ok(castFoot[scene] > 0, `${scene} has no castFoot`);
+    assert.ok(castFoot[scene] <= bottom, `${scene}: castFoot ${castFoot[scene]} sits below its heroFocus bottom ${bottom}`);
+  }
+});
+
+test('no character dissolves into the bottom fade at 1024, 1280, 1440 or 1920', () => {
+  let checked = 0;
+  for (const file of pages()) {
+    const html = fs.readFileSync(file, 'utf8');
+    const hero = html.match(/<div class="story-scene story-hero([^"]*)"[^>]*data-brand-scene="([^"]+)"[^>]*style="([^"]*)"/);
+    if (!hero) continue;
+    const [, cls, scene, style] = hero;
+    const num = (name) => Number(style.match(new RegExp(`--${name}:\\s*([\\d.]+)`))?.[1]);
+    const floor = num('hero-floor');
+    const arh = num('hero-arh');
+    const y = num('hero-y') / 100;
+    const fade = num('hero-fade') / 100;
+    assert.ok(fade >= 0.72 && fade <= 0.94, `${file}: --hero-fade ${fade} is missing or outside 72-94%`);
+    const cap = /story-hero-content/.test(cls) ? contentCap : heroCap;
+    for (const [w, h] of viewports) {
+      const natural = w * arh;
+      const share = Math.min(natural, px(cap, { w, h, floor, arh })) / natural;
+      const alpha = fadeAlpha(drifted(inBox(castFoot[scene], share, y), fade), fade);
+      assert.ok(alpha >= FOOT_ALPHA - 0.005, `/${path.relative(distDir, file)} (${scene}) at ${w}x${h}: the cast's foot keeps only ${(alpha * 100).toFixed(0)}% of itself in the fade`);
     }
     checked++;
   }

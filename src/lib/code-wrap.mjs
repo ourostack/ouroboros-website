@@ -5,8 +5,11 @@
 //
 // One rule for every URL and path on the site, in code, mono spans, links,
 // prose and preformatted blocks alike:
-// - A token breaks only right after a "/" or right before the "." of a host
-//   or file name: each piece is a span, with a <wbr> between pieces. A piece
+// - A URL's scheme and domain never break ("https://github.com/" stays one
+//   piece; taste review r10: "https://github" / ".com/..." at 390 and
+//   "ouroboros" / ".bot/..." at 320). After it, a token breaks only right
+//   after a "/" or right before the "." of a file name: each piece is a
+//   span, with a <wbr> between pieces. A piece
 //   under STUB_MIN characters joins its neighbour, so no line starts or ends
 //   on a lone "~/" or "on".
 // - A piece of NOWRAP_MAX characters or fewer never breaks ("tok",
@@ -39,15 +42,47 @@ export function isPathy(word) {
   return /[^\s/]\/[^\s/]|\/\/|^[("'[]*~?\//.test(word) || /[A-Za-z0-9]\.[A-Za-z]{2,}/.test(word);
 }
 
+// A file name's extension, which tells "manifest.json" from a domain like "ouro.bot".
+const FILE_EXT = /^(?:md|mdx|json|jsonc|jsonl|mjs|cjs|js|ts|tsx|jsx|html?|css|txt|ya?ml|sh|astro|png|jpe?g|webp|avif|gif|svg|toml|lock|plist|swift|py|rb|go|rs|zip|gz|tgz|pdf|xml|log|env|cfg|ini|conf|webmanifest|csv|wasm|dmg|pkg)$/i;
+const TLD = /^(?:com|org|net|io|dev|ai|app|bot|me|co|gg|xyz|so|to|us|uk|ca|de|fr|jp|ly|tv|fm|page|site|cloud|tech|run|build|link|blog|news|codes|tools|works|world|email|edu|gov|info)$/i;
+
+/**
+ * Where a word's scheme and domain end ("https://github.com" in
+ * "https://github.com/o/x", "ouroboros.bot" in "ouroboros.bot/brief.md"), as
+ * an index into the word; 0 when it starts with neither. Without a scheme,
+ * only a known top-level domain counts, and a bare "name.ext"
+ * with a file extension and nothing after it is a file name, not a domain.
+ * scripts/text-breaks.mjs holds the same rule in the browser.
+ */
+export function hostEnd(word) {
+  // The word is HTML-escaped: a leading quote arrives as "&quot;".
+  const m = word.match(/^(?:[("'[]|&quot;|&#39;|&#x27;|&lt;)*((?:[a-z][a-z0-9+.-]*:\/\/)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(?::\d+)?/);
+  if (!m) return 0;
+  const [all, scheme, , tld] = m;
+  const next = word[all.length];
+  if (scheme) return all.length;
+  // Without a scheme, only a known top-level domain makes a domain
+  // ("client.chat.completions" is code), and a file extension with nothing
+  // after it makes a file name ("install.sh").
+  if (!TLD.test(tld) || (next !== '/' && FILE_EXT.test(tld))) return 0;
+  if (next !== undefined && !/[/?#:)"'\].,;!]/.test(next) && !word.startsWith('&', all.length)) return 0;
+  return all.length;
+}
+
 /** The inner HTML for one token's text (already HTML-escaped). */
 export function wrapToken(raw) {
-  // Pieces end after a run of slashes ("https://" stays whole), before the
-  // dot of a host or file name, before a URL's "?" or "#", or at a space.
+  // The scheme and domain are one piece, with the slash after them. Then
+  // pieces end after a run of slashes, before the dot of a file name, before
+  // a URL's "?" or "#", or at a space.
   return raw
     .split(/( +)/)
     .map((word) => {
       if (/^ +$/.test(word) || word === '') return word;
-      const pieces = word.split(/(?<=\/)(?=[^/])|(?<=[A-Za-z0-9])(?=\.[A-Za-z])|(?<=[^/])(?=[?#][^\s])/);
+      let head = word.slice(0, hostEnd(word));
+      if (head) head += word.slice(head.length).match(/^\/*/)[0];
+      const rest = word.slice(head.length);
+      const pieces = rest ? rest.split(/(?<=\/)(?=[^/])|(?<=[A-Za-z0-9])(?=\.[A-Za-z])|(?<=[^/])(?=[?#][^\s])/) : [];
+      if (head) pieces.unshift(head);
       // A stub joins its shorter neighbour, so "main/src?ref=<hash>" keeps
       // "main/src" together and "?ref=<hash>" free to move to its own line.
       for (let i; pieces.length > 1 && (i = pieces.findIndex((p) => entityLength(p) < STUB_MIN)) >= 0; ) {

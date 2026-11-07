@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { wrapCode, wrapToken } from '../src/lib/code-wrap.mjs';
+import { hostEnd, wrapCode, wrapToken } from '../src/lib/code-wrap.mjs';
 import { listHtmlFiles, readDist } from './support/dist.mjs';
 import fs from 'node:fs';
 
@@ -12,21 +12,36 @@ test('a short token stays whole', () => {
   assert.equal(wrapCode('<p><code>--primary</code> and <code class="model-code">npm run dev</code></p>'), '<p><code class="code-whole">--primary</code> and <code class="model-code code-whole">npm run dev</code></p>');
 });
 
-test('a long token breaks only after a slash or before a dot, never leaving a stub', () => {
-  assert.equal(wrapToken('https://github.com/ourostack/ouroboros'), '<span class="tok">https://</span><wbr><span class="tok">github</span><wbr><span class="tok">.com/</span><wbr><span class="tok">ourostack/</span><wbr><span class="tok">ouroboros</span>');
+test('a long token breaks only after a slash or before a file name\'s dot, never leaving a stub', () => {
+  assert.equal(wrapToken('https://github.com/ourostack/ouroboros'), '<span class="tok tok-long">https://github.com/</span><wbr><span class="tok">ourostack/</span><wbr><span class="tok">ouroboros</span>');
   assert.equal(wrapToken('~/.copilot/lsp-config.json'), '<span class="tok">~/.copilot/</span><wbr><span class="tok">lsp-config</span><wbr><span class="tok">.json</span>');
-  assert.equal(wrapToken('https://x.io/ab/s'), '<span class="tok">https://</span><wbr><span class="tok">x.io/</span><wbr><span class="tok">ab/s</span>');
-  assert.equal(wrapToken('ouroboros.bot/skills/manifest.json'), '<span class="tok">ouroboros</span><wbr><span class="tok">.bot/</span><wbr><span class="tok">skills/</span><wbr><span class="tok">manifest</span><wbr><span class="tok">.json</span>');
+  assert.equal(wrapToken('https://x.io/ab/s'), '<span class="tok">https://x.io/</span><wbr><span class="tok">ab/s</span>');
+  assert.equal(wrapToken('ouroboros.bot/skills/manifest.json'), '<span class="tok">ouroboros.bot/</span><wbr><span class="tok">skills/</span><wbr><span class="tok">manifest</span><wbr><span class="tok">.json</span>');
   assert.match(wrapToken('blob/e7637306bc9246a3e42e407cb94f96b7ed345e3e/README.md'), /<span class="tok tok-long">e7637306/);
   assert.match(wrapToken('tree/main/src?ref=e7637306bc9246a3e42e407cb94f96b7ed345e3e'), /main\/src<\/span><wbr><span class="tok tok-long">\?ref=/);
+});
+
+test('a scheme and domain never break, and a file name is not a domain', () => {
+  assert.equal(hostEnd('https://github.com/o/x'), 'https://github.com'.length);
+  assert.equal(hostEnd('ouroboros.bot/brief.md'), 'ouroboros.bot'.length);
+  assert.equal(hostEnd('(https://ouroboros.bot).'), '(https://ouroboros.bot'.length);
+  assert.equal(hostEnd('&quot;https://ui.ouro.bot/r/x.json&quot;'), '&quot;https://ui.ouro.bot'.length);
+  assert.equal(hostEnd('manifest.json'), 0);
+  assert.equal(hostEnd('docs/agent-orientation-substrate.md'), 0);
+  assert.equal(hostEnd('~/.copilot/lsp-config.json'), 0);
+  assert.equal(wrapToken('github.com/ourostack/desk/blob/main/SETUP.md'), '<span class="tok">github.com/</span><wbr><span class="tok">ourostack/</span><wbr><span class="tok">desk/</span><wbr><span class="tok">blob/</span><wbr><span class="tok">main/</span><wbr><span class="tok">SETUP.md</span>');
+  for (const url of ['https://github.com/ourostack/ouroboros-agent-harness/blob/main/docs/x.md', 'ouroboros.bot/lab/docs/getting-started/', 'https://www.ouroboros.bot/brief.md']) {
+    const first = wrapToken(url).match(/^<span class="[^"]+">([^<]+)<\/span>/)[1];
+    assert.ok(first.endsWith('/') && first.length >= hostEnd(url), `${url} starts with ${first}`);
+  }
 });
 
 test('every URL and path is wrapped: prose, links, mono spans and preformatted text', () => {
   assert.equal(
     wrapCode('<p>See <span class="font-mono">https://github.com/o/desk</span> and macOS/iOS/Android/Windows.</p>'),
-    '<p>See <span class="font-mono"><span class="tok">https://</span><wbr><span class="tok">github</span><wbr><span class="tok">.com/</span><wbr><span class="tok">o/desk</span></span> and <span class="tok">macOS/</span><wbr><span class="tok">iOS/</span><wbr><span class="tok">Android/</span><wbr><span class="tok">Windows.</span></p>',
+    '<p>See <span class="font-mono"><span class="tok tok-long">https://github.com/</span><wbr><span class="tok">o/desk</span></span> and <span class="tok">macOS/</span><wbr><span class="tok">iOS/</span><wbr><span class="tok">Android/</span><wbr><span class="tok">Windows.</span></p>',
   );
-  assert.equal(wrapCode('<pre>curl -fsSL https://ouro.bot/x.sh | bash</pre>'), '<pre>curl <span class="tok">-fsSL</span> <span class="tok">https://</span><wbr><span class="tok">ouro</span><wbr><span class="tok">.bot/</span><wbr><span class="tok">x.sh</span> | bash</pre>');
+  assert.equal(wrapCode('<pre>curl -fsSL https://ouro.bot/x.sh | bash</pre>'), '<pre>curl <span class="tok">-fsSL</span> <span class="tok tok-long">https://ouro.bot/</span><wbr><span class="tok">x.sh</span> | bash</pre>');
   assert.equal(wrapCode('<pre>npx init --no-monorepo</pre>'), '<pre>npx init <span class="tok">--no-monorepo</span></pre>');
   // Ordinary words, scripts, styles, attributes and the head stay as they are.
   const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">re-explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
@@ -36,8 +51,8 @@ test('every URL and path is wrapped: prose, links, mono spans and preformatted t
 test('the built pages carry it, with no break-all anywhere', () => {
   assert.match(readDist('ouro-hx/index.html'), /<code class="code-whole">--primary<\/code>/);
   const review = readDist('lab/model-reviews/anthropic/index.html');
-  assert.match(review, /class="fetch-url[^"]*code-long"[^>]*><span class="tok">https:\/\/<\/span><wbr>/);
-  assert.match(readDist('blog/trust-the-agent/index.html'), /<span class="tok">https:\/\/<\/span><wbr><span class="tok">github<\/span><wbr><span class="tok">\.com\/<\/span><wbr><span class="tok">ourostack\/<\/span>/);
+  assert.match(review, /class="fetch-url[^"]*code-long"[^>]*><span class="tok[^"]*">https:\/\/[a-z0-9.-]+\/<\/span><wbr>/);
+  assert.match(readDist('blog/trust-the-agent/index.html'), /<span class="tok tok-long">https:\/\/github\.com\/<\/span><wbr><span class="tok">ourostack\/<\/span>/);
   assert.match(readDist('lab/docs/index.html'), /<span class="tok">manifest<\/span><wbr><span class="tok">\.json<\/span>/);
   for (const file of listHtmlFiles()) assert.doesNotMatch(fs.readFileSync(file, 'utf8'), /\bbreak-all\b|word-break:\s*break-all/, file);
 });

@@ -12,9 +12,13 @@
 //  - break:    at 320, 390 and 430, any line break inside a word of a URL or
 //    path (a word with "/", "\" or a host/file dot, or any text in code, kbd,
 //    pre or .font-mono) that is not right after a "/" or right before a ".",
-//    and any break inside an ordinary word that is not after a hyphen. A
-//    break inside a single segment wider than its whole column is the one
-//    allowed last resort (a 40-character commit hash at 320).
+//    any break inside a URL's scheme and domain at all ("https://github" /
+//    ".com/...", "ouroboros" / ".bot/...": taste review r10), and any break
+//    inside an ordinary word that is not after a hyphen. A word is read
+//    across the build's <wbr>-joined pieces (src/lib/code-wrap.mjs), so a
+//    break between two pieces counts like one inside a text node. A break
+//    inside a single segment wider than its whole column is the one allowed
+//    last resort (a 40-character commit hash at 320).
 //
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.
@@ -93,6 +97,28 @@ function analyse(checkOverflow) {
     return false;
   };
   const hidden = (el) => !el.getClientRects().length || el.closest('[hidden],[aria-hidden="true"] svg,script,style,noscript,template');
+  // Where a word's scheme and domain end (src/lib/code-wrap.mjs hostEnd):
+  // nothing breaks before that index.
+  const FILE_EXT = /^(?:md|mdx|json|jsonc|jsonl|mjs|cjs|js|ts|tsx|jsx|html?|css|txt|ya?ml|sh|astro|png|jpe?g|webp|avif|gif|svg|toml|lock|plist|swift|py|rb|go|rs|zip|gz|tgz|pdf|xml|log|env|cfg|ini|conf|webmanifest|csv|wasm|dmg|pkg)$/i;
+  const TLD = /^(?:com|org|net|io|dev|ai|app|bot|me|co|gg|xyz|so|to|us|uk|ca|de|fr|jp|ly|tv|fm|page|site|cloud|tech|run|build|link|blog|news|codes|tools|works|world|email|edu|gov|info)$/i;
+  const hostEnd = (word) => {
+    const m = word.match(/^[("'[]*((?:[a-z][a-z0-9+.-]*:\/\/)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(?::\d+)?/);
+    if (!m) return 0;
+    const [all, scheme, , tld] = m;
+    const next = word[all.length];
+    if (scheme) return all.length;
+    if (!TLD.test(tld) || (next !== '/' && FILE_EXT.test(tld))) return 0;
+    if (next !== undefined && !/[/?#:)"'\].,;!&]/.test(next)) return 0;
+    return all.length;
+  };
+  // Allowed: after a "/", before a "." or a URL's "?" or "#", never inside
+  // the scheme and domain; in an ordinary word also after a hyphen or dash,
+  // before an opening bracket or a dash, and anywhere next to CJK text.
+  const cjk = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
+  const allowed = (word, isPath, host) => (i) =>
+    i > host &&
+    ((word[i - 1] === '/' && word[i] !== '/') || /[.?#]/.test(word[i]) ||
+      (!isPath && (/[-‐-—­]/.test(word[i - 1]) || /[([{‐-—]/.test(word[i]) || cjk.test(word[i - 1]) || cjk.test(word[i]))));
   // A URL, path, host or file name, a flag, or any word of inline code.
   const pathy = (el, word) =>
     /[/\\~]/.test(word) || /[A-Za-z0-9]\.[A-Za-z]{2,}/.test(word) || /^["'(]?--?[a-z]/.test(word) || !!el.closest('code,kbd,samp');
@@ -145,13 +171,7 @@ function analyse(checkOverflow) {
       const wr = rectsOf(node, m.index, m.index + word.length);
       if (!wr.length || !lines(wr)) continue;
       const isPath = pathy(el, word);
-      // Allowed: after a "/", before a "." or a URL's "?" or "#"; in an
-      // ordinary word also after a hyphen or dash, before an opening bracket
-      // or a dash, and anywhere next to CJK text.
-      const cjk = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
-      const ok = (i) =>
-        (word[i - 1] === '/' && word[i] !== '/') || /[.?#]/.test(word[i]) ||
-        (!isPath && (/[-‐-—­]/.test(word[i - 1]) || /[([{‐-—]/.test(word[i]) || cjk.test(word[i - 1]) || cjk.test(word[i])));
+      const ok = allowed(word, isPath, hostEnd(word));
       let prevTop = null;
       for (let i = 0; i < word.length; i++) {
         const q = rectsOf(node, m.index + i, m.index + i + 1)[0];
@@ -169,6 +189,39 @@ function analyse(checkOverflow) {
         }
         prevTop = top;
       }
+    }
+  }
+  // Words the build split into <wbr>-joined pieces (<span class="tok">):
+  // each piece is its own text node, so read the word across them and check
+  // the break between each pair of pieces by the same rule.
+  for (const first of document.querySelectorAll('.tok')) {
+    const prev = first.previousSibling;
+    if (prev && prev.nodeName === 'WBR' && prev.previousSibling?.classList?.contains('tok')) continue;
+    const toks = [first];
+    for (let n = first.nextSibling; n && n.nodeName === 'WBR' && n.nextSibling?.classList?.contains('tok'); n = n.nextSibling.nextSibling) toks.push(n.nextSibling);
+    if (toks.length < 2 || hidden(first)) continue;
+    const word = toks.map((t) => t.textContent).join('');
+    const host = hostEnd(word);
+    const ok = allowed(word, true, host);
+    const box = contentBox(colOf(first));
+    const step = Math.max(6, parseFloat(getComputedStyle(first).fontSize) * 0.6);
+    let at = 0;
+    for (let k = 1; k < toks.length; k++) {
+      at += toks[k - 1].textContent.length;
+      const a = [...toks[k - 1].getClientRects()].filter((q) => q.width > 0.5).pop();
+      const b = [...toks[k].getClientRects()].filter((q) => q.width > 0.5)[0];
+      if (!a || !b || Math.abs(b.top - a.top) <= step || ok(at)) continue;
+      // The last resort: the scheme and domain alone are wider than the column.
+      if (at <= host) {
+        let start = 0;
+        let seg = 0;
+        for (const t of toks) {
+          if (start < host) seg += t.getBoundingClientRect().width;
+          start += t.textContent.length;
+        }
+        if (seg > box.width - 2) continue;
+      }
+      out.breaks.push(`path ${label(first.parentElement)}: "${word.slice(0, at)}|${word.slice(at)}"`.slice(0, 160));
     }
   }
   out.overflow = [...new Set(out.overflow)];

@@ -56,6 +56,9 @@ const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { hr
     <script is:inline>
       // Apply a saved theme before first paint, so there is no flash.
       try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+      // A scene image that fails (a 503, a dropped connection) steps aside for
+      // the scene's painted dawn behind it, instead of showing a broken glyph.
+      document.addEventListener('error', function(e) { var t = e.target; if (t && t.tagName === 'IMG' && t.closest && t.closest('.story-scene')) t.setAttribute('data-failed', ''); }, true);
     </script>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/brand/ouro.svg" />

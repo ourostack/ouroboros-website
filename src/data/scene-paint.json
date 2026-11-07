@@ -1,0 +1,290 @@
+{
+  "apple-distribution-kit": {
+    "wide": {
+      "from": "headers/apple-distribution-kit.webp",
+      "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a",
+      "uri": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoQAAYAAkA4JbACdLoAAnMiveGmgADgN65aJcbM/CEoWNml2PTqjgeOyds1aehreKzrgxhZkUeb+aCkmsaKadhvf1W5Xoyw5f+JVKwCtubmOAYD12DQbT+e3z8UQBY/yG6c7EaCuFyAAA=="
+    },
+    "phone": {
+      "from": "phone/apple-distribution-kit-384.webp",
+      "sha256": "6e58b09c24a0db6fb3fd4b79ae17945f295e1ecca7f7300bc5ea9be8f4293206",
+      "uri": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABwAgCdASoQAAwAAkA4JbACdDBJSInKwGSXnsZwAP6YX+K8yqB6vscb4onJNmR1KltaHVDjeXbFkqmjOIDjxtb4J51NVI6sXU4hKJ9YVbnLrWGLoVan3aiO+Vn4Ja5UXb+ouxEnMqkT+BUvQsYxv/DDNjhFP2BdHRT+TKRMN89UhPXSGj2E6x+MJOAAAA=="
+    }
+  },
+  "butler": {
+    "wide": {
+      "from": "headers/butler.webp",
+      "sha256": "4c772e5bb3734fd7c644cde84f14e8acd2a9bfc10b56ed9812fb8ed6b6a705f2",
+      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAACQAgCdASoQAAYAAkA4JbACdLoAyv8Wuva+p/IZJAD+Tdzpv8Kg5fV+btEi/DlwTqFY9njnPDxQ7dpSYJwCC+DDphJOakj8BZ0xR62DH/8h44a1KfI0tkNQq89r7Dc/eg5Ch9t4BWIN/2KE/HQlnuAA"
+    },
+    "phone": {
+      "from": "phone/butler-384.webp",
+      "sha256": "d6f698325ae64aa6c2594324b7824481f2a510a1f28cde07f49b0a54c62422b8",
+      "uri": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAACwAgCdASoQAAwAAkA4JbACdDBJiIHK0vH4ZOAviAAA/qwOo+rKjzNxb4AZpmcufes9zBcVBeZliZCqdFTnpL10983P3hLr2JtmFWLkqZ5FygLj0cnLMXgh3SerCVo4pz5cFB7zCLU/t59D//C5NbHj4/AqX+q4v2kL/71YNNb8z+L3v/+LiwlOOS2XGea1g94f333v33wBlAAA"
+    }
+  },
+  "desk": {
+    "wide": {
+      "from": "headers/desk.webp",
+      "sha256": "82ec9e59e2e8dc0bfbf118b240de865441bf00e3964161625ac82a21043c5b09",
+      "uri": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQAgCdASoQAAYAAkA4JbACdLoAEIwX79yDA3vEAADOPO1RBgWwotLvlxeHbxk0tsm0BA4bavhdRxf40rRUAiv0r8X6cxDBQP/J7QaEu4Z9fJK2pqF9/wdrco7Ge3CMddMhwp20DvAAAA=="
+    },
+    "phone": {
+      "from": "phone/desk-384.webp",
+      "sha256": "00d74539449fbb132eb953e518de18d13addb4efbfd214519cc5196e7c2f6d66",
+      "uri": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAAAwAgCdASoQAAwAAkA4JbACdDBGgZB2k94wAAD+4Nucvg+QL3gkHRcnW+OMkePqTKalB4fEEp5G1r4P7WKemxaStZ4nENymWnUAUeeJfsqkptdcIJSxYh3d7rFy7xAa84PU/R1DwFv+XGieoN/5sJHv0z/9Y/U1SOtrf772itY20MfMTWMiB0Ut2r9WQuYAAAA="
+    }
+  },
+  "factory": {
+    "wide": {
+      "from": "headers/factory.webp",
+      "sha256": "f81a20fa20f8c6cfa6f80d4540f7ad7db8f2920a821b4fc50fa20b6b27bed4c4",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQAgCdASoQAAYAAkA4JbACdLoAAwcFzU8AAP7icfk4YQYIjUn4R9kZkDbu+V2mciraniYBzsLdzZN9LE6uDWcl8xo2VWNts7IFX1U//J7i4+bKtt1AX1wr889+N9rHt+9J+MjgnnTscotTFFq+/4AAAAA="
+    },
+    "phone": {
+      "from": "phone/factory-384.webp",
+      "sha256": "613befbf2cfd1700092782e4a1f6407d0d677036334fdc3aa9ab3bca42f3ab68",
+      "uri": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABwAgCdASoQAAgAAkA4JbACdLoAfh2DIeUhX+hAAP7yFdQH1XKnP/CyqgLFyRbD3rXYL0rtEHq/9byOJht0CDKa5LV+axPkAO8XIe3M5I/3TXBmgrN/reyzcEBS4/OZRb95qI8v4yOVGf/U0LmfWZ16nY3+QAAA"
+    }
+  },
+  "flow-review": {
+    "wide": {
+      "from": "headers/flow-review.webp",
+      "sha256": "a6a6c4ac8b69b2d96935f5a931cf7e1db2d3c348ea75307faae0b84b6b838629",
+      "uri": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABQAgCdASoQAAYAAkA4JbACdLoAAw17ewhPW0AA/phcm/6W1v3iClx0fafndMmf8axTaU/P16TlxmufSedQrXE2VFsyEf2v/fvCeXxNPr5aeDqLFvt7/HvoFTx74yJjZ0Hg6kY1zZdgAAAA"
+    },
+    "phone": {
+      "from": "phone/flow-review-384.webp",
+      "sha256": "92bfff470120b215f6d357a24443ae3b2c056291801a112569ace5aaf383631a",
+      "uri": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADwAQCdASoQAAkAAkA4JbACdDBJQY8vm8AA/vAajr0q0Gwm8M3QoLWbUCfzBnTnvSvUP4s2SFvq5Xk2cg90XWBTL/9PdIBWeNe/IiMth2onpq+h+8LJf3ObGd/7JsfI//Av/qZJxz+8KJesW5oec+iVAoyGz85/37CqrLPAAAA="
+    }
+  },
+  "friends": {
+    "wide": {
+      "from": "headers/friends.webp",
+      "sha256": "6464c49cf5ed6d6c76da735accb11eeae69baaa658d2b66b4f251c13ea4a04aa",
+      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwAgCdASoQAAYAAkA4JbACdDXAAWao4Y/DAAD+thvm9utu41r16Tx9vTxorsALTvaj/8kdev1fNs/j4MzGJxGfxeIzs8OB2m/0gHlIPMfz5qrIHv+0mn59K7MZl6WtvvJ9mPB7ToP7NWs0v521QAAA"
+    },
+    "phone": {
+      "from": "phone/friends-384.webp",
+      "sha256": "2d31e5ffe16d2c43e960035ac54236cbde14072f9fbdfd7607f40dd09c7dcc95",
+      "uri": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAACwAgCdASoQAAkAAkA4JbACdDBKyU8eO92pTg0O3gAA/uevkN1vZ6BmiaTHqSngLcTYOFpAwKi5lNLzbeEWJ9yiPH2XpUD4h4RUPoKF04YsqYxyGxVoK25tN7osjf6NQnG3v6uW2/ch3e+3wIX1+lE3JGBVkqV1iythltN4wMPmD/f9ZrPN8tugAAA="
+    }
+  },
+  "friends-relay": {
+    "wide": {
+      "from": "headers/friends-relay.webp",
+      "sha256": "205d2284661e7e4f90a58d33f39811677ad5d7d38dff5b42c4143e93259c47b7",
+      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwAgCdASoQAAYAAkA4JbACdLoAfhuChqh3dgD+1/+hUXM5FLMetGgK9+Dq/5lWFrNUz4Vg4/DpoxeI+cTCwFoW3p9SHn1n7zeZbv+P57VKsPZJs6evGfpUSf4N+1UHPWG81Qnd7NBeZhuGqgayIAAA"
+    },
+    "phone": {
+      "from": "phone/friends-relay-384.webp",
+      "sha256": "8dddfa4af31fa1bea17502ac1ff86a4bf6bf8c551910d5b403d2404d77945a58",
+      "uri": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAQAwCdASoQAAwAAkA4JbACdDiJeVA+DciJzF2mz1x00AAA/vYv8KiIxx2Y0AwffNnsEpiIr1JyR1/+wFLPBxvJRmz5foxGi2TzNuMTkSQskscou2KO7c+fb+Y5uVBAgV5EL6X5/XtStIxnt9/f9aUZC/+jyMY6rrdTDqG7DuKem1dPsSN2vT8AAAA="
+    }
+  },
+  "gatefold": {
+    "wide": {
+      "from": "headers/gatefold.webp",
+      "sha256": "92c4760b6b1282fdeb6ce3251204925215084e28e6f6ce4becf411eeec1bf8e7",
+      "uri": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABwAgCdASoQAAYAAkA4JbACdLoAEIwXo5Rq94gAAOJ9IJ19zRHz7jf3Hr3/igVgdIuw4RMlRzhUJYkwedOjTWwxezV+n66qCVyOP6i6uiIH1toTng4DW8c8NPxk+g9Y0iWOpV2uskX2+IQm/4AAAA=="
+    },
+    "phone": {
+      "from": "phone/gatefold-384.webp",
+      "sha256": "ce453f57dc160cf8df0bae140120c82e379a47de8b285cf07693da7bbb5bdaa4",
+      "uri": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABwAgCdASoQAAwAAkA4JbACdDBQAWu8UTMNY52AAP7wc5osTVfjQJvN8hpNcLjcmXVjCe03BVtWWxPMHueyKxrONfOc/5Szgp3xq1bZLJJcfEQ+YwO/yA6faNz8Tu387iyg6nFj0v70MG4D5N/fzl2jakeviuXEMY10OefurP/z2fef8TWyylFruG+/dZRVe3gAAA=="
+    }
+  },
+  "homebrew-tap": {
+    "wide": {
+      "from": "headers/homebrew-tap.webp",
+      "sha256": "20a21ea38d2fb4c131fadeed68c5bdd3697d1dee141f4a69bb754b09fdbd01c4",
+      "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAADQAgCdASoQAAYAAkA4JbACdEfq2SiRExgBeHEeedgAAPzmGfrQ+mt5GSMHDsnWrt1zRmsBYAnjOI7tZQD/Wsn+gebhu9iHhFyWGtiJ6s5j/5F/5MvgcEvv+JqAaUvx/xGXHk3/HDd6/dc91vVbkeYtuC/YmnaQE3sAAA=="
+    },
+    "phone": {
+      "from": "phone/homebrew-tap-384.webp",
+      "sha256": "d919271470e07b6898d742fd9538c01eeb340f78edea87aad9ba58ba412a3a5f",
+      "uri": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAACwAgCdASoQAAwAAkA4JbACdLoAngDeKiIkLD/1ufQAzfPICfDvEIP6Sif3Ax6/4kJE956BAl6tUVXIiPnndKNu1gK/aqyQ+GuIABL1WxR78Q5spL2FwF1OQnFUT8L1ruWOrNb/9j9J5UUhOEKhCefzKjYs2sz2OIEi2y7Pk6k0WOfk1wDyH8kHB/c+v+VK7rWpmHBaW6zo6eZaFle+cAAA"
+    }
+  },
+  "m365crawl": {
+    "wide": {
+      "from": "headers/m365crawl.webp",
+      "sha256": "392463431c1a2b8b67babf0733361cebb27e76d089808f1467b971df6a6721ca",
+      "uri": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwAgCdASoQAAYAAkA4JbACdLoAngAELa/VFU4AAP7cmf0lEaDz/uoH8kwdSz60Q+zW9xxiIu5oeLRZlS/Naci3tdDCpqAAyjdrVWtv/ggzM6tOkrrnM84KFxy5Hc4vU/s/8aG7xCkfw797AAA="
+    },
+    "phone": {
+      "from": "phone/m365crawl-384.webp",
+      "sha256": "6306b03f02cf27016d07d9e6227f262f7c691f960eb244f2701016eec79205a6",
+      "uri": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAACwAgCdASoQAAwAAkA4JbACdDiAN46IiAnAdJPCVYAA/ulfLu3eBIvf2XLyYwxTZKkiL5iDE+vJOsg0S/VUgwPFObs3VU3xu2ofG3ly/E1sjoXapPhGz6fAHI4LyuuCtvXH4RbV4dncCH6oj//GHaVTenz2j/7/8fYHuur/wbSYn00WEemP/iUSQdtUaX5BJ+HfUoJxT+FvKs/MstAAAA=="
+    }
+  },
+  "ouro-apps-site": {
+    "wide": {
+      "from": "headers/ouro-apps-site.webp",
+      "sha256": "1faa131c9c52227d4837deda984461eabcf3e0740e26083e2da8dfa45754d097",
+      "uri": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADwAQCdASoQAAYAAkA4JbACdLoAAwaAkyQA+GOEaTKE+XfMIah4tZmmUEy4DcdRlBAir0SG5Oa/b2qvgBNP6Fqx2jNtqn8//O6k+RxP4cffVf/OpPe0/LxjfGRQXEH92FGbdfAA"
+    },
+    "phone": {
+      "from": "phone/ouro-apps-site-384.webp",
+      "sha256": "da0b8d110de8c2cb99fd4ece7e47e8b873fab78829f42b18a6ff942e3a8f86a8",
+      "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAADQAgCdASoQAAwAAkA4JbACdEf/2RURB5ly0JQ6TEK8AP6asWPf3uIfN+P2DRfqFVv8zmZhPtQqa3kUk2XiNbXohV4JaqjafRX69UKLeU4T2VpkVEiwxFrZ2MvXCmAUhjDsgQDnrj2/4rOxq/tN39dd0YfvXl/4VRA7/r8nQ5c79vXDzOMLOja37dfjKbgjzh5b8GgAAAA="
+    }
+  },
+  "ouro-hx": {
+    "wide": {
+      "from": "headers/ouro-hx.webp",
+      "sha256": "e65a8db90a3292c632c1c35bcbbc9139edd256f6f1199a5a98107eb54ad368f1",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQAgCdASoQAAYAAkA4JbACdLoAAsraUs0AAP7hq9vPcVgPRJ3WZSYq145jCQzdBW2E9Re/QC9zqesCOTpL21oPzFba5BXRQr/5PzdWOhi9JvqJLrEW/59WD/i+GgXdl2bfcNYyAVM0eNJ8Qhe6h59kAAA="
+    },
+    "phone": {
+      "from": "phone/ouro-hx-384.webp",
+      "sha256": "571df27b703b726ad440d8c96f3a9bed0709886d2817537263eb08ce32937d60",
+      "uri": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABwAgCdASoQAAkAAkA4JbACdLoAfgiCj4FqIKYAAP7uWmJw89pklv3PGS9IYfkTx4IQSrlXNIlPpkTLVCWqnFzhm6U9ePGArJhkLNv570dBxzQrf5S4HAQmL70j+bDqOQ/8D5R6F0/yo2HP6b1y7dA+jcvPpP+QAAA="
+    }
+  },
+  "ouro-md": {
+    "wide": {
+      "from": "headers/ouro-md.webp",
+      "sha256": "5eea5916c05cd4ab9bb234087f8470ea807ce18184888cfc699dccfb32c64b85",
+      "uri": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQAAYAAkA4JbACdLoAAv4yWOu3QAD+apbDx+Fx1hV2yoGkmhsQTnOGoeQfBVvJFbFBOEqiccu89aSko8EF5IIJf/k/QTQlGeDsoJ8St3HmfiMteufv3uGiEHnrTdW3gDAAAA=="
+    },
+    "phone": {
+      "from": "phone/ouro-md-384.webp",
+      "sha256": "80c1817a780c6ff8800d25f64bdb8f9d04f5fa5c63ef9997926689db9049cfae",
+      "uri": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADQAgCdASoQAAwAAkA4JbACdFKATiIRB5f7rDCsJzAAAP7uPyrOaeEhZPV6L/hqUrcqyXr1aXl+X9GQlN8ZvZxV3zYkx6HVaYm6EgekMF3G4ct/YK2QUyXWnoqiQG2mKMPISKUHNQ1xljvF+9VxU0/mWuf/z/TKV7fvrZu34wncVtUbgCi77tNpfg8SPOfdJaYgAA=="
+    }
+  },
+  "ouro-native-apple-app-shell": {
+    "wide": {
+      "from": "headers/ouro-native-apple-app-shell.webp",
+      "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43",
+      "uri": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwAgCdASoQAAYAAkA4JbACdLoAEJKVci29QAD+aqW3q+9G90gcjLq8F5RAcnVMedjKNwgS1+YLtQvgL4PoBVj4fFU75+hisX669lnthacWUZ/QzURO0gyvxczSD8i7g2ALgzracyXwAAAA"
+    },
+    "phone": {
+      "from": "phone/ouro-native-apple-app-shell-384.webp",
+      "sha256": "74a4a6a4ed3fd2cb37980bf7cef1e65af91ceff3013a4fcaeafec18fba2b95e7",
+      "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAACwAgCdASoQAAwAAkA4JbACdDBGgae7aRrRauW4nAAA/vZeKe7JSd71WZl37sB5ZfVlz/mZfajmlQoyZaFISo+Yuiab6PsCzg6RXQH58NXPbubHevH5pS3r8RpzMevlWdatxmy/vZNPUvqv/OqNkvhIZ/ITefCq2S34D+MsCLf/HFLwsW/B4qv4H9iAjXfYluUoAiUAAAA="
+    }
+  },
+  "ouro-ui-apple": {
+    "wide": {
+      "from": "headers/ouro-ui-apple.webp",
+      "sha256": "ac557ed7510250f9516f0817a5ad8121f7c3c5bd1f77792411388aba408340e9",
+      "uri": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoQAAYAAkA4JbACdLoAAwnFG6RcAAD82Lyc4PljU5FxhBH6dRn8sW0rPNzh0goH+DbeIaXhFF7ssDKVJUk6nynfODO9iI/1/4lzUrJHc51WaWev3iovLfp0hkC02pl16pmllZpr4+AAAA=="
+    },
+    "phone": {
+      "from": "phone/ouro-ui-apple-384.webp",
+      "sha256": "a9fb8048726dcbd70f1f2e8c4aa54dd814f0bbd0b8b23212038eabfb9473ad66",
+      "uri": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAABwAgCdASoQAAkAAkA4JbACdDBACIfL7mFLt8yAAP7I/nGZnKzgnbESOk2N21WDWMGN8hhK2pDvRvnlHQUQiO+K9HrJbeR0yftsWv+rtqiR3c8BMklOJSjaS/tAhM2AGX4Q+oEE1P/9uu/eklk9ichbtVLVGpBP8v/fi0rAAAA="
+    }
+  },
+  "ouro-ui-core": {
+    "wide": {
+      "from": "headers/ouro-ui-core.webp",
+      "sha256": "3c89c0b48b1e4384b8bbcfbc1593e288afbea8dbcea7aaec769997c383025d52",
+      "uri": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwAgCdASoQAAYAAkA4JbACdLoAAyKnbgAYwADOLTjpcLC4x4+/v7MqlA2kfSUxC4or4pURL6mQoysBLwqjTfif+MpIipQbn0/+kry4oP5uZCN61weR/6zPrHuRSeaNdlfzZhyvRnz24AAA"
+    },
+    "phone": {
+      "from": "phone/ouro-ui-core-384.webp",
+      "sha256": "78d8351c6ee43713cd4ffc4d81d6845066f1497ebc2b1d9534c63ebee597ae76",
+      "uri": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAABwAgCdASoQAAwAAkA4JbACdDBIyIiMAEWM7lqQAP7zrr0wvgmPpHnl3jD5W4skfobQ9eKd5NynjeJJ0XnegK1qjFV7tMHmpo8RjylElBRgJMMHNAJ7hyh76g0BvUqS+jq15OPnxTT/Yl/99hIwn/9GXGrSMn/+ebwg6BvoPX8rxvvyqh8kFTfDCPTA2RoPzaAG8gkrL+TmYAAA"
+    }
+  },
+  "ouro-work": {
+    "wide": {
+      "from": "headers/ouro-work.webp",
+      "sha256": "a7295669f3acbe5918742fbaadba86b4a109cc40803c3fd04f2596c1f1f9baed",
+      "uri": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAABwAgCdASoQAAYAAkA4JbACdLoAEIySj5ozJm0AAPR3yCpbC8NP7zavYlD+6afbn2kJvguPJfBTt4szDYeccVYzSaLLx9K//hit77W+HHeQkw8+jOJdwN+oTmGY/IH3C7NYAAAA"
+    },
+    "phone": {
+      "from": "phone/ouro-work-384.webp",
+      "sha256": "fb0a026c02e4469c1f90234a77dd6c64f7daae9431aa623aa295c005bf1ac000",
+      "uri": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAABwAgCdASoQAAwAAkA4JbACdDBIyIbMPUBLyYHIAPljGsQNPBrbm0Mogis8GqmlvkRyDY6SNkKm5nSSaJxgTiBm+1RUU0XaQJnxUvBd5sEoefsJRvPaDDP8qXfaeWtj9J4mX4jL9RdlCMPNof2FY2x+5aj//gjwWPflQunaEx+LzzKkx+T77hrkQxMrAAAA"
+    }
+  },
+  "ouro-workbench": {
+    "wide": {
+      "from": "headers/ouro-workbench.webp",
+      "sha256": "d06d1538054f8cbaaf43adfc27b1c4e108f123e746ffc47b9896857b35435e49",
+      "uri": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQAgCdASoQAAYAAkA4JbACdLoAAvhe33sAAP72s3C0JQGTjQpUbrXuk3qyPbxE6j8GJH3aD+oNLMJ3xBO+VPf8lLeQ/0yXEJcrrqAlLeeMUVb3zrCEiwQ6IUYTDwAA"
+    },
+    "phone": {
+      "from": "phone/ouro-workbench-384.webp",
+      "sha256": "4c79ced3f7ff9347eceeeafec73f69f46e6ce466d8a41a7a8cec41e32ee125b0",
+      "uri": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAADQAgCdASoQAAwAAkA4JbACdDiAN5DIjEt/rwWyHpkAAP75L51xj/m0ItTFPvZhB+rcjvfOtZSB3j3xA59i1+Vw4iAAAo7LdleU9GAr2mvB/yhhGzKkCU0B5l9+Kgq8PB66aHm01PQFKG/dPQB5Dur/73RyWbNf3ufx1OeXRXW/1f2FfSDHkF3y2BfetjOpmijgAAAA"
+    }
+  },
+  "ouroboros": {
+    "wide": {
+      "from": "headers/ouroboros.webp",
+      "sha256": "457dc3f534cb5a63c3f981938a79910fd9421e46a5e17823798604e0b66af1e5",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAwAgCdASoQAAYAAkA4JbACdLoAAnD6bZRKAADeZ9lQArrxGQLYRv2IGUwvPaf2ifKKm/r2dR+cnCVqFrQ/e99i28sel7/oCIp9/ZTE7/4aZG/TgaRwesBZmf1QZDxarGp91i+EpAkCWv3H+qqDvpQAAAA="
+    },
+    "phone": {
+      "from": "phone/ouroboros-384.webp",
+      "sha256": "9aaefa8345f7477c9c79877f95fe55df47f3f22bde7849e66a15a4d9df06e16e",
+      "uri": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAADQAgCdASoQAAwAAkA4JbACdDBNiIcMr8FKsIB7Q314APyP/OQcjE0VLfVw7J3zC5sWUdK55rJr6dw14qJMHIlF1MKH+D/ug54AYpJWKBrZn1t5A14y6pRMTId/mOTzS++0cuZP/i5lOyl1mz6g35b/EVf//tN6HgP2PiWzP9ycRE8RdVxUEBlv4qIbvs0deVr3CAAA"
+    }
+  },
+  "ouroboros-skills": {
+    "wide": {
+      "from": "headers/ouroboros-skills.webp",
+      "sha256": "ff378cd148c24a9bb749aeacf7ba81c6c27957a6b9c51d3643e598e651b9429c",
+      "uri": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwAgCdASoQAAYAAkA4JbACdLoAArktsDjKIAD5UU2S85Lep/LE3sUL88vXA3eko4IHzHhAz3eIlnnO62NpO8+IdahK2nhF3/pHdwqQpntGlFYEBf8kCW8vAwV8XzkmsQ1IkQOvJ1/n8AAA"
+    },
+    "phone": {
+      "from": "phone/ouroboros-skills-384.webp",
+      "sha256": "ddc1da0f87f64c9a38ce087337107c453deb01f6503670e0408dc55d7ac1a68e",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAwAgCdASoQAAgAAkA4JbACdAYplgf0ZLRacADifmPzEKbZEHdNszh/NCly0uBpWBMKgJesqgAHloXXkg83EVPBRFU1YnXLkm7BW6OS3LS/y40ClVEL/R5jnyyNnP+3qt8EXX7tfyNbkiZ7m2Byi3HAAAA="
+    }
+  },
+  "ouroboros-website": {
+    "wide": {
+      "from": "headers/ouroboros-website.webp",
+      "sha256": "4429a072b5acff63c47e3e309e64f56641e4ae8d5318619b29b0e94b0825c2dc",
+      "uri": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAACwAgCdASoQAAYAAkA4JbACdLoAyv8Wt9q/OG1kKgAA/kVrYWEK55AAeJau/y/HReTIUKtXUPXOzBssVJGHefTYv11auh3GVvhHzwX/9yOWZfdQ7mnMjHP/laUFOLq/I1CM6E84VCHDz0YcAAAAAA=="
+    },
+    "phone": {
+      "from": "phone/ouroboros-website-384.webp",
+      "sha256": "074e7c968c84f1be7dc1c667183a86eabceb022ff0a1688e3a66e27531797978",
+      "uri": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAACQAgCdASoQAAwAAkA4JbACdD3/8kwIicm9moM4QAD+sjHaTPsmxno4BM4+YbmHw8pVLS3WatuEvFnwbSWM68gqz28c94XZ8xDWQLBXET5YIKiR8WQXT5cM/MX4u11BFdbzwzt4EmzkNj6b/TRr37jscb7W4AEyuAP/jJARFu9rd8MD+sTDldB4vObjdIzflbccix+lC/bIAA=="
+    }
+  },
+  "ourostack": {
+    "wide": {
+      "from": "headers/ourostack.webp",
+      "sha256": "39b88009a7a666f8dd994cdf63c96935c4090d3782ee17281424a62f5809a9cf",
+      "uri": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAADwAQCdASoQAAUAAkA4JbACdLoAAm0abTAA/LSuw+6eImaVSCnwmrMmMVNMOd2mJJYkV+YALlwr6loTzSg+f/C6KcxMDyC/KVgEZc8X+Xfryl5VC/y+yT8bJ9LrweEev13+wAAA"
+    },
+    "phone": {
+      "from": "phone/ourostack-384.webp",
+      "sha256": "424740181c878b0aa98d24a651d49b7d353e6d7c2cec7ce25ae2d6e954c1873e",
+      "uri": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADwAgCdASoQAAgAAkA4JbACdLoAfhB/2yKXL8OqcDMgAAD+4AnZOGEdbxnbdA/j2yH8UyeKenhJ0fK+sptG1eXO4J3EpvlGmKlKSewd5LRr/vZlXvbL6CXxpo0Q+7Z/t7L/R31HnffC61pja3q5WDMP6AAAAA=="
+    }
+  },
+  "playwright-focus-proof": {
+    "wide": {
+      "from": "headers/playwright-focus-proof.webp",
+      "sha256": "b13887e66eacb73ad761eb2fb52313191f4cd4b3fd377ae771f3bf8feb02ecd7",
+      "uri": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQAgCdASoQAAYAAkA4JbACdLoAAryoOOpgAP6386IiOj20t9cP8QfxJapenOqorTp7vMFOLSS7BUbL4uk7JMSNrdQ00+91UwMwqt60jdy/jnh2cR4R3Ny33dj/1ohuzuasvxkcR16oaWMbajZS2pv+AAAAAA=="
+    },
+    "phone": {
+      "from": "phone/playwright-focus-proof-384.webp",
+      "sha256": "685adbd6fb2927f7afe99f40bbc5e56b93c745409efc87f32b4f743589fe9b9c",
+      "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABwAgCdASoQAAcAAkA4JbACdDBDyIfMAMZKCTQAAP7XP8w2Q1xMmOK17a+b8Hq2mR+4xMy4gR41Bxap7CVV95dLOnGQkxwyzJX61CS/tAhVScISJ/v3MN11mH9zPKdMAL7+hv90LdtqjaqGaZ1oQvUoIf6qy479wAAAAA=="
+    }
+  },
+  "shepherd": {
+    "wide": {
+      "from": "headers/shepherd.webp",
+      "sha256": "09e52a12b3d89e3674174f5e24d1cf8acb9f40096222296028b962e7702d2b0f",
+      "uri": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwAgCdASoQAAYAAkA4JbACdLoAAwi6o7v14ADifs7HCthM/ud9IEyhUI+iem1OiUolRlh4sm2oWeevgrdN68aS7TUP/atw+S/XLDqn9J+sjG3ms2ifUaUZ5NRIYcj8jF8AAA=="
+    },
+    "phone": {
+      "from": "phone/shepherd-384.webp",
+      "sha256": "616dec38809b8732c54472cd0340f206e3253d8702e387e5c2c165018372957a",
+      "uri": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABwAgCdASoQAAgAAkA4JbACdLoAfhuDMhdcyMsAAP7oUUysozvDDJSuFVcxjwDfyrWHYV1XzOc79/9y/Mi+5g11q+4OurOGT2b3cY+/kj3HaC/PrcCS65Z/4HuRxL/Bv95PVKceXGltaIbdW/gAAA=="
+    }
+  }
+}

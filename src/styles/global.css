@@ -659,9 +659,14 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    shorter scene, so the title and the intro's first line sit above the fold at
    1440x900 and 1024x768 (taste review r3). */
 .story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * 100vw)); }
-.story-hero, .story-meadow {
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+/* The bottom fade starts below every character's foot (taste review r10:
+   Ouro's lower coil dissolved into a fade that began at 72% on /ouro-hx/).
+   StoryScene sets --hero-fade per scene from heroFrame(): 72% where the cast
+   stands high, as late as 94% where it stands near the art's foot.
+   tests/hero-crop.test.mjs holds every hero to it. */
+.story-hero {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--hero-fade, 72%), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 var(--hero-fade, 72%), transparent 100%);
 }
 /* On a phone the box takes the phone crop's own aspect (StoryScene sets
    --phone-ar from the file: 4:3, or 16:9 / 2:1 for the wide-cast scenes), so
@@ -697,11 +702,12 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    and a 5% zoom would trim the characters at its edges (taste review r4: the
    blue robot and a sheep cut off at 320). */
 @media (prefers-reduced-motion: no-preference) and (min-width: 641px) {
-  .story-hero img { transform-origin: 58% 50%; animation: story-drift 60s ease-in-out infinite alternate; }
+  .story-hero img { transform-origin: 58% var(--hero-fade, 72%); animation: story-drift 60s ease-in-out infinite alternate; }
 }
-/* A 3% zoom about the middle moves the top and bottom edges 1.5% each: inside
-   the margin heroFrame() keeps around the cast. */
-@keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.03) translateX(-0.6%); } }
+/* A 2% zoom about the fade line: it never carries a foot down into the fade,
+   and lifts a head at most 2% of the box, inside the 3% heroFrame() keeps
+   above the cast. */
+@keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.02) translateX(-0.4%); } }
 /* Scenes further down: soft rounded corners, no border, a whisper of glow. */
 .story-inline { border-radius: 1rem; }
 .story-inline img { aspect-ratio: 1536 / 576; object-fit: cover; }
@@ -721,17 +727,22 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    tinted section that ends the page fades out over its last 6rem instead,
    so tint, page and meadow run into each other. */
 main > [class~="bg-deep/40"]:last-child { background: linear-gradient(to bottom, color-mix(in oklab, var(--color-deep) 40%, transparent) calc(100% - 6rem), transparent); }
-/* A scene still on its way shows a wash: never a broken-image glyph, never a
-   hairline (the deferred <img> has no src until it is near). By day the wash is
-   dawn; by night it is dusk, the page's own dark ground with a faint warm glow
-   low down, so nothing flashes bright peach before the art lands (taste review r4). */
-.story-hero, .story-inline, .story-vignette, .story-meadow { background: radial-gradient(120% 90% at 50% 100%, color-mix(in srgb, var(--color-amber) 16%, transparent), transparent 70%), var(--color-deep); }
-:root[data-theme="light"] :is(.story-hero, .story-inline, .story-vignette, .story-meadow) { background: linear-gradient(180deg, #F7C9A8 0%, #F3DDB0 55%, #CFD9A0 100%); }
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) :is(.story-hero, .story-inline, .story-vignette, .story-meadow) { background: linear-gradient(180deg, #F7C9A8 0%, #F3DDB0 55%, #CFD9A0 100%); }
+/* A scene still on its way, or one whose image failed, shows its own dawn:
+   StoryScene paints a tiny soft preview of the art behind it (--paint for the
+   wide art, --paint-phone for the phone crop; scripts/scene-paint.mjs), framed
+   as the art is, so the sky, hills and meadow are already where they will be
+   (taste review r10: a brief 503 left /apps/'s hero as alt text on a beige
+   box). It is the art's own colour, so nothing flashes when the art lands.
+   Never a broken-image glyph, never alt text on show, never a hairline. */
+.story-scene { background: var(--paint, none) 50% 50% / cover no-repeat, #E9C9A0; }
+.story-hero { background-position: 50% var(--hero-y, 50%); }
+/* The phone crop is shown whole at its own aspect, and so is its paint. */
+.story-vignette { background-image: var(--paint-phone, none); background-size: 100% 100%; }
+@media (max-width: 640px) {
+  .story-scene { background-image: var(--paint-phone, none); background-size: 100% 100%; }
 }
-.story-scene img { border: 0; }
-.story-scene img:not([src]) { visibility: hidden; }
+.story-scene img { border: 0; color: transparent; }
+.story-scene img:not([src]), .story-scene img[data-failed] { visibility: hidden; }
 
 /* ── The glowing trail between sections ──
    The scenes' golden trail runs on down the page as the divider between
