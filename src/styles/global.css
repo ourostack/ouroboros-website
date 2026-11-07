@@ -609,6 +609,10 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .code-long { overflow-wrap: normal; word-break: normal; }
 .tok { white-space: nowrap; }
 .tok-long { display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; text-decoration: inherit; }
+/* A long scheme and host breaks, if at all, only right after its "//"; the host stays whole (taste review r11). */
+.tok-host { white-space: nowrap; }
+/* A hyphenated word in a heading never breaks at its hyphen (taste review r11: "to-" / "do" at 320). */
+.nobr { white-space: nowrap; }
 
 /* ── Media with a light and a dark version: show the one for the theme ── */
 .theme-light-only { display: none; }
@@ -668,6 +672,23 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--hero-fade, 72%), transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 var(--hero-fade, 72%), transparent 100%);
 }
+/* Where the cast stands on the art's very foot (the picnic robots' shoes on
+   /brief/ and /lab/why/), no fade inside the art keeps them whole (taste
+   review r11). StoryScene sets --hero-apron, a share of the art's own height:
+   the box runs that much past the art's foot, painted with the colours of
+   the art's own last rows (--paint-foot, scripts/scene-paint.mjs), which melt
+   over its final 1.2% so there is no seam, and the fade runs over that. Wide
+   screens only; a phone shows its own crop with its own short fade. */
+@media (min-width: 641px) {
+  .story-hero { padding-bottom: calc(var(--hero-apron, 0) * var(--hero-arh, 0.375) * 100vw); }
+  .story-hero[style*="--hero-apron"]::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none;
+    height: calc((var(--hero-apron, 0) + 0.012) * var(--hero-arh, 0.375) * 100vw + 1px);
+    background: var(--paint-foot, none) 0 0 / 100% 100% no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 calc(0.012 * var(--hero-arh, 0.375) * 100vw));
+    mask-image: linear-gradient(to bottom, transparent 0, #000 calc(0.012 * var(--hero-arh, 0.375) * 100vw));
+  }
+}
 /* On a phone the box takes the phone crop's own aspect (StoryScene sets
    --phone-ar from the file: 4:3, or 16:9 / 2:1 for the wide-cast scenes), so
    object-fit never trims a character off the edge. */
@@ -695,6 +716,14 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero + .lab-status { margin-top: -3.5rem; }
   /* The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
+  /* Words rise into the faded foot; pictures and windows do not. The demo
+     window, screenshot or portrait beside the title starts at the hero
+     image's foot, just below the fade, as on ouro.bot/apps/ouro-md/ (taste
+     review r11: the windows on /ouro-md/ and /ouro-hx/ started 8px inside
+     the meadow). scripts/hero-joins.mjs holds every page to it.
+     (:is() carries .split.split-media > .split-body's weight, which would
+     otherwise reset the margin to 0.) */
+  :is(.story-hero + section, .story-hero + article, .story-hero + div) :is(.hero-media.split-body, .hero-media) { margin-top: 0.5rem; }
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor
    only, never layout; off entirely for reduced motion. */
@@ -702,9 +731,9 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    and a 5% zoom would trim the characters at its edges (taste review r4: the
    blue robot and a sheep cut off at 320). */
 @media (prefers-reduced-motion: no-preference) and (min-width: 641px) {
-  .story-hero img { transform-origin: 58% var(--hero-fade, 72%); animation: story-drift 60s ease-in-out infinite alternate; }
+  .story-hero img { transform-origin: 58% var(--hero-origin, 72%); animation: story-drift 60s ease-in-out infinite alternate; }
 }
-/* A 2% zoom about the fade line: it never carries a foot down into the fade,
+/* A 2% zoom about the fade line (about the art's foot over an apron): it never carries a foot down into the fade,
    and lifts a head at most 2% of the box, inside the 3% heroFrame() keeps
    above the cast. */
 @keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.02) translateX(-0.4%); } }

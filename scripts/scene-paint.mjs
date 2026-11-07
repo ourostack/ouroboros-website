@@ -36,9 +36,27 @@ async function paint(file) {
   }
 }
 
+// The art's last few rows, averaged into a strip one pixel tall: the colour
+// the meadow has right at the art's foot, all along it. A hero whose cast
+// stands on that foot lays it below the art as an apron (heroFrame() in
+// src/data/scenes.mjs; taste review r11), so the colours run straight on.
+const FOOT_ROWS = 0.02
+const FOOT_ACROSS = 48
+async function foot(file) {
+  const bytes = readFileSync(join(art, file))
+  const { width, height } = await sharp(bytes).metadata()
+  const rows = Math.max(2, Math.round(height * FOOT_ROWS))
+  const webp = await sharp(bytes).extract({ left: 0, top: height - rows, width, height: rows }).resize(FOOT_ACROSS, 1, { fit: 'fill', kernel: 'lanczos3' }).webp({ quality: 80 }).toBuffer()
+  return {
+    from: file,
+    sha256: createHash('sha256').update(bytes).digest('hex'),
+    uri: `data:image/webp;base64,${webp.toString('base64')}`,
+  }
+}
+
 const out = {}
 for (const scene of usedScenes()) {
-  out[scene] = { wide: await paint(`headers/${scene}.webp`), phone: await paint(`phone/${scene}-384.webp`) }
+  out[scene] = { wide: await paint(`headers/${scene}.webp`), phone: await paint(`phone/${scene}-384.webp`), foot: await foot(`headers/${scene}.webp`) }
 }
 writeFileSync(join(root, 'src', 'data', 'scene-paint.json'), JSON.stringify(out, null, 2) + '\n')
 const sizes = Object.values(out).flatMap((p) => [p.wide.uri.length, p.phone.uri.length])

@@ -165,19 +165,22 @@ export const heroFocus = {
 }
 
 // The lowest point of any character's body in each scene's wide art (Ouro's
-// lowest coil, a robot's seat, a sheep's hooves), as a fraction of its height,
-// read by eye off a 1% grid of the art's foot. (On the picnic blanket the
-// robots' shoes rest on the very foot of the art; their seats count.) The hero's bottom fade never starts above it, so
-// nobody dissolves into the page (taste review r10, 2026-11-06: Ouro's lower
-// coil faded away on /ouro-hx/ at 1024, 1440 and 1920). Props and ground below
-// it may fade. A scene missing here uses its heroFocus bottom.
+// lowest coil, a robot's shoe, a sheep's hooves, a person's sneaker), as a
+// fraction of its height, read by eye off a 1% grid of the art's foot. Every
+// character counts, not only Ouro (taste review r11, 2026-11-06: the picnic
+// robots' feet softened into the fade on /brief/ and /lab/why/; round 10 had
+// counted their seats). The hero's bottom fade never starts above it, so
+// nobody dissolves into the page (taste review r10: Ouro's lower coil faded
+// away on /ouro-hx/). Props and ground below it may fade. A scene missing
+// here uses its heroFocus bottom.
 export const castFoot = {
   'apple-distribution-kit': 0.64,
   butler: 0.82,
   desk: 0.85,
   factory: 0.935,
   'flow-review': 0.83,
-  friends: 0.94,
+  // The robots' shoes rest on the blanket's front edge.
+  friends: 0.97,
   'friends-relay': 0.95,
   gatefold: 0.8,
   'homebrew-tap': 0.87,
@@ -190,15 +193,18 @@ export const castFoot = {
   'ouro-ui-core': 0.84,
   'ouro-work': 0.85,
   'ouro-workbench': 0.76,
-  'ouroboros-skills': 0.82,
+  // The robot's feet, not Ouro's coil.
+  'ouroboros-skills': 0.84,
   'ouroboros-website': 0.89,
   ouroboros: 0.945,
   ourostack: 0.83,
-  'playwright-focus-proof': 0.94,
-  shepherd: 0.925,
+  // The person's sneakers under the armchair.
+  'playwright-focus-proof': 0.97,
+  // The big sheep's hooves at the right.
+  shepherd: 0.935,
 }
 
-// Breathing room kept above and below the cast, so the slow drift (a 3% zoom)
+// Breathing room kept above and below the cast, so the slow drift (a 2% zoom)
 // never pushes a head out of the frame.
 const FOCUS_MARGIN = 0.06
 
@@ -212,24 +218,47 @@ export const HERO_FLOOR = 0.82
 // to clear at its foot). It starts at 72% of the box where the cast stands
 // high, and lower where it stands near the art's foot, so the lowest point of
 // every character keeps at least FOOT_ALPHA of itself at every desktop width,
-// with the slow drift at its fullest (taste review r10). The fade never gets
-// shorter than 6% of the box, so it stays a soft edge, not a cut.
+// with the slow drift at its fullest (taste review r10; raised from 80% in
+// r11, when the picnic robots' shoes still read as softened). The fade never
+// gets shorter than 6% of the box, so it stays a soft edge, not a cut.
 export const FADE_START = 0.72
 export const FADE_LATEST = 0.94
-export const FOOT_ALPHA = 0.8
-// The drift (global.css story-drift) zooms 2% about the fade line, so it
-// never carries a foot down into the fade, and lifts a head at most 2% of the
-// box: inside the 3% heroFrame() keeps above the cast.
+export const FOOT_ALPHA = 0.9
+// The drift (global.css story-drift) zooms 2% about the fade line (or, under
+// an apron, about the art's foot), so it never carries a foot down into the
+// fade, and lifts a head at most 2% of the box: inside the 3% heroFrame()
+// keeps above the cast.
 export const DRIFT = 1.02
 
-/** Where a point of the art (a fraction of its height) lands in the box at this share and crop, before the drift. */
+// Where the cast stands on the art's very foot (the picnic robots' shoes, a
+// sneaker under the armchair), no fade inside the art can keep them whole:
+// the art runs out before a soft edge fits. Such a hero lays a short apron
+// of the scene's own paint below the art (StoryScene's --hero-apron, a share
+// of the art's own height; global.css paints it with the scene's soft
+// preview, mirrored, so the meadow's colours run on past the art's edge) and
+// fades over that instead, starting at APRON_FADE of the box, so the feet
+// stay whole and the edge stays soft (taste review r11).
+export const APRON_FADE = 0.9
+
+/** Where a point of the art (a fraction of its height) lands in the image at this share and crop, before the drift. */
 export const inBox = (at, share, y) => (at - y * (1 - share)) / share
 
-/** The same point with the drift at its fullest, about the fade line. */
-export const drifted = (p, fade) => (p <= fade ? p : fade + (p - fade) * DRIFT)
+/** The same point with the drift at its fullest, about the origin (a fraction of the image). */
+export const drifted = (p, origin) => (p <= origin ? p : origin + (p - origin) * DRIFT)
 
 /** How much of a point at box position `p` the fade keeps (1 = all of it). */
 export const fadeAlpha = (p, fade) => (p <= fade ? 1 : Math.max(0, 1 - (p - fade) / (1 - fade)))
+
+/**
+ * Where the cast's foot lands in the whole hero box (the image plus any
+ * apron), as a fraction of the box, with the drift at its fullest. `share`
+ * is the image's height over the art's own height at this width, `apron`
+ * the apron's height in the same unit.
+ */
+export function footInHero(scene, { share, y, apron = 0, origin }) {
+  const q = drifted(inBox(castFoot[scene] ?? heroFocus[scene]?.[1] ?? 0.88, share, y), origin)
+  return (q * share) / (share + apron)
+}
 
 const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - floor) * i) / 40)
 
@@ -241,6 +270,9 @@ const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - flo
  * share global.css actually holds the box to: `need`, but never under
  * HERO_FLOOR. `fade` is where the bottom fade starts, as a share of the box:
  * below the cast's foot at every share from `floor` to the whole art.
+ * `apron` (a share of the art's height, 0 for most scenes) is the paint laid
+ * below the art where the cast stands on its very foot, and `origin` the
+ * drift's centre, as a share of the image.
  */
 export function heroFrame(scene) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
@@ -252,24 +284,39 @@ export function heroFrame(scene) {
     const p = Math.max(...shares(floor).map((s) => inBox(foot, s, y)))
     return Math.max(FADE_START, (DRIFT * p - (1 - FOOT_ALPHA)) / (DRIFT - (1 - FOOT_ALPHA)))
   }
-  let floor = Math.max(need, HERO_FLOOR)
+  const headClear = (floor) => Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - floor)))
+  const floor0 = Math.max(need, HERO_FLOOR)
+  let floor = floor0
   // The crop as it was (the cast's head just clear of the top at `need`), then,
   // if the foot would still sink into the fade, the crop that shows the most of
   // the art's foot while keeping the head clear, then a taller box.
   let y = need >= 1 ? 0.5 : Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - need)))
   let fade = fadeFor(floor, y)
   while (fade > FADE_LATEST && floor < 1) {
-    y = Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - floor)))
+    y = headClear(floor)
     fade = fadeFor(floor, y)
     if (fade > FADE_LATEST) floor = Math.min(1, +(floor + 0.01).toFixed(3))
   }
-  if (floor >= 1) fade = fadeFor(1, 0.5)
+  let apron = 0
+  let origin
+  if (fade > FADE_LATEST) {
+    // The cast stands on the art's very foot: keep the least box, show the
+    // most of the art's foot, and lay the apron below it.
+    floor = floor0
+    y = headClear(floor)
+    fade = APRON_FADE
+    origin = 1
+    const ok = (a) => shares(floor).every((s) => fadeAlpha(footInHero(scene, { share: s, y, apron: a, origin }), fade) >= FOOT_ALPHA)
+    while (!ok(apron)) apron = +(apron + 0.005).toFixed(3)
+  }
   return {
     need: +need.toFixed(3),
     floor: +floor.toFixed(3),
     y: +(y * 100).toFixed(1),
     // Rounded up, so the shipped fade is never earlier than the one computed.
     fade: Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10,
+    apron,
+    origin: origin === undefined ? Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10 : origin * 100,
     foot,
   }
 }

@@ -13,7 +13,8 @@
     "test:seo-metadata": "npm run build && node --test tests/seo-metadata.test.mjs",
     "test": "npm run build && node --test 'tests/*.test.*'",
     "smoke": "node scripts/smoke-preview.mjs",
-    "check:text": "node scripts/text-breaks.mjs"
+    "check:text": "node scripts/text-breaks.mjs",
+    "check:hero": "node scripts/hero-joins.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
