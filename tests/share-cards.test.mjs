@@ -83,3 +83,40 @@ test('every share card sets its title at the one title size', () => {
   assert.match(src, /const titleSize = TITLE_SIZE\n/);
   assert.match(src, /if \(!lines\) throw new Error/);
 });
+
+// Taste review r12 (second time flagged): the Butler card's title sat on a
+// hard-edged light band that bleached the cottage roof. Ruling: no band. The
+// title stands in the scene's own sky, the roof clears it, and the sky meets
+// the scene without a line. These hold the measurable half; the look is checked
+// by eye next to three other cards.
+test('the Butler card sets its title in open sky, with no band over the roof', async () => {
+  const { default: sharp } = await import('sharp');
+  const file = path.join(distDir, 'og/og-butler.jpg');
+  assert.ok(fs.existsSync(file), 'og-butler.jpg was not built');
+  const { data, info } = await sharp(file).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  assert.deepEqual([info.width, info.height], [1200, 630]);
+  const lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+  const lum = (i) => 0.2126 * lin(data[i]) + 0.7152 * lin(data[i + 1]) + 0.0722 * lin(data[i + 2]);
+  const ink = 0.2126 * lin(0x1a) + 0.7152 * lin(0x21) + 0.0722 * lin(0x18);
+  // AA behind the title: the sky's median in every 100px strip of the title rows.
+  for (let x0 = 16; x0 < 1100; x0 += 100) {
+    const ls = [];
+    for (let y = 16; y < 130; y++) for (let x = x0; x < x0 + 100; x++) ls.push(lum((y * info.width + x) * 3));
+    ls.sort((a, b) => a - b);
+    const ratio = (ls[ls.length >> 1] + 0.05) / (ink + 0.05);
+    assert.ok(ratio >= 4.5, `the sky behind the title at x=${x0} gives ${ratio.toFixed(2)}:1, under AA`);
+  }
+  // No line where the sky meets the scene: across the roof's columns, no
+  // four-row step in brightness between the title and the roof (the old band's
+  // edge stepped 22 levels at y=193).
+  const rows = [];
+  for (let y = 0; y < 240; y++) {
+    let s = 0;
+    for (let x = 200; x < 680; x++) s += lum((y * info.width + x) * 3) ** (1 / 2.2) * 255;
+    rows.push(s / 480);
+  }
+  for (let y = 140; y < 230; y++) {
+    const step = Math.abs(rows[y + 2] - rows[y - 2]);
+    assert.ok(step < 16, `a ${step.toFixed(1)}-level edge at y=${y} over the cottage roof`);
+  }
+});
