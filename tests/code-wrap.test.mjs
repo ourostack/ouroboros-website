@@ -51,7 +51,8 @@ test('every URL and path is wrapped: prose, links, mono spans and preformatted t
 });
 
 test('the built pages carry it, with no break-all anywhere', () => {
-  assert.match(readDist('ouro-hx/index.html'), /<code class="code-whole">--primary<\/code>/);
+  // A hyphenated name stays whole (it was /ouro-hx/'s --primary until that page moved to ui.ouroboros.bot).
+  assert.match(readDist('lab/how-desk-started/index.html'), /<code class="code-whole">work-planner<\/code>/);
   const review = readDist('lab/model-reviews/anthropic/index.html');
   assert.match(review, /class="fetch-url[^"]*code-long"[^>]*><span class="tok[^"]*">https:\/\/(?:<wbr><span class="tok-host">)?[a-z0-9.-]+\/(?:<\/span>)?<\/span><wbr>/);
   assert.match(review, /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host">hermes-agent\.nousresearch\.com\/<\/span><\/span>/);

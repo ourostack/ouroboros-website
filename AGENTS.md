@@ -167,7 +167,7 @@ src/
     brief.astro          ← /brief (shows public/brief.md)
     desk.astro, ouro-md.astro ← /desk, /ouro-md
     ouro-md/download.astro ← /ouro-md/download, Ouro MD's download page (moved here from ouro.bot)
-    apps.astro, ouro-hx.astro ← /apps (the shelf), /ouro-hx; both moved here from ouro.bot
+    apps.astro           ← /apps (the shelf), moved here from ouro.bot
     blog/                ← /blog index and every post, at the URLs they were published under
     lab/                 ← /lab: why, story, what-is-an-agent-harness, model-reviews (+ [provider]), docs/* (use DocsPageShell); index.astro carries the old harness homepage
     privacy.astro, terms.astro
@@ -196,9 +196,13 @@ public/
 
 Since 2026-11-06 every page opens on a scene from Ari's storybook brand (ourostack/.github `brand/`): `src/data/scenes.mjs` maps each route to its hero scene and card scene, `Layout.astro` draws the hero and the footer meadow, and `src/components/StoryScene.astro` is the one `<picture>`. The art is copied **byte for byte** into `public/brand/storybook/` by `node scripts/sync-storybook.mjs <brand folder>`; never re-encode, optimize or crop it in a build step, because the brand audit compares the served bytes with `provenance.json` (`tests/storybook.test.mjs` checks too). A new page gets a route in `scenes.mjs`; a new scene means re-running the sync.
 
+## Ouro HX's page moved to ui.ouroboros.bot
+
+On 2026-11-07 Ouro HX's page (`/ouro-hx/`) moved to [ui.ouroboros.bot](https://ui.ouroboros.bot/), the Ouro UI site in ourostack/ouro-ui (`site/`), which is the one home for Ouro UI, HX and AX (Ari: "let's unify? i trust you"). `src/worker/redirects.mjs` sends `/ouro-hx`, `/ouro-hx/` and `/ouro-hx/index.html` there with a 301 that keeps the query. **Rule for new work:** pages and copy about HX, UI or AX are written in ourostack/ouro-ui `site/`; this site only links to them.
+
 ## ouro.bot forwards here
 
-ouro.bot's website moved onto this site on 2026-11-06 (Ari: "we need a unified domain"), and Ouro MD's download page followed on 2026-11-07 (Ari: "move every surface to ouroboros.bot and have ouro.bot forward"). The `ouro-apex` Worker in ourostack/ouro-apps-site forwards each old ouro.bot path to its home here with a 301 (`/` and `/apps/` to `/apps/`, `/apps/ouro-hx/` to `/ouro-hx/`, `/apps/ouro-md/` to `/ouro-md/download/`, `/apps/ouro-md/stable.json` to `/ouro-md/stable.json`, `/ouro-md-install.sh` to the same path here, each old `/assets/` file to its copy here, anything else to the same path here). ouro.bot serves no files of its own any more.
+ouro.bot's website moved onto this site on 2026-11-06 (Ari: "we need a unified domain"), and Ouro MD's download page followed on 2026-11-07 (Ari: "move every surface to ouroboros.bot and have ouro.bot forward"). The `ouro-apex` Worker in ourostack/ouro-apps-site forwards each old ouro.bot path to its home here with a 301 (`/` and `/apps/` to `/apps/`, `/apps/ouro-hx/` straight to https://ui.ouroboros.bot/, `/apps/ouro-md/` to `/ouro-md/download/`, `/apps/ouro-md/stable.json` to `/ouro-md/stable.json`, `/ouro-md-install.sh` to the same path here, each old `/assets/` file to its copy here, anything else to the same path here). ouro.bot serves no files of its own any more.
 
 Ouro MD's download page lives here now, so every change to it (and every taste round on it) is made in this repository:
 

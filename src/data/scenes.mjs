@@ -49,7 +49,6 @@ const pages = {
   // pouring the first cup, since the lectern belongs to its parent page and no
   // scene repeats between a page and its parent. Its card keeps the lectern.
   '/ouro-md/download': { hero: 'homebrew-tap', og: 'ouro-md' },
-  '/ouro-hx': { hero: 'ouro-hx' },
   '/butler': { hero: 'butler' },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },

@@ -7,11 +7,15 @@ const moved = [
   [/^\/lab\/(what-is-agent-experience|give-your-agent-a-home|build-ai-agent-from-scratch)\/?$/, '/blog/$1/'],
   // Share cards already posted keep their image: the old card names gained "lab-".
   [/^\/og\/og-(docs(?:-[a-z-]+)?|model-reviews|story|why|what-is-an-agent-harness)\.png$/, '/og/og-lab-$1.jpg'],
+  // Ouro HX's page moved to the Ouro UI site (below); a share card already posted for it shows that site's own card.
+  [/^\/og\/og-ouro-hx\.(?:jpg|png)$/, 'https://ui.ouroboros.bot/og/home.jpg'],
   // The storybook cards (2026-11-06) are JPEGs; a card already posted as .png finds its new self.
   [/^\/og\/(og-[a-z0-9-]+)\.png$/, '/og/$1.jpg'],
   // Crawlers and people try /sitemap.xml first; the sitemap is the index the
   // build writes (taste review r17: /sitemap.xml served the 404 page).
   [/^\/sitemap\.xml$/, '/sitemap-index.xml'],
+  // Ouro HX's page joined the Ouro UI site, its one home for HX, UI and AX (Ari, 2026-11-07: "let's unify").
+  [/^\/ouro-hx(?:\/(?:index\.html)?)?$/, 'https://ui.ouroboros.bot/'],
 ]
 
 /** The new path for an old one, or null. Page paths end in a slash, so a
