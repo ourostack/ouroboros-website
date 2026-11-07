@@ -27,7 +27,7 @@ test('a scheme and domain never break, and a file name is not a domain', () => {
   assert.equal(hostEnd('https://github.com/o/x'), 'https://github.com'.length);
   assert.equal(hostEnd('ouroboros.bot/brief.md'), 'ouroboros.bot'.length);
   assert.equal(hostEnd('(https://ouroboros.bot).'), '(https://ouroboros.bot'.length);
-  assert.equal(hostEnd('&quot;https://ui.ouro.bot/r/x.json&quot;'), '&quot;https://ui.ouro.bot'.length);
+  assert.equal(hostEnd('&quot;https://ui.ouroboros.bot/r/x.json&quot;'), '&quot;https://ui.ouroboros.bot'.length);
   assert.equal(hostEnd('manifest.json'), 0);
   assert.equal(hostEnd('docs/agent-orientation-substrate.md'), 0);
   assert.equal(hostEnd('~/.copilot/lsp-config.json'), 0);
