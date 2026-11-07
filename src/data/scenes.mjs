@@ -141,27 +141,61 @@ export const heroFocus = {
   'apple-distribution-kit': [0.13, 0.82],
   butler: [0.18, 0.84],
   desk: [0.22, 0.88],
-  factory: [0.2, 0.92],
+  factory: [0.2, 0.94],
   'flow-review': [0.18, 0.84],
   friends: [0.2, 0.97],
-  'friends-relay': [0.05, 0.92],
+  'friends-relay': [0.05, 0.95],
   gatefold: [0.15, 0.88],
   'homebrew-tap': [0.06, 0.88],
-  m365crawl: [0.22, 0.92],
+  m365crawl: [0.22, 0.93],
   'ouro-apps-site': [0.05, 0.9],
-  'ouro-hx': [0.1, 0.86],
+  'ouro-hx': [0.12, 0.93],
   'ouro-md': [0.2, 0.86],
   'ouro-native-apple-app-shell': [0.1, 0.8],
-  'ouro-ui-apple': [0.05, 0.9],
+  'ouro-ui-apple': [0.05, 0.91],
   'ouro-ui-core': [0.18, 0.88],
   'ouro-work': [0.2, 0.88],
   'ouro-workbench': [0.28, 0.86],
   'ouroboros-skills': [0.05, 0.92],
   'ouroboros-website': [0.24, 0.92],
-  ouroboros: [0.12, 0.9],
+  ouroboros: [0.12, 0.95],
   ourostack: [0.15, 0.85],
   'playwright-focus-proof': [0.13, 0.97],
   shepherd: [0.12, 0.96],
+}
+
+// The lowest point of any character's body in each scene's wide art (Ouro's
+// lowest coil, a robot's seat, a sheep's hooves), as a fraction of its height,
+// read by eye off a 1% grid of the art's foot. (On the picnic blanket the
+// robots' shoes rest on the very foot of the art; their seats count.) The hero's bottom fade never starts above it, so
+// nobody dissolves into the page (taste review r10, 2026-11-06: Ouro's lower
+// coil faded away on /ouro-hx/ at 1024, 1440 and 1920). Props and ground below
+// it may fade. A scene missing here uses its heroFocus bottom.
+export const castFoot = {
+  'apple-distribution-kit': 0.64,
+  butler: 0.82,
+  desk: 0.85,
+  factory: 0.935,
+  'flow-review': 0.83,
+  friends: 0.94,
+  'friends-relay': 0.95,
+  gatefold: 0.8,
+  'homebrew-tap': 0.87,
+  m365crawl: 0.93,
+  'ouro-apps-site': 0.87,
+  'ouro-hx': 0.925,
+  'ouro-md': 0.85,
+  'ouro-native-apple-app-shell': 0.72,
+  'ouro-ui-apple': 0.905,
+  'ouro-ui-core': 0.84,
+  'ouro-work': 0.85,
+  'ouro-workbench': 0.76,
+  'ouroboros-skills': 0.82,
+  'ouroboros-website': 0.89,
+  ouroboros: 0.945,
+  ourostack: 0.83,
+  'playwright-focus-proof': 0.94,
+  shepherd: 0.925,
 }
 
 // Breathing room kept above and below the cast, so the slow drift (a 3% zoom)
@@ -174,19 +208,70 @@ const FOCUS_MARGIN = 0.06
 // to 20% at 1024, 1440 and 1920).
 export const HERO_FLOOR = 0.82
 
+// The hero's bottom fade (global.css masks the box from opaque at --hero-fade
+// to clear at its foot). It starts at 72% of the box where the cast stands
+// high, and lower where it stands near the art's foot, so the lowest point of
+// every character keeps at least FOOT_ALPHA of itself at every desktop width,
+// with the slow drift at its fullest (taste review r10). The fade never gets
+// shorter than 6% of the box, so it stays a soft edge, not a cut.
+export const FADE_START = 0.72
+export const FADE_LATEST = 0.94
+export const FOOT_ALPHA = 0.8
+// The drift (global.css story-drift) zooms 2% about the fade line, so it
+// never carries a foot down into the fade, and lifts a head at most 2% of the
+// box: inside the 3% heroFrame() keeps above the cast.
+export const DRIFT = 1.02
+
+/** Where a point of the art (a fraction of its height) lands in the box at this share and crop, before the drift. */
+export const inBox = (at, share, y) => (at - y * (1 - share)) / share
+
+/** The same point with the drift at its fullest, about the fade line. */
+export const drifted = (p, fade) => (p <= fade ? p : fade + (p - fade) * DRIFT)
+
+/** How much of a point at box position `p` the fade keeps (1 = all of it). */
+export const fadeAlpha = (p, fade) => (p <= fade ? 1 : Math.max(0, 1 - (p - fade) / (1 - fade)))
+
+const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - floor) * i) / 40)
+
 /**
  * The desktop hero's crop for a scene. `need` is the least share of the art's
  * height the box may show (the cast plus margin): the hero's height cap never
  * goes below it, at any width. `y` is the object-position that, at that least
  * share or any taller one, keeps the whole cast in view. `floor` is the
  * share global.css actually holds the box to: `need`, but never under
- * HERO_FLOOR.
+ * HERO_FLOOR. `fade` is where the bottom fade starts, as a share of the box:
+ * below the cast's foot at every share from `floor` to the whole art.
  */
 export function heroFrame(scene) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
+  const foot = castFoot[scene] ?? bottom
   const need = Math.min(1, bottom - top + FOCUS_MARGIN)
-  const y = need >= 1 ? 0.5 : Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - need)))
-  return { need: +need.toFixed(3), floor: +Math.max(need, HERO_FLOOR).toFixed(3), y: +(y * 100).toFixed(1) }
+  // The fade a crop needs: late enough that the foot keeps FOOT_ALPHA at every share.
+  // fadeAlpha(drifted(p, f), f) >= FOOT_ALPHA solved for f.
+  const fadeFor = (floor, y) => {
+    const p = Math.max(...shares(floor).map((s) => inBox(foot, s, y)))
+    return Math.max(FADE_START, (DRIFT * p - (1 - FOOT_ALPHA)) / (DRIFT - (1 - FOOT_ALPHA)))
+  }
+  let floor = Math.max(need, HERO_FLOOR)
+  // The crop as it was (the cast's head just clear of the top at `need`), then,
+  // if the foot would still sink into the fade, the crop that shows the most of
+  // the art's foot while keeping the head clear, then a taller box.
+  let y = need >= 1 ? 0.5 : Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - need)))
+  let fade = fadeFor(floor, y)
+  while (fade > FADE_LATEST && floor < 1) {
+    y = Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - floor)))
+    fade = fadeFor(floor, y)
+    if (fade > FADE_LATEST) floor = Math.min(1, +(floor + 0.01).toFixed(3))
+  }
+  if (floor >= 1) fade = fadeFor(1, 0.5)
+  return {
+    need: +need.toFixed(3),
+    floor: +floor.toFixed(3),
+    y: +(y * 100).toFixed(1),
+    // Rounded up, so the shipped fade is never earlier than the one computed.
+    fade: Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10,
+    foot,
+  }
 }
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
