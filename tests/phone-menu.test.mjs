@@ -151,3 +151,12 @@ test('every item in the phone menu is set in the same size, GitHub included', ()
   assert.ok(sizes.length >= 7, 'found the menu links');
   assert.deepEqual([...new Set(sizes)], ['3xl']);
 });
+
+// Taste review r6: page text read through the bottom of the open menu at 390,
+// light theme most of all. The panel is a solid sheet, so nothing shows through.
+test('the open phone menu is fully opaque', () => {
+  const html = readDist('index.html');
+  const open = html.match(/<div id="mobile-menu" class="([^"]*)"/)[1].split(/\s+/);
+  assert.ok(open.includes('bg-deep'), 'the panel takes the solid page colour');
+  assert.ok(!open.some((c) => /^bg-[\w-]+\/\d+$/.test(c) || /^backdrop-/.test(c) || /^opacity-/.test(c)), `no see-through class on the panel: ${open.join(' ')}`);
+});
