@@ -16,7 +16,7 @@
 
 import { spawn } from 'node:child_process';
 import { appendFileSync, createWriteStream, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve as resolvePath } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveDist } from './serve-dist.mjs';
 
@@ -42,7 +42,7 @@ if (unlisted.length || stale.length) {
 
 const only = opt('--only')?.split(',');
 const run = only ? CHECKS.filter((n) => only.includes(n)) : CHECKS;
-const logs = join(ROOT, opt('--logs') || process.env.CHECK_LOGS || 'check-logs');
+const logs = resolvePath(ROOT, opt('--logs') || process.env.CHECK_LOGS || 'check-logs'); // an absolute CHECK_LOGS stays as given
 mkdirSync(logs, { recursive: true });
 const jobs = Math.max(1, Number(process.env.CHECK_JOBS || 3));
 
