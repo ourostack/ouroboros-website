@@ -195,7 +195,8 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   assert.match(playback[0], /^<div\b[^>]*role="group"[^>]*aria-label="Desk playback"/);
   const plainText = (h) => textOf(h).replace(/\s+([,.?])/g, '$1');
   // The wide frame: the narrow-only lines left out (root final ruling F4).
-  const lineSpan = (attr) => new RegExp(`<span class="dp-line[^"]*"[^>]*\\b${attr}\\b[^>]*>[^<]*<\\/span>`, 'g');
+  // A line's text may hold the pieces src/lib/code-wrap.mjs splits a path into.
+  const lineSpan = (attr) => new RegExp(`<span class="dp-line[^"]*"[^>]*\\b${attr}\\b[^>]*>(?:[^<]|<wbr>|<span class="tok(?: tok-long)?">[^<]*<\\/span>)*<\\/span>`, 'g');
   const one = plainText(scenes[0][4].replace(lineSpan('data-narrow'), ''));
   const two = plainText(scenes[1][4].replace(lineSpan('data-narrow'), ''));
   // Ari, 2026-10-19: the Nautilus story was an in-joke; the playback runs on the same sample desk as the real output.

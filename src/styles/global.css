@@ -534,6 +534,17 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   @media (min-width: 640px) { .heading-lead { font-size: 3.4rem; } }
   @media (min-width: 1024px) { .heading-lead { font-size: 4.4rem; } }
 
+  /* A product page's hero lede, the sentence under the h1: Cormorant, 20px
+     on a phone and 24px from 768px, on every product page (taste review r9:
+     /butler/ set its lede in Outfit). ouro.bot's .lead matches it. */
+  .product-lede {
+    font-family: var(--font-display);
+    color: var(--color-bone);
+    line-height: 1.375;
+    font-size: 1.25rem;
+  }
+  @media (min-width: 768px) { .product-lede { font-size: 1.5rem; } }
+
   /* Section headline (h2) */
   .heading-section {
     font-family: var(--font-display);
@@ -588,14 +599,16 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   font-size: 0.85em;
 }
 
-/* Inline code and transcript URLs break only where a reader expects (taste
-   review r8): src/lib/code-wrap.mjs marks each token at build time. A short
-   one stays whole; a long one breaks after a "/" or at a space; only a single
-   piece too long for a 320px column may break anywhere. */
+/* URLs, paths and inline code break only where a reader expects (taste
+   reviews r8 and r9): src/lib/code-wrap.mjs splits every URL and path into
+   pieces at build time, with a <wbr> after each "/" and before a host or file
+   name's ".". A short piece never breaks; a long one moves to the next line
+   whole, and breaks inside only when it is wider than its whole column (the
+   one last resort). Short inline code stays whole. */
 .code-whole { white-space: nowrap; overflow-wrap: normal; word-break: normal; }
 .code-long { overflow-wrap: normal; word-break: normal; }
-.code-long > .tok { white-space: nowrap; }
-.code-long > .tok-long { white-space: normal; overflow-wrap: anywhere; }
+.tok { white-space: nowrap; }
+.tok-long { display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; text-decoration: inherit; }
 
 /* ── Media with a light and a dark version: show the one for the theme ── */
 .theme-light-only { display: none; }
@@ -703,6 +716,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-meadow img { aspect-ratio: 1536 / 576; object-fit: cover; }
 @media (max-width: 640px) { .story-meadow img { aspect-ratio: var(--phone-ar, 4 / 3); } }
 .story-meadow + .site-footer { margin-top: 0; border-top: 0; }
+/* The page flows into the meadow (taste review r9: a tinted last section
+   ended hard, leaving a strip of page colour above the meadow's fade). A
+   tinted section that ends the page fades out over its last 6rem instead,
+   so tint, page and meadow run into each other. */
+main > [class~="bg-deep/40"]:last-child { background: linear-gradient(to bottom, color-mix(in oklab, var(--color-deep) 40%, transparent) calc(100% - 6rem), transparent); }
 /* A scene still on its way shows a wash: never a broken-image glyph, never a
    hairline (the deferred <img> has no src until it is near). By day the wash is
    dawn; by night it is dusk, the page's own dark ground with a faint warm glow

@@ -140,7 +140,7 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
                           </summary>
                           <div class="pb-5 pt-2">
                             <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
-                            {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 break-all">Exact prefix · SHA-256 {action.resultSha256}</p>}
+                            {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 [overflow-wrap:anywhere]">Exact prefix · SHA-256 {action.resultSha256}</p>}
                           </div>
                         </details>
                       )}
@@ -153,7 +153,7 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
                           </summary>
                           <div class="pb-5 pt-2">
                             <pre class="font-mono text-xs md:text-sm text-mist leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere]">{action.result}</pre>
-                            {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 break-all">Exact prefix · SHA-256 {action.resultSha256}</p>}
+                            {action.resultTruncated && <p class="font-mono text-[0.625rem] text-shadow mt-4 [overflow-wrap:anywhere]">Exact prefix · SHA-256 {action.resultSha256}</p>}
                           </div>
                         </details>
                       )}
