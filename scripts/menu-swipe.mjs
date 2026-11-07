@@ -10,7 +10,8 @@
 // It checks that
 //   - a swipe down the panel, or back up toward the bar, closes the menu, hands
 //     focus back to the toggle, unlocks the page and keeps its scroll place;
-//   - the panel follows the finger during the drag;
+//   - the panel follows the finger during the drag and stays opaque (the
+//     menu is opaque; nothing behind it shows through);
 //   - a short drag under the threshold springs back and leaves it open;
 //   - a sideways swipe leaves it open;
 //   - under prefers-reduced-motion nothing follows the finger and the swipe
@@ -84,12 +85,15 @@ for (const [width, height] of [[390, 844], [320, 568]]) {
         await p.tap(TOGGLE);
         await wait(50);
         if (!(await state(p)).open) { failures.push(`${label}: the menu did not open`); continue; }
-        const mid = await swipe(cdp, from, to, { hold: name === 'short drag' ? 120 : 0, during: () => p.evaluate((m) => document.querySelector(m).style.transform, MENU) });
+        const mid = await swipe(cdp, from, to, { hold: name === 'short drag' ? 120 : 0, during: () => p.evaluate((m) => { const el = document.querySelector(m); return { t: el.style.transform, o: getComputedStyle(el).opacity }; }, MENU) });
+        const opaque = mid.o === "1";
+        if (!opaque) failures.push(`${label}: the panel faded to opacity ${mid.o} during the drag (it stays opaque)`);
+        const midT = mid.t;
         await wait(450);
         const after = await state(p);
-        const follows = reducedMotion === 'reduce' ? mid === '' : (name === 'sideways' ? mid === '' : /translateY\(-?\d/.test(mid));
-        results.push({ label, mid, after });
-        if (!follows) failures.push(`${label}: during the drag the panel's transform was "${mid}"`);
+        const follows = reducedMotion === "reduce" ? midT === "" : (name === "sideways" ? midT === "" : /translateY\(-?\d/.test(midT));
+        results.push({ label, mid: midT, after });
+        if (!follows) failures.push(`${label}: during the drag the panel's transform was "${midT}"`);
         if (staysOpen) {
           if (!after.open) failures.push(`${label}: the menu closed`);
           if (after.transform) failures.push(`${label}: the panel did not spring back (transform "${after.transform}")`);
