@@ -89,7 +89,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
                     <span class="font-mono text-xs text-mist uppercase tracking-[0.22em]">Inference</span>
                     <span class="font-mono text-bone text-xs uppercase tracking-[0.12em]">{review.transport === 'copilot' ? 'GitHub Copilot' : 'Direct API'}</span>
                   </div>
-                  <a href={`/lab/model-reviews/${review.provider}/`} class="group inline-flex items-center gap-2 text-scale hover:text-glow transition-colors text-sm md:text-base font-medium">
+                  <a href={`/lab/model-reviews/${review.provider}/`} class="hit group inline-flex items-center gap-2 text-scale hover:text-glow transition-colors text-sm md:text-base font-medium">
                     <span class="underline underline-offset-[5px] decoration-scale/50 group-hover:decoration-glow">Read the {review.rounds}-round transcript</span>
                     <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                   </a>
@@ -233,7 +233,7 @@ npm run reviews -- --inference copilot-first</code></pre>
           View the script on GitHub
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
         </a>
-        <a href="/" class="text-mist hover:text-bone transition-colors text-sm">&#8592; Back to home</a>
+        <a href="/" class="hit text-mist hover:text-bone transition-colors text-sm">&#8592; Back to home</a>
       </div>
       </div>
     </div>
@@ -243,10 +243,12 @@ npm run reviews -- --inference copilot-first</code></pre>
 <style>
   .review-jumps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem 2.5rem; }
   @media (min-width: 768px) { .review-jumps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .review-jumps li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; padding: 0.55rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 30%, transparent); }
+  .review-jumps li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 1rem; padding: 0.1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 30%, transparent); }
   .review-jump-name { font-family: var(--font-display); font-size: 1.35rem; color: var(--color-bone); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); }
   .review-jump-name:hover { color: var(--color-scale); }
-  .review-jump-more { display: inline-flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; font-size: 0.875rem; }
+  .review-jump-more { display: inline-flex; flex-wrap: wrap; gap: 0 0.9rem; font-size: 0.875rem; }
+  /* A finger-sized 44px on every jump (taste review r15). */
+  .review-jump-name, .review-jump-more a { display: inline-flex; align-items: center; min-height: 2.75rem; }
   .review-jump-more a { color: var(--color-scale); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); }
   .review-jump-more a:hover { color: var(--color-glow); }
 </style>

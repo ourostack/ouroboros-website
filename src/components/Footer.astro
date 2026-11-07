@@ -32,7 +32,16 @@ const linkClass = 'underline decoration-canopy underline-offset-4 hover:text-bon
     .footer-inner { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem var(--split-gap); text-align: left; }
     .footer-row { flex: none; margin-top: 0; justify-content: flex-end; }
   }
-  /* The row wraps on a phone, so a separator would dangle at a line's end; the
-     wider gap separates the items instead (root final ruling F17). */
-  @media (max-width: 639.98px) { .footer-sep { display: none; } .footer-row { column-gap: 1.1rem; } }
+  /* On a phone the links stand in two even columns of finger-sized rows (44px;
+     taste review r15: they measured 20px and wrapped wherever they fell), with
+     the copyright line beneath them. An odd last link takes the whole row,
+     centred. ouro.bot's footer (ourostack/ouro-apps-site styles.css) has the
+     same sizes and spacing. No separators: a row is its own separator. */
+  @media (max-width: 639.98px) {
+    .footer-sep { display: none; }
+    .footer-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1rem; justify-items: center; align-items: center; }
+    .footer-row a { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; min-width: 2.75rem; }
+    .footer-row a:last-of-type:nth-of-type(odd) { grid-column: 1 / -1; }
+    .footer-row > span:first-child { grid-column: 1 / -1; order: 1; margin-top: 0.75rem; }
+  }
 </style>

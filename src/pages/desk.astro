@@ -34,7 +34,7 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
           {/* A break opportunity after each slash, so a phone wraps the address between its parts, never mid-word ("ourostac / k", taste review r4). <wbr> adds no text, so Copy copies the address whole. */}
           <pre id="desk-setup" class="agent-text">{deskSetupUrl.split('/').map((part, i, all) => <>{part}{i < all.length - 1 && <>/<wbr /></>}</>)}{`\nset this up`}</pre>
           <div class="flex flex-wrap items-center gap-3">
-            <button type="button" data-copy-target="desk-setup" class="hit inline-flex items-center rounded-xl bg-bone text-void px-4 py-2.5 text-sm font-medium hover:bg-scale transition-colors"><span data-copy-label>Copy</span></button>
+            <button type="button" data-copy-target="desk-setup" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
             <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
           </div>
         </div>
@@ -79,7 +79,7 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
       <h2 class="heading-sub">Support goes through your agent</h2>
       <p class="text-lg text-mist">Give your agent this:</p>
       <pre id="desk-support" class="agent-text">{supportPrompt}</pre>
-      <button type="button" data-copy-target="desk-support" class="hit justify-self-start inline-flex items-center rounded-xl border border-canopy text-bone px-4 py-2 text-sm font-medium hover:border-scale hover:text-scale transition-colors"><span data-copy-label>Copy</span></button>
+      <button type="button" data-copy-target="desk-support" class="btn-ghost !py-2 text-sm justify-self-start"><span data-copy-label>Copy</span></button>
     </div>
   </section>
 

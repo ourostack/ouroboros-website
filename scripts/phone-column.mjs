@@ -22,6 +22,11 @@
 //  - font:   at 390, any button, input, select or textarea whose computed
 //    font is not one of the sites' own faces (FACES), so no control ever
 //    falls back to the browser's Arial or system font.
+//  - copy:   at 390, any Copy button (a button whose label reads "Copy")
+//    whose computed style differs from COPY_STYLE, the one bordered button
+//    both sites use (Ari's ruling on taste review r15: the docs' borderless
+//    mono "COPY" and Desk's filled Copy are gone). ouro.bot's check holds
+//    its Copy button to the same COPY_STYLE.
 //
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.
@@ -36,6 +41,10 @@ import { fileURLToPath } from 'node:url';
 const GUTTER = 24;
 const FACES = ['Outfit', 'JetBrains Mono', 'Cormorant Garamond'];
 const WIDTHS = [320, 390, 430];
+// The one Copy button, as computed in the light theme at 390: Outfit 14px
+// medium in a 1px canopy border, 12px corners, 8px by 20px of padding, no
+// fill. Keep in step with ourostack/ouro-apps-site scripts/phone-column.mjs.
+const COPY_STYLE = 'Outfit 14px 500 normal none | pad 8px 20px | border 1px solid rgb(203, 189, 152) | radius 12px | bg rgba(0, 0, 0, 0) | color rgb(26, 33, 24) | h 38';
 const args = process.argv.slice(2);
 const opt = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
 const DIST = fileURLToPath(new URL('../dist', import.meta.url));
@@ -115,7 +124,13 @@ function measure(faces) {
     const r = b.getBoundingClientRect();
     return { label: label(b), w: Math.round(r.width * 10) / 10, h: Math.round(r.height * 10) / 10 };
   });
-  return { column: Math.round(column * 10) / 10, at, off, header };
+  // Every Copy button's computed style, as one line.
+  const copies = [...document.querySelectorAll('button')].filter((b) => /^(Copy|Copied)$/.test(b.textContent.trim()) && b.getClientRects().length).map((b) => {
+    const s = getComputedStyle(b);
+    const face = s.fontFamily.split(',')[0].trim().replace(/^["']|["']$/g, '');
+    return `${face} ${s.fontSize} ${s.fontWeight} ${s.letterSpacing} ${s.textTransform} | pad ${s.paddingTop} ${s.paddingRight} | border ${s.borderTopWidth} ${s.borderTopStyle} ${s.borderTopColor} | radius ${s.borderTopLeftRadius} | bg ${s.backgroundColor} | color ${s.color} | h ${Math.round(b.getBoundingClientRect().height)}`;
+  });
+  return { column: Math.round(column * 10) / 10, at, off, header, copies };
 }
 
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
@@ -130,6 +145,10 @@ for (const width of WIDTHS) {
     (result.columns[page] ||= {})[width] = m.column;
     if (Math.abs(m.column - GUTTER) > 0.5) result.failures.push(`${width} ${page} column starts at ${m.column}px (${m.at}), not ${GUTTER}px`);
     if (width === 390) for (const o of m.off) result.failures.push(`${width} ${page} ${o}`);
+    if (width === 390) {
+      result.copies = (result.copies || 0) + m.copies.length;
+      for (const c of m.copies) if (c !== COPY_STYLE) result.failures.push(`${width} ${page} a Copy button is styled "${c}", not "${COPY_STYLE}"`);
+    }
     const h = m.header;
     (result.header ||= {})[`${width} ${page}`] = h;
     if (h.mark === undefined || Math.abs(h.mark - GUTTER) > 0.5) result.failures.push(`${width} ${page} header mark starts at ${h.mark}px, not ${GUTTER}px`);
@@ -142,6 +161,6 @@ await browser.close();
 server?.close();
 
 if (opt('--json')) await writeFile(opt('--json'), JSON.stringify(result, null, 2));
-console.log(`${pages.length} pages at ${WIDTHS.join(', ')}: ${result.failures.length} off the ${GUTTER}px column (text and header), under a 44px tap target, or off the sites' faces (${FACES.join(', ')})`);
+console.log(`${pages.length} pages at ${WIDTHS.join(', ')}: ${result.failures.length} off the ${GUTTER}px column (text and header), under a 44px tap target, off the sites' faces (${FACES.join(', ')}), or a Copy button off the one style (${result.copies} Copy buttons checked)`);
 for (const f of result.failures) console.log(`  ${f}`);
 process.exit(result.failures.length ? 1 : 0);

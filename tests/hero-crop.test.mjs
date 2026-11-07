@@ -76,8 +76,10 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
 // every character (castFoot, read off the art: Ouro, robots, people, sheep;
 // taste review r11 added the picnic robots' shoes) must keep FOOT_ALPHA of
 // itself at every laptop and desktop viewport, with the slow drift at its
-// fullest. Where the cast stands on the art's very foot, the box runs on past
-// the art by --hero-apron, and the fade runs over that.
+// fullest. Where the cast stands on the art's very foot, the hero is an edge
+// hero (Ari's ruling on taste review r15, replacing the round-11 apron): the
+// box ends at the art's own bottom edge with no fade, so the foot keeps all
+// of itself, and never runs past the art.
 test('global.css starts each hero\'s fade, and its drift, at the page\'s own --hero-fade', () => {
   const at = css.indexOf('.story-hero {\n  --fade-at: var(--hero-fade');
   assert.ok(at >= 0, 'global.css has no .story-hero mask rule');
@@ -95,7 +97,9 @@ test('global.css starts each hero\'s fade, and its drift, at the page\'s own --h
     for (const [t, a] of stops) if (t <= 0.5) assert.ok(a >= 1 - t, `${prop}: at ${t} of the fade it keeps ${a}, under the straight ramp's ${1 - t}`);
   }
   assert.match(css, /\.story-hero img \{ transform-origin: 58% var\(--hero-origin, [\d.]+%\); animation: story-drift/);
-  assert.match(css, /\.story-hero \{ padding-bottom: calc\(var\(--hero-apron, 0\) \* var\(--hero-arh, [\d.]+\) \* 100vw\); \}/);
+  // No apron: nothing lays paint below the art, and an edge hero has no fade.
+  assert.doesNotMatch(css, /--hero-apron|--paint-foot/);
+  assert.match(css, /\.story-hero\[data-hero-edge\] \{ -webkit-mask-image: none; mask-image: none;/);
   assert.match(css, /@keyframes story-drift \{ from \{[^}]*\} to \{ transform: scale\(1\.02\)/);
 });
 
@@ -117,17 +121,27 @@ test('no character dissolves into the bottom fade at 1024, 1280, 1440 or 1920', 
     const floor = num('hero-floor');
     const arh = num('hero-arh');
     const y = num('hero-y') / 100;
-    const fade = num('hero-fade') / 100;
+    const edge = new RegExp(`data-brand-scene="${scene}" data-hero-edge`).test(html);
+    const fade = edge ? 1 : num('hero-fade') / 100;
     const origin = num('hero-origin') / 100;
-    const apron = style.includes('--hero-apron') ? num('hero-apron') : 0;
-    assert.ok(fade >= 0.72 && fade <= 0.94, `${file}: --hero-fade ${fade} is missing or outside 72-94%`);
-    assert.ok(origin >= fade && origin <= 1, `${file}: --hero-origin ${origin} must sit at or below the fade line`);
-    if (apron) assert.match(style, /--paint-foot: url\(data:image\/webp;base64,/, `${file}: an apron needs its foot paint`);
+    assert.doesNotMatch(style, /--hero-apron|--paint-foot/, `${file}: no hero lays an apron below its art`);
+    if (edge) {
+      // The box ends at the art's own foot (y = 100%), with no fade, and the
+      // drift zooms about that edge.
+      assert.ok(!style.includes('--hero-fade'), `${file}: an edge hero has no fade`);
+      assert.equal(y, 1, `${file}: an edge hero shows the art's own foot`);
+      assert.equal(origin, 1, `${file}: an edge hero drifts about its foot`);
+    } else {
+      assert.ok(fade >= 0.72 && fade <= 0.94, `${file}: --hero-fade ${fade} is missing or outside 72-94%`);
+      assert.ok(origin >= fade && origin <= 1, `${file}: --hero-origin ${origin} must sit at or below the fade line`);
+    }
     const cap = /story-hero-content/.test(cls) ? contentCap : heroCap;
     for (const [w, h] of viewports) {
       const natural = w * arh;
       const share = Math.min(natural, px(cap, { w, h, floor, arh })) / natural;
-      const alpha = fadeAlpha(footInHero(scene, { share, y, apron, origin }), fade);
+      const foot = footInHero(scene, { share, y, origin });
+      assert.ok(foot <= 1, `/${path.relative(distDir, file)} (${scene}) at ${w}x${h}: the cast's foot falls below the box`);
+      const alpha = fadeAlpha(foot, fade);
       assert.ok(alpha >= FOOT_ALPHA - 0.005, `/${path.relative(distDir, file)} (${scene}) at ${w}x${h}: the cast's foot keeps only ${(alpha * 100).toFixed(0)}% of itself in the fade`);
     }
     checked++;

@@ -56,7 +56,7 @@ test('the built pages carry it, with no break-all anywhere', () => {
   assert.match(review, /class="fetch-url[^"]*code-long"[^>]*><span class="tok[^"]*">https:\/\/(?:<wbr><span class="tok-host">)?[a-z0-9.-]+\/(?:<\/span>)?<\/span><wbr>/);
   assert.match(review, /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host">hermes-agent\.nousresearch\.com\/<\/span><\/span>/);
   assert.match(readDist('blog/trust-the-agent/index.html'), /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host">github\.com\/<\/span><\/span><wbr><span class="tok">ourostack\/<\/span>/);
-  assert.match(readDist('lab/how-desk-started/index.html'), /<h1[^>]*>\s*Slugger wrote himself a <span class="nobr">to-do<\/span> list\./);
+  assert.match(readDist('lab/how-desk-started/index.html'), /<h1[^>]*>\s*(?:<span class="block"[^>]*>)?Slugger wrote himself a <span class="nobr">to-do<\/span> list\./);
   assert.match(readDist('lab/docs/index.html'), /<span class="tok">(?:[\w.-]+\/)?manifest\.json<\/span>/);
   for (const file of listHtmlFiles()) assert.doesNotMatch(fs.readFileSync(file, 'utf8'), /\bbreak-all\b|word-break:\s*break-all/, file);
 });

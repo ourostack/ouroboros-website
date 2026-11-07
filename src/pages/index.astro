@@ -88,7 +88,7 @@ const wastes = [
       <div class="split split-media ouroboros-intro">
       <div class="lead split-head">
         <p>Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.</p>
-        <p><a href="/lab/" class={link}>The harness &rarr;</a></p>
+        <p><a href="/lab/" class={`hit ${link}`}>The harness &rarr;</a></p>
       </div>
       <StoryScene scene="ouroboros" class="split-body" sizes="(min-width: 1024px) 40rem, 100vw" />
       </div>
@@ -105,7 +105,7 @@ const wastes = [
             <h4 class="grown-name">Friends</h4>
             <p class="grown-status"><span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span> {friendsDetail}</p>
             <p>Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.</p>
-            <p><a href="https://github.com/ourostack/friends" class={link}>Friends on GitHub &#8599;</a></p>
+            <p><a href="https://github.com/ourostack/friends" class={`hit ${link}`}>Friends on GitHub &#8599;</a></p>
           </div>
         </li>
         <li id="shepherd">
@@ -114,7 +114,7 @@ const wastes = [
             <h4 class="grown-name">Ouro Shepherd</h4>
             <p class="grown-status"><span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span> {shepherdDetail}</p>
             <p>Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.</p>
-            <p><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={link}>How Shepherd decides &#8599;</a></p>
+            <p><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={`hit ${link}`}>How Shepherd decides &#8599;</a></p>
           </div>
         </li>
         <li id="butler">
@@ -123,7 +123,7 @@ const wastes = [
             <h4 class="grown-name">Ouro Butler</h4>
             <p class="grown-status"><span class={`tag ${butlerLabel.tone}`}>{butlerLabel.label}</span> {butlerDetail}</p>
             <p>An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.</p>
-            <p><a href="/butler/" class={link}>Ouro Butler &rarr;</a></p>
+            <p><a href="/butler/" class={`hit ${link}`}>Ouro Butler &rarr;</a></p>
           </div>
         </li>
       </ul>
@@ -383,8 +383,9 @@ const wastes = [
   @media (min-width: 1024px) { .smells { grid-template-columns: repeat(3, minmax(0, 1fr)); } .smells li { flex-direction: column; } }
   .smells li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; color: var(--color-mist); font-size: 1.0625rem; }
   .smells strong { font-family: var(--font-display); font-weight: 400; font-size: 1.85rem; line-height: 1.15; color: var(--color-bone); }
-  .principles { display: flex; flex-wrap: wrap; gap: 0.75rem 2.25rem; }
-  .principle { display: inline; gap: 0.6rem; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
+  .principles { display: flex; flex-wrap: wrap; gap: 0.25rem 2.25rem; }
+  /* Each row stands a finger tall (44px; taste review r15: the rows were 28px). */
+  .principle { display: inline-block; padding-block: 0.55rem; gap: 0.6rem; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
   .principle:hover { color: var(--color-scale); }
   .principle-n { margin-right: 0.5rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-scale); }
   .principle-arrow { display: inline-block; margin-left: 0.4rem; color: var(--color-scale); transition: transform 0.2s; }

@@ -41,11 +41,12 @@ const hero = variant === 'hero'
 // cast's `need`, and never under 82%: taste review r8), and
 // object-position `y` keeps the cast inside whatever it shows; the bottom fade
 // starts at `fade`, below every character's foot (taste review r10). Where the
-// cast stands on the art's very foot, `apron` lays a little of the scene's own
-// paint below the art, so the fade has room below their feet (taste review r11).
+// cast stands on the art's very foot, the hero is an `edge` hero: it ends
+// exactly at the art's bottom edge with no fade, closed by the gold trail
+// (Ari's ruling on taste review r15: no hero box ever runs past its art).
 const frame = heroFrame(scene)
 const phoneAspect = hero
-  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%; --hero-fade: ${frame.fade}%; --hero-origin: ${frame.origin}%${frame.apron ? `; --hero-apron: ${frame.apron}; --hero-blend: ${frame.blend}` : ''}`
+  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%${frame.edge ? '' : `; --hero-fade: ${frame.fade}%`}; --hero-origin: ${frame.origin}%`
   : `--phone-ar: ${pw} / ${ph}`
 // The scene's own dawn, painted behind the art (scripts/scene-paint.mjs): a
 // tiny soft preview of the wide art and of the phone crop, so a slow or failed
@@ -53,7 +54,7 @@ const phoneAspect = hero
 // (taste review r10).
 const paint = paints[scene]
 if (!paint) throw new Error(`StoryScene: no paint for ${scene}; run node scripts/scene-paint.mjs`)
-const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})${hero && frame.apron ? `; --paint-foot: url(${paint.foot.uri})` : ''}`
+const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
 const phoneAvif = `${base}/phone/${scene}-384.avif 384w, ${base}/phone/${scene}-768.avif 768w`
@@ -65,7 +66,7 @@ const altText = alt ?? scenes[scene]
 const vignette = variant === 'vignette'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} style={style}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-hero-edge={hero && frame.edge ? '' : undefined} style={style}>
   {hero ? (
     <picture>
       <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
