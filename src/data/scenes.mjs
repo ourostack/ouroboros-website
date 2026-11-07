@@ -35,6 +35,11 @@ export const scenes = {
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
 }
 
+// Each product's own scene. Every page of a product (the product page, its
+// download page, any /<product>/* page) opens on it and sets its share card in
+// it (Ari's ruling on taste review r19); tests/storybook.test.mjs checks.
+export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/ouro-hx': 'ouro-hx', '/butler': 'butler' }
+
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
 const pages = {
@@ -45,10 +50,11 @@ const pages = {
   '/brief': { hero: 'friends' },
   '/desk': { hero: 'desk' },
   '/ouro-md': { hero: 'ouro-md' },
-  // The download page (moved from ouro.bot/apps/ouro-md/, 2026-11-07): a tap
-  // pouring the first cup, since the lectern belongs to its parent page and no
-  // scene repeats between a page and its parent. Its card keeps the lectern.
-  '/ouro-md/download': { hero: 'homebrew-tap', og: 'ouro-md' },
+  // The download page (moved from ouro.bot/apps/ouro-md/, 2026-11-07) is Ouro
+  // MD's front door from ouro.bot, so it opens on Ouro MD's own lectern, hero
+  // and card alike (Ari's ruling on taste review r19). A product's pages share
+  // its scene; the neighbour rule below stands everywhere else.
+  '/ouro-md/download': { hero: 'ouro-md' },
   '/butler': { hero: 'butler' },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
@@ -374,3 +380,31 @@ export function heroFrame(scene) {
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
 export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' ? [1536, 614] : [1536, 576])
+
+// A thumbnail in a list shows every scene at one aspect, THUMB_ASPECT (Ari's
+// ruling on taste review r18, 2026-11-07: the blog index's vignettes came in
+// three aspects, 88x66, 88x50 and 88x37 at 390, and the column looked
+// ragged). The phone crop fills it (object-fit: cover), and thumbPosition()
+// keeps the cast in frame: across, centred on the cast (phoneCastX); down,
+// with the lowest foot (castFoot) just inside the bottom edge, since the sky
+// above the heads is what a 4:3 crop gives up. The bytes stay canonical.
+export const THUMB_ASPECT = 16 / 9
+export function thumbPosition(scene, aspect = THUMB_ASPECT) {
+  const [pw, ph] = phoneSize(scene)
+  const ar = pw / ph
+  const clamp = (v) => Math.min(100, Math.max(0, v))
+  let x = 50
+  let y = 50
+  if (ar > aspect) {
+    // Wider than the box: part of the width shows; centre the cast in it.
+    const shown = aspect / ar
+    const [l, r] = phoneCastX[scene] ?? [0.3, 0.7]
+    x = clamp((((l + r) / 2 - shown / 2) / (1 - shown)) * 100)
+  } else if (ar < aspect) {
+    // Taller than the box: part of the height shows; keep the feet in it.
+    const shown = ar / aspect
+    const foot = castFoot[scene] ?? (heroFocus[scene] ?? [0.2, 0.9])[1]
+    y = clamp(((foot + 0.02 - shown) / (1 - shown)) * 100)
+  }
+  return `${x.toFixed(1)}% ${y.toFixed(1)}%`
+}

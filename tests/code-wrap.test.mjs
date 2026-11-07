@@ -46,7 +46,7 @@ test('every URL and path is wrapped: prose, links, mono spans and preformatted t
   assert.equal(wrapCode('<pre>curl -fsSL https://ouro.bot/x.sh | bash</pre>'), '<pre>curl <span class="tok">-fsSL</span> <span class="tok tok-long tok-url">https://<wbr><span class="tok-host">ouro.bot/</span></span><wbr><span class="tok">x.sh</span> | bash</pre>');
   assert.equal(wrapCode('<pre>npx init --no-monorepo</pre>'), '<pre>npx init <span class="tok">--no-monorepo</span></pre>');
   // Ordinary words, scripts, styles, attributes and the head stay as they are.
-  const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">re-explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
+  const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
   assert.equal(wrapCode(untouched), untouched);
 });
 
@@ -77,10 +77,31 @@ test('a long scheme and host offer one break, right after the "//", and keep the
   assert.equal(wrapToken('https://x.io/abcd'), '<span class="tok">https://x.io/</span><wbr><span class="tok">abcd</span>');
 });
 
+test('a short hyphenated word never breaks at its hyphen, outside headings too', () => {
+  // Round 19: "X- / ray" split at 390. A hyphenated word of up to 16 letters
+  // (surrounding punctuation aside) stays whole; a longer one may still break.
+  assert.equal(wrapCode('<p>re-explaining it</p>'), '<p><span class="nobr">re-explaining</span> it</p>');
+  assert.equal(wrapCode('<p>(&quot;self-improvement&quot;):</p>'), '<p><span class="nobr">(&quot;self-improvement&quot;):</span></p>');
+});
+
+test('a long hyphenated compound moves to the next line whole, in quoted prose and blockquotes too', () => {
+  // Ari's ruling on taste review r19: "repository- / scoped" and "npm- /
+  // distributable" on /lab/model-reviews/ at 390, "agent- / graph-store" on
+  // /lab/model-reviews/minimax/ at 1440. A compound longer than 16 letters is
+  // an inline-block: whole whenever it fits a line, broken at a hyphen only
+  // when it is wider than the line.
+  assert.equal(wrapCode('<p>a very-long-hyphenated-compound word</p>'), '<p>a <span class="hy">very-long-hyphenated-compound</span> word</p>');
+  assert.equal(wrapCode('<blockquote><p>repository-scoped memory</p></blockquote>'), '<blockquote><p><span class="hy">repository-scoped</span> memory</p></blockquote>');
+  assert.equal(wrapCode('<div class="whitespace-pre-wrap">it has memories, agent-graph-store, agent-roles.</div>'), '<div class="whitespace-pre-wrap">it has memories, <span class="hy">agent-graph-store,</span> <span class="nobr">agent-roles.</span></div>');
+  assert.equal(wrapCode('<p>the <span class="hy">npm-distributable</span> one</p>'), '<p>the <span class="hy">npm-distributable</span> one</p>');
+  // A run of dashes and brackets (an HTML comment's "-->" in a transcript) stays whole too.
+  assert.equal(wrapCode('<pre>  --&gt; done</pre>'), '<pre>  <span class="nobr">--&gt;</span> done</pre>');
+});
+
 test('a heading never breaks at a hyphen', () => {
   // Taste review r11: the /lab/how-desk-started/ h1 broke as "to-" / "do" at 320.
   assert.equal(wrapCode("<h1 class=\"heading-lead\">Slugger's to-do list</h1>"), "<h1 class=\"heading-lead\">Slugger's <span class=\"nobr\">to-do</span> list</h1>");
-  assert.equal(wrapCode('<h2>A <em>follow-up</em> note</h2><p>a to-do list</p>'), '<h2>A <em><span class="nobr">follow-up</span></em> note</h2><p>a to-do list</p>');
+  assert.equal(wrapCode('<h2>A <em>follow-up</em> note</h2><p>a to-do list</p>'), '<h2>A <em><span class="nobr">follow-up</span></em> note</h2><p>a <span class="nobr">to-do</span> list</p>');
 });
 
 test('a character reference is never split, and code shows the characters, not the reference', () => {

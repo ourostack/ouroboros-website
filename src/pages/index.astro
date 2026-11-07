@@ -173,7 +173,7 @@ const wastes = [
 
         <article class="tool" id="m365crawl" data-allow-product-name="Microsoft 365">
           <figure class="product-figure">
-            <div class="product-media media-shot"><img src="/images/workshop/m365crawl-doctor.png" width="1582" height="1414" loading="lazy" decoding="async" alt="m365crawl doctor output: every ready check passing, then a snapshot of the archive with its Teams, mail, and calendar counts." /></div>
+            <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/m365crawl-doctor.png" width="1582" height="1414" loading="lazy" decoding="async" alt="m365crawl doctor output: every ready check passing, then a snapshot of the archive with its Teams, mail, and calendar counts." /></div>
             <figcaption class="product-caption">The doctor, giving an archive its checkup.</figcaption>
           </figure>
           <div class="tool-copy">
@@ -417,7 +417,8 @@ const wastes = [
   .start:hover .start-a { transform: translateX(0.25rem); }
   .tools { display: grid; gap: 4.5rem; margin-top: 3.5rem; }
   @media (min-width: 1024px) { .tools { gap: 7rem; margin-top: 5rem; } }
-  .tool { display: grid; gap: 1.5rem; align-items: center; }
+  /* Stacked, a tool's demo leads it: its caption keeps the site's section rhythm (2.5rem) above the tool's name, so the caption never reads as the name's label (taste review r19). */
+  .tool { display: grid; gap: 2.5rem; align-items: center; }
   @media (min-width: 1024px) {
     .tool { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4rem; }
   }

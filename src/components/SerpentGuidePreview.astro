@@ -10,7 +10,9 @@ interface Props { compact?: boolean }
 const { compact = false } = Astro.props
 ---
 
-<div class:list={['serpent-preview rounded-xl border border-canopy/30 bg-deep/80 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]', { 'serpent-compact': compact, 'max-w-2xl mx-auto': !compact }]}>
+{/* The frame, then the Dramatization caption under it, outside the frame like every other staged demo's (Ari's ruling on taste review r18: one label style on both sites, a small caption under the frame with real breathing room). */}
+<figure class:list={['product-figure serpent-figure', { 'max-w-2xl mx-auto': !compact }]}>
+<div class:list={['serpent-preview rounded-xl border border-canopy/30 bg-deep/80 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]', { 'serpent-compact': compact }]}>
   <div class="flex items-center gap-2 px-5 py-3 border-b border-canopy/20 bg-undergrowth/20">
     <span class="w-2 h-2 rounded-full bg-fang/40"></span>
     <span class="w-2 h-2 rounded-full bg-scale/30"></span>
@@ -75,9 +77,10 @@ const { compact = false } = Astro.props
       </div>
     </div>
   </div>
-  {/* A mock, so it carries the Dramatization tag like the site's other staged media (root misses ruling 6.6). */}
-  <p class="product-caption"><span class="caption-note">Dramatization</span></p>
 </div>
+  {/* A mock, so it carries the Dramatization tag like the site's other staged media (root misses ruling 6.6). */}
+  <figcaption class="product-caption"><span class="caption-note">Dramatization</span></figcaption>
+</figure>
 
 <style>
   .serpent-cursor {
