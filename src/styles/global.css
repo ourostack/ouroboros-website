@@ -242,6 +242,10 @@ html, body { overflow-x: clip; }
   --split-cols: minmax(0, 5fr) minmax(0, 7fr);
   --split-gap: 4rem;
 }
+/* Stacked (below 1024px), the media sits a steady 2rem under its copy on every
+   page, never flush against the last line (taste review r8: scene art touched
+   "The harness ->" and "Trust, but audit." on a phone). */
+.split.split-media { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 2rem; }
 @media (min-width: 1024px) {
   .split.split-media { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); align-items: start; }
   .split.split-media > .split-head { grid-column: 1; }
@@ -582,8 +586,16 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   padding: 0.15em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.85em;
-  overflow-wrap: anywhere;
 }
+
+/* Inline code and transcript URLs break only where a reader expects (taste
+   review r8): src/lib/code-wrap.mjs marks each token at build time. A short
+   one stays whole; a long one breaks after a "/" or at a space; only a single
+   piece too long for a 320px column may break anywhere. */
+.code-whole { white-space: nowrap; overflow-wrap: normal; word-break: normal; }
+.code-long { overflow-wrap: normal; word-break: normal; }
+.code-long > .tok { white-space: nowrap; }
+.code-long > .tok-long { white-space: normal; overflow-wrap: anywhere; }
 
 /* ── Media with a light and a dark version: show the one for the theme ── */
 .theme-light-only { display: none; }
@@ -622,20 +634,18 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 /* The scene starts just under the header, so nothing in it (Ouro's head least of all) hides behind the bar. */
 .story-hero { width: 100%; margin-top: 4rem; }
 /* The height cap never trims the cast (taste review r5: the robot's head was cut
-   at 1440). StoryScene sets, per scene, --hero-need (the least share of the
-   art's height that holds every character, plus margin) and --hero-y (the
-   crop that keeps them inside it). The box is never shorter than that share of
-   the art's own height at this width, whatever the viewport cap. */
-.story-hero img { aspect-ratio: 1536 / 576; max-height: max(55vh, calc(var(--hero-need, 0) * var(--hero-arh, 0.375) * 100vw)); object-fit: cover; object-position: 50% var(--hero-y, 62%); }
+   at 1440), and never crops much of the scene at all (taste review r8: short
+   heroes cut Ouro's body off on the legal pages). StoryScene sets, per scene,
+   --hero-floor (the least share of the art's height the box shows: the cast
+   plus margin, and never under 82%) and --hero-y (the crop that keeps the cast
+   inside it). The box is never shorter than that share of the art's own height
+   at this width, whatever the viewport cap. tests/hero-crop.test.mjs holds it. */
+.story-hero img { aspect-ratio: 1536 / 576; max-height: max(55vh, calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * 100vw)); object-fit: cover; object-position: 50% var(--hero-y, 62%); }
 .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: 3 / 1; }
-/* Content pages (Lab pieces, docs, reviews, posts) open on a shorter scene, so
-   the title and the intro's first line sit above the fold at 1440x900 and
-   1024x768 (taste review r3). */
-.story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-need, 0) * var(--hero-arh, 0.375) * 100vw)); }
-/* The legal pages open on a short band of their scene, like the meadow by the
-   footer, so they stay in the world without a picture-card beside the words. */
-@media (min-width: 641px) { .story-hero-band img { aspect-ratio: auto; height: clamp(12rem, 24vw, 20rem); max-height: none; object-position: 50% var(--hero-band-y, 30%); }
-  .story-hero-band { margin-bottom: 2.5rem; } }
+/* Content pages (Lab pieces, docs, reviews, posts, the legal pages) open on a
+   shorter scene, so the title and the intro's first line sit above the fold at
+   1440x900 and 1024x768 (taste review r3). */
+.story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * 100vw)); }
 .story-hero, .story-meadow {
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
