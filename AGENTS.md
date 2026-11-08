@@ -222,7 +222,7 @@ Ouro MD's download page lives here now, so every change to it (and every taste r
 
 - **Astro file frontmatter:** import Layout (or HeroCover for top-level pages), import `ogPathFor` from `../data/og`, define const `title`/`description`, pass `ogImage={ogPathFor('/route')}` to Layout.
 - **Heading sizes:** use `.heading-lead` (page H1s), `.heading-hero`, `.heading-section`, `.heading-sub` from `global.css`. Don't inline.
-- **Moving a page:** add the old path to `src/worker/redirects.mjs` and a case to the redirect test.
+- **Moving a page:** add the old path to `src/worker/redirects.mjs` and a case to the redirect test, and add a glob for it to `assets.run_worker_first` in `wrangler-worker.jsonc` with a case in `tests/worker-first.test.mjs`. Without the glob, Cloudflare answers a browser's navigation with the 404 page before the Worker runs, while `curl` still sees the 301.
 - **Eyebrows:** use `.eyebrow` (mono uppercase fang-red tracking) or `.caption-mono` (mono uppercase shadow tracking).
 - **Colors:** the dark organic palette is defined in `@theme` in `global.css`. Use the named colors (`text-bone`, `bg-deep`, `text-scale`, `text-fang`, etc.), not raw hex.
 - **Animations:** `.animate-fade-up` with `.stagger-1` through `.stagger-5` for staggered reveals. `.reveal` for scroll-triggered.

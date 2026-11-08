@@ -875,7 +875,8 @@ test('unknown URLs get the custom 404 page in production and in previews', () =>
   const worker = fs.readFileSync(new URL('../wrangler-worker.jsonc', import.meta.url), 'utf8');
   const preview = fs.readFileSync(new URL('../.github/workflows/preview.yml', import.meta.url), 'utf8');
   assert.match(worker, /"not_found_handling":\s*"404-page"/);
-  assert.match(preview, /"not_found_handling":\s*"404-page"/);
+  // The preview config is production's (wrangler-worker.jsonc) under its own name, so it carries the same 404 handling.
+  assert.match(preview, /readFileSync\("wrangler-worker\.jsonc"/);
   assert.match(readDist('404.html'), /Lost in the coils/);
 });
 

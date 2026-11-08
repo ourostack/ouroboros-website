@@ -6,7 +6,22 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "run_worker_first": [
+      "/docs*",
+      "/model-reviews*",
+      "/story*",
+      "/why*",
+      "/what-is-an-agent-harness*",
+      "/essays*",
+      "/lab/what-is-agent-experience*",
+      "/lab/give-your-agent-a-home*",
+      "/lab/build-ai-agent-from-scratch*",
+      "/og/*.png",
+      "/og/og-ouro-hx.*",
+      "/sitemap.xml",
+      "/ouro-hx*"
+    ]
   },
   "routes": [
     {
