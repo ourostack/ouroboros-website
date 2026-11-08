@@ -45,7 +45,7 @@ test('the snapshot covers visible text, attribute text, share cards, and brief.m
   assert.ok(keys.includes('share card /') && keys.includes('share card /desk'));
   // Pages added after the snapshot have no published card to keep.
   // Each review transcript got its own card in taste review r5 (2026-11-06); before, they shared the Lab review card.
-  const newSinceSnapshot = ['/brief', '/butler', '/lab/how-desk-started', '/apps', '/ouro-hx', '/404', '/lab/model-reviews/anthropic', '/lab/model-reviews/openai', '/lab/model-reviews/gemini', '/lab/model-reviews/minimax', '/ouro-md/download'];
+  const newSinceSnapshot = ['/brief', '/butler', '/lab/how-desk-started', '/apps', '/404', '/lab/model-reviews/anthropic', '/lab/model-reviews/openai', '/lab/model-reviews/gemini', '/lab/model-reviews/minimax', '/ouro-md/download'];
   for (const route of Object.keys(pageOg)) assert.ok(keys.includes(`share card ${route}`) || newSinceSnapshot.includes(route), `No snapshot for share card ${route}`);
 });
 

@@ -19,6 +19,10 @@ Built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailwindcs
 - [The story](https://ouroboros.bot/lab/story/) and [the Lab](https://ouroboros.bot/lab/)
 - [Blog](https://ouroboros.bot/blog/)
 
+## Moved: Ouro HX's page
+
+Ouro HX's page moved to [ui.ouroboros.bot](https://ui.ouroboros.bot/) on 2026-11-07. The Ouro UI site is the one home for Ouro UI, HX and AX, and `ouroboros.bot/ouro-hx/` forwards there with a 301. New pages and copy about HX, UI or AX are written in [ourostack/ouro-ui](https://github.com/ourostack/ouro-ui) under `site/`, never here.
+
 ## Development
 
 ```sh

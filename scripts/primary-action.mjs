@@ -26,7 +26,7 @@
 import { chromium } from 'playwright';
 import { launchOptions, openSite } from './lib/site-pages.mjs';
 
-export const PRODUCT_PAGES = ['/ouro-md/', '/ouro-md/download/', '/desk/', '/butler/', '/ouro-hx/', '/apps/'];
+export const PRODUCT_PAGES = ['/ouro-md/', '/ouro-md/download/', '/desk/', '/butler/', '/apps/'];
 const DESKTOP = [[1024, 768], [1280, 720], [1280, 800], [1366, 768], [1440, 900], [1536, 864], [1920, 1080]];
 const PHONE = [[320, 568], [360, 740], [390, 844], [430, 932]];
 const SPARE = 24;

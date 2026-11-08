@@ -15,7 +15,6 @@ const routes = [
   ['/desk/', 'desk/index.html'],
   ['/ouro-md/', 'ouro-md/index.html'],
   ['/apps/', 'apps/index.html'],
-  ['/ouro-hx/', 'ouro-hx/index.html'],
   ['/blog/', 'blog/index.html'],
   ['/blog/trust-the-agent/', 'blog/trust-the-agent/index.html'],
   ['/blog/take-the-agents-seat/', 'blog/take-the-agents-seat/index.html'],
@@ -284,6 +283,11 @@ test('old URLs redirect to their new homes and published posts keep theirs', asy
   assert.equal(redirectFor('/sitemap.xml'), '/sitemap-index.xml');
   assert.ok(fs.existsSync(path.join(distDir, 'sitemap-index.xml')), 'sitemap-index.xml is not built');
   assert.equal(redirectFor('/sitemap-index.xml'), null);
+  // Ouro HX's page moved to the Ouro UI site, its one home (Ari, 2026-11-07: "let's unify"), in one hop.
+  for (const old of ['/ouro-hx', '/ouro-hx/', '/ouro-hx/index.html']) assert.equal(redirectFor(old), 'https://ui.ouroboros.bot/', old);
+  for (const old of ['/og/og-ouro-hx.jpg', '/og/og-ouro-hx.png']) assert.equal(redirectFor(old), 'https://ui.ouroboros.bot/og/home.jpg', old);
+  assert.equal(redirectFor('/ouro-hx-other/'), null);
+  assert.ok(!fs.existsSync(path.join(distDir, 'ouro-hx')), 'ouro-hx/ is still built, so its static page would answer before the redirect');
 });
 
 test('the worker answers an old URL with a 301 that keeps the query string', async () => {
@@ -294,4 +298,7 @@ test('the worker answers an old URL with a 301 that keeps the query string', asy
   const odd = redirectResponse(new Request('https://ouroboros.bot/docs//evil.com'));
   assert.equal(new URL(odd.headers.get('location')).host, 'ouroboros.bot', 'No open redirect');
   assert.equal(redirectResponse(new Request('https://ouroboros.bot/approach/')), null);
+  const hx = redirectResponse(new Request('https://ouroboros.bot/ouro-hx/?x=1'));
+  assert.equal(hx.status, 301);
+  assert.equal(hx.headers.get('location'), 'https://ui.ouroboros.bot/?x=1');
 });

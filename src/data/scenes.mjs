@@ -38,7 +38,7 @@ export const scenes = {
 // Each product's own scene. Every page of a product (the product page, its
 // download page, any /<product>/* page) opens on it and sets its share card in
 // it (Ari's ruling on taste review r19); tests/storybook.test.mjs checks.
-export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/ouro-hx': 'ouro-hx', '/butler': 'butler' }
+export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler': 'butler' }
 
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
@@ -59,7 +59,6 @@ const pages = {
   // and card alike (Ari's ruling on taste review r19). A product's pages share
   // its scene; the neighbour rule below stands everywhere else.
   '/ouro-md/download': { hero: 'ouro-md', content: true },
-  '/ouro-hx': { hero: 'ouro-hx', content: true },
   '/butler': { hero: 'butler', content: true },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
