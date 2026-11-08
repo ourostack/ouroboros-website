@@ -107,6 +107,18 @@
       "uri": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAACwAgCdASoQAAwAAkA4JbACdLoAngDeKiIkLD/1ufQAzfPICfDvEIP6Sif3Ax6/4kJE956BAl6tUVXIiPnndKNu1gK/aqyQ+GuIABL1WxR78Q5spL2FwF1OQnFUT8L1ruWOrNb/9j9J5UUhOEKhCefzKjYs2sz2OIEi2y7Pk6k0WOfk1wDyH8kHB/c+v+VK7rWpmHBaW6zo6eZaFle+cAAA"
     }
   },
+  "housesitter": {
+    "wide": {
+      "from": "headers/housesitter.webp",
+      "sha256": "4378e32293fb8f3950fe1c03815f70a8a4c1dfab5af1d319d27f64017da0e827",
+      "uri": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQAgCdASoQAAYAAkA4JbACdDBNgUTggoBIAPsj7/rDoUb8fcwNYa7sl9lOYNYRn3A8yxu573qX+5L4RuezRqwB+R9fSnXSpsou7l2/sCN3j/hhf69H2dZPf1hnLP1CXHFH5b1rlSXMp4IND7Z9vYauoFLCAAAA"
+    },
+    "phone": {
+      "from": "phone/housesitter-384.webp",
+      "sha256": "995c51408b66e76d79e46ff3967e5d6ce2bc58fafa321169aaa37dd187272850",
+      "uri": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAACwAgCdASoQAAkAAkA4JbACdLoAngAcn6EaVUe0AQgA4nxL4B95prrsKC2JSYAhl7ih6Lp9Z+Dr/b+ofK4c47M1YsAfEv61rCKIHAtuE6n+Pa8t7n6P70YHIv8rz+WvXF+BxaroOjgjmW9IJP3c2b8YnTPxemKIfcCDlSMH4m4AAA=="
+    }
+  },
   "m365crawl": {
     "wide": {
       "from": "headers/m365crawl.webp",

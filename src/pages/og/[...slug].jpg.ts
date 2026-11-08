@@ -71,6 +71,8 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'friends-relay': [16, 6, 1194, 142],
   'gatefold': [16, 6, 1194, 140],
   'homebrew-tap': [16, 6, 1194, 172],
+  // On its title plate, like the butler's.
+  'housesitter': [16, 30, 1194, 172],
   'm365crawl': [820, 6, 1194, 196],
   'ouro-apps-site': [560, 4, 1196, 166],
   'ouro-hx': [640, 6, 1194, 316],
@@ -132,6 +134,9 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Sk
   // a storybook title plate, solid cream with a thin gold rule, and the whole
   // scene below it at full strength (src/og/frames.mjs, plateFrame).
   butler: { file: 'headers/butler.webp', plate: true },
+  // The housesitter's chimney meets the top of its art too, and its only open sky sits
+  // beside Ouro's lantern, too narrow for a title: the same plate.
+  housesitter: { file: 'headers/housesitter.webp', plate: true },
 }
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.

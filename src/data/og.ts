@@ -79,6 +79,11 @@ export const pageOg: Record<string, OgEntry> = {
     tag: 'Ouro Butler',
     mark: 'butler',
   },
+  '/housesitter': {
+    title: 'housesitter: your agent Mac, back by itself.',
+    subtitle: 'A small KVM beside the Mac unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you.',
+    tag: 'housesitter',
+  },
   '/ouro-md': {
     title: 'Ouro MD: Markdown that renders as you type.',
     subtitle: 'A native Markdown editor for macOS 15 or later. Live updates, quiet marks where your agent changed things.',
