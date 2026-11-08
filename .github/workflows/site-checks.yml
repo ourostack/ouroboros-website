@@ -3,7 +3,7 @@ name: site-checks
 # Every PR and every push to main builds the site, runs the node tests, serves
 # the build on 127.0.0.1 the way the Worker does (scripts/serve-dist.mjs), and
 # runs every page check (npm run check:all) and the brand audit
-# (ourostack/.github brand/tools/audit.mjs --origin) against it. Taste
+# (ourostack/.github brand/tools/audit.mjs --origin --dist) against it. Taste
 # reviewers then judge only what a tool can't measure. LCP and the taste
 # reviews stay by hand: LCP is too noisy to gate on.
 #
@@ -91,7 +91,7 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
-          node .brand-dotgithub/brand/tools/audit.mjs --only site:ouroboros.bot --origin "$SITE_BASE" --format text 2>&1 | tee "$CHECK_LOGS/brand-audit.log"
+          node .brand-dotgithub/brand/tools/audit.mjs --only site:ouroboros.bot --origin "$SITE_BASE" --dist dist --format text 2>&1 | tee "$CHECK_LOGS/brand-audit.log"
 
       - name: Upload check logs
         if: always()
