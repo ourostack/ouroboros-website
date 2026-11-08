@@ -39,6 +39,9 @@ const shelf = [
   { id: 'butler', scene: 'butler', name: 'Ouro Butler', readiness: 'butler',
     body: 'An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.',
     links: [['/butler/', 'Ouro Butler →']] },
+  { id: 'housesitter', scene: 'housesitter', name: 'housesitter', readiness: 'housesitter',
+    body: 'Keeps an agent Mac alive while you’re away. A small KVM beside it unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you.',
+    links: [['/housesitter/', 'housesitter →']] },
 ].map((item) => ({ ...item, status: labelFor(item.readiness), detail: entry(item.readiness).detail }))
 ---
 

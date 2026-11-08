@@ -15,6 +15,7 @@ export const scenes = {
   'ouro-md': 'A reading lectern holding a fresh page, a lamp and a cup of tea on a stool, and loose pages drifting in the breeze. Ouro peeks over the lectern to read along.',
   'ouro-hx': 'A woman and a little robot fit chunky green controls into a big panel on a workbench in the meadow, while Ouro watches from the trail.',
   butler: 'A stone cottage with a server cabinet blinking green in its doorway, a watering can and a flower path. Ouro waits by the step holding a silver cloche, ready to serve.',
+  housesitter: 'A round-doored cottage at sunrise, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
   ouroboros: 'A round-doored burrow in a grassy hill, with a mailbox, an old telephone and letters and speech bubbles fluttering home. Ouro sits out front, the glowing trail looping past the door.',
   shepherd: 'Ouro stands tall by a shepherd’s crook and a wooden gate while a line of robot-eyed sheep trots along the glowing trail.',
   friends: 'Two people and two robots wave from a picnic blanket, with Ouro curled up in the middle of them and paper notes floating between far-off picnics.',
@@ -38,7 +39,7 @@ export const scenes = {
 // Each product's own scene. Every page of a product (the product page, its
 // download page, any /<product>/* page) opens on it and sets its share card in
 // it (Ari's ruling on taste review r19); tests/storybook.test.mjs checks.
-export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler': 'butler' }
+export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler': 'butler', '/housesitter': 'housesitter' }
 
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
@@ -60,6 +61,7 @@ const pages = {
   // its scene; the neighbour rule below stands everywhere else.
   '/ouro-md/download': { hero: 'ouro-md', content: true },
   '/butler': { hero: 'butler', content: true },
+  '/housesitter': { hero: 'housesitter', content: true },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
   '/blog/take-the-agents-seat': { hero: 'ouro-ui-apple' },
@@ -135,14 +137,14 @@ export function usedScenes() {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
   }
-  for (const scene of ['desk', 'ouro-md', 'ouro-hx', 'butler']) used.add(scene)
+  for (const scene of ['desk', 'ouro-md', 'ouro-hx', 'butler', 'housesitter']) used.add(scene)
   return [...used].sort()
 }
 
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432] }
+const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -160,6 +162,8 @@ export const heroFocus = {
   'friends-relay': [0.05, 0.95],
   gatefold: [0.15, 0.88],
   'homebrew-tap': [0.06, 0.88],
+  // The roof's arch over the door, down to Ouro's lowest coil.
+  housesitter: [0.3, 0.99],
   m365crawl: [0.22, 0.93],
   'ouro-apps-site': [0.05, 0.9],
   'ouro-hx': [0.12, 0.93],
@@ -197,6 +201,8 @@ export const castFoot = {
   'friends-relay': 0.95,
   gatefold: 0.8,
   'homebrew-tap': 0.87,
+  // Ouro's coil rests on the art's foot.
+  housesitter: 0.985,
   m365crawl: 0.93,
   'ouro-apps-site': 0.87,
   'ouro-hx': 0.925,
@@ -240,6 +246,8 @@ export const phoneCastX = {
   'friends-relay': [0.063, 0.89],
   gatefold: [0.42, 0.88],
   'homebrew-tap': [0.38, 0.88],
+  // The robots in the window at the left, Ouro's body at the right.
+  housesitter: [0.19, 0.905],
   m365crawl: [0.46, 0.885],
   'ouro-apps-site': [0.43, 0.88],
   // .github#15: centre 780.

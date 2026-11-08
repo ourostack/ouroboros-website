@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { ogPathFor } from '../data/og'
+import { labelFor, entry } from '../data/readiness.mjs'
+
+// housesitter keeps an always-on agent Mac alive through a small IP-KVM. Every claim here
+// is sourced from ourostack/housesitter: its README (what it handles, the password rules,
+// what's verified) and `housesitter demo`, whose rehearsed night the timeline below quotes.
+const title = 'housesitter: your agent Mac, back by itself | Ouro'
+const description = 'Your agent Mac went down at 3 a.m. and sat at the FileVault screen until you got home. With housesitter, a $100 KVM beside it types the password at the FileVault screen, power-cycles a hang, and messages you only when it needs you.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const status = labelFor('housesitter')
+const statusDetail = entry('housesitter').detail
+const repo = 'https://github.com/ourostack/housesitter'
+const demo = 'npx github:ourostack/housesitter demo'
+
+// The night `housesitter demo` prints, shortened. The words are the demo's own.
+const night = [
+  { at: '3:12', what: 'Kernel panic. The Mac restarts to the FileVault screen, waiting for a password nobody is there to type.',
+    then: 'The sitter reads “Enter Password” and types its sealed copy, slowly.', back: 'Back by itself in 4 minutes', tone: 'ok' },
+  { at: '4:31', what: 'The Mac freezes solid: the clock stops, nothing answers, it still draws power.',
+    then: 'After 5 minutes the smart plug goes off for 10 seconds, then on. The Mac boots, and the sitter unlocks it.', back: 'Back by itself in 10 minutes', tone: 'ok' },
+  { at: '5:41', what: 'Another panic. Yesterday someone changed the Mac’s password and forgot to tell the sitter.',
+    then: 'Two tries, then it stops, and sends one message to your phone:', back: '“studio is stuck at FileVault: the password was wrong twice. Fix: housesitter secret studio mac-password, then housesitter adopt studio”', tone: 'you' },
+]
+
+const does = [
+  ['Unlocks FileVault after a panic', 'It types only when it reads the password prompt, never at a desktop, and three unlocks an hour at most.'],
+  ['Power-cycles a hang', 'Five minutes without a network answer while the Mac has power, and a smart plug on its cord goes off for 10 seconds, then on. Never while the menu-bar clock is ticking.'],
+  ['Messages you only when it needs you', 'One message when it’s stuck, saying what to fix, a reminder every six hours at most, and “back” when it recovers.'],
+  ['Says so if the KVM itself dies', 'A dead KVM can’t message you, so it pings a dead man’s switch you choose every minute, and that tells you when the pings stop.'],
+]
+
+const whyNot = [
+  ['A smart plug?', 'It restarts the Mac straight into the FileVault screen, where it waits for you.'],
+  ['A PiKVM?', 'You can type the password from your phone, once you notice, if you’re awake.'],
+  ['macOS 26’s SSH unlock?', 'Use it if you can. It needs Remote Login on and the network up before boot, and it can’t help a Mac that froze.'],
+]
+
+const cables = [
+  ['HDMI', 'from the Mac into the KVM. Its eyes.'],
+  ['USB-C', 'from the KVM into a port on the Mac itself. Its hands, even at the FileVault screen.'],
+  ['Ethernet', 'for the KVM. Its reach: your tailnet, your LAN, or an optional GitHub outbox.'],
+]
+
+const safe = [
+  'The password lives in two places: your Keychain and the KVM, sealed and root-only. Never in argv, a log, a gist or a cloud.',
+  'Nothing types it remotely. Asking for an unlock asks the sitter to type its own copy, under the same rules.',
+  'Before every unlock it wakes the screen with a lone Shift and reads it fresh. A desktop is a hard no.',
+  'On your tailnet the KVM is tag:kvm and reaches nothing. GL.iNet’s cloud binding is off.',
+]
+
+const limits = [
+  'It hasn’t unlocked a real Mac yet. The rules, the sitter and the setup are tested against a pretend Mac and KVM, and the KVM’s quirks against a real GL.iNet Comet.',
+  'It reads English macOS only, for now.',
+  'With other displays attached, the FileVault screen may not appear on the KVM’s. The sitter then tells you instead of typing blind.',
+]
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/housesitter')} canonical="https://ouroboros.bot/housesitter/">
+  <section class="px-6 md:px-12 lg:px-16 pt-28 pb-12 md:pt-36">
+    <div class="max-w-6xl mx-auto hero-flow">
+      <h1 class="heading-lead">housesitter</h1>
+      <p class="mt-6 product-lede" data-hero-lede>Your agent Mac went down at 3 a.m. and sat at the FileVault screen until you got home. With housesitter, a $100 KVM beside it types the password at the FileVault screen, power-cycles a hang, and messages you only when it needs you.</p>
+      <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2" data-primary-action>
+        <pre id="housesitter-demo" class="command">{demo}</pre>
+        <button type="button" data-copy-target="housesitter-demo" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+        <span class="text-mist">One bad night, rehearsed in seconds. No hardware.</span>
+      </div>
+      <p class="mt-6 flex flex-wrap items-center gap-3"><span class={`tag ${status.tone}`}>{status.label}</span><span class="text-mist">{statusDetail}: <a href={repo} class={link}>watch the repo</a> to see it.</span></p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="night-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="night-heading" class="heading-section">One bad night, <span class="text-scale">slept through</span></h2>
+      <p class="night-caption"><span class="caption-note">Rehearsal</span> <span>The night <code class="model-code">housesitter demo</code> prints: a pretend Mac and KVM, with the real rules and the real client. A recording of the real thing replaces it after the first restart proof.</span></p>
+      <ol class="night">
+        {night.map((step) => (
+          <li class={`night-step night-${step.tone}`}>
+            <span class="night-at">{step.at}</span>
+            <div class="night-body">
+              <p class="night-what">{step.what}</p>
+              <p>{step.then}</p>
+              <p class="night-back">{step.back}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="does-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="does-heading" class="heading-section">What it <span class="text-scale">does</span></h2>
+      <ul class="does">
+        {does.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
+        ))}
+      </ul>
+      <p class="mt-8 text-lg text-mist leading-relaxed">Your agents get the same eyes and hands: screenshot, click, type and key, from before login, over your tailnet or LAN, in Anthropic’s computer-use actions as-is.</p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="why-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="why-heading" class="heading-section">Why not <span class="text-scale">just…</span></h2>
+      <ul class="does">
+        {whyNot.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
+        ))}
+      </ul>
+      <p class="mt-8 product-lede">housesitter is the KVM and the plug, with nobody needing to notice.</p>
+    </div>
+  </section>
+
+  <section id="setup" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 scroll-mt-16" aria-labelledby="setup-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="setup-heading" class="heading-section">Three cables, <span class="text-scale">two commands</span></h2>
+      <ol class="cables">
+        {cables.map(([name, body], i) => (
+          <li><span class="cable-n">{i + 1}</span><p><span class="text-bone">{name}</span> {body}</p></li>
+        ))}
+      </ol>
+      <p class="mt-8 text-lg text-mist leading-relaxed">Then, on the agent Mac, with Node 20 or later:</p>
+      <pre id="housesitter-install" class="install"><code>npm install -g github:ourostack/housesitter
+housesitter secret studio mac-password
+housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy</code></pre>
+      <div class="mt-3"><button type="button" data-copy-target="housesitter-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
+      <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">adopt</code> sets the KVM’s admin password, turns its API on, checks the picture and the keyboard, installs the sitter, seals the Mac’s password on the KVM, and makes a private ntfy topic for your phone, where the sitter says hello before it finishes. Give it a tagged auth key and it joins your tailnet too. It stops at anything that needs you and says what.</p>
+      <p class="mt-4 text-lg text-mist leading-relaxed">On the Mac, once: <code class="model-code">sudo pmset -a autorestart 1 displaysleep 0</code>, and start your agents at login, so they come back when the Mac does. Built against the GL.iNet Comet PoE, about $100; a Shelly plug for hangs is about $25 more.</p>
+      <p class="mt-6 product-links"><a href={`${repo}#three-cables-two-commands`} class={link}>The full quickstart &#8599;</a> <a href={`${repo}/blob/main/docs/hardware.md`} class={link}>What to buy &#8599;</a> <a href={repo} class={link}>housesitter on GitHub &#8599;</a></p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="safe-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="safe-heading" class="heading-section">Careful with <span class="text-scale">the password</span></h2>
+      <ul class="safe">
+        {safe.map((line) => <li>{line}</li>)}
+      </ul>
+      <p class="mt-6 product-links"><a href={`${repo}/blob/main/docs/security.md`} class={link}>The threat model &#8599;</a></p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="limits-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="limits-heading" class="heading-section">Known limits <span class="text-scale">today</span></h2>
+      <ul class="safe">
+        {limits.map((line) => <li>{line}</li>)}
+      </ul>
+      <p class="mt-6 product-links"><a href={`${repo}#whats-verified`} class={link}>What’s verified, part by part &#8599;</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .command { margin: 0; padding: 0.6rem 1rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.9375rem; line-height: 1.6; }
+  .night { display: grid; gap: 1.25rem; margin-top: 2rem; }
+  .night-step { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding: 1.25rem; border-radius: 1rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
+  @media (min-width: 768px) { .night-step { grid-template-columns: 6rem minmax(0, 1fr); padding: 1.5rem 1.75rem; } }
+  .night-at { font-family: var(--font-display); font-size: 2rem; line-height: 1; color: var(--color-bone); }
+  @media (min-width: 768px) { .night-at { font-size: 2.5rem; } }
+  .night-body { display: grid; gap: 0.5rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .night-what { color: var(--color-bone); }
+  .night-back { font-family: var(--font-mono); font-size: 0.875rem; letter-spacing: 0.02em; color: var(--color-scale); }
+  .night-you .night-back { color: var(--color-fang); }
+  .night-caption { display: block; margin-top: var(--caption-gap, 1rem); font-size: 0.875rem; color: var(--color-mist); }
+  .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
+  @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .does li { display: grid; gap: 0.4rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
+  .does-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
+  .cables { display: grid; gap: 1rem; margin-top: 2rem; }
+  @media (min-width: 768px) { .cables { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
+  .cables li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .cable-n { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: color-mix(in srgb, var(--color-scale) 18%, transparent); color: var(--color-scale); font-family: var(--font-display); font-size: 1.25rem; }
+  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
+  .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
+  .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
+</style>
