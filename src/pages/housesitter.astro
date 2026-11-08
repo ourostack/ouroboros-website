@@ -17,7 +17,7 @@ const demo = 'npx github:ourostack/housesitter demo'
 // The night `housesitter demo` prints, shortened. The words are the demo's own.
 const night = [
   { at: '3:12', what: 'Kernel panic. The Mac restarts to the FileVault screen, waiting for a password nobody is there to type.',
-    then: 'The sitter reads “Enter Password” and types its sealed copy, slowly.', back: 'Back by itself in 4 minutes', tone: 'ok' },
+    then: 'The sitter sees the password prompt and types its sealed copy, slowly.', back: 'Back by itself in 4 minutes', tone: 'ok' },
   { at: '4:31', what: 'The Mac freezes solid: the clock stops, nothing answers, it still draws power.',
     then: 'After 5 minutes the smart plug goes off for 10 seconds, then on. The Mac boots, and the sitter unlocks it.', back: 'Back by itself in 10 minutes', tone: 'ok' },
   { at: '5:41', what: 'Another panic. Yesterday someone changed the Mac’s password and forgot to tell the sitter.',
@@ -46,13 +46,14 @@ const cables = [
 const safe = [
   'The password lives in two places: your Keychain and the KVM, sealed and root-only. Never in argv, a log, a gist or a cloud.',
   'Nothing types it remotely. Asking for an unlock asks the sitter to type its own copy, under the same rules.',
-  'Before every unlock it wakes the screen with a lone Shift and reads it fresh. A desktop is a hard no.',
+  'It types only at the password prompt: read fresh before every unlock, or, on a KVM without OCR, a settled screen with no menu bar right after the Mac booted. A desktop is a hard no.',
+  'It never changes the KVM’s EDID or the Mac’s display mode. Doing that on a live Mac froze ours.',
   'On your tailnet the KVM is tag:kvm and reaches nothing. GL.iNet’s cloud binding is off.',
 ]
 
 const limits = [
   'It hasn’t unlocked a real Mac yet. The rules, the sitter and the setup are tested against a pretend Mac and KVM, and the KVM’s quirks against a real GL.iNet Comet.',
-  'It reads English macOS only, for now.',
+  'Reading the screen with OCR works on English macOS only, for now. Without OCR, it reads no words.',
   'With other displays attached, the FileVault screen may not appear on the KVM’s. The sitter then tells you instead of typing blind.',
 ]
 ---
@@ -87,6 +88,7 @@ const limits = [
           </li>
         ))}
       </ol>
+      <p class="night-caption mt-6"><span class="caption-note">Seen for real</span> <span>While we set up its KVM, our own Mac mini froze. The KVM saw it, but keys, the force-restart chord and the password changed nothing. Only cutting the power would have brought it back, and that Mac had no smart plug yet.</span></p>
     </div>
   </section>
 
