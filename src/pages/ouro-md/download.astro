@@ -48,12 +48,14 @@ const app = {
   <Fragment slot="head"><script type="application/ld+json" is:inline set:html={JSON.stringify(app)} /></Fragment>
 
   <section class="px-6 md:px-12 lg:px-16 pb-10 md:pb-[4.5rem]">
-    <div class="max-w-6xl mx-auto dl-hero">
-      <div class="grid gap-5 lg:gap-4 content-start min-w-0">
+    <div class="max-w-6xl mx-auto dl-hero hero-copy">
+      <div class="dl-top grid gap-5 lg:gap-4 min-w-0">
         <p class="eyebrow">Ouro MD · The Markdown app</p>
         <h1 class="heading-lead"><span class="t-ph">Markdown that</span> <span class="t-ph">renders as you type.</span></h1>
-        <p class="product-lede">Ouro MD renders Markdown in place as you type. Headings, tables, code, math, and diagrams become themselves — right where your cursor is. No split preview. No mode toggle. Just the document, staying honest about the Markdown underneath.</p>
-        <div class="btn-row mt-2 lg:mt-1">
+      </div>
+      <div class="dl-words grid gap-5 lg:gap-4 content-start min-w-0">
+        <p class="product-lede" data-hero-lede>Ouro MD renders Markdown in place as you type. Headings, tables, code, math, and diagrams become themselves — right where your cursor is. No split preview. No mode toggle. Just the document, staying honest about the Markdown underneath.</p>
+        <div class="btn-row" data-primary-action>
           <a id="download" class="btn-primary" href={releases}>Download Ouro MD</a>
           <a class="btn-ghost" href="#install">Install by terminal</a>
         </div>
@@ -64,7 +66,7 @@ const app = {
         </p>
       </div>
 
-      <figure class="product-figure min-w-0 hero-media">
+      <figure class="product-figure min-w-0 hero-media dl-media">
         {/* Real Ouro MD recordings, the same clips /ouro-md/ draws on. One per theme. */}
         <div class="product-media media-clip">
           {themes.map((theme) => <div class={`clip-theme theme-${theme}-only`}><WorkshopVideo src={`/images/workshop/ouro-md-typing-${theme}.mp4`} webm={`/images/workshop/ouro-md-typing-${theme}.webm`} poster={`/images/workshop/ouro-md-typing-${theme}-poster.png`} width={840} height={630} alt={typing} /></div>)}
@@ -158,20 +160,44 @@ const app = {
 </script>
 
 <style>
-  /* The words take the wider column from 1024px, so the headline sets on two
-     lines, and the demo lines up with the top of the words (taste reviews r3
-     and r4 on ouro.bot). */
-  .dl-hero { display: grid; gap: 2.5rem; }
+  /* The front door from ouro.bot: the Download button is fully in the first
+     view, 24px clear of the fold, at 1024x768, 1280x720, 1280x800, 1366x768,
+     1440x900, 1536x864 and 1920x1080, and right under the lede on a phone
+     (Ari's ruling on taste review r20, laptop sizes from r21;
+     scripts/primary-action.mjs). The headline runs the full width on one
+     line; below it the words sit beside the demo from 1280px (except on a
+     short laptop, below), and above it, the demo below, under 1280px. */
+  .dl-hero { display: grid; grid-template-areas: "head" "words" "media"; row-gap: 1.25rem; }
+  .dl-top { grid-area: head; }
+  .dl-words { grid-area: words; }
+  .dl-media { grid-area: media; margin-top: 1.25rem; }
   @media (min-width: 1024px) {
-    .dl-hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 3rem; align-items: start; }
-    .dl-hero .heading-lead { font-size: clamp(3.4rem, 4.6vw, 4.4rem); }
+    /* The width cap, and the height ease every product hero has (global.css). */
+    .dl-hero .heading-lead { font-size: min(clamp(3.4rem, 4.6vw, 4.4rem), clamp(3.4rem, calc(3.4rem + (100svh - 720px) / 11), 4.4rem)); }
+    /* The demo video, not text: capped so the stacked hero keeps its action in view. */
+    .dl-media { max-width: 640px; }
+  }
+  @media (min-width: 1280px) {
+    .dl-hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-areas: "head head" "words media"; column-gap: 3rem; align-items: start; }
+    .dl-media { margin-top: 0; max-width: none; }
+  }
+  /* A short laptop (1280x720, 1366x768, 1536x864; the same query as the
+     product heroes in global.css): the hero stacks as under 1280, the lede
+     across the full column, and its steps close up with the window's height. */
+  @media (min-width: 1280px) and (max-height: 960px) and (min-aspect-ratio: 33 / 20) {
+    .dl-hero { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "words" "media"; }
+    .dl-media { margin-top: 1.25rem; max-width: 640px; }
+  }
+  @media (min-width: 1024px) {
+    .dl-hero { row-gap: var(--hero-step); }
+    /* Its inner steps close a little sooner: as set from 800px tall, 8px by 720. */
+    .dl-top, .dl-words { row-gap: clamp(0.5rem, calc((100svh - 704px) / 6), 1rem); }
   }
   /* Section heads at the size they had on ouro.bot. */
   @media (min-width: 768px) { .dl-h2 { font-size: 3.25rem; line-height: 1; } }
   .dl-trust { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 0.25rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
   .dl-trust span { display: inline-flex; align-items: center; gap: 0.45rem; }
   .dl-trust span::before { content: ""; width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--color-scale); }
-  .product-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; }
   .dl-shot img { width: 100%; height: auto; }
   .dl-prose { color: var(--color-mist); }
   .dl-prose > p:not(.eyebrow) { font-size: 1.125rem; line-height: 1.7; }

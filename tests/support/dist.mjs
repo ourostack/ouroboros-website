@@ -39,8 +39,9 @@ export function textOf(html) {
       .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
       .replace(/<!--[\s\S]*?-->/g, ' ')
       // src/lib/code-wrap.mjs splits long code into pieces that render with no gap.
-      .replace(/<span class="tok tok-long tok-url">([^<]*)<wbr><span class="tok-host">([^<]*)<\/span><\/span>(?:<wbr>)?/g, '$1$2')
       .replace(/<span class="tok(?: tok-long)?">([^<]*)<\/span>(?:<wbr>)?/g, '$1')
+      .replace(/<span class="tok tok-long tok-url">([^<]*)<wbr><span class="tok-host(?: tok-host-long)?">([^<]*)<\/span><\/span>(?:<wbr>)?/g, '$1$2')
+      .replace(/<span class="tok tok-long tok-hostname">([^<]*)<\/span>(?:<wbr>)?/g, '$1')
       // A heading's hyphenated word held whole (code-wrap.mjs) reads as it is.
       .replace(/<span class="nobr">([^<]*)<\/span>/g, '$1')
       .replace(/<[^>]+>/g, ' '),

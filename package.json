@@ -30,7 +30,10 @@
     "check:drama": "node scripts/dramatization.mjs",
     "check:buttons": "node scripts/button-links.mjs",
     "check:grid": "node scripts/grid-rows.mjs",
-    "check:captions": "node scripts/caption-proximity.mjs"
+    "check:captions": "node scripts/caption-proximity.mjs",
+    "check:all": "node scripts/check-all.mjs",
+    "serve:dist": "node scripts/serve-dist.mjs",
+    "check:cta": "node scripts/primary-action.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

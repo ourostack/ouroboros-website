@@ -45,6 +45,8 @@ test('every URL and path is wrapped: prose, links, mono spans and preformatted t
   );
   assert.equal(wrapCode('<pre>curl -fsSL https://ouro.bot/x.sh | bash</pre>'), '<pre>curl <span class="tok">-fsSL</span> <span class="tok tok-long tok-url">https://<wbr><span class="tok-host">ouro.bot/</span></span><wbr><span class="tok">x.sh</span> | bash</pre>');
   assert.equal(wrapCode('<pre>npx init --no-monorepo</pre>'), '<pre>npx init <span class="tok">--no-monorepo</span></pre>');
+  // A short flag never splits after its hyphen (Linux Chromium broke "-" / "p" at 320; site-checks, round 21).
+  assert.equal(wrapCode('<pre>goose recipe deeplink x -p a=b</pre>'), '<pre>goose recipe deeplink x <span class="nobr">-p</span> a=b</pre>');
   // Ordinary words, scripts, styles, attributes and the head stay as they are.
   const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
   assert.equal(wrapCode(untouched), untouched);
@@ -55,7 +57,7 @@ test('the built pages carry it, with no break-all anywhere', () => {
   assert.match(readDist('lab/how-desk-started/index.html'), /<code class="code-whole">work-planner<\/code>/);
   const review = readDist('lab/model-reviews/anthropic/index.html');
   assert.match(review, /class="fetch-url[^"]*code-long"[^>]*><span class="tok[^"]*">https:\/\/(?:<wbr><span class="tok-host">)?[a-z0-9.-]+\/(?:<\/span>)?<\/span><wbr>/);
-  assert.match(review, /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host">hermes-agent\.nousresearch\.com\/<\/span><\/span>/);
+  assert.match(review, /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host tok-host-long"><span class="tok">hermes-agent\.<\/span><wbr><span class="tok">nousresearch\.<\/span><wbr><span class="tok">com\/<\/span><\/span><\/span>/);
   assert.match(readDist('blog/trust-the-agent/index.html'), /<span class="tok tok-long tok-url">https:\/\/<wbr><span class="tok-host">github\.com\/<\/span><\/span><wbr><span class="tok">ourostack\/<\/span>/);
   // The h1 is held in phrases (.t-ph) since taste review r16; the hyphenated word still never breaks.
   const deskH1 = readDist('lab/how-desk-started/index.html').match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1];
@@ -65,14 +67,24 @@ test('the built pages carry it, with no break-all anywhere', () => {
   for (const file of listHtmlFiles()) assert.doesNotMatch(fs.readFileSync(file, 'utf8'), /\bbreak-all\b|word-break:\s*break-all/, file);
 });
 
-test('a long scheme and host offer one break, right after the "//", and keep the host whole', () => {
+test('a long scheme and host break first after the "//", and inside the host only after a "."', () => {
   // Ari's ruling, taste review r11: "https://hermes-agent.nousresearch.com/" split inside the host at 320.
+  // Taste review r20: a host too wide for its line breaks after a ".", never at a hyphen;
+  // .tok-host-long keeps it on one line whenever it fits.
   assert.equal(
     wrapToken('https://hermes-agent.nousresearch.com/docs/'),
-    '<span class="tok tok-long tok-url">https://<wbr><span class="tok-host">hermes-agent.nousresearch.com/</span></span><wbr><span class="tok">docs/</span>',
+    '<span class="tok tok-long tok-url">https://<wbr><span class="tok-host tok-host-long"><span class="tok">hermes-agent.</span><wbr><span class="tok">nousresearch.</span><wbr><span class="tok">com/</span></span></span><wbr><span class="tok">docs/</span>',
   );
-  // The same URL quoted inside markup (a fetched README's <a href="...">) keeps its host whole too.
-  assert.match(wrapToken('href=&quot;https://hermes-agent.nousresearch.com/docs/&quot;&gt;'), /tok-url">href="https:\/\/<wbr><span class="tok-host">hermes-agent\.nousresearch\.com\/<\/span>/);
+  // The same URL quoted inside markup (a fetched README's <a href="...">) gets the same host pieces.
+  assert.match(wrapToken('href=&quot;https://hermes-agent.nousresearch.com/docs/&quot;&gt;'), /tok-url">href="https:\/\/<wbr><span class="tok-host tok-host-long"><span class="tok">hermes-agent\.<\/span><wbr>/);
+  // A bare host (a search filter, no "/") breaks only after a ".".
+  assert.equal(
+    wrapToken('site:hermes-agent.nousresearch.com'),
+    '<span class="tok tok-long tok-hostname"><span class="tok">site:hermes-agent.</span><wbr><span class="tok">nousresearch.</span><wbr><span class="tok">com</span></span>',
+  );
+  // A short host is never split.
+  assert.doesNotMatch(wrapToken('https://github.com/ourostack/'), /tok-host-long|tok-hostname/);
+  assert.doesNotMatch(wrapToken('site:github.com'), /tok-hostname/);
   // A short one is a single unbreakable piece, as before.
   assert.equal(wrapToken('https://x.io/abcd'), '<span class="tok">https://x.io/</span><wbr><span class="tok">abcd</span>');
 });

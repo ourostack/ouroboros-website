@@ -19,25 +19,29 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
 
 <Layout title={title} description={description} ogImage={ogPathFor('/desk')} canonical="https://ouroboros.bot/desk/">
   <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
-    <div class="max-w-6xl mx-auto grid gap-10 xl:grid-cols-[1.2fr_1fr]">
-      <div class="grid gap-5 content-start min-w-0">
-        <span class={`tag ${status.tone} justify-self-start`}>{status.label}</span>
-        <div class="flex items-center gap-4">
+    <div class="max-w-6xl mx-auto grid gap-10 xl:grid-cols-[1.2fr_1fr] product-hero">
+      <div class="grid gap-5 content-start min-w-0 hero-copy">
+        {/* The status rides beside the title, not on a row of its own, so Desk's setup line sits in the first view (Ari's ruling on taste review r20). */}
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
           <img src="/brand/desk-render.webp" srcset="/brand/desk-render-128.webp 128w, /brand/desk-render-256.webp 256w, /brand/desk-render.webp 1024w" sizes="(min-width: 768px) 64px, 56px" width="64" height="64" alt="" class="mark-render w-14 h-14 md:w-16 md:h-16" />
           <h1 class="heading-lead">Desk</h1>
+          <span class={`tag ${status.tone}`}>{status.label}</span>
         </div>
-        <p class="product-lede">Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
-        <p class="text-lg text-mist leading-relaxed">Every job starts with one conversation and a go, and ends with evidence you accept or send back, the way <a href="/approach/" class={link}>How I work</a> lays it out. The full design is in <a href={rfcUrl} class={link}>Desk's design doc</a>.</p>
+        <p class="product-lede" data-hero-lede>Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
 
-        <div class="grid gap-2">
+        <div class="grid gap-2" data-primary-action>
           <span class="caption-mono">Give your agent</span>
           {/* A break opportunity after each slash, so a phone wraps the address between its parts, never mid-word ("ourostac / k", taste review r4). <wbr> adds no text, so Copy copies the address whole. */}
-          <pre id="desk-setup" class="agent-text">{deskSetupUrl.split('/').map((part, i, all) => <>{part}{i < all.length - 1 && <>/<wbr /></>}</>)}{`\nset this up`}</pre>
-          <div class="flex flex-wrap items-center gap-3">
-            <button type="button" data-copy-target="desk-setup" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
-            <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
+          {/* From 1024px the Copy button sits beside the line it copies. */}
+          <div class="grid gap-2 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-3">
+            <pre id="desk-setup" class="agent-text">{deskSetupUrl.split('/').map((part, i, all) => <>{part}{i < all.length - 1 && <>/<wbr /></>}</>)}{`\nset this up`}</pre>
+            <div class="flex flex-wrap items-center gap-3">
+              <button type="button" data-copy-target="desk-setup" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+              <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
+            </div>
           </div>
         </div>
+        <p class="text-lg text-mist leading-relaxed">Every job starts with one conversation and a go, and ends with evidence you accept or send back, the way <a href="/approach/" class={link}>How I work</a> lays it out. The full design is in <a href={rfcUrl} class={link}>Desk's design doc</a>.</p>
         <p class="text-sm text-mist">Setup also installs <a href="https://github.com/obra/superpowers" class={link}>Superpowers</a>, Jesse Vincent's skill set for coding agents. Desk asks once whether you'd like to send your sessions' timings to the public <a href={factoryUrl} class={link}>factory</a>. It sends timings and sizes, and never transcript text, prompts, file contents, or names.</p>
         <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist"><span class={`tag ${factoryStatus.tone}`}>{factoryStatus.label}</span> {factoryEntry.name}: {factoryEntry.detail}</p>
       </div>

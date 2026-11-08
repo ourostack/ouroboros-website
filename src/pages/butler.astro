@@ -46,9 +46,12 @@ const chat = [
 
 <Layout title={title} description={description} ogImage={ogPathFor('/butler')} canonical="https://ouroboros.bot/butler/">
   <section class="px-6 md:px-12 lg:px-16 pt-28 pb-12 md:pt-36">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto hero-flow">
       <h1 class="heading-lead page-mark"><img src="/brand/butler-render.webp" srcset="/brand/butler-render-128.webp 128w, /brand/butler-render-256.webp 256w" sizes="72px" width="72" height="72" alt="" decoding="async" class="mark-render" />Ouro Butler</h1>
-      <p class="mt-6 product-lede">An Ouroboros agent that looks after a home server. It notices when something your household counts on stops working, fixes what it is allowed to, and tells you the rest on Telegram.</p>
+      <p class="mt-6 product-lede" data-hero-lede>An Ouroboros agent that looks after a home server. It notices when something your household counts on stops working, fixes what it is allowed to, and tells you the rest on Telegram.</p>
+      <div class="mt-6 btn-row" data-primary-action>
+        <a href="#install" class="btn-primary">Install it</a>
+      </div>
       <p class="mt-6 flex flex-wrap items-center gap-3"><span class={`tag ${status.tone}`}>{status.label}</span><span class="text-mist">{statusDetail}.</span></p>
     </div>
   </section>
@@ -88,7 +91,7 @@ const chat = [
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="install-heading">
+  <section id="install" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20 scroll-mt-16" aria-labelledby="install-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="install-heading" class="heading-section"><span class="text-scale">Install</span> it</h2>
       <p class="mt-4 text-lg text-mist leading-relaxed">The Butler is an alpha: it runs our own server every day, and the installer is new. Expect rough edges, and keep your own backups.</p>
@@ -110,7 +113,7 @@ bash /tmp/ouro-butler-install.sh</code></pre>
 <style>
   .page-mark { display: flex; align-items: center; gap: 1rem; }
   .page-mark img { width: 3.5rem; height: 3.5rem; }
-  @media (min-width: 768px) { .page-mark img { width: 4.5rem; height: 4.5rem; } }
+  @media (min-width: 768px) { .page-mark img { width: var(--hero-mark-lg, 4.5rem); height: var(--hero-mark-lg, 4.5rem); } }
   .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
   @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .does li { display: grid; gap: 0.4rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
@@ -122,7 +125,9 @@ bash /tmp/ouro-butler-install.sh</code></pre>
   .chat-you { justify-self: end; background: color-mix(in srgb, var(--color-scale) 16%, transparent); color: var(--color-bone); }
   .chat-butler { background: var(--color-deep); color: var(--color-bone); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
   .chat-who { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); }
-  .chat-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-top: var(--caption-gap); font-size: 0.875rem; color: var(--color-mist); }
+  /* Blocks, never a flex row: the Dramatization note sits on a line of its own
+     at every width (Ari's ruling on taste review r20). */
+  .chat-caption { display: block; margin-top: var(--caption-gap); font-size: 0.875rem; color: var(--color-mist); }
   .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
   .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
   .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }

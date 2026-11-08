@@ -146,6 +146,14 @@ function analyse(checkOverflow) {
   const headingOf = (el) => el.closest('h1,h2,h3,h4,h5,h6,[class*="heading-"]');
   // Where a word's scheme ends, just after its "//"; 0 without one.
   const schemeEnd = (word) => word.match(/^(?:[A-Za-z-]+=)?[("'[<]*[a-z][a-z0-9+.-]*:\/\//)?.[0].length ?? 0;
+  // A bare hostname with no "/" to break at ("site:hermes-agent.nousresearch.com"
+  // in a fetch log) breaks after a "." before it ever breaks at a hyphen (Ari's
+  // ruling on taste review r20). Returns [start, end] of the host in the word,
+  // or null. Same shape as src/lib/code-wrap.mjs hostLabels.
+  const bareHost = (word) => {
+    const m = word.match(/^([^\p{L}\p{N}]*(?:[a-z]+:)?)((?:[A-Za-z0-9-]+\.)+([A-Za-z]{2,}))(\/*[)"'\].,;:!]*)$/u);
+    return m && TLD.test(m[3]) ? [m[1].length, m[1].length + m[2].length] : null;
+  };
   // A URL, path, host or file name, a flag, or any word of inline code.
   const pathy = (el, word) =>
     /[/\\~]/.test(word) || /[A-Za-z0-9]\.[A-Za-z]{2,}/.test(word) || /^["'(]?--?[a-z]/.test(word) || !!el.closest('code,kbd,samp');
@@ -216,6 +224,20 @@ function analyse(checkOverflow) {
           // scheme and host together are wider than the column, and inside
           // the host only when the host alone is.
           const scheme = schemeEnd(word);
+          const bare = bareHost(word);
+          if (bare && i > bare[0] && i < bare[1]) {
+            // Inside a bare host: only after a ".", and only when the host is
+            // wider than the column; inside a label only when that label is.
+            const width = (a, b) => rectsOf(node, m.index + a, m.index + b).reduce((sum, r) => sum + r.width, 0);
+            const a = word.lastIndexOf('.', i - 1) + 1;
+            const dot = word.indexOf('.', i);
+            const b = dot < 0 ? bare[1] : dot + 1;
+            if (word[i - 1] === '.') {
+              if (width(bare[0], bare[1]) <= box.width - 2) out.breaks.push(`path ${label(el)}: "${word.slice(0, i)}|${word.slice(i)}" (inside a host that fits its line)`.slice(0, 200));
+            } else if (width(a, b) <= box.width - 2) out.breaks.push(`path ${label(el)}: "${word.slice(0, i)}|${word.slice(i)}" (${/[-‐]/.test(word[i - 1]) ? 'at a hyphen' : 'inside a label'} in a host; break after a "." instead)`.slice(0, 200));
+            prevTop = top;
+            continue;
+          }
           if (i <= host) {
             const width = (a, b) => rectsOf(node, m.index + a, m.index + b).reduce((sum, r) => sum + r.width, 0);
             const tooWide = i === scheme ? width(0, host) > box.width - 2 : i > scheme && width(scheme, host) > box.width - 2;
@@ -260,6 +282,18 @@ function analyse(checkOverflow) {
       const a = [...toks[k - 1].getClientRects()].filter((q) => q.width > 0.5).pop();
       const b = [...toks[k].getClientRects()].filter((q) => q.width > 0.5)[0];
       if (!a || !b || Math.abs(b.top - a.top) <= step || ok(at)) continue;
+      // A long host split after its dots (src/lib/code-wrap.mjs hostLabels):
+      // a break after a "." is the host's own, allowed when the whole host is
+      // wider than the column (taste review r20).
+      const bare = bareHost(word);
+      const inHost = bare ? at > bare[0] && at < bare[1] : at <= host;
+      if (inHost && word[at - 1] === '.') {
+        const hostToks = toks.filter((t, j) => { const s0 = toks.slice(0, j).reduce((n, u) => n + u.textContent.length, 0); return s0 < (bare ? bare[1] : host); });
+        const seg = hostToks.reduce((sum, t) => sum + t.getBoundingClientRect().width, 0);
+        if (seg > box.width - 2) continue;
+        out.breaks.push(`path ${label(first.parentElement)}: "${word.slice(0, at)}|${word.slice(at)}" (inside a host that fits its line)`.slice(0, 180));
+        continue;
+      }
       // The last resort: the scheme and domain alone are wider than the column.
       if (at <= host) {
         let start = 0;

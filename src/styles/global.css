@@ -253,6 +253,45 @@ html, body { overflow-x: clip; }
   .split.split-media > .split-head { grid-column: 1; }
   .split.split-media > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
 }
+/* A product hero whose copy runs long (/ouro-md/) stays stacked until 1280px,
+   so in a 5/12 column at 1024 its lede doesn't push the Download button below
+   the fold (Ari's ruling on taste review r20: a product page's primary action
+   is fully in the first view; scripts/primary-action.mjs). */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .split.split-media.product-hero { grid-template-columns: minmax(0, 1fr); }
+  .split.split-media.product-hero > .split-body { grid-column: 1; }
+}
+/* Laptop screens are wide and short (1280x720, 1366x768, 1536x864): the
+   scene, full bleed at its floor, takes over half the window, and the
+   Download button sat 7 to 25px into the view (taste review r21). There a
+   product hero whose copy runs long (/ouro-md/, /ouro-md/download/, /desk/)
+   stacks as it does at 1024: the words take the full column, so the lede
+   runs two or three lines instead of four, and the demo follows below. The
+   same query sits in src/pages/ouro-md/download.astro; keep them in step.
+   scripts/primary-action.mjs checks every one of these sizes. */
+@media (min-width: 1280px) and (max-height: 960px) and (min-aspect-ratio: 33 / 20) {
+  .split.split-media.product-hero, .product-hero { grid-template-columns: minmax(0, 1fr); }
+  .split.split-media.product-hero > .split-body, .product-hero > .hero-media { grid-column: 1; }
+}
+/* On a wide screen a product hero follows the window's height, so a short
+   laptop keeps its primary action in the first view: the steps between title,
+   lede and action are as set from 800px tall and close to 8px at 720; the
+   title and its mark are as set from 900px tall and ease to 3.4rem and 3rem
+   at 720 (--hero-mark-lg for the 4.5rem marks on /butler/ and /ouro-hx/).
+   The lede keeps its 24px (taste review r9); its leading eases from 33px at
+   800 to 30px at 720. Never on a phone. */
+@media (min-width: 1024px) {
+  .hero-copy, .hero-flow {
+    --hero-step: clamp(0.5rem, calc((100svh - 640px) / 8), 1.25rem);
+    --hero-mark: clamp(3rem, calc(3rem + (100svh - 720px) / 11.25), 4rem);
+    --hero-mark-lg: clamp(3.5rem, calc(3.5rem + (100svh - 720px) / 11.25), 4.5rem);
+  }
+  .hero-copy { row-gap: var(--hero-step); }
+  .hero-flow > :is([data-hero-lede], [data-primary-action]) { margin-top: clamp(0.5rem, calc((100svh - 640px) / 8), 1.5rem); }
+  :is(.hero-copy, .hero-flow) .heading-lead { font-size: clamp(3.4rem, calc(3.4rem + (100svh - 720px) / 11), 4.4rem); }
+  :is(.hero-copy, .hero-flow) :is(.mark-tile, .mark-render) { width: var(--hero-mark); height: var(--hero-mark); }
+  :is(.hero-copy, .hero-flow) .product-lede { line-height: clamp(1.875rem, calc(1.875rem + (100svh - 720px) / 26.667), 2.0625rem); }
+}
 
 /* A list of posts or pages, read top to bottom: no cards, a hairline between
    entries, an underlined title that thickens on hover. Used by /blog/ and /lab/. */
@@ -684,6 +723,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .tok-long { display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; word-break: normal; text-decoration: inherit; }
 /* A long scheme and host breaks, if at all, only right after its "//"; the host stays whole (taste review r11). */
 .tok-host { white-space: nowrap; }
+/* A long host (src/lib/code-wrap.mjs hostLabels) moves to the next line whole
+   when it fits there, and otherwise breaks only after a ".", never at a
+   hyphen (Ari's ruling on taste review r20: "hermes-" / "agent" at 320). */
+.tok-host-long { display: inline-block; max-width: 100%; white-space: normal; text-decoration: inherit; }
+.tok-hostname { overflow-wrap: normal; }
 /* A hyphenated word in a heading never breaks at its hyphen (taste review r11: "to-" / "do" at 320). */
 .nobr { white-space: nowrap; }
 

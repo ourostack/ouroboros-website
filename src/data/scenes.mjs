@@ -38,24 +38,28 @@ export const scenes = {
 // Each product's own scene. Every page of a product (the product page, its
 // download page, any /<product>/* page) opens on it and sets its share card in
 // it (Ari's ruling on taste review r19); tests/storybook.test.mjs checks.
-export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/ouro-hx': 'ouro-hx', '/butler': 'butler' }
+export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler': 'butler' }
 
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
 const pages = {
   '/': { hero: 'ourostack' },
-  '/apps': { hero: 'ouro-apps-site' },
+  // Product pages (and /apps/) open on the content pages' shorter scene, so
+  // the primary action (Download or Install) sits in the first view at
+  // 1024x768 and up (Ari's ruling on taste review r20). The cast stays whole:
+  // the box never shows less than the scene's floor (heroFrame()).
+  '/apps': { hero: 'ouro-apps-site', content: true },
   '/approach': { hero: 'ouro-work' },
   // People and their robots on one blanket: the brief is how they get there.
   '/brief': { hero: 'friends' },
-  '/desk': { hero: 'desk' },
-  '/ouro-md': { hero: 'ouro-md' },
+  '/desk': { hero: 'desk', content: true },
+  '/ouro-md': { hero: 'ouro-md', content: true },
   // The download page (moved from ouro.bot/apps/ouro-md/, 2026-11-07) is Ouro
   // MD's front door from ouro.bot, so it opens on Ouro MD's own lectern, hero
   // and card alike (Ari's ruling on taste review r19). A product's pages share
   // its scene; the neighbour rule below stands everywhere else.
-  '/ouro-md/download': { hero: 'ouro-md' },
-  '/butler': { hero: 'butler' },
+  '/ouro-md/download': { hero: 'ouro-md', content: true },
+  '/butler': { hero: 'butler', content: true },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
   '/blog/take-the-agents-seat': { hero: 'ouro-ui-apple' },
