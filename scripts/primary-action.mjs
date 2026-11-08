@@ -2,7 +2,8 @@
 // Install) is in the first view (Ari's ruling on taste review r20,
 // 2026-11-07: on /ouro-md/download/, Ouro MD's front door from ouro.bot, the
 // Download button was an 11px sliver at 1440x900, 5px short at 1920x1080 and
-// below the fold at 1024 and 1280).
+// below the fold at 1024 and 1280). Taste review r21 added the laptop sizes:
+// the button showed 25px at 1366x768 and 7px at 1280x720.
 //
 //   npm run build && node scripts/primary-action.mjs
 //   node scripts/primary-action.mjs --base https://ouroboros.bot   (a live site)
@@ -12,7 +13,8 @@
 // setup line with its Copy button. It fails when
 //   - a product page has no lede or not exactly one primary action, or any
 //     other page has a primary action without being listed;
-//   - at 1024x768, 1280x800, 1440x900 and 1920x1080 (light and dark), any
+//   - at 1024x768, 1280x720, 1280x800, 1366x768, 1440x900, 1536x864 and
+//     1920x1080 (light and dark), any
 //     part of the action is outside the first view, or less than SPARE px
 //     above its bottom edge;
 //   - at 320, 360, 390 and 430 wide, the action is not the next element
@@ -25,7 +27,7 @@ import { chromium } from 'playwright';
 import { launchOptions, openSite } from './lib/site-pages.mjs';
 
 export const PRODUCT_PAGES = ['/ouro-md/', '/ouro-md/download/', '/desk/', '/butler/', '/ouro-hx/', '/apps/'];
-const DESKTOP = [[1024, 768], [1280, 800], [1440, 900], [1920, 1080]];
+const DESKTOP = [[1024, 768], [1280, 720], [1280, 800], [1366, 768], [1440, 900], [1536, 864], [1920, 1080]];
 const PHONE = [[320, 568], [360, 740], [390, 844], [430, 932]];
 const SPARE = 24;
 const MAX_GAP = 40;
