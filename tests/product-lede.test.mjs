@@ -18,12 +18,13 @@ test('every product page uses the shared product-hero lede', () => {
   assert.match(css, /@media \(min-width: 768px\) \{ \.product-lede \{ font-size: 1\.5rem; \} \}/);
 });
 
-// A tinted section that ends the page fades into the footer meadow instead of
-// ending hard above it (taste review r9: the seam on ouro.bot/apps/ouro-md/;
-// the home page's "Where to start" section did the same).
-test('a tinted last section flows into the meadow', () => {
+// A tinted section that ends the page meets the footer meadow directly, on a
+// hard edge the meadow's trail marks, so no strip of page colour sits between
+// them (taste review r9) and nothing fades (Ari, 2026-11-08).
+test('a tinted last section meets the meadow on a clean edge', () => {
   const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
-  assert.match(css, /main > \[class~="bg-deep\/40"\]:last-child \{ background: linear-gradient\(to bottom, [^;]*transparent\); \}/);
+  assert.match(css, /main:has\(> \[class~="bg-deep\/40"\]:last-child\) \+ \.story-meadow \{ margin-top: 0; \}/);
+  assert.doesNotMatch(css, /main > \[class~="bg-deep\/40"\]:last-child \{ background: linear-gradient/);
   assert.match(readDist('index.html'), /<section id="try" class="[^"]*\bbg-deep\/40\b/);
   // /lab/model-reviews/ ends on the flat page ground, with no gradient wash
   // behind its last section to sit as a strip above the meadow (taste review

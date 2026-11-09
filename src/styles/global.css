@@ -275,19 +275,21 @@ html, body { overflow-x: clip; }
 }
 /* On a wide screen a product hero follows the window's height, so a short
    laptop keeps its primary action in the first view: the steps between title,
-   lede and action are as set from 800px tall and close to 8px at 720; the
+   lede and action are as set from 848px tall and close to 4px at 720 (the
+   words start just under the hero's hard edge, so they no longer rise into
+   it to save the room); the
    title and its mark are as set from 900px tall and ease to 3.4rem and 3rem
    at 720 (--hero-mark-lg for the 4.5rem marks on /butler/ and /ouro-hx/).
    The lede keeps its 24px (taste review r9); its leading eases from 33px at
    800 to 30px at 720. Never on a phone. */
 @media (min-width: 1024px) {
   .hero-copy, .hero-flow {
-    --hero-step: clamp(0.5rem, calc((100svh - 640px) / 8), 1.25rem);
+    --hero-step: clamp(0.25rem, calc((100svh - 688px) / 8), 1.25rem);
     --hero-mark: clamp(3rem, calc(3rem + (100svh - 720px) / 11.25), 4rem);
     --hero-mark-lg: clamp(3.5rem, calc(3.5rem + (100svh - 720px) / 11.25), 4.5rem);
   }
   .hero-copy { row-gap: var(--hero-step); }
-  .hero-flow > :is([data-hero-lede], [data-primary-action]) { margin-top: clamp(0.5rem, calc((100svh - 640px) / 8), 1.5rem); }
+  .hero-flow > :is([data-hero-lede], [data-primary-action]) { margin-top: clamp(0.25rem, calc((100svh - 688px) / 8), 1.5rem); }
   :is(.hero-copy, .hero-flow) .heading-lead { font-size: clamp(3.4rem, calc(3.4rem + (100svh - 720px) / 11), 4.4rem); }
   :is(.hero-copy, .hero-flow) :is(.mark-tile, .mark-render) { width: var(--hero-mark); height: var(--hero-mark); }
   :is(.hero-copy, .hero-flow) .product-lede { line-height: clamp(1.875rem, calc(1.875rem + (100svh - 720px) / 26.667), 2.0625rem); }
@@ -811,9 +813,10 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .exit-link { padding-block: 0.75rem; }
 
 /* ── The storybook world (src/components/StoryScene.astro) ──
-   A page arrives in its scene: full bleed under the glass nav, the dawn
-   fading into the page at the bottom edge so it sits softly on parchment and
-   on the dark theme alike (no frames, no boxes). The art is served byte for
+   A page arrives in its scene: full bleed under the glass nav, ending on a
+   hard edge that the gold trail closes (no frames, no boxes). No picture ever
+   fades into the page or into nothing, at any edge (Ari, 2026-11-08: "none of
+   this 'fade to nothingness' tho for an image"). The art is served byte for
    byte; CSS only sizes and crops it. Heights come from the width and the
    viewport, never from the image, so nothing shifts when it lands. */
 .story-scene { position: relative; overflow: hidden; }
@@ -833,50 +836,28 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    shorter scene, so the title and the intro's first line sit above the fold at
    1440x900 and 1024x768 (taste review r3). */
 .story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * 100vw)); }
-/* The bottom fade starts below every character's foot (taste review r10:
-   Ouro's lower coil dissolved into a fade that began at 72% on /ouro-hx/).
-   StoryScene sets --hero-fade per scene from heroFrame(): 72% where the cast
-   stands high, as late as 94% where it stands near the art's foot.
-   tests/hero-crop.test.mjs holds every hero to it. */
-/* The fade eases in and out (a smoothstep, not a straight ramp), so a
-   saturated meadow dissolves into the page without a visible band at either
-   end of the fade (taste review r14: an ochre band under the picnic blanket
-   on /lab/why/ at 1440). Every stop keeps at least the straight ramp's
-   opacity over the fade's first half, where the cast's foot sits, so the
-   cast keeps at least as much of itself as heroFrame() promises. */
-.story-hero {
-  --fade-at: var(--hero-fade, 72%);
-  --fade-run: calc(100% - var(--hero-fade, 72%));
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--fade-at), rgb(0 0 0 / .972) calc(var(--fade-at) + var(--fade-run) * .1), rgb(0 0 0 / .896) calc(var(--fade-at) + var(--fade-run) * .2), rgb(0 0 0 / .784) calc(var(--fade-at) + var(--fade-run) * .3), rgb(0 0 0 / .648) calc(var(--fade-at) + var(--fade-run) * .4), rgb(0 0 0 / .5) calc(var(--fade-at) + var(--fade-run) * .5), rgb(0 0 0 / .352) calc(var(--fade-at) + var(--fade-run) * .6), rgb(0 0 0 / .216) calc(var(--fade-at) + var(--fade-run) * .7), rgb(0 0 0 / .104) calc(var(--fade-at) + var(--fade-run) * .8), rgb(0 0 0 / .028) calc(var(--fade-at) + var(--fade-run) * .9), transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 var(--fade-at), rgb(0 0 0 / .972) calc(var(--fade-at) + var(--fade-run) * .1), rgb(0 0 0 / .896) calc(var(--fade-at) + var(--fade-run) * .2), rgb(0 0 0 / .784) calc(var(--fade-at) + var(--fade-run) * .3), rgb(0 0 0 / .648) calc(var(--fade-at) + var(--fade-run) * .4), rgb(0 0 0 / .5) calc(var(--fade-at) + var(--fade-run) * .5), rgb(0 0 0 / .352) calc(var(--fade-at) + var(--fade-run) * .6), rgb(0 0 0 / .216) calc(var(--fade-at) + var(--fade-run) * .7), rgb(0 0 0 / .104) calc(var(--fade-at) + var(--fade-run) * .8), rgb(0 0 0 / .028) calc(var(--fade-at) + var(--fade-run) * .9), transparent 100%);
-}
-/* Where the cast stands on the art's very foot (the picnic robots' shoes on
-   /brief/ and /lab/why/, the sneaker under the armchair, the dovecote's
-   robots), no fade inside the art keeps them whole. Ari's ruling on taste
-   review r15 (2026-11-07), which replaces the round-11 and round-14 apron:
-   no hero box ever runs past its art. StoryScene marks such a hero
-   [data-hero-edge]; it ends exactly at the art's bottom edge with no fade, so
-   the cast stays whole and fully opaque, and the site's gold trail closes it,
-   as it closes a section. The trail hangs from the edge, below the cast's
-   feet, never across them. Words do not rise into it. scripts/hero-joins.mjs
-   fails any hero whose box runs past its image. */
-.story-hero[data-hero-edge] { -webkit-mask-image: none; mask-image: none; overflow: visible; }
-.story-hero[data-hero-edge] picture { display: block; overflow: hidden; }
-.story-hero[data-hero-edge]::after {
-  content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 6px); height: 36px; z-index: 30; pointer-events: none;
+/* Every hero ends on a hard edge at its picture's foot, with no mask: the box
+   never runs past its image (Ari's ruling on taste review r15), the cast
+   stays whole inside it (heroFrame() in src/data/scenes.mjs), and the site's
+   gold trail closes the edge, centred on it as on every section change, in
+   the room heroFrame() keeps under the cast's feet (FOOT_ROOM). Where the art's
+   own foot leaves the feet less room than that, the trail hangs below the
+   edge instead ([data-trail-below]), never across them. Words do not rise
+   into the picture. tests/hero-crop.test.mjs and scripts/hero-joins.mjs hold it;
+   tests/no-image-fades.test.mjs fails any gradient mask on the site. */
+.story-hero { overflow: visible; }
+.story-hero picture { display: block; overflow: hidden; }
+.story-hero::after {
+  content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 18px); height: 36px; z-index: 30; pointer-events: none;
   background: var(--trail-path) center / 1200px 36px repeat-x;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
   opacity: 0.9;
 }
+.story-hero[data-trail-below]::after { top: calc(100% - 6px); }
 /* On a phone the box takes the phone crop's own aspect (StoryScene sets
    --phone-ar from the file: 4:3, or 16:9 / 2:1 for the wide-cast scenes), so
    object-fit never trims a character off the edge. */
 @media (max-width: 640px) {
   .story-hero img, .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: var(--phone-ar, 4 / 3); max-height: none; }
-  /* A phone crop is short, and Ouro's lowest coil sits near its foot: a long
-     fade washed him out (taste review r3). A short, steep fade starts below him. */
-  .story-hero { --fade-at: 90%; --fade-run: 10%; }
 }
 /* The first section after a scene no longer has to clear the nav. Unlayered,
    so it wins over each page's own pt-* utility. */
@@ -886,23 +867,13 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero + section, .story-hero + article, .story-hero + div,
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 3rem; }
 }
-/* On a wide screen the words rise into the scene's faded foot, so the title
-   sits well above the fold (55vh caps the scene itself). */
+/* On a wide screen the words follow the hero's trail closely, so a product
+   page's primary action stays in the first view (scripts/primary-action.mjs).
+   The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
-  .story-hero + section, .story-hero + article, .story-hero + div { margin-top: -3.5rem; position: relative; }
-  .story-hero + .lab-status { margin-top: -3.5rem; }
-  /* An edge hero has no faded foot to rise into: the words start below its trail. */
-  .story-hero[data-hero-edge] + :is(section, article, div, .lab-status) { margin-top: 0; }
-  /* The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
+  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 0.5rem; }
+  .story-hero[data-trail-below] + :is(section, article, div) { padding-top: 2rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
-  /* Words rise into the faded foot; pictures and windows do not. The demo
-     window, screenshot or portrait beside the title starts at the hero
-     image's foot, just below the fade, as on /ouro-md/download/ (taste
-     review r11: the windows on /ouro-md/ and /ouro-hx/ started 8px inside
-     the meadow). scripts/hero-joins.mjs holds every page to it.
-     (:is() carries .split.split-media > .split-body's weight, which would
-     otherwise reset the margin to 0.) */
-  :is(.story-hero + section, .story-hero + article, .story-hero + div) :is(.hero-media.split-body, .hero-media) { margin-top: 0.5rem; }
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor
    only, never layout; off entirely for reduced motion. */
@@ -910,33 +881,40 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    and a 5% zoom would trim the characters at its edges (taste review r4: the
    blue robot and a sheep cut off at 320). */
 @media (prefers-reduced-motion: no-preference) and (min-width: 641px) {
-  .story-hero img { transform-origin: 58% var(--hero-origin, 72%); animation: story-drift 60s ease-in-out infinite alternate; }
+  .story-hero img { transform-origin: 58% 100%; animation: story-drift 60s ease-in-out infinite alternate; }
 }
-/* A 2% zoom about the fade line (about the art's foot on an edge hero): it never carries a foot down into the fade,
-   and lifts a head at most 2% of the box, inside the 3% heroFrame() keeps
-   above the cast. */
+/* A 2% zoom about the box's foot: it never carries a foot out of the box, and
+   lifts a head at most 2% of the box, inside the 3% heroFrame() keeps above
+   the cast. */
 @keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.02) translateX(-0.4%); } }
 /* Scenes further down: soft rounded corners, no border, a whisper of glow. */
 .story-inline { border-radius: 1rem; }
 .story-inline img { aspect-ratio: 1536 / 576; object-fit: cover; }
 @media (max-width: 640px) { .story-inline img { aspect-ratio: var(--phone-ar, 4 / 3); } }
 .story-inline { box-shadow: 0 20px 50px -30px color-mix(in srgb, var(--color-amber) 55%, transparent); }
-/* The meadow above the footer: the open gate, fading in from the page. It
-   takes the file's own aspect (the wide art, or the phone crop below 640px), so
-   nothing is cropped, and the fades stay clear of the cast: Ouro's head starts
-   about 27% down the art and his lowest coil ends about 89% down (taste review
-   r7: a fixed-height band and a 30% fade cut the top of his head). */
-.story-meadow { margin-top: 3rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 91%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 91%, transparent 100%); }
+/* The meadow above the footer: the open gate. It takes the file's own aspect
+   (the wide art, or the phone crop below 640px), so nothing is cropped and
+   Ouro stays whole (taste review r7: a fixed-height band cut the top of his
+   head). Both its edges are hard, each closed by the gold trail: its own on
+   top, the footer's at its foot. */
+.story-meadow { margin-top: 3rem; overflow: visible; }
+/* Above <main> (z-index 10), so a tinted last section that meets the meadow
+   never paints over the top half of its trail; the footer stays above the
+   meadow, so its own trail shows whole along the meadow's foot. */
+.story-meadow { z-index: 11; }
+.story-meadow + .site-footer { z-index: 12; }
+.story-meadow picture { display: block; overflow: hidden; }
+.story-meadow::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 36px; z-index: 1; pointer-events: none;
+  background: var(--trail-path) center / 1200px 36px repeat-x;
+  opacity: 0.9;
+}
 .story-meadow img { aspect-ratio: 1536 / 576; object-fit: cover; }
 @media (max-width: 640px) { .story-meadow img { aspect-ratio: var(--phone-ar, 4 / 3); } }
 .story-meadow + .site-footer { margin-top: 0; border-top: 0; }
-/* Where the meadow closes the page, the meadow is the change; no trail over it. */
-.story-meadow + .site-footer::before { display: none; }
-/* The page flows into the meadow (taste review r9: a tinted last section
-   ended hard, leaving a strip of page colour above the meadow's fade). A
-   tinted section that ends the page fades out over its last 6rem instead,
-   so tint, page and meadow run into each other. */
-main > [class~="bg-deep/40"]:last-child { background: linear-gradient(to bottom, color-mix(in oklab, var(--color-deep) 40%, transparent) calc(100% - 6rem), transparent); }
+/* A tinted section that ends the page meets the meadow directly, so no strip
+   of page colour sits between the tint and the art (taste review r9). */
+main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
 /* A scene still on its way, or one whose image failed, shows its own dawn:
    StoryScene paints a tiny soft preview of the art behind it (--paint for the
    wide art, --paint-phone for the phone crop; scripts/scene-paint.mjs), framed
@@ -963,7 +941,7 @@ main > [class~="bg-deep/40"]:last-child { background: linear-gradient(to bottom,
    sections, so the page stays inside the world after the arrival. It replaces
    the hairline on every section that drew one (main > section.border-t) and
    on anything marked .trail-top. Drawn in CSS: a wandering line of light with
-   a soft glow and a few fireflies, fading out at both ends. Decoration only,
+   a soft glow and a few fireflies, running edge to edge. Decoration only,
    so it sits in the section's own top padding and never moves layout. */
 :root {
   --trail-core: #FFE7A3;
@@ -980,13 +958,11 @@ main > section.border-t::before, .trail-top::before {
   height: 36px;
   pointer-events: none;
   background: var(--trail-path) center / 1200px 36px repeat-x;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
   opacity: 0.9;
 }
 /* The trail breathes, slowly, like the light along it in the scenes. Opacity only. */
 @media (prefers-reduced-motion: no-preference) {
-  main > section.border-t::before, .trail-top::before, .story-hero[data-hero-edge]::after { animation: trail-breathe 7s ease-in-out infinite alternate; }
+  main > section.border-t::before, .trail-top::before, .story-hero::after, .story-meadow::before { animation: trail-breathe 7s ease-in-out infinite alternate; }
 }
 @keyframes trail-breathe { from { opacity: 0.6; } to { opacity: 1; } }
 
@@ -1069,8 +1045,9 @@ main > section.border-t::before, .trail-top::before {
    change never shows as a seam; the trail marks the change instead. */
 .ground-band { background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-deep) 80%, transparent) 22%, color-mix(in srgb, var(--color-deep) 80%, transparent) 78%, transparent); }
 .ground-band-soft { background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-deep) 55%, transparent) 30%, color-mix(in srgb, var(--color-deep) 55%, transparent) 70%, transparent); }
-/* A section's own texture or tint fades in and out at its edges, never a hard line. */
+/* A section's own tint fades in and out at its edges, never a hard line. fade-ok: a flat tint, no picture. */
 .ground-fade { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent); }
 /* A drawn grid is texture, so it stays clear of the section's edges entirely and
-   comes in over a long run, well past where a change of section is read. */
+   comes in over a long run, well past where a change of section is read.
+   fade-ok: a drawn grid of lines, no picture. */
 .grid-fade { -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); }

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, listHtmlFiles } from './support/dist.mjs';
-import { castFoot, heroFocus, FOOT_ALPHA, fadeAlpha, footInHero } from '../src/data/scenes.mjs';
+import { castFoot, heroFocus, heroFrame, footInHero, FOOT_ROOM } from '../src/data/scenes.mjs';
 
 // No desktop hero crops more than about a fifth of its scene away (taste
 // review r8, 2026-11-06: the legal pages' short band and ouro.bot's capped
@@ -69,38 +69,30 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
   assert.ok(checked > 20, `only ${checked} heroes checked`);
 });
 
-// No character dissolves into the hero's bottom fade (taste review r10,
-// 2026-11-06: Ouro's lower coil faded into the page on /ouro-hx/ at 1024, 1440
-// and 1920, and the picnic robots' legs on /brief/). The mask runs from opaque
-// at the page's --hero-fade to clear at the box's foot; the lowest point of
-// every character (castFoot, read off the art: Ouro, robots, people, sheep;
-// taste review r11 added the picnic robots' shoes) must keep FOOT_ALPHA of
-// itself at every laptop and desktop viewport, with the slow drift at its
-// fullest. Where the cast stands on the art's very foot, the hero is an edge
-// hero (Ari's ruling on taste review r15, replacing the round-11 apron): the
-// box ends at the art's own bottom edge with no fade, so the foot keeps all
-// of itself, and never runs past the art.
-test('global.css starts each hero\'s fade, and its drift, at the page\'s own --hero-fade', () => {
-  const at = css.indexOf('.story-hero {\n  --fade-at: var(--hero-fade');
-  assert.ok(at >= 0, 'global.css has no .story-hero mask rule');
-  const rule = css.slice(at, css.indexOf('}', at));
-  assert.match(rule, /--fade-at: var\(--hero-fade, [\d.]+%\);\s+--fade-run: calc\(100% - var\(--hero-fade, [\d.]+%\)\);/);
-  // The fade eases (taste review r14), and over its first half, where a
-  // foot may sit, it never keeps less than the straight ramp heroFrame()
-  // and fadeAlpha() assume.
-  for (const prop of ['-webkit-mask-image', 'mask-image']) {
-    const value = rule.match(new RegExp(`(?:^|\\s)${prop}: ([^;]+);`))?.[1] ?? '';
-    assert.match(value, /^linear-gradient\(to bottom, #000 0%, #000 var\(--fade-at\), /, prop);
-    assert.match(value, /, transparent 100%\)$/, prop);
-    const stops = [...value.matchAll(/rgb\(0 0 0 \/ ([\d.]+)\) calc\(var\(--fade-at\) \+ var\(--fade-run\) \* ([\d.]+)\)/g)].map(([, a, t]) => [+t, +a]);
-    assert.ok(stops.length >= 5, `${prop}: an eased fade has its stops`);
-    for (const [t, a] of stops) if (t <= 0.5) assert.ok(a >= 1 - t, `${prop}: at ${t} of the fade it keeps ${a}, under the straight ramp's ${1 - t}`);
+// Every hero ends on a hard edge at its picture's foot (Ari, 2026-11-08: no
+// picture fades to nothing; his ruling on taste review r15: no hero box runs
+// past its art). No mask on the box or the image, the gold trail closes the
+// edge, and the drift zooms about the box's foot, so it never carries a foot
+// out of the box.
+test('every hero ends on a hard edge, closed by the trail, with no fade', () => {
+  // Every rule for the selector, joined.
+  const block = (selector) => {
+    const bodies = [];
+    for (let at = css.indexOf(`\n${selector} {`); at >= 0; at = css.indexOf(`\n${selector} {`, at + 1)) bodies.push(css.slice(at, css.indexOf('}', at)));
+    assert.ok(bodies.length, `global.css has no "${selector}" rule`);
+    return bodies.join('\n');
+  };
+  assert.doesNotMatch(css, /--hero-fade|--fade-at|--fade-run|--hero-apron|--paint-foot|data-hero-edge/);
+  for (const selector of ['.story-hero', '.story-hero::after', '.story-meadow', '.story-meadow::before']) {
+    assert.doesNotMatch(block(selector), /mask/, `${selector} carries a mask`);
   }
-  assert.match(css, /\.story-hero img \{ transform-origin: 58% var\(--hero-origin, [\d.]+%\); animation: story-drift/);
-  // No apron: nothing lays paint below the art, and an edge hero has no fade.
-  assert.doesNotMatch(css, /--hero-apron|--paint-foot/);
-  assert.match(css, /\.story-hero\[data-hero-edge\] \{ -webkit-mask-image: none; mask-image: none;/);
+  assert.match(css, /\.story-hero\[data-trail-below\]::after \{ top: calc\(100% - 6px\); \}/);
+  assert.match(block('.story-hero::after'), /top: calc\(100% - 18px\);[\s\S]*background: var\(--trail-path\)/);
+  assert.match(block('.story-meadow::before'), /background: var\(--trail-path\)/);
+  assert.match(css, /\.story-hero img \{ transform-origin: 58% 100%; animation: story-drift/);
   assert.match(css, /@keyframes story-drift \{ from \{[^}]*\} to \{ transform: scale\(1\.02\)/);
+  // Words no longer rise into the picture.
+  assert.doesNotMatch(css, /\.story-hero \+ [^{]*\{[^}]*margin-top: -/);
 });
 
 test('every scene names its cast\'s lowest point, inside the crop it keeps', () => {
@@ -110,7 +102,7 @@ test('every scene names its cast\'s lowest point, inside the crop it keeps', () 
   }
 });
 
-test('no character dissolves into the bottom fade at 1024, 1280, 1440 or 1920', () => {
+test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 1920', () => {
   let checked = 0;
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
@@ -121,28 +113,24 @@ test('no character dissolves into the bottom fade at 1024, 1280, 1440 or 1920', 
     const floor = num('hero-floor');
     const arh = num('hero-arh');
     const y = num('hero-y') / 100;
-    const edge = new RegExp(`data-brand-scene="${scene}" data-hero-edge`).test(html);
-    const fade = edge ? 1 : num('hero-fade') / 100;
-    const origin = num('hero-origin') / 100;
-    assert.doesNotMatch(style, /--hero-apron|--paint-foot/, `${file}: no hero lays an apron below its art`);
-    if (edge) {
-      // The box ends at the art's own foot (y = 100%), with no fade, and the
-      // drift zooms about that edge.
-      assert.ok(!style.includes('--hero-fade'), `${file}: an edge hero has no fade`);
-      assert.equal(y, 1, `${file}: an edge hero shows the art's own foot`);
-      assert.equal(origin, 1, `${file}: an edge hero drifts about its foot`);
-    } else {
-      assert.ok(fade >= 0.72 && fade <= 0.94, `${file}: --hero-fade ${fade} is missing or outside 72-94%`);
-      assert.ok(origin >= fade && origin <= 1, `${file}: --hero-origin ${origin} must sit at or below the fade line`);
-    }
+    assert.doesNotMatch(style, /--hero-fade|--hero-origin|--hero-apron|--paint-foot/, `${file}: a hero carries fade machinery`);
+    const frame = heroFrame(scene);
+    assert.equal(y, frame.y / 100, `${file}: --hero-y is not heroFrame()'s`);
+    const below = new RegExp(`data-brand-scene="${scene}" data-trail-below`).test(html);
+    assert.equal(below, frame.trailBelow, `${file}: the trail ${frame.trailBelow ? 'must hang below' : 'sits on'} the edge`);
+    if (below) assert.ok(1 - castFoot[scene] < FOOT_ROOM && y === 1, `${file}: only a cast on the art's own foot hangs the trail below`);
+    const [top] = heroFocus[scene] ?? [0.2];
     const cap = /story-hero-content/.test(cls) ? contentCap : heroCap;
     for (const [w, h] of viewports) {
       const natural = w * arh;
       const share = Math.min(natural, px(cap, { w, h, floor, arh })) / natural;
-      const foot = footInHero(scene, { share, y, origin });
-      assert.ok(foot <= 1, `/${path.relative(distDir, file)} (${scene}) at ${w}x${h}: the cast's foot falls below the box`);
-      const alpha = fadeAlpha(foot, fade);
-      assert.ok(alpha >= FOOT_ALPHA - 0.005, `/${path.relative(distDir, file)} (${scene}) at ${w}x${h}: the cast's foot keeps only ${(alpha * 100).toFixed(0)}% of itself in the fade`);
+      const where = `/${path.relative(distDir, file)} (${scene}) at ${w}x${h}`;
+      // The foot sits FOOT_ROOM clear of the box's foot, unless the box shows the art's own foot.
+      const foot = footInHero(scene, { share, y });
+      assert.ok(y === 1 ? foot <= 1 : foot <= 1 - FOOT_ROOM + 1e-9, `${where}: the cast's foot sits at ${(foot * 100).toFixed(1)}% of the box`);
+      // The head stays clear of the top, with the drift's 2% lift at its fullest.
+      const head = (top - y * (1 - share)) / share;
+      assert.ok(1 - (1 - head) * 1.02 >= 0, `${where}: a head leaves the top of the box`);
     }
     checked++;
   }
@@ -150,8 +138,8 @@ test('no character dissolves into the bottom fade at 1024, 1280, 1440 or 1920', 
 });
 
 test('the cast\'s foot counts every character, not only Ouro', () => {
-  // Taste review r11: the picnic robots' shoes on /brief/ and /lab/why/
-  // softened into the fade; round 10 had counted their seats. The shoes
+  // Taste review r11: round 10 had counted the picnic robots' seats on
+  // /brief/ and /lab/why/, not their shoes. The shoes
   // reach 97% of the art, and so does the sneaker under the armchair.
   assert.ok(castFoot.friends >= 0.97, `friends castFoot ${castFoot.friends}`);
   assert.ok(castFoot['playwright-focus-proof'] >= 0.97);

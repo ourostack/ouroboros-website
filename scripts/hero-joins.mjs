@@ -1,16 +1,13 @@
 // Real-browser check that nothing framed starts inside the hero's art (taste
 // review r11, 2026-11-06: the demo window on /ouro-md/ and /ouro-hx/ started
-// 8 to 9px inside the hero's fading meadow at every desktop width, while
-// ouro.bot/apps/ouro-md/, now /ouro-md/download/, started its window just
-// below the fade).
+// 8 to 9px inside the hero's meadow at every desktop width).
 //
 //   npm run build && node scripts/hero-joins.mjs
 //   node scripts/hero-joins.mjs --base https://ouroboros.bot   (a live site)
 //
 // For every page in dist/ (or every sitemap page under --base), at 1024x768,
 // 1440x900 and 1920x1080, it fails when a frame, video or screenshot starts
-// above the bottom of the hero image. Words may rise into the faded foot of
-// the scene (global.css); pictures and windows may not. Counted as a frame:
+// above the bottom of the hero image. Counted as a frame:
 // a video, an iframe, an image at least MIN px on both sides, and any box at
 // least MIN px on both sides that draws an edge (a border, a shadow, or a
 // background of its own). Nothing inside the scene itself or the site
@@ -34,8 +31,9 @@
 // At 1024, 1440 and 1920 it also fails when the hero's box runs past its
 // rendered image on any side (Ari's ruling on taste review r15: the round-11
 // apron ran the box 61 to 123px past the art on six pages, showing a smeared
-// band), or when, once the image has landed, the scene's painted placeholder
-// is still set behind it.
+// band), when the hero, its picture or its image carries any mask (no
+// picture fades into the page: Ari, 2026-11-08), or when, once the image has
+// landed, the scene's painted placeholder is still set behind it.
 //
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.
@@ -102,6 +100,10 @@ function measure() {
   const ib = hero.getBoundingClientRect();
   const past = { top: ib.top - sb.top, bottom: sb.bottom - ib.bottom, left: ib.left - sb.left, right: sb.right - ib.right };
   const overrun = Object.entries(past).filter(([, d]) => d > 0.5).map(([side, d]) => `${side} ${d.toFixed(1)}px`);
+  const masked = [scene, hero.parentElement, hero].filter((el) => {
+    const s = getComputedStyle(el);
+    return [s.maskImage, s.webkitMaskImage].some((m) => m && m !== 'none');
+  }).map((el) => el.tagName.toLowerCase());
   const paint = hero.complete && hero.naturalWidth && getComputedStyle(scene).backgroundImage !== 'none' ? getComputedStyle(scene).backgroundImage.slice(0, 40) : null;
   const label = (el) => {
     const c = typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\s+/).slice(0, 3).join('.') : '';
@@ -127,7 +129,7 @@ function measure() {
     const top = r.top + scrollY;
     if (top < foot - 0.5 && r.bottom + scrollY > foot - 400) found.push({ el: label(el), top: Math.round(top), gap: +(top - foot).toFixed(1) });
   }
-  return { foot: Math.round(foot), found, overrun, paint };
+  return { foot: Math.round(foot), found, overrun, masked, paint };
 }
 
 // Runs in the page: does the breadcrumb (and the block after a centred hero) align with the h1?
@@ -174,6 +176,7 @@ for (const page of pages) {
     if (!m) continue;
     result.checked++;
     for (const f of m.found) result.failures.push(`${width} ${page} ${f.el} starts ${Math.abs(f.gap)}px above the hero's foot (y=${f.top}, foot=${m.foot})`);
+    if (m.masked.length) result.failures.push(`${width} ${page} the hero fades: a mask on ${m.masked.join(', ')}`);
     if (m.overrun.length) result.failures.push(`${width} ${page} the hero's box runs past its image: ${m.overrun.join(', ')}`);
     if (m.paint) result.failures.push(`${width} ${page} the hero's placeholder paint is still set after the image landed (${m.paint}...)`);
   }

@@ -184,12 +184,11 @@ export const heroFocus = {
 // The lowest point of any character's body in each scene's wide art (Ouro's
 // lowest coil, a robot's shoe, a sheep's hooves, a person's sneaker), as a
 // fraction of its height, read by eye off a 1% grid of the art's foot. Every
-// character counts, not only Ouro (taste review r11, 2026-11-06: the picnic
-// robots' feet softened into the fade on /brief/ and /lab/why/; round 10 had
-// counted their seats). The hero's bottom fade never starts above it, so
-// nobody dissolves into the page (taste review r10: Ouro's lower coil faded
-// away on /ouro-hx/). Props and ground below it may fade. A scene missing
-// here uses its heroFocus bottom.
+// character counts, not only Ouro (taste review r11, 2026-11-06: round 10 had
+// counted the picnic robots' seats, not their feet). The hero's crop keeps it
+// inside the box (heroFrame()), so nobody is cut at the hero's foot. Props and
+// ground below it may be cropped. A scene missing here uses its heroFocus
+// bottom.
 export const castFoot = {
   'apple-distribution-kit': 0.64,
   butler: 0.82,
@@ -290,47 +289,34 @@ const FOCUS_MARGIN = 0.06
 // to 20% at 1024, 1440 and 1920).
 export const HERO_FLOOR = 0.82
 
-// The hero's bottom fade (global.css masks the box from opaque at --hero-fade
-// to clear at its foot). It starts at 72% of the box where the cast stands
-// high, and lower where it stands near the art's foot, so the lowest point of
-// every character keeps at least FOOT_ALPHA of itself at every desktop width,
-// with the slow drift at its fullest (taste review r10; raised from 80% in
-// r11, when the picnic robots' shoes still read as softened). The fade never
-// gets shorter than 6% of the box, so it stays a soft edge, not a cut.
-export const FADE_START = 0.72
-export const FADE_LATEST = 0.94
-export const FOOT_ALPHA = 0.9
-// The drift (global.css story-drift) zooms 2% about the fade line (or, on an
-// edge hero, about the art's foot), so it never carries a foot down into the
-// fade or past the edge, and lifts a head at most 2% of the box: inside the 3% heroFrame()
-// keeps above the cast.
+// Every hero ends on a hard edge: the picture runs to the box's foot and
+// stops there, with no fade, and the site's gold trail closes it (global.css).
+// The cast stays whole: its lowest point (castFoot) sits FOOT_ROOM clear of
+// the box's foot at every desktop width, or, where the cast stands on the
+// art's very foot, the box shows the art's own foot (y = 100%), so nothing is
+// cut but the art's own edge. The trail sits centred on the edge, and its
+// glow and fireflies reach about 11px above it: FOOT_ROOM keeps the feet
+// above that in the shortest desktop hero (about 315px at 1024). Where the
+// art's own foot leaves less room than that, the trail hangs below the edge
+// instead (`trailBelow`), never across the feet. Ari's rulings: no hero box
+// ever runs past its art (taste review r15, 2026-11-07), and no picture fades
+// into the page (2026-11-08).
+export const FOOT_ROOM = 0.045
+// The drift (global.css story-drift) zooms 2% about the box's foot, so it
+// never carries a foot out of the box, and lifts a head at most 2% of the box:
+// inside the 3% heroFrame() keeps above the cast.
 export const DRIFT = 1.02
 
-// Where the cast stands on the art's very foot (the picnic robots' shoes, a
-// sneaker under the armchair, the dovecote's robots), no fade inside the art
-// can keep them whole. Ari's ruling on taste review r15 (2026-11-07), which
-// replaces the round-11 and round-14 apron: no hero box ever runs past its
-// art. Such a hero ends exactly at the art's bottom edge, with no fade, and
-// the site's gold trail closes it (global.css, [data-hero-edge]), so the cast
-// stays whole and fully opaque and nothing synthetic shows below them. The
-// crop shows the art's own foot (y = 100%), and the box is tall enough that
-// the heads keep their margin at the top.
-/** Where a point of the art (a fraction of its height) lands in the image at this share and crop, before the drift. */
+/** Where a point of the art (a fraction of its height) lands in the image at this share and crop. */
 export const inBox = (at, share, y) => (at - y * (1 - share)) / share
 
-/** The same point with the drift at its fullest, about the origin (a fraction of the image). */
-export const drifted = (p, origin) => (p <= origin ? p : origin + (p - origin) * DRIFT)
-
-/** How much of a point at box position `p` the fade keeps (1 = all of it). */
-export const fadeAlpha = (p, fade) => (p <= fade ? 1 : Math.max(0, 1 - (p - fade) / (1 - fade)))
-
 /**
- * Where the cast's foot lands in the hero box, as a fraction of the box, with
- * the drift at its fullest. `share` is the image's height over the art's own
- * height at this width.
+ * Where the cast's foot lands in the hero box, as a fraction of the box.
+ * `share` is the image's height over the art's own height at this width. The
+ * drift zooms about the box's foot, so it only lifts the foot.
  */
-export function footInHero(scene, { share, y, origin }) {
-  return drifted(inBox(castFoot[scene] ?? heroFocus[scene]?.[1] ?? 0.88, share, y), origin)
+export function footInHero(scene, { share, y }) {
+  return inBox(castFoot[scene] ?? heroFocus[scene]?.[1] ?? 0.88, share, y)
 }
 
 const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - floor) * i) / 40)
@@ -338,56 +324,35 @@ const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - flo
 /**
  * The desktop hero's crop for a scene. `need` is the least share of the art's
  * height the box may show (the cast plus margin): the hero's height cap never
- * goes below it, at any width. `y` is the object-position that, at that least
- * share or any taller one, keeps the whole cast in view. `floor` is the
- * share global.css actually holds the box to: `need`, but never under
- * HERO_FLOOR. `fade` is where the bottom fade starts, as a share of the box:
- * below the cast's foot at every share from `floor` to the whole art, or
- * none at all on an `edge` hero, where the cast stands on the art's very foot
- * and the box ends at the art's bottom edge (Ari's ruling, taste review r15).
- * `origin` is the drift's centre, as a share of the image.
+ * goes below it, at any width. `floor` is the share global.css actually holds
+ * the box to: `need`, but never under HERO_FLOOR. `y` is the object-position
+ * that, at that least share or any taller one, keeps the cast's head
+ * FOCUS_MARGIN / 2 clear of the top and its foot FOOT_ROOM clear of the
+ * bottom; where no crop can, it is 100% (the art's own foot) and the box is
+ * tall enough for the heads. `trailBelow` is set where that foot leaves the
+ * feet less than FOOT_ROOM, so the trail hangs below the edge.
  */
 export function heroFrame(scene) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
   const foot = castFoot[scene] ?? bottom
   const need = Math.min(1, bottom - top + FOCUS_MARGIN)
-  // The fade a crop needs: late enough that the foot keeps FOOT_ALPHA at every share.
-  // fadeAlpha(drifted(p, f), f) >= FOOT_ALPHA solved for f.
-  const fadeFor = (floor, y) => {
-    const p = Math.max(...shares(floor).map((s) => inBox(foot, s, y)))
-    return Math.max(FADE_START, (DRIFT * p - (1 - FOOT_ALPHA)) / (DRIFT - (1 - FOOT_ALPHA)))
-  }
   const headClear = (floor) => Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - floor)))
+  const footClear = (floor, y) => Math.max(...shares(floor).map((s) => inBox(foot, s, y))) <= 1 - FOOT_ROOM
   const floor0 = Math.max(need, HERO_FLOOR)
+  // The art's own foot, with the box tall enough for the heads.
+  const edge = { floor: Math.min(1, Math.max(floor0, 1 - (top - FOCUS_MARGIN / 2))), y: 1 }
+  // The crop with the cast's head just clear of the top at `need`; if the foot
+  // sits too low, the crop that shows the most of the art's foot while keeping
+  // the head clear, then a taller box, as long as that box is no taller than
+  // the art's own foot needs.
   let floor = floor0
-  // The crop as it was (the cast's head just clear of the top at `need`), then,
-  // if the foot would still sink into the fade, the crop that shows the most of
-  // the art's foot while keeping the head clear, then a taller box.
-  let y = need >= 1 ? 0.5 : Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - need)))
-  let fade = fadeFor(floor, y)
-  while (fade > FADE_LATEST && floor < 1) {
+  let y = need >= 1 ? 0.5 : headClear(need)
+  while (!footClear(floor, y) && floor < edge.floor) {
     y = headClear(floor)
-    fade = fadeFor(floor, y)
-    if (fade > FADE_LATEST) floor = Math.min(1, +(floor + 0.01).toFixed(3))
+    if (!footClear(floor, y)) floor = Math.min(1, +(floor + 0.01).toFixed(3))
   }
-  if (fade > FADE_LATEST) {
-    // The cast stands on the art's very foot: show the art's own foot, end
-    // the box there with no fade, and keep the heads FOCUS_MARGIN / 2 clear
-    // of the top (a taller box where the cast stands high in the art).
-    floor = +Math.min(1, Math.max(floor0, 1 - (top - FOCUS_MARGIN / 2))).toFixed(3)
-    return { need: +need.toFixed(3), floor, y: 100, fade: 100, edge: true, origin: 100, foot }
-  }
-  const at = Math.ceil(Math.min(fade, FADE_LATEST) * 1000) / 10
-  return {
-    need: +need.toFixed(3),
-    floor: +floor.toFixed(3),
-    y: +(y * 100).toFixed(1),
-    // Rounded up, so the shipped fade is never earlier than the one computed.
-    fade: at,
-    edge: false,
-    origin: at,
-    foot,
-  }
+  if (!footClear(floor, y)) ({ floor, y } = edge)
+  return { need: +need.toFixed(3), floor: +floor.toFixed(3), y: +(y * 100).toFixed(1), foot, trailBelow: y === 1 && 1 - foot < FOOT_ROOM }
 }
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */

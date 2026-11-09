@@ -190,8 +190,8 @@ const app = {
   }
   @media (min-width: 1024px) {
     .dl-hero { row-gap: var(--hero-step); }
-    /* Its inner steps close a little sooner: as set from 800px tall, 8px by 720. */
-    .dl-top, .dl-words { row-gap: clamp(0.5rem, calc((100svh - 704px) / 6), 1rem); }
+    /* Its inner steps close a little sooner: as set from 816px tall, 4px by 720. */
+    .dl-top, .dl-words { row-gap: clamp(0.25rem, calc((100svh - 720px) / 6), 1rem); }
   }
   /* Section heads at the size they had on ouro.bot. */
   @media (min-width: 768px) { .dl-h2 { font-size: 3.25rem; line-height: 1; } }
