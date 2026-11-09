@@ -1,14 +1,14 @@
 name: shadcn-add
 
-# Installs registry items into a branch in CI, so no laptop runs an install:
-# checks out the ref named in shots/shadcn-add.json, runs npm ci and
-# `npx shadcn add` with the items named there, and uploads every changed or new
-# file (with `git diff --stat`) as the `shadcn-add` artifact.
+# Runs shadcn add for Ouro UI items on a branch, in CI (the laptop's npm proxy
+# lacks packages), and uploads the result as a patch to review and apply by
+# hand: shots/shadcn.json is { ref, tag, items: [...] }. Lives only on the
+# pr-proof branch; it pushes nothing.
 
 on:
   push:
     branches: [pr-proof]
-    paths: [shots/shadcn-add.json]
+    paths: [shots/shadcn.json]
 
 permissions:
   contents: read
@@ -16,15 +16,14 @@ permissions:
 jobs:
   add:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: proof
       - id: req
         run: |
-          echo "ref=$(jq -r .ref proof/shots/shadcn-add.json)" >> "$GITHUB_OUTPUT"
-          echo "items=$(jq -r '.items | join(" ")' proof/shots/shadcn-add.json)" >> "$GITHUB_OUTPUT"
+          echo "ref=$(jq -r .ref shots/shadcn.json)" >> "$GITHUB_OUTPUT"
+          echo "tag=$(jq -r .tag shots/shadcn.json)" >> "$GITHUB_OUTPUT"
+          echo "items=$(jq -r '.items | join(" ")' shots/shadcn.json)" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
         with:
           ref: ${{ steps.req.outputs.ref }}
@@ -33,15 +32,21 @@ jobs:
         with:
           node-version: 22
       - working-directory: site
+        env:
+          TAG: ${{ steps.req.outputs.tag }}
+          ITEMS: ${{ steps.req.outputs.items }}
         run: |
           npm ci --no-audit --no-fund
-          npx --yes shadcn@latest add ${{ steps.req.outputs.items }} --yes --overwrite 2>&1 | tee ../shadcn.log
-          git add -A
-          git --no-pager diff --cached --stat | tee ../diffstat.txt
           mkdir -p ../out
-          git diff --cached --name-only -z | xargs -0 -I{} sh -c 'mkdir -p "../out/$(dirname "{}")" && cp "{}" "../out/{}"'
-          cp ../shadcn.log ../diffstat.txt ../out/
+          for item in $ITEMS; do
+            echo "::group::add $item#$TAG"
+            npx --yes shadcn@latest add "ourostack/ouro-ui/$item#$TAG" --overwrite --yes 2>&1 | tee -a ../out/shadcn.log
+            echo "::endgroup::"
+          done
+          git add -A
+          git diff --cached --stat | tee ../out/stat.txt
+          git diff --cached --binary > ../out/shadcn.patch
       - uses: actions/upload-artifact@v4
         with:
-          name: shadcn-add
+          name: shadcn
           path: out/
