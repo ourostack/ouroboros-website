@@ -67,9 +67,11 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
   .md-copy { grid-area: copy; }
   .md-aside { grid-area: aside; margin: 0; }
   .md-hero > .hero-media { grid-area: media; margin-top: 0.75rem; }
+  /* Stacked, the note keeps the section rhythm (2.5rem) under the recording's caption. */
+  .md-hero > .md-aside { margin-top: 1.25rem; }
   @media (min-width: 1024px) {
     .md-hero { grid-template-columns: minmax(0, var(--clip-w)) minmax(16rem, 1fr); grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
-    .md-hero > .hero-media { margin-top: 0; }
+    .md-hero > .hero-media, .md-hero > .md-aside { margin-top: 0; }
     .md-copy { align-self: start; }
   }
   @media (min-width: 1280px) {
