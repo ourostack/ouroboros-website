@@ -149,12 +149,18 @@ test('while the phone menu is open, the page behind it is inert', () => {
   }
 });
 
-test('every item in the phone menu is set in the same size, GitHub included', () => {
+// The site's own sections share one size; the family's sites, under them,
+// share their own, smaller one (the family pass, 2026-11-08).
+test('every section in the phone menu is set in the same size, and so is every family site', () => {
   const html = readDist('index.html');
-  const panel = html.match(/<div id="mobile-menu"[\s\S]*?<\/div>\s*<\/div>/)[0];
-  const sizes = [...panel.matchAll(/<a\b[^>]*class="([^"]*)"/g)].map(([, c]) => (c.match(/\btext-(xl|2xl|3xl|4xl)\b/) || [])[1]);
-  assert.ok(sizes.length >= 7, 'found the menu links');
+  const panel = html.match(/<div id="mobile-menu"[\s\S]*?<\/ul>\s*<\/div>\s*<\/div>/)[0];
+  const sections = panel.slice(0, panel.indexOf('<ul class="menu-family"'));
+  const sizes = [...sections.matchAll(/<a\b[^>]*class="([^"]*)"/g)].map(([, c]) => (c.match(/\btext-(xl|2xl|3xl|4xl)\b/) || [])[1]);
+  assert.equal(sizes.length, 4, 'found the four sections');
   assert.deepEqual([...new Set(sizes)], ['3xl']);
+  const family = panel.slice(panel.indexOf('<ul class="menu-family"'));
+  assert.equal([...family.matchAll(/<a\b/g)].length, 7, 'found the seven family sites');
+  assert.doesNotMatch(family, /class="[^"]*\btext-/, 'the family links take one size, from .menu-family');
 });
 
 // Taste review r6: page text read through the bottom of the open menu at 390,

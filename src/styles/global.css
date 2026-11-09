@@ -309,7 +309,7 @@ html, body { overflow-x: clip; }
    lede and action are as set from 848px tall and close to 4px at 720 (the
    words start just under the hero's hard edge, so they no longer rise into
    it to save the room); the
-   title and its mark are as set from 900px tall and ease to 3.4rem and 3rem
+   title and its mark are as set from 900px tall and ease to 3rem and 3rem
    at 720 (--hero-mark-lg for the 4.5rem marks on /butler/ and /ouro-hx/).
    The lede keeps its 24px (taste review r9); its leading eases from 33px at
    800 to 30px at 720. Never on a phone. */
@@ -321,7 +321,7 @@ html, body { overflow-x: clip; }
   }
   .hero-copy { row-gap: var(--hero-step); }
   .hero-flow > :is([data-hero-lede], [data-primary-action]) { margin-top: clamp(0.25rem, calc((100svh - 688px) / 8), 1.5rem); }
-  :is(.hero-copy, .hero-flow) .heading-lead { font-size: clamp(3.4rem, calc(3.4rem + (100svh - 720px) / 11), 4.4rem); }
+  :is(.hero-copy, .hero-flow) .heading-lead { font-size: clamp(3rem, calc(3rem + (100svh - 720px) / 8), 4.4rem); }
   :is(.hero-copy, .hero-flow) :is(.mark-tile, .mark-render) { width: var(--hero-mark); height: var(--hero-mark); }
   :is(.hero-copy, .hero-flow) .product-lede { line-height: clamp(1.875rem, calc(1.875rem + (100svh - 720px) / 26.667), 2.0625rem); }
 }
@@ -853,7 +853,12 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-scene { position: relative; overflow: hidden; }
 .story-scene img { display: block; width: 100%; height: auto; }
 /* The scene starts just under the header, so nothing in it (Ouro's head least of all) hides behind the bar. */
-.story-hero { width: 100%; margin-top: 4rem; }
+/* --nav-h is the site's own nav bar under the family bar: 4rem on a phone,
+   2.5rem from 1024px, where the family bar and the nav together keep a
+   product page's primary action in the first view (scripts/primary-action.mjs). */
+:root { --nav-h: 4rem; }
+@media (min-width: 1024px) { :root { --nav-h: 2.5rem; } }
+.story-hero { width: 100%; margin-top: var(--nav-h); }
 /* The height cap never trims the cast (taste review r5: the robot's head was cut
    at 1440), and never crops much of the scene at all (taste review r8: short
    heroes cut Ouro's body off on the legal pages). StoryScene sets, per scene,
@@ -902,7 +907,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    page's primary action stays in the first view (scripts/primary-action.mjs).
    The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
-  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 0.5rem; }
+  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 0.25rem; }
   .story-hero[data-trail-below] + :is(section, article, div) { padding-top: 2rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }
