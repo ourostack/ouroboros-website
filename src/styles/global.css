@@ -556,6 +556,9 @@ p, li, dd, figcaption { text-wrap: pretty; }
     outline-offset: 2px;
   }
   :focus:not(:focus-visible) { outline: none; }
+  /* A code block that scrolls takes focus so keys can scroll it; its card clips
+     anything outside it, so its ring sits just inside. */
+  pre[tabindex]:focus-visible { outline-offset: -2px; }
 }
 
 /* ── Links ──
