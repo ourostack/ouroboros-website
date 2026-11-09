@@ -13,7 +13,7 @@ import path from 'node:path';
 export const SOURCE_EXTENSIONS = new Set(['.css', '.astro', '.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.html', '.svg', '.vue', '.svelte']);
 
 const PROPERTY = /(?<![\w-])(?:(?:-webkit-)?mask(?:-image)?|WebkitMaskImage|WebkitMask|maskImage)\s*:/g;
-// Tailwind v4's mask utilities, each a gradient mask-image: mask-b-from-70%, mask-linear-..., mask-radial-...
+// Tailwind v4's mask utilities (mask-t-*, mask-b-*, mask-linear-*, mask-radial-*, ...), each a gradient mask-image.
 const UTILITY = /(?<![\w-])mask-(?:[tbrlxy]|linear|radial|conic)-[\w%.\[\]()/-]+/g;
 // A value ends at ; } or ], or at a quote that closes an attribute or a JSX string.
 const VALUE_END = /[;}\]]|["'`](?=\s*(?:[\w:@-]+=|\/?>|,|$))/m;
