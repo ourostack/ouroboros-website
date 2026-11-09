@@ -1,13 +1,59 @@
 {
-  "bases": { "before": "https://ouroboros.bot", "after": "https://ouroboros-website-pr-101.mendelow-studio.workers.dev" },
-  "items": [
-    { "name": "bar", "path": "/", "w": 1440, "h": 900, "dpr": 1, "themes": ["light", "dark"], "sel": "body", "above": 0, "height": 140 },
-    { "name": "bar", "path": "/ouro-md/", "w": 1440, "h": 900, "dpr": 2, "themes": ["dark"], "sel": "body", "above": 0, "height": 140 },
-    { "name": "bar", "path": "/", "w": 3840, "h": 2160, "dpr": 1, "themes": ["light"], "sel": "body", "above": 0, "height": 220 },
-    { "name": "footer", "path": "/", "w": 1440, "h": 900, "dpr": 1, "themes": ["light", "dark"], "sel": "[data-ouro=family-footer]", "above": 260, "height": 460 },
-    { "name": "footer", "path": "/apps/", "w": 390, "h": 844, "dpr": 2, "themes": ["light", "dark"], "sel": "[data-ouro=family-footer]", "above": 200, "height": 560 },
-    { "name": "footer", "path": "/", "w": 3840, "h": 2160, "dpr": 1, "themes": ["dark"], "sel": "[data-ouro=family-footer]", "above": 400, "height": 700 },
-    { "name": "home-top", "path": "/", "w": 390, "h": 844, "dpr": 2, "themes": ["light", "dark"] },
-    { "name": "home-top", "path": "/", "w": 1440, "h": 900, "dpr": 1, "themes": ["light", "dark"] }
-  ]
+ "bases": {
+  "before": "https://ouroboros.bot",
+  "after": "https://ouroboros-website-pr-101.mendelow-studio.workers.dev"
+ },
+ "items": [
+  {
+   "name": "footer",
+   "path": "/",
+   "w": 1440,
+   "h": 900,
+   "dpr": 1,
+   "themes": [
+    "light",
+    "dark"
+   ],
+   "sel": ".site-footer",
+   "element": true
+  },
+  {
+   "name": "footer",
+   "path": "/apps/",
+   "w": 390,
+   "h": 844,
+   "dpr": 2,
+   "themes": [
+    "light",
+    "dark"
+   ],
+   "sel": ".site-footer",
+   "element": true
+  },
+  {
+   "name": "footer",
+   "path": "/",
+   "w": 3840,
+   "h": 2160,
+   "dpr": 1,
+   "themes": [
+    "dark"
+   ],
+   "sel": ".site-footer",
+   "element": true
+  },
+  {
+   "name": "bar-home",
+   "path": "/",
+   "w": 1440,
+   "h": 900,
+   "dpr": 1,
+   "themes": [
+    "dark"
+   ],
+   "sel": "body",
+   "above": 0,
+   "height": 140
+  }
+ ]
 }

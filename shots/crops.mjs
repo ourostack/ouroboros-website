@@ -33,7 +33,8 @@ try {
             await p.waitForTimeout(900);
             clip = { x: 0, y: 0, width: item.w, height: Math.min(item.h, item.height ?? item.h) };
           } else await p.waitForTimeout(900);
-          await p.screenshot({ path: file, clip });
+          if (item.element) await p.locator(item.sel).first().screenshot({ path: file });
+          else await p.screenshot({ path: file, clip });
           console.log(`ok ${file}`);
         } catch (e) { failures.push(`${file}: ${e.message.split('\n')[0]}`); }
         await ctx.close();
