@@ -1,0 +1,38 @@
+name: build-dist
+
+# Builds a ref named in shots/build.json and uploads its dist/ as the `dist`
+# artifact, so a laptop that can't install the site's packages can still
+# serve and measure the built site. Lives only on the pr-proof branch.
+
+on:
+  push:
+    branches: [pr-proof]
+    paths: [shots/build.json]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: proof
+      - id: req
+        run: echo "ref=$(jq -r .ref proof/shots/build.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.req.outputs.ref }}
+          path: site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - working-directory: site
+        run: npm ci --no-audit --no-fund && npx astro build
+      - run: tar -czf dist.tgz -C site dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist.tgz
