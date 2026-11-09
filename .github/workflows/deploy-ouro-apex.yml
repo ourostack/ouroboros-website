@@ -66,10 +66,10 @@ jobs:
           if [ "${{ github.event_name }}" != workflow_dispatch ]; then
             if [ "$version" = "ouro-apps-site ouro-apex $sha" ]; then
               deploy=false; echo "Up to date."
-            elif [ "$deployment" = "rollback after ouro-apps-site ouro-apex $sha" ]; then
-              # A scheduled run doesn't retry a commit whose checks already failed; a new commit or a
-              # manual run does.
-              deploy=false; echo "::warning::ouro-apps-site $sha failed its checks and was rolled back; not retrying on schedule."
+            elif echo "$deployment" | grep -qi '^rollback'; then
+              # The live version was rolled back, by this workflow after a failed check or by a
+              # person. Scheduled runs hold until someone runs this workflow by hand.
+              deploy=false; echo "::warning::the live deployment is a rollback ($deployment); scheduled deploys hold until a manual run."
             fi
           fi
           echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
@@ -91,17 +91,21 @@ jobs:
             sleep $(( (26 - minute) * 60 - 10#$(date -u +%S) ))
           fi
 
+      # Before the rollback target is recorded, so a failed snapshot stops the run without a rollback.
+      - name: Snapshot the endpoints before
+        if: steps.compare.outputs.deploy == 'true'
+        working-directory: ouro-apps-site
+        run: |
+          set -o pipefail
+          scripts/verify-endpoints.sh | tee before.txt
+          [ "$(grep -c '^KEEP' before.txt)" -ge 7 ]
+
       - name: Record the live version for rollback
         if: steps.compare.outputs.deploy == 'true'
         run: |
           $WRANGLER deployments list --name ouro-apex
           echo "Rollback target: ouro-apex version ${{ steps.compare.outputs.rollback }}"
           echo "ROLLBACK_ID=${{ steps.compare.outputs.rollback }}" >> "$GITHUB_ENV"
-
-      - name: Snapshot the endpoints before
-        if: steps.compare.outputs.deploy == 'true'
-        working-directory: ouro-apps-site
-        run: scripts/verify-endpoints.sh | tee before.txt
 
       - name: Deploy
         if: steps.compare.outputs.deploy == 'true'
@@ -120,7 +124,9 @@ jobs:
         working-directory: ouro-apps-site
         run: |
           sleep 15
+          set -o pipefail
           scripts/verify-endpoints.sh | tee after.txt
+          [ "$(grep -c '^KEEP' after.txt)" -ge 7 ]
           ok=1
           if ! diff <(grep -E '^(KEEP|SCHEMA|PAGE)' before.txt) <(grep -E '^(KEEP|SCHEMA|PAGE)' after.txt); then
             echo "::error::the bytes clients get changed"; ok=0
