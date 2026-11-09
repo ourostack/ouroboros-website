@@ -64,7 +64,7 @@ const pages = {
   // its scene; the neighbour rule below stands everywhere else.
   '/ouro-md/download': { hero: 'ouro-md', content: true, product: true },
   '/butler': { hero: 'butler', content: true, product: true },
-  '/housesitter': { hero: 'housesitter', content: true },
+  '/housesitter': { hero: 'housesitter', content: true, product: true },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
   '/blog/take-the-agents-seat': { hero: 'ouro-ui-apple' },

@@ -4,6 +4,7 @@ import OuroMdMedia from '../components/OuroMdMedia.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor, entry } from '../data/readiness.mjs'
 import { ouroMdInstall } from '../data/principles.mjs'
+import { ouroMdDownload } from '../data/ouro-md-release.mjs'
 import StoryScene from '../components/StoryScene.astro'
 
 // The apps shelf. It moved here from the ouro.bot homepage (ourostack/ouro-apps-site#15)
@@ -30,10 +31,13 @@ const shelf = [
   { id: 'shepherd', scene: 'shepherd', name: 'Ouro Shepherd', readiness: 'shepherd',
     body: 'Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.',
     links: [['https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', 'How Shepherd decides ↗']] },
+  { id: 'friends', scene: 'friends', name: 'Friends', readiness: 'friends',
+    body: 'Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.',
+    links: [['https://github.com/ourostack/friends', 'Friends on GitHub ↗']] },
   // Ouro UI is the home of Ouro HX and Ouro AX (ui.ouroboros.bot). The anchor
   // stays #ouro-hx, where ouro.bot's old shelf link forwards.
   { id: 'ouro-hx', scene: 'ouro-hx', name: 'Ouro UI', readiness: 'ouro-hx',
-    body: 'Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX brings the same care to interfaces an agent uses.',
+    body: 'Ouro UI is the home of Ouro HX and Ouro AX. Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.',
     links: [['https://ui.ouroboros.bot/', 'Meet Ouro UI ↗']] },
   { id: 'desk', scene: 'desk', name: 'Desk', readiness: 'desk-claude-code-macos',
     body: 'Desk keeps my agents’ work in a Git repository: every track, task, decision, and lesson. Ask “where were we?” on any machine, and the agent knows.',
@@ -42,7 +46,7 @@ const shelf = [
     body: 'An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.',
     links: [['/butler/', 'Ouro Butler →']] },
   { id: 'housesitter', scene: 'housesitter', name: 'housesitter', readiness: 'housesitter',
-    body: 'Keeps an agent Mac alive while you’re away. A small KVM beside it unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you.',
+    body: 'Keeps an agent Mac alive while you’re away. A small KVM beside it unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you. On a real Mac mini, it went from Restart to desktop in 70 seconds.',
     links: [['/housesitter/', 'housesitter →']] },
 ].map((item) => ({ ...item, status: labelFor(item.readiness), detail: entry(item.readiness).detail }))
 ---
@@ -51,9 +55,9 @@ const shelf = [
   <section class="px-6 md:px-12 lg:px-16 pt-28 pb-12 md:pt-36">
     <div class="max-w-6xl mx-auto hero-flow apps-hero">
       <h1 class="heading-lead"><span class="t-clause"><span class="t-ph">Fresh from</span> <span class="t-ph">the workshop,</span></span> <span class="t-clause t-ph">ready to install.</span></h1>
-      <p class="mt-6 text-xl md:text-2xl text-bone leading-snug" data-hero-lede>Small, sharp tools for people who live in text, and for the agents who live there with them. What they're for, and how my agents put them to work, is <a href="/" class={link}>all over this site</a>.</p>
+      <p class="mt-6 product-lede" data-hero-lede>Small, sharp tools for people who live in text, and for the agents who live there with them. What they're for, and how my agents put them to work, is <a href="/" class={link}>all over this site</a>.</p>
       <div class="mt-6 btn-row" data-primary-action>
-        <a href="/ouro-md/download/" class="btn-primary">Download Ouro MD &rarr;</a>
+        <a href={ouroMdDownload} class="btn-primary">Download Ouro MD &rarr;</a>
         <a href="#more" class="btn-ghost">More from the workshop</a>
       </div>
     </div>
@@ -65,7 +69,7 @@ const shelf = [
         <h2 id="ouro-md-heading" class="heading-section page-mark"><img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-tile" /><span class="t-ph">Ouro MD</span></h2>
         <p class="flex flex-wrap items-center gap-3"><span class={`tag ${md.tone}`}>{md.label}</span><span class="text-mist">{mdDetail}.</span></p>
         <p class="text-lg text-mist leading-relaxed">My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
-        <p><a href="/ouro-md/" class={`hit ${link}`}>Features and install details &rarr;</a></p>
+        <p><a href="/ouro-md/download/" class={`hit ${link}`}>Features and install details &rarr;</a></p>
         <div class="grid gap-2">
           <p class="caption-mono">Or install in Terminal</p>
           <pre id="apps-ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
@@ -103,7 +107,7 @@ const shelf = [
             <StoryScene scene={item.scene} sizes="(min-width: 900px) 34rem, 100vw" />
             <div class="shelf-body">
               <h3 class="shelf-name">{item.name}</h3>
-              <p class="shelf-status"><span class={`tag ${item.status.tone}`}>{item.status.label}</span> {item.detail}</p>
+              <p class="shelf-status"><span class={`tag ${item.status.tone}`}>{item.status.label}</span> <span class="shelf-detail">{item.detail}</span></p>
               <p>{item.body}</p>
               <p class="product-links">{item.links.map(([href, label]) => <a href={href} class={link}>{label}</a>)}</p>
             </div>
@@ -123,7 +127,6 @@ const shelf = [
   @media (min-width: 1280px) {
     .apps-hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 3rem; align-items: end; }
     .apps-hero > h1 { grid-column: 1 / -1; }
-    .apps-hero > [data-hero-lede] { max-width: 44rem; }
     .apps-hero > [data-primary-action] { flex-wrap: nowrap; }
     /* The title is a sentence on one line here, so it eases a step further
        on a short laptop than a product's name does. */
@@ -147,5 +150,7 @@ const shelf = [
   .shelf > li { display: grid; gap: 1.25rem; align-content: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .shelf-body { display: grid; gap: 0.5rem; align-content: start; }
   .shelf-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
+  /* The detail wraps as one line of text beside the tag, never in fragments. */
+  .shelf-detail { flex: 1 1 14rem; min-width: 0; }
   .shelf-name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; color: var(--color-bone); }
 </style>

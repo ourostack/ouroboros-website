@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import WorkshopVideo from '../../components/WorkshopVideo.astro'
 import { ogPathFor } from '../../data/og'
 import { ouroMdInstall } from '../../data/principles.mjs'
+import { ouroMdDownload } from '../../data/ouro-md-release.mjs'
 
 // Ouro MD's download page. It moved here from ouro.bot/apps/ouro-md/ (Ari,
 // 2026-11-07: "move every surface to ouroboros.bot and have ouro.bot forward");
@@ -12,10 +13,9 @@ import { ouroMdInstall } from '../../data/principles.mjs'
 // The version, the download link and the signing line read /ouro-md/stable.json,
 // which .github/workflows/refresh-ouromd-release.yml rewrites hourly.
 const title = 'Download Ouro MD: Markdown that renders as you type | Ouro'
-const description = 'Ouro MD is a native macOS Markdown editor that renders as you type. Tables, code, math, and diagrams become themselves in place — no preview pane, no mode toggle. Download it free.'
+const description = 'Ouro MD is a native macOS Markdown editor that renders as you type. Tables, code, math, and diagrams become themselves in place. Download it free.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const section = 'px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20'
-const releases = 'https://github.com/ourostack/ouro-md/releases/latest'
 const themes = ['light', 'dark'] as const
 const typing = 'Lists and flowcharts render as you type.'
 
@@ -38,7 +38,7 @@ const app = {
   operatingSystem: 'macOS 15+',
   applicationCategory: 'DeveloperApplication',
   url: 'https://ouroboros.bot/ouro-md/download/',
-  description: 'A native macOS Markdown editor that renders as you type — no preview pane, no toggle.',
+  description: 'A native macOS Markdown editor that renders as you type.',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   publisher: { '@type': 'Organization', name: 'Ouro', url: 'https://ouroboros.bot/' },
 }
@@ -54,9 +54,9 @@ const app = {
         <h1 class="heading-lead"><span class="t-ph">Markdown that</span> <span class="t-ph">renders as you type.</span></h1>
       </div>
       <div class="dl-words grid gap-5 lg:gap-4 content-start min-w-0">
-        <p class="product-lede" data-hero-lede>Ouro MD renders Markdown in place as you type. Headings, tables, code, math, and diagrams become themselves — right where your cursor is. No split preview. No mode toggle. Just the document, staying honest about the Markdown underneath.</p>
+        <p class="product-lede" data-hero-lede>Ouro MD renders Markdown in place as you type. Headings, tables, code, math, and diagrams become themselves — right where your cursor is. Just the document, staying honest about the Markdown underneath.</p>
         <div class="btn-row" data-primary-action>
-          <a id="download" class="btn-primary" href={releases}>Download Ouro MD</a>
+          <a id="download" class="btn-primary" href={ouroMdDownload}>Download Ouro MD</a>
           <a class="btn-ghost" href="#install">Install by terminal</a>
         </div>
         <p class="dl-trust">
@@ -120,7 +120,7 @@ const app = {
         <h2 class="heading-section dl-h2">One line, fully auditable.</h2>
         <p class="text-lg md:text-xl text-mist leading-relaxed">The installer fetches the latest release, verifies its manifest and SHA-256 checksum against the published metadata, then installs the app. Magic you can read.</p>
         <div class="btn-row mt-3">
-          <a id="download-2" class="btn-primary" href={releases}>Or download the DMG</a>
+          <a id="download-2" class="btn-primary" href={ouroMdDownload}>Or download the DMG</a>
           <a class={`dl-link ${link}`} href="/ouro-md/stable.json">Release metadata</a>
         </div>
       </div>
@@ -165,7 +165,8 @@ const app = {
      1440x900, 1536x864 and 1920x1080, and right under the lede on a phone
      (Ari's ruling on taste review r20, laptop sizes from r21;
      scripts/primary-action.mjs). The headline runs the full width on one
-     line; below it the words sit beside the demo from 1280px (except on a
+     line; below it the words sit beside the demo from 1280px, the demo the
+     wider of the two as on /ouro-md/ (except on a
      short laptop, below), and above it, the demo below, under 1280px. */
   .dl-hero { display: grid; grid-template-areas: "head" "words" "media"; row-gap: 1.25rem; }
   .dl-top { grid-area: head; }
@@ -178,7 +179,7 @@ const app = {
     .dl-media { max-width: 640px; }
   }
   @media (min-width: 1280px) {
-    .dl-hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-areas: "head head" "words media"; column-gap: 3rem; align-items: start; }
+    .dl-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-areas: "head head" "words media"; column-gap: 3rem; align-items: start; }
     .dl-media { margin-top: 0; max-width: 840px; }
   }
   /* A short laptop (1280x720, 1366x768, 1536x864; the same query as the

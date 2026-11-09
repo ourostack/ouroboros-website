@@ -23,6 +23,7 @@ const { winner: reviewWinner, allChose, winnerCount, totalReviews } = getModelRe
 const reviewHeading = allChose ? 'Every frontier model we asked picked' : `${winnerCount} of ${totalReviews} frontier models we asked picked`
 const deskLabel = labelFor('desk-claude-code-macos')
 const hxLabel = labelFor('ouro-hx')
+const mdLabel = labelFor('ouro-md')
 const shepherdLabel = labelFor('shepherd')
 const friendsLabel = labelFor('friends')
 const friendsDetail = entry('friends').detail
@@ -67,6 +68,7 @@ const wastes = [
       <div class="hero-copy">
       <h1 class="hero-title heading-hero animate-fade-up">How can humans and agents do more <span class="text-scale">together?</span></h1>
       <p class="hero-sub text-lg md:text-2xl text-bone leading-snug animate-fade-up stagger-1">Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.</p>
+      <p class="hero-next animate-fade-up stagger-1"><a href="#try" class="btn-ghost">Start with what you need &darr;</a></p>
       </div>
       <a href="https://mendelow.me" class="hero-pic hero-media portrait group animate-fade-up stagger-2">
         <picture class="block w-full">
@@ -141,6 +143,7 @@ const wastes = [
           <DeskMedia />
           <div class="tool-copy">
             <h3 class="tool-name"><StoryScene scene={homeTools.desk} variant="vignette" alt="" class="tool-scene" />Desk</h3>
+            <p class="grown-status"><span class={`tag ${deskLabel.tone}`}>{deskLabel.label}</span></p>
             <p>Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson. I can open any harness on any of my machines, ask "where were we?", and the agent knows.</p>
             <p class="product-links"><a href="/desk/" class={link}>Desk &rarr;</a></p>
           </div>
@@ -150,6 +153,7 @@ const wastes = [
           <OuroMdMedia only="agent" />
           <div class="tool-copy">
             <h3 class="tool-name"><StoryScene scene={homeTools['ouro-md']} variant="vignette" alt="" class="tool-scene" />Ouro MD</h3>
+            <p class="grown-status"><span class={`tag ${mdLabel.tone}`}>{mdLabel.label}</span></p>
             <p>My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
             <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
           </div>
@@ -166,7 +170,7 @@ const wastes = [
           <div class="tool-copy">
             <h3 class="tool-name"><StoryScene scene={homeTools['ouro-ui']} variant="vignette" alt="" class="tool-scene" />Ouro UI</h3>
             <p class="grown-status"><span class={`tag ${hxLabel.tone}`}>{hxLabel.label}</span></p>
-            <p>Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.</p>
+            <p>Ouro UI is the home of Ouro HX and Ouro AX. Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX comes next: the same care for interfaces an agent uses, such as CLIs and MCP servers.</p>
             <p class="product-links"><a href="https://ui.ouroboros.bot/" class={link}>Ouro UI &#8599;</a> <a href="https://ui.ouroboros.bot/voyage/" class={link}>Try the showcase &#8599;</a> <a href="https://github.com/ourostack/ouro-ui" class={link}>Source &#8599;</a></p>
           </div>
         </article>
@@ -257,7 +261,7 @@ const wastes = [
           <p class="text-lg text-mist leading-relaxed">The numbers are public, alarms and all.</p>
           <p class="grown-status mt-2"><span class={`tag ${factoryLabel.tone}`}>{factoryLabel.label}</span> {factoryDetail}</p>
         </div>
-        <a href={factoryUrl} class="btn-primary">See my agents' numbers &#8599;</a>
+        <a href={factoryUrl} class="btn-ghost">See my agents' numbers &#8599;</a>
       </div>
     </div>
   </section>
@@ -318,7 +322,9 @@ const wastes = [
   /* The hero layout is shared with mendelow.me's (styles.css there): keep the two identical.
      On a phone the question and the hello lead, centered, and the photo follows them, full width and
      cropped wide around the face (taste review r2, 2026-11-06: the h1 comes before the portrait). From 768px the copy is one block, centered beside a portrait-shaped photo. */
-  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "sub" "pic"; text-align: center; }
+  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "sub" "next" "pic"; text-align: center; }
+  /* The way to the "Start with what you need" router, in the first view (Fadell, round two). */
+  .hero-next { grid-area: next; }
   .hero-copy { display: contents; }
   .hero-title { grid-area: title; }
   .hero-sub { grid-area: sub; }
@@ -328,12 +334,15 @@ const wastes = [
   @media (min-width: 768px) {
     .hero { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
     .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
-    .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
+    .hero-copy > .hero-title, .hero-copy > .hero-sub, .hero-copy > .hero-next { grid-area: auto; }
     .portrait { justify-items: center; width: 12rem; }
     .portrait-img { aspect-ratio: 600 / 824; }
   }
-  @media (min-width: 1024px) { .portrait { width: 17rem; } }
-  @media (min-width: 1240px) { .portrait { width: 21rem; } }
+  /* From 1024 the portrait is as tall as the first view allows, so the title,
+     the hello and the photo's foot all sit inside it (Ive, round two: the
+     fold cut "Hello!! I'm Ari" in half at 1440x900). */
+  @media (min-width: 1024px) { .hero { align-items: end; } .portrait { width: clamp(14rem, calc((100svh - 36rem) * 0.73), 17rem); } }
+  @media (min-width: 1240px) { .portrait { width: clamp(14rem, calc((100svh - 36rem) * 0.73), 21rem); } }
   .portrait-img { width: 100%; height: auto; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
   .portrait:hover .portrait-img, .portrait:focus-visible .portrait-img { border-color: var(--color-scale); }
   .portrait-link { color: var(--color-scale); white-space: nowrap; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); text-underline-offset: 4px; }
@@ -416,11 +425,18 @@ const wastes = [
   .start:hover .start-q { color: var(--color-scale); }
   .start:hover .start-a { transform: translateX(0.25rem); }
   .tools { display: grid; gap: 4.5rem; margin-top: 3.5rem; }
-  @media (min-width: 1024px) { .tools { gap: 7rem; margin-top: 5rem; } }
+  @media (min-width: 1024px) { .tools { gap: 5rem; margin-top: 5rem; } }
   /* Stacked, a tool's demo leads it: its caption keeps the site's section rhythm (2.5rem) above the tool's name, so the caption never reads as the name's label (taste review r19). */
   .tool { display: grid; gap: 2.5rem; align-items: center; }
+  /* Side by side, the copy starts level with the top of its demo. */
   @media (min-width: 1024px) {
-    .tool { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4rem; }
+    .tool { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4rem; align-items: start; }
+    .tool-copy { padding-top: 1.5rem; }
+  }
+  /* From 2000px every demo is the Ouro MD recording's 840 CSS px, so the
+     rows share one edge instead of stepping in and out around it. */
+  @media (min-width: 2000px) {
+    .tool { grid-template-columns: minmax(0, 840px) minmax(0, 1fr); }
   }
   .tool > :global(.product-figure) { margin: 0; min-width: 0; }
   .tool-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; color: var(--color-mist); font-size: 1.125rem; line-height: 1.65; }

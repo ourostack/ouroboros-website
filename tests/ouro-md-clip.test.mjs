@@ -17,8 +17,10 @@ test("the Ouro MD clip's frame takes the window's own corner, so it has one edge
   assert.match(rule, /aspect-ratio:\s*4 \/ 3/);
 });
 
-test('the Ouro MD clip is never shown wider than it was recorded', () => {
-  assert.match(css, /\.clip:has\(> \.media-clip\), \.product-figure:has\(> \.media-clip\) \{ width: 100%; max-width: 840px; \}/);
+test('the Ouro MD clip is never wider than 840 CSS px, its recorded width', () => {
+  const rule = css.match(/\.product-figure:has\(> \.media-clip\) \{([^}]*)\}/)?.[1] ?? '';
+  assert.match(rule, /max-width:\s*840px/);
+  assert.doesNotMatch(rule, /max-width:\s*[\d.]+rem/, 'never in rem, which grows past 840px on a wide screen');
   for (const file of ['ouro-md/index.html', 'ouro-md/download/index.html', 'index.html', 'apps/index.html']) {
     const html = readDist(file);
     for (const [, w] of html.matchAll(/<video\b[^>]*data-poster="\/images\/workshop\/ouro-md-[^"]*"[^>]*width="(\d+)"/g)) assert.equal(Number(w), 840, `${file}: a clip claims ${w}px`);

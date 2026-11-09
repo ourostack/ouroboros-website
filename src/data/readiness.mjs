@@ -27,7 +27,7 @@ export const readiness = [
   { id: 'shepherd', name: 'Ouro Shepherd', label: 'Use today', detail: 'Ships in Ouroboros, for cmux and Herdr; reply from any chat' },
   { id: 'friends', name: 'Friends', label: 'Experimental', detail: 'On npm, and used by Ouroboros every day' },
   { id: 'butler', name: 'Ouro Butler', label: 'Alpha', detail: 'Installs on Unraid 7.2 or newer with one script' },
-  { id: 'housesitter', name: 'housesitter', label: 'Experimental', detail: 'housesitter 0.2 unlocked FileVault on a real Mac mini after a restart, hands-off: 70 seconds from Restart to desktop. The smart plug is next' },
+  { id: 'housesitter', name: 'housesitter', label: 'Experimental', detail: 'Unlocked FileVault on a real Mac mini, hands-off' },
   { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },
   { id: 'factory', name: 'The factory', label: 'Under construction', detail: 'Dashboard and method in development' },
 ]

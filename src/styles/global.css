@@ -200,7 +200,7 @@ html, body { overflow-x: clip; }
    capped at 24px (a 4K display at 1x). Shared with ouroboros.bot and mendelow.me. */
 @media (min-width: 1600px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
 /* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about half its width in content, not a third. */
-@media (min-width: 2000px) { :root { --container-6xl: 84rem; } }
+@media (min-width: 2000px) { :root { --container-6xl: 84rem; --container-7xl: 92rem; } }
 
 /* ── Light theme ──
    The serpent palette above is the dark theme. Light is the same serpent
@@ -439,11 +439,13 @@ html, body { overflow-x: clip; }
    takes the window's own corner, scaled with it (35/840 across, 35/630 down,
    just inside the window's curve), so its one ring is the window's edge and
    no corner of black or of frame shows through (Ari, 2026-11-09: "this awful
-   double border"). It is never wider than the capture's own 840px, so the
-   recording is never scaled up and never blurred (Ari: "never designed to be
-   so large"). No crop: a 4% crop cut off the window's "New" button (taste r3). */
+   double border"). It is never wider than 840 CSS px, the capture's own
+   width (Ari: "never designed to be so large"), and centres in a wider
+   column. On a 2x screen that is still twice its pixels: a sharper clip
+   needs a 2x recording (ourostack/ouro-md, site-media.yml). No crop: a 4%
+   crop cut off the window's "New" button (taste r3). */
 .product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4.1667% / 5.5556%; }
-.clip:has(> .media-clip), .product-figure:has(> .media-clip) { width: 100%; max-width: 840px; }
+.clip:has(> .media-clip), .product-figure:has(> .media-clip) { width: 100%; max-width: 840px; margin-inline: auto; }
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
 /* A product screenshot follows the theme (Ari's ruling on taste review r19).
@@ -522,17 +524,6 @@ p, li, dd, figcaption { text-wrap: pretty; }
    the step, so a body's first block adds no top margin of its own there.
    scripts/hero-gap.mjs measures every page at 320, 390 and 430. */
 @media (max-width: 767.98px) { .prose-ouro > :first-child { margin-top: 0; } }
-
-/* ── Measure ──
-   Running text never runs wider than a comfortable line, about 70
-   characters, whatever the column (refinement pass, 2026-11-09: lines ran
-   to 130 and more at 1440, and 150 at 3840). In the base layer, so a
-   component's own max-w-* still sets its width; centred lines centre their
-   block. The column stays as wide as it was, for media and grids. */
-@layer base {
-  main :where(p, li, blockquote, dd) { max-width: 70ch; }
-  main :where(.text-center) :where(p, li), main :where(p.text-center) { margin-inline: auto; }
-}
 
 /* ── Focus ── */
 /* The outline follows each element's own corners; never set a radius here, or rounded buttons and cards go square when focused.
@@ -752,7 +743,10 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   @media (max-width: 359.98px) { .heading-section { --hs: min(2rem, 8.75vw); } }
   @media (min-width: 640px) { .heading-section { --hs: 2.5rem; } }
   @media (min-width: 768px) { .heading-section { --hs: 3.5rem; } }
-  @media (min-width: 1024px) { .heading-section { --hs: 4.5rem; } }
+  /* From 1024px a section heading stays about 0.8 of the page's title at
+     every window height (the product title eases from 4.4rem down to 3rem
+     on a short laptop), so no page's h2 outranks its h1 (Ive, round two). */
+  @media (min-width: 1024px) { .heading-section { --hs: clamp(2.5rem, calc(2.5rem + (100svh - 720px) / 10), 3.5rem); } }
 
   /* Sub-section headline (h3) */
   .heading-sub {
@@ -935,8 +929,8 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    shorter scene, so the title and the intro's first line sit above the fold at
    1440x900 and 1024x768 (taste review r3). */
 .story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * 100vw)); }
-/* Every hero ends on a hard edge at its picture's foot, with no mask: the box
-   never runs past its image (Ari's ruling on taste review r15), the cast
+/* Every hero ends on a hard edge at its picture's foot, and nothing masks it.
+   The box never runs past its image (Ari's ruling on taste review r15), the cast
    stays whole inside it (heroFrame() in src/data/scenes.mjs), and the site's
    gold trail closes the edge, centred on it as on every section change, in
    the room heroFrame() keeps under the cast's feet (FOOT_ROOM). Where the art's
@@ -1001,7 +995,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    Ouro stays whole (taste review r7: a fixed-height band cut the top of his
    head). Both its edges are hard, each closed by the gold trail: its own on
    top, the footer's at its foot. */
-.story-meadow { margin-top: 3rem; overflow: visible; }
+.story-meadow { margin-top: clamp(4rem, 7vw, 6.5rem); overflow: visible; }
+/* Every page ends the same distance above the meadow: the last section gives
+   up its own bottom padding and the meadow's margin sets the gap. A tinted
+   last section keeps its padding, since it meets the meadow directly. */
+main > :last-child:not([class~="bg-deep/40"]) { padding-bottom: 0; }
 /* Above <main> (z-index 10), so a tinted last section that meets the meadow
    never paints over the top half of its trail; the footer stays above the
    meadow, so its own trail shows whole along the meadow's foot. */
