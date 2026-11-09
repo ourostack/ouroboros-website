@@ -1,0 +1,142 @@
+name: Deploy ouro-apex
+
+# Deploys ouro.bot's redirect Worker, ouro-apex (ourostack/ouro-apps-site worker.js, routes.js,
+# wrangler.jsonc), with no person in the loop. It runs here because this repository's Cloudflare
+# token can deploy the account's Workers and ouro-apps-site's token can't (it was made for Pages).
+# It deploys with `versions upload` and `versions deploy`, which change the code and leave the
+# Worker's routes on the ouro.bot zone alone.
+#
+# Three times an hour it compares the newest ouro-apps-site commit that touched the Worker with
+# the commit named in the live version's message, and deploys when they differ; run it by hand
+# from the Actions tab to deploy now. Each run follows ouro-apps-site's README: wait out the
+# stable.json refresh window (:12 to :25), log the live version as the rollback target, snapshot
+# the endpoints, deploy, snapshot again, check each host's 301, query and HSTS, and roll back if
+# anything changed.
+#
+# Credentials: this repository's secret CLOUDFLARE_API_TOKEN (ourostack/ouroboros-website ›
+# Settings › Secrets and variables › Actions), the same one deploy.yml uses.
+
+on:
+  schedule:
+    - cron: "28,43,58 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ouro-apex
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 4b157323bc7b08c0f6b0dc9c23b1e2b1
+      WRANGLER: npx --yes wrangler@4.156.2
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ourostack/ouro-apps-site
+          path: ouro-apps-site
+          fetch-depth: 0
+
+      - name: Compare ouro-apps-site's Worker with the live version
+        id: compare
+        working-directory: ouro-apps-site
+        run: |
+          sha=$(git log -1 --format=%H HEAD -- worker.js routes.js wrangler.jsonc)
+          git checkout -q "$sha"
+          status=$($WRANGLER deployments status --name ouro-apex --json)
+          field() { echo "$status" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')); console.log($1 ?? '')"; }
+          rollback=$(field 'd.versions[0].version_id')
+          deployment=$(field 'd.annotations?.["workers/message"]')
+          version=$($WRANGLER versions view "$rollback" --name ouro-apex --json | node -e 'const v=JSON.parse(require("fs").readFileSync(0,"utf8")); console.log(v.annotations?.["workers/message"] ?? "")')
+          echo "Worker on ouro-apps-site main: $sha"
+          echo "live version $rollback, message: ${version:-none}; deployment message: ${deployment:-none}"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "rollback=$rollback" >> "$GITHUB_OUTPUT"
+          deploy=true
+          if [ "${{ github.event_name }}" != workflow_dispatch ]; then
+            if [ "$version" = "ouro-apps-site ouro-apex $sha" ]; then
+              deploy=false; echo "Up to date."
+            elif [ "$deployment" = "rollback after ouro-apps-site ouro-apex $sha" ]; then
+              # A scheduled run doesn't retry a commit whose checks already failed; a new commit or a
+              # manual run does.
+              deploy=false; echo "::warning::ouro-apps-site $sha failed its checks and was rolled back; not retrying on schedule."
+            fi
+          fi
+          echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
+
+      - name: Test the Worker
+        if: steps.compare.outputs.deploy == 'true'
+        working-directory: ouro-apps-site
+        run: npm test
+
+      # ouroboros-website rewrites stable.json at :17 past the hour, so snapshots taken from :12 to
+      # :25 can differ for reasons that aren't this deploy. Start after :25, leaving a few minutes
+      # before :12 for both snapshots.
+      - name: Wait out the stable.json refresh window
+        if: steps.compare.outputs.deploy == 'true'
+        run: |
+          minute=$((10#$(date -u +%M)))
+          if [ "$minute" -ge 8 ] && [ "$minute" -le 25 ]; then
+            echo "minute $minute: waiting until :26"
+            sleep $(( (26 - minute) * 60 - 10#$(date -u +%S) ))
+          fi
+
+      - name: Record the live version for rollback
+        if: steps.compare.outputs.deploy == 'true'
+        run: |
+          $WRANGLER deployments list --name ouro-apex
+          echo "Rollback target: ouro-apex version ${{ steps.compare.outputs.rollback }}"
+          echo "ROLLBACK_ID=${{ steps.compare.outputs.rollback }}" >> "$GITHUB_ENV"
+
+      - name: Snapshot the endpoints before
+        if: steps.compare.outputs.deploy == 'true'
+        working-directory: ouro-apps-site
+        run: scripts/verify-endpoints.sh | tee before.txt
+
+      - name: Deploy
+        if: steps.compare.outputs.deploy == 'true'
+        working-directory: ouro-apps-site
+        env:
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-output.ndjson
+        run: |
+          message="ouro-apps-site ouro-apex ${{ steps.compare.outputs.sha }}"
+          $WRANGLER versions upload --message "$message"
+          id=$(node -e 'const lines=require("fs").readFileSync(process.argv[1],"utf8").trim().split("\n").map(JSON.parse); console.log(lines.find((l)=>l.type==="version-upload").version_id)' "$WRANGLER_OUTPUT_FILE_PATH")
+          echo "Uploaded version $id"
+          $WRANGLER versions deploy "$id@100%" --name ouro-apex --message "$message" --yes
+
+      - name: Check the endpoints after
+        if: steps.compare.outputs.deploy == 'true'
+        working-directory: ouro-apps-site
+        run: |
+          sleep 15
+          scripts/verify-endpoints.sh | tee after.txt
+          ok=1
+          if ! diff <(grep -E '^(KEEP|SCHEMA|PAGE)' before.txt) <(grep -E '^(KEEP|SCHEMA|PAGE)' after.txt); then
+            echo "::error::the bytes clients get changed"; ok=0
+          fi
+          for u in "http://ouro.bot/x?y=1" "https://ouro.bot/x?y=1" "http://www.ouro.bot/x?y=1" "https://www.ouro.bot/x?y=1" "http://ui.ouro.bot/docs/?x=1" "https://ui.ouro.bot/docs/?x=1"; do
+            head=$(curl -sS -o /dev/null -D - "$u" | tr -d '\r')
+            echo "== $u"; echo "$head" | grep -iE '^(HTTP/|location:|strict-transport-security:)'
+            echo "$head" | grep -qE '^HTTP/[0-9.]+ 301' || { echo "::error::$u is not a 301"; ok=0; }
+            echo "$head" | grep -qiE '^location: https://(ui\.)?ouroboros\.bot/.*\?(x|y)=1$' || { echo "::error::$u lost its target or query"; ok=0; }
+            echo "$head" | grep -qi '^strict-transport-security: max-age=31536000$' || { echo "::error::$u has no HSTS"; ok=0; }
+          done
+          [ "$ok" = 1 ]
+
+      # Any failure or cancellation after the live version was recorded puts it back. After a failed
+      # deploy this restores the version that is already live, which is harmless.
+      - name: Roll back
+        if: (failure() || cancelled()) && env.ROLLBACK_ID != ''
+        run: |
+          $WRANGLER rollback "$ROLLBACK_ID" --name ouro-apex --message "rollback after ouro-apps-site ouro-apex ${{ steps.compare.outputs.sha }}" --yes
