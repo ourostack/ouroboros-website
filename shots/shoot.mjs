@@ -7,7 +7,7 @@
 import { chromium } from 'playwright';
 import { mkdirSync, readFileSync } from 'node:fs';
 
-const SIZES = { phone: [390, 844], laptop: [1440, 900] };
+const SIZES = { phone: [390, 844], laptop: [1440, 900], tablet: [768, 1024] };
 const requests = JSON.parse(readFileSync(new URL('./request.json', import.meta.url), 'utf8'));
 const browser = await chromium.launch();
 const failures = [];
@@ -20,7 +20,7 @@ try {
       for (const size of req.sizes ?? Object.keys(SIZES)) {
         const [width, height] = SIZES[size];
         for (const theme of req.themes ?? ['light', 'dark']) {
-          const phone = size === 'phone';
+          const phone = size === 'phone' || size === 'tablet';
           const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: theme, deviceScaleFactor: phone ? 2 : 1, reducedMotion: 'reduce', isMobile: phone, hasTouch: phone });
           await ctx.addInitScript((t) => { try { localStorage.setItem('theme', t); } catch {} }, theme);
           const p = await ctx.newPage();

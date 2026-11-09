@@ -1,4 +1,4 @@
 [
-  { "base": "https://ouroboros.bot", "out": "before", "pages": ["/", "/approach/", "/ouro-md/", "/apps/", "/lab/why/"], "sizes": ["laptop", "phone"], "menu": true, "focus": true, "rev": "pr91-before" },
-  { "base": "https://ouroboros-website-pr-91.mendelow-studio.workers.dev", "out": "after", "pages": ["/", "/approach/", "/ouro-md/", "/apps/", "/lab/why/"], "sizes": ["laptop", "phone"], "menu": true, "focus": true, "rev": "pr91-after-1" }
+  { "base": "https://ouroboros.bot", "out": "before-tablet", "pages": ["/apps/", "/ouro-md/"], "sizes": ["tablet"], "foot": false, "rev": "pr91-tab" },
+  { "base": "https://ouroboros-website-pr-91.mendelow-studio.workers.dev", "out": "after-tablet", "pages": ["/apps/", "/ouro-md/"], "sizes": ["tablet"], "foot": false, "rev": "pr91-tab" }
 ]
