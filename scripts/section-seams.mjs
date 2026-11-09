@@ -18,7 +18,7 @@
 // are skipped: the art is meant to have detail. The trail of light the site
 // draws on a section change (any block whose ::before paints the trail on its
 // top edge, read from the computed style, so a plain hairline never passes as
-// one, or whose ::after hangs it from its foot, as an edge hero's does) is
+// one, or whose ::after hangs it from its foot, as a hero's does) is
 // hidden while reading, so it never counts as a seam;
 // where a section change carries that trail, the change itself may step in
 // colour on its exact row (the trail marks it, as on the home page), but the
@@ -146,10 +146,10 @@ for (const page of pages) {
       // Mark every block that really draws the trail on its top edge (its
       // ::before is shown and paints the trail's image), before hiding it.
       await p.evaluate(() => {
-        for (const el of document.querySelectorAll('main *, footer')) {
+        for (const el of document.querySelectorAll('main *, .story-meadow, footer')) {
           const b = getComputedStyle(el, '::before');
           if (b.display !== 'none' && b.content !== 'none' && /data:image\/svg/.test(b.backgroundImage) && Math.abs(parseFloat(b.top) + parseFloat(b.height) / 2) < 2) el.setAttribute('data-seam-trail', '');
-          // An edge hero hangs the trail from its foot instead (its ::after
+          // A hero hangs the trail from its foot instead (its ::after
           // starts just above the art's bottom edge): the change below it is trailed.
           const a = getComputedStyle(el, '::after');
           if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && Math.abs(parseFloat(a.top) - el.getBoundingClientRect().height) < 8) el.setAttribute('data-seam-trail-foot', '');

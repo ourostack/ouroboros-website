@@ -14,8 +14,8 @@
   The art is never re-encoded or cropped in a build step; CSS crops the
   meadow band with object-fit. Behind it sits the scene's own paint (a tiny
   soft preview, src/data/scene-paint.json), so the dawn is there before, and
-  even without, the art. Every variant fades at its edges into the page,
-  so the dawn sits softly on the parchment and on the dark theme alike.
+  even without, the art. No variant fades into the page: every picture ends
+  on a hard edge.
 */
 import { scenes, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
@@ -39,14 +39,13 @@ const hero = variant === 'hero'
 // The desktop hero keeps the whole cast in frame at every width (taste review
 // r5): global.css never lets the box show less of the art than `floor` (the
 // cast's `need`, and never under 82%: taste review r8), and
-// object-position `y` keeps the cast inside whatever it shows; the bottom fade
-// starts at `fade`, below every character's foot (taste review r10). Where the
-// cast stands on the art's very foot, the hero is an `edge` hero: it ends
-// exactly at the art's bottom edge with no fade, closed by the gold trail
-// (Ari's ruling on taste review r15: no hero box ever runs past its art).
+// object-position `y` keeps the whole cast inside whatever it shows, or shows
+// the art's own foot where the cast stands on it. Every hero ends on a hard
+// edge, closed by the gold trail (global.css): no fade, and no box ever runs
+// past its art.
 const frame = heroFrame(scene)
 const phoneAspect = hero
-  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%${frame.edge ? '' : `; --hero-fade: ${frame.fade}%`}; --hero-origin: ${frame.origin}%`
+  ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`
   : `--phone-ar: ${pw} / ${ph}`
 // The scene's own dawn, painted behind the art (scripts/scene-paint.mjs): a
 // tiny soft preview of the wide art and of the phone crop, so a slow or failed
@@ -66,7 +65,7 @@ const altText = alt ?? scenes[scene]
 const vignette = variant === 'vignette'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-hero-edge={hero && frame.edge ? '' : undefined} style={style}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} style={style}>
   {hero ? (
     <picture>
       <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />

@@ -16,8 +16,10 @@
   - The page's canonical storybook card scene (public/brand/storybook/og/<scene>.jpg,
     the same bytes the site serves, chosen in src/data/scenes.mjs) fills the card.
   - The title stands in the scene's own title zone (TITLE_ZONE): open sky or
-    grass, picked by hand so it holds no character. A soft parchment scrim sits
-    behind the words, clipped to that zone, so it never washes over anyone.
+    grass, picked by hand so it holds no character, or a solid title plate
+    above the whole scene. Nothing is laid over the art: no scrim, no wash, no
+    fade (Ari, 2026-11-08: no picture fades to nothing). Each glyph carries a
+    faint paper glow, so the words read on the sky.
   - The optional tag as a tracked-out fang-red eyebrow; the product's mark
     and the "ouro" wordmark sit at the top, like a storybook's running head.
   - Satori draws the words on a transparent layer; sharp lays it over the scene
@@ -30,7 +32,7 @@ import sharp from 'sharp'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pageOg, slugFor, routePathForSlug, ogSceneForRoute } from '../../data/og'
-import { skyFrame, plateFrame } from '../../og/frames.mjs'
+import { plateFrame } from '../../og/frames.mjs'
 
 const fontsDir = join(process.cwd(), 'src/og/fonts')
 const cormorantRegular = readFileSync(join(fontsDir, 'CormorantGaramond-Regular.ttf'))
@@ -59,18 +61,20 @@ const sceneDir = join(process.cwd(), 'public/brand/storybook/og')
 // card (after any FRAME below), hand-picked on a 100px grid (taste review r2,
 // re-picked in r5 so every title fits at the one TITLE_SIZE). Each zone is open
 // sky, distant hills or open grass, and holds no character, post, vine or
-// lantern, so neither the words nor their scrim ever cover anything drawn.
+// lantern, so the words never cover anything drawn.
 const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'apple-distribution-kit': [780, 6, 1194, 290],
   // On its title plate (180px tall, gold rule at its foot): the words centred in it.
   'butler': [16, 30, 1194, 172],
   'desk': [280, 6, 1194, 172],
-  'factory': [16, 6, 1194, 172],
+  // The plate cards below set their words as the butler's does.
+  'factory': [16, 30, 1194, 172],
   'flow-review': [16, 6, 760, 268],
   'friends': [40, 4, 1160, 132],
-  'friends-relay': [16, 6, 1194, 142],
+  // The dovecote's art is a touch taller, so its plate is 150px.
+  'friends-relay': [16, 14, 1194, 142],
   'gatefold': [16, 6, 1194, 140],
-  'homebrew-tap': [16, 6, 1194, 172],
+  'homebrew-tap': [16, 30, 1194, 172],
   // On its title plate, like the butler's.
   'housesitter': [16, 30, 1194, 172],
   'm365crawl': [820, 6, 1194, 196],
@@ -78,26 +82,17 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'ouro-hx': [640, 6, 1194, 316],
   'ouro-md': [390, 6, 1194, 190],
   'ouro-native-apple-app-shell': [720, 6, 1194, 240],
-  'ouro-ui-apple': [16, 6, 1194, 172],
-  'ouro-ui-core': [16, 6, 1194, 172],
+  'ouro-ui-apple': [16, 30, 1194, 172],
+  'ouro-ui-core': [16, 30, 1194, 172],
   'ouro-work': [800, 6, 1194, 172],
   'ouro-workbench': [760, 6, 1194, 270],
   'ouroboros': [680, 6, 1194, 180],
   'ouroboros-skills': [830, 6, 1194, 240],
   'ouroboros-website': [770, 6, 1194, 196],
   'ourostack': [330, 6, 1060, 190],
-  'playwright-focus-proof': [16, 6, 1194, 172],
+  'playwright-focus-proof': [16, 30, 1194, 172],
   'shepherd': [240, 6, 800, 250],
 }
-// Busy ground needs a firmer vignette than open sky. The butler's title moved
-// up into open sky (taste review r7 ruling: title at the top like every other
-// card, no milky scrim), so only the shell keeps a firmer one.
-// Cards on a sky frame or the title plate carry no vignette at all: their sky
-// is smooth, so the glyphs' faint paper glow is enough, and taste review r13
-// saw the vignette as a haze patch there. tests/share-cards.test.mjs holds
-// their contrast to AA.
-const FIRM_SCRIM: Record<string, number> = { 'ouro-native-apple-app-shell': 0.8 }
-
 // A card can be set in a different framing of the same canonical art: the home
 // card takes the whole-world header at card height and slides the window right,
 // so the picnic, both robots and the sheep fit whole (taste review r3). The
@@ -107,32 +102,31 @@ const FIRM_SCRIM: Record<string, number> = { 'ouro-native-apple-app-shell': 0.8 
 // stall slide right so the words get the wide sunset sky instead of a sliver.
 // Taste review r5 found three scenes whose cast is wider than any card-height
 // window: the canonical card crop cut the robot's head (Ouro UI for Apple), Ouro's
-// coil (the paint pots) and the person at her laptop (the focus proof). Those are
-// set `sky`: the whole header, scaled to the card's width, stands at the foot of
-// the card, and above it is one smooth sky sampled from the art's top band
-// (src/og/frames.mjs, skyFrame), so every character is whole and the title has
-// open sky.
-type SkyFrame = { file: string; sky: true }
+// coil (the paint pots) and the person at her laptop (the focus proof). Those,
+// and the three below, stand on a title plate: the whole header, scaled to the
+// card's width, stands at the foot of the card at full strength, and above it
+// is a solid cream plate with a thin gold rule (src/og/frames.mjs, plateFrame),
+// so every character is whole and the title has a clean ground. A made-up sky
+// would need the art to fade into it, and no picture fades.
 type PlateFrame = { file: string; plate: true }
-const FRAME: Record<string, { file: string; left: number; height?: number } | SkyFrame | PlateFrame> = {
+const FRAME: Record<string, { file: string; left: number; height?: number } | PlateFrame> = {
   ourostack: { file: 'headers/ourostack.webp', left: 690 },
   'ouro-workbench': { file: 'headers/ouro-workbench.webp', left: 816, height: 756 },
   'ouro-native-apple-app-shell': { file: 'headers/ouro-native-apple-app-shell.webp', left: 480 },
   'ouro-apps-site': { file: 'headers/ouro-apps-site.webp', left: 480 },
-  'ouro-ui-apple': { file: 'headers/ouro-ui-apple.webp', sky: true },
-  'ouro-ui-core': { file: 'headers/ouro-ui-core.webp', sky: true },
-  'playwright-focus-proof': { file: 'headers/playwright-focus-proof.webp', sky: true },
+  'ouro-ui-apple': { file: 'headers/ouro-ui-apple.webp', plate: true },
+  'ouro-ui-core': { file: 'headers/ouro-ui-core.webp', plate: true },
+  'playwright-focus-proof': { file: 'headers/playwright-focus-proof.webp', plate: true },
   // The same sweep found three more: the factory's card cut Ouro's tail at the
   // right, the dovecote's cut the robot waving at the left, and the still's
   // barrel stood behind the title.
-  factory: { file: 'headers/factory.webp', sky: true },
-  'friends-relay': { file: 'headers/friends-relay.webp', sky: true },
-  'homebrew-tap': { file: 'headers/homebrew-tap.webp', sky: true },
+  factory: { file: 'headers/factory.webp', plate: true },
+  'friends-relay': { file: 'headers/friends-relay.webp', plate: true },
+  'homebrew-tap': { file: 'headers/homebrew-tap.webp', plate: true },
   // The butler's cottage roof runs to the very top of its art, so there is no
   // real sky to set a title in, and any sky made from the top rows dissolves
   // the roof (flagged in taste reviews r7, r12 and r13). Ari's ruling (r14):
-  // a storybook title plate, solid cream with a thin gold rule, and the whole
-  // scene below it at full strength (src/og/frames.mjs, plateFrame).
+  // the storybook title plate.
   butler: { file: 'headers/butler.webp', plate: true },
   // The housesitter's chimney meets the top of its art too, and its only open sky sits
   // beside Ouro's lantern, too narrow for a title: the same plate.
@@ -208,24 +202,6 @@ export const GET: APIRoute = async ({ params }) => {
   if (!lines) throw new Error(`og: "${title}" does not fit the ${scene} title zone at ${TITLE_SIZE}px`)
 
   const div = (style: Record<string, unknown>, children?: unknown) => ({ type: 'div', props: { style, children } })
-  // A soft, edgeless parchment vignette behind the words (taste review r3,
-  // 2026-11-06: the old blurred rectangle showed its edges). It is a radial
-  // gradient that has faded to nothing before it reaches the zone's edge, so
-  // there is no rim to see and nothing washes over a character outside the
-  // zone. Each glyph also carries a faint paper glow, so the words read on
-  // busy ground without a box.
-  const widest = Math.min(colWidth, Math.max(...lines.map((l) => l.length)) * titleSize * CHAR_EM)
-  const blockW = Math.min(colWidth, Math.max(widest, tagBelow ? HEAD + 74 : headWidth))
-  const blockH = headH + HEAD_GAP + lines.length * titleSize * 1.04
-  const cx = colLeft + blockW / 2
-  const cy = colTop + blockH / 2
-  // Sized from the words, not clipped to the zone: it fades to nothing at its
-  // rim, so it never draws an edge, and the zones leave room for its faint fringe.
-  const rx = blockW * 0.75 + 30
-  const ry = blockH * 0.8 + 24
-  const framed = FRAME[scene]
-  const strength = framed && ('sky' in framed || 'plate' in framed) ? 0 : FIRM_SCRIM[scene] ?? 0.62
-  const scrimSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><radialGradient id="v" cx="${cx}" cy="${cy}" r="${rx}" gradientUnits="userSpaceOnUse" gradientTransform="translate(${cx} ${cy}) scale(1 ${ry / rx}) translate(${-cx} ${-cy})"><stop offset="0" stop-color="rgb(${COLOR.paper})" stop-opacity="${strength}"/><stop offset="0.6" stop-color="rgb(${COLOR.paper})" stop-opacity="${(strength * 0.9).toFixed(3)}"/><stop offset="0.85" stop-color="rgb(${COLOR.paper})" stop-opacity="${(strength * 0.35).toFixed(3)}"/><stop offset="1" stop-color="rgb(${COLOR.paper})" stop-opacity="0"/></radialGradient></defs><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#v)"/></svg>`
   const glow = `0 0 ${Math.round(titleSize * 0.28)}px rgba(${COLOR.paper}, 0.95)`
 
   const svg = await satori(
@@ -285,13 +261,11 @@ export const GET: APIRoute = async ({ params }) => {
   const framePath = frame ? join(process.cwd(), 'public/brand/storybook', frame.file) : ''
   const base = frame && 'plate' in frame
     ? (await plateFrame(framePath)).base
-    : frame && 'sky' in frame
-    ? (await skyFrame(framePath)).base
     : frame
     ? await sharp(join(process.cwd(), 'public/brand/storybook', frame.file)).resize({ height: frame.height ?? 630 }).extract({ left: frame.left, top: 0, width: 1200, height: 630 }).toBuffer()
     : join(sceneDir, `${scene}.jpg`)
   const jpeg = await sharp(base)
-    .composite([{ input: Buffer.from(scrimSvg) }, { input: Buffer.from(wordsLayer) }])
+    .composite([{ input: Buffer.from(wordsLayer) }])
     .jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' })
     .toBuffer()
 
