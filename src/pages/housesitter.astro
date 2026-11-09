@@ -60,6 +60,7 @@ const safe = [
   'Whoever has root on the KVM, or the Mac and the KVM stolen together, has the password. Keep the KVM where the Mac is, on a network you trust.',
   'It never changes the KVM’s EDID or the Mac’s display mode. Doing that once crashed our mini’s login window.',
   'On your tailnet the KVM is tag:kvm and reaches nothing. GL.iNet’s cloud binding is off, and read back as off.',
+  'At home only your LAN’s private addresses and the tailnet reach the KVM’s SSH and web page; away from home, only the tailnet. The sitter reads its rules back every 5 minutes and puts them back if they changed.',
 ]
 
 const verified = [
@@ -69,6 +70,7 @@ const verified = [
   ['Sent for real', 'One TEST alert, end to end: the sitter’s own rules decided a Mac stuck at FileVault and sent that exact message, marked TEST. With --email it reached our HEY Imbox 2 seconds later.'],
   ['Done on a real Mac, both ways', 'The Mac watching its KVM: we stopped only the sitter on our Comet at 01:13 on 9 November, with the quiet limit cut from 5 minutes to 2 for the test. Four minutes and 44 seconds later the mini sent “TEST: mini’s KVM is silent”, in our HEY Imbox 2 seconds after; we started the sitter again, and “back” came 34 seconds later. At the default 5, expect the message about 8 minutes after the KVM’s last look.'],
   ['Run on real hardware', 'The clock read on the KVM’s NPU, by housesitter 0.3 on 9 November: 120 of 120 menu-bar reads right over 30 minutes, median 1.42 ms a read; and 66 of 66 lock-screen and FileVault clocks on recorded frames, by a second model.'],
+  ['Run on real hardware', 'Who can reach the KVM, by housesitter 0.3.2 on 9 November: with away mode on, nothing answered over our LAN from two machines while the tailnet did, and 94 seconds later the sitter’s own recheck put home mode back.'],
   ['Next', 'The smart plug, which arrives 9 November.'],
   ['Not yet', 'A real freeze and a power cut; a message from a real refusal (none has happened yet); a macOS update; OCR beyond English macOS.'],
 ]
