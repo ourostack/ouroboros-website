@@ -26,9 +26,11 @@ interface Props {
   sizes?: string
   alt?: string
   class?: string
+  /** A product page's hero: its floor may drop to PRODUCT_FLOOR (heroFrame()). */
+  product?: boolean
 }
 
-const { scene, variant = 'inline', sizes, alt, class: className } = Astro.props
+const { scene, variant = 'inline', sizes, alt, class: className, product = false } = Astro.props
 if (!(scene in scenes)) throw new Error(`StoryScene: unknown scene ${scene}`)
 const base = '/brand/storybook'
 const [w, h] = sceneRatio(scene)
@@ -38,13 +40,14 @@ const [pw, ph] = phoneSize(scene)
 const hero = variant === 'hero'
 // The desktop hero keeps the whole cast in frame at every width (taste review
 // r5): global.css never lets the box show less of the art than `floor` (the
-// cast's `need`, and never under 82%: taste review r8), and
+// cast's `need`, and never under 82%: taste review r8; 76% on a product
+// page, for the room under its edge), and
 // object-position `y` keeps the whole cast inside whatever it shows, or shows
 // the art's own foot where the cast stands on it. Every hero ends on a hard
 // edge, closed by the gold trail (global.css): no fade, and no box ever runs
 // past its art. Where the feet stand too near that edge for the trail's glow,
 // the trail hangs below it (data-trail-below).
-const frame = heroFrame(scene)
+const frame = heroFrame(scene, { product })
 const phoneAspect = hero
   ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`
   : `--phone-ar: ${pw} / ${ph}`

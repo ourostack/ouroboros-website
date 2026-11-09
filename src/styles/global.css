@@ -433,10 +433,17 @@ html, body { overflow-x: clip; }
 .product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); border-radius: 0.9rem; box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-canopy) 45%, transparent); }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
-.product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; }
-/* The window recordings have small rounded corners baked into every frame; the
-   frame's own larger radius hides them. No scale-up: a 4% crop cut off the
-   window's "New" button at the right (taste r3). */
+/* The Ouro MD recordings are the app's whole window, 840x630 captured at 1x,
+   with the window's own rounded corners (about 33px) baked into every frame:
+   transparent in the poster, black in the video, which has no alpha. The frame
+   takes the window's own corner, scaled with it (35/840 across, 35/630 down,
+   just inside the window's curve), so its one ring is the window's edge and
+   no corner of black or of frame shows through (Ari, 2026-11-09: "this awful
+   double border"). It is never wider than the capture's own 840px, so the
+   recording is never scaled up and never blurred (Ari: "never designed to be
+   so large"). No crop: a 4% crop cut off the window's "New" button (taste r3). */
+.product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4.1667% / 5.5556%; }
+.clip:has(> .media-clip), .product-figure:has(> .media-clip) { width: 100%; max-width: 840px; }
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
 /* A product screenshot follows the theme (Ari's ruling on taste review r19).
@@ -941,20 +948,24 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero img, .story-hero[data-brand-scene="ourostack"] img { aspect-ratio: var(--phone-ar, 4 / 3); max-height: none; }
 }
 /* The first section after a scene no longer has to clear the nav. Unlayered,
-   so it wins over each page's own pt-* utility. */
+   so it wins over each page's own pt-* utility. The trail's lower half (18px)
+   lies over this padding, so the room a reader sees under the edge is this
+   less about 6px of drawn line (Ari, 2026-11-09: "ZERO breathing room"). */
 .story-hero + section, .story-hero + article, .story-hero + div,
-.story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 2rem; }
+.story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 2.5rem; }
 @media (min-width: 768px) {
   .story-hero + section, .story-hero + article, .story-hero + div,
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 3rem; }
 }
-/* On a wide screen the words follow the hero's trail closely, so a product
-   page's primary action stays in the first view (scripts/primary-action.mjs):
-   a hair's gap up to 864px tall, opening to 1.25rem on a taller screen.
+/* On a wide screen the words open 2.25rem under the hero's edge up to 864px
+   tall, and up to 4rem on a taller screen. A product page pays for the room
+   with its shorter hero (PRODUCT_FLOOR in src/data/scenes.mjs), so its
+   primary action stays in the first view (scripts/primary-action.mjs).
+   Where the trail hangs below the edge, the room starts under the trail.
    The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
-  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: clamp(0.25rem, calc((100svh - 860px) / 3), 1.25rem); }
-  .story-hero[data-trail-below] + :is(section, article, div) { padding-top: 2rem; }
+  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: clamp(2.25rem, calc(2.25rem + (100svh - 864px) / 3), 4rem); }
+  .story-hero[data-trail-below] + :is(section, article, div) { padding-top: 3.25rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor

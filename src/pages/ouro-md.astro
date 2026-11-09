@@ -11,8 +11,8 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
 
 <Layout title={title} description={description} ogImage={ogPathFor('/ouro-md')} canonical="https://ouroboros.bot/ouro-md/">
   <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
-    <div class="max-w-6xl mx-auto grid gap-10 split split-media product-hero">
-      <div class="grid gap-5 content-start min-w-0 split-head hero-copy">
+    <div class="max-w-6xl mx-auto md-hero">
+      <div class="grid gap-5 content-start min-w-0 split-head hero-copy md-copy">
         <div class="flex items-center gap-4">
           <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
           <h1 class="heading-lead">Ouro MD</h1>
@@ -22,10 +22,8 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
           <a href="/ouro-md/download/" class="btn-primary">Download for Mac &rarr;</a>
           <span class="text-sm text-mist">macOS 15 or later. Signed, notarized, updates itself.</span>
         </div>
-        <p class="text-lg text-mist leading-relaxed">When a document needs to leave the screen, Ouro MD prints it or saves a PDF from a preview where you set the margins, type size, line spacing, paper, and which headings start a new page.</p>
-
       </div>
-
+      <p class="md-aside text-lg text-mist leading-relaxed">When a document needs to leave the screen, Ouro MD prints it or saves a PDF from a preview where you set the margins, type size, line spacing, paper, and which headings start a new page.</p>
       <div class="min-w-0 split-body hero-media"><OuroMdMedia only="agent" /></div>
     </div>
   </section>
@@ -48,4 +46,32 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
   </section>
 </Layout>
 
+<style>
+  /* The hero: the words, the print note and the recording. The recording is
+     never wider than its own 840px (global.css), so wherever the hero runs
+     the full column it sits beside the print note instead of stretching
+     across the page (Ari, 2026-11-09: "never designed to be so large").
+     Phone: words, note, recording. From 1280 on a tall screen: words and
+     note on the left, the recording on the right. Stacked (1024 to 1279, and
+     the short laptops where every product hero stacks for its primary
+     action, the query in global.css): the words across, then the recording
+     with the note beside it. */
+  .md-hero { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "aside" "media"; gap: 1.25rem 4rem; }
+  .md-copy { grid-area: copy; }
+  .md-aside { grid-area: aside; margin: 0; max-width: 34rem; }
+  .md-hero > .hero-media { grid-area: media; margin-top: 0.75rem; }
+  @media (min-width: 1024px) {
+    .md-hero { grid-template-columns: minmax(0, 840px) minmax(14rem, 1fr); grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
+    .md-hero > .hero-media { margin-top: 0; }
+    .md-copy { align-self: start; }
+  }
+  @media (min-width: 1280px) {
+    .md-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-areas: "copy media" "aside media"; row-gap: 1.25rem; align-items: start; }
+    .md-hero > .hero-media { justify-self: end; width: 100%; max-width: 840px; }
+  }
+  @media (min-width: 1280px) and (max-height: 960px) and (min-aspect-ratio: 33 / 20) {
+    .md-hero { grid-template-columns: minmax(0, 840px) minmax(14rem, 1fr); grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
+    .md-hero > .hero-media { justify-self: stretch; }
+  }
+</style>
 

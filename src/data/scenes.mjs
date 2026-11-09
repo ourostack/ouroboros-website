@@ -48,19 +48,22 @@ const pages = {
   // Product pages (and /apps/) open on the content pages' shorter scene, so
   // the primary action (Download or Install) sits in the first view at
   // 1024x768 and up (Ari's ruling on taste review r20). The cast stays whole:
-  // the box never shows less than the scene's floor (heroFrame()).
-  '/apps': { hero: 'ouro-apps-site', content: true },
+  // the box never shows less than the scene's floor (heroFrame()). `product`
+  // lets the floor drop to PRODUCT_FLOOR where the cast allows it, so the
+  // words open with real room under the hero's edge (Ari, 2026-11-09: the
+  // Ouro MD header had "ZERO breathing room").
+  '/apps': { hero: 'ouro-apps-site', content: true, product: true },
   '/approach': { hero: 'ouro-work' },
   // People and their robots on one blanket: the brief is how they get there.
   '/brief': { hero: 'friends' },
-  '/desk': { hero: 'desk', content: true },
-  '/ouro-md': { hero: 'ouro-md', content: true },
+  '/desk': { hero: 'desk', content: true, product: true },
+  '/ouro-md': { hero: 'ouro-md', content: true, product: true },
   // The download page (moved from ouro.bot/apps/ouro-md/, 2026-11-07) is Ouro
   // MD's front door from ouro.bot, so it opens on Ouro MD's own lectern, hero
   // and card alike (Ari's ruling on taste review r19). A product's pages share
   // its scene; the neighbour rule below stands everywhere else.
-  '/ouro-md/download': { hero: 'ouro-md', content: true },
-  '/butler': { hero: 'butler', content: true },
+  '/ouro-md/download': { hero: 'ouro-md', content: true, product: true },
+  '/butler': { hero: 'butler', content: true, product: true },
   '/housesitter': { hero: 'housesitter', content: true },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
@@ -120,7 +123,7 @@ export function sceneFor(pathname) {
   }
   const page = match ? pages[match] : { hero: null }
   const hero = page.hero ?? null
-  return { hero, content: page.content === true, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
+  return { hero, content: page.content === true, product: page.product === true, og: page.og ?? hero ?? meadowScene, meadow: page.meadow !== false }
 }
 
 /** The scene a route's share card is set in. */
@@ -288,6 +291,12 @@ const FOCUS_MARGIN = 0.06
 // short heroes cut Ouro's body off; tests/hero-crop.test.mjs holds every page
 // to 20% at 1024, 1440 and 1920).
 export const HERO_FLOOR = 0.82
+// A product page's hero (sceneFor().product) may show as little as 76% of its
+// art, where its cast fits (heroFrame()'s `need`): the room it gives back
+// goes under the hero's edge, so the product's mark and name never sit
+// against the trail while its primary action stays in the first view
+// (scripts/primary-action.mjs). The cast stays whole; only sky and meadow go.
+export const PRODUCT_FLOOR = 0.76
 
 // Every hero ends on a hard edge: the picture runs to the box's foot and
 // stops there, with no fade, and the site's gold trail closes it (global.css).
@@ -332,13 +341,13 @@ const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - flo
  * tall enough for the heads. `trailBelow` is set where that foot leaves the
  * feet less than FOOT_ROOM, so the trail hangs below the edge.
  */
-export function heroFrame(scene) {
+export function heroFrame(scene, { product = false } = {}) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
   const foot = castFoot[scene] ?? bottom
   const need = Math.min(1, bottom - top + FOCUS_MARGIN)
   const headClear = (floor) => Math.min(1, Math.max(0, (top - FOCUS_MARGIN / 2) / (1 - floor)))
   const footClear = (floor, y) => Math.max(...shares(floor).map((s) => inBox(foot, s, y))) <= 1 - FOOT_ROOM
-  const floor0 = Math.max(need, HERO_FLOOR)
+  const floor0 = Math.max(need, product ? PRODUCT_FLOOR : HERO_FLOOR)
   // The art's own foot, with the box tall enough for the heads.
   const edge = { floor: Math.min(1, Math.max(floor0, 1 - (top - FOCUS_MARGIN / 2))), y: 1 }
   // The crop with the cast's head just clear of the top at `need`; if the foot
