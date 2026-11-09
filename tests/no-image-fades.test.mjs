@@ -83,6 +83,7 @@ test('the fade scan catches every form of gradient mask, and honours fade-ok', (
     '.logo { mask: url(/brand/mark.svg) center / contain no-repeat; }',
     '.logo { mask-size: contain; mask-image: url(/mark.svg); }',
     `<div class="${tw('mask', '-type-alpha')}"></div>`,
+    `<div style="mask: url(/a.svg) center" class="${tw('bg-[linear', '-gradient(red,blue)]')}"></div>`,
     '.trail { background: linear-gradient(90deg, transparent, gold, transparent); }',
   ];
   for (const text of allowed) assert.equal(flagged(text), 0, `flagged: ${text}`);
