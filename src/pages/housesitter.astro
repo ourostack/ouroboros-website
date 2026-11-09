@@ -29,7 +29,7 @@ const does = [
   ['Unlocks FileVault after a restart', 'Types the password at the FileVault screen you taught it, and only there, once you’ve armed and verified it; three times an hour at most. Your lock screen stays yours.'],
   ['Power-cycles a frozen Mac', 'Built, not yet tried on a real plug. With a smart plug on its cord, only a desktop frozen for 5 minutes that nothing answers for, confirmed by three more looks. Never at a boot or a login.'],
   ['Tells you only when it needs you', 'One message when it’s stuck, saying what to fix, a reminder every six hours at most, and “back” when the Mac is.'],
-  ['The Mac watches its KVM', 'A dead KVM can’t message you, so the Mac does. Every minute it checks on the sitter; after 5 quiet minutes it tells you once, and again when the KVM is back. No outside service.'],
+  ['The Mac watches its KVM', 'A dead KVM can’t message you, so the Mac does. Every minute it checks on the sitter; after 5 quiet minutes (about 8 after the KVM’s last look) it tells you once, and again when the KVM is back. No outside service.'],
 ]
 
 const whyNot = [
@@ -59,7 +59,7 @@ const verified = [
   ['Run on real hardware', 'housesitter doctor, look and status, read-only, against that Comet. It found a real bug, now fixed with a test.'],
   ['Done on a real Mac, too', 'When an agent needs the UI, if you allow it: housesitter unlocked the lock screen in 9 seconds, and the login window’s list of users in 16, clicking the account’s tile first.'],
   ['Sent for real', 'One TEST alert, end to end: the sitter’s own rules decided a Mac stuck at FileVault and sent that exact message, marked TEST. With --email it reached our HEY Imbox 2 seconds later.'],
-  ['Done on a real Mac, both ways', 'The Mac watching its KVM: we stopped only the sitter on our Comet at 01:13 on 9 November. Four minutes and 44 seconds later the mini sent “TEST: mini’s KVM is silent”, in our HEY Imbox 2 seconds after; we started the sitter again, and “back” came 34 seconds later.'],
+  ['Done on a real Mac, both ways', 'The Mac watching its KVM: we stopped only the sitter on our Comet at 01:13 on 9 November, with the quiet limit cut from 5 minutes to 2 for the test. Four minutes and 44 seconds later the mini sent “TEST: mini’s KVM is silent”, in our HEY Imbox 2 seconds after; we started the sitter again, and “back” came 34 seconds later. At the default 5, expect the message about 8 minutes after the KVM’s last look.'],
   ['Next', 'The smart plug, which arrives 9 November.'],
   ['Not yet', 'A real freeze and a power cut; a message from a real refusal (none has happened yet); a macOS update; OCR beyond English macOS.'],
 ]
