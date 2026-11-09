@@ -15,8 +15,8 @@ const title = 'How I work with agents | Ouro'
 const description = "The three acts, the failure modes I watch for, and the five principles I use to work with agents on jobs that take days."
 
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
-const h2 = 'heading-sub scroll-mt-24 mt-16 mb-5'
-const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-24 mt-12 mb-4'
+const h2 = 'heading-section scroll-mt-24 mt-16 mb-6'
+const h3 = 'font-display text-2xl text-bone leading-snug scroll-mt-24 mt-12 mb-4'
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/approach')} canonical="https://ouroboros.bot/approach/" ogType="article">
@@ -129,7 +129,7 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
     .approach :global(.acts) { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0; margin-top: 2rem; }
     .approach :global(.acts li) { padding: 2rem 3.5rem 0 0; }
     .approach :global(.acts li::before) { content: "Act " counter(act); top: 0; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-fang); }
-    .approach :global(.acts li:not(:last-child)::after) { content: "\2192"; position: absolute; right: 1.25rem; top: 2.1rem; font-family: var(--font-display); font-size: 2rem; line-height: 1; color: var(--color-fang); }
+    .approach :global(.acts li:not(:last-child)::after) { content: "\2192"; content: "\2192" / ""; position: absolute; right: 1.25rem; top: 2.1rem; font-family: var(--font-display); font-size: 2rem; line-height: 1; color: var(--color-fang); }
     .approach :global(.acts strong) { display: block; margin-bottom: 0.4rem; font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.05; }
     .approach :global(.smells) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem 3rem; }
     .approach .principles { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2.25rem 4rem; margin-top: 2.5rem; }

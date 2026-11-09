@@ -46,7 +46,7 @@ const shelf = [
     body: 'An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.',
     links: [['/butler/', 'Ouro Butler →']] },
   { id: 'housesitter', scene: 'housesitter', name: 'housesitter', readiness: 'housesitter',
-    body: 'Keeps an agent Mac alive while you’re away. A small KVM beside it unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you. On a real Mac mini, it went from Restart to desktop in 70 seconds.',
+    body: 'Keeps an agent Mac alive while you’re away. A small KVM beside it unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you. It took 70 seconds from Restart to desktop.',
     links: [['/housesitter/', 'housesitter →']] },
 ].map((item) => ({ ...item, status: labelFor(item.readiness), detail: entry(item.readiness).detail }))
 ---
@@ -114,6 +114,7 @@ const shelf = [
           </li>
         ))}
       </ul>
+      <p class="mt-12 md:mt-16"><a href="/#try" class="btn-ghost">Start with what you need &rarr;</a></p>
     </div>
   </section>
 </Layout>
