@@ -27,8 +27,8 @@ const restart = [
 ]
 
 const does = [
-  ['Unlocks FileVault after a restart', 'By itself only at the FileVault screen you taught it during a boot, only where that prompt is on the KVM’s own picture, once you’ve armed and verified it, and three times an hour at most. A sleep, a reseated cable or a KVM reboot ends at the lock screen, and that is your lock: it types there only when you ask over SSH.'],
-  ['Power-cycles a frozen Mac', 'Built, not yet tried on a real plug. With a smart plug on its cord: only when the desktop clock hasn’t moved for 5 minutes, nothing answers on the network, and three fresh looks over two more minutes agree. Never at a boot, a login window or a black screen.'],
+  ['Unlocks FileVault after a restart', 'Types the password at the FileVault screen you taught it, and only there, once you’ve armed and verified it; three times an hour at most. Your lock screen stays yours.'],
+  ['Power-cycles a frozen Mac', 'Built, not yet tried on a real plug. With a smart plug on its cord, only a desktop frozen for 5 minutes that nothing answers for, confirmed by three more looks. Never at a boot or a login.'],
   ['Tells you only when it needs you', 'One message when it’s stuck, saying what to fix, a reminder every six hours at most, and “back” when the Mac is.'],
   ['Says so if the KVM itself dies', 'A dead KVM can’t message you, so it pings a dead man’s switch you choose every minute, and that tells you when the pings stop.'],
 ]
@@ -63,7 +63,7 @@ const verified = [
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/housesitter')} canonical="https://ouroboros.bot/housesitter/">
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
+  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-[2.8125rem] md:pb-10 md:pt-44">
     <div class="max-w-6xl mx-auto grid gap-10 xl:grid-cols-[1fr_1.15fr] product-hero">
       <div class="grid gap-5 content-start min-w-0 hero-copy">
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -78,7 +78,7 @@ const verified = [
           </div>
           <span class="caption-mono">Real frames from that day. No hardware needed.</span>
         </div>
-        <p class="text-lg text-mist leading-relaxed">We restarted our Mac mini with nobody at it. The KVM saw FileVault through the Mac’s own HDMI port and refused: it knew only our lock screen. An agent taught it that screen from three frames, once, and it typed by itself. The desktop was up 19 seconds later.</p>
+        <p class="text-lg text-mist leading-relaxed">We restarted our Mac mini with nobody at it. The KVM saw FileVault through the Mac’s own HDMI port and refused: it knew only our lock screen. An agent taught it that screen from three frames, once, and it typed by itself: 1 minute 44 seconds from restart to desktop, with nobody at the Mac.</p>
         <p class="text-sm text-mist">{statusDetail}: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
       </div>
       <figure class="min-w-0 hero-media restart-clip">
@@ -132,6 +132,15 @@ const verified = [
           <button type="button" data-copy-target="housesitter-demo-2" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
         </div>
         <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo night</code> rehearses a bad night, all fakes: two panics, a freeze and a changed password. It ends: “3 incidents overnight: 2 fixed by itself (4 min, 12 min), 1 needed you, and it said so once.”</p>
+        <figure class="mt-6">
+          <div class="note-card" role="img" aria-label="A notification card. housesitter. studio is stuck at FileVault. Stuck because: the password was wrong twice. Fix: housesitter secret studio mac-password, then housesitter adopt studio. Look: housesitter status studio; housesitter screenshot studio.">
+            <p class="note-app">housesitter <span>05:51</span></p>
+            <p class="note-title">studio is stuck at FileVault</p>
+            <p class="note-body">Stuck because: the password was wrong twice. Fix: housesitter secret studio mac-password, then housesitter adopt studio.</p>
+            <p class="note-body">Look: housesitter status studio; housesitter screenshot studio.</p>
+          </div>
+          <figcaption class="night-caption"><span class="caption-note">Rehearsal</span> <span>That one message, word for word from <code class="model-code">demo night</code> (its title and two of its four lines), drawn as a card. Not a phone screenshot.</span></figcaption>
+        </figure>
       </div>
       <div class="product-media media-shot shot-dark-only replay-shot"><img src="/images/workshop/housesitter-evening.webp" width="1694" height="2000" loading="lazy" decoding="async" alt="housesitter demo: six pixel glimpses of real frames down the left, each with what the sitter sees and does. 10:32, no password field: it won't type and tells you once. 17:59, a desktop, not shown. 18:07, the taught prompt at 100 and 93 percent. 18:15, asked once, it typed and the desktop followed, not shown. 18:31 to 18:32:56, from the KVM's log: boot, FileVault, the field on its picture, typed once, the desktop." /></div>
     </div>
@@ -238,8 +247,14 @@ housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heart
   @media (min-width: 768px) { .cables { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
   .cables li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem; align-items: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .cable-n { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: color-mix(in srgb, var(--color-scale) 18%, transparent); color: var(--color-scale); font-family: var(--font-display); font-size: 1.25rem; }
-  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
+  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: break-word; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
   .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
   .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
+  .note-card { max-width: 26rem; padding: 0.9rem 1.1rem; border-radius: 1.1rem; background: color-mix(in srgb, var(--color-deep) 85%, var(--color-bone) 6%); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); box-shadow: 0 10px 30px rgb(0 0 0 / 0.25); }
+  .note-card p { margin: 0; }
+  .note-app { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--color-mist); }
+  .note-title { margin-top: 0.35rem !important; font-weight: 600; color: var(--color-bone); font-size: 1rem; }
+  .note-body { margin-top: 0.2rem !important; color: var(--color-mist); font-size: 0.9375rem; line-height: 1.45; }
+  @media (max-width: 479.98px) { .command, .install { font-size: 0.8125rem; } }
 </style>
