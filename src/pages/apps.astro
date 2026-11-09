@@ -11,7 +11,7 @@ import StoryScene from '../components/StoryScene.astro'
 // The copy is that homepage's, kept playful. Ouro MD's download page followed on
 // 2026-11-07, to /ouro-md/download/.
 const title = 'Apps: fresh from the workshop, ready to install | Ouro'
-const description = 'Download Ouro MD, hatch an agent with npx ouro.bot, and pick up Ouro Shepherd, Ouro HX, Desk and Ouro Butler.'
+const description = 'Download Ouro MD, hatch an agent with npx ouro.bot, and pick up Ouro Shepherd, Ouro UI, Desk and Ouro Butler.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const section = 'px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20'
 const md = labelFor('ouro-md')
@@ -30,9 +30,11 @@ const shelf = [
   { id: 'shepherd', scene: 'shepherd', name: 'Ouro Shepherd', readiness: 'shepherd',
     body: 'Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.',
     links: [['https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', 'How Shepherd decides ↗']] },
-  { id: 'ouro-hx', scene: 'ouro-hx', name: 'Ouro HX', readiness: 'ouro-hx',
-    body: 'Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it.',
-    links: [['https://ui.ouroboros.bot/', 'Meet Ouro HX ↗']] },
+  // Ouro UI is the home of Ouro HX and Ouro AX (ui.ouroboros.bot). The anchor
+  // stays #ouro-hx, where ouro.bot's old shelf link forwards.
+  { id: 'ouro-hx', scene: 'ouro-hx', name: 'Ouro UI', readiness: 'ouro-hx',
+    body: 'Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX brings the same care to interfaces an agent uses.',
+    links: [['https://ui.ouroboros.bot/', 'Meet Ouro UI ↗']] },
   { id: 'desk', scene: 'desk', name: 'Desk', readiness: 'desk-claude-code-macos',
     body: 'Desk keeps my agents’ work in a Git repository: every track, task, decision, and lesson. Ask “where were we?” on any machine, and the agent knows.',
     links: [['/desk/', 'Desk →']] },

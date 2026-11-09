@@ -5,13 +5,12 @@ import test from 'node:test';
 import { readDist, textOf, hrefsOf, distExists, listHtmlFiles, distDir, loadDenyList } from './support/dist.mjs';
 
 // Copy deck round 2 (2026-10-11): "Story" leaves the nav, and "Try it" joins it.
+// The family pass (Ari, 2026-11-08): Desk, Ouro MD and Apps move to the family
+// bar with Ouro UI, Ari Mendelow and GitHub, so the nav keeps the site's own sections.
 const navLinks = [
   ['How I work', '/approach/'],
-  ['Desk', '/desk/'],
-  ['Ouro MD', '/ouro-md/'],
   ['Lab', '/lab/'],
   ['Blog', '/blog/'],
-  ['Apps', '/apps/'],
   ['Try it', '/#try'],
 ];
 
@@ -395,13 +394,14 @@ test('the footer is the shared kit: the line, then one row with the sister link,
   }
 });
 
-test('the nav ends with the sister link and is glass from the top, over the dawn scene', () => {
+test('the nav repeats no family link on a wide screen, and is glass from the top, over the dawn scene', () => {
   const html = readDist('index.html');
   const nav = navOf(html);
-  const sister = nav.indexOf('href="https://mendelow.me"');
-  assert.ok(sister > 0, 'Nav has the sister link');
-  assert.ok(textOf(nav).includes('About me ↗'));
-  for (const [, href] of navLinks) assert.ok(nav.indexOf(`href="${href}"`) < sister, 'The sister link is last');
+  const bar = nav.slice(0, nav.indexOf('id="mobile-menu"'));
+  for (const href of ['https://mendelow.me', 'https://github.com/ourostack', '/desk/', '/ouro-md/', '/apps/', 'https://ui.ouroboros.bot/']) {
+    assert.ok(!bar.includes(`href="${href}"`), `the nav bar repeats the family link ${href}`);
+  }
+  assert.ok(!textOf(nav).includes('About me'));
   // Storybook (2026-11-06): every page opens on a bright scene. Taste review r2: the
   // header is nearly solid paper (or night) so nothing smears under the words.
   assert.match(nav, /id="nav-bg" class="nav-glass"/);
