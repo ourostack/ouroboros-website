@@ -1,0 +1,4 @@
+[
+  { "base": "https://ouroboros.bot", "out": "before", "pages": ["/", "/approach/", "/ouro-md/", "/apps/", "/lab/why/"] },
+  { "base": "https://ouroboros-website-pr-79.mendelow-studio.workers.dev", "out": "after", "pages": ["/", "/approach/", "/ouro-md/", "/apps/", "/lab/why/"] }
+]
