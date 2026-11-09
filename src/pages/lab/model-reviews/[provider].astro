@@ -91,7 +91,7 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
       <!-- The verdict's first sentence, then a jump to the whole verdict at the end of the
            transcript, so the same 90 words never appear twice on one page (taste review r4). -->
       <blockquote class="split-body lg:mb-14 border-l-2 border-scale/60 pl-6 md:pl-8 py-2">
-        <p class="text-bone text-lg md:text-xl lg:text-2xl leading-[1.65] font-light" set:html={`&#8220;${parseInlineMd(verdictLead)}${verdictLead === review.testimonial ? '&#8221;' : ' &#8230;&#8221;'}`}></p>
+        <p class="text-bone text-lg md:text-xl lg:text-2xl leading-[1.65]" set:html={`&#8220;${parseInlineMd(verdictLead)}${verdictLead === review.testimonial ? '&#8221;' : ' &#8230;&#8221;'}`}></p>
         {hasVerdict && <p class="mt-4 text-sm"><a href="#verdict" class="hit text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">Jump to verdict ↓</a></p>}
       </blockquote>
     </div>
