@@ -60,7 +60,8 @@ const metadata = {
   releaseURL: release.html_url,
   publishedAt: release.published_at,
   bundleIdentifier: manifestData.bundleIdentifier || "bot.ouro.md",
-  minimumMacOS: "13.0",
+  // Ouro MD's Package.swift targets .macOS(.v15); the release manifest carries no minimum.
+  minimumMacOS: "15.0",
   signingMode: manifestData.signingMode || null,
   notarized: typeof manifestData.notarized === "boolean" ? manifestData.notarized : null,
   downloads: {
