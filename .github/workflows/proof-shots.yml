@@ -2,7 +2,7 @@ name: proof-shots
 
 # Proof screenshots for pull requests, taken in CI so no laptop has to: each
 # push that changes shots/request.json shoots every base it names (the live
-# site, a PR preview) at phone 390x844 and laptop 1440x900, light and dark,
+# site, a PR preview, or a branch it builds and serves) at phone 390x844 and laptop 1440x900, light and dark,
 # and uploads them as the `shots` artifact. Lives only on the pr-proof branch.
 
 on:
@@ -23,6 +23,20 @@ jobs:
         with:
           node-version: 22
       - run: npm i --no-save --no-package-lock playwright@1.56.1 && npx playwright install --with-deps chromium
+      # A request may name a branch to build and serve on 127.0.0.1:4321 (base "local").
+      - id: build
+        run: echo "ref=$(jq -r '[.[] | select(.ref) | .ref][0] // empty' shots/request.json)" >> "$GITHUB_OUTPUT"
+      - if: steps.build.outputs.ref != ''
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.build.outputs.ref }}
+          path: site
+      - if: steps.build.outputs.ref != ''
+        working-directory: site
+        run: |
+          npm ci --no-audit --no-fund && npx astro build
+          nohup node scripts/serve-dist.mjs --port 4321 > ../serve.log 2>&1 &
+          for i in $(seq 1 50); do curl -fsS -o /dev/null http://127.0.0.1:4321/ && break; sleep 0.2; done
       - run: node shots/shoot.mjs
       - uses: actions/upload-artifact@v4
         with:

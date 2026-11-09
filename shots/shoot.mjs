@@ -10,6 +10,7 @@ const browser = await chromium.launch();
 const failures = [];
 try {
   for (const req of requests) {
+    if (req.base === "local") req.base = "http://127.0.0.1:4321";
     const out = `out/${req.out}`;
     mkdirSync(out, { recursive: true });
     for (const path of req.pages) {
