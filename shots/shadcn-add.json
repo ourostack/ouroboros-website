@@ -1,1 +1,1 @@
-{ "ref": "family-bar", "items": ["ourostack/ouro-ui/ouro-check#v1.3.7", "ourostack/ouro-ui/link#v1.3.7"] }
+{ "ref": "family-bar", "items": ["ourostack/ouro-ui/lib-cn#v1.3.7", "ourostack/ouro-ui/lib-router-link#v1.3.7", "ourostack/ouro-ui/lib-scroll-fade#v1.3.7", "ourostack/ouro-ui/lib-class-name-check#v1.3.7", "ourostack/ouro-ui/lib-use-dev-messages#v1.3.7"] }
