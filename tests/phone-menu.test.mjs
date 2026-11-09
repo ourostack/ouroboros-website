@@ -86,10 +86,12 @@ test('the phone menu opens and closes from its toggle', () => {
   els['menu-toggle'].dispatch('click');
   assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'true');
   assert.equal(els['mobile-menu'].classList.contains('hidden'), false);
-  assert.equal(doc.body.style.overflow, 'hidden');
   // html carries overflow-x: clip, so body's overflow never reaches the
   // viewport: the viewport itself locks (taste review r7: the page scrolled behind the menu).
   assert.equal(doc.documentElement.classList.contains('menu-open'), true);
+  // Body keeps no overflow of its own: one would make it the sticky nav's
+  // scroller, and the nav would leave a scrolled screen.
+  assert.equal(doc.body.style.overflow, '');
   els['menu-toggle'].dispatch('click');
   assert.equal(els['menu-toggle'].attrs['aria-expanded'], 'false');
   assert.equal(doc.body.style.overflow, '');

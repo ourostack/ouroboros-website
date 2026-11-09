@@ -58,12 +58,14 @@ for (const [width, height] of [[320, 568], [375, 667], [390, 844]]) {
         const r = a.getBoundingClientRect();
         return { text: a.textContent.trim(), top: r.top, bottom: r.bottom, height: r.height, width: r.width };
       });
-      return { links, scroll: panel.scrollHeight - panel.clientHeight, vh: innerHeight, top: panel.getBoundingClientRect().top, navBottom: document.getElementById('nav-bg').getBoundingClientRect().bottom };
+      return { links, scroll: panel.scrollHeight - panel.clientHeight, vh: innerHeight, top: panel.getBoundingClientRect().top, navBottom: document.getElementById('nav-bg').getBoundingClientRect().bottom, toggle: document.getElementById('menu-toggle').getBoundingClientRect().toJSON() };
     });
     await ctx.close();
     const at = `${width}x${height} ${page}${scrolled ? ' (scrolled)' : ''}`;
     if (m.links.length !== 11) failures.push(`${at}: ${m.links.length} links, not eleven`);
-    if (m.top < m.navBottom - 0.5) failures.push(`${at}: the panel starts at ${Math.round(m.top)}, above the nav's foot at ${Math.round(m.navBottom)}`);
+    if (Math.abs(m.top - m.navBottom) > 0.5) failures.push(`${at}: the panel starts at ${Math.round(m.top)}, not at the nav's foot at ${Math.round(m.navBottom)}`);
+    // The open menu keeps its nav, and the close button in it, on the screen, however far the page had scrolled.
+    if (m.toggle.top < -0.5 || m.toggle.bottom > m.vh + 0.5) failures.push(`${at}: the close button is at ${Math.round(m.toggle.top)}, off the screen`);
     if (m.scroll > 0) failures.push(`${at}: the menu scrolls by ${m.scroll}px`);
     for (const l of m.links) {
       if (l.bottom > m.vh + 0.5) failures.push(`${at}: "${l.text}" ends at ${Math.round(l.bottom)}, below the screen`);

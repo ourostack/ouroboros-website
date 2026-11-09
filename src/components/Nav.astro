@@ -175,9 +175,10 @@ const current = familyCurrent(currentPath)
       // Lock the viewport itself. html carries overflow-x: clip (global.css),
       // so body's overflow never reaches the viewport, and the page scrolled
       // behind the open menu (taste review r7). Locking <html> moves nothing,
-      // and the scroll position is kept for closing.
+      // and the scroll position is kept for closing. Body is left alone: an
+      // overflow on it would make it the sticky nav's scroller, and the nav
+      // would drop back under the family bar, off a scrolled screen.
       document.documentElement.classList.toggle('menu-open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
       if (!open && refocus) toggle.focus();
     }
     toggle.addEventListener('click', function() { setOpen(!isOpen(), true); });
