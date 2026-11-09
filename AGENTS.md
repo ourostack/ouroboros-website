@@ -148,8 +148,9 @@ Ari's writing style guide lives at `~/clawd/skills/writing-style/SKILL.md`. Alwa
 src/
   components/
     HeroCover.astro      ← shared title-card hero used by the Lab pages
-    Nav.astro            ← top nav (rendered into Layout)
-    Footer.astro
+    Nav.astro            ← the site's own sections, under the family bar (rendered into Layout)
+    Footer.astro         ← the line, then Ouro HX FamilyFooter with Privacy, Terms, LinkedIn, copyright
+    ouro/                ← Ouro HX components installed with shadcn from an ouro-ui release tag (never hand-edit; reinstall)
     DocsPageShell.astro  ← wrapper for /lab/docs/* sub-pages
     OuroborosRing.astro  ← decorative SVG ring
     SerpentGuidePreview.astro
@@ -157,16 +158,18 @@ src/
   data/
     og.ts                ← OG metadata manifest (single source of truth)
     scenes.mjs           ← which storybook scene each page opens on and shares with
-    site.mjs             ← nav and footer links
+    site.mjs             ← nav links, footer extras, family links and which one is current
+    family.json          ← the family list, a byte copy of ourostack/.github brand/family.json (tests/family.test.mjs)
     principles.mjs       ← the five principles, the smells, shared setup and install lines
     readiness.mjs        ← the only source of readiness labels
     lab.mjs              ← the only source of Lab status labels
     model-reviews.json   ← script output (DO NOT hand-edit)
     model-reviews-transcripts/*.json ← per-provider transcripts (DO NOT hand-edit)
   layouts/
-    Layout.astro         ← root <html><head><body>, nav, footer, Lab status bar, copy-button script
+    Layout.astro         ← root <html><head><body>, family bar, nav, footer, Lab status bar, copy-button script
   lib/
     model-review-claims.mjs ← getModelReviewClaims()
+    ouro/                ← helpers the Ouro HX components import (installed with them)
   pages/
     index.astro          ← /
     approach.astro       ← /approach
@@ -201,6 +204,12 @@ public/
 ## The storybook world
 
 Since 2026-11-06 every page opens on a scene from Ari's storybook brand (ourostack/.github `brand/`): `src/data/scenes.mjs` maps each route to its hero scene and card scene, `Layout.astro` draws the hero and the footer meadow, and `src/components/StoryScene.astro` is the one `<picture>`. The art is copied **byte for byte** into `public/brand/storybook/` by `node scripts/sync-storybook.mjs <brand folder>`; never re-encode, optimize or crop it in a build step, because the brand audit compares the served bytes with `provenance.json` (`tests/storybook.test.mjs` checks too). A new page gets a route in `scenes.mjs`; a new scene means re-running the sync.
+
+**No picture ever fades** (Ari: no fades on images). Every hero ends at a hard edge at its art's foot, with the gold trail closing the edge; the meadow above the footer has hard edges; OG cards put their words on a solid plate or on the art itself, never under a scrim that fades. A gradient that fades no picture (a tint, a drawn grid, a timeline line) is fine, and a gradient mask on one needs a `fade-ok: <reason>` comment on the same or previous line. `tests/no-image-fades.test.mjs` scans `src/` and `public/` in `npm test` and fails on any gradient mask without one.
+
+## The family bar
+
+Every page opens with Ouro HX's `FamilyBar` above the nav and closes with its `FamilyFooter`, both installed from an ouro-ui release tag into `src/components/ouro/` and rendered on the server with no client directive, so they ship no script. The links come from `src/data/family.json`, a byte copy of ourostack/.github `brand/family.json`; change the family there, then copy it here. `familyCurrent()` in `src/data/site.mjs` marks Ouro MD under `/ouro-md/`, Desk under `/desk/`, Apps under `/apps/` and Ouro everywhere else. The site's own nav carries only this site's sections and never repeats a family link. Ouro's theme tokens are mapped onto the site's palette in `global.css` for both themes; to update the components, reinstall them with `npx shadcn@latest add ourostack/ouro-ui/family-bar#<tag> --overwrite`.
 
 ## Ouro HX's page moved to ui.ouroboros.bot
 
