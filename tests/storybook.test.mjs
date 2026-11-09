@@ -112,12 +112,14 @@ test('no hero scene repeats between neighbouring pages', () => {
     const { hero } = sceneFor(route);
     if (!hero) continue;
     heroOf.set(route, hero);
-    const body = fs.readFileSync(file, 'utf8').replace(/<nav\b[\s\S]*?<\/nav>/, '').replace(/<footer\b[\s\S]*?<\/footer>/, '');
+    const body = fs.readFileSync(file, 'utf8').replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<footer\b[\s\S]*?<\/footer>/, '');
     linksOf.set(route, new Set([...body.matchAll(/href="(\/[^"#?]*)"/g)].map(([, href]) => (href.endsWith('/') ? href : `${href}/`))));
   }
   const parentOf = (route) => (route === '/' ? null : route.replace(/[^/]+\/$/, ''));
   const html = readDist('index.html');
-  const everywhere = new Set(['/', ...[...html.match(/<nav\b[\s\S]*?<\/nav>/)[0].matchAll(/href="(\/[^"#?]*)"/g), ...html.match(/<footer\b[\s\S]*?<\/footer>/)[0].matchAll(/href="(\/[^"#?]*)"/g)].map(([, href]) => href)]);
+  // The family bar, the nav and the footer are on every page.
+  const chrome = [...html.matchAll(/<nav\b[\s\S]*?<\/nav>/g)].map(([nav]) => nav).join('') + html.match(/<footer\b[\s\S]*?<\/footer>/)[0];
+  const everywhere = new Set(['/', ...[...chrome.matchAll(/href="(\/[^"#?]*)"/g)].map(([, href]) => href)]);
   // Two pages of one product share its scene on purpose (Ari's ruling on
   // taste review r19): the download page is the product's front door.
   const productOf = (route) => Object.keys(productScenes).find((p) => route === `${p}/` || route.startsWith(`${p}/`));

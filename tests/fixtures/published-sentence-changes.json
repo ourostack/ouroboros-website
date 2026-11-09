@@ -4480,5 +4480,197 @@
   "was": "Or install in Terminal curl -fsSL https://ouro.bot/ouro-md-install.sh | bash Copy Also adds an md shell alias.",
   "now": "Or install in Terminal curl -fsSL https://ouroboros.bot/ouro-md-install.sh | bash Copy Also adds an md shell alias.",
   "why": "the installer moved from ouro.bot to ouroboros.bot with Ouro MD's download page (Ari, 2026-11-07: \"move every surface to ouroboros.bot and have ouro.bot forward\"); ouro.bot/ouro-md-install.sh forwards here"
+ },
+ {
+  "page": "404 attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "approach attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog/designing-with-your-agent attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog/give-your-agent-a-home attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog/stop-being-the-glue attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog/take-the-agents-seat attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog/trust-the-agent attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "blog/what-is-agent-experience attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "brief attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "desk attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "index attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/docs attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/docs/architecture attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/docs/bundles-and-psyche attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/docs/continuity-and-memory attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/docs/getting-started attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/docs/skills-and-prompts attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/docs/tasks-and-work attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/model-reviews attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/model-reviews/anthropic attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/model-reviews/gemini attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/model-reviews/minimax attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/model-reviews/openai attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/story attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/what-is-an-agent-harness attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "lab/why attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "ouro-md attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "privacy attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
+ },
+ {
+  "page": "terms attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
  }
 ]

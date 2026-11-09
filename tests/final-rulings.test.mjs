@@ -9,7 +9,7 @@ import fs from 'node:fs';
 // readiness details (F12), /desk (F14), the homepage (F1, F13) and the Spoonjoy
 // crop (F19) are tested beside the tests they changed.
 
-const pageText = (file) => textOf(readDist(file).replace(/<nav\b[\s\S]*?<\/nav>/, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
+const pageText = (file) => textOf(readDist(file).replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
 
 test('root final ruling F5: the /approach share card says "How I work"', () => {
   assert.equal(pageOg['/approach'].tag, 'How I work');
@@ -58,10 +58,10 @@ test('root final ruling F15: every video is named by its poster alt text', () =>
 test('root final ruling F17: /brief has no "No install" kicker, and the footer row has no separator to dangle', () => {
   const html = readDist('brief/index.html');
   assert.doesNotMatch(pageText('brief/index.html'), /No install/i);
-  // Below 640px the links stand in even rows (taste review r15), so the separators go.
-  const css = fs.readFileSync(new URL('../src/components/Footer.astro', import.meta.url), 'utf8');
-  assert.match(css, /@media \(max-width: 639\.98px\) \{\s*\.footer-sep \{ display: none; \}/);
-  assert.match(html, /footer-sep/);
+  // The family footer (Ouro HX's FamilyFooter) spaces its links with gaps, never separators, so none can dangle.
+  const footer = html.match(/<footer\b[\s\S]*<\/footer>/)[0];
+  assert.match(footer, /data-ouro="family-footer"/);
+  assert.doesNotMatch(footer, /footer-sep|&middot;|·/);
 });
 
 test('root final ruling F18: the AX essay says "the human" for the human side', () => {

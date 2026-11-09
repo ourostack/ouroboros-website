@@ -28,7 +28,7 @@ const surfaceText = (key) => {
   if (key === 'brief.md') return sentencesOf(readBrief(distDir)).join(' ');
   if (key.startsWith('share card ')) return (shareCards[key.slice('share card '.length)] ?? []).join('\n');
   if (key.endsWith(' attributes')) return attributeTextsOf(readDist(fileFor(key.slice(0, -' attributes'.length)))).join('\n');
-  return textOf(readDist(fileFor(key)).replace(/<nav\b[\s\S]*?<\/nav>/, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
+  return textOf(readDist(fileFor(key)).replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
 };
 const cache = new Map();
 const current = (key) => {

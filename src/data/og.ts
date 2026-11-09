@@ -98,7 +98,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/apps': {
     title: 'Fresh from the workshop, ready to install.',
-    subtitle: 'Ouro MD, Ouroboros, Ouro Shepherd, Ouro HX, Desk and Ouro Butler: small, sharp tools for people and their agents.',
+    subtitle: 'Ouro MD, Ouroboros, Ouro Shepherd, Ouro UI, Desk and Ouro Butler: small, sharp tools for people and their agents.',
     tag: 'Ouro apps',
   },
   '/lab': {

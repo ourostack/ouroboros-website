@@ -173,7 +173,7 @@ const app = {
   .dl-media { grid-area: media; margin-top: 1.25rem; }
   @media (min-width: 1024px) {
     /* The width cap, and the height ease every product hero has (global.css). */
-    .dl-hero .heading-lead { font-size: min(clamp(3.4rem, 4.6vw, 4.4rem), clamp(3.4rem, calc(3.4rem + (100svh - 720px) / 11), 4.4rem)); }
+    .dl-hero .heading-lead { font-size: min(clamp(3.4rem, 4.6vw, 4.4rem), clamp(3rem, calc(3rem + (100svh - 720px) / 8), 4.4rem)); }
     /* The demo video, not text: capped so the stacked hero keeps its action in view. */
     .dl-media { max-width: 640px; }
   }
@@ -190,8 +190,8 @@ const app = {
   }
   @media (min-width: 1024px) {
     .dl-hero { row-gap: var(--hero-step); }
-    /* Its inner steps close a little sooner: as set from 816px tall, 4px by 720. */
-    .dl-top, .dl-words { row-gap: clamp(0.25rem, calc((100svh - 720px) / 6), 1rem); }
+    /* Its inner steps close a little sooner: as set from 864px tall, 4px by 768. */
+    .dl-top, .dl-words { row-gap: clamp(0.25rem, calc((100svh - 736px) / 8), 1rem); }
   }
   /* Section heads at the size they had on ouro.bot. */
   @media (min-width: 768px) { .dl-h2 { font-size: 3.25rem; line-height: 1; } }
