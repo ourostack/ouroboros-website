@@ -175,18 +175,18 @@ const app = {
     /* The width cap, and the height ease every product hero has (global.css). */
     .dl-hero .heading-lead { font-size: min(clamp(3.4rem, 4.6vw, 4.4rem), clamp(3rem, calc(3rem + (100svh - 720px) / 8), 4.4rem)); }
     /* The demo video, not text: capped so the stacked hero keeps its action in view. */
-    .dl-media { max-width: 640px; }
+    .dl-media { max-width: min(640px, var(--clip-w)); }
   }
   @media (min-width: 1280px) {
     .dl-hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-areas: "head head" "words media"; column-gap: 3rem; align-items: start; }
-    .dl-media { margin-top: 0; max-width: 840px; }
+    .dl-media { margin-top: 0; max-width: var(--clip-w); }
   }
   /* A short laptop (1280x720, 1366x768, 1536x864; the same query as the
      product heroes in global.css): the hero stacks as under 1280, the lede
      across the full column, and its steps close up with the window's height. */
   @media (min-width: 1280px) and (max-height: 960px) and (min-aspect-ratio: 33 / 20) {
     .dl-hero { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "words" "media"; }
-    .dl-media { margin-top: 1.25rem; max-width: 640px; }
+    .dl-media { margin-top: 1.25rem; max-width: min(640px, var(--clip-w)); }
   }
   @media (min-width: 1024px) {
     .dl-hero { row-gap: var(--hero-step); }
