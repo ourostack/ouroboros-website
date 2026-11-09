@@ -1,0 +1,4 @@
+# Every static asset carries HSTS. Responses the Worker builds (src/worker/) set it themselves,
+# because Cloudflare applies this file only to what the asset layer serves directly.
+/*
+  Strict-Transport-Security: max-age=31536000
