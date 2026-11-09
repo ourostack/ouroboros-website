@@ -293,7 +293,9 @@ housesitter watch-kvm studio --install</code></pre>
   .npu-facts li { display: grid; align-content: start; gap: 0.35rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); font-size: 1rem; line-height: 1.5; }
   .npu-n { font-family: var(--font-display); font-size: 1.875rem; line-height: 1.1; color: var(--color-bone); }
   .story { margin-top: 1.25rem; color: var(--color-mist); font-size: 1.125rem; line-height: 1.7; }
-  .heading-code { font-family: var(--font-mono); font-size: inherit; color: var(--color-bone); }
+  /* On a phone the name steps down to 24px so "housesitter doctor" holds one line; from 768 it takes the heading's size. */
+  .heading-code { font-family: var(--font-mono); font-size: 1.5rem; color: var(--color-bone); }
+  @media (min-width: 768px) { .heading-code { font-size: inherit; } }
   .replay { display: grid; gap: 2rem; align-items: start; }
   @media (min-width: 1024px) { .replay { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; } }
   .replay-shot img, .media-shot img { width: 100%; height: auto; display: block; border-radius: 0.75rem; }

@@ -370,7 +370,7 @@ html, body { overflow-x: clip; }
    entries, an underlined title that thickens on hover. Used by /blog/ and /lab/. */
 .post-list { list-style: none; padding: 0; margin: 0; }
 .post-list > li { padding: 1.75rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 35%, transparent); }
-.post-title { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; line-height: 1.25; color: var(--color-bone); text-wrap: pretty; }
+.post-title { font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; line-height: 1.25; color: var(--color-bone); text-wrap: pretty; }
 @media (min-width: 768px) { .post-title { font-size: 1.5rem; } }
 .post-dek { margin-top: 0.6rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
 .post-byline { display: block; margin-top: 0.5rem; color: var(--color-mist); }
