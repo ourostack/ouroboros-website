@@ -48,10 +48,8 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
     </div>
   </section>
 
-  <article class="px-6 md:px-12 lg:px-16 pb-16">
+  <article class="px-6 md:px-12 lg:px-16 pt-12 md:pt-0 pb-16">
     <div class="max-w-6xl mx-auto prose-ouro approach">
-
-      <p>Five principles keep an agent oriented on jobs that take days. The long version is in <a href={rfcUrl}>Desk's design doc</a>.</p>
 
       <h2 id="smells" class={h2}>Failure modes I watch for</h2>
 
@@ -62,6 +60,9 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
       </ul>
 
       <h2 id="working" class={h2}>What's been working</h2>
+      <p>Five principles keep an agent oriented on jobs that take days. The long version is in <a href={rfcUrl}>Desk's design doc</a>.</p>
+
+      <div class="principles">
 
       <h3 id="intent-and-judgement" class={h3}>1. Talk through intent and judgment</h3>
 
@@ -82,6 +83,7 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
       <h3 id="verify-the-result" class={h3}>5. Verify the actual result</h3>
 
       <p>I look where the result lives: the live page, the installed app, the merged change. I ask for proof that it works end to end, with screenshots I can check.</p>
+      </div>
 
       {/* The proposed "+1" became this section (copy deck round 2, 2026-10-11). It keeps the old anchor so links land. */}
       <h2 id="fix-the-system" class={h2}>Fix it for the next agent</h2>
@@ -120,4 +122,18 @@ const h3 = 'font-display text-2xl md:text-3xl text-bone leading-snug scroll-mt-2
   .approach :global(.acts li) { counter-increment: act; position: relative; padding-left: 2.5rem; font-size: 1.0625rem; line-height: 1.65; color: var(--color-mist); }
   .approach :global(.acts li::before) { content: counter(act); position: absolute; left: 0; top: 0.05rem; font-family: var(--font-mono); color: var(--color-scale); }
   .approach :global(.acts strong) { color: var(--color-bone); font-weight: 500; }
+  /* On a laptop the page uses its width as home's method section does: the
+     three acts read left to right with arrows between them, the failure modes
+     sit side by side, and each principle's title sits beside its story. */
+  @media (min-width: 1024px) {
+    .approach :global(.acts) { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0; margin-top: 2rem; }
+    .approach :global(.acts li) { padding: 2rem 3.5rem 0 0; }
+    .approach :global(.acts li::before) { content: "Act " counter(act); top: 0; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-fang); }
+    .approach :global(.acts li:not(:last-child)::after) { content: "\2192"; position: absolute; right: 1.25rem; top: 2.1rem; font-family: var(--font-display); font-size: 2rem; line-height: 1; color: var(--color-fang); }
+    .approach :global(.acts strong) { display: block; margin-bottom: 0.4rem; font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.05; }
+    .approach :global(.smells) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem 3rem; }
+    .approach .principles { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2.25rem 4rem; margin-top: 2.5rem; }
+    .approach .principles :global(h3) { margin: 0; }
+    .approach .principles :global(p) { margin: 0; }
+  }
 </style>

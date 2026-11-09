@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, listHtmlFiles } from './support/dist.mjs';
-import { castFoot, heroFocus, heroFrame, footInHero, FOOT_ROOM } from '../src/data/scenes.mjs';
+import { castFoot, heroFocus, heroFrame, footInHero, FOOT_ROOM, PRODUCT_FLOOR, sceneFor } from '../src/data/scenes.mjs';
 
 // No desktop hero crops more than about a fifth of its scene away (taste
 // review r8, 2026-11-06: the legal pages' short band and ouro.bot's capped
@@ -12,9 +12,13 @@ import { castFoot, heroFocus, heroFrame, footInHero, FOOT_ROOM } from '../src/da
 // height over the art's own height at that width. This reads the shipped
 // max-height rules from global.css and each page's own --hero-floor and
 // --hero-arh, and evaluates them at each laptop and desktop viewport.
-// scripts/hero-crop.mjs measures the same thing in a real browser.
+// scripts/hero-crop.mjs measures the same thing in a real browser. A product
+// page may crop to PRODUCT_FLOOR where its cast allows (Ari, 2026-11-09: room
+// under the hero for the product's name), never through the cast.
 
 const MAX_CROP = 0.2;
+const routeOfFile = (file) => '/' + path.relative(distDir, file).replace(/index\.html$/, '').replace(/\.html$/, '');
+const maxCropFor = (file) => (sceneFor(routeOfFile(file)).product ? 1 - PRODUCT_FLOOR : MAX_CROP);
 const viewports = [[1024, 768], [1280, 800], [1440, 900], [1920, 1080]];
 const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
 
@@ -62,7 +66,7 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
       const natural = w * arh;
       const box = Math.min(natural, px(cap, { w, h, floor, arh }));
       const crop = 1 - box / natural;
-      assert.ok(crop <= MAX_CROP, `/${path.relative(distDir, file)} at ${w}x${h} crops ${(crop * 100).toFixed(1)}% of its scene`);
+      assert.ok(crop <= maxCropFor(file) + 1e-9, `/${path.relative(distDir, file)} at ${w}x${h} crops ${(crop * 100).toFixed(1)}% of its scene`);
     }
     checked++;
   }
@@ -114,7 +118,7 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
     const arh = num('hero-arh');
     const y = num('hero-y') / 100;
     assert.doesNotMatch(style, /--hero-fade|--hero-origin|--hero-apron|--paint-foot/, `${file}: a hero carries fade machinery`);
-    const frame = heroFrame(scene);
+    const frame = heroFrame(scene, { product: sceneFor(routeOfFile(file)).product });
     assert.equal(y, frame.y / 100, `${file}: --hero-y is not heroFrame()'s`);
     const below = new RegExp(`data-brand-scene="${scene}" data-trail-below`).test(html);
     assert.equal(below, frame.trailBelow, `${file}: the trail ${frame.trailBelow ? 'must hang below' : 'sits on'} the edge`);

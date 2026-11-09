@@ -93,7 +93,12 @@ test('the Ouro MD page leads with the card copy and one clip, with no second dem
   assert.doesNotMatch(textOf(html), /A demo: an agent's revision lands|Use today/);
   assert.doesNotMatch(textOf(html), /One ordinary Markdown plan|the person stays in place/);
   assert.ok(!distExists('images/ouro-md'), 'The rejected Ouro MD media must not ship');
-  assert.ok(html.indexOf('href="/ouro-md/download/"') > 0 && html.indexOf('href="/ouro-md/download/"') < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
+  // Fadell, round two: "Download for Mac" downloads the release itself, not a second page.
+  const dmg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/ouro-md/stable.json'), 'utf8')).downloads.dmg.url;
+  const action = html.match(/<div\b[^>]*data-primary-action[^>]*>([\s\S]*?)<\/div>/)[1];
+  assert.ok(hrefsOf(action).includes(dmg), 'The primary action is the disk image');
+  assert.ok(html.indexOf(`href="${dmg}"`) > 0 && html.indexOf(`href="${dmg}"`) < html.indexOf('ouro-md-install.sh'), 'The download comes before the terminal install');
+  assert.ok(hrefsOf(html).includes('/ouro-md/download/'), 'The page still leads to the download page');
   const text = textOf(html);
   assert.match(text, /you can turn it off in Settings/);
   assert.doesNotMatch(text, /principles 3 and 5/);

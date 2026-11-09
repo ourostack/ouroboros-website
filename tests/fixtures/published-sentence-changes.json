@@ -2216,8 +2216,8 @@
  {
   "page": "desk",
   "was": "Copilot CLI Tested daily Use today, alpha Codex Runs, not yet proven in daily use Experimental Hosted Desk on claude.ai No sign-up yet Not open yet Known limits today Desk's own browser starts signed out, and on macOS it can steal focus.",
-  "now": "GitHub Copilot CLI Use today Tested daily. Codex Experimental Runs, and hasn't been proven in daily use yet. Hosted Desk on claude.ai Not open yet Sign-in by invitation. Known limits today Desk's own browser starts signed out, and on macOS it can steal focus.",
-  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail; root final ruling F12 (2026-10-11): readiness details have no trailing period; root final ruling F14: the H2 becomes \"What a new session looks like\"; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation. Then (2026-10-20) the page reads top to bottom with no boxes: Where it runs and Known limits are their own sections under the hero, each status tag follows its host's name, and each detail ends with a full stop."
+  "now": "GitHub Copilot CLI Use today Tested daily. Codex Experimental Runs, and hasn't been proven in daily use yet. Hosted Desk on claude.ai Not open yet Sign-in by invitation.",
+  "why": "copy deck round 2: readiness labels; Known limits moves under the copy box (copy deck round 2: /desk); root ruling M3 (2026-10-11): Codex detail; root final ruling F12 (2026-10-11): readiness details have no trailing period; root final ruling F14: the H2 becomes \"What a new session looks like\"; then (Desk + Crew handoff, 2026-10-15): core Desk + Crew is opt-in and not branded alpha; each host keeps its own evidence; Hosted Desk sign-in is by invitation. Then (2026-10-20) the page reads top to bottom with no boxes: Where it runs and Known limits are their own sections under the hero, each status tag follows its host's name, and each detail ends with a full stop.; round two (2026-11-09): the setup note and the factory's status follow the hosts, and Known limits sits beside them"
  },
  {
   "page": "desk",
@@ -4864,5 +4864,11 @@
   "was": "Main",
   "now": "Primary",
   "why": "critics' pass (2026-11-09): the site's own nav is named Primary on all three family sites, beside the bar's Sites and the footer's All sites"
+ },
+ {
+  "page": "index",
+  "was": "Desk Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson.",
+  "now": "Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson.",
+  "why": "round two (2026-11-09): every tool on the homepage shows its readiness tag beside its name, as Ouro UI's does (Ive)"
  }
 ]

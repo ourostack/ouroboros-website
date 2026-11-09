@@ -92,7 +92,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/ouro-md/download': {
     title: 'Ouro MD: Markdown that renders as you type.',
-    subtitle: 'A native macOS Markdown editor. No preview pane, no toggle — just the document. Download it free.',
+    subtitle: 'A native macOS Markdown editor, free to download.',
     tag: 'Download Ouro MD',
     mark: 'ouro-md',
   },

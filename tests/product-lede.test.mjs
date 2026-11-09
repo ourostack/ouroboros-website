@@ -7,7 +7,7 @@ import { readDist } from './support/dist.mjs';
 // Cormorant at 20px on a phone and 24px from 768px (taste review r9: /butler/
 // set its lede in Outfit).
 test('every product page uses the shared product-hero lede', () => {
-  for (const page of ['desk', 'ouro-md', 'butler', 'housesitter']) {
+  for (const page of ['desk', 'ouro-md', 'butler', 'housesitter', 'apps', 'ouro-md/download']) {
     const html = readDist(`${page}/index.html`);
     const afterH1 = html.slice(html.indexOf('</h1>'));
     const lede = afterH1.match(/<p\b[^>]*class="([^"]*)"/);

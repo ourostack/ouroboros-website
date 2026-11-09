@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import WorkshopVideo from '../components/WorkshopVideo.astro'
 import { ogPathFor } from '../data/og'
-import { labelFor, entry } from '../data/readiness.mjs'
+import { labelFor } from '../data/readiness.mjs'
 
 // housesitter keeps an always-on agent Mac alive through a small IP-KVM. Every claim here is sourced from
 // ourostack/housesitter: its README (the story, what's verified, the password rules), its real `housesitter doctor`
@@ -11,7 +11,6 @@ const title = 'housesitter: your agents’ Mac, unlocked after a restart | Ouro'
 const description = 'A $100 KVM beside your agents’ Mac. When the Mac restarts, it unlocks FileVault. When it can’t, it tells you. On a real Mac mini, housesitter went from Restart to desktop in 70 seconds with nobody touching it.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const status = labelFor('housesitter')
-const statusDetail = entry('housesitter').detail
 const repo = 'https://github.com/ourostack/housesitter'
 const demo = 'npx github:ourostack/housesitter demo'
 
@@ -82,7 +81,7 @@ const verified = [
           <span class="caption-mono">Real frames from that day. No hardware needed.</span>
         </div>
         <p class="text-lg text-mist leading-relaxed">We pressed Restart on our Mac mini and touched nothing else. The KVM saw FileVault through the Mac’s own HDMI port, recognised the prompt it had been taught on the restart before, and typed once, by itself: 70 seconds from Restart to desktop.</p>
-        <p class="text-sm text-mist">{statusDetail}: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
+        <p class="text-sm text-mist">The smart plug is next: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
       </div>
       <figure class="min-w-0 hero-media restart-clip">
         <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: logging out 3 seconds after Restart, which our agent pressed, the only touch; shutting down; boot seen, the Mac found the KVM's keyboard again; FileVault, the screen it was taught, steady, now it may type, the prompt zoomed twice; typed once, by itself, the field blurred; logging in; then a card: 70 s from Restart to desktop, nobody at the Mac, housesitter 0.2 on the KVM beside it." />

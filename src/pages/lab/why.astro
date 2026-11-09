@@ -56,16 +56,16 @@ const organs = [
   <div class="px-6 md:px-12 lg:px-16"><Glossary class="max-w-6xl mx-auto" wide /></div>
 
   <!-- Pull quote (moved out of the hero so the cover stays focused), then the reviews claim under it -->
-  <section class="relative px-6 md:px-12 lg:px-16 pt-8 pb-12 reveal">
+  <section class="relative px-6 md:px-12 lg:px-16 pt-8 pb-16 md:pb-24 reveal">
     <div class="max-w-6xl mx-auto grid gap-12">
-    <blockquote class="w-full mx-auto border-l border-fang/30 pl-6">
+    <blockquote class="w-full mx-auto text-center">
       <p class="text-bone text-lg sm:text-xl leading-relaxed">
         &#8220;I spent more time trying to get my agents back on track than we actually spent working.&#8221;
       </p>
       <p class="mt-3 text-sm text-mist">That's the problem.</p>
     </blockquote>
 
-    <div class="max-w-6xl w-full mx-auto">
+    <div class="max-w-6xl w-full mx-auto text-center">
       <a href="/lab/model-reviews/" class="block group">
         <div class="font-mono uppercase tracking-[0.22em] text-scale text-xs mb-3">Reviews</div>
         <p class="font-display text-2xl md:text-3xl text-bone leading-tight mb-3">
@@ -80,7 +80,7 @@ const organs = [
   </section>
 
   <!-- ═══════ 2. FRICTION — diagonal flow, each question offset ═══════ -->
-  <section id="friction" class="px-6 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 reveal">
+  <section id="friction" class="px-6 md:px-12 lg:px-16 py-16 md:py-24 reveal">
     <div class="max-w-6xl relative mx-auto">
       <p class="friction-intro text-base sm:text-lg text-mist mb-12 leading-relaxed">
         The hidden tax. Every time the agent loses the thread, someone pays to rebuild it.
@@ -116,15 +116,15 @@ const organs = [
   </section>
 
   <!-- ═══════ 3. RING, beside the identity section on desktop ═══════ -->
-  <section class="lg:px-16">
-  <div class="lg:max-w-6xl lg:mx-auto split">
-  <div class="split-head flex items-center justify-center py-12 sm:py-20 md:py-28">
+  <section class="px-6 md:px-12 lg:px-16 py-16 md:py-24">
+  <div class="max-w-6xl mx-auto split split-media">
+  <div class="split-head flex justify-center">
     <OuroborosRing size="md" id="why" />
   </div>
 
   <!-- ═══════ 4. IDENTITY ═══════ -->
-  <div id="identity" class="split-body px-6 md:px-12 lg:px-0 py-16 sm:py-24 md:py-32 reveal">
-    <div class="max-w-6xl mx-auto">
+  <div id="identity" class="split-body reveal">
+    <div>
       <p class="text-scale text-base sm:text-lg mb-4">You always know who you are.</p>
       <h2 class="heading-section mb-6 sm:mb-8">
         A structured psyche.
@@ -158,7 +158,7 @@ const organs = [
   </section>
 
   <!-- ═══════ 5. MEMORY ═══════ -->
-  <section id="memory" class="px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 reveal">
+  <section id="memory" class="px-6 md:px-12 lg:px-16 py-16 md:py-24 reveal">
     <div class="max-w-6xl mx-auto split">
       <div class="split-head mb-12 sm:mb-16">
         <p class="text-scale text-base sm:text-lg mb-4">Memories find you.</p>
@@ -199,7 +199,7 @@ const organs = [
   </section>
 
   <!-- ═══════ 6. RELATIONSHIPS — narrow, intimate ═══════ -->
-  <section id="relationships" class="px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 reveal">
+  <section id="relationships" class="px-6 md:px-12 lg:px-16 py-16 md:py-24 reveal">
     <div class="max-w-6xl mx-auto split">
       <div class="split-head mb-8">
         <p class="text-scale text-base sm:text-lg mb-4">You remember who matters.</p>
@@ -233,7 +233,7 @@ const organs = [
   </section>
 
   <!-- ═══════ 7. CONTINUITY — staggered features ═══════ -->
-  <section id="continuity" class="px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 reveal">
+  <section id="continuity" class="px-6 md:px-12 lg:px-16 py-16 md:py-24 reveal">
     <div class="max-w-6xl mx-auto split">
       <div class="split-head mb-12 sm:mb-16 md:mb-20">
         <p class="text-scale text-base sm:text-lg mb-4">Context gets trimmed.</p>
@@ -272,7 +272,7 @@ const organs = [
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Portable self</span>
           <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
             The .ouro bundle. Psyche, diary, journal, habits, friends, tasks, skills —
-            everything that makes an agent <em>that</em> agent, in one directory.
+            everything that makes an agent <strong class="font-medium text-bone">that</strong> agent, in one directory.
             Move it, and the identity moves with it.
           </p>
         </div>
@@ -286,7 +286,7 @@ const organs = [
   </section>
 
   <!-- ═══════ 8. INNER LIFE ═══════ -->
-  <section id="inner-life" class="px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32 reveal">
+  <section id="inner-life" class="px-6 md:px-12 lg:px-16 py-16 md:py-24 reveal">
     <div class="max-w-6xl mx-auto split">
       <div class="split-head mb-12 sm:mb-16 md:mb-20">
         <p class="text-scale text-base sm:text-lg mb-4">You breathe on your own time.</p>
@@ -321,9 +321,9 @@ const organs = [
         <div>
           <span class="font-mono text-xs text-scale uppercase tracking-[0.25em]">Ponder / Surface / Rest</span>
           <p class="text-base sm:text-lg text-mist mt-3 leading-relaxed">
-            A vocabulary for thinking. <em>Ponder</em> sends a thought inward.
-            <em>Surface</em> brings it back to the world.
-            <em>Rest</em> ends the turn. <em>Observe</em> stays quiet in a group.
+            A vocabulary for thinking. <strong class="font-medium text-bone">Ponder</strong> sends a thought inward.
+            <strong class="font-medium text-bone">Surface</strong> brings it back to the world.
+            <strong class="font-medium text-bone">Rest</strong> ends the turn. <strong class="font-medium text-bone">Observe</strong> stays quiet in a group.
             Cognitive states the agent moves between naturally.
           </p>
         </div>
@@ -345,7 +345,7 @@ const organs = [
   </section>
 
   <!-- ═══════ 9. BODY — only section with texture ═══════ -->
-  <section id="body" class="relative px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-36 reveal">
+  <section id="body" class="relative px-6 md:px-12 lg:px-16 py-16 md:py-24 reveal">
     <div class="ground-fade absolute inset-0 bg-undergrowth/25 pointer-events-none"></div>
     <div class="grid-fade absolute inset-0 opacity-[0.06] pointer-events-none" style="background-image: linear-gradient(var(--color-scale) 1px, transparent 1px), linear-gradient(90deg, var(--color-scale) 1px, transparent 1px); background-size: 40px 40px;"></div>
 
@@ -384,7 +384,7 @@ const organs = [
   </section>
 
   <!-- ═══════ 9. CLOSING ═══════ -->
-  <section class="px-6 md:px-12 lg:px-16 py-16 sm:py-20 reveal">
+  <section class="px-6 md:px-12 lg:px-16 py-16 md:py-24 reveal">
     <div class="max-w-6xl mx-auto space-y-8 split">
       <p class="split-head text-bone text-base sm:text-lg leading-relaxed">
         This started with <a href="/lab/story/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">a plugin that couldn't hold the weight</a>.
@@ -395,6 +395,10 @@ const organs = [
         <a href="/lab/docs/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">Your agent will explain how it works</a>.
         Or if you want to understand the primitive underneath, <a href="/blog/build-ai-agent-from-scratch/" class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors">build the loop from scratch</a> in 150 lines.
       </p>
+      <div class="split-body btn-row">
+        <a href="/lab/docs/getting-started/" class="btn-primary">Start with Ouroboros &rarr;</a>
+        <a href="/blog/build-ai-agent-from-scratch/" class="btn-ghost">Build the loop from scratch &rarr;</a>
+      </div>
     </div>
   </section>
 </Layout>
