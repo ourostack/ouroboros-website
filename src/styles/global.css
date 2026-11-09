@@ -439,13 +439,34 @@ html, body { overflow-x: clip; }
    takes the window's own corner, scaled with it (35/840 across, 35/630 down,
    just inside the window's curve), so its one ring is the window's edge and
    no corner of black or of frame shows through (Ari, 2026-11-09: "this awful
-   double border"). It is never wider than 840 CSS px, the capture's own
-   width (Ari: "never designed to be so large"), and centres in a wider
-   column. On a 2x screen that is still twice its pixels: a sharper clip
-   needs a 2x recording (ourostack/ouro-md, site-media.yml). No crop: a 4%
-   crop cut off the window's "New" button (taste r3). */
+   double border"). It is never scaled up on any screen (Ari: "never
+   designed to be so large, so it is quite blurry"): --clip-w is its 840
+   pixels over the screen's pixel ratio, so one pixel of the recording is
+   never drawn wider than one pixel of the screen (420 CSS px on a 2x
+   display). CSS can't divide by the ratio, so each common ratio gets its
+   own width, and a ratio just above it (a zoomed page, a 175% display)
+   takes the next one's, which is narrower, never wider. Layouts that set the recording beside words size its column
+   from --clip-w, so the words take the room it leaves. A larger clip on a
+   2x screen needs a 2x recording (ourostack/ouro-md, site-media.yml). No
+   crop: a 4% crop cut off the window's "New" button (taste r3). */
+:root { --clip-w: 840px; }
+@media (min-resolution: 1.001dppx) { :root { --clip-w: 672px; } }
+@media (min-resolution: 1.251dppx) { :root { --clip-w: 560px; } }
+@media (min-resolution: 1.501dppx) { :root { --clip-w: 480px; } }
+@media (min-resolution: 1.751dppx) { :root { --clip-w: 420px; } }
+@media (min-resolution: 2.001dppx) { :root { --clip-w: 373px; } }
+@media (min-resolution: 2.251dppx) { :root { --clip-w: 336px; } }
+@media (min-resolution: 2.501dppx) { :root { --clip-w: 280px; } }
+@media (min-resolution: 3.001dppx) { :root { --clip-w: 240px; } }
+@media (min-resolution: 3.501dppx) { :root { --clip-w: 210px; } }
+@media (min-resolution: 4.001dppx) { :root { --clip-w: 168px; } }
 .product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4.1667% / 5.5556%; }
-.clip:has(> .media-clip), .product-figure:has(> .media-clip) { width: 100%; max-width: 840px; margin-inline: auto; }
+.clip:has(> .media-clip), .product-figure:has(> .media-clip) { width: 100%; max-width: var(--clip-w); margin-inline: auto; }
+/* Copy beside the recording: its column is the recording's width, at most
+   the 7/12 a .split-media gives its media, and the copy takes the rest. */
+@media (min-width: 1024px) {
+  .split.split-media:has(> .split-body .media-clip) { grid-template-columns: minmax(0, 1fr) min(var(--clip-w), calc((100% - var(--split-gap)) * 7 / 12)); }
+}
 .clip-theme { height: 100%; }
 .product-media.media-shot img { display: block; width: 100%; height: auto; }
 /* A product screenshot follows the theme (Ari's ruling on taste review r19).
@@ -998,8 +1019,9 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-meadow { margin-top: clamp(4rem, 7vw, 6.5rem); overflow: visible; }
 /* Every page ends the same distance above the meadow: the last section gives
    up its own bottom padding and the meadow's margin sets the gap. A tinted
-   last section keeps its padding, since it meets the meadow directly. */
-main > :last-child:not([class~="bg-deep/40"]) { padding-bottom: 0; }
+   last section keeps its padding, since it meets the meadow directly, and a
+   page with no meadow (the 404) keeps its own. */
+main:has(+ .story-meadow) > :last-child:not([class~="bg-deep/40"]) { padding-bottom: 0; }
 /* Above <main> (z-index 10), so a tinted last section that meets the meadow
    never paints over the top half of its trail; the footer stays above the
    meadow, so its own trail shows whole along the meadow's foot. */

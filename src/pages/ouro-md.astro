@@ -24,8 +24,8 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
           <span class="text-sm text-mist">macOS 15 or later. Signed, notarized, updates itself.</span>
         </div>
       </div>
-      <p class="md-aside text-lg text-mist leading-relaxed">When a document needs to leave the screen, Ouro MD prints it or saves a PDF from a preview where you set the margins, type size, line spacing, paper, and which headings start a new page.</p>
       <div class="min-w-0 split-body hero-media"><OuroMdMedia only="agent" /></div>
+      <p class="md-aside text-lg text-mist leading-relaxed">When a document needs to leave the screen, Ouro MD prints it or saves a PDF from a preview where you set the margins, type size, line spacing, paper, and which headings start a new page.</p>
     </div>
   </section>
 
@@ -39,48 +39,47 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
           <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> shell alias.</span>
         </div>
       </div>
-      <div class="grid gap-5 lg:gap-8 content-start min-w-0 split-body lg:pt-6">
-        <p class="text-mist">Every feature, theme and export is on <a href="/ouro-md/download/" class={link}>the download page</a>.</p>
-        <p class="text-sm text-mist">Builds from the installer or the download page send anonymous usage telemetry (you can turn it off in Settings). The <a href="/privacy/" class={link}>privacy page</a> says what's sent.</p>
-        <p class="text-mist pt-3 lg:pt-0">To report a problem, ask your agent to file an issue on <a href="https://github.com/ourostack/ouro-md/issues" class={link}>github.com/ourostack/ouro-md</a>.</p>
+      <div class="grid gap-6 content-start min-w-0 split-body lg:pt-6">
+        <div class="btn-row">
+          <a href={ouroMdDownload} class="btn-primary">Download for Mac &rarr;</a>
+          <a href="/ouro-md/download/" class="btn-ghost">See every feature &rarr;</a>
+        </div>
+        <div class="grid gap-2 text-sm text-mist">
+          <p>Builds from the installer or the download page send anonymous usage telemetry (you can turn it off in Settings). The <a href="/privacy/" class={link}>privacy page</a> says what's sent.</p>
+          <p>To report a problem, ask your agent to file an issue on <a href="https://github.com/ourostack/ouro-md/issues" class={link}>github.com/ourostack/ouro-md</a>.</p>
+        </div>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* The hero: the words, the print note and the recording. The recording is
-     never wider than its own 840px (global.css), so wherever the hero runs
-     the full column it sits beside the print note instead of stretching
-     across the page (Ari, 2026-11-09: "never designed to be so large").
-     Phone: words, note, recording. From 1280 on a tall screen: words and
-     note on the left, the recording on the right. Stacked (1024 to 1279, and
-     the short laptops where every product hero stacks for its primary
-     action, the query in global.css): the words across, then the recording
-     with the note beside it. */
-  .md-hero { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "aside" "media"; gap: 1.25rem 4rem; }
+  /* The hero: the words, the recording and the print note, in reading order.
+     The recording is never drawn larger than its own pixels (--clip-w in
+     global.css), so wherever the hero is wider it sits beside the print note
+     instead of stretching across the page (Ari, 2026-11-09: "never designed
+     to be so large"). Phone: words, recording, note. From 1280 on a tall
+     screen: words and note on the left, the recording on the right, its
+     column as wide as the recording. Stacked (1024 to 1279, 1280x800 and the
+     short laptops, where the 5/12 column would push Download toward the
+     fold): the words across, then the recording with the note beside it. */
+  .md-hero { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "media" "aside"; gap: 1.25rem 4rem; }
   .md-copy { grid-area: copy; }
   .md-aside { grid-area: aside; margin: 0; }
   .md-hero > .hero-media { grid-area: media; margin-top: 0.75rem; }
+  /* Stacked, the note keeps the section rhythm (2.5rem) under the recording's caption. */
+  .md-hero > .md-aside { margin-top: 1.25rem; }
   @media (min-width: 1024px) {
-    .md-hero { grid-template-columns: minmax(0, 840px) minmax(16rem, 1fr); grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
-    .md-hero > .hero-media { margin-top: 0; }
+    .md-hero { grid-template-columns: minmax(0, var(--clip-w)) minmax(16rem, 1fr); grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
+    .md-hero > .hero-media, .md-hero > .md-aside { margin-top: 0; }
     .md-copy { align-self: start; }
   }
   @media (min-width: 1280px) {
-    .md-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto 1fr; grid-template-areas: "copy media" "aside media"; row-gap: 1.25rem; align-items: start; }
-    .md-hero > .hero-media { justify-self: end; width: 100%; max-width: 840px; }
+    .md-hero { grid-template-columns: minmax(0, 1fr) min(var(--clip-w), calc((100% - 4rem) * 7 / 12)); grid-template-rows: auto 1fr; grid-template-areas: "copy media" "aside media"; row-gap: 1.25rem; align-items: start; }
+    .md-hero > .hero-media { justify-self: end; width: 100%; }
   }
-  /* From 2000px the 7/12 column is wider than the recording, so the words take
-     the rest and the recording keeps the column's right edge, with no gap
-     opening between them. */
-  @media (min-width: 2000px) {
-    .md-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 840px); }
-  }
-  /* The short laptops, and 1280x800, where the 5/12 column would wrap the
-     lede so far that Download slipped within 20px of the fold. */
   @media (min-width: 1280px) and (max-height: 960px) and (min-aspect-ratio: 33 / 20), (min-width: 1280px) and (max-height: 820px) {
-    .md-hero { grid-template-columns: minmax(0, 840px) minmax(16rem, 1fr); grid-template-rows: none; grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
+    .md-hero { grid-template-columns: minmax(0, var(--clip-w)) minmax(16rem, 1fr); grid-template-rows: none; grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
     .md-hero > .hero-media { justify-self: stretch; }
   }
 </style>

@@ -67,8 +67,7 @@ const wastes = [
     <div class="hero relative max-w-6xl mx-auto">
       <div class="hero-copy">
       <h1 class="hero-title heading-hero animate-fade-up">How can humans and agents do more <span class="text-scale">together?</span></h1>
-      <p class="hero-sub text-lg md:text-2xl text-bone leading-snug animate-fade-up stagger-1">Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started.</p>
-      <p class="hero-next animate-fade-up stagger-1"><a href="#try" class="btn-ghost">Start with what you need &darr;</a></p>
+      <p class="hero-sub text-lg md:text-2xl text-bone leading-snug animate-fade-up stagger-1">Hello!! I'm Ari, and that question is behind everything I build. This is my workshop: the tools I've built for working with agents, how I use them, and where it all started. <a href="#try" class={`whitespace-nowrap ${link}`}>Start with what you need&nbsp;&darr;</a></p>
       </div>
       <a href="https://mendelow.me" class="hero-pic hero-media portrait group animate-fade-up stagger-2">
         <picture class="block w-full">
@@ -322,9 +321,7 @@ const wastes = [
   /* The hero layout is shared with mendelow.me's (styles.css there): keep the two identical.
      On a phone the question and the hello lead, centered, and the photo follows them, full width and
      cropped wide around the face (taste review r2, 2026-11-06: the h1 comes before the portrait). From 768px the copy is one block, centered beside a portrait-shaped photo. */
-  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "sub" "next" "pic"; text-align: center; }
-  /* The way to the "Start with what you need" router, in the first view (Fadell, round two). */
-  .hero-next { grid-area: next; }
+  .hero { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "sub" "pic"; text-align: center; }
   .hero-copy { display: contents; }
   .hero-title { grid-area: title; }
   .hero-sub { grid-area: sub; }
@@ -334,14 +331,15 @@ const wastes = [
   @media (min-width: 768px) {
     .hero { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
     .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
-    .hero-copy > .hero-title, .hero-copy > .hero-sub, .hero-copy > .hero-next { grid-area: auto; }
+    .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
     .portrait { justify-items: center; width: 12rem; }
     .portrait-img { aspect-ratio: 600 / 824; }
   }
-  /* From 1024 the portrait is as tall as the first view allows, so the title,
-     the hello and the photo's foot all sit inside it (Ive, round two: the
-     fold cut "Hello!! I'm Ari" in half at 1440x900). */
-  @media (min-width: 1024px) { .hero { align-items: end; } .portrait { width: clamp(14rem, calc((100svh - 36rem) * 0.73), 17rem); } }
+  /* From 1024 the title starts level with the photo's top, and the portrait
+     eases with the window's height, so the hello and its "Start with what you
+     need" link sit in the first view (Ive, round two: the fold cut "Hello!!
+     I'm Ari" in half at 1440x900). */
+  @media (min-width: 1024px) { .hero { align-items: start; } .portrait { width: clamp(14rem, calc((100svh - 36rem) * 0.73), 17rem); } }
   @media (min-width: 1240px) { .portrait { width: clamp(14rem, calc((100svh - 36rem) * 0.73), 21rem); } }
   .portrait-img { width: 100%; height: auto; object-fit: cover; border-radius: 1rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
   .portrait:hover .portrait-img, .portrait:focus-visible .portrait-img { border-color: var(--color-scale); }
@@ -384,7 +382,7 @@ const wastes = [
   @media (min-width: 1024px) {
     .acts { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0; }
     .acts li { position: relative; padding-right: 3.5rem; }
-    .acts li:not(:last-child)::after { content: "\2192"; position: absolute; right: 1.25rem; top: 1.1rem; font-family: var(--font-display); font-size: 2rem; color: var(--color-fang); }
+    .acts li:not(:last-child)::after { content: "\2192"; content: "\2192" / ""; position: absolute; right: 1.25rem; top: 1.1rem; font-family: var(--font-display); font-size: 2rem; color: var(--color-fang); }
   }
   .smells { display: grid; gap: 1.5rem 3rem; }
   @media (min-width: 1024px) { .smells { grid-template-columns: repeat(3, minmax(0, 1fr)); } .smells li { flex-direction: column; } }
@@ -433,10 +431,15 @@ const wastes = [
     .tool { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4rem; align-items: start; }
     .tool-copy { padding-top: 1.5rem; }
   }
-  /* From 2000px every demo is the Ouro MD recording's 840 CSS px, so the
-     rows share one edge instead of stepping in and out around it. */
+  /* The Ouro MD row's demo column is the recording's own width (--clip-w,
+     global.css), so the words take the room it leaves; from 2000px every
+     row's demo is 840 CSS px, so the rows share one edge. */
+  @media (min-width: 1024px) {
+    .tool:has(.media-clip) { grid-template-columns: min(var(--clip-w), calc((100% - 4rem) * 5 / 9)) minmax(0, 1fr); }
+  }
   @media (min-width: 2000px) {
     .tool { grid-template-columns: minmax(0, 840px) minmax(0, 1fr); }
+    .tool:has(.media-clip) { grid-template-columns: var(--clip-w) minmax(0, 1fr); }
   }
   .tool > :global(.product-figure) { margin: 0; min-width: 0; }
   .tool-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; color: var(--color-mist); font-size: 1.125rem; line-height: 1.65; }
