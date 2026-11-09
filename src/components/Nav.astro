@@ -114,10 +114,10 @@ const current = familyCurrent(currentPath)
   #mobile-menu .menu-family-group { width: 100%; margin-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); padding-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 45%, transparent); }
   #mobile-menu .menu-family-heading { height: 1.75rem; margin: 0; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; line-height: 1.75rem; letter-spacing: 0.04em; color: var(--color-mist); }
   #mobile-menu .menu-family { display: grid; grid-template-columns: repeat(2, minmax(0, 10rem)); justify-content: center; gap: 0 1.5rem; width: 100%; margin: 0; padding: 0; list-style: none; }
-  #mobile-menu .menu-family a { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0; font-family: var(--font-body); font-size: 1.0625rem; font-weight: 500; color: var(--color-mist); text-decoration: none; }
+  #mobile-menu .menu-family a { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0; font-family: var(--font-body); font-size: 1.0625rem; font-weight: 400; color: var(--color-mist); text-decoration: none; }
   #mobile-menu .menu-family a:hover { color: var(--color-scale); }
   /* The site you are on: ink colour and a line of trail light under it, never colour alone. */
-  #mobile-menu .menu-family a[aria-current="true"] { color: var(--color-bone); font-weight: 600; text-decoration-line: underline; text-decoration-color: var(--color-scale); text-decoration-thickness: 2px; text-underline-offset: 0.4em; }
+  #mobile-menu .menu-family a[aria-current="true"] { color: var(--color-bone); text-decoration-line: underline; text-decoration-color: var(--color-scale); text-decoration-thickness: 2px; text-underline-offset: 0.4em; }
   :global(html.menu-open) { overflow: hidden; }
   .nav-glass::after {
     content: "";
