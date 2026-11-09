@@ -1,1 +1,1 @@
-{ "ref": "ouro-v1310", "tag": "v1.3.10", "items": ["ouro-base", "family-bar", "skip-link", "check"] }
+{ "ref": "ouro-v1310", "tag": "v1.3.10", "items": ["ouro-base", "family-bar", "family-footer", "skip-link", "lib-ouro-provider", "ouro-check"] }
