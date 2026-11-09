@@ -86,7 +86,7 @@ test('every hero ends on a hard edge, closed by the trail, with no fade', () => 
   for (const selector of ['.story-hero', '.story-hero::after', '.story-meadow', '.story-meadow::before']) {
     assert.doesNotMatch(block(selector), /mask/, `${selector} carries a mask`);
   }
-  assert.match(block('.story-hero::after'), /top: calc\(100% - 6px\);[\s\S]*background: var\(--trail-path\)/);
+  assert.match(block('.story-hero::after'), /top: calc\(100% - 18px\);[\s\S]*background: var\(--trail-path\)/);
   assert.match(block('.story-meadow::before'), /background: var\(--trail-path\)/);
   assert.match(css, /\.story-hero img \{ transform-origin: 58% 100%; animation: story-drift/);
   assert.match(css, /@keyframes story-drift \{ from \{[^}]*\} to \{ transform: scale\(1\.02\)/);

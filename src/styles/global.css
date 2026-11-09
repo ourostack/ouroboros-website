@@ -837,14 +837,14 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 /* Every hero ends on a hard edge at its picture's foot, with no mask: the box
    never runs past its image (Ari's ruling on taste review r15), the cast
    stays whole inside it (heroFrame() in src/data/scenes.mjs), and the site's
-   gold trail closes the edge, as it closes a section. The trail hangs from
-   the edge, below the cast's feet, never across them. Words do not rise into
+   gold trail closes the edge, centred on it as on every section change, in
+   the room heroFrame() keeps under the cast's feet. Words do not rise into
    the picture. tests/hero-crop.test.mjs and scripts/hero-joins.mjs hold it;
    tests/no-image-fades.test.mjs fails any gradient mask on the site. */
 .story-hero { overflow: visible; }
 .story-hero picture { display: block; overflow: hidden; }
 .story-hero::after {
-  content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 6px); height: 36px; z-index: 30; pointer-events: none;
+  content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 18px); height: 36px; z-index: 30; pointer-events: none;
   background: var(--trail-path) center / 1200px 36px repeat-x;
   opacity: 0.9;
 }
@@ -862,8 +862,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero + section, .story-hero + article, .story-hero + div,
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 3rem; }
 }
-/* The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
+/* On a wide screen the words follow the hero's trail closely, so a product
+   page's primary action stays in the first view (scripts/primary-action.mjs).
+   The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
+  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 1rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor

@@ -18,7 +18,7 @@
 // are skipped: the art is meant to have detail. The trail of light the site
 // draws on a section change (any block whose ::before paints the trail on its
 // top edge, read from the computed style, so a plain hairline never passes as
-// one, or whose ::after hangs it from its foot, as a hero's does) is
+// one, or whose ::after draws it on its foot, as a hero's does) is
 // hidden while reading, so it never counts as a seam;
 // where a section change carries that trail, the change itself may step in
 // colour on its exact row (the trail marks it, as on the home page), but the
@@ -149,10 +149,10 @@ for (const page of pages) {
         for (const el of document.querySelectorAll('main *, .story-meadow, footer')) {
           const b = getComputedStyle(el, '::before');
           if (b.display !== 'none' && b.content !== 'none' && /data:image\/svg/.test(b.backgroundImage) && Math.abs(parseFloat(b.top) + parseFloat(b.height) / 2) < 2) el.setAttribute('data-seam-trail', '');
-          // A hero hangs the trail from its foot instead (its ::after
-          // starts just above the art's bottom edge): the change below it is trailed.
+          // A hero draws the trail on its foot instead (its ::after is
+          // centred on the art's bottom edge): the change below it is trailed.
           const a = getComputedStyle(el, '::after');
-          if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && Math.abs(parseFloat(a.top) - el.getBoundingClientRect().height) < 8) el.setAttribute('data-seam-trail-foot', '');
+          if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && Math.abs(parseFloat(a.top) + parseFloat(a.height) / 2 - el.getBoundingClientRect().height) < 2) el.setAttribute('data-seam-trail-foot', '');
         }
       });
       await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
