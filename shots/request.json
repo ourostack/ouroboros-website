@@ -1,4 +1,4 @@
 [
-  { "base": "local", "ref": "86230f5", "out": "before", "pages": ["/", "/approach/", "/ouro-md/", "/apps/", "/desk/", "/lab/why/", "/ouro-md/download/"], "sizes": ["phone", "laptop"], "foot": true, "rev": "pr94" },
+  { "base": "local", "ref": "86230f5e01b8b037130ea0885be15df788bdc098", "out": "before", "pages": ["/", "/approach/", "/ouro-md/", "/apps/", "/desk/", "/lab/why/", "/ouro-md/download/"], "sizes": ["phone", "laptop"], "foot": true, "rev": "pr94" },
   { "base": "https://ouroboros-website-pr-94.mendelow-studio.workers.dev", "out": "after", "pages": ["/", "/approach/", "/ouro-md/", "/apps/", "/desk/", "/lab/why/", "/ouro-md/download/"], "sizes": ["phone", "laptop"], "foot": true, "rev": "pr94" }
 ]
