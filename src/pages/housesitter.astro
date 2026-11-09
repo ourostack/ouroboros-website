@@ -24,8 +24,17 @@ const restart = [
   ['22:57:06', 'The desktop, 70 seconds after Restart.'],
 ]
 
+// Measured on our GL.iNet Comet against our Mac mini, 9 November 2026 (the README's "The KVM's NPU reads the clock").
+const npu = [
+  ['1.42 ms', 'a read on the NPU, median of 120 live looks'],
+  ['120 of 120', 'menu-bar times read right, live, over 30 minutes'],
+  ['66 of 66', 'lock-screen and FileVault clocks read right, on recorded frames'],
+  ['2.2 MB', 'of the KVM’s contiguous memory for both models; about 37 MB of RAM'],
+]
+
 const does = [
   ['Unlocks FileVault after a restart', 'Types the password at the FileVault screen you taught it, and only there, once you’ve armed and verified it; three times an hour at most. Your lock screen stays yours.'],
+  ['Reads the Mac’s clock on the KVM’s NPU', 'A small model on the Comet’s own neural processor reads the time in the menu bar, and on the lock screen and FileVault, so a frozen Mac reads as frozen. It only feeds that test; it never leads to typing.'],
   ['Power-cycles a frozen Mac', 'Built, not yet tried on a real plug. With a smart plug on its cord, only a desktop frozen for 5 minutes that nothing answers for, confirmed by three more looks. Never at a boot or a login.'],
   ['Tells you only when it needs you', 'One message when it’s stuck, saying what to fix, a reminder every six hours at most, and “back” when the Mac is.'],
   ['The Mac watches its KVM', 'A dead KVM can’t message you, so the Mac does. Every minute it checks on the sitter; after 5 quiet minutes (about 8 after the KVM’s last look) it tells you once, and again when the KVM is back. No outside service.'],
@@ -59,6 +68,7 @@ const verified = [
   ['Done on a real Mac, too', 'When an agent needs the UI, if you allow it: housesitter unlocked the lock screen in 9 seconds, and the login window’s list of users in 16, clicking the account’s tile first.'],
   ['Sent for real', 'One TEST alert, end to end: the sitter’s own rules decided a Mac stuck at FileVault and sent that exact message, marked TEST. With --email it reached our HEY Imbox 2 seconds later.'],
   ['Done on a real Mac, both ways', 'The Mac watching its KVM: we stopped only the sitter on our Comet at 01:13 on 9 November, with the quiet limit cut from 5 minutes to 2 for the test. Four minutes and 44 seconds later the mini sent “TEST: mini’s KVM is silent”, in our HEY Imbox 2 seconds after; we started the sitter again, and “back” came 34 seconds later. At the default 5, expect the message about 8 minutes after the KVM’s last look.'],
+  ['Run on real hardware, live', 'The clock read on the KVM’s NPU, by housesitter 0.3 on 9 November: 120 of 120 menu-bar reads right over 30 minutes, median 1.42 ms a read; and 66 of 66 lock-screen and FileVault clocks on recorded frames, by a second model.'],
   ['Next', 'The smart plug, which arrives 9 November.'],
   ['Not yet', 'A real freeze and a power cut; a message from a real refusal (none has happened yet); a macOS update; OCR beyond English macOS.'],
 ]
@@ -73,6 +83,7 @@ const verified = [
           <span class={`tag ${status.tone}`}>{status.label}</span>
         </div>
         <p class="product-lede" data-hero-lede>A $100 KVM beside your agents’ Mac. When the Mac restarts, it unlocks FileVault. When it can’t, it tells you. And the Mac and its KVM watch each other.</p>
+        <p class="text-lg text-bone leading-relaxed">It reads your Mac’s clock on the KVM’s own NPU, in 1.4 ms.</p>
         <div class="grid gap-2" data-primary-action>
           <div class="flex flex-wrap items-center gap-3">
             <pre id="housesitter-demo" class="command">{demo}</pre>
@@ -87,6 +98,22 @@ const verified = [
         <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: logging out 3 seconds after Restart, which our agent pressed, the only touch; shutting down; boot seen, the Mac found the KVM's keyboard again; FileVault, the screen it was taught, steady, now it may type, the prompt zoomed twice; typed once, by itself, the field blurred; logging in; then a card: 70 s from Restart to desktop, nobody at the Mac, housesitter 0.2 on the KVM beside it." />
         <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Unlocked by housesitter 0.2 at 22:56 on 8 November. Only the shutdown, boot and FileVault frames are shown, and the typed field is blurred, because its dots would give away the password’s length.</span></figcaption>
       </figure>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="npu-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="npu-heading" class="heading-section">It reads the clock <span class="text-scale">on the KVM’s own NPU</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">A frozen Mac and a busy one both stop answering. The clock tells them apart: if it still moves, a power cycle would only hurt. housesitter used to compare a fingerprint of the clock’s pixels, and the KVM’s video noise changed it in 74 of 89 live pairs of looks taken within the same minute. Now a 414,690-weight model on the Comet’s neural processor reads the time itself.</p>
+      <figure class="mt-8 min-w-0 npu-clip">
+        <WorkshopVideo src="/images/workshop/housesitter-npu.mp4" poster="/images/workshop/housesitter-npu-poster.webp" width={1800} height={1245} alt="Ten real looks by our GL.iNet Comet at our Mac mini, 15 seconds apart, from 9:26:09 to 9:28:24 AM on 9 November. Each row shows the right end of the menu bar as the KVM saw it, what the NPU read, in green when the minute changes, how long the NPU took, 1.37 to 2.15 ms, and the pixel fingerprint housesitter compared before, which changes on 8 of the 9 steps while the minute changes twice. Below: live for the 30 minutes before, 120 of 120 reads right, and within a minute the time never changed, 0 of 89 pairs; the fingerprint changed in 74 of them." />
+        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Ten looks at our mini, 15 seconds apart, on 9 November. Amber: the old fingerprint changing. Green: the minute changing.</span></figcaption>
+      </figure>
+      <ul class="npu-facts mt-10" aria-label="Measured on our Comet">
+        {npu.map(([n, what]) => (<li><span class="npu-n">{n}</span><span>{what}</span></li>))}
+      </ul>
+      <p class="mt-8 text-lg text-mist leading-relaxed">It only feeds the frozen-clock test: it never decides what’s on the screen and never leads to typing. If the NPU fails, the sitter turns it off for an hour and falls back. GL.iNet ships the NPU’s IOMMU off, so every job timed out until the worker learned to bind Rockchip’s contiguous-memory heap in a mount namespace of its own. The model learned from synthetic menu bars and lock screens drawn with open fonts, and it’s one Comet and one Mac so far. On old 960-wide recordings it read 69 of 113 clocks exactly; the live sitter reads full 2560×1440 frames.</p>
+      <p class="mt-6 product-links"><a href={`${repo}#the-kvms-npu-reads-the-clock`} class={link}>The numbers, and the limits &#8599;</a></p>
     </div>
   </section>
 
@@ -113,8 +140,8 @@ const verified = [
     <div class="max-w-6xl mx-auto">
       <h2 id="doctor-heading" class="heading-section"><code class="heading-code">housesitter doctor</code></h2>
       <figure class="mt-8">
-        <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-doctor.webp" width="1800" height="944" loading="lazy" decoding="async" alt="housesitter doctor mini --private, a real run at 01:23 on 9 November against our mini and its Comet, with the gradient pixel wordmark. The picture is hidden; it reads as a desktop from a decoded frame, the taught prompt not on the picture, the clock moving, looked 66 seconds ago, and it answers: the Mac's own heartbeat is 1 minute old. The Mac is up at its desktop for at least 2 hours 26 minutes (since 22:57). The KVM is a GL.iNet Comet on kvmd 4.82 over the LAN, keyboard online, HDMI 2560 by 1440. The password is verified; it has been taught FileVault, the lock screen and the list of users; the lock screen is unlocked when an agent asks. Budgets: 2 of 2 tries left before it stops, 3 of 3 this hour; no plug, so a frozen Mac is reported, never cycled, an open dot. Last incident 22:56: a restart's FileVault, unlocked by the sitter, nobody woken. Recent, newest first: 01:19, TEST from the Mac's watch: mini's KVM is back, emailed; 01:18, TEST from the Mac's watch: mini's KVM is silent, emailed; 23:30, a TEST alert, posted and emailed. Alerts go to ntfy and by email, the address shortened to its first letter; and the KVM is watched by the Mac itself, aris-mac-mini, last check 82 seconds ago." /></div>
-        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>The real housesitter doctor of our mini and its Comet at 01:23 on 9 November, drawn with --private so my desktop and my email address stay out. Its last incident is the 70-second restart it unlocked at 22:56, by itself. The two newest lines are the other half of the watch: we stopped the sitter, and the Mac told us the KVM had gone silent, then that it was back. The one open dot is true: no plug yet.</span></figcaption>
+        <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-doctor.webp" width="1800" height="944" loading="lazy" decoding="async" alt="housesitter doctor mini --private, a real run at 09:32 on 9 November against our mini and its Comet, with the gradient pixel wordmark. The picture is hidden; it reads as a desktop from a decoded frame, the taught prompt not on the picture, and the clock moving: it reads 9:32 AM, on the KVM’s NPU in 1.39 ms. Looked 20 seconds ago, next look in 39 seconds, and it answers: the Mac’s own heartbeat is 1.2 minutes old. The Mac is up at its desktop for at least 10 hours (since 22:57). The KVM is a GL.iNet Comet on kvmd 4.82 over the LAN, keyboard online, HDMI 2560 by 1440 read by the sitter with no viewer open. The password is verified; it has been taught FileVault, the lock screen and the list of users; the lock screen is unlocked when an agent asks. Budgets: 2 of 2 tries left before it stops, 3 of 3 this hour; no plug, so a frozen Mac is reported, never cycled, an open dot. Last incident 22:56: a restart’s FileVault, unlocked by the sitter, nobody woken. Recent: 01:19 and 01:18, the Mac’s TEST messages that its KVM went silent and came back, emailed; 23:30, a TEST alert, posted and emailed. Alerts go to ntfy and by email, the address shortened to its first letter; and the KVM is watched by the Mac itself, aris-mac-mini, last check 70 seconds ago." /></div>
+        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>The real housesitter doctor of our mini and its Comet at 09:32 on 9 November, drawn with --private so my desktop and my email address stay out. The clock line is new: the KVM’s NPU read 9:32 AM off the menu bar in 1.39 ms. The one open dot is true: no plug yet.</span></figcaption>
       </figure>
       <figure class="mt-8">
         <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-look.webp" width="1800" height="711" loading="lazy" decoding="async" alt="housesitter look on a real frame of our lock screen: a pixel glimpse of the Golden Gate wallpaper and the avatar. It sees the lock screen it was taught, at 100 percent. May type: only when you ask, over SSH; a lock screen is your lock. Pressed nothing, typed nothing, changed nothing." /></div>
@@ -254,6 +281,13 @@ housesitter watch-kvm studio --install</code></pre>
   .restart-log li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.75rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.5; }
   .restart-log li:last-child { color: var(--color-bone); }
   .restart-at { font-family: var(--font-mono); font-size: 0.9375rem; color: var(--color-scale); padding-top: 0.1rem; }
+  .npu-clip :global(.workshop-clip) { height: auto; }
+  .npu-clip :global(.workshop-video) { width: 100%; height: auto; border-radius: 0.75rem; display: block; }
+  .npu-facts { display: grid; gap: 1.5rem 2.5rem; }
+  @media (min-width: 768px) { .npu-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1280px) { .npu-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .npu-facts li { display: grid; align-content: start; gap: 0.35rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); font-size: 1rem; line-height: 1.5; }
+  .npu-n { font-family: var(--font-display); font-size: 2rem; line-height: 1.1; color: var(--color-bone); }
   .story { margin-top: 1.25rem; color: var(--color-mist); font-size: 1.125rem; line-height: 1.7; }
   .heading-code { font-family: var(--font-mono); font-size: 0.85em; color: var(--color-bone); }
   .replay { display: grid; gap: 2rem; align-items: start; }
