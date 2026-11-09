@@ -7,7 +7,7 @@
   "releaseURL": "https://github.com/ourostack/ouro-md/releases/tag/v0.9.113",
   "publishedAt": "2026-11-07T19:50:14Z",
   "bundleIdentifier": "bot.ouro.md",
-  "minimumMacOS": "13.0",
+  "minimumMacOS": "15.0",
   "signingMode": "developer-id",
   "notarized": true,
   "downloads": {
