@@ -150,9 +150,11 @@ for (const page of pages) {
           const b = getComputedStyle(el, '::before');
           if (b.display !== 'none' && b.content !== 'none' && /data:image\/svg/.test(b.backgroundImage) && Math.abs(parseFloat(b.top) + parseFloat(b.height) / 2) < 2) el.setAttribute('data-seam-trail', '');
           // A hero draws the trail on its foot instead (its ::after is
-          // centred on the art's bottom edge): the change below it is trailed.
+          // centred on the art's bottom edge, or hangs from it where the cast
+          // stands on the edge): the change below it is trailed.
           const a = getComputedStyle(el, '::after');
-          if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && Math.abs(parseFloat(a.top) + parseFloat(a.height) / 2 - el.getBoundingClientRect().height) < 2) el.setAttribute('data-seam-trail-foot', '');
+          const footAt = parseFloat(a.top) - el.getBoundingClientRect().height;
+          if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && (Math.abs(footAt + parseFloat(a.height) / 2) < 2 || Math.abs(footAt + 6) < 2)) el.setAttribute('data-seam-trail-foot', '');
         }
       });
       await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });

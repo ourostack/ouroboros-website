@@ -840,8 +840,10 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    never runs past its image (Ari's ruling on taste review r15), the cast
    stays whole inside it (heroFrame() in src/data/scenes.mjs), and the site's
    gold trail closes the edge, centred on it as on every section change, in
-   the room heroFrame() keeps under the cast's feet. Words do not rise into
-   the picture. tests/hero-crop.test.mjs and scripts/hero-joins.mjs hold it;
+   the room heroFrame() keeps under the cast's feet (FOOT_ROOM). Where the art's
+   own foot leaves the feet less room than that, the trail hangs below the
+   edge instead ([data-trail-below]), never across them. Words do not rise
+   into the picture. tests/hero-crop.test.mjs and scripts/hero-joins.mjs hold it;
    tests/no-image-fades.test.mjs fails any gradient mask on the site. */
 .story-hero { overflow: visible; }
 .story-hero picture { display: block; overflow: hidden; }
@@ -850,6 +852,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   background: var(--trail-path) center / 1200px 36px repeat-x;
   opacity: 0.9;
 }
+.story-hero[data-trail-below]::after { top: calc(100% - 6px); }
 /* On a phone the box takes the phone crop's own aspect (StoryScene sets
    --phone-ar from the file: 4:3, or 16:9 / 2:1 for the wide-cast scenes), so
    object-fit never trims a character off the edge. */
@@ -869,6 +872,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
   .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 0.5rem; }
+  .story-hero[data-trail-below] + :is(section, article, div) { padding-top: 2rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor
@@ -894,6 +898,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    head). Both its edges are hard, each closed by the gold trail: its own on
    top, the footer's at its foot. */
 .story-meadow { margin-top: 3rem; overflow: visible; }
+/* Above <main> (z-index 10), so a tinted last section that meets the meadow
+   never paints over the top half of its trail; the footer stays above the
+   meadow, so its own trail shows whole along the meadow's foot. */
+.story-meadow { z-index: 11; }
+.story-meadow + .site-footer { z-index: 12; }
 .story-meadow picture { display: block; overflow: hidden; }
 .story-meadow::before {
   content: ""; position: absolute; left: 0; right: 0; top: -18px; height: 36px; z-index: 1; pointer-events: none;

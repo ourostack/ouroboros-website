@@ -294,10 +294,14 @@ export const HERO_FLOOR = 0.82
 // The cast stays whole: its lowest point (castFoot) sits FOOT_ROOM clear of
 // the box's foot at every desktop width, or, where the cast stands on the
 // art's very foot, the box shows the art's own foot (y = 100%), so nothing is
-// cut but the art's own edge. Ari's rulings: no hero box ever runs past its
-// art (taste review r15, 2026-11-07), and no picture fades into the page
-// (2026-11-08).
-export const FOOT_ROOM = FOCUS_MARGIN / 2
+// cut but the art's own edge. The trail sits centred on the edge, and its
+// glow and fireflies reach about 11px above it: FOOT_ROOM keeps the feet
+// above that in the shortest desktop hero (about 315px at 1024). Where the
+// art's own foot leaves less room than that, the trail hangs below the edge
+// instead (`trailBelow`), never across the feet. Ari's rulings: no hero box
+// ever runs past its art (taste review r15, 2026-11-07), and no picture fades
+// into the page (2026-11-08).
+export const FOOT_ROOM = 0.045
 // The drift (global.css story-drift) zooms 2% about the box's foot, so it
 // never carries a foot out of the box, and lifts a head at most 2% of the box:
 // inside the 3% heroFrame() keeps above the cast.
@@ -325,7 +329,8 @@ const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - flo
  * that, at that least share or any taller one, keeps the cast's head
  * FOCUS_MARGIN / 2 clear of the top and its foot FOOT_ROOM clear of the
  * bottom; where no crop can, it is 100% (the art's own foot) and the box is
- * tall enough for the heads.
+ * tall enough for the heads. `trailBelow` is set where that foot leaves the
+ * feet less than FOOT_ROOM, so the trail hangs below the edge.
  */
 export function heroFrame(scene) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]
@@ -347,7 +352,7 @@ export function heroFrame(scene) {
     if (!footClear(floor, y)) floor = Math.min(1, +(floor + 0.01).toFixed(3))
   }
   if (!footClear(floor, y)) ({ floor, y } = edge)
-  return { need: +need.toFixed(3), floor: +floor.toFixed(3), y: +(y * 100).toFixed(1), foot }
+  return { need: +need.toFixed(3), floor: +floor.toFixed(3), y: +(y * 100).toFixed(1), foot, trailBelow: y === 1 && 1 - foot < FOOT_ROOM }
 }
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */

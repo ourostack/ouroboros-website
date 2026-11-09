@@ -1,8 +1,10 @@
 // The static fade check: no picture fades into the page or into nothing (Ari,
 // 2026-11-08: "none of this 'fade to nothingness' tho for an image"). It fails
 // on any gradient mask (CSS mask-image, -webkit-mask-image, mask, -webkit-mask,
-// a Tailwind [mask-image:...] class, JSX maskImage or WebkitMaskImage) unless
-// the same or the previous line carries `fade-ok: <reason>`. A gradient that
+// a Tailwind [mask-image:...] class or mask-t-/mask-linear-/... utility, JSX
+// maskImage or WebkitMaskImage) unless the same or the previous line carries
+// `fade-ok: <reason>`. A mask whose value is a var() could hold a gradient the
+// scan can't see, so it needs the same reason. A gradient that
 // fades no picture (a tint, a drawn grid) may stay, marked with its reason.
 // This is the same rule as Ouro check's fades.ts (ourostack/ouro-ui).
 import fs from 'node:fs';
@@ -11,6 +13,10 @@ import path from 'node:path';
 export const SOURCE_EXTENSIONS = new Set(['.css', '.astro', '.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.html', '.svg', '.vue', '.svelte']);
 
 const PROPERTY = /(?<![\w-])(?:(?:-webkit-)?mask(?:-image)?|WebkitMaskImage|WebkitMask|maskImage)\s*:/g;
+// Tailwind v4's mask utilities, each a gradient mask-image: mask-b-from-70%, mask-linear-..., mask-radial-...
+const UTILITY = /(?<![\w-])mask-(?:[tbrlxy]|linear|radial|conic)-[\w%.\[\]()/-]+/g;
+// A value ends at ; } or ], or at a quote that closes an attribute or a JSX string.
+const VALUE_END = /[;}\]]|["'`](?=\s*(?:[\w:@-]+=|\/?>|,|$))/m;
 const ALLOWED = /fade-ok:\s*[A-Za-z0-9]/;
 
 /** Every gradient mask in `text` without a `fade-ok: <reason>` on its line or the line before, as { line, text }. */
@@ -29,15 +35,18 @@ export function scanText(text) {
     return lo;
   };
   const found = [];
+  const flag = (at) => {
+    const line = lineOf(at);
+    if (ALLOWED.test(lines[line]) || (line > 0 && ALLOWED.test(lines[line - 1]))) return;
+    found.push({ line: line + 1, text: lines[line].trim().slice(0, 160) });
+  };
   for (const m of text.matchAll(PROPERTY)) {
     let value = text.slice(m.index + m[0].length, m.index + m[0].length + 600).replace(/^\s*["'`]?/, '');
-    const end = value.search(/[;}\]"'`]/);
+    const end = value.search(VALUE_END);
     if (end >= 0) value = value.slice(0, end);
-    if (!/gradient\s*\(/i.test(value)) continue;
-    const line = lineOf(m.index);
-    if (ALLOWED.test(lines[line]) || (line > 0 && ALLOWED.test(lines[line - 1]))) continue;
-    found.push({ line: line + 1, text: lines[line].trim().slice(0, 160) });
+    if (/gradient\s*\(|var\s*\(/i.test(value)) flag(m.index);
   }
+  for (const m of text.matchAll(UTILITY)) flag(m.index);
   return found;
 }
 

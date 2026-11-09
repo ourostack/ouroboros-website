@@ -86,6 +86,7 @@ test('every hero ends on a hard edge, closed by the trail, with no fade', () => 
   for (const selector of ['.story-hero', '.story-hero::after', '.story-meadow', '.story-meadow::before']) {
     assert.doesNotMatch(block(selector), /mask/, `${selector} carries a mask`);
   }
+  assert.match(css, /\.story-hero\[data-trail-below\]::after \{ top: calc\(100% - 6px\); \}/);
   assert.match(block('.story-hero::after'), /top: calc\(100% - 18px\);[\s\S]*background: var\(--trail-path\)/);
   assert.match(block('.story-meadow::before'), /background: var\(--trail-path\)/);
   assert.match(css, /\.story-hero img \{ transform-origin: 58% 100%; animation: story-drift/);
@@ -113,7 +114,11 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
     const arh = num('hero-arh');
     const y = num('hero-y') / 100;
     assert.doesNotMatch(style, /--hero-fade|--hero-origin|--hero-apron|--paint-foot/, `${file}: a hero carries fade machinery`);
-    assert.equal(y, heroFrame(scene).y / 100, `${file}: --hero-y is not heroFrame()'s`);
+    const frame = heroFrame(scene);
+    assert.equal(y, frame.y / 100, `${file}: --hero-y is not heroFrame()'s`);
+    const below = new RegExp(`data-brand-scene="${scene}" data-trail-below`).test(html);
+    assert.equal(below, frame.trailBelow, `${file}: the trail ${frame.trailBelow ? 'must hang below' : 'sits on'} the edge`);
+    if (below) assert.ok(1 - castFoot[scene] < FOOT_ROOM && y === 1, `${file}: only a cast on the art's own foot hangs the trail below`);
     const [top] = heroFocus[scene] ?? [0.2];
     const cap = /story-hero-content/.test(cls) ? contentCap : heroCap;
     for (const [w, h] of viewports) {

@@ -21,6 +21,11 @@ test('the fade scan catches every form of gradient mask, and honours fade-ok', (
     '<img style={{ maskImage: "linear-gradient(black, transparent)" }} />',
     '<img style={{ WebkitMaskImage: `linear-gradient(black, transparent)` }} />',
     '.hero {\n  mask-image:\n    linear-gradient(to bottom, #000 70%, transparent);\n}',
+    '<img class="w-full mask-b-from-70% mask-b-to-100%" />'.replace(' mask-b-to-100%', ''),
+    '<div class="mask-linear-[to_bottom,black,transparent]"></div>',
+    '<div class="md:mask-radial-from-60%"></div>',
+    '.hero { mask-image: var(--fade); }',
+    '.hero { mask-image: url("/brand/x.svg"), linear-gradient(#000, transparent); }',
   ];
   for (const text of planted) assert.equal(scanText(text).length, 1, `missed: ${text}`);
   const allowed = [
@@ -28,6 +33,8 @@ test('the fade scan catches every form of gradient mask, and honours fade-ok', (
     '.band { mask-image: linear-gradient(#000, transparent); } /* fade-ok: a drawn grid */',
     '.logo { mask: url(/brand/mark.svg) center / contain no-repeat; }',
     '.logo { mask-size: contain; mask-image: url(/mark.svg); }',
+    '<div class="mask-type-alpha"></div>',
+    '<div style="mask: url(/a.svg) center" class="bg-[linear-gradient(red,blue)]"></div>',
     '.trail { background: linear-gradient(90deg, transparent, gold, transparent); }',
   ];
   for (const text of allowed) assert.deepEqual(scanText(text), [], `flagged: ${text}`);

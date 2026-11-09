@@ -42,7 +42,8 @@ const hero = variant === 'hero'
 // object-position `y` keeps the whole cast inside whatever it shows, or shows
 // the art's own foot where the cast stands on it. Every hero ends on a hard
 // edge, closed by the gold trail (global.css): no fade, and no box ever runs
-// past its art.
+// past its art. Where the feet stand too near that edge for the trail's glow,
+// the trail hangs below it (data-trail-below).
 const frame = heroFrame(scene)
 const phoneAspect = hero
   ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`
@@ -65,7 +66,7 @@ const altText = alt ?? scenes[scene]
 const vignette = variant === 'vignette'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} style={style}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style}>
   {hero ? (
     <picture>
       <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
