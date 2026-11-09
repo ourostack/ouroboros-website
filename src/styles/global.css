@@ -957,14 +957,14 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero + section, .story-hero + article, .story-hero + div,
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 3rem; }
 }
-/* On a wide screen the words open 2.25rem under the hero's edge up to 864px
-   tall, and up to 4rem on a taller screen. A product page pays for the room
+/* On a wide screen the words open 2rem under the hero's edge at 720px tall,
+   2.25rem from 768px to 864px, and up to 4rem on a taller screen. A product page pays for the room
    with its shorter hero (PRODUCT_FLOOR in src/data/scenes.mjs), so its
    primary action stays in the first view (scripts/primary-action.mjs).
    Where the trail hangs below the edge, the room starts under the trail.
    The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
-  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: clamp(2.25rem, calc(2.25rem + (100svh - 864px) / 3), 4rem); }
+  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: max(clamp(2rem, calc(2rem + (100svh - 720px) / 9), 2.25rem), min(4rem, calc(2.25rem + (100svh - 864px) / 3))); }
   .story-hero[data-trail-below] + :is(section, article, div) { padding-top: 3.25rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }

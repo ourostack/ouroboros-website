@@ -125,6 +125,9 @@ const shelf = [
     .apps-hero > h1 { grid-column: 1 / -1; }
     .apps-hero > [data-hero-lede] { max-width: 44rem; }
     .apps-hero > [data-primary-action] { flex-wrap: nowrap; }
+    /* The title is a sentence on one line here, so it eases a step further
+       on a short laptop than a product's name does. */
+    .apps-hero > h1 { font-size: clamp(2.75rem, calc(2.75rem + (100svh - 720px) / 7), 4.4rem); }
   }
 
   .page-mark { display: flex; align-items: center; gap: 1rem; }
