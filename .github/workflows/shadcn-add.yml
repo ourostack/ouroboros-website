@@ -36,6 +36,7 @@ jobs:
           TAG: ${{ steps.req.outputs.tag }}
           ITEMS: ${{ steps.req.outputs.items }}
         run: |
+          set -o pipefail
           npm ci --no-audit --no-fund
           mkdir -p ../out
           for item in $ITEMS; do
