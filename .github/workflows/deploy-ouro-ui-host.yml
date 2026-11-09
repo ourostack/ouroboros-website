@@ -56,10 +56,10 @@ jobs:
           if [ "${{ github.event_name }}" != workflow_dispatch ]; then
             if [ "$version" = "ouro-ui site/host $sha" ]; then
               deploy=false; echo "Up to date."
-            elif [ "$deployment" = "rollback after ouro-ui site/host $sha" ]; then
-              # A scheduled run doesn't retry a commit whose checks already failed; a new commit or a
-              # manual run does.
-              deploy=false; echo "::warning::ouro-ui $sha failed its checks and was rolled back; not retrying on schedule."
+            elif echo "$deployment" | grep -qi '^rollback'; then
+              # The live version was rolled back, by this workflow after a failed check or by a
+              # person. Scheduled runs hold until someone runs this workflow by hand.
+              deploy=false; echo "::warning::the live deployment is a rollback ($deployment); scheduled deploys hold until a manual run."
             fi
           fi
           echo "deploy=$deploy" >> "$GITHUB_OUTPUT"
