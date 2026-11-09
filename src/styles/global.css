@@ -523,6 +523,17 @@ p, li, dd, figcaption { text-wrap: pretty; }
    scripts/hero-gap.mjs measures every page at 320, 390 and 430. */
 @media (max-width: 767.98px) { .prose-ouro > :first-child { margin-top: 0; } }
 
+/* ── Measure ──
+   Running text never runs wider than a comfortable line, about 70
+   characters, whatever the column (refinement pass, 2026-11-09: lines ran
+   to 130 and more at 1440, and 150 at 3840). In the base layer, so a
+   component's own max-w-* still sets its width; centred lines centre their
+   block. The column stays as wide as it was, for media and grids. */
+@layer base {
+  main :where(p, li, blockquote, dd) { max-width: 70ch; }
+  main :where(.text-center) :where(p, li), main :where(p.text-center) { margin-inline: auto; }
+}
+
 /* ── Focus ── */
 /* The outline follows each element's own corners; never set a radius here, or rounded buttons and cards go square when focused.
    In the base layer, so a component's own ring wins: Ouro HX's family bar
