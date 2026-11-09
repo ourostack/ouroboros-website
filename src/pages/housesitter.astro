@@ -15,7 +15,7 @@ const statusDetail = entry('housesitter').detail
 const repo = 'https://github.com/ourostack/housesitter'
 const demo = 'npx github:ourostack/housesitter demo'
 
-// From the sitter's own log, the restart in the recording (docs/proof/2026-11-09 in the repo).
+// From the sitter's own log and the KVM's frames, the restart in the recording (docs/proof/2026-11-09-v0.2 in the repo).
 const restart = [
   ['22:55:55', 'Restart, pressed by our agent: the only touch.'],
   ['22:56:01', 'The Mac shuts down.'],
@@ -55,7 +55,7 @@ const safe = [
 ]
 
 const verified = [
-  ['Done on a real Mac', 'FileVault after a restart, hands-off, by housesitter 0.2: Mac mini (M5 Pro) and GL.iNet Comet, 70 seconds from Restart to desktop, with the KVM’s firewall applied. The KVM’s own log of those minutes has only the Restart clicks and the sitter’s three key events. Earlier that night, on 0.1, we taught it the FileVault screen once and proved its password, then it did the same hands-off in 79 seconds.'],
+  ['Done on a real Mac', 'FileVault after a restart, hands-off, by housesitter 0.2: Mac mini (M5 Pro) and GL.iNet Comet, 70 seconds from Restart to desktop. The KVM’s own access log of those minutes has only the Restart clicks and the sitter’s three key events. Earlier that night, on 0.1, we taught it the FileVault screen once and proved its password, then it did the same hands-off in 79 seconds.'],
   ['Run on real hardware', 'housesitter doctor, look and status, read-only, against that Comet. It found a real bug, now fixed with a test.'],
   ['Done on a real Mac, too', 'When an agent needs the UI, if you allow it: housesitter unlocked the lock screen in 9 seconds, and the login window’s list of users in 16, clicking the account’s tile first.'],
   ['Sent for real', 'One TEST alert, end to end: the sitter’s own rules decided a Mac stuck at FileVault and sent that exact message, marked TEST. With --email it reached our HEY Imbox 2 seconds later.'],
@@ -84,7 +84,7 @@ const verified = [
         <p class="text-sm text-mist">{statusDetail}: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
       </div>
       <figure class="min-w-0 hero-media restart-clip">
-        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: Restart, pressed by our agent, the only touch; shutting down; boot seen, the Mac found the KVM's keyboard again; FileVault, the screen it was taught, steady, now it may type, the prompt zoomed twice; typed once, by itself, the field blurred; logging in; then a card: 70 s from Restart to desktop, nobody at the Mac, housesitter 0.2 on the KVM beside it." />
+        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: logging out 3 seconds after Restart, which our agent pressed, the only touch; shutting down; boot seen, the Mac found the KVM's keyboard again; FileVault, the screen it was taught, steady, now it may type, the prompt zoomed twice; typed once, by itself, the field blurred; logging in; then a card: 70 s from Restart to desktop, nobody at the Mac, housesitter 0.2 on the KVM beside it." />
         <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Unlocked by housesitter 0.2 at 22:56 on 8 November. Only the shutdown, boot and FileVault frames are shown, and the typed field is blurred, because its dots would give away the password’s length.</span></figcaption>
       </figure>
     </div>
@@ -92,8 +92,8 @@ const verified = [
 
   <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="restart-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="restart-heading" class="heading-section">From the <span class="text-scale">KVM’s log</span></h2>
-      <ol class="restart-log mt-8" aria-label="From the KVM's log">
+      <h2 id="restart-heading" class="heading-section">From the sitter’s log <span class="text-scale">and the KVM’s frames</span></h2>
+      <ol class="restart-log mt-8" aria-label="From the sitter's log and the KVM's frames">
         {restart.map(([at, what]) => (<li><span class="restart-at">{at}</span><span>{what}</span></li>))}
       </ol>
     </div>
@@ -113,7 +113,7 @@ const verified = [
     <div class="max-w-6xl mx-auto">
       <h2 id="doctor-heading" class="heading-section"><code class="heading-code">housesitter doctor</code></h2>
       <figure class="mt-8">
-        <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-doctor.webp" width="1800" height="954" loading="lazy" decoding="async" alt="housesitter doctor mini --private, a real run at 22:37 on 8 November against our mini and its Comet, with the gradient pixel wordmark. The picture is hidden; it reads as a desktop from a decoded frame, the taught prompt not on the picture, the clock moving, no probe set, so up is a desktop whose clock moves. The Mac is up at its desktop since 22:28. The KVM is a GL.iNet Comet on kvmd 4.82 over the LAN, keyboard online, HDMI 2560 by 1440 read by the sitter with no viewer open. The password is verified; it has been taught FileVault, the lock screen and the list of users; the lock screen is unlocked when an agent asks, and a request stands now. Budgets: 2 of 2 tries left before it stops, 2 of 3 this hour; 28 of 30 attended-test unlocks; no plug, so a frozen Mac is reported, never cycled. Last incident 22:27 to 22:28, an unlock, nobody woken, and three unlocks at the lock-screen prompt it was taught. Alerts go to ntfy; no heartbeat. One thing to do: add a heartbeat." /></div>
+        <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-doctor.webp" width="1800" height="954" loading="lazy" decoding="async" alt="housesitter doctor mini --private, a real run at 22:37 on 8 November against our mini and its Comet, with the gradient pixel wordmark. The picture is hidden; it reads as a desktop from a decoded frame, the taught prompt not on the picture, the clock moving, no probe set, so up is a desktop whose clock moves. The Mac is up at its desktop, for at least 9 minutes (since 22:28). The KVM is a GL.iNet Comet on kvmd 4.82 over the LAN, keyboard online, HDMI 2560 by 1440 read by the sitter with no viewer open. The password is verified; it has been taught FileVault, the lock screen and the list of users; the lock screen is unlocked when an agent asks, and a request stands now. Budgets: 2 of 2 tries left before it stops, 2 of 3 this hour; 28 of 30 attended-test unlocks; no plug, so a frozen Mac is reported, never cycled. Last incident 22:27 to 22:28, an unlock, nobody woken; its recent ledger shows three unlocks at the lock-screen prompt it was taught, the last at 22:32. Alerts go to ntfy; no heartbeat. One thing to do: add a heartbeat." /></div>
         <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>The real housesitter doctor of our mini and its Comet at 22:37 on 8 November, an hour after the hands-off restart, drawn with --private so my desktop stays out. Its last incident is our own lock-screen test: an agent asked for the desktop, and it unlocked.</span></figcaption>
       </figure>
       <figure class="mt-8">
@@ -151,13 +151,13 @@ const verified = [
         <p class="text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo night</code> rehearses a bad night, all fakes, and each incident tests one rule. A panic: it types at FileVault, once. A freeze: three more looks before the plug goes off. A password someone changed: two tries, then one message, and never a third.</p></div>
         <div class="min-w-0">
         <figure>
-          <div class="note-card" role="img" aria-label="A notification card. housesitter. studio is stuck at FileVault. Stuck because: the password was wrong twice. Fix: housesitter secret studio mac-password, then housesitter adopt studio. Look: housesitter status studio; housesitter screenshot studio.">
-            <p class="note-app">housesitter <span>05:51</span></p>
-            <p class="note-title">studio is stuck at FileVault</p>
-            <p class="note-body">Stuck because: the password was wrong twice. Fix: housesitter secret studio mac-password, then housesitter adopt studio.</p>
-            <p class="note-body">Look: housesitter status studio; housesitter screenshot studio.</p>
+          <div class="note-card" role="img" aria-label="An email in HEY: TEST: mini is stuck at FileVault. TEST (housesitter alert-test; nothing is wrong). Seen by the housesitter on its KVM. Stuck because: at the FileVault screen for 10+ min and the sitter has not unlocked it. Look: housesitter status mini.">
+            <p class="note-app">ntfy.sh, by email <span>23:30</span></p>
+            <p class="note-title">🏠 TEST: mini is stuck at FileVault</p>
+            <p class="note-body">TEST (housesitter alert-test; nothing is wrong). Seen by the housesitter on its KVM.</p>
+            <p class="note-body">Stuck because: at the FileVault screen for 10+ min and the sitter has not unlocked it. Look: housesitter status mini.</p>
           </div>
-          <figcaption class="night-caption"><span class="caption-note">Rehearsal</span> <span>The one message from <code class="model-code">demo night</code>, word for word, drawn as a card. Not a phone screenshot.</span></figcaption>
+          <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>The TEST alert our sitter sent on 8 November, word for word from ntfy’s record, as it landed in our HEY Imbox 2 seconds later. Drawn as a card; no real refusal has happened yet.</span></figcaption>
         </figure>
 </div>
       </div>
@@ -247,6 +247,7 @@ housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heart
   /* The clip's wrapper is height: 100% for the cover-cropped clips elsewhere; here, a grid item, that resolved to the
      whole figure and pushed the caption out below the hero. */
   .restart-clip { align-self: start; }
+  .restart-clip :global(.clip-toggle) { top: 0.6rem; bottom: auto; }
   .restart-clip :global(.workshop-clip) { height: auto; }
   .restart-log { display: grid; gap: 0.75rem; }
   .restart-log li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.75rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.5; }
