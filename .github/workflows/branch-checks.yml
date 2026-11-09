@@ -1,0 +1,61 @@
+name: branch-checks
+
+# site-checks for a branch that has no pull request yet: checks out the ref in
+# shots/branch-checks.json, builds and runs npm test, serves the build and runs
+# npm run check:all, and uploads the logs.
+
+on:
+  push:
+    branches: [pr-proof]
+    paths: [shots/branch-checks.json]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SITE_BASE: http://127.0.0.1:4321
+      CHECK_LOGS: ${{ github.workspace }}/check-logs
+      CHECK_JOBS: 2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: proof
+      - id: req
+        run: echo "ref=$(jq -r .ref proof/shots/branch-checks.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.req.outputs.ref }}
+          path: site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - working-directory: site
+        run: npm ci --no-audit --no-fund && npx playwright install --with-deps chromium
+      - name: npm test
+        id: test
+        continue-on-error: true
+        working-directory: site
+        run: |
+          mkdir -p "$CHECK_LOGS"
+          set -o pipefail
+          npm test 2>&1 | tee "$CHECK_LOGS/npm-test.log"
+      - name: check:all
+        id: checks
+        continue-on-error: true
+        working-directory: site
+        run: |
+          nohup node scripts/serve-dist.mjs --port 4321 > "$CHECK_LOGS/serve-dist.log" 2>&1 &
+          for i in $(seq 1 50); do curl -fsS -o /dev/null "$SITE_BASE/" && break; sleep 0.2; done
+          npm run check:all
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: branch-checks-logs
+          path: check-logs/
+      - run: |
+          echo "npm test: ${{ steps.test.outcome }}; check:all: ${{ steps.checks.outcome }}"
+          [ "${{ steps.test.outcome }}" = success ] && [ "${{ steps.checks.outcome }}" = success ]
