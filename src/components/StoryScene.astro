@@ -67,9 +67,14 @@ const wideWebp = `${base}/scenes/${scene}-640.webp 640w, ${base}/scenes/${scene}
 const fallback = `${base}/headers/${scene}.webp`
 const altText = alt ?? scenes[scene]
 const vignette = variant === 'vignette'
+// The storybook art's masters are 1536px wide (ourostack/.github brand/, byte
+// for byte), so a full-width scene on a 2x laptop or a 4K screen is drawn
+// from fewer pixels than the screen has. Ouro check's blurry-image rule is
+// kept off for the art alone, with this reason, until larger masters exist.
+const artWhy = 'Storybook art: the brand masters are 1536px wide; sharper at 2x and 4K needs larger masters from ourostack/.github brand/.'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
   {hero ? (
     <picture>
       <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />

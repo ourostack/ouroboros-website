@@ -104,7 +104,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
               <!-- The quote, full width.
                    parseInlineMd renders backtick code spans (`src/arc/...`)
                    and **bold** that the model produced in its testimonial. -->
-              <blockquote class="text-bone text-base md:text-lg lg:text-[1.1875rem] leading-[1.75]" set:html={`&#8220;${parseInlineMd(review.testimonial)}&#8221;`}></blockquote>
+              <blockquote class="text-bone text-base md:text-lg lg:text-lg leading-[1.75]" set:html={`&#8220;${parseInlineMd(review.testimonial)}&#8221;`}></blockquote>
             </div>
           </article>
         ))}
@@ -211,7 +211,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
       <div class="split-body">
 
       <div class="border border-canopy/40 bg-deep/60 backdrop-blur-sm p-6 md:p-8 mb-3">
-        <pre id="reviews-run" class="font-mono text-xs md:text-sm text-bone leading-relaxed overflow-x-auto"><code>git clone https://github.com/ourostack/ouroboros-website
+        <pre id="reviews-run" class="font-mono text-xs md:text-sm text-bone leading-relaxed overflow-x-auto" tabindex="0"><code>git clone https://github.com/ourostack/ouroboros-website
 cd ouroboros-website
 npm install
 npm run reviews -- --inference direct-api
@@ -248,7 +248,7 @@ npm run reviews -- --inference copilot-first</code></pre>
   .review-jumps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem 2.5rem; }
   @media (min-width: 768px) { .review-jumps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .review-jumps li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 1rem; padding: 0.1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 30%, transparent); }
-  .review-jump-name { font-family: var(--font-display); font-size: 1.35rem; color: var(--color-bone); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); }
+  .review-jump-name { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-bone); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); }
   .review-jump-name:hover { color: var(--color-scale); }
   .review-jump-more { display: inline-flex; flex-wrap: wrap; gap: 0 0.9rem; font-size: 0.875rem; }
   /* A finger-sized 44px on every jump (taste review r15). */

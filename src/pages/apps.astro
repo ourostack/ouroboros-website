@@ -139,7 +139,7 @@ const shelf = [
   @media (min-width: 768px) { .page-mark img { width: 4rem; height: 4rem; } }
   .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
   @media (min-width: 768px) { .does { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .does li { display: grid; gap: 0.4rem; align-content: start; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
+  .does li { display: grid; gap: 0.4rem; align-content: start; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1rem; }
   @media (min-width: 1024px) { .why-split { align-items: center; } .does-stack { grid-template-columns: minmax(0, 1fr); } }
   /* Each item is the column its name sizes against, so a three-word name fits one line in a 192px column at 768 (taste review r18: "Shipped / with receipts"). */
   .does li { container-type: inline-size; }
@@ -148,10 +148,10 @@ const shelf = [
   @media (min-width: 900px) { .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   /* An odd one out never stands alone in the last row: it takes the whole row, its scene beside its words. */
   @media (min-width: 900px) { .shelf > li:last-child:nth-child(odd) { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 3rem; align-items: center; } }
-  .shelf > li { display: grid; gap: 1.25rem; align-content: start; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
+  .shelf > li { display: grid; gap: 1.25rem; align-content: start; color: var(--color-mist); font-size: 1rem; line-height: 1.6; }
   .shelf-body { display: grid; gap: 0.5rem; align-content: start; }
   .shelf-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
   /* The detail wraps as one line of text beside the tag, never in fragments. */
   .shelf-detail { flex: 1 1 14rem; min-width: 0; }
-  .shelf-name { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; color: var(--color-bone); }
+  .shelf-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.1; color: var(--color-bone); }
 </style>

@@ -12,9 +12,9 @@ const current = familyCurrent(currentPath)
 
 {/* Sticky under the family bar: the bar scrolls away, and the nav holds the top. */}
 <nav class="sticky top-0 z-40" id="main-nav" aria-label="Primary">
-  {/* The header reads cleanly over the bright dawn on every page: nearly solid paper
-      (or night) with only a whisper of the scene through it, so nothing smears
-      under the words, and a thin line of trail light along its foot. */}
+  {/* The header reads cleanly over the bright dawn on every page: paper (or
+      night) over the page's own ground, so it is opaque and nothing shows or
+      smears under the words, with a thin line of trail light along its foot. */}
   <div id="nav-bg" class="nav-glass">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 h-(--nav-h) px-6 md:px-12 lg:px-16">
       <a href="/" class="brand-home group flex items-center gap-3 min-h-11 text-bone" aria-label="Ouro home">
@@ -76,11 +76,13 @@ const current = familyCurrent(currentPath)
 </nav>
 
 <style>
+  /* The bar that sticks is opaque: the page's ground, under the nav's paper,
+     so what scrolls beneath is covered, not drawn through it (Ouro check's
+     overlap rule reads the sticky element's own background). */
+  #main-nav { background: var(--color-void); }
   .nav-glass {
     position: relative;
     background: color-mix(in srgb, var(--color-deep) 94%, transparent);
-    -webkit-backdrop-filter: blur(10px) saturate(1.1);
-    backdrop-filter: blur(10px) saturate(1.1);
     box-shadow: 0 1px 0 color-mix(in srgb, var(--color-canopy) 40%, transparent);
   }
   /* While the phone menu is open the bar is solid too, so the bar and the
@@ -114,7 +116,7 @@ const current = familyCurrent(currentPath)
   #mobile-menu .menu-family-group { width: 100%; margin-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); padding-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 45%, transparent); }
   #mobile-menu .menu-family-heading { height: 1.75rem; margin: 0; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; line-height: 1.75rem; letter-spacing: 0.04em; color: var(--color-mist); }
   #mobile-menu .menu-family { display: grid; grid-template-columns: repeat(2, minmax(0, 10rem)); justify-content: center; gap: 0 1.5rem; width: 100%; margin: 0; padding: 0; list-style: none; }
-  #mobile-menu .menu-family a { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0; font-family: var(--font-body); font-size: 1.0625rem; font-weight: 400; color: var(--color-mist); text-decoration: none; }
+  #mobile-menu .menu-family a { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0; font-family: var(--font-body); font-size: 1rem; font-weight: 400; color: var(--color-mist); text-decoration: none; }
   #mobile-menu .menu-family a:hover { color: var(--color-scale); }
   /* The site you are on: ink colour and a line of trail light under it, never colour alone. */
   #mobile-menu .menu-family a[aria-current="true"] { color: var(--color-bone); text-decoration-line: underline; text-decoration-color: var(--color-scale); text-decoration-thickness: 2px; text-underline-offset: 0.4em; }

@@ -48,12 +48,14 @@ test('homepage head and hero follow the deck, with a portrait linking to mendelo
   assert.equal(h1, 'How can humans and agents do more together?');
   const text = homeText();
   assert.ok(text.includes(description));
-  assert.match(html, /<a href="https:\/\/mendelow\.me" class="hero-pic[^"]*"[^>]*>\s*<picture class="block w-full"[^>]*>\s*<source type="image\/avif" srcset="\/images\/workshop\/ari-portrait\.avif"[^>]*>\s*<source type="image\/webp" srcset="\/images\/workshop\/ari-portrait\.webp"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
+  assert.match(html, /<a href="https:\/\/mendelow\.me" class="hero-pic[^"]*"[^>]*>\s*<picture class="block w-full"[^>]*>\s*<source type="image\/avif" srcset="\/images\/workshop\/ari-portrait\.avif 600w, \/images\/workshop\/ari-portrait-1200\.avif 1200w"[^>]*>\s*<source type="image\/webp" srcset="\/images\/workshop\/ari-portrait\.webp 600w, \/images\/workshop\/ari-portrait-1200\.webp 1200w"[^>]*>\s*<img src="\/images\/workshop\/ari-portrait\.jpg"[^>]*width="600" height="824"/);
   // root misses ruling 2.6: the sister site is off-site, so it takes ↗, as in the nav.
   assert.ok(text.includes('More about me ↗'));
   // root misses ruling 2.14: the portrait alt matches mendelow.me.
   assert.match(html, /alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge\." class="portrait-img"/);
   assert.ok(distExists('images/workshop/ari-portrait.jpg'), 'The portrait is copied locally, never hotlinked');
+  // Ouro check (blurry-image): a 2x phone draws the photo 684px wide, so the 1200px file (mendelow.me's own) is offered too.
+  assert.ok(distExists('images/workshop/ari-portrait-1200.avif'));
   assert.doesNotMatch(html, /src="https?:\/\//, 'No hotlinked images');
   const css = fs.readdirSync(path.join(distDir, '_astro')).filter((n) => n.endsWith('.css')).map((n) => fs.readFileSync(path.join(distDir, '_astro', n), 'utf8')).join('\n') + html;
   // Ari, 2026-10-20: on a phone the photo leads at full width, cropped wide around the face; beside the copy from 768px.
