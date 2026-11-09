@@ -72,11 +72,11 @@ const verified = [
         </div>
         <p class="product-lede" data-hero-lede>A $100 KVM beside your agents’ Mac. When the Mac restarts, it unlocks FileVault. When it can’t, it tells you.</p>
         <div class="grid gap-2" data-primary-action>
-          <span class="caption-mono">The day it was built for, replayed from real frames. No hardware.</span>
           <div class="flex flex-wrap items-center gap-3">
             <pre id="housesitter-demo" class="command">{demo}</pre>
             <button type="button" data-copy-target="housesitter-demo" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
           </div>
+          <span class="caption-mono">The day it was built for, replayed from real frames. No hardware.</span>
         </div>
         <p class="text-lg text-mist leading-relaxed">We restarted our Mac mini with nobody at it. The KVM saw FileVault through the Mac’s own HDMI port and refused: it knew only our lock screen. An agent taught it that screen from three frames, once, and it typed by itself. The desktop was up 19 seconds later.</p>
         <p class="text-sm text-mist">{statusDetail}: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
@@ -217,6 +217,10 @@ housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heart
   .restart { display: grid; gap: 1.5rem; margin-top: 2rem; align-items: center; }
   @media (min-width: 1024px) { .restart { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 2.5rem; } }
   .restart-clip :global(.workshop-video) { width: 100%; height: auto; border-radius: 1rem; display: block; }
+  /* The clip's wrapper is height: 100% for the cover-cropped clips elsewhere; here, a grid item, that resolved to the
+     whole figure and pushed the caption out below the hero. */
+  .restart-clip { align-self: start; }
+  .restart-clip :global(.workshop-clip) { height: auto; }
   .restart-log { display: grid; gap: 0.75rem; }
   .restart-log li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.75rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.5; }
   .restart-log li:last-child { color: var(--color-bone); }
