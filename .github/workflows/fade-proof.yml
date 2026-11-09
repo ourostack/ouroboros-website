@@ -1,0 +1,36 @@
+name: fade-proof
+
+# Shows the fade check failing: checks out main, plants a picture fade in
+# global.css, and runs tests/no-image-fades.test.mjs (the test site-checks
+# runs in npm test). The job is expected to show the failure in its log.
+
+on:
+  push:
+    branches: [pr-proof]
+    paths: [shots/fade-proof.txt]
+
+permissions:
+  contents: read
+
+jobs:
+  planted-fade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Plant a picture fade
+        run: |
+          printf '\n.story-hero img { mask-image: linear-gradient(to bottom, #000 70%%, transparent); }\n' >> src/styles/global.css
+          tail -n 2 src/styles/global.css
+      - name: Run the fade check (expected to fail)
+        run: |
+          set +e
+          node --test tests/no-image-fades.test.mjs
+          code=$?
+          echo "exit code: $code"
+          test "$code" -ne 0
