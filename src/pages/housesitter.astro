@@ -17,7 +17,7 @@ const demo = 'npx github:ourostack/housesitter demo'
 
 // From the sitter's own log, the restart in the recording (docs/proof/2026-11-09 in the repo).
 const restart = [
-  ['21:32:23', 'Restart. The only touch.'],
+  ['21:32:23', 'Restart, pressed by our agent: the only touch.'],
   ['21:32:39', 'The Mac is restarting.'],
   ['21:33:00', 'The screen went dark, then the Mac found the KVM’s keyboard again: a boot.'],
   ['21:33:03', 'FileVault, and the prompt it was taught on the restart before, at 100%.'],
@@ -56,7 +56,7 @@ const safe = [
 ]
 
 const verified = [
-  ['Done on a real Mac', 'FileVault after a restart, hands-off, by housesitter’s own sitter: Mac mini (M5 Pro) and GL.iNet Comet, 79 seconds from Restart to desktop. On the restart before, we taught it the FileVault screen once and proved its password.'],
+  ['Done on a real Mac', 'FileVault after a restart, hands-off, by housesitter’s own sitter: Mac mini (M5 Pro) and GL.iNet Comet, 79 seconds from Restart to desktop. On the restart before, we taught it the FileVault screen once and proved its password. That was housesitter 0.1, with the KVM’s own firewall not yet applied (fixed in 0.2).'],
   ['Run on real hardware', 'housesitter doctor, look and status, read-only, against that Comet. It found a real bug, now fixed with a test.'],
   ['Done on a real Mac, too', 'When an agent needs the UI, if you allow it: housesitter unlocked the lock screen in 9 seconds, and the login window’s list of users in 16, clicking the account’s tile first.'],
   ['Next', 'The smart plug, which arrives 9 November, and a hands-off restart on housesitter 0.2.'],
@@ -85,7 +85,7 @@ const verified = [
       </div>
       <figure class="min-w-0 hero-media restart-clip">
         <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: Restart, the only touch, and it shuts down; the Mac restarting; the boot; FileVault, with the prompt it was taught at 100 percent, zoomed twice; steady, 20 seconds after the boot, now it may type; typed once, by itself, dots in the field; logging in; then a card: 79 s from Restart to desktop, nobody at the Mac, housesitter's own sitter on a $100 KVM." />
-        <figcaption class="night-caption"><span class="caption-note">Recorded</span> <span>Unlocked by housesitter’s own sitter on 8 November. Only the shutdown, boot and FileVault frames are shown.</span></figcaption>
+        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Unlocked by housesitter’s own sitter (0.1, before its firewall fix) on 8 November. Only the shutdown, boot and FileVault frames are shown.</span></figcaption>
       </figure>
     </div>
   </section>
@@ -128,14 +128,14 @@ const verified = [
     <h2 id="replay-heading" class="heading-section max-w-6xl mx-auto">The day, <span class="text-scale">replayed</span></h2>
     <div class="max-w-6xl mx-auto replay mt-6">
       <div>
-        <p class="text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo</code> replays that Sunday in your terminal: real frames from our KVM, read again just now by the rules the sitter runs, then the restart from the KVM’s own log. In the morning’s frame there’s no password field, so it refuses and tells you. In the evening our watchdog, on the same rules, unlocks it.</p>
+        <p class="text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo</code> replays that Sunday in your terminal: real frames from our KVM, read again just now by the rules the sitter runs, then that day’s two restarts. In the morning’s frame there’s no password field, so it refuses and tells you. In the evening our watchdog, on the same rules, needs teaching once; that night housesitter itself unlocks a restart hands-off, in 79 seconds.</p>
         <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
           <pre id="housesitter-demo-2" class="command">{demo}</pre>
           <button type="button" data-copy-target="housesitter-demo-2" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
         </div>
 
       </div>
-      <div class="product-media media-shot shot-dark-only replay-shot"><img src="/images/workshop/housesitter-evening.webp" width="1694" height="2000" loading="lazy" decoding="async" alt="housesitter demo: six pixel glimpses of real frames down the left, each with what the sitter sees and does. 10:32, no password field: it won't type and tells you once. 17:59, a desktop, not shown. 18:07, the taught prompt at 100 and 93 percent. 18:15, asked once, it typed and the desktop followed, not shown. 18:31 to 18:32:56, from the KVM's log: boot, FileVault, the field on its picture, typed once, the desktop." /></div>
+      <div class="product-media media-shot shot-dark-only replay-shot"><img src="/images/workshop/housesitter-evening.webp" width="1694" height="2378" loading="lazy" decoding="async" alt="housesitter demo: seven pixel glimpses of real frames down the left, each with what the sitter sees and does. 10:32, no password field: it won’t type and tells you once. 17:59, a desktop, not shown. 18:07, the taught prompt at 100 and 93 percent. 18:15, asked once, it typed and the desktop followed, not shown. 18:31 to 18:32:56, our watchdog’s first restart test: taught once, typed once, the desktop 1 min 44 s after the restart. 21:32:23 to 21:33:42, housesitter’s own sitter: Restart pressed by our agent, the boot, FileVault at 100 percent, steady 20 s after the boot, typed once by itself, the desktop up 79 s after Restart with nobody touching it." /></div>
     </div>
   </section>
 
