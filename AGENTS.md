@@ -188,6 +188,7 @@ src/
   worker/
     index.ts             ← Cloudflare Worker: redirects, then static assets with cache headers
     redirects.mjs        ← the old-URL map (/docs, /why, /story, ... → /lab; preview-only /essays → /blog)
+    https.mjs            ← the ouroboros-website-https Worker (wrangler-https.jsonc): plain HTTP and www → https://ouroboros.bot
   og/
     fonts/               ← TTFs for Satori OG generation
 lib/
@@ -217,6 +218,10 @@ Every page opens with Ouro HX's `FamilyBar` above the nav and closes with its `F
 ## Ouro HX's page moved to ui.ouroboros.bot
 
 On 2026-11-07 Ouro HX's page (`/ouro-hx/`) moved to [ui.ouroboros.bot](https://ui.ouroboros.bot/), the Ouro UI site in ourostack/ouro-ui (`site/`), which is the one home for Ouro UI, HX and AX (Ari: "let's unify? i trust you"). `src/worker/redirects.mjs` sends `/ouro-hx`, `/ouro-hx/` and `/ouro-hx/index.html` there with a 301 that keeps the query. **Rule for new work:** pages and copy about HX, UI or AX are written in ourostack/ouro-ui `site/`; this site only links to them.
+
+## HTTPS only
+
+Every plain-HTTP request to ouroboros.bot and every request to www.ouroboros.bot gets a 301 to the same path and query on https://ouroboros.bot, and every response carries `Strict-Transport-Security: max-age=31536000` (Ari, 2026-11-09: "why doesn't http forward to https on all these sites?"). A second Worker, `ouroboros-website-https` (`src/worker/https.mjs`, `wrangler-https.jsonc`, deployed by `deploy.yml` after the site), owns only the routes `http://ouroboros.bot/*` and `www.ouroboros.bot/*`, so HTTPS visits keep coming straight from static assets without a Worker call. `public/_headers` adds HSTS to every static asset, and the site's Worker adds it to the responses it builds, because Cloudflare applies `_headers` only to what the asset layer serves directly. `tests/https.test.mjs` holds all of this.
 
 ## ouro.bot forwards here
 
