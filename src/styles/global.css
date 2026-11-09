@@ -245,10 +245,8 @@ html, body { overflow-x: clip; }
    The family bar and footer (Ouro HX's FamilyBar and FamilyFooter, in
    src/components/ouro/) read shadcn's standard tokens. Each one names a site
    token, so it follows the light and dark themes above and the bar looks
-   native here: in dark theme the strip on the undergrowth tint, in light
-   theme on the nav's own paper with the hairline alone between them (Ive:
-   no tan band over a cream nav), links in mist and bone, the current site
-   underlined in scale green. */
+   native here: the strip on the page's own ground with a hairline under it,
+   links in mist, the current site in bone underlined in scale green. */
 :root {
   --background: var(--color-void);
   --foreground: var(--color-bone);
@@ -264,8 +262,18 @@ html, body { overflow-x: clip; }
   --ouro-layer: 60;
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.2);
 }
-:root[data-theme="light"] { --muted: var(--color-deep); }
-@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --muted: var(--color-deep); } }
+/* The family bar's row fades the side that hides more with no script, by a
+   scroll-driven animation (Ouro HX's scrollFadeStaticClass); these are its
+   keyframes, from ouro-ui's ouro-base.css at v1.3.9. The mask fades a row of
+   words, never a picture. */
+@keyframes ouro-scroll-fade-left {
+  from { mask-position: -2rem 0, 0 0; }
+  to { mask-position: 0 0, 0 0; }
+}
+@keyframes ouro-scroll-fade-right {
+  from { mask-size: calc(100% + 2rem) 100%, calc(100% + 2rem) 100%; }
+  to { mask-size: calc(100% + 2rem) 100%, 100% 100%; }
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -877,10 +885,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 .story-scene img { display: block; width: 100%; height: auto; }
 /* The scene starts just under the header, so nothing in it (Ouro's head least of all) hides behind the bar. */
 /* --nav-h is the site's own nav bar under the family bar: 4rem on a phone,
-   2.5rem from 1024px, where the family bar and the nav together keep a
-   product page's primary action in the first view (scripts/primary-action.mjs). */
+   2.75rem from 1024px, where the family bar (32px there) and the nav together
+   keep a product page's primary action in the first view
+   (scripts/primary-action.mjs), and the nav stays the taller of the two. */
 :root { --nav-h: 4rem; }
-@media (min-width: 1024px) { :root { --nav-h: 2.5rem; } }
+@media (min-width: 1024px) { :root { --nav-h: 2.75rem; } }
 .story-hero { width: 100%; margin-top: var(--nav-h); }
 /* The height cap never trims the cast (taste review r5: the robot's head was cut
    at 1440), and never crops much of the scene at all (taste review r8: short
