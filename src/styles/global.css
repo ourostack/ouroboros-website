@@ -183,6 +183,16 @@
 }
 /* Nothing may pan the page sideways, such as the hero's soft glow on a phone. clip, unlike hidden, keeps sticky positioning working. */
 html, body { overflow-x: clip; }
+/* An anchor, or a link reached by Shift+Tab, lands below the sticky nav, not
+   under it (the family bar has scrolled away by then). A scroll margin on the
+   page's own targets, not a scroll padding on <html>: a padding the height of
+   the nav covers the nav itself, so focusing its own buttons (the menu
+   toggle, when the menu closes) scrolled the page to "reveal" them. In the
+   base layer, so a section's own scroll-mt-* (which already clears the nav)
+   sets its own landing. */
+@layer base {
+  :where(main, footer) :is([id], a[href], button, summary, input, select, textarea, [tabindex]) { scroll-margin-top: calc(var(--nav-h) + 0.5rem); }
+}
 
 /* Wide screens: from 1600px the root size grows with the viewport, so the 72rem
    container, the type and the spacing scale together instead of leaving a narrow
@@ -235,8 +245,10 @@ html, body { overflow-x: clip; }
    The family bar and footer (Ouro HX's FamilyBar and FamilyFooter, in
    src/components/ouro/) read shadcn's standard tokens. Each one names a site
    token, so it follows the light and dark themes above and the bar looks
-   native here: the strip on the undergrowth tint, links in mist and bone,
-   the current site underlined in scale green. */
+   native here: in dark theme the strip on the undergrowth tint, in light
+   theme on the nav's own paper with the hairline alone between them (Ive:
+   no tan band over a cream nav), links in mist and bone, the current site
+   underlined in scale green. */
 :root {
   --background: var(--color-void);
   --foreground: var(--color-bone);
@@ -248,7 +260,12 @@ html, body { overflow-x: clip; }
   --ring: var(--color-scale);
   --radius: 0.625rem;
   --ouro-duration-fast: 150ms;
+  /* The layer Ouro's SkipLink takes when it shows: above the grain (z-50). */
+  --ouro-layer: 60;
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.2);
 }
+:root[data-theme="light"] { --muted: var(--color-deep); }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --muted: var(--color-deep); } }
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -479,12 +496,16 @@ p, li, dd, figcaption { text-wrap: pretty; }
 @media (max-width: 767.98px) { .prose-ouro > :first-child { margin-top: 0; } }
 
 /* ── Focus ── */
-/* The outline follows each element's own corners; never set a radius here, or rounded buttons and cards go square when focused. */
-:focus-visible {
-  outline: 2px solid var(--color-scale);
-  outline-offset: 2px;
+/* The outline follows each element's own corners; never set a radius here, or rounded buttons and cards go square when focused.
+   In the base layer, so a component's own ring wins: Ouro HX's family bar
+   draws its ring inside each link, where its scrolling row can't clip it. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-scale);
+    outline-offset: 2px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
 }
-:focus:not(:focus-visible) { outline: none; }
 
 /* ── Links ──
    Every underlined link shows a clear change on hover: the underline goes solid and thicker.
@@ -987,6 +1008,12 @@ main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
   --trail-glow: #F4B63F;
   --trail-path: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='36' viewBox='0 0 1200 36'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23F4B63F'/%3E%3Cstop offset='.5' stop-color='%23FFE7A3'/%3E%3Cstop offset='1' stop-color='%23F4B63F'/%3E%3C/linearGradient%3E%3Cfilter id='b' x='-5%25' y='-100%25' width='110%25' height='300%25'%3E%3CfeGaussianBlur stdDeviation='3.2'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='%23F4B63F' stroke-width='7' stroke-linecap='round' opacity='.55' filter='url(%23b)'/%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cg fill='%23FFF6D6'%3E%3Ccircle cx='96' cy='8' r='1.6'/%3E%3Ccircle cx='312' cy='29' r='1.2'/%3E%3Ccircle cx='520' cy='7' r='1.4'/%3E%3Ccircle cx='705' cy='27' r='1.8'/%3E%3Ccircle cx='930' cy='9' r='1.3'/%3E%3Ccircle cx='1110' cy='28' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
 }
+/* On light paper the wide glow read as a warm haze under each hero and over
+   the meadow, a second soft edge beside the picture's hard one (Ive, Clippy).
+   In light theme the glow hugs the line, within about 3px of it; the line and
+   its fireflies are the same. Dark theme keeps the full glow, its gold rim. */
+:root[data-theme="light"] { --trail-path: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='36' viewBox='0 0 1200 36'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23F4B63F'/%3E%3Cstop offset='.5' stop-color='%23FFE7A3'/%3E%3Cstop offset='1' stop-color='%23F4B63F'/%3E%3C/linearGradient%3E%3Cfilter id='b' x='-5%25' y='-100%25' width='110%25' height='300%25'%3E%3CfeGaussianBlur stdDeviation='1'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='%23F4B63F' stroke-width='4' stroke-linecap='round' opacity='.45' filter='url(%23b)'/%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cg fill='%23FFF6D6'%3E%3Ccircle cx='96' cy='8' r='1.6'/%3E%3Ccircle cx='312' cy='29' r='1.2'/%3E%3Ccircle cx='520' cy='7' r='1.4'/%3E%3Ccircle cx='705' cy='27' r='1.8'/%3E%3Ccircle cx='930' cy='9' r='1.3'/%3E%3Ccircle cx='1110' cy='28' r='1.5'/%3E%3C/g%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --trail-path: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='36' viewBox='0 0 1200 36'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%23F4B63F'/%3E%3Cstop offset='.5' stop-color='%23FFE7A3'/%3E%3Cstop offset='1' stop-color='%23F4B63F'/%3E%3C/linearGradient%3E%3Cfilter id='b' x='-5%25' y='-100%25' width='110%25' height='300%25'%3E%3CfeGaussianBlur stdDeviation='1'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='%23F4B63F' stroke-width='4' stroke-linecap='round' opacity='.45' filter='url(%23b)'/%3E%3Cpath d='M0 18 C150 6 250 30 400 18 S650 6 800 18 S1050 30 1200 18' fill='none' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cg fill='%23FFF6D6'%3E%3Ccircle cx='96' cy='8' r='1.6'/%3E%3Ccircle cx='312' cy='29' r='1.2'/%3E%3Ccircle cx='520' cy='7' r='1.4'/%3E%3Ccircle cx='705' cy='27' r='1.8'/%3E%3Ccircle cx='930' cy='9' r='1.3'/%3E%3Ccircle cx='1110' cy='28' r='1.5'/%3E%3C/g%3E%3C/svg%3E"); } }
 main > section.border-t, .trail-top { position: relative; border-top-color: transparent !important; }
 main > section.border-t::before, .trail-top::before {
   content: "";

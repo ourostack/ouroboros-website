@@ -81,7 +81,7 @@ test('the Ouro MD page leads with the card copy and one clip, with no second dem
   // Copy deck (2026-10-11): /ouro-md/ leads with the homepage card's copy and the same media.
   assert.ok(textOf(html).includes('My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.'));
   // The storybook scenes (the hero and the footer meadow) are checked in tests/storybook.test.mjs.
-  const content = html.replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<noscript>[\s\S]*?<\/noscript>/g, "").replace(/<div class="story-scene[\s\S]*?<\/picture>\s*(?:<noscript>[\s\S]*?<\/noscript>\s*)?<\/div>/g, '');
+  const content = html.replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<a\b[^>]*data-ouro="skip-link"[\s\S]*?<\/a>/, '').replace(/<noscript>[\s\S]*?<\/noscript>/g, "").replace(/<div class="story-scene[\s\S]*?<\/picture>\s*(?:<noscript>[\s\S]*?<\/noscript>\s*)?<\/div>/g, '');
   const imgs = [...content.matchAll(/<(?:img\b[^>]*src|video\b[^>]*poster)="([^"]+)"/g)].map(([, src]) => src);
   assert.deepEqual(imgs, ['/brand/ouro-md-icon.png', '/images/workshop/ouro-md-agent-edit-light-poster.png', '/images/workshop/ouro-md-agent-edit-dark-poster.png']);
   // Taste review (2026-11-06): one window, not two stacked windows of the same document,

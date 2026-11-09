@@ -94,6 +94,8 @@ function controls() {
     if (!el.getClientRects().length || el.closest('[hidden], [inert], [aria-hidden="true"]')) return false;
     const s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none' || s.pointerEvents === 'none') return false;
+    // The skip link is clipped to 1px until it has focus, when it shows at full size: no finger meets it hidden.
+    if (el.matches('[data-ouro="skip-link"]:not(:focus)')) return false;
     if (el.matches('a[href]') && !el.matches('[role="button"]')) return !inProse(el);
     return true;
   });

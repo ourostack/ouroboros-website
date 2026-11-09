@@ -102,3 +102,15 @@ test('llms.txt opens with the workshop, names /approach "How I work", and links 
   assert.doesNotMatch(llms, /public entrypoint/);
   assert.doesNotMatch(llms, /https:\/\/ouroboros\.bot\/(why|story|docs|what-is-an-agent-harness)\b/, 'Old-block links use their /lab/ paths');
 });
+
+// Federighi review (2026-11-09): an agent reads the family by the bar's names.
+// The section is built from src/data/family.json, and Ouro UI is one entry.
+test('llms.txt lists the Ouro family from family.json, by the names the family bar uses', () => {
+  const llms = readDist('llms.txt');
+  const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
+  const section = llms.slice(llms.indexOf('## The Ouro family'), llms.indexOf('## Tools'));
+  assert.deepEqual([...section.matchAll(/^- \[([^\]]+)\]\(([^)]+)\)$/gm)].map((m) => [m[1], m[2]]), family.map((l) => [l.label, l.href]));
+  assert.ok(!llms.includes('{{family}}'));
+  assert.equal(llms.match(/^- \[Ouro UI\]\(https:\/\/ui\.ouroboros\.bot\/\)/gm).length, 2, 'Ouro UI once in the family, once in the tools');
+  assert.doesNotMatch(llms, /\[Ouro HX\]|Ouro UI \/ Ouro HX/);
+});

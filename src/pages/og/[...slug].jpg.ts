@@ -85,7 +85,8 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'ouro-ui-apple': [16, 30, 1194, 172],
   'ouro-ui-core': [16, 30, 1194, 172],
   'ouro-work': [800, 6, 1194, 172],
-  'ouro-workbench': [760, 6, 1194, 270],
+  // On its title plate, like the butler's.
+  'ouro-workbench': [16, 30, 1194, 172],
   'ouroboros': [680, 6, 1194, 180],
   'ouroboros-skills': [830, 6, 1194, 240],
   'ouroboros-website': [770, 6, 1194, 196],
@@ -97,9 +98,8 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
 // card takes the whole-world header at card height and slides the window right,
 // so the picnic, both robots and the sheep fit whole (taste review r3). The
 // art's bytes are only resized and cropped here, never repainted.
-// Taste review r5 reframed three more: the workbench zooms in a little so its
-// open sky clears the timber post, vines and lantern; the shell and the apps
-// stall slide right so the words get the wide sunset sky instead of a sliver.
+// Taste review r5 reframed two more: the shell and the apps stall slide right
+// so the words get the wide sunset sky instead of a sliver.
 // Taste review r5 found three scenes whose cast is wider than any card-height
 // window: the canonical card crop cut the robot's head (Ouro UI for Apple), Ouro's
 // coil (the paint pots) and the person at her laptop (the focus proof). Those,
@@ -111,7 +111,6 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
 type PlateFrame = { file: string; plate: true }
 const FRAME: Record<string, { file: string; left: number; height?: number } | PlateFrame> = {
   ourostack: { file: 'headers/ourostack.webp', left: 690 },
-  'ouro-workbench': { file: 'headers/ouro-workbench.webp', left: 816, height: 756 },
   'ouro-native-apple-app-shell': { file: 'headers/ouro-native-apple-app-shell.webp', left: 480 },
   'ouro-apps-site': { file: 'headers/ouro-apps-site.webp', left: 480 },
   'ouro-ui-apple': { file: 'headers/ouro-ui-apple.webp', plate: true },
@@ -123,6 +122,9 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   factory: { file: 'headers/factory.webp', plate: true },
   'friends-relay': { file: 'headers/friends-relay.webp', plate: true },
   'homebrew-tap': { file: 'headers/homebrew-tap.webp', plate: true },
+  // The workbench's purple hills left its titles at about 2.7:1 once no
+  // scrim washed them (Clippy, 2026-11-09): the same plate.
+  'ouro-workbench': { file: 'headers/ouro-workbench.webp', plate: true },
   // The butler's cottage roof runs to the very top of its art, so there is no
   // real sky to set a title in, and any sky made from the top rows dissolves
   // the roof (flagged in taste reviews r7, r12 and r13). Ari's ruling (r14):
