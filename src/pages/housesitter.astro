@@ -82,7 +82,7 @@ const verified = [
         <p class="text-sm text-mist">{statusDetail}: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
       </div>
       <figure class="min-w-0 hero-media restart-clip">
-        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini after a restart, with a caption under each frame: the FileVault screen with nobody home; not a screen it was taught, so it won't type; an agent teaches it this screen, once per Mac; the field it was taught on its own picture, zoomed three times; it typed the password once, by itself, dark while it logs in; then a card: 1 min 44 s from restart to desktop, nobody at the Mac, including 20 s to teach it the FileVault screen once." />
+        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini after a restart, with a caption under each frame: the FileVault screen with nobody home; not a screen it was taught, so it won't type; an agent teaches it this screen, once per Mac; the prompt it was taught on its own picture, zoomed twice; it typed the password once, by itself, dark while it logs in; then a card: 1 min 44 s from restart to desktop, nobody at the Mac, including 20 s to teach it the FileVault screen once." />
         <figcaption class="night-caption"><span class="caption-note">Recorded</span> <span>Unlocked by our private watchdog, the code housesitter was generalised from, with the same rules. Only the FileVault frames are shown.</span></figcaption>
       </figure>
     </div>
@@ -118,7 +118,7 @@ const verified = [
         <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-look.webp" width="1800" height="711" loading="lazy" decoding="async" alt="housesitter look on a real frame of our lock screen: a pixel glimpse of the Golden Gate wallpaper and the avatar. It sees the lock screen it was taught, at 100 percent. May type: only when you ask, over SSH; a lock screen is your lock. Pressed nothing, typed nothing, changed nothing." /></div>
         <figcaption class="night-caption"><span class="caption-note">Real frame</span> <span>housesitter look on our lock screen: the glimpse, and what the sitter makes of it.</span></figcaption>
       </figure>
-      <p class="mt-8 text-lg text-mist leading-relaxed">One screen: what the KVM sees right now, drawn from its own picture in 40 by 22 pixels, too small to read anything on; what that reads as; when it last looked and when it looks next; the password gate; what’s left of each budget; the last bad stretch; where it tells you; and the command for anything missing.</p>
+      <p class="mt-8 text-lg text-mist leading-relaxed">Everything the sitter knows on one screen, with the command for anything missing. The picture is 40 by 22 pixels of the KVM’s own, too small to read anything on.</p>
     </div>
   </section>
 
@@ -131,7 +131,21 @@ const verified = [
           <pre id="housesitter-demo-2" class="command">{demo}</pre>
           <button type="button" data-copy-target="housesitter-demo-2" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
         </div>
-        <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo night</code> rehearses a bad night, all fakes: two panics, a freeze and a changed password. It ends: “3 incidents overnight: 2 fixed by itself (4 min, 12 min), 1 needed you, and it said so once.”</p>
+
+      </div>
+      <div class="product-media media-shot shot-dark-only replay-shot"><img src="/images/workshop/housesitter-evening.webp" width="1694" height="2000" loading="lazy" decoding="async" alt="housesitter demo: six pixel glimpses of real frames down the left, each with what the sitter sees and does. 10:32, no password field: it won't type and tells you once. 17:59, a desktop, not shown. 18:07, the taught prompt at 100 and 93 percent. 18:15, asked once, it typed and the desktop followed, not shown. 18:31 to 18:32:56, from the KVM's log: boot, FileVault, the field on its picture, typed once, the desktop." /></div>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="night-heading">
+    <h2 id="night-heading" class="heading-section max-w-6xl mx-auto">A bad <span class="text-scale">night</span></h2>
+    <div class="max-w-6xl mx-auto night-grid mt-8">
+      <figure class="min-w-0 night-clip">
+        <WorkshopVideo src="/images/workshop/housesitter-night.mp4" poster="/images/workshop/housesitter-night-poster.webp" width={1280} height={840} alt="A terminal recording of housesitter demo night, all fakes. 03:12 a kernel panic; the sitter sees FileVault and types; back by itself 4 minutes after it went down. 04:31 the Mac freezes; at 04:36 the clock hasn't moved in 5 minutes and nothing answers; three more looks over two minutes; 04:38 the smart plug goes off for 10 seconds; back by itself 12 minutes after. 05:41 another panic after the password was changed; two tries fail; at 05:51 one message to your phone. 3 incidents overnight: 2 fixed by itself, 1 needed you, and it said so once." />
+        <figcaption class="night-caption"><span class="caption-note">Rehearsal</span> <span>Recorded in CI from housesitter demo night: a pretend Mac and KVM, run by the real rules and client.</span></figcaption>
+      </figure>
+      <div class="min-w-0">
+        <p class="text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo night</code> rehearses a bad night, all fakes: two panics, a freeze and a changed password. It ends: “3 incidents overnight: 2 fixed by itself (4 min, 12 min), 1 needed you, and it said so once.”</p>
         <figure class="mt-6">
           <div class="note-card" role="img" aria-label="A notification card. housesitter. studio is stuck at FileVault. Stuck because: the password was wrong twice. Fix: housesitter secret studio mac-password, then housesitter adopt studio. Look: housesitter status studio; housesitter screenshot studio.">
             <p class="note-app">housesitter <span>05:51</span></p>
@@ -142,11 +156,10 @@ const verified = [
           <figcaption class="night-caption"><span class="caption-note">Rehearsal</span> <span>That one message, word for word from <code class="model-code">demo night</code> (its title and two of its four lines), drawn as a card. Not a phone screenshot.</span></figcaption>
         </figure>
       </div>
-      <div class="product-media media-shot shot-dark-only replay-shot"><img src="/images/workshop/housesitter-evening.webp" width="1694" height="2000" loading="lazy" decoding="async" alt="housesitter demo: six pixel glimpses of real frames down the left, each with what the sitter sees and does. 10:32, no password field: it won't type and tells you once. 17:59, a desktop, not shown. 18:07, the taught prompt at 100 and 93 percent. 18:15, asked once, it typed and the desktop followed, not shown. 18:31 to 18:32:56, from the KVM's log: boot, FileVault, the field on its picture, typed once, the desktop." /></div>
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="does-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="does-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="does-heading" class="heading-section">What it <span class="text-scale">does</span></h2>
       <ul class="does">
@@ -158,7 +171,7 @@ const verified = [
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="why-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="why-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="why-heading" class="heading-section">Why not <span class="text-scale">just…</span></h2>
       <ul class="does">
@@ -169,7 +182,7 @@ const verified = [
     </div>
   </section>
 
-  <section id="setup" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40 scroll-mt-16" aria-labelledby="setup-heading">
+  <section id="setup" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 scroll-mt-16" aria-labelledby="setup-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="setup-heading" class="heading-section">Three cables, <span class="text-scale">then one restart</span></h2>
       <ol class="cables">
@@ -188,7 +201,7 @@ housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heart
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="safe-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="safe-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="safe-heading" class="heading-section">Careful with <span class="text-scale">the password</span></h2>
       <ul class="safe">
@@ -198,7 +211,7 @@ housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heart
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20 bg-deep/40" aria-labelledby="verified-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="verified-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="verified-heading" class="heading-section">What’s <span class="text-scale">verified</span></h2>
       <ul class="does">
@@ -241,7 +254,7 @@ housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heart
   .replay-shot img, .media-shot img { width: 100%; height: auto; display: block; border-radius: 0.75rem; }
   .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
   @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .does li { display: grid; gap: 0.4rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
+  .does li { display: grid; align-content: start; gap: 0.4rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1.0625rem; }
   .does-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
   .cables { display: grid; gap: 1rem; margin-top: 2rem; }
   @media (min-width: 768px) { .cables { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
@@ -251,10 +264,14 @@ housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heart
   .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
   .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1.0625rem; line-height: 1.6; }
   .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
-  .note-card { max-width: 26rem; padding: 0.9rem 1.1rem; border-radius: 1.1rem; background: color-mix(in srgb, var(--color-deep) 85%, var(--color-bone) 6%); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); box-shadow: 0 10px 30px rgb(0 0 0 / 0.25); }
+  .note-card { padding: 0.9rem 1.1rem; border-radius: 1.1rem; background: color-mix(in srgb, var(--color-deep) 85%, var(--color-bone) 6%); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); box-shadow: 0 10px 30px rgb(0 0 0 / 0.25); }
   .note-card p { margin: 0; }
   .note-app { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--color-mist); }
   .note-title { margin-top: 0.35rem !important; font-weight: 600; color: var(--color-bone); font-size: 1rem; }
   .note-body { margin-top: 0.2rem !important; color: var(--color-mist); font-size: 0.9375rem; line-height: 1.45; }
+  .night-grid { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 1024px) { .night-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3rem; } }
+  .night-clip :global(.workshop-clip) { height: auto; }
+  .night-clip :global(.workshop-video) { width: 100%; height: auto; border-radius: 0.75rem; display: block; }
   @media (max-width: 479.98px) { .command, .install { font-size: 0.8125rem; } }
 </style>
