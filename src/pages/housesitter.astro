@@ -18,10 +18,10 @@ const demo = 'npx github:ourostack/housesitter demo'
 // From the sitter's own log, the restart in the recording (docs/proof/2026-11-09 in the repo).
 const restart = [
   ['21:32:23', 'Restart. The only touch.'],
-  ['21:32:39', 'Dark: the Mac is restarting.'],
+  ['21:32:39', 'The Mac is restarting.'],
   ['21:33:00', 'The screen went dark, then the Mac found the KVM’s keyboard again: a boot.'],
   ['21:33:03', 'FileVault, and the prompt it was taught on the restart before, at 100%.'],
-  ['21:33:20', 'Steady for four frames: it may type.'],
+  ['21:33:20', 'Steady, and 20 seconds after the boot: now it may type.'],
   ['21:33:27', 'Typed the password, once, by itself.'],
   ['21:33:42', 'The desktop, 79 seconds after Restart.'],
 ]
@@ -59,7 +59,7 @@ const verified = [
   ['Done on a real Mac', 'FileVault after a restart, hands-off, by housesitter’s own sitter: Mac mini (M5 Pro) and GL.iNet Comet, 79 seconds from Restart to desktop. On the restart before, we taught it the FileVault screen once and proved its password.'],
   ['Run on real hardware', 'housesitter doctor, look and status, read-only, against that Comet. It found a real bug, now fixed with a test.'],
   ['Next', 'Unlocking the lock screen and the login window’s list of users when an agent needs the UI (20 of 20 by our watchdog; ported to housesitter and tested on those frames, its own live run next), and the smart plug, which arrives 9 November.'],
-  ['Not yet', 'A real freeze and a power cut; a macOS update; OCR beyond English macOS.'],
+  ['Not yet', 'A real freeze and a power cut; a message from a real refusal (tested with fakes only); a macOS update; OCR beyond English macOS.'],
 ]
 ---
 
@@ -83,8 +83,8 @@ const verified = [
         <p class="text-sm text-mist">{statusDetail}: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
       </div>
       <figure class="min-w-0 hero-media restart-clip">
-        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: Restart, the only touch, and it shuts down; dark while the Mac restarts; boot seen; FileVault, with the prompt it was taught at 100 percent, zoomed twice; steady; typed once, by itself; logging in; then a card: 79 s from Restart to desktop, nobody at the Mac, housesitter's own sitter on a $100 KVM." />
-        <figcaption class="night-caption"><span class="caption-note">Recorded</span> <span>Unlocked by our private watchdog, the code housesitter was generalised from, with the same rules. Only the FileVault frames are shown.</span></figcaption>
+        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: Restart, the only touch, and it shuts down; the Mac restarting; the boot; FileVault, with the prompt it was taught at 100 percent, zoomed twice; steady, 20 seconds after the boot, now it may type; typed once, by itself, dots in the field; logging in; then a card: 79 s from Restart to desktop, nobody at the Mac, housesitter's own sitter on a $100 KVM." />
+        <figcaption class="night-caption"><span class="caption-note">Recorded</span> <span>Unlocked by housesitter’s own sitter on 8 November. Only the shutdown, boot and FileVault frames are shown.</span></figcaption>
       </figure>
     </div>
   </section>
@@ -113,7 +113,7 @@ const verified = [
       <h2 id="doctor-heading" class="heading-section"><code class="heading-code">housesitter doctor</code></h2>
       <figure class="mt-8">
         <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-doctor.webp" width="1800" height="1055" loading="lazy" decoding="async" alt="housesitter doctor mini --private: the picture of what the KVM sees is hidden; it reads as a desktop; the taught prompt not on the picture, the clock moving, looked 15 seconds ago, next look in 45 seconds, the Mac answering. The KVM is a GL.iNet Comet on kvmd 4.82, keyboard online, HDMI 2560 by 1440. No password on this sitter, so it never types; the prompt is taught. 2 of 2 tries left before it stops, and 3 of 3 this hour; no smart plug, so a frozen Mac is reported, never cycled. Nowhere to tell you, and no heartbeat. Three things to do." /></div>
-        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>The data of a real run against our mini and its Comet, a minute after that restart, drawn with --private so my desktop stays out. This sitter ran watch-only, so it truthfully has no password and nowhere to tell us: its three things to do.</span></figcaption>
+        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>The data of a real run against our mini and its Comet at 18:33 on 8 November, before housesitter’s sitter took over the KVM, drawn with --private so my desktop stays out. That sitter ran watch-only, so it truthfully had no password and nowhere to tell us: its three things to do.</span></figcaption>
       </figure>
       <figure class="mt-8">
         <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-look.webp" width="1800" height="711" loading="lazy" decoding="async" alt="housesitter look on a real frame of our lock screen: a pixel glimpse of the Golden Gate wallpaper and the avatar. It sees the lock screen it was taught, at 100 percent. May type: only when you ask, over SSH; a lock screen is your lock. Pressed nothing, typed nothing, changed nothing." /></div>
