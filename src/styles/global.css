@@ -904,10 +904,11 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 3rem; }
 }
 /* On a wide screen the words follow the hero's trail closely, so a product
-   page's primary action stays in the first view (scripts/primary-action.mjs).
+   page's primary action stays in the first view (scripts/primary-action.mjs):
+   a hair's gap up to 864px tall, opening to 1.25rem on a taller screen.
    The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
-  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 0.25rem; }
+  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: clamp(0.25rem, calc((100svh - 860px) / 3), 1.25rem); }
   .story-hero[data-trail-below] + :is(section, article, div) { padding-top: 2rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }
