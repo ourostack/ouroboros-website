@@ -8,7 +8,7 @@ import { labelFor, entry } from '../data/readiness.mjs'
 // ourostack/housesitter: its README (the story, what's verified, the password rules), its real `housesitter doctor`
 // run and `housesitter demo`, and the KVM's own recording of a real restart.
 const title = 'housesitter: your agents’ Mac, unlocked after a restart | Ouro'
-const description = 'A $100 KVM beside your agents’ Mac. When the Mac restarts, it unlocks FileVault. When it can’t, it tells you. On a real Mac mini, housesitter went from Restart to desktop in 79 seconds with nobody touching it.'
+const description = 'A $100 KVM beside your agents’ Mac. When the Mac restarts, it unlocks FileVault. When it can’t, it tells you. On a real Mac mini, housesitter went from Restart to desktop in 70 seconds with nobody touching it.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const status = labelFor('housesitter')
 const statusDetail = entry('housesitter').detail
@@ -17,13 +17,12 @@ const demo = 'npx github:ourostack/housesitter demo'
 
 // From the sitter's own log, the restart in the recording (docs/proof/2026-11-09 in the repo).
 const restart = [
-  ['21:32:23', 'Restart, pressed by our agent: the only touch.'],
-  ['21:32:39', 'The Mac is restarting.'],
-  ['21:33:00', 'The screen went dark, then the Mac found the KVM’s keyboard again: a boot.'],
-  ['21:33:03', 'FileVault, and the prompt it was taught on the restart before, at 100%.'],
-  ['21:33:20', 'Steady, and 20 seconds after the boot: now it may type.'],
-  ['21:33:27', 'Typed the password, once, by itself.'],
-  ['21:33:42', 'The desktop, 79 seconds after Restart.'],
+  ['22:55:55', 'Restart, pressed by our agent: the only touch.'],
+  ['22:56:01', 'The Mac shuts down.'],
+  ['22:56:24', 'The screen went dark, then the Mac found the KVM’s keyboard again: a boot.'],
+  ['22:56:44', 'FileVault, the prompt it was taught on the restart before, steady for six looks: now it may type.'],
+  ['22:56:51', 'Typed the password, once, by itself.'],
+  ['22:57:06', 'The desktop, 70 seconds after Restart.'],
 ]
 
 const does = [
@@ -56,11 +55,12 @@ const safe = [
 ]
 
 const verified = [
-  ['Done on a real Mac', 'FileVault after a restart, hands-off, by housesitter’s own sitter: Mac mini (M5 Pro) and GL.iNet Comet, 79 seconds from Restart to desktop. On the restart before, we taught it the FileVault screen once and proved its password. That was housesitter 0.1, with the KVM’s own firewall not yet applied (fixed in 0.2).'],
+  ['Done on a real Mac', 'FileVault after a restart, hands-off, by housesitter 0.2: Mac mini (M5 Pro) and GL.iNet Comet, 70 seconds from Restart to desktop, with the KVM’s firewall applied. The KVM’s own log of those minutes has only the Restart clicks and the sitter’s three key events. Earlier that night, on 0.1, we taught it the FileVault screen once and proved its password, then it did the same hands-off in 79 seconds.'],
   ['Run on real hardware', 'housesitter doctor, look and status, read-only, against that Comet. It found a real bug, now fixed with a test.'],
   ['Done on a real Mac, too', 'When an agent needs the UI, if you allow it: housesitter unlocked the lock screen in 9 seconds, and the login window’s list of users in 16, clicking the account’s tile first.'],
-  ['Next', 'The smart plug, which arrives 9 November, and a hands-off restart on housesitter 0.2.'],
-  ['Not yet', 'A real freeze and a power cut; a message from a real refusal (tested with fakes only); a macOS update; OCR beyond English macOS.'],
+  ['Sent for real', 'One TEST alert, end to end: the sitter’s own rules decided a Mac stuck at FileVault and sent that exact message, marked TEST. With --email it reached our HEY Imbox 2 seconds later.'],
+  ['Next', 'The smart plug, which arrives 9 November.'],
+  ['Not yet', 'A real freeze and a power cut; a message from a real refusal (none has happened yet); a macOS update; OCR beyond English macOS.'],
 ]
 ---
 
@@ -80,12 +80,12 @@ const verified = [
           </div>
           <span class="caption-mono">Real frames from that day. No hardware needed.</span>
         </div>
-        <p class="text-lg text-mist leading-relaxed">We pressed Restart on our Mac mini and touched nothing else. The KVM saw FileVault through the Mac’s own HDMI port, recognised the prompt it had been taught on the restart before, and typed once, by itself: 79 seconds from Restart to desktop.</p>
+        <p class="text-lg text-mist leading-relaxed">We pressed Restart on our Mac mini and touched nothing else. The KVM saw FileVault through the Mac’s own HDMI port, recognised the prompt it had been taught on the restart before, and typed once, by itself: 70 seconds from Restart to desktop.</p>
         <p class="text-sm text-mist">{statusDetail}: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
       </div>
       <figure class="min-w-0 hero-media restart-clip">
-        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: Restart, the only touch, and it shuts down; the Mac restarting; the boot; FileVault, with the prompt it was taught at 100 percent, zoomed twice; steady, 20 seconds after the boot, now it may type; typed once, by itself, dots in the field; logging in; then a card: 79 s from Restart to desktop, nobody at the Mac, housesitter's own sitter on a $100 KVM." />
-        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Unlocked by housesitter’s own sitter (0.1, before its firewall fix) on 8 November. Only the shutdown, boot and FileVault frames are shown.</span></figcaption>
+        <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: Restart, pressed by our agent, the only touch; shutting down; boot seen, the Mac found the KVM's keyboard again; FileVault, the screen it was taught, steady, now it may type, the prompt zoomed twice; typed once, by itself, the field blurred; logging in; then a card: 70 s from Restart to desktop, nobody at the Mac, housesitter 0.2 on the KVM beside it." />
+        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Unlocked by housesitter 0.2 at 22:56 on 8 November. Only the shutdown, boot and FileVault frames are shown, and the typed field is blurred, because its dots would give away the password’s length.</span></figcaption>
       </figure>
     </div>
   </section>
@@ -105,7 +105,7 @@ const verified = [
       <p class="story">If your agents live on a Mac with FileVault, every restart (an update, a power blip, a panic) stops at the password screen until someone types. A smart plug can’t type. A KVM can, if you’re awake. Here’s how we found out.</p>
       <p class="story">On Sunday morning one of our agents changed a display setting on the KVM beside our Mac mini. Ten seconds later macOS’s login window and its sign-in services crashed, and every agent on the mini went down with them. We typed the right password through the KVM three times, and none of it reached a password field.</p>
       <p class="story">Our first key was Escape. At a macOS login window, Escape switches to the list of users, where no field has focus. And the display the KVM was watching didn’t show the field at all. The mini sat locked from 10:11 until I logged in by hand at 17:54.</p>
-      <p class="story">So housesitter types only where it sees the password prompt on its own picture, and never presses Escape. That morning it would have refused and sent me one message. That night we put housesitter’s own sitter on the KVM and restarted the mini twice. The first time we watched: it refused the FileVault screen, because it had never seen it, so we taught it that screen once, and its one supervised try reached the desktop. The second time nobody touched anything after Restart. It saw the boot, recognised FileVault, typed once, and the desktop was back 79 seconds after Restart.</p>
+      <p class="story">So housesitter types only where it sees the password prompt on its own picture, and never presses Escape. That morning it would have refused and sent me one message. That night we put housesitter’s own sitter on the KVM and restarted the mini twice. The first time we watched: it refused the FileVault screen, because it had never seen it, so we taught it that screen once, and its one supervised try reached the desktop. The second time nobody touched anything after Restart. It saw the boot, recognised FileVault, typed once, and the desktop was back 79 seconds after Restart. Later that night housesitter 0.2 did it in 70.</p>
     </div>
   </section>
 
@@ -128,14 +128,14 @@ const verified = [
     <h2 id="replay-heading" class="heading-section max-w-6xl mx-auto">The day, <span class="text-scale">replayed</span></h2>
     <div class="max-w-6xl mx-auto replay mt-6">
       <div>
-        <p class="text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo</code> replays that Sunday in your terminal: real frames from our KVM, read again just now by the rules the sitter runs, then that day’s two restarts. In the morning’s frame there’s no password field, so it refuses and tells you. In the evening our watchdog, on the same rules, needs teaching once; that night housesitter itself unlocks a restart hands-off, in 79 seconds.</p>
+        <p class="text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo</code> replays that Sunday in your terminal: real frames from our KVM, read again just now by the rules the sitter runs, then that day’s two restarts. In the morning’s frame there’s no password field, so it refuses and tells you. In the evening our watchdog, on the same rules, needs teaching once; that night housesitter 0.2 unlocks a restart hands-off, in 70 seconds.</p>
         <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
           <pre id="housesitter-demo-2" class="command">{demo}</pre>
           <button type="button" data-copy-target="housesitter-demo-2" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
         </div>
 
       </div>
-      <div class="product-media media-shot shot-dark-only replay-shot"><img src="/images/workshop/housesitter-evening.webp" width="1694" height="2378" loading="lazy" decoding="async" alt="housesitter demo: seven pixel glimpses of real frames down the left, each with what the sitter sees and does. 10:32, no password field: it won’t type and tells you once. 17:59, a desktop, not shown. 18:07, the taught prompt at 100 and 93 percent. 18:15, asked once, it typed and the desktop followed, not shown. 18:31 to 18:32:56, our watchdog’s first restart test: taught once, typed once, the desktop 1 min 44 s after the restart. 21:32:23 to 21:33:42, housesitter’s own sitter: Restart pressed by our agent, the boot, FileVault at 100 percent, steady 20 s after the boot, typed once by itself, the desktop up 79 s after Restart with nobody touching it." /></div>
+      <div class="product-media media-shot shot-dark-only replay-shot"><img src="/images/workshop/housesitter-evening.webp" width="1694" height="2407" loading="lazy" decoding="async" alt="housesitter demo: seven pixel glimpses of real frames down the left, each with what the sitter sees and does. 10:32, no password field: it won’t type and tells you once. 17:59, a desktop, not shown. 18:07, the taught prompt at 100 and 93 percent. 18:15, asked once, it typed and the desktop followed, not shown. 18:31 to 18:32:56, our watchdog’s first restart test: taught once, typed once, the desktop 1 min 44 s after the restart. 22:55:55 to 22:57:06, housesitter 0.2: Restart pressed by our agent, the boot, FileVault, the prompt it was taught steady for 6 looks, typed once by itself, the desktop up 70 s after Restart with nobody touching it." /></div>
     </div>
   </section>
 
@@ -200,7 +200,7 @@ const verified = [
 housesitter secret studio mac-password
 housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy --heartbeat &lt;healthchecks.io URL&gt;</code></pre>
       <div class="mt-3"><button type="button" data-copy-target="housesitter-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
-      <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">adopt</code> sets the KVM’s admin password, turns its API on, checks the picture and the keyboard, installs the sitter, seals the Mac’s password on the KVM, and makes a private ntfy topic for your phone, where the sitter says hello before it finishes; the heartbeat tells you if the KVM itself goes quiet. Then, once, while you watch: arm one try with <code class="model-code">housesitter unlock --trial</code> and restart. At the FileVault screen it waits, because it hasn’t seen that screen before; teach it with <code class="model-code">housesitter learn-prompt --filevault</code> and it types its one try within seconds. If that try reaches the desktop, it may type by itself from then on.</p>
+      <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">adopt</code> sets the KVM’s admin password, turns its API on, checks the picture and the keyboard, installs the sitter, seals the Mac’s password on the KVM, and makes a private ntfy topic for your phone, where the sitter says hello before it finishes (add <code class="model-code">--email</code> and an ntfy.sh account token to get each message as an email too); the heartbeat tells you if the KVM itself goes quiet. Then, once, while you watch: arm one try with <code class="model-code">housesitter unlock --trial</code> and restart. At the FileVault screen it waits, because it hasn’t seen that screen before; teach it with <code class="model-code">housesitter learn-prompt --filevault</code> and it types its one try within seconds. If that try reaches the desktop, it may type by itself from then on.</p>
       <p class="mt-4 text-lg text-mist leading-relaxed">On the Mac, once: <code class="model-code">sudo pmset -a autorestart 1 displaysleep 0 sleep 0</code>, and start your agents at login, so they come back when the Mac does. Built against the GL.iNet Comet PoE, about $100; a Shelly plug for a frozen Mac is about $25 more.</p>
       <p class="mt-6 product-links"><a href={`${repo}#three-cables-then-one-restart`} class={link}>The full setup &#8599;</a> <a href={`${repo}/blob/main/docs/hardware.md`} class={link}>What to buy &#8599;</a> <a href={repo} class={link}>housesitter on GitHub &#8599;</a></p>
     </div>
