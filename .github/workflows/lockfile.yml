@@ -1,0 +1,41 @@
+name: lockfile
+
+# Resolves new npm dependencies for a branch in CI, so no laptop runs an
+# install: checks out the named ref, runs npm install with the packages named
+# in shots/lockfile.json, and uploads package.json and package-lock.json.
+
+on:
+  push:
+    branches: [pr-proof]
+    paths: [shots/lockfile.json]
+
+permissions:
+  contents: read
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: proof
+      - id: req
+        run: |
+          echo "ref=$(jq -r .ref proof/shots/lockfile.json)" >> "$GITHUB_OUTPUT"
+          echo "packages=$(jq -r '.packages | join(" ")' proof/shots/lockfile.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.req.outputs.ref }}
+          path: site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - working-directory: site
+        run: npm install --no-audit --no-fund ${{ steps.req.outputs.packages }} && git --no-pager diff --stat
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lockfile
+          path: |
+            site/package.json
+            site/package-lock.json
