@@ -443,15 +443,23 @@ html, body { overflow-x: clip; }
    designed to be so large, so it is quite blurry"): --clip-w is its 840
    pixels over the screen's pixel ratio, so one pixel of the recording is
    never drawn wider than one pixel of the screen (420 CSS px on a 2x
-   display). Layouts that set the recording beside words size its column
+   display). CSS can't divide by the ratio, so each common ratio gets its
+   own width, and a ratio just above it (a zoomed page, a 175% display)
+   takes the next one's, which is narrower, never wider. Layouts that set the recording beside words size its column
    from --clip-w, so the words take the room it leaves. A larger clip on a
    2x screen needs a 2x recording (ourostack/ouro-md, site-media.yml). No
    crop: a 4% crop cut off the window's "New" button (taste r3). */
 :root { --clip-w: 840px; }
-@media (min-resolution: 1.25dppx) { :root { --clip-w: 672px; } }
-@media (min-resolution: 1.5dppx) { :root { --clip-w: 560px; } }
-@media (min-resolution: 2dppx) { :root { --clip-w: 420px; } }
-@media (min-resolution: 3dppx) { :root { --clip-w: 280px; } }
+@media (min-resolution: 1.001dppx) { :root { --clip-w: 672px; } }
+@media (min-resolution: 1.251dppx) { :root { --clip-w: 560px; } }
+@media (min-resolution: 1.501dppx) { :root { --clip-w: 480px; } }
+@media (min-resolution: 1.751dppx) { :root { --clip-w: 420px; } }
+@media (min-resolution: 2.001dppx) { :root { --clip-w: 373px; } }
+@media (min-resolution: 2.251dppx) { :root { --clip-w: 336px; } }
+@media (min-resolution: 2.501dppx) { :root { --clip-w: 280px; } }
+@media (min-resolution: 3.001dppx) { :root { --clip-w: 240px; } }
+@media (min-resolution: 3.501dppx) { :root { --clip-w: 210px; } }
+@media (min-resolution: 4.001dppx) { :root { --clip-w: 168px; } }
 .product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4.1667% / 5.5556%; }
 .clip:has(> .media-clip), .product-figure:has(> .media-clip) { width: 100%; max-width: var(--clip-w); margin-inline: auto; }
 /* Copy beside the recording: its column is the recording's width, at most
