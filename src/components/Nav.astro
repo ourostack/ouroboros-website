@@ -1,5 +1,5 @@
 ---
-import { navLinks, familyLinks, familyCurrent } from '../data/site.mjs'
+import { navLinks, familyLinks, familyCurrent, localHref } from '../data/site.mjs'
 
 const currentPath = Astro.url.pathname
 // The longest matching link is the active one, so /lab/story/ lights Story, not Lab too.
@@ -8,8 +8,6 @@ const isActive = (href: string) => href === active
 // The family links (src/data/family.json) carry the other sites; the phone
 // menu lists them too, under the site's own sections, the current one marked.
 const current = familyCurrent(currentPath)
-const external = (href: string) => !href.startsWith('https://ouroboros.bot/')
-const local = (href: string) => href.replace(/^https:\/\/ouroboros\.bot/, '')
 ---
 
 {/* Sticky under the family bar: the bar scrolls away, and the nav holds the top. */}
@@ -67,7 +65,7 @@ const local = (href: string) => href.replace(/^https:\/\/ouroboros\.bot/, '')
       ))}
       <ul class="menu-family" aria-label="Sites">
         {familyLinks.map((link) => (
-          <li><a href={external(link.href) ? link.href : local(link.href)} aria-current={link.id === current ? 'true' : undefined}>{link.label}</a></li>
+          <li><a href={localHref(link.href)} aria-current={link.id === current ? 'true' : undefined}>{link.label}</a></li>
         ))}
       </ul>
     </div>

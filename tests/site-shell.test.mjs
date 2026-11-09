@@ -381,16 +381,39 @@ test('homepage sections appear in reading order', () => {
   }
 });
 
-test('the footer is the shared kit: the line, then one row with the sister link, GitHub, LinkedIn, Privacy, and Terms', () => {
-  for (const file of ['index.html', 'approach/index.html', 'lab/story/index.html']) {
+// The family pass (Ari, 2026-11-08): the footer is the line, then the family's
+// links (Ouro HX's FamilyFooter, the family bar's links in the same order, this
+// site marked), then the site's own extras: LinkedIn, Privacy, Terms and the copyright.
+test('the footer is the line, then the family links with this site marked, then LinkedIn, Privacy, Terms and the copyright', () => {
+  const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
+  const local = (href) => href.replace(/^https:\/\/ouroboros\.bot(?=\/)/, '');
+  for (const [file, current] of [['index.html', 'ouro'], ['approach/index.html', 'ouro'], ['lab/story/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['desk/index.html', 'desk'], ['apps/index.html', 'apps']]) {
     const footer = footerOf(readDist(file));
     const text = plain(footer);
     assert.ok(text.includes('You bring judgment. Your agents bring the rest.'), `${file} footer line`);
-    // On ouroboros.bot the row carries Privacy and Terms, and GitHub goes to ourostack (ruling 2026-10-11), labeled so (root misses ruling 2.18).
-    assert.match(text, /© 2026 Ari Mendelow · mendelow\.me · ourostack on GitHub · LinkedIn · Privacy · Terms/);
     // root misses ruling 8.4: each sentence of the line is its own span, as on mendelow.me.
     assert.match(footer, /<span[^>]*>You bring judgment\.<\/span> <span[^>]*>Your agents bring the rest\.<\/span>/);
-    assert.deepEqual(hrefsOf(footer), ['https://mendelow.me', 'https://github.com/ourostack', 'https://www.linkedin.com/in/arimendelow', '/privacy/', '/terms/']);
+    assert.deepEqual(hrefsOf(footer), [...family.map((l) => local(l.href)), 'https://www.linkedin.com/in/arimendelow', '/privacy/', '/terms/']);
+    assert.ok(text.includes('© 2026 Ari Mendelow'));
+    const marked = [...footer.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
+    assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the footer marks ${current}`);
+  }
+});
+
+// Every page carries the family bar above the nav: a labelled nav of the
+// family's links in the family order, this site marked, server-rendered with
+// no script of its own.
+test('every page carries the family bar above the nav, this site marked', () => {
+  const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
+  for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['ouro-md/download/index.html', 'ouro-md'], ['desk/index.html', 'desk'], ['apps/index.html', 'apps']]) {
+    const html = readDist(file);
+    const bar = html.match(/<nav\b[^>]*data-ouro="family-bar"[\s\S]*?<\/nav>/)?.[0];
+    assert.ok(bar, `${file}: no family bar`);
+    assert.ok(html.indexOf(bar) < html.indexOf('id="main-nav"'), `${file}: the family bar sits above the nav`);
+    assert.deepEqual([...bar.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]), family.map((l) => l.label));
+    const marked = [...bar.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
+    assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the bar marks ${current}`);
+    assert.doesNotMatch(html, /<astro-island\b/, `${file}: the family bar ships no client script`);
   }
 });
 

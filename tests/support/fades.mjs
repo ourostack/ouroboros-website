@@ -1,7 +1,7 @@
 // The static fade check: no picture fades into the page or into nothing (Ari,
 // 2026-11-08: "none of this 'fade to nothingness' tho for an image"). It fails
 // on any gradient mask (CSS mask-image, -webkit-mask-image, mask, -webkit-mask,
-// a Tailwind [mask-image:...] class or mask-t-/mask-linear-/... utility, JSX
+// a Tailwind arbitrary mask-image class or mask-t-* / mask-linear-* utility, JSX
 // maskImage or WebkitMaskImage) unless the same or the previous line carries
 // `fade-ok: <reason>`. A mask whose value is a var() could hold a gradient the
 // scan can't see, so it needs the same reason. A gradient that

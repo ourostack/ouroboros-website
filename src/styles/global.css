@@ -229,6 +229,37 @@ html, body { overflow-x: clip; }
   }
 }
 
+/* ── Ouro HX's tokens, in this site's palette ──
+   The family bar and footer (Ouro HX's FamilyBar and FamilyFooter, in
+   src/components/ouro/) read shadcn's standard tokens. Each one names a site
+   token, so it follows the light and dark themes above and the bar looks
+   native here: the strip on the undergrowth tint, links in mist and bone,
+   the current site underlined in scale green. */
+:root {
+  --background: var(--color-void);
+  --foreground: var(--color-bone);
+  --muted: var(--color-undergrowth);
+  --muted-foreground: var(--color-mist);
+  --border: color-mix(in srgb, var(--color-canopy) 70%, transparent);
+  --primary: var(--color-scale);
+  --primary-foreground: var(--color-void);
+  --ring: var(--color-scale);
+  --radius: 0.625rem;
+  --ouro-duration-fast: 150ms;
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--ring);
+}
+/* The family bar's strip keeps the site's body font. */
+[data-ouro="family-bar"], [data-ouro="family-footer"] { font-family: var(--font-body); }
+
 /* ── Reading order: every section reads top to bottom ──
    A section's heading sits directly above its body at every width, and the
    body fills the full container. No heading-left/body-right columns: they

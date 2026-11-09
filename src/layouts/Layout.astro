@@ -2,6 +2,8 @@
 import '../styles/global.css'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
+import { FamilyBar } from '../components/ouro/family-bar/family-bar'
+import { familyLinks, familyCurrent, localHref } from '../data/site.mjs'
 import { labStatusFor } from '../data/lab.mjs'
 import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
@@ -46,6 +48,10 @@ const contentHero = /^\/(lab|blog)\/[^/]+/.test(Astro.url.pathname)
 // A review transcript's way back to all the reviews shares the Lab's line, so
 // the breadcrumbs never stack (taste review r3).
 const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { href: '/lab/model-reviews/', label: 'All reviews' } : null
+// The family bar (Ouro HX's FamilyBar, rendered on the server with no client
+// script): every family site, the same links in the same order, this one marked.
+const family = familyLinks.map((link) => ({ ...link, href: localHref(link.href) }))
+const familyId = familyCurrent(Astro.url.pathname)
 ---
 
 <!doctype html>
@@ -155,8 +161,11 @@ const labParent = /^\/lab\/model-reviews\/[^/]+/.test(Astro.url.pathname) ? { hr
     {/* Grain */}
     <div class="fixed inset-0 pointer-events-none z-50" style="background-image: url('/images/grain.png'); background-repeat: repeat; opacity: 0.03;" aria-hidden="true"></div>
 
+    <FamilyBar links={family} current={familyId} />
     <Nav />
-    <main class="relative z-10">
+    {/* The nav is sticky under the family bar and overlays the page's first 4rem,
+        as a fixed nav did, so every hero and top padding keeps its place. */}
+    <main class="relative z-10 -mt-16">
       {scene.hero && <StoryScene scene={scene.hero} variant="hero" class={contentHero || scene.content ? 'story-hero-content' : undefined} />}
       {lab && (
         <div class:list={['lab-status z-20 px-6 md:px-12 lg:px-16', scene.hero ? 'relative pt-5' : 'absolute top-16 inset-x-0 pt-3']} data-lab-status={lab.status}>

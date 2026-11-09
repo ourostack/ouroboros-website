@@ -10,6 +10,9 @@ import family from './family.json' with { type: 'json' }
 // ouro ui in ouroboros header??").
 export const familyLinks = family.links
 
+/** A family link on this site as a path, so it stays on a preview or a local build. */
+export const localHref = (href) => href.replace(/^https:\/\/ouroboros\.bot(?=\/)/, '')
+
 /** The family item this page belongs to: Ouro MD, Desk or Apps under their own paths, Ouro everywhere else. */
 export function familyCurrent(pathname) {
   for (const id of ['ouro-md', 'desk', 'apps']) if (pathname === `/${id}` || pathname.startsWith(`/${id}/`)) return id

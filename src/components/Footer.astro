@@ -1,48 +1,32 @@
 ---
-import { footerLine, footerRow } from '../data/site.mjs'
+import { footerLine, footerExtras, familyLinks, familyCurrent, localHref } from '../data/site.mjs'
+import { FamilyFooter } from './ouro/family-bar/family-footer'
 
-// Shared kit: the line in the display font, then one row. The same structure ships on mendelow.me.
+// The line in the display font, then the family's links (Ouro HX's
+// FamilyFooter, the family bar's links in the same order, rendered on the
+// server with no client script) with this site's own extras after them.
 // Each sentence of the line is its own span, so a phone breaks the line between them, as on mendelow.me (root misses ruling 8.4).
 const lineParts = footerLine.split(/(?<=\.)\s+/)
+const family = familyLinks.map((link) => ({ ...link, href: localHref(link.href) }))
+const current = familyCurrent(Astro.url.pathname)
 const linkClass = 'underline decoration-canopy underline-offset-4 hover:text-bone transition-colors'
 ---
 
 <footer class="site-footer trail-top relative mt-8">
-  <div class="px-6 md:px-12 lg:px-16 py-14 sm:py-20"><div class="footer-inner max-w-6xl mx-auto text-center">
+  <div class="px-6 md:px-12 lg:px-16 pt-14 sm:pt-20 pb-6"><div class="footer-inner max-w-6xl mx-auto">
     <p class="font-display text-2xl md:text-3xl text-bone leading-snug footer-line">{lineParts.map((part, i) => (<>{i > 0 && ' '}<span>{part}</span></>))}</p>
-    <p class="footer-row text-sm text-mist mt-6">
+    <FamilyFooter links={family} current={current} className="mt-8">
+      {footerExtras.map((link) => <a href={link.href} class={linkClass}>{link.label}</a>)}
       <span>© 2026 Ari Mendelow</span>
-      {footerRow.map((link) => (
-        <>
-          <span class="footer-sep" aria-hidden="true">&middot;</span>
-          <a href={link.href} class={linkClass}>{link.label}</a>
-        </>
-      ))}
-    </p>
+    </FamilyFooter>
   </div></div>
 </footer>
 
 <style>
-  .footer-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.35rem 0.6rem; }
-  .footer-sep { color: var(--color-shadow); }
   .footer-line { text-wrap: balance; }
   .footer-line span { display: inline-block; }
-  /* On a desktop the line and the links share one row across the container, as on mendelow.me. */
-  @media (min-width: 1280px) {
-    .footer-inner { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem var(--split-gap); text-align: left; }
-    .footer-row { flex: none; margin-top: 0; justify-content: flex-end; }
-  }
-  /* On a phone the links stand in even rows of finger-sized links (44px;
-     taste review r15: they measured 20px and wrapped wherever they fell), with
-     the copyright line beneath them. Rows hold two links; with an odd count
-     the last row holds three, so no link stands alone (taste review r16:
-     "Terms" did). No separators: a row is its own separator. */
-  @media (max-width: 639.98px) {
-    .footer-sep { display: none; }
-    .footer-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0 1rem; justify-items: center; align-items: center; }
-    /* Inline-blocks, not flex boxes, so a link's words keep their spaces (taste review r17). */
-    .footer-row a { grid-column: span 3; display: inline-block; box-sizing: border-box; text-align: center; min-height: 2.75rem; min-width: 2.75rem; padding-block: max(0px, calc((2.75rem - 1lh) / 2)); }
-    .footer-row:has(> a:last-of-type:nth-of-type(odd)) > a:nth-last-of-type(-n + 3) { grid-column: span 2; }
-    .footer-row > span:first-child { grid-column: 1 / -1; order: 1; margin-top: 0.75rem; }
+  /* The footer's extras stand a finger tall on a phone, as the family links do (taste review r15). */
+  @media (pointer: coarse) {
+    .site-footer :global([data-ouro-family-extras] a) { display: inline-flex; align-items: center; min-height: 2.75rem; min-width: 2.75rem; }
   }
 </style>
