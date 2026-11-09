@@ -1,0 +1,29 @@
+name: proof-crops
+
+# Before and after crops for a pull request's proof, taken in CI so no laptop has
+# to: each push that changes shots/crops.json shoots its items on its two bases
+# and uploads them as the `crops` artifact. Lives only on the pr-proof branch.
+
+on:
+  push:
+    branches: [pr-proof]
+    paths: [shots/crops.json]
+
+permissions:
+  contents: read
+
+jobs:
+  crops:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i --no-save --no-package-lock playwright@1.56.1 && npx playwright install --with-deps chromium
+      - run: node shots/crops.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: crops
+          path: out/

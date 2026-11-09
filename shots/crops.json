@@ -1,0 +1,18 @@
+{
+  "bases": { "before": "https://ouroboros.bot", "after": "https://ouroboros-website-pr-98.mendelow-studio.workers.dev" },
+  "items": [
+    { "name": "nav-over-text", "path": "/approach/", "w": 390, "h": 844, "dpr": 2, "themes": ["light", "dark"], "sel": "main h2", "above": 20, "height": 260 },
+    { "name": "ring", "path": "/lab/", "w": 1440, "h": 900, "dpr": 1, "themes": ["light", "dark"], "sel": ".relative.md\\:w-80", "above": 120, "height": 520 },
+    { "name": "tool-names", "path": "/", "w": 1440, "h": 900, "dpr": 1, "themes": ["light"], "sel": ".tool-name", "above": 160, "height": 560 },
+    { "name": "tool-names", "path": "/", "w": 390, "h": 844, "dpr": 2, "themes": ["dark"], "sel": ".tool-name", "above": 120, "height": 500 },
+    { "name": "portrait", "path": "/", "w": 390, "h": 844, "dpr": 2, "themes": ["light"], "sel": ".portrait", "above": 80, "height": 640 },
+    { "name": "lab-h2", "path": "/lab/", "w": 1440, "h": 900, "dpr": 1, "themes": ["dark"], "sel": "main h2", "above": 120, "height": 420 },
+    { "name": "docs-titles", "path": "/lab/docs/", "w": 390, "h": 844, "dpr": 2, "themes": ["light"], "sel": ".post-title", "above": 80, "height": 520 },
+    { "name": "blog-titles", "path": "/blog/", "w": 390, "h": 844, "dpr": 2, "themes": ["dark"], "sel": ".post-title", "above": 80, "height": 520 },
+    { "name": "doctor-heading", "path": "/housesitter/", "w": 390, "h": 844, "dpr": 2, "themes": ["dark"], "sel": "#doctor-heading", "above": 80, "height": 300 },
+    { "name": "code-focus", "path": "/blog/build-ai-agent-from-scratch/", "w": 1440, "h": 900, "dpr": 1, "themes": ["dark"], "sel": "#code-codeZshrc", "above": 120, "height": 420, "focus": "#code-codeZshrc" },
+    { "name": "desk-rhythm", "path": "/desk/", "w": 390, "h": 844, "dpr": 2, "themes": ["light"] },
+    { "name": "home-top", "path": "/", "w": 390, "h": 844, "dpr": 2, "themes": ["light", "dark"] },
+    { "name": "home-top", "path": "/", "w": 1440, "h": 900, "dpr": 1, "themes": ["light", "dark"] }
+  ]
+}
