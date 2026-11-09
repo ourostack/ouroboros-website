@@ -27,7 +27,7 @@ export const readiness = [
   { id: 'shepherd', name: 'Ouro Shepherd', label: 'Use today', detail: 'Ships in Ouroboros, for cmux and Herdr; reply from any chat' },
   { id: 'friends', name: 'Friends', label: 'Experimental', detail: 'On npm, and used by Ouroboros every day' },
   { id: 'butler', name: 'Ouro Butler', label: 'Alpha', detail: 'Installs on Unraid 7.2 or newer with one script' },
-  { id: 'housesitter', name: 'housesitter', label: 'Experimental', detail: 'No real FileVault unlock yet, and password typing ships disarmed; the first restart proof is next' },
+  { id: 'housesitter', name: 'housesitter', label: 'Experimental', detail: 'Our watchdog, on the same rules, unlocked FileVault on a real Mac mini after a restart. housesitter’s own first real unlock is next' },
   { id: 'harness', name: 'The Ouroboros harness', label: 'Experimental', detail: 'Our Agent Experience lab' },
   { id: 'factory', name: 'The factory', label: 'Under construction', detail: 'Dashboard and method in development' },
 ]

@@ -80,7 +80,7 @@ export const pageOg: Record<string, OgEntry> = {
     mark: 'butler',
   },
   '/housesitter': {
-    title: 'housesitter: your agent Mac, back by itself.',
+    title: 'housesitter: your agent Mac, back after a restart.',
     subtitle: 'A small KVM beside the Mac unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you.',
     tag: 'housesitter',
   },
