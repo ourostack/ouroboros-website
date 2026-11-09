@@ -9,7 +9,7 @@ import fs from 'node:fs';
 // readiness details (F12), /desk (F14), the homepage (F1, F13) and the Spoonjoy
 // crop (F19) are tested beside the tests they changed.
 
-const pageText = (file) => textOf(readDist(file).replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
+const pageText = (file) => textOf(readDist(file).replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<a\b[^>]*data-ouro="skip-link"[\s\S]*?<\/a>/, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
 
 test('root final ruling F5: the /approach share card says "How I work"', () => {
   assert.equal(pageOg['/approach'].tag, 'How I work');

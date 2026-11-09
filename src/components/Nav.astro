@@ -64,7 +64,7 @@ const current = familyCurrent(currentPath)
         </a>
       ))}
       <div class="menu-family-group">
-        <h2 class="menu-family-heading" id="menu-family-heading">Ouro family</h2>
+        <p class="menu-family-heading" id="menu-family-heading">Ouro family</p>
         <ul class="menu-family" aria-labelledby="menu-family-heading">
           {familyLinks.map((link) => (
             <li><a href={localHref(link.href)} aria-current={link.id === current ? 'true' : undefined}>{link.label}</a></li>

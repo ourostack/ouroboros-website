@@ -433,17 +433,20 @@ test('every page opens on a skip link to #main, names its navs Sites, Primary an
     assert.match(html, /<main id="main"/, `${file}: main carries the skip link's target`);
     const labels = [...html.matchAll(/<nav\b[^>]*aria-label="([^"]*)"/g)].map((m) => m[1]);
     assert.deepEqual(labels, ['Sites', 'Primary', 'All sites'], `${file}: nav names`);
-    assert.match(html, /<div class="family-bar-wrap max-sm:hidden">\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar hides below 40rem`);
-    const menu = html.match(/<div class="menu-family-group">[\s\S]*?<\/ul>/)[0];
-    assert.match(menu, /<h2 class="menu-family-heading" id="menu-family-heading">Ouro family<\/h2>/);
-    assert.match(menu, /<ul class="menu-family" aria-labelledby="menu-family-heading">/);
+    assert.match(html, /<div class="family-bar-wrap max-sm:hidden"[^>]*>\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar hides below 40rem`);
+    const menu = html.match(/<div class="menu-family-group"[^>]*>[\s\S]*?<\/ul>/)?.[0];
+    assert.ok(menu, `${file}: no family list in the phone menu`);
+    assert.match(menu, /<p class="menu-family-heading" id="menu-family-heading"[^>]*>Ouro family<\/p>/);
+    assert.match(menu, /<ul class="menu-family" aria-labelledby="menu-family-heading"/);
     assert.deepEqual([...menu.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]), family.map((l) => l.label));
     const marked = [...menu.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
     assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the menu marks ${current}`);
   }
   const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
   assert.match(css, /@layer base \{\s*:focus-visible \{/, 'the site focus ring sits in the base layer, under Ouro HX inset rings');
-  assert.match(css, /html \{ scroll-padding-top: calc\(var\(--nav-h\) \+ 0\.5rem\); \}/);
+  // A scroll margin on the page's targets, never a scroll padding the nav would sit inside.
+  assert.match(css, /:where\(main, footer\) :is\([^)]*\) \{ scroll-margin-top: calc\(var\(--nav-h\) \+ 0\.5rem\); \}/);
+  assert.doesNotMatch(css, /scroll-padding-top/);
 });
 
 test('the nav repeats no family link on a wide screen, and is glass from the top, over the dawn scene', () => {

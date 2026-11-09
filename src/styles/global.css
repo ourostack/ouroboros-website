@@ -183,9 +183,16 @@
 }
 /* Nothing may pan the page sideways, such as the hero's soft glow on a phone. clip, unlike hidden, keeps sticky positioning working. */
 html, body { overflow-x: clip; }
-/* An anchor, a find-in-page match or a link reached by Shift+Tab lands below
-   the sticky nav, not under it (the family bar has scrolled away by then). */
-html { scroll-padding-top: calc(var(--nav-h) + 0.5rem); }
+/* An anchor, or a link reached by Shift+Tab, lands below the sticky nav, not
+   under it (the family bar has scrolled away by then). A scroll margin on the
+   page's own targets, not a scroll padding on <html>: a padding the height of
+   the nav covers the nav itself, so focusing its own buttons (the menu
+   toggle, when the menu closes) scrolled the page to "reveal" them. In the
+   base layer, so a section's own scroll-mt-* (which already clears the nav)
+   sets its own landing. */
+@layer base {
+  :where(main, footer) :is([id], a[href], button, summary, input, select, textarea, [tabindex]) { scroll-margin-top: calc(var(--nav-h) + 0.5rem); }
+}
 
 /* Wide screens: from 1600px the root size grows with the viewport, so the 72rem
    container, the type and the spacing scale together instead of leaving a narrow
