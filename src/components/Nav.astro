@@ -169,8 +169,11 @@ const current = familyCurrent(currentPath)
     // (taste review r4). The home mark goes inert too, keeping the keyboard in the menu.
     var nav = document.getElementById('main-nav');
     function behind() {
-      // The family bar stays live: the panel drops below it, never over it.
-      var els = Array.prototype.filter.call(document.body.children, function (el) { return el !== nav && el.tagName !== 'SCRIPT' && !(el.classList && el.classList.contains('family-bar-wrap')); });
+      // The family bar stays live while it is wholly on screen, above the
+      // panel, so its links work. Once the page has scrolled it away it goes
+      // inert, or Tab would reach it and scroll the locked page back up.
+      var liveBar = function (el) { return el.classList && el.classList.contains('family-bar-wrap') && el.getBoundingClientRect && el.getBoundingClientRect().top >= 0 && el.getBoundingClientRect().height > 0; };
+      var els = Array.prototype.filter.call(document.body.children, function (el) { return el !== nav && el.tagName !== 'SCRIPT' && !liveBar(el); });
       nav.querySelectorAll('.brand-home').forEach(function (el) { els.push(el); });
       return els;
     }

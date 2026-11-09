@@ -40,13 +40,12 @@ src/
   components/      # Nav, Footer, Lab heroes and docs shell
   data/            # OG manifest, readiness and Lab status, principles, model-review data
   layouts/         # Base HTML layout
-  pages/           # Routes: approach, brief, desk, ouro-md, blog/, lab/, privacy, terms
+  pages/           # Routes: approach, brief, desk, ouro-md, blog/, lab/, privacy, terms, llms.txt (built from data/llms.txt and the family list)
   styles/          # Global CSS + Tailwind theme
   worker/          # Cloudflare Worker and the old-URL redirect map
 public/
   brand/           # Logos and app icons
   brief.md         # The brief for agents
-  llms.txt
 tests/             # node:test suites
 ```
 
