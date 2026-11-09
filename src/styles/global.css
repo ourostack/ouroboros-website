@@ -1103,6 +1103,7 @@ main > section.border-t::before, .trail-top::before {
 
 /* A note beside the essay: open on the page, set off by a thread of trail light, no box. */
 .post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
+/* fade-ok: a 3px thread of trail light beside a note's words; no picture lies under it */
 .post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: 3px; background: linear-gradient(180deg, transparent, var(--trail-glow) 20%, var(--trail-core) 50%, var(--trail-glow) 80%, transparent); box-shadow: 0 0 10px color-mix(in srgb, var(--trail-glow) 60%, transparent); }
 
 /* An open definition list (the agent bundle's folders): a name and what it
