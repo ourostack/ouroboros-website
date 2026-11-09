@@ -159,6 +159,7 @@ src/
     og.ts                ← OG metadata manifest (single source of truth)
     scenes.mjs           ← which storybook scene each page opens on and shares with
     site.mjs             ← nav links, footer extras, family links and which one is current
+    llms.txt             ← /llms.txt's text; src/pages/llms.txt.ts fills in its family section from family.json
     family.json          ← the family list, a byte copy of ourostack/.github brand/family.json (tests/family.test.mjs)
     principles.mjs       ← the five principles, the smells, shared setup and install lines
     readiness.mjs        ← the only source of readiness labels
@@ -195,7 +196,7 @@ scripts/
   model-reviews.cjs      ← private review runs and separate guarded promotion into src/data/
 tests/                   ← node:test suites that read dist/
 public/
-  brief.md, llms.txt     ← plain-text surfaces for agents
+  brief.md               ← plain-text surface for agents (llms.txt is built: src/pages/llms.txt.ts from src/data/llms.txt)
   brand/                 ← logos and app icons (copied, never redrawn)
   fonts/                 ← woff2 fonts loaded by global.css
   images/
@@ -211,7 +212,7 @@ Since 2026-11-06 every page opens on a scene from Ari's storybook brand (ourosta
 
 ## The family bar
 
-Every page opens with Ouro HX's `FamilyBar` above the nav and closes with its `FamilyFooter`, both installed from an ouro-ui release tag into `src/components/ouro/` and rendered on the server with no client directive, so they ship no script. The links come from `src/data/family.json`, a byte copy of ourostack/.github `brand/family.json`; change the family there, then copy it here. `familyCurrent()` in `src/data/site.mjs` marks Ouro MD under `/ouro-md/`, Desk under `/desk/`, Apps under `/apps/` and Ouro everywhere else. The site's own nav carries only this site's sections and never repeats a family link. Ouro's theme tokens are mapped onto the site's palette in `global.css` for both themes; to update them, reinstall from the new tag with `npx shadcn@latest add ourostack/ouro-ui/family-footer#<tag> ourostack/ouro-ui/ouro-check#<tag> --overwrite` (family-footer brings family-bar).
+Every page opens with Ouro HX's `FamilyBar` above the nav and closes with its `FamilyFooter`, both installed from an ouro-ui release tag into `src/components/ouro/` and rendered on the server with no client directive, so they ship no script. The links come from `src/data/family.json`, a byte copy of ourostack/.github `brand/family.json`; change the family there, then copy it here. `familyCurrent()` in `src/data/site.mjs` marks Ouro MD under `/ouro-md/`, Desk under `/desk/`, Apps under `/apps/` and Ouro everywhere else. The site's own nav carries only this site's sections and never repeats a family link. Ouro's theme tokens are mapped onto the site's palette in `global.css` for both themes; to update them, reinstall from the new tag with `npx shadcn@latest add ourostack/ouro-ui/family-footer#<tag> ourostack/ouro-ui/ouro-check#<tag> --overwrite` (family-footer brings family-bar). Below 40rem the bar is hidden (a wrapper with `max-sm:hidden`, no script) and the phone menu lists the seven sites under an "Ouro family" heading, this one marked; the footer carries them on every page. The three navs are named the same on every family site: the bar "Sites", the site's own nav "Primary", the footer "All sites". Every page opens on Ouro HX's `SkipLink` to `<main id="main">`. llms.txt lists the family from family.json by the bar's names.
 
 ## Ouro HX's page moved to ui.ouroboros.bot
 

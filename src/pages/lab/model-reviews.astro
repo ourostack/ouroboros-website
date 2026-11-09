@@ -78,7 +78,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
       <div class="divide-y divide-canopy/30">
         {reviews.map((review) => (
-          <article id={review.provider} class="scroll-mt-24 py-16 md:py-24 first:pt-0 last:pb-0">
+          <article id={review.provider} class="scroll-mt-8 py-16 md:py-24 first:pt-0 last:pb-0">
             <div class="grid gap-6">
               <!-- Attribution, then the quote under it -->
               <div class="flex flex-col">
@@ -125,7 +125,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
 
       <div class="split-body space-y-12 md:space-y-16">
         {reviews.map((review) => (
-          <div id={`${review.provider}-rationale`} class="border-l-2 border-canopy/40 pl-6 md:pl-8 scroll-mt-24">
+          <div id={`${review.provider}-rationale`} class="border-l-2 border-canopy/40 pl-6 md:pl-8 scroll-mt-8">
             <div class="flex items-baseline gap-3 mb-6">
               <span class="font-mono text-xs text-fang uppercase tracking-[0.22em]">{review.vendor}</span>
               <h3 class="heading-sub">{review.displayName}</h3>

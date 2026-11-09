@@ -394,7 +394,8 @@ test('the footer is the line, then the family links with this site marked, then 
     // root misses ruling 8.4: each sentence of the line is its own span, as on mendelow.me.
     assert.match(footer, /<span[^>]*>You bring judgment\.<\/span> <span[^>]*>Your agents bring the rest\.<\/span>/);
     assert.deepEqual(hrefsOf(footer), [...family.map((l) => local(l.href)), 'https://www.linkedin.com/in/arimendelow', '/privacy/', '/terms/']);
-    assert.ok(text.includes('© 2026 Ari Mendelow'));
+    // The name is already a link in the row, so the copyright is the year alone (Clippy review, 2026-11-09).
+    assert.match(text, /© 2026(?! Ari)/);
     const marked = [...footer.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
     assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the footer marks ${current}`);
   }
@@ -415,6 +416,34 @@ test('every page carries the family bar above the nav, this site marked', () => 
     assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the bar marks ${current}`);
     assert.doesNotMatch(html, /<astro-island\b/, `${file}: the family bar ships no client script`);
   }
+});
+
+// The critics' pass (2026-11-09): one Tab and Enter skip the chrome; the
+// three navs carry the family's shared names; below 40rem the bar gives way
+// to the phone menu, whose family list sits under a heading, not a second
+// "Sites" landmark, with this site marked.
+test('every page opens on a skip link to #main, names its navs Sites, Primary and All sites, and hides the bar on a phone', () => {
+  const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
+  for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['apps/index.html', 'apps']]) {
+    const html = readDist(file);
+    const body = html.slice(html.indexOf('<body'));
+    const firstLink = body.match(/<a\b[^>]*>/)[0];
+    assert.match(firstLink, /data-ouro="skip-link"/, `${file}: the skip link is the first link`);
+    assert.match(firstLink, /href="#main"/);
+    assert.match(html, /<main id="main"/, `${file}: main carries the skip link's target`);
+    const labels = [...html.matchAll(/<nav\b[^>]*aria-label="([^"]*)"/g)].map((m) => m[1]);
+    assert.deepEqual(labels, ['Sites', 'Primary', 'All sites'], `${file}: nav names`);
+    assert.match(html, /<div class="family-bar-wrap max-sm:hidden">\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar hides below 40rem`);
+    const menu = html.match(/<div class="menu-family-group">[\s\S]*?<\/ul>/)[0];
+    assert.match(menu, /<h2 class="menu-family-heading" id="menu-family-heading">Ouro family<\/h2>/);
+    assert.match(menu, /<ul class="menu-family" aria-labelledby="menu-family-heading">/);
+    assert.deepEqual([...menu.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]), family.map((l) => l.label));
+    const marked = [...menu.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
+    assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the menu marks ${current}`);
+  }
+  const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
+  assert.match(css, /@layer base \{\s*:focus-visible \{/, 'the site focus ring sits in the base layer, under Ouro HX inset rings');
+  assert.match(css, /html \{ scroll-padding-top: calc\(var\(--nav-h\) \+ 0\.5rem\); \}/);
 });
 
 test('the nav repeats no family link on a wide screen, and is glass from the top, over the dawn scene', () => {

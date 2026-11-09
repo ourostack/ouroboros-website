@@ -11,7 +11,7 @@ const current = familyCurrent(currentPath)
 ---
 
 {/* Sticky under the family bar: the bar scrolls away, and the nav holds the top. */}
-<nav class="sticky top-0 z-40" id="main-nav" aria-label="Main">
+<nav class="sticky top-0 z-40" id="main-nav" aria-label="Primary">
   {/* The header reads cleanly over the bright dawn on every page: nearly solid paper
       (or night) with only a whisper of the scene through it, so nothing smears
       under the words, and a thin line of trail light along its foot. */}
@@ -25,8 +25,8 @@ const current = familyCurrent(currentPath)
       <div class="hidden lg:flex items-center gap-6 xl:gap-8">
         {navLinks.map(link => (
           <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined} class:list={[
-            'font-display text-base xl:text-lg tracking-wide transition-colors duration-200',
-            isActive(link.href) ? 'text-scale' : 'text-mist hover:text-scale'
+            'font-display text-lg xl:text-xl tracking-wide transition-colors duration-200',
+            isActive(link.href) ? 'text-scale' : 'text-bone/85 hover:text-scale'
           ]}>
             {link.label}
           </a>
@@ -63,11 +63,14 @@ const current = familyCurrent(currentPath)
           {link.label}
         </a>
       ))}
-      <ul class="menu-family" aria-label="Sites">
-        {familyLinks.map((link) => (
-          <li><a href={localHref(link.href)} aria-current={link.id === current ? 'true' : undefined}>{link.label}</a></li>
-        ))}
-      </ul>
+      <div class="menu-family-group">
+        <h2 class="menu-family-heading" id="menu-family-heading">Ouro family</h2>
+        <ul class="menu-family" aria-labelledby="menu-family-heading">
+          {familyLinks.map((link) => (
+            <li><a href={localHref(link.href)} aria-current={link.id === current ? 'true' : undefined}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
@@ -91,24 +94,30 @@ const current = familyCurrent(currentPath)
   #mobile-menu { top: var(--menu-top, 4rem); overflow-y: auto; overscroll-behavior: contain; }
   /* Every link fits without scrolling down to a 320x568 phone (Ari's ruling,
      taste review r14: the last two hid below the fold with no cue): the
-     site's four sections, then the family's seven sites in a two-column
-     grid, four rows. Each link is a 44px tap target; the space left over
-     (the viewport less the panel's top and eight 2.75rem rows) goes to the
+     site's four sections, then the family's seven sites under a small
+     heading in a two-column grid, four rows. Each link is a 44px tap target;
+     the space left over (the viewport less the panel's top, eight 2.75rem
+     rows and the heading's 1.75rem) goes to the
      padding and the gaps, which tighten on short screens and open up on tall
      ones. The panel's own scroll stays the fallback for anything shorter. */
   #mobile-menu .menu-links {
-    --menu-spare: calc(100dvh - var(--menu-top, 4rem) - 8 * 2.75rem);
+    --menu-spare: calc(100dvh - var(--menu-top, 4rem) - 8 * 2.75rem - 1.75rem);
     --menu-pad: clamp(1rem, calc(var(--menu-spare) / 7), 3rem);
     padding-block: var(--menu-pad);
     gap: clamp(0.125rem, calc((var(--menu-spare) - 2 * var(--menu-pad)) / 8), 1.5rem);
   }
   /* An inline-block, not a flex box, so a label keeps its spaces. */
   #mobile-menu .menu-links a { display: inline-block; padding-block: 0.25rem; min-height: 2.75rem; }
-  #mobile-menu .menu-family { display: grid; grid-template-columns: repeat(2, minmax(0, 10rem)); justify-content: center; gap: 0 1.5rem; width: 100%; margin-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); padding-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 45%, transparent); list-style: none; }
-  #mobile-menu .menu-family a { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0; font-family: var(--font-display); font-size: 1.25rem; color: var(--color-mist); text-decoration: none; }
+  /* Below 40rem the family bar gives way to this list (Layout.astro), so it
+     is where a phone finds the other sites: a small heading on the hairline,
+     then the seven in the bar's own face and weight, a step larger. */
+  #mobile-menu .menu-family-group { width: 100%; margin-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); padding-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 45%, transparent); }
+  #mobile-menu .menu-family-heading { height: 1.75rem; margin: 0; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; line-height: 1.75rem; letter-spacing: 0.04em; color: var(--color-mist); }
+  #mobile-menu .menu-family { display: grid; grid-template-columns: repeat(2, minmax(0, 10rem)); justify-content: center; gap: 0 1.5rem; width: 100%; margin: 0; padding: 0; list-style: none; }
+  #mobile-menu .menu-family a { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0; font-family: var(--font-body); font-size: 1.0625rem; font-weight: 500; color: var(--color-mist); text-decoration: none; }
   #mobile-menu .menu-family a:hover { color: var(--color-scale); }
   /* The site you are on: ink colour and a line of trail light under it, never colour alone. */
-  #mobile-menu .menu-family a[aria-current="true"] { color: var(--color-bone); text-decoration-line: underline; text-decoration-color: var(--color-scale); text-decoration-thickness: 2px; text-underline-offset: 0.4em; }
+  #mobile-menu .menu-family a[aria-current="true"] { color: var(--color-bone); font-weight: 600; text-decoration-line: underline; text-decoration-color: var(--color-scale); text-decoration-thickness: 2px; text-underline-offset: 0.4em; }
   :global(html.menu-open) { overflow: hidden; }
   .nav-glass::after {
     content: "";
@@ -160,7 +169,8 @@ const current = familyCurrent(currentPath)
     // (taste review r4). The home mark goes inert too, keeping the keyboard in the menu.
     var nav = document.getElementById('main-nav');
     function behind() {
-      var els = Array.prototype.filter.call(document.body.children, function (el) { return el !== nav && el.tagName !== 'SCRIPT'; });
+      // The family bar stays live: the panel drops below it, never over it.
+      var els = Array.prototype.filter.call(document.body.children, function (el) { return el !== nav && el.tagName !== 'SCRIPT' && !(el.classList && el.classList.contains('family-bar-wrap')); });
       nav.querySelectorAll('.brand-home').forEach(function (el) { els.push(el); });
       return els;
     }

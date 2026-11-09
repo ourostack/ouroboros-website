@@ -3,6 +3,7 @@ import '../styles/global.css'
 import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import { FamilyBar } from '../components/ouro/family-bar/family-bar'
+import { SkipLink } from '../components/ouro/skip-link/skip-link'
 import { familyLinks, familyCurrent, localHref } from '../data/site.mjs'
 import { labStatusFor } from '../data/lab.mjs'
 import PostEnd from '../components/PostEnd.astro'
@@ -158,17 +159,25 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
       "publisher": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" }
     })} />
   </head>
-  <body class="bg-void text-bone font-body antialiased overflow-x-hidden">
+  <body class="bg-void text-bone font-body antialiased">
     {/* The ground is the body's own colour. No full-page gradient wash under
         it (taste review r16, 2026-11-07); ground bands tint sections. */}
     {/* Grain */}
     <div class="fixed inset-0 pointer-events-none z-50" style="background-image: url('/images/grain.png'); background-repeat: repeat; opacity: 0.03;" aria-hidden="true"></div>
 
-    <FamilyBar links={family} current={familyId} className={familyBarAlign} />
+    {/* The first Tab stop: one Enter skips the family bar and the nav (Ouro
+        HX's SkipLink; server HTML, a plain link to #main). */}
+    <SkipLink />
+    {/* Below 40rem the bar gives way to the phone menu, which lists the same
+        seven sites, so a phone never shows a row of names cut mid-word and
+        keeps its first view for the page. The footer carries them on every page. */}
+    <div class="family-bar-wrap max-sm:hidden">
+      <FamilyBar links={family} current={familyId} className={familyBarAlign} />
+    </div>
     <Nav />
     {/* The nav is sticky under the family bar and overlays the page's first
         --nav-h, as a fixed nav did, so every hero and top padding keeps its place. */}
-    <main class="relative z-10 mt-[calc(-1*var(--nav-h))]">
+    <main id="main" class="relative z-10 mt-[calc(-1*var(--nav-h))]">
       {scene.hero && <StoryScene scene={scene.hero} variant="hero" class={contentHero || scene.content ? 'story-hero-content' : undefined} />}
       {lab && (
         <div class:list={['lab-status z-20 px-6 md:px-12 lg:px-16', scene.hero ? 'relative pt-5' : 'absolute top-(--nav-h) inset-x-0 pt-3']} data-lab-status={lab.status}>
