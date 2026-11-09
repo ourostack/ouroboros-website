@@ -1,0 +1,96 @@
+name: ouro-check
+
+# Ouro check from ouro-ui main (registry/ouro/check, installed over the site's
+# lib/ouro/check for this run only) against a build of the ref that
+# shots/ouro-check.json names, in four shards, then one merged report.
+# Lives only on the pr-proof branch.
+
+on:
+  push:
+    branches: [pr-proof]
+    paths: [shots/ouro-check.json]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - id: req
+        run: |
+          echo "ref=$(jq -r .ref shots/ouro-check.json)" >> "$GITHUB_OUTPUT"
+          echo "sizes=$(jq -r '.sizes // "390x844,1440x900,3840x2160"' shots/ouro-check.json)" >> "$GITHUB_OUTPUT"
+          echo "ui=$(jq -r '.ui // "main"' shots/ouro-check.json)" >> "$GITHUB_OUTPUT"
+          echo "pages=$(jq -r '.pages // ""' shots/ouro-check.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.req.outputs.ref }}
+          path: site
+      - uses: actions/checkout@v4
+        with:
+          repository: ourostack/ouro-ui
+          ref: ${{ steps.req.outputs.ui }}
+          path: ouro-ui
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - working-directory: site
+        run: |
+          node --version
+          npm ci --no-audit --no-fund
+          npx astro build
+          rm -rf lib/ouro/check && cp -r ../ouro-ui/registry/ouro/check lib/ouro/check
+          npx playwright install --with-deps chromium
+      - working-directory: site
+        env:
+          SIZES: ${{ steps.req.outputs.sizes }}
+          PAGES: ${{ steps.req.outputs.pages }}
+        run: |
+          set +e
+          opts=(--sizes "$SIZES" --out "$GITHUB_WORKSPACE/out" --shard "${{ matrix.shard }}/4")
+          [ -n "$PAGES" ] && opts+=(--pages "$PAGES")
+          node lib/ouro/check/check.ts dist "${opts[@]}"
+          code=$?
+          echo "check.ts exited $code"
+          [ "$code" = 0 ] || [ "$code" = 3 ]
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ouro-check-${{ matrix.shard }}-of-4
+          path: out
+  merge:
+    needs: check
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: req
+        run: echo "ui=$(jq -r '.ui // "main"' shots/ouro-check.json)" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          repository: ourostack/ouro-ui
+          ref: ${{ steps.req.outputs.ui }}
+          path: ouro-ui
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ouro-check-*-of-4
+          path: shards
+      - run: |
+          set +e
+          node ouro-ui/registry/ouro/check/check.ts merge shards/*/ --out merged
+          echo "merge exited $?"
+          ls merged | head
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ouro-check
+          path: merged
