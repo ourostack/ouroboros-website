@@ -275,19 +275,21 @@ html, body { overflow-x: clip; }
 }
 /* On a wide screen a product hero follows the window's height, so a short
    laptop keeps its primary action in the first view: the steps between title,
-   lede and action are as set from 800px tall and close to 8px at 720; the
+   lede and action are as set from 848px tall and close to 4px at 720 (the
+   words start just under the hero's hard edge, so they no longer rise into
+   it to save the room); the
    title and its mark are as set from 900px tall and ease to 3.4rem and 3rem
    at 720 (--hero-mark-lg for the 4.5rem marks on /butler/ and /ouro-hx/).
    The lede keeps its 24px (taste review r9); its leading eases from 33px at
    800 to 30px at 720. Never on a phone. */
 @media (min-width: 1024px) {
   .hero-copy, .hero-flow {
-    --hero-step: clamp(0.5rem, calc((100svh - 640px) / 8), 1.25rem);
+    --hero-step: clamp(0.25rem, calc((100svh - 688px) / 8), 1.25rem);
     --hero-mark: clamp(3rem, calc(3rem + (100svh - 720px) / 11.25), 4rem);
     --hero-mark-lg: clamp(3.5rem, calc(3.5rem + (100svh - 720px) / 11.25), 4.5rem);
   }
   .hero-copy { row-gap: var(--hero-step); }
-  .hero-flow > :is([data-hero-lede], [data-primary-action]) { margin-top: clamp(0.5rem, calc((100svh - 640px) / 8), 1.5rem); }
+  .hero-flow > :is([data-hero-lede], [data-primary-action]) { margin-top: clamp(0.25rem, calc((100svh - 688px) / 8), 1.5rem); }
   :is(.hero-copy, .hero-flow) .heading-lead { font-size: clamp(3.4rem, calc(3.4rem + (100svh - 720px) / 11), 4.4rem); }
   :is(.hero-copy, .hero-flow) :is(.mark-tile, .mark-render) { width: var(--hero-mark); height: var(--hero-mark); }
   :is(.hero-copy, .hero-flow) .product-lede { line-height: clamp(1.875rem, calc(1.875rem + (100svh - 720px) / 26.667), 2.0625rem); }
@@ -866,7 +868,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    page's primary action stays in the first view (scripts/primary-action.mjs).
    The Lab's line is the breadcrumb: the page's own eyebrow follows it closely. */
 @media (min-width: 1024px) {
-  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 1rem; }
+  .story-hero + section, .story-hero + article, .story-hero + div { padding-top: 0.5rem; }
   .story-hero + .lab-status + section, .story-hero + .lab-status + article, .story-hero + .lab-status + div { padding-top: 1.75rem; }
 }
 /* A slow drift, as if the morning breeze were moving the camera. Compositor
