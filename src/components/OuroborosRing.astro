@@ -16,22 +16,15 @@ const snakeGradId = `snakeGrad-${id}`
 const ringGradId = `ringGrad-${id}`
 ---
 
-<div class={`relative ${sizeClasses[size]}`}>
+<div class={`relative ${sizeClasses[size]}`} data-overlap-ignore="The ring is drawn as the backdrop of its own three words, which sit inside the loop by design.">
   {/* No blurred disc behind or inside the ring: the trail's own halo is the
-      only glow (taste review r16, 2026-11-07: no decorative orbs). */}
-  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200" fill="none">
-    <circle cx="100" cy="100" r="90" stroke={`url(#${ringGradId})`} stroke-width="0.5" opacity="0.4" class="ouroboros-spin-slow" transform-origin="100 100" />
+      only glow (taste review r16, 2026-11-07: no decorative orbs). Each part
+      that turns is its own <svg>, turned by the compositor (transform and
+      opacity on an HTML element), so the page never repaints at rest. */}
+  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200" fill="none" aria-hidden="true">
     {/* The context window as the scenes' glowing trail: one warm loop of light with a soft halo, not a dashed diagram ring. */}
     <circle cx="100" cy="100" r="72" stroke={`url(#${snakeGradId})`} stroke-width="7" opacity="0.45" filter={`url(#${snakeGradId}-glow)`} />
     <circle cx="100" cy="100" r="72" stroke={`url(#${snakeGradId})`} stroke-width="2.25" stroke-linecap="round" />
-    <g fill="#FFF6D6" class="ouroboros-spin-reverse" transform-origin="100 100">
-      <circle cx="100" cy="45" r="1.3" opacity="0.8" /><circle cx="155" cy="100" r="1" opacity="0.6" /><circle cx="61" cy="139" r="1.2" opacity="0.7" /><circle cx="139" cy="139" r="0.9" opacity="0.5" />
-    </g>
-    <circle cx="100" cy="28" r="5" fill="var(--color-glow)" opacity="0.9" class="ouroboros-spin" transform-origin="100 100">
-      <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite" />
-    </circle>
-    <circle cx="100" cy="28" r="3" fill="var(--color-scale)" opacity="0.4" class="ouroboros-spin-delayed-1" transform-origin="100 100" />
-    <circle cx="100" cy="28" r="2" fill="var(--color-scale)" opacity="0.2" class="ouroboros-spin-delayed-2" transform-origin="100 100" />
     <defs>
       <linearGradient id={snakeGradId} x1="0" y1="0" x2="200" y2="200">
         <stop offset="0%" stop-color="#F4B63F" />
@@ -45,8 +38,17 @@ const ringGradId = `ringGrad-${id}`
       </linearGradient>
     </defs>
   </svg>
+  <svg class="ring-layer ouroboros-spin-slow" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <circle cx="100" cy="100" r="90" stroke={`url(#${ringGradId})`} stroke-width="0.5" opacity="0.4" />
+  </svg>
+  <svg class="ring-layer ouroboros-spin-reverse" viewBox="0 0 200 200" fill="#FFF6D6" aria-hidden="true">
+    <circle cx="100" cy="45" r="1.3" opacity="0.8" /><circle cx="155" cy="100" r="1" opacity="0.6" /><circle cx="61" cy="139" r="1.2" opacity="0.7" /><circle cx="139" cy="139" r="0.9" opacity="0.5" />
+  </svg>
+  <svg class="ring-layer ouroboros-spin-delayed-2" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="28" r="2" fill="var(--color-scale)" opacity="0.2" /></svg>
+  <svg class="ring-layer ouroboros-spin-delayed-1" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="28" r="3" fill="var(--color-scale)" opacity="0.4" /></svg>
+  <svg class="ring-layer ouroboros-spin ouroboros-pulse" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="28" r="5" fill="var(--color-glow)" opacity="0.9" /></svg>
   <div class="absolute inset-0 flex flex-col items-center justify-center text-center gap-0.5">
-    <span class="font-mono text-[7px] sm:text-[8px] text-scale uppercase tracking-[0.3em]">context window</span>
+    <span class="font-mono text-xs text-scale uppercase tracking-[0.2em]">context window</span>
     <span class="font-display text-lg sm:text-2xl text-bone mt-1 leading-tight">Consume.</span>
     <span class="font-display text-lg sm:text-2xl text-mist leading-tight">Remember.</span>
     <span class="font-display text-lg sm:text-2xl text-scale leading-tight">Survive.</span>
@@ -54,9 +56,12 @@ const ringGradId = `ringGrad-${id}`
 </div>
 
 <style>
+  .ring-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pulse { 50% { opacity: 0.55; } }
   @media (prefers-reduced-motion: no-preference) {
     .ouroboros-spin { animation: spin 25s linear infinite; }
+    .ouroboros-pulse { animation: spin 25s linear infinite, pulse 2s ease-in-out infinite; }
     .ouroboros-spin-slow { animation: spin 80s linear infinite; }
     .ouroboros-spin-reverse { animation: spin 40s linear infinite reverse; }
     .ouroboros-spin-delayed-1 { animation: spin 25s linear infinite; animation-delay: -0.8s; }
