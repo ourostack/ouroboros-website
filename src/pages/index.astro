@@ -431,16 +431,14 @@ const wastes = [
     .tool { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4rem; align-items: start; }
     .tool-copy { padding-top: 1.5rem; }
   }
-  /* The Ouro MD row's demo column is the recording's own width (--clip-w,
-     global.css), so the words take the room it leaves; from 2000px every
-     row's demo is 840 CSS px, so the rows share one edge. */
-  @media (min-width: 1024px) {
-    .tool:has(.media-clip) { grid-template-columns: min(var(--clip-w), calc((100% - 4rem) * 5 / 9)) minmax(0, 1fr); }
-  }
+  /* Every row's words start on one line down the page. From 2000px every
+     row's demo column is 840 CSS px; the Ouro MD recording, never drawn
+     larger than its pixels (--clip-w, global.css), sits at its column's
+     start, so on a 2x screen it is narrower than the column, not centred. */
   @media (min-width: 2000px) {
     .tool { grid-template-columns: minmax(0, 840px) minmax(0, 1fr); }
-    .tool:has(.media-clip) { grid-template-columns: var(--clip-w) minmax(0, 1fr); }
   }
+  .tool :global(.clip:has(> .media-clip)) { margin-inline: 0; }
   .tool > :global(.product-figure) { margin: 0; min-width: 0; }
   .tool-copy { display: grid; gap: 1rem; align-content: start; min-width: 0; color: var(--color-mist); font-size: 1.125rem; line-height: 1.65; }
   /* Each tool's character stands beside its name: a small window onto its scene, so the world carries on below the panorama. */

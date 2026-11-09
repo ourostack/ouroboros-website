@@ -626,7 +626,9 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 }
 .prose-ouro strong { color: var(--color-bone); font-weight: 600; }
 .prose-ouro em { font-style: italic; }
-.prose-ouro h2 {
+/* A page that sets its section headings in .heading-section (/approach/)
+   keeps that scale inside its prose. */
+.prose-ouro h2:not(.heading-section) {
   font-family: var(--font-display);
   color: var(--color-bone);
   font-size: 2.25rem;
@@ -640,7 +642,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    ("What Just Happened", "Frequently Asked Questions") fits one line instead
    of leaving one word alone on the next (Ari's ruling on taste review r18:
    no heading line holds a single word unless it is a whole clause). */
-@media (max-width: 639.98px) { .prose-ouro h2 { font-size: min(2.25rem, (100vw - 3rem) / 11.2); } }
+@media (max-width: 639.98px) { .prose-ouro h2:not(.heading-section) { font-size: min(2.25rem, (100vw - 3rem) / 11.2); } }
 @media (max-width: 359.98px) { .prose-ouro h3 { font-size: 1.3rem; } }
 .prose-ouro h3 {
   font-family: var(--font-display);
