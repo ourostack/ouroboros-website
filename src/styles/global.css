@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Ouro check (lib/ouro/check/) is a command, not the site: its words are no class names. */
+@source not "../../lib/ouro/check";
 
 /* ═══════════════════════════════════════════════════════════════════════
    DESIGN SYSTEM RULES — OUROBOROS WEBSITE
@@ -1085,6 +1087,6 @@ main > section.border-t::before, .trail-top::before {
 /* A section's own tint fades in and out at its edges, never a hard line. fade-ok: a flat tint, no picture. */
 .ground-fade { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent); }
 /* A drawn grid is texture, so it stays clear of the section's edges entirely and
-   comes in over a long run, well past where a change of section is read.
-   fade-ok: a drawn grid of lines, no picture. */
+   comes in over a long run, well past where a change of section is read. */
+/* fade-ok: a drawn grid of lines, no picture. */
 .grid-fade { -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); }
