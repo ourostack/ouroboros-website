@@ -64,33 +64,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ouro-check-${{ matrix.shard }}-of-4
-          path: out
-  merge:
-    needs: check
-    if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - id: req
-        run: echo "ui=$(jq -r '.ui // "main"' shots/ouro-check.json)" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
-        with:
-          repository: ourostack/ouro-ui
-          ref: ${{ steps.req.outputs.ui }}
-          path: ouro-ui
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: ouro-check-*-of-4
-          path: shards
-      - run: |
-          set +e
-          node ouro-ui/registry/ouro/check/check.ts merge shards/*/ --out merged
-          echo "merge exited $?"
-          ls merged | head
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ouro-check
-          path: merged
+          path: |
+            out/report.json
+            out/summary.md
+            out/findings
