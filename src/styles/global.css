@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
 /* Ouro check (lib/ouro/check/) is a command, not the site: its words are no class names. */
 @source not "../../lib/ouro/check";
 
@@ -261,11 +263,119 @@ html, body { overflow-x: clip; }
   /* The layer Ouro's SkipLink takes when it shows: above the grain (z-50). */
   --ouro-layer: 60;
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+  --input: var(--color-canopy);
 }
+/* ouro-base (ouro-ui v1.3.10): the motion, layer and sheet tokens, and the
+   status and avatar colours, set for this site's dark theme here and its
+   light theme below (Ouro's own values for each). The site never sets
+   .dark, so they follow data-theme and the system setting as the palette does. */
+:root {
+  --destructive-foreground: #000000;
+  --success: #4ade80;
+  --success-foreground: #000000;
+  --warning: #fbbf24;
+  --warning-foreground: #000000;
+  --avatar-1: #ee8a99;
+  --avatar-2: #f4a46c;
+  --avatar-3: #f2c661;
+  --avatar-4: #8bd17b;
+  --avatar-5: #4bc4c8;
+  --avatar-6: #6cb8f6;
+  --avatar-7: #c3a6ec;
+  --avatar-8: #ef85e2;
+  --ouro-backdrop-color: #000000;
+  --ouro-spring-duration: 750ms;
+  --ouro-ease-spring: linear(0, 0.0663, 0.2105, 0.3763, 0.5332, 0.6669, 0.7733, 0.8533, 0.9107, 0.9499, 0.9754, 0.9911, 1, 1.0044, 1.0061, 1.0062, 1.0055, 1.0045, 1.0035, 1.0026, 1.0018, 1.0012, 1.0008, 1, 1);
+  --ouro-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ouro-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ouro-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ouro-duration-press: 160ms;
+  --ouro-duration-base: 200ms;
+  --ouro-duration-draw: 240ms;
+  --ouro-duration-slow: 300ms;
+  --ouro-duration-sheet: 500ms;
+  --ouro-press-scale: 0.97;
+  --ouro-backdrop-max: 0.4;
+  --ouro-shadow-sheet-bottom: 0 -1px 0 color-mix(in oklab, var(--border) 60%, transparent), 0 -8px 32px rgb(0 0 0 / 0.12);
+  --ouro-shadow-sheet-top: 0 1px 0 color-mix(in oklab, var(--border) 60%, transparent), 0 8px 32px rgb(0 0 0 / 0.12);
+  --ouro-shadow-sheet-left: 8px 0 32px rgb(0 0 0 / 0.12);
+  --ouro-shadow-sheet-right: -8px 0 32px rgb(0 0 0 / 0.12);
+}
+:root[data-theme="light"] {
+  --destructive-foreground: #ffffff;
+  --success: #157d3c;
+  --success-foreground: #ffffff;
+  --warning: #b05109;
+  --warning-foreground: #ffffff;
+  --avatar-1: #c4314b;
+  --avatar-2: #ca5010;
+  --avatar-3: #986f0b;
+  --avatar-4: #498205;
+  --avatar-5: #038387;
+  --avatar-6: #0f6cbd;
+  --avatar-7: #8764b8;
+  --avatar-8: #c239b3;
+  --ouro-backdrop-color: #18181b;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --destructive-foreground: #ffffff;
+    --success: #157d3c;
+    --success-foreground: #ffffff;
+    --warning: #b05109;
+    --warning-foreground: #ffffff;
+    --avatar-1: #c4314b;
+    --avatar-2: #ca5010;
+    --avatar-3: #986f0b;
+    --avatar-4: #498205;
+    --avatar-5: #038387;
+    --avatar-6: #0f6cbd;
+    --avatar-7: #8764b8;
+    --avatar-8: #c239b3;
+    --ouro-backdrop-color: #18181b;
+  }
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  /* Tailwind's own radius scale, which every card and button here is drawn
+     with; ouro-base's scale from --radius would round them all a little more. */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-avatar-8: var(--avatar-8);
+  --color-avatar-7: var(--avatar-7);
+  --color-avatar-6: var(--avatar-6);
+  --color-avatar-5: var(--avatar-5);
+  --color-avatar-4: var(--avatar-4);
+  --color-avatar-3: var(--avatar-3);
+  --color-avatar-2: var(--avatar-2);
+  --color-avatar-1: var(--avatar-1);
+}
+/* ouro-base's keyframes, at the top level as ouro-base.css has them: in
+   @theme, Tailwind would keep only those an --animate-* token names. */
+@keyframes ouro-spin { to { rotate: 1turn; } }
+@keyframes ouro-pulse { 50% { opacity: 0.4; } }
+@keyframes ouro-progress { from { translate: -100% 0; } to { translate: 300% 0; } }
+@keyframes ouro-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 /* The family bar's row fades the side that hides more with no script, by a
-   scroll-driven animation (Ouro HX's scrollFadeStaticClass); these are its
-   keyframes, from ouro-ui's ouro-base.css at v1.3.9. The mask fades a row of
-   words, never a picture. */
+   scroll-driven animation (Ouro HX's scrollFadeStaticClass). */
 @keyframes ouro-scroll-fade-left {
   from {
     animation-timing-function: linear;
@@ -286,16 +396,6 @@ html, body { overflow-x: clip; }
 @keyframes ouro-scroll-fade-right {
   from { animation-timing-function: linear; mask-size: calc(100% + 2rem) 100%, calc(100% + 2rem) 100%; }
   to { mask-size: calc(100% + 2rem) 100%, 100% 100%; }
-}
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-ring: var(--ring);
 }
 /* The family bar's strip keeps the site's body font. */
 [data-ouro="family-bar"], [data-ouro="family-footer"] { font-family: var(--font-body); }
@@ -1103,6 +1203,7 @@ main > section.border-t::before, .trail-top::before {
 
 /* A note beside the essay: open on the page, set off by a thread of trail light, no box. */
 .post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
+/* fade-ok: a 3px thread of trail light beside a note's words; no picture lies under it */
 .post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: 3px; background: linear-gradient(180deg, transparent, var(--trail-glow) 20%, var(--trail-core) 50%, var(--trail-glow) 80%, transparent); box-shadow: 0 0 10px color-mix(in srgb, var(--trail-glow) 60%, transparent); }
 
 /* An open definition list (the agent bundle's folders): a name and what it
@@ -1186,3 +1287,7 @@ main > section.border-t::before, .trail-top::before {
    comes in over a long run, well past where a change of section is read. */
 /* fade-ok: a drawn grid of lines, no picture. */
 .grid-fade { -webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, transparent 72px, #000 240px, #000 calc(100% - 240px), transparent calc(100% - 72px), transparent 100%); }
+
+@utility press {
+    transition: scale var(--ouro-duration-press) var(--ouro-ease-out), background-color var(--ouro-duration-fast) ease, border-color var(--ouro-duration-fast) ease, color var(--ouro-duration-fast) ease, opacity var(--ouro-duration-fast) ease;
+}

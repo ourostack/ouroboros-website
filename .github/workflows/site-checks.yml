@@ -3,11 +3,16 @@ name: site-checks
 # Every PR and every push to main builds the site, runs the node tests, serves
 # the build on 127.0.0.1 the way the Worker does (scripts/serve-dist.mjs), and
 # runs every page check (npm run check:all) and the brand audit
-# (ourostack/.github brand/tools/audit.mjs --origin --dist) against it. Taste
-# reviewers then judge only what a tool can't measure. LCP and the taste
-# reviews stay by hand: LCP is too noisy to gate on.
+# (ourostack/.github brand/tools/audit.mjs --origin --dist) against it. Beside
+# it, Ouro check (lib/ouro/check, from Ouro UI) walks every page of the same
+# build at 390x844, 1440x900 and 3840x2160 in light and dark, in four shards;
+# ouro-check.json holds its waivers. Each shard first proves lib/ouro/check is
+# byte for byte Ouro UI's release at OURO_UI_TAG. Taste reviewers then judge only what a
+# tool can't measure. LCP and the taste reviews stay by hand: LCP is too noisy
+# to gate on.
 #
-# The job is named site-checks so it can be the one required check on main.
+# The last job is named site-checks so it stays the one required check on
+# main: it passes only when the page checks and every Ouro check shard pass.
 
 on:
   pull_request:
@@ -23,9 +28,14 @@ concurrency:
 permissions:
   contents: read
 
+# The Ouro UI release this site's Ouro items come from. Reinstall them from a new
+# tag before changing it here.
+env:
+  OURO_UI_TAG: v1.3.10
+
 jobs:
-  site-checks:
-    name: site-checks
+  pages:
+    name: page checks
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -116,5 +126,83 @@ jobs:
             echo '```'
           } | tee -a "$GITHUB_STEP_SUMMARY"
           for o in "${{ steps.test.outcome }}" "${{ steps.serve.outcome }}" "${{ steps.checks.outcome }}" "${{ steps.audit.outcome }}"; do
-            [ "$o" = success ] || { echo "site-checks failed: see the steps above and the site-checks-logs artifact"; exit 1; }
+            [ "$o" = success ] || { echo "page checks failed: see the steps above and the site-checks-logs artifact"; exit 1; }
           done
+
+  ouro-check:
+    name: ouro check ${{ matrix.shard }}/4
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Cache Playwright's Chromium
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium and its OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Chromium's OS dependencies (browser cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Check out Ouro check from Ouro UI ${{ env.OURO_UI_TAG }}
+        uses: actions/checkout@v4
+        with:
+          repository: ourostack/ouro-ui
+          ref: ${{ env.OURO_UI_TAG }}
+          path: .ouro-ui
+          sparse-checkout: registry/ouro/check
+          persist-credentials: false
+
+      - name: lib/ouro/check is Ouro UI ${{ env.OURO_UI_TAG }}'s
+        run: diff -r .ouro-ui/registry/ouro/check lib/ouro/check
+
+      - run: npm run build
+
+      # Exits 0 when clean and 3 on findings; each finding has a captioned close-up in findings/.
+      - name: Ouro check, shard ${{ matrix.shard }} of 4
+        run: node lib/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check --shard ${{ matrix.shard }}/4
+
+      - name: Summary
+        if: ${{ !cancelled() }}
+        run: '[ -f ouro-check/summary.md ] && cat ouro-check/summary.md >> "$GITHUB_STEP_SUMMARY" || true'
+
+      - name: Upload the report and the findings' close-ups
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ouro-check-${{ matrix.shard }}-of-4
+          path: |
+            ouro-check/report.json
+            ouro-check/summary.md
+            ouro-check/findings
+          if-no-files-found: warn
+
+  site-checks:
+    name: site-checks
+    needs: [pages, ouro-check]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: The page checks and every Ouro check shard pass
+        run: |
+          echo "page checks: ${{ needs.pages.result }}"
+          echo "ouro check:  ${{ needs.ouro-check.result }}"
+          [ "${{ needs.pages.result }}" = success ] && [ "${{ needs.ouro-check.result }}" = success ]
