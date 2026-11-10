@@ -1,4 +1,3 @@
 [
-  { "base": "https://ouroboros.bot", "out": "before", "pages": ["/", "/ouro-md/", "/privacy/"], "sizes": ["phone", "laptop"], "foot": true, "rev": "pr101-v1310" },
-  { "base": "https://ouroboros-website-pr-101.mendelow-studio.workers.dev", "out": "after", "pages": ["/", "/ouro-md/", "/privacy/"], "sizes": ["phone", "laptop"], "foot": true, "rev": "pr101-v1310" }
+  { "base": "https://ouroboros.bot", "out": "live", "pages": ["/", "/approach/", "/ouro-md/", "/desk/", "/apps/", "/privacy/"], "sizes": ["phone", "laptop", "wide"], "foot": true, "menu": true, "focus": true, "rev": "v1310-critics" }
 ]

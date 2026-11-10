@@ -7,7 +7,7 @@
 import { chromium } from 'playwright';
 import { mkdirSync, readFileSync } from 'node:fs';
 
-const SIZES = { phone: [390, 844], laptop: [1440, 900], tablet: [768, 1024] };
+const SIZES = { phone: [390, 844], laptop: [1440, 900], tablet: [768, 1024], wide: [3840, 2160] };
 const requests = JSON.parse(readFileSync(new URL('./request.json', import.meta.url), 'utf8'));
 const browser = await chromium.launch();
 const failures = [];
