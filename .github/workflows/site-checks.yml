@@ -6,7 +6,8 @@ name: site-checks
 # (ourostack/.github brand/tools/audit.mjs --origin --dist) against it. Beside
 # it, Ouro check (lib/ouro/check, from Ouro UI) walks every page of the same
 # build at 390x844, 1440x900 and 3840x2160 in light and dark, in four shards;
-# ouro-check.json holds its waivers. Taste reviewers then judge only what a
+# ouro-check.json holds its waivers. Each shard first proves lib/ouro/check is
+# byte for byte Ouro UI's release at OURO_UI_TAG. Taste reviewers then judge only what a
 # tool can't measure. LCP and the taste reviews stay by hand: LCP is too noisy
 # to gate on.
 #
@@ -26,6 +27,11 @@ concurrency:
 
 permissions:
   contents: read
+
+# The Ouro UI release this site's Ouro items come from. Reinstall them from a new
+# tag before changing it here.
+env:
+  OURO_UI_TAG: v1.3.10
 
 jobs:
   pages:
@@ -155,6 +161,18 @@ jobs:
       - name: Install Chromium's OS dependencies (browser cached)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
+
+      - name: Check out Ouro check from Ouro UI ${{ env.OURO_UI_TAG }}
+        uses: actions/checkout@v4
+        with:
+          repository: ourostack/ouro-ui
+          ref: ${{ env.OURO_UI_TAG }}
+          path: .ouro-ui
+          sparse-checkout: registry/ouro/check
+          persist-credentials: false
+
+      - name: lib/ouro/check is Ouro UI ${{ env.OURO_UI_TAG }}'s
+        run: diff -r .ouro-ui/registry/ouro/check lib/ouro/check
 
       - run: npm run build
 
