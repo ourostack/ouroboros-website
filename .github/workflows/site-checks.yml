@@ -6,10 +6,10 @@ name: site-checks
 # (ourostack/.github brand/tools/audit.mjs --origin --dist) against it. Beside
 # it, Ouro check (lib/ouro/check, from Ouro UI) walks every page of the same
 # build at 390x844, 1440x900 and 3840x2160 in light and dark, in four shards;
-# ouro-check.json holds its waivers. Each shard first proves lib/ouro/check is
-# byte for byte Ouro UI's release at OURO_UI_TAG. Taste reviewers then judge only what a
-# tool can't measure. LCP and the taste reviews stay by hand: LCP is too noisy
-# to gate on.
+# ouro-check.json holds its waivers and budgets. Each shard first proves
+# lib/ouro/check is byte for byte Ouro UI's release at OURO_UI_TAG. Time to the
+# largest content (LCP) is gated at a budget wide enough for the runners' noise;
+# taste reviewers then judge only what a tool can't measure.
 #
 # The last job is named site-checks so it stays the one required check on
 # main: it passes only when the page checks and every Ouro check shard pass.
