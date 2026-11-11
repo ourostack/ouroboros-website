@@ -1,10 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import PostByline from '../../components/PostByline.astro'
 import { ogPathFor } from '../../data/og'
 import { factoryUrl } from '../../data/principles.mjs'
 
 const title = 'Trust the Fucking Agent'
 const description = "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest."
+const datePublished = "2026-04-28"
 ---
 
 <Layout
@@ -25,7 +27,7 @@ const description = "We keep doing the agent's job along with our own. Bring jud
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
       "dateCreated": "2026-04-28",
-      "datePublished": "2026-04-28",
+      "datePublished": datePublished,
       "url": "https://ouroboros.bot/blog/trust-the-agent/"
     })} />
   </Fragment>
@@ -43,7 +45,7 @@ const description = "We keep doing the agent's job along with our own. Bring jud
         <p class="text-base text-mist mt-6 leading-relaxed">
           We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.
         </p>
-        <p class="text-sm text-mist mt-4">Ari Mendelow &middot; April 2026</p>
+        <PostByline authors={["Ari Mendelow"]} published={datePublished} class="mt-4" />
       </div>
     </div>
   </section>
