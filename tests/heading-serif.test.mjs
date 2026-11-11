@@ -19,13 +19,17 @@ const serifClasses = new Set(['font-display']);
 for (const [, selectors] of css.matchAll(/([^{}]+)\{[^}]*font-family:\s*var\(--font-display\)/g)) {
   for (const [, cls] of selectors.matchAll(/\.([\w-]+)/g)) serifClasses.add(cls);
 }
+// Ouro HX headings (CardTitle and friends) take var(--font-heading), which the
+// site's theme maps to the display serif.
+const headingIsSerif = /--font-heading:\s*var\(--font-display\)/.test(css);
+const namesSerif = (c) => serifClasses.has(c) || /^heading-/.test(c) || (headingIsSerif && /^font-\[family-name:var\(--font-heading[,)]/.test(c));
 
 test('every classed heading on every page names the display serif', () => {
   const misses = [];
   for (const file of htmlFiles) {
     const html = fs.readFileSync(file, 'utf8');
     for (const [, tag, cls] of html.matchAll(/<(h[1-6])\b[^>]*\bclass="([^"]*)"/g)) {
-      if (!cls.split(/\s+/).some((c) => serifClasses.has(c) || /^heading-/.test(c))) misses.push(`${path.relative(distDir, file)}: <${tag} class="${cls}">`);
+      if (!cls.split(/\s+/).some(namesSerif)) misses.push(`${path.relative(distDir, file)}: <${tag} class="${cls}">`);
     }
   }
   assert.deepEqual(misses, []);
