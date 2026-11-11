@@ -1,0 +1,144 @@
+---
+// One command in three shells. Without JavaScript every variant shows under
+// its own label; with it, the reader picks a shell once and every switch on
+// the page follows (saved in localStorage). The control's look follows Ouro
+// UI's SegmentedControl: a muted track, a raised thumb that slides.
+interface Props {
+  mac: string;
+  powershell: string;
+  wsl?: string;
+  label?: string;
+}
+
+const { mac, powershell, wsl = mac, label = 'In your terminal' } = Astro.props;
+
+let counter = (globalThis as { __shellSwitchCount?: number }).__shellSwitchCount ?? 0;
+counter += 1;
+(globalThis as { __shellSwitchCount?: number }).__shellSwitchCount = counter;
+const base = `shell-${counter}`;
+
+const variants = [
+  { key: 'mac', name: 'macOS Terminal', short: 'macOS', code: mac },
+  { key: 'powershell', name: 'Windows PowerShell', short: 'PowerShell', code: powershell },
+  { key: 'wsl', name: 'WSL', short: 'WSL', code: wsl },
+];
+---
+<div class="shell-switch my-6" data-shell-switch>
+  <div class="shell-head">
+    <span class="shell-label">{label}</span>
+    <div class="shell-track" role="radiogroup" aria-label="Your terminal" data-shell-controls hidden>
+      <span class="shell-thumb" aria-hidden="true"></span>
+      {variants.map((v) => (
+        <button type="button" role="radio" class="shell-option" data-shell-choice={v.key} aria-checked="false" tabindex="-1">{v.short}</button>
+      ))}
+    </div>
+  </div>
+  {variants.map((v) => (
+    <div class="shell-variant" data-shell-variant={v.key}>
+      <div class="shell-bar">
+        <span class="shell-name">{v.name}</span>
+        <button type="button" data-copy-target={`${base}-${v.key}`} class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
+      </div>
+      <pre id={`${base}-${v.key}`} data-shell={v.key} class="shell-code" tabindex="0"><code>{v.code}</code></pre>
+    </div>
+  ))}
+</div>
+
+<script>
+  const KEY = 'ouroboros-agent-loop-shell';
+  const SHELLS = ['mac', 'powershell', 'wsl'];
+
+  function initial(): string {
+    try {
+      const saved = localStorage.getItem(KEY);
+      if (saved && SHELLS.includes(saved)) return saved;
+    } catch {}
+    return navigator.userAgent.includes('Windows') ? 'powershell' : 'mac';
+  }
+
+  function apply(shell: string) {
+    document.documentElement.dataset.shellActive = shell;
+    document.querySelectorAll<HTMLButtonElement>('[data-shell-choice]').forEach((button) => {
+      const checked = button.dataset.shellChoice === shell;
+      button.setAttribute('aria-checked', String(checked));
+      button.tabIndex = checked ? 0 : -1;
+    });
+  }
+
+  // Keep the control under the pointer or focus while switches above it change height.
+  function choose(button: HTMLButtonElement, focus = false) {
+    const shell = button.dataset.shellChoice ?? 'mac';
+    const before = button.getBoundingClientRect().top;
+    try { localStorage.setItem(KEY, shell); } catch {}
+    apply(shell);
+    window.scrollBy(0, button.getBoundingClientRect().top - before);
+    if (focus) button.focus();
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-shell-controls]').forEach((controls) => {
+    controls.hidden = false;
+  });
+  apply(initial());
+
+  document.querySelectorAll<HTMLButtonElement>('[data-shell-choice]').forEach((button) => {
+    button.addEventListener('click', () => choose(button));
+    // Radio-group keys: arrows move and select, wrapping at the ends.
+    button.addEventListener('keydown', (event) => {
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+      if (!step) return;
+      event.preventDefault();
+      const options = [...(button.parentElement?.querySelectorAll<HTMLButtonElement>('[data-shell-choice]') ?? [])];
+      const next = options[(options.indexOf(button) + step + options.length) % options.length];
+      if (next) choose(next, true);
+    });
+  });
+</script>
+
+<style>
+  .shell-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 0.75rem; }
+  .shell-label { font-size: 0.875rem; font-weight: 500; color: var(--color-mist); }
+  .shell-track {
+    position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+    padding: 0.125rem; border-radius: 0.5rem; background: var(--color-undergrowth); width: 100%;
+  }
+  .shell-track[hidden] { display: none; }
+  .shell-thumb {
+    position: absolute; top: 0.125rem; bottom: 0.125rem; left: 0.125rem; width: calc((100% - 0.25rem) / 3);
+    border-radius: 0.375rem; background: var(--color-void);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.25); transition: transform 0.2s ease;
+  }
+  :global(html[data-shell-active="powershell"]) .shell-thumb { transform: translateX(100%); }
+  :global(html[data-shell-active="wsl"]) .shell-thumb { transform: translateX(200%); }
+  @media (prefers-reduced-motion: reduce) { .shell-thumb { transition: none; } }
+  .shell-option {
+    position: relative; z-index: 1; min-height: 2.75rem; min-width: 2.75rem; padding: 0 0.5rem;
+    border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; white-space: nowrap;
+    color: var(--color-mist); transition: color 0.2s;
+  }
+  .shell-option:hover { color: var(--color-bone); }
+  .shell-option[aria-checked="true"] { color: var(--color-bone); }
+  .shell-option:focus-visible { outline: 2px solid var(--color-scale); outline-offset: 1px; }
+  @media (min-width: 30rem) {
+    .shell-track { width: auto; }
+    .shell-option { padding: 0 0.9rem; }
+  }
+
+  .shell-variant {
+    border-radius: 0.75rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent);
+    background: color-mix(in srgb, var(--color-deep) 80%, transparent); overflow: hidden;
+  }
+  .shell-variant + .shell-variant { margin-top: 0.75rem; }
+  .shell-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.375rem 0.5rem 0.375rem 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 40%, transparent);
+    background: color-mix(in srgb, var(--color-undergrowth) 50%, transparent);
+  }
+  .shell-name { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-shadow); }
+  .shell-code { margin: 0; padding: 1.25rem; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.625; overflow-x: auto; color: var(--color-bone); }
+
+  :global(html[data-shell-active="mac"]) .shell-variant:not([data-shell-variant="mac"]),
+  :global(html[data-shell-active="powershell"]) .shell-variant:not([data-shell-variant="powershell"]),
+  :global(html[data-shell-active="wsl"]) .shell-variant:not([data-shell-variant="wsl"]) { display: none; }
+  :global(html[data-shell-active]) .shell-variant + .shell-variant { margin-top: 0; }
+</style>

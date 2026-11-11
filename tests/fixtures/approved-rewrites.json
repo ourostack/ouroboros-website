@@ -357,30 +357,6 @@
  },
  {
   "surfaces": [
-   "blog/build-ai-agent-from-scratch"
-  ],
-  "was": "You start talking to it instead of your coding agent.",
-  "now": "You start talking to it.",
-  "ruling": "inventory"
- },
- {
-  "surfaces": [
-   "blog/build-ai-agent-from-scratch"
-  ],
-  "was": "From this moment on, you're not talking to Claude Code or Cursor or whatever you've been using. You're talking to your agent.",
-  "now": "From this moment on, you're talking to your agent.",
-  "ruling": "inventory"
- },
- {
-  "surfaces": [
-   "blog/build-ai-agent-from-scratch"
-  ],
-  "was": "This is the paradigm shift: You didn't build a product. You grew one.",
-  "now": "This is the paradigm shift: You grew a product.",
-  "ruling": "inventory"
- },
- {
-  "surfaces": [
    "lab"
   ],
   "was": "Old messages are trimmed — but identity lives in the psyche, not the tokens.",

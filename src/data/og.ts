@@ -173,7 +173,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/build-ai-agent-from-scratch': {
     title: 'Just give the model a keyboard.',
-    subtitle: 'Build an agent in 150 lines of TypeScript. A practical guide to building agents that read, think, act, and grow: from first principles to production.',
+    subtitle: 'Build an agent loop from an empty folder in four small steps, then let it grow itself.',
     tag: 'Tutorial',
   },
   '/privacy': {
