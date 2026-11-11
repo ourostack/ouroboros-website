@@ -315,7 +315,7 @@ const outputExempt = "program output, shown as evidence"
           through the <code>gh</code> CLI.
         </p>
         <p>Make a folder for your agent and make it a git repo. Type these one line at a time:</p>
-        <CodeBlock client:visible code={makeFolder} language="shell" title="terminal" wrap />
+        <CodeBlock client:load code={makeFolder} language="shell" title="terminal" wrap />
         <p>
           Your agent will soon run any command it likes in here, so keep nothing secret in this folder. Start your
           coding agent in it, and tell it:
@@ -389,8 +389,8 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <div class="my-6"><PromptCard label="Tell your coding agent" prompt={promptM1} /></div>
         <p id="m1-try">Try it:</p>
-        <CodeBlock client:visible code={run} language="shell" title="terminal" />
-        <CodeBlock code={outM1} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM1} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p class="output-note">{exampleNote}</p>
         <p>
           Behind, or want to check your work? Ask your coding agent to catch you up to the step you're on. The finished
@@ -412,8 +412,8 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <div class="my-6"><PromptCard label="Tell your coding agent" prompt={promptM2} /></div>
         <p>Try it. Tell it your name, then ask what your name is:</p>
-        <CodeBlock client:visible code={run} language="shell" title="terminal" />
-        <CodeBlock code={outM2} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM2} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p class="output-note">{exampleNote}</p>
         <p>
           It remembers. But it can't <em>do</em> anything yet. Ask for the secret word, and it still has no idea. Press
@@ -427,8 +427,8 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <div class="my-6"><PromptCard label="Tell your coding agent" prompt={promptM3} /></div>
         <p>Try it, and ask for the secret word:</p>
-        <CodeBlock client:visible code={run} language="shell" title="terminal" />
-        <CodeBlock code={outM3} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM3} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
         <p>
           Look at that. The model knew it needed the file, named it, and asked for it in tidy JSON. Your program read
           it, and the word is right there on your screen. The model will never see it, because nobody told it.
@@ -445,8 +445,8 @@ const outputExempt = "program output, shown as evidence"
         <p>With these three tools, a model can do almost anything a developer can do. Including modify its own code.</p>
         <div class="my-6"><PromptCard label="Tell your coding agent" prompt={promptM4} /></div>
         <p>Try it, and ask for the secret word:</p>
-        <CodeBlock client:visible code={run} language="shell" title="terminal" />
-        <CodeBlock code={outM4} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM4} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
         <p class="output-note">{exampleNote}</p>
         <p>
           This time it reaches for <code>read_file</code>, gets the word back, and tells you. Then ask for something you
@@ -454,14 +454,14 @@ const outputExempt = "program output, shown as evidence"
           writes, runs, checks its own work and answers.
         </p>
         <p>Now run it once more with the curtain open:</p>
-        <CodeBlock client:visible code={`${run} --show-messages`} language="shell" title="terminal" />
-        <CodeBlock code={outMessages} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
+        <CodeBlock client:load code={`${run} --show-messages`} language="shell" title="terminal" />
+        <CodeBlock client:load code={outMessages} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
         <p class="output-note">{exampleNote}</p>
         <p>
           After every turn you'll see <code>messages</code>: your words, its tool calls, the results you handed back,
           its answer. There's no hidden state and no memory anywhere else. The whole agent is that list and this loop:
         </p>
-        <CodeBlock code={loopCode} language="ts" title={`the shape of the loop in ${file}`} copy={false} data-copy-exempt="a sketch of the loop to read; your coding agent writes the real file" />
+        <CodeBlock client:load code={loopCode} language="ts" title={`the shape of the loop in ${file}`} copy={false} data-copy-exempt="a sketch of the loop to read; your coding agent writes the real file" />
         <p><strong class="text-bone">That's it. That's the agent.</strong></p>
 
         <h2 id="handoff">Hand it the keyboard</h2>
@@ -473,7 +473,7 @@ const outputExempt = "program output, shown as evidence"
           <code>{file}</code>. A few minutes ago it couldn't find a word in a file. Start by letting it name itself:
         </p>
         <div class="my-6"><PromptCard label="Tell your agent" prompt={promptName} /></div>
-        <CodeBlock code={outName} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
+        <CodeBlock client:load code={outName} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
         <p class="output-note">Example: its name, and its words, will vary.</p>
         <p>
           Press <Kbd client:visible keys={["ctrl", "c"]} />, run it again, and say hello. It just edited its own code,
@@ -512,7 +512,7 @@ const outputExempt = "program output, shown as evidence"
         <h3>Skills</h3>
         <div class="my-6"><PromptCard label="Tell your agent" prompt={growSkills} /></div>
         <p>Restart, then try:</p>
-        <CodeBlock client:visible code={termSkills} language="text" title="your agent" copyLabel="Copy these lines" />
+        <CodeBlock client:load code={termSkills} language="text" title="your agent" copyLabel="Copy these lines" />
         <p>
           Notice what a skill is: a markdown file. Your agent could already read one with <code>read_file</code>. The
           new tools just make the habit easy.

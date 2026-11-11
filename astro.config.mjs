@@ -9,7 +9,7 @@ export default defineConfig({
   site: 'https://ouroboros.bot',
   // React renders Ouro HX components on the server. The family bar and footer
   // take no client directive; only the agent-loop guide hydrates its shell
-  // switcher and code blocks' Copy buttons, so only that page ships React.
+  // switcher, code blocks and keys, so only that page ships React.
   integrations: [sitemap(), codeWrap(), react()],
   redirects: {
     '/origin': '/blog/build-ai-agent-from-scratch/',
