@@ -26,10 +26,10 @@ const variants = [
 <div class="shell-switch my-6" data-shell-switch>
   <div class="shell-head">
     <span class="shell-label">{label}</span>
-    <div class="shell-track" role="group" aria-label="Your terminal" data-shell-controls hidden>
+    <div class="shell-track" role="radiogroup" aria-label="Your terminal" data-shell-controls hidden>
       <span class="shell-thumb" aria-hidden="true"></span>
       {variants.map((v) => (
-        <button type="button" class="shell-option" data-shell-choice={v.key} aria-pressed="false">{v.short}</button>
+        <button type="button" role="radio" class="shell-option" data-shell-choice={v.key} aria-checked="false" tabindex="-1">{v.short}</button>
       ))}
     </div>
   </div>
@@ -59,8 +59,20 @@ const variants = [
   function apply(shell: string) {
     document.documentElement.dataset.shellActive = shell;
     document.querySelectorAll<HTMLButtonElement>('[data-shell-choice]').forEach((button) => {
-      button.setAttribute('aria-pressed', String(button.dataset.shellChoice === shell));
+      const checked = button.dataset.shellChoice === shell;
+      button.setAttribute('aria-checked', String(checked));
+      button.tabIndex = checked ? 0 : -1;
     });
+  }
+
+  // Keep the control under the pointer or focus while switches above it change height.
+  function choose(button: HTMLButtonElement, focus = false) {
+    const shell = button.dataset.shellChoice ?? 'mac';
+    const before = button.getBoundingClientRect().top;
+    try { localStorage.setItem(KEY, shell); } catch {}
+    apply(shell);
+    window.scrollBy(0, button.getBoundingClientRect().top - before);
+    if (focus) button.focus();
   }
 
   document.querySelectorAll<HTMLElement>('[data-shell-controls]').forEach((controls) => {
@@ -69,13 +81,15 @@ const variants = [
   apply(initial());
 
   document.querySelectorAll<HTMLButtonElement>('[data-shell-choice]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const shell = button.dataset.shellChoice ?? 'mac';
-      // Switches higher up change height too; keep the clicked one under the finger.
-      const before = button.getBoundingClientRect().top;
-      try { localStorage.setItem(KEY, shell); } catch {}
-      apply(shell);
-      window.scrollBy(0, button.getBoundingClientRect().top - before);
+    button.addEventListener('click', () => choose(button));
+    // Radio-group keys: arrows move and select, wrapping at the ends.
+    button.addEventListener('keydown', (event) => {
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+      if (!step) return;
+      event.preventDefault();
+      const options = [...(button.parentElement?.querySelectorAll<HTMLButtonElement>('[data-shell-choice]') ?? [])];
+      const next = options[(options.indexOf(button) + step + options.length) % options.length];
+      if (next) choose(next, true);
     });
   });
 </script>
@@ -85,7 +99,7 @@ const variants = [
   .shell-label { font-size: 0.875rem; font-weight: 500; color: var(--color-mist); }
   .shell-track {
     position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
-    padding: 0.125rem; border-radius: 0.5rem; background: var(--color-undergrowth);
+    padding: 0.125rem; border-radius: 0.5rem; background: var(--color-undergrowth); width: 100%;
   }
   .shell-track[hidden] { display: none; }
   .shell-thumb {
@@ -97,13 +111,17 @@ const variants = [
   :global(html[data-shell-active="wsl"]) .shell-thumb { transform: translateX(200%); }
   @media (prefers-reduced-motion: reduce) { .shell-thumb { transition: none; } }
   .shell-option {
-    position: relative; z-index: 1; min-height: 2.75rem; min-width: 2.75rem; padding: 0 0.9rem;
+    position: relative; z-index: 1; min-height: 2.75rem; min-width: 2.75rem; padding: 0 0.5rem;
     border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; white-space: nowrap;
     color: var(--color-mist); transition: color 0.2s;
   }
   .shell-option:hover { color: var(--color-bone); }
-  .shell-option[aria-pressed="true"] { color: var(--color-bone); }
+  .shell-option[aria-checked="true"] { color: var(--color-bone); }
   .shell-option:focus-visible { outline: 2px solid var(--color-scale); outline-offset: 1px; }
+  @media (min-width: 30rem) {
+    .shell-track { width: auto; }
+    .shell-option { padding: 0 0.9rem; }
+  }
 
   .shell-variant {
     border-radius: 0.75rem; border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent);
