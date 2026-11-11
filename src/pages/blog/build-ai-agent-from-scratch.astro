@@ -557,7 +557,7 @@ const outputExempt = "program output, shown as evidence"
             <li><strong>Azure OpenAI:</strong> your resource's key, the address <code>https://your-resource.openai.azure.com/openai/v1/</code>, and your deployment name as the model.</li>
           </ul>
           <div class="my-6"><PromptCard label="Tell your coding agent" prompt={promptByok} /></div>
-          <a slot="footer" href="#byok-signpost">Back to the main path</a>
+          <a slot="footer" href="#byok-signpost" class="hit">Back to the main path</a>
         </Card>
 
         <Card as="section" id="responses-api" data-side-quest="" aria-label="Side quest: newer GPT models" title="Newer GPT models" description="Side quest" className="side-quest">
@@ -568,7 +568,7 @@ const outputExempt = "program output, shown as evidence"
             <code>function_call_output</code> item carrying the same <code>call_id</code>.
           </p>
           <div class="my-6"><PromptCard label="Tell your coding agent" prompt={promptResponses} /></div>
-          <a slot="footer" href="#troubleshooting">Back to the main path</a>
+          <a slot="footer" href="#troubleshooting" class="hit">Back to the main path</a>
         </Card>
 
         <Card as="section" id="think-tags" data-side-quest="" aria-label="Side quest: models that think out loud" title="Models that think out loud" description="Side quest" className="side-quest">
@@ -578,7 +578,7 @@ const outputExempt = "program output, shown as evidence"
             print it dimmed so you can watch the model reason. Some providers want the thinking sent back with the
             conversation, so check their docs before you drop it from <code>messages</code>.
           </p>
-          <a slot="footer" href="#m1-try">Back to the main path</a>
+          <a slot="footer" href="#m1-try" class="hit">Back to the main path</a>
         </Card>
 
         <h2 id="faq">Frequently asked questions</h2>
