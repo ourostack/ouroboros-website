@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, distExists, readDist, listHtmlFiles } from './support/dist.mjs';
-import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes } from '../src/data/scenes.mjs';
+import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes } from '../src/data/scenes.mjs';
 
 // The storybook world (Ari, 2026-11-06). The art is ourostack/.github brand/,
 // copied byte for byte by scripts/sync-storybook.mjs; the brand audit fetches
@@ -46,6 +46,31 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     assert.match(img, /width="1536" height="(?:512|576|614)"/);
     assert.doesNotMatch(img, /loading=/, `${pageOf(file)}: the hero is never lazy`);
   }
+});
+
+test('a hero with a night version shows each in its own theme, both loaded first; no other hero has two', () => {
+  for (const file of pages()) {
+    const html = fs.readFileSync(file, 'utf8');
+    const { hero } = sceneFor(pageOf(file));
+    const block = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>[\s\S]*?<\/div>/)?.[0];
+    if (!block) continue;
+    const pictures = [...block.matchAll(/<picture\b([^>]*)>([\s\S]*?)<\/picture>/g)];
+    if (!darkScenes[hero]) {
+      assert.equal(pictures.length, 1, `${pageOf(file)}: one hero picture`);
+      assert.doesNotMatch(pictures[0][1], /class=/, `${pageOf(file)}: an ordinary hero has no theme class`);
+      continue;
+    }
+    assert.deepEqual(pictures.map(([, attrs]) => attrs.trim()), ['class="theme-light-only"', 'class="theme-dark-only"'], pageOf(file));
+    for (const [[, , inner], scene] of pictures.map((p, i) => [p, i ? darkScenes[hero] : hero])) {
+      assert.match(inner, new RegExp(`srcset="/brand/storybook/phone/${scene}-384\\.avif`), `${pageOf(file)}: ${scene}`);
+      const img = inner.match(/<img\b[^>]*>/)[0];
+      assert.match(img, new RegExp(`src="/brand/storybook/headers/${scene}\\.webp"`));
+      assert.match(img, /fetchpriority="high"/);
+      assert.doesNotMatch(img, /loading=/);
+      assert.ok(img.includes(`alt="${scenes[scene]}"`), `${pageOf(file)}: ${scene} alt`);
+    }
+  }
+  assert.deepEqual(Object.keys(darkScenes), ['agent-workbench'], 'only the agent loop guide has a night hero');
 });
 
 test('scenes further down wait for the arrival, and no page shows one scene twice', () => {

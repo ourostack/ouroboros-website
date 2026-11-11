@@ -1083,7 +1083,10 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    into the picture. tests/hero-crop.test.mjs and scripts/hero-joins.mjs hold it;
    tests/no-image-fades.test.mjs fails any gradient mask on the site. */
 .story-hero { overflow: visible; }
-.story-hero picture { display: block; overflow: hidden; }
+/* A hero with a night version (StoryScene, darkScenes) leaves its hidden
+   picture to the theme classes: never shown as a block over them. */
+.story-hero picture:not(.theme-light-only) { display: block; }
+.story-hero picture { overflow: hidden; }
 .story-hero::after {
   content: ""; position: absolute; left: 0; right: 0; top: calc(100% - 18px); height: 36px; z-index: 30; pointer-events: none;
   background: var(--trail-path) center / 1200px 36px repeat-x;

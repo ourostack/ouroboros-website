@@ -17,7 +17,7 @@
   even without, the art. No variant fades into the page: every picture ends
   on a hard edge.
 */
-import { scenes, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
+import { scenes, darkScenes, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -60,12 +60,24 @@ if (!paint) throw new Error(`StoryScene: no paint for ${scene}; run node scripts
 const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
-const phoneAvif = `${base}/phone/${scene}-384.avif 384w, ${base}/phone/${scene}-768.avif 768w`
-const phoneWebp = `${base}/phone/${scene}-384.webp 384w, ${base}/phone/${scene}-768.webp 768w`
-const wideAvif = `${base}/scenes/${scene}-640.avif 640w, ${base}/scenes/${scene}-960.avif 960w, ${base}/scenes/${scene}-1536.avif 1536w`
-const wideWebp = `${base}/scenes/${scene}-640.webp 640w, ${base}/scenes/${scene}-960.webp 960w, ${base}/headers/${scene}.webp 1536w`
-const fallback = `${base}/headers/${scene}.webp`
+const sources = (s: string) => ({
+  phoneAvif: `${base}/phone/${s}-384.avif 384w, ${base}/phone/${s}-768.avif 768w`,
+  phoneWebp: `${base}/phone/${s}-384.webp 384w, ${base}/phone/${s}-768.webp 768w`,
+  wideAvif: `${base}/scenes/${s}-640.avif 640w, ${base}/scenes/${s}-960.avif 960w, ${base}/scenes/${s}-1536.avif 1536w`,
+  wideWebp: `${base}/scenes/${s}-640.webp 640w, ${base}/scenes/${s}-960.webp 960w, ${base}/headers/${s}.webp 1536w`,
+  fallback: `${base}/headers/${s}.webp`,
+})
+const { phoneAvif, phoneWebp, wideAvif, wideWebp, fallback } = sources(scene)
 const altText = alt ?? scenes[scene]
+// A hero with a night version (darkScenes) shows each in its own theme, with the
+// site's .theme-light-only / .theme-dark-only classes; any other hero is one picture.
+const night = hero ? darkScenes[scene] : undefined
+const heroArt = night
+  ? [
+      { ...sources(scene), alt: altText, theme: 'theme-light-only' },
+      { ...sources(night), alt: alt ?? scenes[night], theme: 'theme-dark-only' },
+    ]
+  : [{ ...sources(scene), alt: altText, theme: undefined }]
 const vignette = variant === 'vignette'
 // The storybook art's masters are 1536px wide (ourostack/.github brand/, byte
 // for byte), so a full-width scene on a 2x laptop or a 4K screen is drawn
@@ -76,13 +88,15 @@ const artWhy = 'Storybook art: the brand masters are 1536px wide; sharper at 2x 
 
 <div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
   {hero ? (
-    <picture>
-      <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
-      <source media="(max-width: 640px)" type="image/webp" srcset={phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
-      <source type="image/avif" srcset={wideAvif} sizes={wideSizes} width={w} height={h} />
-      <source type="image/webp" srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
-      <img src={fallback} width={w} height={h} alt={altText} fetchpriority="high" />
-    </picture>
+    heroArt.map((art) => (
+      <picture class={art.theme}>
+        <source media="(max-width: 640px)" type="image/avif" srcset={art.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" type="image/webp" srcset={art.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        <source type="image/avif" srcset={art.wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source type="image/webp" srcset={art.wideWebp} sizes={wideSizes} width={w} height={h} />
+        <img src={art.fallback} width={w} height={h} alt={art.alt} fetchpriority="high" />
+      </picture>
+    ))
   ) : vignette ? (
     <>
       <picture data-defer>
