@@ -34,6 +34,7 @@ test('m4 carries the safety rules', () => {
   assert.match(src, /choices\.map\(/, 'reads every choice for text');
   assert.match(src, /choices\.flatMap\(/, 'reads every choice for tool calls');
   assert.doesNotMatch(src, /choices\[0\]/, 'never reads only choices[0]');
+  assert.match(src, /OutputEncoding\s*=\s*\[Text\.Encoding\]::UTF8/, 'PowerShell output is switched to UTF-8');
 });
 
 test('no catch-up file contains a secret', () => {

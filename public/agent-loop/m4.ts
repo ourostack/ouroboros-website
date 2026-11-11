@@ -11,6 +11,8 @@ const MODEL = "claude-sonnet-5.5";
 const MAX_ROUNDS = 20; // tool rounds per user turn, so a confused model can't loop forever
 const SHOW_MESSAGES = process.env.SHOW_MESSAGES === "1" || process.argv.includes("--show-messages");
 const SHELL = process.platform === "win32" ? "powershell.exe" : "/bin/sh";
+// Windows PowerShell 5.1 writes piped output in the OEM code page (437 on most PCs), which garbles accents and emoji.
+const UTF8_OUTPUT = "try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}; ";
 
 function tool(name: string, description: string, properties: Record<string, { type: "string" }>): OpenAI.ChatCompletionTool {
   return {
@@ -26,7 +28,7 @@ const tools = [
 ];
 
 function runShell(command: string): string {
-  const result = spawnSync(SHELL, ["-c", command], { encoding: "utf8", timeout: 30_000 });
+  const result = spawnSync(SHELL, ["-c", process.platform === "win32" ? UTF8_OUTPUT + command : command], { encoding: "utf8", timeout: 30_000 });
   let output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
   if (result.error) output += `\nerror: ${result.error.message}`; // includes timeouts
   if (output.length > 10_000) output = `${output.slice(0, 10_000)}\n[output cut at 10 KB]`;
