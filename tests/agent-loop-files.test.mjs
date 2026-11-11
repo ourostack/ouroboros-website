@@ -4,10 +4,10 @@ import path from 'node:path';
 import test from 'node:test';
 
 const distDir = path.join(process.cwd(), 'dist', 'agent-loop');
-const files = ['preflight.mjs', 'm1.ts', 'm2.ts', 'm3.ts', 'm4.ts', 'package.json'];
+const files = ['agent.ts', 'package.json'];
 const read = (name) => fs.readFileSync(path.join(distDir, name), 'utf8');
 
-test('every catch-up file is served', () => {
+test('the finished agent and its package.json are served', () => {
   for (const name of files) {
     assert.ok(fs.existsSync(path.join(distDir, name)), `dist/agent-loop/${name} is missing`);
   }
@@ -20,8 +20,14 @@ test('package.json is the grow-an-agent ESM package with the openai client', () 
   assert.equal(pkg.dependencies.openai, '^7.50.0');
 });
 
-test('m4 carries the safety rules', () => {
-  const src = read('m4.ts');
+test('no milestone files or preflight script remain', () => {
+  for (const name of ['preflight.mjs', 'm1.ts', 'm2.ts', 'm3.ts', 'm4.ts']) {
+    assert.ok(!fs.existsSync(path.join(distDir, name)), `dist/agent-loop/${name} should be gone`);
+  }
+});
+
+test('agent.ts carries the safety rules', () => {
+  const src = read('agent.ts');
   assert.match(src, /MAX_ROUNDS\s*=\s*20\b/, 'round limit of 20');
   assert.match(src, /timeout:\s*30_?000/, '30 s shell timeout');
   assert.match(src, /10_?000/, '10 KB output cap');
@@ -41,15 +47,17 @@ test('m4 carries the safety rules', () => {
   assert.match(src, /\["-c"\]/, '/bin/sh keeps -c');
 });
 
-test('preflight gives bash and PowerShell fixes for a 429', () => {
-  const src = read('preflight.mjs');
-  assert.match(src, /429:[^\n]*unset GH_TOKEN/, 'bash unset for 429');
-  assert.match(src, /429:[^\n]*export GITHUB_TOKEN=\$\(gh auth token --user <name>\)/, 'bash export for 429');
-  assert.match(src, /PowerShell:\\n\s*Remove-Item Env:GH_TOKEN/, 'PowerShell Remove-Item for 429');
-  assert.match(src, /\$env:GITHUB_TOKEN = gh auth token --user <name>/, 'PowerShell token assignment for 429');
+test('agent.ts gets its token and Copilot address from gh, not from environment variables', () => {
+  const src = read('agent.ts');
+  assert.match(src, /gh\("auth", "token"\)/, 'token from gh auth token');
+  assert.match(src, /gh\("api", "\/copilot_internal\/user", "--jq", "\.endpoints\.api"\)/, 'endpoint from gh api');
+  assert.match(src, /execFileSync\("gh"/, 'runs gh without a shell');
+  assert.match(src, /gh auth login/, 'a failed gh call says what to run');
+  assert.doesNotMatch(src, /process\.env\.(GITHUB_TOKEN|COPILOT_API|OPENAI_API_KEY)/, 'no environment variables to set by hand');
+  assert.match(src, /claude-sonnet-5\.5/, 'the guide model');
 });
 
-test('no catch-up file contains a secret', () => {
+test('no served file contains a secret', () => {
   for (const name of files) {
     assert.doesNotMatch(read(name), /ghp_|gho_|github_pat_|sk-/, `${name} looks like it holds a secret`);
   }

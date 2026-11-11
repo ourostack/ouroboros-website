@@ -1,12 +1,26 @@
-// Milestone 4, the loop: run each tool the model asks for, send the result back, and repeat
-// until the model answers without asking for a tool. That loop is the whole agent.
-// Print the messages array after each turn with: SHOW_MESSAGES=1 node m4.ts   (or: node m4.ts --show-messages)
+// agent.ts, finished: a chat with a model that can read files, write files and run commands,
+// in a loop that keeps going until the model answers without asking for a tool. That loop is the whole agent.
+// Run it with: node agent.ts   (add --show-messages to print the whole conversation after each turn)
 import OpenAI from "openai";
 import { readFileSync, writeFileSync } from "node:fs";
-import { spawnSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import * as readline from "node:readline";
 
-const client = new OpenAI({ apiKey: process.env.GITHUB_TOKEN, baseURL: process.env.COPILOT_API });
+// The model comes through your GitHub Copilot access: the gh CLI gives us your token and Copilot's address.
+function gh(...args: string[]): string {
+  try {
+    return execFileSync("gh", args, { encoding: "utf8" }).trim();
+  } catch {
+    console.error("Couldn't reach GitHub Copilot through the gh CLI. Run: gh auth login");
+    process.exit(1);
+  }
+}
+
+const client = new OpenAI({
+  apiKey: gh("auth", "token"),
+  baseURL: gh("api", "/copilot_internal/user", "--jq", ".endpoints.api"),
+});
+
 const MODEL = "claude-sonnet-5.5";
 const MAX_ROUNDS = 20; // tool rounds per user turn, so a confused model can't loop forever
 const SHOW_MESSAGES = process.env.SHOW_MESSAGES === "1" || process.argv.includes("--show-messages");
