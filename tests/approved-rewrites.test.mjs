@@ -30,7 +30,7 @@ const current = (key) => {
 const fragments = (line) => (line ? line.split('…').map((part) => norm(part)).filter((part) => part.length > 2) : []);
 
 test('the approved-rewrites fixture holds every inventory row with a ruling', () => {
-  assert.equal(rows.length, 105, 'The inventory has 105 rows');
+  assert.equal(rows.length, 102, 'The inventory has 102 rows: 105, less the three for the agent loop guide, whose workshop rewrite (2026-11-11) replaced that text');
   for (const row of rows) {
     assert.ok(row.surfaces.length > 0 && row.was && row.ruling, `Row is incomplete: ${row.was}`);
   }
