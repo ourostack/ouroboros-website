@@ -1,0 +1,8 @@
+{
+  "name": "grow-an-agent",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "openai": "^7.50.0"
+  }
+}
