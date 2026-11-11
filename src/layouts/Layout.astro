@@ -9,7 +9,7 @@ import { labStatusFor } from '../data/lab.mjs'
 import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
 import StoryScene from '../components/StoryScene.astro'
-import { sceneFor, meadowScene, scenes } from '../data/scenes.mjs'
+import { sceneFor, meadowScene, scenes, darkScenes } from '../data/scenes.mjs'
 
 interface Props {
   title: string
@@ -42,6 +42,17 @@ const scene = sceneFor(Astro.url.pathname)
 const showMeadow = scene.meadow && scene.hero !== meadowScene
 // The hero is the largest paint on most pages, so fetch it alongside the CSS.
 const heroBase = scene.hero ? `/brand/storybook` : ''
+// A hero with a night version (StoryScene) preloads only the art for the theme
+// in use: the saved theme, or else the system's, chosen in the head before the
+// preloads are added. Every other hero's preloads are static.
+const heroNight = scene.hero ? darkScenes[scene.hero] : undefined
+const heroPreloads = (s: string) => [
+  { media: '(max-width: 640px)', srcset: `${heroBase}/phone/${s}-384.avif 384w, ${heroBase}/phone/${s}-768.avif 768w` },
+  { media: '(min-width: 641px)', srcset: `${heroBase}/scenes/${s}-640.avif 640w, ${heroBase}/scenes/${s}-960.avif 960w, ${heroBase}/scenes/${s}-1536.avif 1536w` },
+]
+const themedPreloads = heroNight
+  ? `(function () { var t = document.documentElement.dataset.theme; if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; ${JSON.stringify({ light: heroPreloads(scene.hero), dark: heroPreloads(heroNight) })}[t].forEach(function (p) { var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.type = 'image/avif'; l.media = p.media; l.setAttribute('imagesrcset', p.srcset); l.setAttribute('imagesizes', '100vw'); l.setAttribute('fetchpriority', 'high'); document.head.appendChild(l); }); })();`
+  : ''
 // Content pages (a Lab piece, a doc, a review, a post) open on a shorter scene,
 // so the title and the first line of the intro sit above the fold on a laptop
 // (taste review r3, 2026-11-06).
@@ -126,7 +137,9 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     <link rel="icon" type="image/svg+xml" href="/brand/ouro.svg" />
     <link rel="apple-touch-icon" href="/brand/storybook/icons/ouro-180.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    {scene.hero && (
+    {heroNight ? (
+      <script is:inline set:html={themedPreloads} />
+    ) : scene.hero && (
       <>
         <link rel="preload" as="image" type="image/avif" media="(max-width: 640px)" imagesrcset={`${heroBase}/phone/${scene.hero}-384.avif 384w, ${heroBase}/phone/${scene.hero}-768.avif 768w`} imagesizes="100vw" fetchpriority="high" />
         <link rel="preload" as="image" type="image/avif" media="(min-width: 641px)" imagesrcset={`${heroBase}/scenes/${scene.hero}-640.avif 640w, ${heroBase}/scenes/${scene.hero}-960.avif 960w, ${heroBase}/scenes/${scene.hero}-1536.avif 1536w`} imagesizes="100vw" fetchpriority="high" />
