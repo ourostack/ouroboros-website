@@ -28,7 +28,7 @@ const FIXES = {
   400: "The request was rejected. Check that COPILOT_API came from the gh api line above and that your Copilot plan allows " + MODEL + ".",
   401: "The token isn't valid. Run `gh auth login`, then set GITHUB_TOKEN again.",
   403: "This account doesn't have Copilot access. Use an account that does.",
-  429: "This account is out of quota. Run `unset GH_TOKEN`, then `export GITHUB_TOKEN=$(gh auth token --user <name>)` (`gh auth status` lists your accounts).",
+  429: "This account is out of quota. Switch to an account that has quota, then set GITHUB_TOKEN from it (`gh auth status` lists your accounts).\nbash / zsh:\n  unset GH_TOKEN\n  export GITHUB_TOKEN=$(gh auth token --user <name>)\nPowerShell:\n  Remove-Item Env:GH_TOKEN\n  $env:GITHUB_TOKEN = gh auth token --user <name>",
 };
 
 // 1. Node version: the .ts files need Node 22.18+ to run TypeScript directly.

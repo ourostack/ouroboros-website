@@ -35,6 +35,18 @@ test('m4 carries the safety rules', () => {
   assert.match(src, /choices\.flatMap\(/, 'reads every choice for tool calls');
   assert.doesNotMatch(src, /choices\[0\]/, 'never reads only choices[0]');
   assert.match(src, /OutputEncoding\s*=\s*\[Text\.Encoding\]::UTF8/, 'PowerShell output is switched to UTF-8');
+  assert.match(src, /"-NoProfile"/, 'PowerShell skips the user profile');
+  assert.match(src, /"-NonInteractive"/, 'PowerShell runs non-interactively');
+  assert.match(src, /"-Command"/, 'PowerShell gets the command with -Command');
+  assert.match(src, /\["-c"\]/, '/bin/sh keeps -c');
+});
+
+test('preflight gives bash and PowerShell fixes for a 429', () => {
+  const src = read('preflight.mjs');
+  assert.match(src, /429:[^\n]*unset GH_TOKEN/, 'bash unset for 429');
+  assert.match(src, /429:[^\n]*export GITHUB_TOKEN=\$\(gh auth token --user <name>\)/, 'bash export for 429');
+  assert.match(src, /PowerShell:\\n\s*Remove-Item Env:GH_TOKEN/, 'PowerShell Remove-Item for 429');
+  assert.match(src, /\$env:GITHUB_TOKEN = gh auth token --user <name>/, 'PowerShell token assignment for 429');
 });
 
 test('no catch-up file contains a secret', () => {
