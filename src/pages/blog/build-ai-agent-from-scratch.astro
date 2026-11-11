@@ -429,6 +429,7 @@ const outputExempt = "program output, shown as evidence"
         <p>Try it, and ask for the secret word:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock client:load code={outM3} language="text" title="What you'll see" copy={false} data-copy-exempt={outputExempt} data-expected-output="" />
+        <p class="output-note">{exampleNote}</p>
         <p>
           Look at that. The model knew it needed the file, named it, and asked for it in tidy JSON. Your program read
           it, and the word is right there on your screen. The model will never see it, because nobody told it.

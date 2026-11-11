@@ -86,6 +86,11 @@ test('every run is followed by what the terminal shows', () => {
     assert.ok(outputs.includes(line), `no expected output shows ${line}`);
   }
   assert.match(textOf(source), /Example: the model's words will vary\./, 'model replies are not marked as examples');
+  // Every run of the program shows the model at work, so each says it's an example.
+  for (const [, attrs, inner, after] of source.matchAll(/<figure\b([^>]*)>[\s\S]*?<pre\b[^>]*>([\s\S]*?)<\/pre>[\s\S]*?<\/figure>((?:\s*(?:<\/[a-z-]+>|<!--[\s\S]*?-->))*\s*<[^>]*>)/g)) {
+    if (!/data-expected-output/.test(attrs) || !/^\$ node agent\.ts/.test(textOf(inner))) continue;
+    assert.match(after, /<p class="output-note"/, `no example note after: ${textOf(inner).split('\n')[0]}`);
+  }
 });
 
 test('code and commands are HX code blocks; keys are HX kbd', () => {
