@@ -264,7 +264,20 @@ html, body { overflow-x: clip; }
   --ouro-layer: 60;
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.2);
   --input: var(--color-canopy);
+  /* The code blocks, segmented control, cards and keys on the agent-loop
+     guide: a card is the deep panel the site's own cards use, a secondary
+     surface is undergrowth, and headings take the display font. */
+  --card: var(--color-deep);
+  --card-foreground: var(--color-bone);
+  --secondary: var(--color-undergrowth);
+  --secondary-foreground: var(--color-bone);
+  --destructive: #ff6961;
+  --font-heading: var(--font-display);
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.25), 0 1px 3px rgb(0 0 0 / 0.1);
 }
+:root[data-theme="light"] { --destructive: #c8001e; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --destructive: #c8001e; } }
 /* ouro-base (ouro-ui v1.3.10): the motion, layer and sheet tokens, and the
    status and avatar colours, set for this site's dark theme here and its
    light theme below (Ouro's own values for each). The site never sets
@@ -345,6 +358,11 @@ html, body { overflow-x: clip; }
   --color-primary-foreground: var(--primary-foreground);
   --color-ring: var(--ring);
   --color-input: var(--input);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
   /* Tailwind's own radius scale, which every card and button here is drawn
      with; ouro-base's scale from --radius would round them all a little more. */
   --radius-sm: 0.25rem;
