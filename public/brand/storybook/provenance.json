@@ -5182,5 +5182,344 @@
     "height": 630,
     "bytes": 319443,
     "sha256": "415a2bee06cf159d22e4df46c2aa2e83e45334ff734242160ca2b467cb3f7364"
+  },
+  {
+    "file": "headers/agent-workbench.webp",
+    "for": "https://ouroboros.bot/blog/build-ai-agent-from-scratch/",
+    "model": "GitHub Copilot CLI built-in image_generation tool, 1536x1024, quality high",
+    "generated": "Light master, 2026-11-11, for this guide",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night.",
+    "crop": "1536x576 from the 1536x1024 master (rows 170–746), WebP q86",
+    "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82",
+    "generation": [
+      {
+        "master": "agent-workbench-light-master",
+        "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+        "prompt": "(Summary of the prompt.) Wide storybook scene in \"Ouro's world\" at dawn, the same world, light and rendering as the style reference: premium Pixar-like 3D, warm golden light, pastel sky, misty hills, a green meadow and a glowing green-and-amber trail. Ouro (reference image 1): the same glossy green cartoon snake, curled into a round \"O\" with one head and one short tail tip beside the head, smiling, holding nothing, on the right. Beside Ouro, a wooden workbench; on it a small brass-and-wood robot with a glass dome head holding an amber spark, an open wiring panel and a keyboard on its chest, wired to a glowing green-and-amber loop wire; gears, an oil can, a spool, a screwdriver and a blueprint around it. Ouro, the robot and the bench sit in the middle band; open sky above, soft meadow below. No text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "ouro.png (Ouro reference)",
+          "style-ref.png (storybook style reference)"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "scenes/agent-workbench-640.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 49462,
+    "sha256": "521afd2bb5c7750a49282d9e76e35590b116e2cd00f1ce19f0b78c8b17279040"
+  },
+  {
+    "file": "scenes/agent-workbench-640.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 58146,
+    "sha256": "a4a70a4cd1aeaf7708cab6fe0f4e7325ba8d61bbccdded423570ab88ffe50474"
+  },
+  {
+    "file": "scenes/agent-workbench-960.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 92812,
+    "sha256": "71cbec74a51f9235758eacd40eb59d68cddf2144d820fe448f9566067988e9ff"
+  },
+  {
+    "file": "scenes/agent-workbench-960.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 97418,
+    "sha256": "4abca7975fe1da34f379a3c9bda640c644da02e53cf80bad401b3af07b048805"
+  },
+  {
+    "file": "scenes/agent-workbench-1536.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 160719,
+    "sha256": "94421093fb5745a748bca76bc5c0443e2d9aebc4c9cdc0afb48ac1e51e9de7c0"
+  },
+  {
+    "file": "phone/agent-workbench-384.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 29972,
+    "sha256": "7a0d4bd10ae30639ad7de7c2883a23d3a01415723ac76869610fe1b9614eda09"
+  },
+  {
+    "file": "phone/agent-workbench-384.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 33300,
+    "sha256": "c85a02964b679d34955602ed083107b1e40f58fa3b34b2f6606f329c32883522"
+  },
+  {
+    "file": "phone/agent-workbench-768.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576]",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 82684,
+    "sha256": "370063b900ef486f821de5d964fefd55a1b27b61698b50870562076dd3c6a565"
+  },
+  {
+    "file": "phone/agent-workbench-768.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576]",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 75141,
+    "sha256": "791a42fc12e9cb98d5bc83427bd173f63ca7e8a9773603739fe17a0f603e1f24"
+  },
+  {
+    "file": "og/agent-workbench.jpg",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [219, 0, 1316, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "sharp JPEG quality 88, 4:4:4, mozjpeg",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 276125,
+    "sha256": "c3fcd1e7de799b44d7991851ac51ba11bbfae265b4fd92847cc76cc28919c9d4"
+  },
+  {
+    "file": "headers/agent-workbench-dark.webp",
+    "for": "https://ouroboros.bot/blog/build-ai-agent-from-scratch/",
+    "model": "GitHub Copilot CLI built-in image_generation tool, 1536x1024, quality high",
+    "generated": "Dark master, 2026-11-11, edited from the light master",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night.",
+    "crop": "1536x576 from the 1536x1024 master (rows 170–746), WebP q86",
+    "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3",
+    "generation": [
+      {
+        "master": "agent-workbench-dark-master",
+        "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+        "prompt": "(Summary of the prompt.) The light master edited to night: the same scene, composition, Ouro, robot, bench and props, under a deep blue starry sky; the loop wire, the robot's spark and the trail glow warm green and amber in the dark. Ouro keeps one head and one short tail tip beside the head. No text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "agent-workbench-light-master.png (the light master)"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "scenes/agent-workbench-dark-640.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 44372,
+    "sha256": "395a126c745a832b94c415e140a3c071dd70a598c0ad8fb86ac6f16c73d20864"
+  },
+  {
+    "file": "scenes/agent-workbench-dark-640.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 52774,
+    "sha256": "970d4b542a59d25b8ded4a631e9e31d0888c84226d1288aa10ada9c57357a118"
+  },
+  {
+    "file": "scenes/agent-workbench-dark-960.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 84440,
+    "sha256": "b7fbd80417e3676914e8cdd665b8927e2898d19830a5fbc8aa68dc05cd6d98a6"
+  },
+  {
+    "file": "scenes/agent-workbench-dark-960.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 89252,
+    "sha256": "6a9db134f4b3453566eff74fd93e0f9ac106f9f7c1ca541407f4b928316f3161"
+  },
+  {
+    "file": "scenes/agent-workbench-dark-1536.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 148263,
+    "sha256": "8b5130f17d09c169789c674e4137c627f4459861e5374f59f0eadf4abc354378"
+  },
+  {
+    "file": "phone/agent-workbench-dark-384.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 28938,
+    "sha256": "569bec2eb30338a5686b3d1c2fd97f511540cf147b7d7c85de047ab9fa1dc792"
+  },
+  {
+    "file": "phone/agent-workbench-dark-384.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 31584,
+    "sha256": "7642d2b4be9c96cd9dfc90224bd4af06058ec7dfd66ddd45cda7c3b5a923826d"
+  },
+  {
+    "file": "phone/agent-workbench-dark-768.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576]",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 78864,
+    "sha256": "5747916ea0580d14b81ece79676bbd36a282726ce51f02a04ee0ed0ff84e92c0"
+  },
+  {
+    "file": "phone/agent-workbench-dark-768.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [450, 0, 1218, 576]",
+    "encoder": "sharp AVIF quality 60 speed 4",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 72608,
+    "sha256": "160101b7521fd95d703a07404cb501790433f68c06471811018864bf99a85a30"
+  },
+  {
+    "file": "og/agent-workbench-dark.jpg",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [219, 0, 1316, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "sharp JPEG quality 88, 4:4:4, mozjpeg",
+    "approval": "Ari asked for this guide's own hero, light and dark, 2026-11-11 (iteration 2 of the agent loop guide): Ouro beside a workbench building a little brass robot with a keyboard on its chest, a glowing loop wire around it; the dark one is the same scene at night. Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 255328,
+    "sha256": "1946504daaf2f4c82ad54cf74d13a32bcf9c30c8659bc738602393d0d7410646"
   }
 ]

@@ -1,4 +1,28 @@
 {
+  "agent-workbench": {
+    "wide": {
+      "from": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82",
+      "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwAgCdASoQAAYAAkA4JbACdLoAAv2hJykiyAD9+ibnF31J+YUL9sLZMcqrUcgQY9d3ZMLLx/lDB3/Nbvb5jummczveUymdWWQAHoIvJnVl+8LJf0vw6zqj4ceE8/i8ed/m3693pYpPH+bM2xjnV/HqNq8c269/wAAAAA=="
+    },
+    "phone": {
+      "from": "phone/agent-workbench-384.webp",
+      "sha256": "7a0d4bd10ae30639ad7de7c2883a23d3a01415723ac76869610fe1b9614eda09",
+      "uri": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABQAgCdASoQAAwAAkA4JbACdDBHCImGwfrw8GAA/udYYJcuGzO5I7YdNyH8sKGmQnZGz0hPjpDCk2creq9We488sTESJY+pJ0g9XgRxIu4uc2nGiDsv+UlV28Zv/hTZa3NK9/WTP3H4fH7Mv7fWxVvPTH9kz3ZrE/Ovv+cu7xQBtj8wwmaL7rlCsbXD8BH/aknnxasre0mgAA=="
+    }
+  },
+  "agent-workbench-dark": {
+    "wide": {
+      "from": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3",
+      "uri": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAACQAgCdASoQAAYAAkA4JbACdDiAN43Ba7eriRlnYAD+9rRXB0EOKLaHD4DwubeaDee3nl1Xg0kHRhMve9YdCt/18n8BTyZr4uZZyD5WPrKN5+3ik90ezRuNFhpiOV/pk4dLZumoPv1bwPxRi8pjFmVqcDN0arfPaQJfhQ4RZ4AAAA=="
+    },
+    "phone": {
+      "from": "phone/agent-workbench-dark-384.webp",
+      "sha256": "569bec2eb30338a5686b3d1c2fd97f511540cf147b7d7c85de047ab9fa1dc792",
+      "uri": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAADwAgCdASoQAAwAAkA4JbACdDiM94jIhgyukCqKnS33AAD+7SF/+hrxYFelPM+R9q8ppfz2bkA5rJGJvX3CO1XTZOCsQ7xCv/jcwx3YlxSChJceek+/Q9Uy2710Tb4/Gz4tB+axBwlHpfy1bGixLSC40WqMwYIcoX6URrQu9I63GRzUeYCe0/6f76VKz0AkffS8duoF9Rfz6Rqy5XhM07xrx94Ng1LxAAA="
+    }
+  },
   "apple-distribution-kit": {
     "wide": {
       "from": "headers/apple-distribution-kit.webp",
