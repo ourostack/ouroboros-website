@@ -113,7 +113,6 @@ const faq = [
   },
 ]
 
-const link = "text-scale underline underline-offset-2 hover:text-glow transition-colors"
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/blog/build-ai-agent-from-scratch')} canonical={canonicalUrl} ogType="article">
@@ -267,7 +266,7 @@ const link = "text-scale underline underline-offset-2 hover:text-glow transition
               </tr>
               <tr>
                 <td><code>403</code></td>
-                <td>This account has no Copilot. Switch to one that does with <code>gh auth switch</code>.</td>
+                <td>This account has no Copilot. Switch to one that does with <code>gh auth switch</code>, then run the two lines above again so your token follows. Or name the account directly with the <a href="#quota-fix">two lines under this table</a>.</td>
               </tr>
               <tr>
                 <td><code>400</code>, model not supported</td>
@@ -283,7 +282,7 @@ const link = "text-scale underline underline-offset-2 hover:text-glow transition
               </tr>
               <tr>
                 <td>Still the wrong account after switching</td>
-                <td>A <code>GH_TOKEN</code> variable is overriding <code>gh</code>. The <a href="#quota-fix">two lines under this table</a> clear it and name the account.</td>
+                <td>Run the two lines above again. If that doesn't help, a <code>GH_TOKEN</code> variable is overriding <code>gh</code>. The <a href="#quota-fix">two lines under this table</a> clear it and name the account.</td>
               </tr>
               <tr>
                 <td><code>gh: command not found</code></td>
@@ -396,9 +395,9 @@ const link = "text-scale underline underline-offset-2 hover:text-glow transition
         </p>
         <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
           <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-2.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">the loop, from m4.ts, trimmed</span>
+            <span class="font-mono text-xs text-shadow">the shape of the loop in m4.ts</span>
           </div>
-          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0" data-copy-exempt="a trimmed excerpt to read; your coding agent writes the real file"><code set:html={loopCode} /></pre>
+          <pre class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0" data-copy-exempt="a sketch of the loop to read; your coding agent writes the real file"><code set:html={loopCode} /></pre>
         </div>
         <p><strong class="text-bone">That's it. That's the agent.</strong></p>
 
@@ -476,7 +475,8 @@ const link = "text-scale underline underline-offset-2 hover:text-glow transition
           server, and Shepherd, which keeps the agents in my terminals on task, every day. It's still where I try new
           harness ideas first. <a href="/desk/">Desk</a> grew out of the same exploration; it's a sibling, and it works
           with whichever harness you use. They're all on the <a href="/apps/">apps page</a>, and the whole path is in
-          <a href="/lab/story/">the story</a>.
+          <a href="/lab/story/">the story</a>. To try the harness itself, start with
+          <a href="/lab/docs/getting-started/">getting started</a>.
         </p>
         <p>
           You opened this page with an empty folder and a secret word. You're leaving with something that can change
@@ -529,22 +529,6 @@ const link = "text-scale underline underline-offset-2 hover:text-glow transition
           </>
         ))}
 
-      </div>
-
-      <!-- End CTA -->
-      <div class="mt-20 pt-12 border-t border-canopy/30">
-        <div>
-          <p class="font-display text-3xl md:text-4xl text-bone leading-snug">
-            This tutorial became a harness.
-          </p>
-          <p class="text-base text-mist mt-4 leading-relaxed">
-            The 150-line bootstrap grew into Ouroboros, a TypeScript agent harness
-            for persistent agents with identity, continuity, and shared momentum.
-          </p>
-          <p class="text-sm text-mist mt-8 leading-relaxed">
-            You've built the primitive. Now <a href="/lab/docs/getting-started/" class={link}>give it a psyche, a memory, and a name</a>: the serpent guide takes about three minutes. Or read <a href="/lab/story/" class={link}>how this bootstrap became Ouroboros</a>.
-          </p>
-        </div>
       </div>
 
     </div>

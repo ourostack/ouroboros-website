@@ -4094,8 +4094,8 @@
  {
   "page": "blog",
   "was": "Tutorial Guide Build an AI agent loop from scratch A working AI agent in ~150 lines of TypeScript.",
-  "now": "Tutorial Just give the model a keyboard A working agent in ~150 lines of TypeScript.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); then taste review r5 (2026-11-06, round 6): the tutorial is called a tutorial everywhere, so the \"Guide\" label under the \"Tutorial\" heading goes"
+  "now": "Tutorial Just give the model a keyboard A working agent in about 90 lines of TypeScript, grown from an empty folder in four milestones.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); then taste review r5 (2026-11-06, round 6): the tutorial is called a tutorial everywhere, so the \"Guide\" label under the \"Tutorial\" heading goes; then the workshop rewrite fix round 1 (Ari, 2026-11-11): the card describes the new four-milestone guide, about 90 lines at the last milestone"
  },
  {
   "page": "blog",
@@ -5788,5 +5788,41 @@
   "was": "A practical guide to building agents that read, think, act, and grow — from first principles to production.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog",
+  "was": "Five milestones: first API call, streaming, multi-turn conversation, tools, and the agentic loop.",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the guide now has four milestones, named in the card's first sentence"
+ },
+ {
+  "page": "blog",
+  "was": "Then the handoff — you stop talking to your coding agent and start talking to your creation.",
+  "now": "Then the handoff — you stop talking to your coding agent, start talking to your creation, and it grows into whatever you can imagine.",
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the card ends on the guide's handoff and open-ended close"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "This tutorial became a harness.",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the old end call to action was a second ending; the page ends once, on the sky's-the-limit close, which links the story and getting started"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You've built the primitive.",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the old end call to action was a second ending; the page ends once, on the sky's-the-limit close, which links the story and getting started"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Or read how this bootstrap became Ouroboros .",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the old end call to action was a second ending; the page ends once, on the sky's-the-limit close, which links the story and getting started"
+ },
+ {
+  "page": "lab/why",
+  "was": "Or if you want to understand the primitive underneath, build the loop from scratch in 150 lines.",
+  "now": "Or if you want to understand the primitive underneath, build the loop from scratch in about 90 lines.",
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the rewritten guide's finished agent is about 90 lines"
  }
 ]
