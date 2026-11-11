@@ -208,10 +208,13 @@ test('every scene on every page is painted with its own dawn behind the art', ()
   let count = 0;
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
-    for (const [, scene, style] of html.matchAll(/<div class="story-scene[^"]*"[^>]*data-brand-scene="([^"]+)"[^>]*style="([^"]*)"/g)) {
-      assert.ok(paints[scene], `${pageOf(file)}: ${scene} has no paint`);
-      assert.ok(style.includes(`--paint: url(${paints[scene].wide.uri})`), `${pageOf(file)}: ${scene} is not painted with its wide art`);
-      assert.ok(style.includes(`--paint-phone: url(${paints[scene].phone.uri})`), `${pageOf(file)}: ${scene} is not painted with its phone crop`);
+    for (const [, scene, night, style] of html.matchAll(/<div class="story-scene[^"]*"[^>]*data-brand-scene="([^"]+)"(?: data-night-scene="([^"]+)")?[^>]*style="([^"]*)"/g)) {
+      // A hero with a night version carries both paints; global.css picks one per theme.
+      for (const [s, suffix] of night ? [[scene, '-day'], [night, '-night']] : [[scene, '']]) {
+        assert.ok(paints[s], `${pageOf(file)}: ${s} has no paint`);
+        assert.ok(style.includes(`--paint${suffix}: url(${paints[s].wide.uri})`), `${pageOf(file)}: ${s} is not painted with its wide art`);
+        assert.ok(style.includes(`--paint-phone${suffix}: url(${paints[s].phone.uri})`), `${pageOf(file)}: ${s} is not painted with its phone crop`);
+      }
       count++;
     }
     // A failed scene image falls back to a smaller size, and steps aside for

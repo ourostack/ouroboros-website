@@ -1179,6 +1179,13 @@ main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
 @media (max-width: 640px) {
   .story-scene { background-image: var(--paint-phone, none); background-size: 100% 100%; }
 }
+/* A hero with a night version (StoryScene, darkScenes) paints the night art
+   in the site's default dark theme and the day art in light. */
+.story-scene[data-night-scene] { --paint: var(--paint-night); --paint-phone: var(--paint-phone-night); }
+:root[data-theme="light"] .story-scene[data-night-scene] { --paint: var(--paint-day); --paint-phone: var(--paint-phone-day); }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .story-scene[data-night-scene] { --paint: var(--paint-day); --paint-phone: var(--paint-phone-day); }
+}
 /* Once the art has landed, its paint goes: nothing of the placeholder shows
    anywhere, not even a sliver at an edge (Ari's ruling, taste review r15).
    Layout.astro marks a scene [data-landed] when its image loads. */

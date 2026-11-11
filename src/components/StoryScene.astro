@@ -55,9 +55,18 @@ const phoneAspect = hero
 // tiny soft preview of the wide art and of the phone crop, so a slow or failed
 // image still shows this scene's sky and meadow, never a blank box or alt text
 // (taste review r10).
-const paint = paints[scene]
-if (!paint) throw new Error(`StoryScene: no paint for ${scene}; run node scripts/scene-paint.mjs`)
-const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
+// A hero with a night version (darkScenes) carries both paints, and global.css
+// picks the one for the theme in use.
+const night = hero ? darkScenes[scene] : undefined
+const paintOf = (s: string) => {
+  if (!paints[s]) throw new Error(`StoryScene: no paint for ${s}; run node scripts/scene-paint.mjs`)
+  return paints[s]
+}
+const paint = paintOf(scene)
+const paintVars = night
+  ? `--paint-day: url(${paint.wide.uri}); --paint-phone-day: url(${paint.phone.uri}); --paint-night: url(${paintOf(night).wide.uri}); --paint-phone-night: url(${paintOf(night).phone.uri})`
+  : `--paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
+const style = `${phoneAspect}; ${paintVars}${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
 const sources = (s: string) => ({
@@ -71,7 +80,6 @@ const { phoneAvif, phoneWebp, wideAvif, wideWebp, fallback } = sources(scene)
 const altText = alt ?? scenes[scene]
 // A hero with a night version (darkScenes) shows each in its own theme, with the
 // site's .theme-light-only / .theme-dark-only classes; any other hero is one picture.
-const night = hero ? darkScenes[scene] : undefined
 const heroArt = night
   ? [
       { ...sources(scene), alt: altText, theme: 'theme-light-only' },
@@ -86,7 +94,7 @@ const vignette = variant === 'vignette'
 const artWhy = 'Storybook art: the brand masters are 1536px wide; sharper at 2x and 4K needs larger masters from ourostack/.github brand/.'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
   {hero ? (
     heroArt.map((art) => (
       <picture class={art.theme}>
