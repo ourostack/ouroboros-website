@@ -1,8 +1,15 @@
 {
-  "name": "grow-an-agent",
+  "name": "my-agent",
   "private": true,
   "type": "module",
+  "scripts": {
+    "test": "node --test agent.test.mjs"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
   "dependencies": {
-    "openai": "^7.50.0"
+    "openai": "^6.0.0",
+    "yaml": "^2.9.1"
   }
 }

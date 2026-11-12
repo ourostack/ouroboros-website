@@ -1,0 +1,6 @@
+https://ouroboros.bot/agent-loop/agent.ts
+https://ouroboros.bot/agent-loop/package.json
+https://ouroboros.bot/agent-loop/package-lock.json
+https://ouroboros.bot/agent-loop/agent.test.mjs
+https://ouroboros.bot/agent-loop/system-message.md
+https://ouroboros.bot/agent-loop/skills/adding-tools/SKILL.md
