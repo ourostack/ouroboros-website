@@ -8,7 +8,7 @@
 // On each page in PAGES it
 // answers chosen scene requests with a 503 and fails unless the hero lands on
 // the expected file:
-//  - 1920, the 1536 AVIF fails:          the 960 AVIF (the next size down);
+//  - 1920, the 2304 AVIF fails:          the 1536 AVIF (the next size down);
 //  - 1920, every AVIF fails:             the 960 WebP (the last resort);
 //  - 390 at 2x, the phone 768 AVIF fails: the phone 384 AVIF;
 //  - 1920, every scene file fails:       the painted dawn (data-failed), no glyph.
@@ -27,7 +27,7 @@ const DIST = fileURLToPath(new URL('../dist', import.meta.url));
 const PORT = 6200;
 const PAGES = ['/lab/model-reviews/', '/'];
 const CASES = [
-  { name: '1536 AVIF fails', viewport: [1920, 1080], dpr: 1, block: /scenes\/[\w-]+-1536\.avif$/, want: /scenes\/[\w-]+-960\.avif$/ },
+  { name: '2304 AVIF fails', viewport: [1920, 1080], dpr: 1, block: /scenes\/[\w-]+-2304\.avif$/, want: /scenes\/[\w-]+-1536\.avif$/ },
   { name: 'every AVIF fails', viewport: [1920, 1080], dpr: 1, block: /\.avif$/, want: /scenes\/[\w-]+-960\.webp$/ },
   { name: 'phone 768 AVIF fails', viewport: [390, 844], dpr: 2, block: /phone\/[\w-]+-768\.avif$/, want: /phone\/[\w-]+-384\.avif$/ },
   { name: 'every scene file fails', viewport: [1920, 1080], dpr: 1, block: /\/brand\/storybook\/(scenes|headers|phone)\//, want: 'paint' },
