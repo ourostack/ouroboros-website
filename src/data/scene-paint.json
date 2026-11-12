@@ -7,8 +7,8 @@
     },
     "phone": {
       "from": "phone/agent-workbench-384.webp",
-      "sha256": "7a0d4bd10ae30639ad7de7c2883a23d3a01415723ac76869610fe1b9614eda09",
-      "uri": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAABQAgCdASoQAAwAAkA4JbACdDBHCImGwfrw8GAA/udYYJcuGzO5I7YdNyH8sKGmQnZGz0hPjpDCk2creq9We488sTESJY+pJ0g9XgRxIu4uc2nGiDsv+UlV28Zv/hTZa3NK9/WTP3H4fH7Mv7fWxVvPTH9kz3ZrE/Ovv+cu7xQBtj8wwmaL7rlCsbXD8BH/aknnxasre0mgAA=="
+      "sha256": "a5f1bd473a3541153f653bd44ca1e5cf464de1d1eccac2cba1e284021d262b67",
+      "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAABQAgCdASoQAAwAAkA4JbACdDBHSIgEwCjUPgAA/udYYJcNNCQSeJXdZw9FqGTze9vwGmvVc3eMUDcrYUloFTU8F1VwqFEGYLrpTQxH0Li5zaUIsPL/VlML51TR2vy9Tr4IN9LiooPEq7H9vrYq3rql+m8Osp9fnYX/OXd4oA25+YYTNF8PY/N6i4RYv/TEt95TVqeZYAA="
     }
   },
   "agent-workbench-dark": {
@@ -19,8 +19,8 @@
     },
     "phone": {
       "from": "phone/agent-workbench-dark-384.webp",
-      "sha256": "569bec2eb30338a5686b3d1c2fd97f511540cf147b7d7c85de047ab9fa1dc792",
-      "uri": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAADwAgCdASoQAAwAAkA4JbACdDiM94jIhgyukCqKnS33AAD+7SF/+hrxYFelPM+R9q8ppfz2bkA5rJGJvX3CO1XTZOCsQ7xCv/jcwx3YlxSChJceek+/Q9Uy2710Tb4/Gz4tB+axBwlHpfy1bGixLSC40WqMwYIcoX6URrQu9I63GRzUeYCe0/6f76VKz0AkffS8duoF9Rfz6Rqy5XhM07xrx94Ng1LxAAA="
+      "sha256": "401f94cd1faeedd3ac5a9fd8c56a34c2fb55b05558ad3611025043aa10e7c56a",
+      "uri": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAADQAgCdASoQAAwAAkA4JbACdDiM94jIhEyujxzve/gAAP7tIWcq6O+p8FJf8dMP1JQoe8f1l+RLdFv4ehW+xpRGA53cdL5MCw7OJ4YYlRop2tA6F0xtppm/A8rAcMJjypm0VoOOIvetFDVuRi3g1DpMI7muUY/SiNaF3pHW4yOajzAT2n/T/fSpWegEj5bqQYZbfmv8+kasuV4TNO8a8feDYNS8QAAA"
     }
   },
   "apple-distribution-kit": {
