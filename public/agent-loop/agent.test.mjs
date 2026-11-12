@@ -284,7 +284,10 @@ test('lists valid skills by name and description, and skips broken ones', async 
     const output = await start([{ content: 'Hi.' }], 'Hello.\n');
     const system = (await calls())[0].messages[0].content;
     assert.ok(system.startsWith(`${systemMessage}\n\nSkills\n`));
-    assert.ok(system.includes(`Your skills live in ${await realpath(skills)}.`));
+    // Windows tmpdir() is an 8.3 short path that realpath expands, so compare resolved paths.
+    const listed = system.match(/Your skills live in (.+)\. To add one, create a folder there/);
+    assert.ok(listed);
+    assert.equal(await realpath(listed[1]), await realpath(skills));
     assert.ok(system.includes([
       '<available_skills>',
       '  <skill>',
