@@ -32,7 +32,7 @@ import sharp from 'sharp'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pageOg, slugFor, routePathForSlug, ogSceneForRoute } from '../../data/og'
-import { plateFrame } from '../../og/frames.mjs'
+import { plateFrame, featureFrame } from '../../og/frames.mjs'
 
 const fontsDir = join(process.cwd(), 'src/og/fonts')
 const cormorantRegular = readFileSync(join(fontsDir, 'CormorantGaramond-Regular.ttf'))
@@ -53,6 +53,16 @@ function markSrc(mark: string): string {
     markCache.set(mark, `data:image/png;base64,${png.toString('base64')}`)
   }
   return markCache.get(mark)!
+}
+
+const div = (style: Record<string, unknown>, children?: unknown) => ({ type: 'div', props: { style, children } })
+const satoriOptions = {
+  width: 1200,
+  height: 630,
+  fonts: [
+    { name: 'Cormorant Garamond', data: cormorantRegular, weight: 400, style: 'normal' as const },
+    { name: 'Outfit', data: outfit, weight: 400, style: 'normal' as const },
+  ],
 }
 
 const sceneDir = join(process.cwd(), 'public/brand/storybook/og')
@@ -146,6 +156,18 @@ const CHAR_EM = 0.4 // Cormorant runs about 0.4em a character (measured on these
 // and only the line count changes. A zone too small for it fails the build.
 export const TITLE_SIZE = 46
 
+// The feature card (src/data/og.ts, `feature`): for the few pages shared widely
+// on their own, the title is set larger, because feeds show these cards at a
+// third of their size. The plate takes the left of the card and the scene's
+// cast stands beside it: `plateW` sets the plate's width, `height` scales the
+// canonical header and `left` slides the window to its cast. Only the header
+// is resized and cropped, never repainted.
+export const FEATURE_TITLE_SIZE = 84
+const FEATURE: Record<string, { file: string; plateW: number; height: number; left: number }> = {
+  // The robot with the keyboard on its chest, and Ouro beside it.
+  'agent-workbench': { file: 'headers/agent-workbench.webp', plateW: 480, height: 630, left: 496 },
+}
+
 export const getStaticPaths: GetStaticPaths = () => {
   return Object.keys(pageOg).map((routePath) => ({
     params: { slug: slugFor(routePath) },
@@ -163,6 +185,7 @@ export const GET: APIRoute = async ({ params }) => {
   const { title, tag } = entry
   const mark = entry.mark ?? 'ouro'
   const scene = ogSceneForRoute(routePath)
+  if (entry.feature) return featureCard({ title, tag, mark, scene, deck: entry.feature.deck })
 
   // The words stand in the scene's own title zone (TITLE_ZONE), never on a character.
   const zone = TITLE_ZONE[scene]
@@ -205,7 +228,6 @@ export const GET: APIRoute = async ({ params }) => {
   }
   if (!lines) throw new Error(`og: "${title}" does not fit the ${scene} title zone at ${TITLE_SIZE}px`)
 
-  const div = (style: Record<string, unknown>, children?: unknown) => ({ type: 'div', props: { style, children } })
   const glow = `0 0 ${Math.round(titleSize * 0.28)}px rgba(${COLOR.paper}, 0.95)`
 
   const svg = await satori(
@@ -250,14 +272,7 @@ export const GET: APIRoute = async ({ params }) => {
         }, lines.map((line) => div({ display: 'flex', whiteSpace: 'nowrap' }, line))),
       ]),
     ]),
-    {
-      width: 1200,
-      height: 630,
-      fonts: [
-        { name: 'Cormorant Garamond', data: cormorantRegular, weight: 400, style: 'normal' as const },
-        { name: 'Outfit', data: outfit, weight: 400, style: 'normal' as const },
-      ],
-    }
+    satoriOptions
   )
 
   const wordsLayer = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
@@ -276,4 +291,76 @@ export const GET: APIRoute = async ({ params }) => {
   return new Response(new Uint8Array(jpeg), {
     headers: { 'Content-Type': 'image/jpeg' },
   })
+}
+
+// The feature card: the running head, the tag as an eyebrow, the title in up to
+// three balanced lines at FEATURE_TITLE_SIZE and the deck, all on the plate.
+async function featureCard({ title, tag, mark, scene, deck }: { title: string; tag?: string; mark: string; scene: string; deck: string }): Promise<Response> {
+  const frame = FEATURE[scene]
+  if (!frame) throw new Error(`og: no feature frame for scene ${scene}`)
+  const PAD = 52
+  const colWidth = frame.plateW - PAD * 2
+  const size = FEATURE_TITLE_SIZE
+  const words = title.split(' ')
+  let lines: string[] | null = null
+  for (let n = 1; n <= Math.min(3, words.length) && !lines; n++) {
+    // The fewest lines that fit, balanced, broken only between words.
+    let best: string[] | null = null
+    const go = (from: number, left: number, acc: string[]) => {
+      if (left === 1) {
+        const cand = [...acc, words.slice(from).join(' ')]
+        if (!best || Math.max(...cand.map((l) => l.length)) < Math.max(...best.map((l) => l.length))) best = cand
+        return
+      }
+      for (let i = from + 1; i <= words.length - left + 1; i++) go(i, left - 1, [...acc, words.slice(from, i).join(' ')])
+    }
+    go(0, n, [])
+    if (best && Math.max(...(best as string[]).map((l) => l.length)) * CHAR_EM * size <= colWidth) lines = best
+  }
+  if (!lines) throw new Error(`og: "${title}" does not fit the feature plate at ${size}px`)
+  if (deck.length > 90) throw new Error(`og: the feature deck "${deck}" runs past 90 characters`)
+
+  const svg = await satori(
+    div({ width: '1200px', height: '630px', display: 'flex', position: 'relative', fontFamily: 'Outfit' }, [
+      div({
+        position: 'absolute',
+        left: `${PAD}px`,
+        top: '0px',
+        width: `${colWidth}px`,
+        height: '630px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        paddingTop: '48px',
+        paddingBottom: '52px',
+      }, [
+        div({ display: 'flex', alignItems: 'center', gap: '12px', height: `${HEAD}px` }, [
+          { type: 'img', props: { src: markSrc(mark), width: HEAD, height: HEAD } },
+          div({ display: 'flex', fontFamily: 'Cormorant Garamond', fontSize: '30px', color: COLOR.ink, lineHeight: 1 }, 'ouro'),
+        ]),
+        div({ display: 'flex', flexDirection: 'column' }, [
+          ...(tag ? [div({ display: 'flex', fontSize: '20px', letterSpacing: '0.2em', textTransform: 'uppercase', color: COLOR.fang, marginBottom: '18px', whiteSpace: 'nowrap' }, tag)] : []),
+          div({
+            display: 'flex',
+            flexDirection: 'column',
+            fontFamily: 'Cormorant Garamond',
+            fontSize: `${size}px`,
+            lineHeight: 0.98,
+            letterSpacing: '-0.015em',
+            color: COLOR.ink,
+          }, lines.map((line) => div({ display: 'flex', whiteSpace: 'nowrap' }, line))),
+        ]),
+        div({ display: 'flex', fontSize: '25px', lineHeight: 1.36, color: COLOR.ink, textWrap: 'balance' }, deck),
+      ]),
+    ]),
+    satoriOptions
+  )
+
+  const wordsLayer = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng()
+  const { base } = await featureFrame(join(process.cwd(), 'public/brand/storybook', frame.file), frame)
+  const jpeg = await sharp(base)
+    .composite([{ input: Buffer.from(wordsLayer) }])
+    .jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: '4:4:4' })
+    .toBuffer()
+  return new Response(new Uint8Array(jpeg), { headers: { 'Content-Type': 'image/jpeg' } })
 }
