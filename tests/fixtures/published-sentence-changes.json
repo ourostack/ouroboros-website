@@ -4633,43 +4633,7 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "With just these tools inside a loop, a language model can do almost anything a developer can.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "This guide walks you through building one from scratch in ~150 lines of TypeScript, then handing the keyboard to your creation and watching it grow.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "I remember the feeling I got when writing software first clicked.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "I went from feeling \"so what\" about \"hello world\" to understanding that software engineering is, more than anything else, a pure expression of creation.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "As the way we build changes, I'm experiencing that same feeling all over again.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Even though it's been at least a month since I've stopped writing code by hand, it didn't really click that we need to completely relearn the way we approach building software until I went through the \"hello world\" exercise of SWE in 2026: building an agent loop from scratch.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "This guide will give you that same moment.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
  },
@@ -4705,12 +4669,6 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "You run your agent.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "You start talking to it instead of your coding agent.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
@@ -4723,12 +4681,6 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "You and your agent build it out together.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "Add tools.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
@@ -4736,12 +4688,6 @@
  {
   "page": "blog/build-ai-agent-from-scratch",
   "was": "Refactor the architecture.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Watch capability compound.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
  },
@@ -4868,30 +4814,6 @@
  {
   "page": "blog/build-ai-agent-from-scratch",
   "was": "Seeing a big <think> block?",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Reasoning models think step-by-step before answering, and different classes of model do this differently.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Open source models (DeepSeek-R1, Qwen3/QwQ, MiniMax-M2.5) emit their reasoning inline in <think> tags.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "If you haven't peeked under the hood of a reasoning model before, spend some time reading these to get a feel for how these models think!",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Closed-source models do it differently: Claude returns thinking in a separate content block, and the GPT-5 series returns a reasoning summary via a dedicated field in the API response.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
  },
@@ -5425,18 +5347,6 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "Tools and skills building each other.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "This is the shape of compounding capability.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "Keep Going From here, the possibilities are yours: Add a tool for web search Add a skill for writing tests Add a tool for git operations Add a skill for debugging Add a tool for running TypeScript and capturing output Each capability makes the next one easier to add.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
@@ -5455,12 +5365,6 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "Then you switched to your creation and grew it through conversation.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "It added tools.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
@@ -5473,25 +5377,7 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "It built a skills system.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "It used skills to build itself more tools.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "The loop is the primitive.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Read, write, and execute are the universal basis.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
  },
@@ -5515,25 +5401,7 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "The way we build software changed as soon as models became capable enough to modify their own code based on natural language direction.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "That happened recently.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "Most people haven't caught up yet.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Now you have.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
  },
@@ -5546,42 +5414,6 @@
  {
   "page": "blog/build-ai-agent-from-scratch",
   "was": "If you want to go deeper: Conversation persistence — save and resume A real TUI , or deploy your agent somewhere — make it feel like an application Study production implementations — Claude Code, pi-agent, OpenClaw And honestly?",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "The most important thing is to keep using what you built.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Talk to it.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Grow it.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "See how far you can go together.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "That's the new workflow.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "This is how we build agents now.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
  },
@@ -5776,5 +5608,47 @@
   "was": "Or if you want to understand the primitive underneath, build the loop from scratch in 150 lines.",
   "now": "Or if you want to understand the primitive underneath, build the loop from scratch in about 100 lines.",
   "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the rewritten guide's finished agent is about 90 lines; workshop rewrite (Ari, 2026-11-11): the finished agent.ts is about 100 lines"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Build a skills system.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "That's its job.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It remembers.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "But it can't do anything yet.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "With these three tools, a model can do almost anything a developer can do.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Restart.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Then load it and use it to add a get_current_time tool.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
  }
 ]
