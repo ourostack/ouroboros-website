@@ -3266,8 +3266,8 @@
  {
   "page": "lab",
   "was": "A practical guide to building agents that read, think, act, and grow — from first principles to production.",
-  "now": "A practical guide to building agents that read, think, act, and grow: from first principles to production.",
-  "why": "root misses ruling 4.10 (2026-10-11); then the workshop rewrite (Ari, 2026-11-11): the Lab list reads the new share card; workshop rewrite (Ari, 2026-11-11): original line restored, empty folder dropped"
+  "now": "A one-hour, hands-on walk: prompt GitHub Copilot CLI to build your own agent loop in TypeScript, then hand off to it.",
+  "why": "root misses ruling 4.10 (2026-10-11); then the workshop rewrite (Ari, 2026-11-11): the Lab list reads the new share card; workshop rewrite (Ari, 2026-11-11): original line restored, empty folder dropped; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
  },
  {
   "page": "lab/docs",
@@ -4094,8 +4094,8 @@
  {
   "page": "blog",
   "was": "Tutorial Guide Build an AI agent loop from scratch A working AI agent in ~150 lines of TypeScript.",
-  "now": "Tutorial Just give the model a keyboard A working agent in about 100 lines of TypeScript.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); then taste review r5 (2026-11-06, round 6): the tutorial is called a tutorial everywhere, so the \"Guide\" label under the \"Tutorial\" heading goes; then the workshop rewrite fix round 1 (Ari, 2026-11-11): the card describes the new four-milestone guide, about 90 lines at the last milestone; workshop rewrite (Ari, 2026-11-11): original line restored with the true count"
+  "now": "Tutorial Just give the model a keyboard A one-hour, hands-on walk: you prompt GitHub Copilot CLI to build your own agent loop in TypeScript, a model that can think, remember, read, write, and run commands.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); then taste review r5 (2026-11-06, round 6): the tutorial is called a tutorial everywhere, so the \"Guide\" label under the \"Tutorial\" heading goes; then the workshop rewrite fix round 1 (Ari, 2026-11-11): the card describes the new four-milestone guide, about 90 lines at the last milestone; workshop rewrite (Ari, 2026-11-11): original line restored with the true count; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
  },
  {
   "page": "blog",
@@ -5738,8 +5738,8 @@
  {
   "page": "share card /blog/build-ai-agent-from-scratch",
   "was": "Build an AI agent in 150 lines of TypeScript.",
-  "now": "Build an agent in about 100 lines of TypeScript.",
-  "why": "workshop rewrite (Ari, 2026-11-11); workshop rewrite (Ari, 2026-11-11): original line restored with the true count"
+  "now": "Just give the model a keyboard.",
+  "why": "workshop rewrite (Ari, 2026-11-11); workshop rewrite (Ari, 2026-11-11): original line restored with the true count; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
  },
  {
   "page": "share card /blog/build-ai-agent-from-scratch",
@@ -5774,7 +5774,19 @@
  {
   "page": "lab/why",
   "was": "Or if you want to understand the primitive underneath, build the loop from scratch in 150 lines.",
-  "now": "Or if you want to understand the primitive underneath, build the loop from scratch in about 100 lines.",
-  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the rewritten guide's finished agent is about 90 lines; workshop rewrite (Ari, 2026-11-11): the finished agent.ts is about 100 lines"
+  "now": "Or if you want to understand the primitive underneath, build your own agent loop with GitHub Copilot CLI, in about an hour.",
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the rewritten guide's finished agent is about 90 lines; workshop rewrite (Ari, 2026-11-11): the finished agent.ts is about 100 lines; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
+ },
+ {
+  "page": "blog",
+  "was": "Then the handoff — you stop talking to your coding agent and start talking to your creation.",
+  "now": "Then you hand off to it, and it names itself, writes its own system message, and grows its own skills.",
+  "why": "agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
+ },
+ {
+  "page": "share card /blog/build-ai-agent-from-scratch",
+  "was": "Tutorial",
+  "now": "Grow an agent",
+  "why": "agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so; the card carries the guide's own eyebrow"
  }
 ]
