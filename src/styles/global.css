@@ -1195,25 +1195,27 @@ main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
 .story-scene img { border: 0; color: transparent; }
 .story-scene img:not([src]), .story-scene img[data-failed] { visibility: hidden; }
 
-/* A column hero (columnHeroes in src/data/scenes.mjs; the Agent Loop guide), from
-   1600px (Ari chose option A, 2026-11-12): the page's words open in a column at
-   most 44rem wide, and the scene sits under them, as wide as the article's 72rem
-   column, with a plain 4px corner and no fade, frame, trail or card. It is the
-   page's real hero component, restyled in place: the markup order is unchanged
-   and main orders it after the header. Its art is the master upscaled and
-   cropped to 2:1 (StoryScene), so the column is drawn from real pixels at 1x and
-   2x. Below 1600px none of this applies. */
+/* Column hero pages (data-hero-column, see StoryScene.astro), from 1600px. The
+   header and the picture share --hero-width; the lede takes the full column and
+   balances so no word is stranded. Sizing lives in the custom properties on main. */
 @media (min-width: 1600px) {
-  main:has(> .story-hero[data-hero-column]) { display: flex; flex-direction: column; }
+  main:has(> .story-hero[data-hero-column]) {
+    --hero-width: min(72rem, 100% - 8rem);
+    --hero-top: calc(var(--nav-h) + 3rem);
+    --hero-measure: 44rem;
+    --hero-gap-above: 2rem;
+    --hero-gap-below: 4rem;
+    display: flex; flex-direction: column;
+  }
   main:has(> .story-hero[data-hero-column]) > article { display: contents; }
-  main:has(> .story-hero[data-hero-column]) > article > header { order: 1; width: min(72rem, 100% - 8rem); margin: 0 auto; padding-top: calc(var(--nav-h) + 4.5rem); display: block; }
-  main:has(> .story-hero[data-hero-column]) > article > header .split-head,
-  main:has(> .story-hero[data-hero-column]) > article > header .split-body { max-width: 44rem; margin: 0; }
+  main:has(> .story-hero[data-hero-column]) > article > header { order: 1; width: var(--hero-width); max-width: none; margin: 0 auto; padding-top: var(--hero-top); display: block; }
+  main:has(> .story-hero[data-hero-column]) > article > header .split-head { max-width: var(--hero-measure); margin: 0; }
+  main:has(> .story-hero[data-hero-column]) > article > header .split-body { max-width: none; margin: 0; }
+  main:has(> .story-hero[data-hero-column]) > article > header .split-body > p:first-child { font-size: 1.125rem; margin-top: 1rem; text-wrap: balance; }
   main:has(> .story-hero[data-hero-column]) > article > header h1 { font-size: clamp(2.25rem, 1.25rem + 1vw, 3rem); line-height: 1.1; letter-spacing: -0.01em; margin-top: 0.75rem; }
-  main:has(> .story-hero[data-hero-column]) > article > header .split-body > p:first-child { font-size: 1.125rem; margin-top: 1rem; }
-  main:has(> .story-hero[data-hero-column]) > article > div { order: 3; width: min(72rem, 100% - 8rem); margin: 0 auto; padding-bottom: 5rem; }
+  main:has(> .story-hero[data-hero-column]) > article > div { order: 3; width: var(--hero-width); margin: 0 auto; padding-bottom: 5rem; }
   main:has(> .story-hero[data-hero-column]) > :not(article, .story-hero) { order: 4; }
-  main > .story-hero[data-hero-column] { order: 2; width: min(72rem, 100% - 8rem); margin: 2.5rem auto 4rem; border-radius: 4px; overflow: hidden; background: #e9e1cf; }
+  main > .story-hero[data-hero-column] { order: 2; width: var(--hero-width); max-width: none; margin: var(--hero-gap-above) auto var(--hero-gap-below); border-radius: 4px; overflow: hidden; background: #e9e1cf; }
   :root:not([data-theme="light"]) main > .story-hero[data-hero-column] { background: #1a2118; }
   @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) main > .story-hero[data-hero-column] { background: #e9e1cf; } }
   main > .story-hero[data-hero-column]::after { content: none; }
