@@ -23,7 +23,7 @@ const prompts = (source) =>
 
 test('all shell variants render without JS, under their own captions', () => {
   const source = html();
-  for (const shell of ['mac', 'powershell', 'wsl']) {
+  for (const shell of ['mac', 'powershell']) {
     assert.ok(variantBlocks(source, shell).length > 0, `no data-shell-variant="${shell}" block`);
   }
   for (const [tag] of source.matchAll(/<div\b[^>]*\bdata-shell-variant="[^"]*"[^>]*>/g)) {
@@ -31,7 +31,7 @@ test('all shell variants render without JS, under their own captions', () => {
     assert.doesNotMatch(tag, /display:\s*none/, `display:none in server HTML: ${tag}`);
   }
   const text = textOf(source);
-  for (const label of ['macOS Terminal', 'Windows PowerShell', 'WSL']) {
+  for (const label of ['macOS, Linux or WSL terminal', 'Windows PowerShell']) {
     assert.ok(text.includes(label), `no visible "${label}" caption`);
   }
 });
