@@ -30,6 +30,8 @@ const toCoder = "Prompt the coding agent"
 const toAgent = "Prompt your agent"
 
 const makeFolder = "mkdir my-agent\ncd my-agent\ngit init"
+const gitIdentity = 'git config --global user.name "Your Name"\ngit config --global user.email "you@example.com"'
+const versions = "git --version\nnode --version\ngh --version\ncopilot --version"
 
 // The prompts, exactly as the dry run used them (prompt-sequence.md). They ask for
 // outcomes, not steps; the page explains anything technical before each one.
@@ -501,7 +503,8 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p>
           Every output on this page is real. It's what my terminal showed when I followed this guide myself, and
-          <a href={finished}>here's the {file} I ended up with</a>.
+          <a href={finished}>here's the {file} I ended up with</a>. In those outputs, <code>%</code> is my terminal's prompt;
+          don't type it.
         </p>
         <p>
           Like reading the last page of a book first? <a href="#last-page">Run mine and see where this goes.</a>
@@ -522,11 +525,16 @@ const outputExempt = "program output, shown as evidence"
           replies, builds itself a skills system, then uses a skill to give itself a new tool. Watch capability compound.
         </p>
         <p>The main path takes about 40 minutes. By the end, you'll have something substantive, and you'll have built it the new way.</p>
+        <p>Short on time? Milestone 4, the loop, is the finish line. Everything after it is the fun bit you can finish at home.</p>
 
         <h2 id="before-you-start">Before we start</h2>
         <p>
           You'll need a GitHub account with Copilot, and about ten minutes to set up. If you've never used a command line,
-          you're in exactly the right place.
+          you're in exactly the right place. If you're joining a workshop, do this part beforehand.
+        </p>
+        <p>
+          Have more than one GitHub account? Sign in to the one you'll use and check that
+          <a href="https://github.com/settings/copilot">github.com/settings/copilot</a> shows you have Copilot.
         </p>
 
         <h3>Your terminal</h3>
@@ -536,18 +544,20 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <ul>
           <li><strong>macOS:</strong> open Spotlight with Command-Space, type <code>Terminal</code>, and press Return.</li>
-          <li><strong>Windows:</strong> click Start, type <code>PowerShell</code>, and open it. Copilot CLI needs PowerShell 7 or later; if the window's title says Windows PowerShell, run <code>winget install Microsoft.PowerShell</code> once, then open PowerShell 7 instead.</li>
-          <li><strong>WSL:</strong> if you already use Linux on Windows, open your WSL terminal and install everything below inside it.</li>
+          <li><strong>Windows:</strong> click Start, type <code>PowerShell</code>, and open it. Copilot CLI needs PowerShell 7 or later: run <code>$PSVersionTable.PSVersion</code>, and the first number should be 7. If it isn't, run <code>winget install Microsoft.PowerShell</code> once (winget is Windows' built-in app installer), then open PowerShell 7 instead.</li>
+          <li><strong>WSL</strong> (Windows Subsystem for Linux)<strong>:</strong> if you already use Linux on Windows, open your WSL terminal and install everything below inside it.</li>
         </ul>
         <p>
           To run a command, paste it into the terminal with <Kbd client:visible keys={["mod", "v"]} /> and press
-          <Kbd client:visible keys={["enter"]} />. When a box shows a few lines, run them one at a time. Where your shell
+          <Kbd client:visible keys={["enter"]} />. In PowerShell, right-click also pastes; in some WSL terminals it's
+          <Kbd client:visible keys={["ctrl", "shift", "v"]} />. When a box shows a few lines, run them one at a time. Where your shell
           needs something different, pick it once and the whole page follows.
         </p>
 
-        <h3>Install three things</h3>
+        <h3>Install four things</h3>
         <ul>
-          <li><strong>Node.js</strong>, version 22.18 or later, from <a href="https://nodejs.org">nodejs.org</a>. It runs the agent you're about to build.</li>
+          <li><strong>Node.js</strong>, version 22.18 or later, from <a href="https://nodejs.org">nodejs.org</a>. It runs the agent you're about to build. On WSL, use the site's Linux instructions (its download page offers nvm), which need no <code>sudo</code>.</li>
+          <li><strong>Git</strong>, from <a href="https://git-scm.com">git-scm.com</a>. On a Mac, run <code>git --version</code> once and accept the offer to install the developer tools. On Windows, run <code>winget install Git.Git</code>. WSL usually has it already.</li>
           <li><strong>The GitHub CLI</strong>, from <a href="https://cli.github.com">cli.github.com</a>. Your agent uses it to reach a model with your Copilot access.</li>
           <li><strong>GitHub Copilot CLI</strong>, the coding agent that builds the first version with you:</li>
         </ul>
@@ -556,24 +566,31 @@ const outputExempt = "program output, shown as evidence"
           Copilot CLI's <a href={copilotDocs}>install guide</a> has every other way to get it. When you're done, close the
           terminal and open a new one, so it can find what you just installed.
         </p>
+        <p>To check you're ready, run these one at a time. Each should print a version number:</p>
+        <CodeBlock client:load code={versions} language="shell" title="terminal" wrap />
 
         <h3>Sign in and make a home</h3>
         <p>Sign in to GitHub from the terminal:</p>
         <CodeBlock client:load code="gh auth login" language="shell" title="terminal" />
         <p>
-          It asks a few questions. Pick GitHub.com, or your company's GHE.com host if that's where your Copilot lives, and
-          finish in your browser.
+          It asks a few questions. Pick GitHub.com (or your company's GHE.com host, if that's where your Copilot lives),
+          then HTTPS, then Yes, then Login with a web browser. Copy the one-time code it shows, press
+          <Kbd client:visible keys={["enter"]} />, and paste the code into the browser page that opens.
         </p>
         <p>Now make a folder for your agent, move into it and make it a git repo, one line at a time:</p>
         <CodeBlock client:load code={makeFolder} language="shell" title="terminal" wrap />
         <p>
-          Git keeps every version of every file, so any change an agent makes can be seen and undone. Your agent will soon
-          run any command it likes in here, so keep nothing private in this folder.
+          Git keeps every version of every file, so any change an agent makes can be seen and undone. Each commit is a
+          saved snapshot of your files. Your agent will soon run any command it likes in here, so keep nothing private in
+          this folder.
         </p>
+        <p>Tell git who you are, so your commits carry your name. Use your own name and email:</p>
+        <CodeBlock client:load code={gitIdentity} language="shell" title="terminal" wrap />
         <p>Start your coding agent:</p>
         <CodeBlock client:load code="copilot" language="shell" title="terminal" />
         <p>
-          When it asks whether you trust the files in this folder, say yes. If it asks you to sign in, type
+          When it asks whether you trust the files in this folder, say yes: it shows a short numbered menu, so press
+          <Kbd client:visible keys={["enter"]} /> on Yes (or type its number). If it asks you to sign in, type
           <code>/login</code> and follow along. Keep this window open: it's your coding agent, an agent someone else built.
         </p>
         <p>
@@ -601,7 +618,7 @@ const outputExempt = "program output, shown as evidence"
                 <td>Your Copilot plan doesn't include that model. Ask your coding agent to switch to one your plan has.</td>
               </tr>
               <tr>
-                <td><code>copilot</code> or <code>gh</code> not found</td>
+                <td><code>copilot</code>, <code>gh</code> or <code>git</code> not found</td>
                 <td>Close the terminal and open a new one. Still missing? Install it again; WSL needs its own copy.</td>
               </tr>
               <tr>
@@ -611,7 +628,10 @@ const outputExempt = "program output, shown as evidence"
               <tr>
                 <td><code>EACCES</code> while installing</td>
                 <td>
-                  Don't use <code>sudo</code>. Fix the folder permissions instead; npm's own guide walks through it:
+                  Don't use <code>sudo</code>. On macOS or WSL, install Copilot CLI without npm:
+                  <code>curl -fsSL https://gh.io/copilot-install | bash</code> (answer <code>y</code> if it offers to add
+                  itself to your PATH), or <code>brew install --cask copilot-cli</code> if you use Homebrew. Then open a new
+                  terminal. Or fix npm's folder permissions with its own guide:
                   <a href="https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally">resolving EACCES permissions errors</a>.
                 </td>
               </tr>
@@ -663,8 +683,16 @@ const outputExempt = "program output, shown as evidence"
           Copilot writes <code>{file}</code>, sets up what it needs and commits. It asks before it runs a command or changes
           a file; read what it wants to do, then say yes.
         </p>
-        <p>When it's done, open a second terminal window, so Copilot keeps its own, and move into your folder. It's the <code>my-agent</code> folder you made earlier, so if you opened the new window somewhere else, go back to where that folder lives first:</p>
+        <p>
+          When it's done, open a second terminal window, so Copilot keeps its own. I'll call the first one the Copilot
+          window and this one your agent's window. A new terminal starts in your home folder, where you made
+          <code>my-agent</code>, so this moves you into it:
+        </p>
         <CodeBlock client:load code="cd my-agent" language="shell" title="terminal" />
+        <p>
+          No such folder? Type <code>!pwd</code> in the Copilot window (the <code>!</code> runs it as a command, not a
+          prompt), then <code>cd</code> to the path it prints.
+        </p>
         <p id="m1-try">Now run your agent:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock client:load code={outM1} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
@@ -676,6 +704,7 @@ const outputExempt = "program output, shown as evidence"
           The dimmed part is the model thinking: counting words, checking, counting again. Then it answers. Your words will
           be different, but read the thinking. It's the best part.
         </p>
+        <p>Got an error instead? <a href="#troubleshooting">The fixes table</a> covers the usual ones.</p>
 
         <aside id="think-note" class="post-note my-6">
           <p class="!mb-2 !text-base"><strong class="text-bone">How models show their thinking</strong></p>
@@ -704,7 +733,7 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <div class="my-6"><PromptCard label={toCoder} prompt={promptChat} /></div>
         <p>
-          When it's done, run your agent again in your second window. Tell it your name, ask what your name is, then ask
+          When it's done, run your agent again in your agent's window. Tell it your name, ask what your name is, then ask
           for the secret word in <code>secret.txt</code>:
         </p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
@@ -712,7 +741,11 @@ const outputExempt = "program output, shown as evidence"
         <p>
           It knows your name, because your name is in the list. It can't know the word: it has never seen your folder.
         </p>
-        <p>Now open <code>what-the-model-sees.json</code> in your editor, next to the terminal.</p>
+        <p>
+          Now open <code>what-the-model-sees.json</code> in your editor, next to the terminal. If you installed Zed,
+          <code>zed .</code> opens the whole folder in it. No editor handy? Stop your agent with <Kbd client:visible keys={["ctrl", "c"]} /> and print the file instead:
+        </p>
+        <ShellCommands client:load mac="cat what-the-model-sees.json" powershell="Get-Content what-the-model-sees.json" />
         <figure class="shot">
           <a class="shot-link" href="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp" alt="An editor showing what-the-model-sees.json: the model name claude-opus-5.5, reasoning effort set to max, and then the whole conversation so far as a list of messages. There are three user messages (“my name is Ari”, “what’s my name?” and a question about secret.txt) with an assistant reply after each, and every reply carries its own reasoning text." width="1600" height="1446" loading="lazy" decoding="async" /></a>
           <figcaption class="product-caption"><code>what-the-model-sees.json</code> after the memory step: the whole conversation, exactly as the model receives it. <a class="shot-cue" href="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp">Open full size<span class="sr-only">: what the model sees screenshot</span></a></figcaption>
@@ -723,7 +756,7 @@ const outputExempt = "program output, shown as evidence"
           hidden memory anywhere else.
         </p>
         <p>
-          Press <Kbd client:visible keys={["ctrl", "d"]} /> to stop your agent, run <code>node agent.ts</code> again, and ask what your name is. It
+          Press <Kbd client:visible keys={["ctrl", "d"]} /> (or <Kbd client:visible keys={["ctrl", "c"]} />) to stop your agent if it's running, run <code>node agent.ts</code> again, and ask what your name is. It
           still knows. It read that file back in when it started.
         </p>
 
@@ -738,6 +771,10 @@ const outputExempt = "program output, shown as evidence"
         <p>Run your agent and ask for the secret word:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock client:load code={outM3} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>
+          It's stuck there on purpose, waiting for a tool result nobody sends, so typing anything (like my
+          <code>hello?</code>) changes nothing. Press <Kbd client:visible keys={["ctrl", "c"]} /> to leave.
+        </p>
         <p>
           Look at that. The model knew it needed the file, named it, and asked for it in tidy JSON. Your program read it,
           and the word is right there on your screen. The model will never see it, because nobody handed it back.
@@ -761,8 +798,10 @@ const outputExempt = "program output, shown as evidence"
         <CodeBlock client:load code={outM4} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           Don't worry if the loop takes several minutes the first time. Mine took about eight, which is normal at maximum
-          reasoning. Copilot may also add tests or install packages on its own. That's fine.
+          reasoning. Copilot may also add tests or install packages on its own. That's fine. Meanwhile, watch the dimmed
+          thinking and the <code>[shell]</code> lines scroll by: that's the loop. It's done when <code>You:</code> comes back.
         </p>
+        <p>On Windows, your agent runs PowerShell commands, so its output won't match my <code>ls</code> and <code>cat</code>.</p>
         <p>
           This time it reaches for <code>read_file</code>, gets the word back and tells you. Then it writes a poem nobody
           planned for. Open <code>hello.txt</code> in your editor: your agent made that.
@@ -776,12 +815,13 @@ const outputExempt = "program output, shown as evidence"
           read itself, and change itself. Half an hour ago it couldn't find a word in a file.
         </p>
         <p>
-          From here on, you talk to your agent in your second window. Copilot stays open in the first, and every step is in
-          git, so any change it makes can be undone.
+          From here on, you talk to your agent in your agent's window, the one showing <code>You:</code>. Every prompt
+          labelled for your agent goes there. Copilot stays open in the Copilot window, and every step is in git, so any
+          change it makes can be undone.
         </p>
         <p>
           One thing to know: a running program can't swap in its own new code. When your agent changes itself, it'll ask
-          you to restart. Press <Kbd client:visible keys={["ctrl", "d"]} /> to quit, then run <code>node agent.ts</code> again. Your conversation survives,
+          you to restart. Press <Kbd client:visible keys={["ctrl", "d"]} /> (or <Kbd client:visible keys={["ctrl", "c"]} />) to quit, then run <code>node agent.ts</code> again. Your conversation survives,
           because it lives in <code>what-the-model-sees.json</code>, not in the running program.
         </p>
         <p>Start your agent if it isn't running, and let it name itself…</p>
@@ -819,6 +859,10 @@ const outputExempt = "program output, shown as evidence"
 
         <h2 id="keep-growing">Growing together</h2>
         <p>From here, every change is a conversation with your agent. After each one, restart it so it runs as its new self.</p>
+        <p>
+          The transcripts below are long; skim them, because your agent's words will differ. If something breaks,
+          <a href="#troubleshooting">the fixes table</a> is still there.
+        </p>
 
         <h3 id="streaming">Watch it think, live</h3>
         <p>
