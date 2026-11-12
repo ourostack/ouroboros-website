@@ -114,42 +114,6 @@
   "why": "approved antithesis rewrite"
  },
  {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "You start talking to it instead of your coding agent.",
-  "now": "You start talking to it .",
-  "why": "approved antithesis rewrite"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Run your agent: npm run dev From this moment on, you're not talking to Claude Code or Cursor or whatever you've been using.",
-  "now": "Run your agent: npm run dev From this moment on, you're talking to your agent.",
-  "why": "approved antithesis rewrite"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "You're talking to your agent.",
-  "now": null,
-  "why": "approved antithesis rewrite"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "This is the paradigm shift: You didn't build a product.",
-  "now": "This is the paradigm shift: You grew a product.",
-  "why": "approved antithesis rewrite"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "You grew one.",
-  "now": null,
-  "why": "approved antithesis rewrite"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Most people haven't caught up yet.",
-  "now": "Most humans haven't caught up yet.",
-  "why": "copy deck: humans for the human side"
- },
- {
   "page": "blog/designing-with-your-agent",
   "was": "We could have patched the parser.",
   "now": null,
@@ -3042,12 +3006,6 @@
   "why": "copy deck round 2: the recorded import clip does not ship, so its caption goes (review C1)"
  },
  {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
-  "now": "How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
-  "why": "root ruling (2026-10-11): the post footer's /approach link uses the page's one name, How I work"
- },
- {
   "page": "blog/designing-with-your-agent",
   "was": "Read the docs on tasks and work for the operator path, or see What Is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
   "now": "Read the docs on tasks and work for the operator path, or see What is Agent Experience? for the design philosophy behind this approach. ← Back to blog How I work To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
@@ -3112,12 +3070,6 @@
   "was": "Agent ergonomics & persistent AI — Ouroboros blog",
   "now": "Essays on agents | Ouro blog",
   "why": "root final ruling F8 (2026-10-11): the page title; then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "My agents' sessions are on the factory .",
-  "now": null,
-  "why": "root final ruling F7 (2026-10-11): PostEnd cuts the sentence on every post"
  },
  {
   "page": "blog/designing-with-your-agent",
@@ -3234,12 +3186,6 @@
   "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
  },
  {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros Tutorial Just give the model a keyboard How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
-  "now": "Just give the model a keyboard | Ouro Tutorial Just give the model a keyboard How to build an agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
-  "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13); then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); \"150 lines of TypeScript\" moves into the description"
- },
- {
   "page": "desk",
   "was": "Every job starts with one conversation and a go, and ends with evidence you accept or send back.",
   "now": "Every job starts with one conversation and a go, and ends with evidence you accept or send back, the way How I work lays it out.",
@@ -3320,8 +3266,8 @@
  {
   "page": "lab",
   "was": "A practical guide to building agents that read, think, act, and grow — from first principles to production.",
-  "now": "A practical guide to building agents that read, think, act, and grow: from first principles to production.",
-  "why": "root misses ruling 4.10 (2026-10-11)"
+  "now": "A one-hour, hands-on walk: prompt GitHub Copilot CLI to build your own agent loop in TypeScript, then hand off to it.",
+  "why": "root misses ruling 4.10 (2026-10-11); then the workshop rewrite (Ari, 2026-11-11): the Lab list reads the new share card; workshop rewrite (Ari, 2026-11-11): original line restored, empty folder dropped; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
  },
  {
   "page": "lab/docs",
@@ -3438,12 +3384,6 @@
   "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13)"
  },
  {
-  "page": "blog/build-ai-agent-from-scratch attributes",
-  "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros",
-  "now": "Just give the model a keyboard | Ouro",
-  "why": "root misses ruling 2.13 (2026-10-11); then Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13); then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's)"
- },
- {
   "page": "index attributes",
   "was": "How do you effectively collaborate with agents? | Ari Mendelow",
   "now": "How can humans and agents do more together? | Ouro",
@@ -3540,12 +3480,6 @@
   "why": "root misses ruling 4.10 (2026-10-11)"
  },
  {
-  "page": "share card /blog/build-ai-agent-from-scratch",
-  "was": "A practical guide to building agents that read, think, act, and grow — from first principles to production.",
-  "now": "A practical guide to building agents that read, think, act, and grow: from first principles to production.",
-  "why": "root misses ruling 4.10 (2026-10-11)"
- },
- {
   "page": "share card /lab/docs/bundles-and-psyche",
   "was": "Psyche files — five files that define your agent.",
   "now": "Psyche files: five files that define your agent.",
@@ -3564,12 +3498,6 @@
   "why": "root misses ruling 4.10 (2026-10-11)"
  },
  {
-  "page": "blog/build-ai-agent-from-scratch attributes",
-  "was": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow — from first principles to production.",
-  "now": "Learn what an agent loop is and how agents actually work. A practical guide to building agents that read, think, act, and grow: from first principles to production.",
-  "why": "misses leftovers: no em dashes in titles or meta (2026-10-11)"
- },
- {
   "page": "desk",
   "was": "This is real output from Desk's session start, run on a sample desk.",
   "now": null,
@@ -3580,30 +3508,6 @@
   "was": "My agents write their plans, reports, and docs in Markdown, and this is where I read them, leave notes for them, and see exactly what changed when they edit.",
   "now": null,
   "why": "fact check 2026-10-11: describe what Ouro MD does, not a reading habit the evidence can't show; then Ari, 2026-10-19 homepage rebuild: Ouroboros leads with every frontier model's verdict, Shepherd, Friends and the butler move inside it, the tools alternate media and prose, the method and factory sections say their point, the CI story and the Lean quotes list are cut, and Where to start sorts ways in by what the reader wants"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "The Shape of What's Coming Phase 1: The Bootstrap.",
-  "now": "The shape of what's coming",
-  "why": "final review 2026-10-11: sentence-case headings"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Before We Start What you need: Node.js 20 LTS or later running in a bash terminal (if you're on Windows, just use WSL) A coding agent (Claude Code, Copilot CLI — whatever you use) Access to a SOTA reasoning model — and importantly, you can't just use any model.",
-  "now": "Node.js 22 or later",
-  "why": "final review 2026-10-11: Node 22 is the CLI's minimum"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Commit when done.\" The shape: agent.ts async function runAgentLoop (): Promise < void > { while ( true ) { const response = await streamChatWithTools ( messages ) messages . push ( response.assistantMessage ) if ( response.toolCalls.length === 0 ) break for ( const tc of response.toolCalls ) { const result = executeTool ( tc.name , tc.args ) messages . push ({ role : \"tool\" , tool_call_id : tc.id , content : result }) } // loop continues — model sees results and decides next action } } Test it: terminal You: Find all .ts files, read agent.ts, and tell me how many lines it has Agent: [calls shell: ls *.ts] [calls read_file: agent.ts] Agent: src/agent.ts has 207 lines.",
-  "now": "src/agent.ts has 152 lines.",
-  "why": "final review 2026-10-11: the sample matches the ~150-line headline"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Look at what you have: ~200 lines of TypeScript.",
-  "now": "Look at what you have: ~150 lines of TypeScript.",
-  "why": "final review 2026-10-11: the count matches the headline"
  },
  {
   "page": "blog/designing-with-your-agent",
@@ -3817,12 +3721,6 @@
  },
  {
   "page": "blog attributes",
-  "was": "Ouroboros home",
-  "now": "Ouro home",
-  "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch attributes",
   "was": "Ouroboros home",
   "now": "Ouro home",
   "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark"
@@ -4196,8 +4094,8 @@
  {
   "page": "blog",
   "was": "Tutorial Guide Build an AI agent loop from scratch A working AI agent in ~150 lines of TypeScript.",
-  "now": "Tutorial Just give the model a keyboard A working agent in ~150 lines of TypeScript.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); then taste review r5 (2026-11-06, round 6): the tutorial is called a tutorial everywhere, so the \"Guide\" label under the \"Tutorial\" heading goes"
+  "now": "Tutorial Just give the model a keyboard A one-hour, hands-on walk: you prompt GitHub Copilot CLI to build your own agent loop in TypeScript, a model that can think, remember, read, write, and run commands.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; then taste review r2 (2026-11-06): one tutorial title everywhere, the post's own headline (Ari's); then taste review r5 (2026-11-06, round 6): the tutorial is called a tutorial everywhere, so the \"Guide\" label under the \"Tutorial\" heading goes; then the workshop rewrite fix round 1 (Ari, 2026-11-11): the card describes the new four-milestone guide, about 90 lines at the last milestone; workshop rewrite (Ari, 2026-11-11): original line restored with the true count; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
  },
  {
   "page": "blog",
@@ -4215,12 +4113,6 @@
   "page": "share card /blog/stop-being-the-glue",
   "was": "Stop being the glue between your AI tools.",
   "now": "Stop being the glue between your agents.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
- },
- {
-  "page": "share card /blog/build-ai-agent-from-scratch",
-  "was": "Build an AI agent in 150 lines of TypeScript.",
-  "now": "Build an agent in 150 lines of TypeScript.",
   "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
  },
  {
@@ -4326,150 +4218,6 @@
   "why": "taste review r5 (2026-11-06, round 6): the callout under the essay printed the prose's own sentence again as its headline; it is now a short pointer named with the reviews page's own title, and the claim stays in the prose just above with its link"
  },
  {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "You can't just use any ol' model and then be like \"nuh uh AI is dumb\" Get your model credentials and add them to your shell profile ( .zshrc , etc.) — follow your model provider's guidance: .zshrc # Example: MiniMax export MINIMAX_API_KEY = \"your-api-key\" export MINIMAX_MODEL = \"MiniMax-M2.5\" # Example: Azure OpenAI export AZURE_OPENAI_ENDPOINT = \"your-endpoint\" export AZURE_OPENAI_MODEL_NAME = \"your-model\" export AZURE_OPENAI_DEPLOYMENT = \"your-deployment\" export AZURE_OPENAI_API_KEY = \"your-api-key\" Set up the project — open a terminal, cd into wherever you want to create it, start your coding agent, and tell it: \"Set up a new TypeScript project called BestAgentEver.",
-  "now": "Get your model credentials and add them to your shell profile ( .zshrc , etc.) — follow your model provider's guidance: .zshrc",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Make this a git repo, and when done, commit.\" It'll create the directory, initialize npm, install dependencies, set up tsconfig.",
-  "now": "Make this a git repo, and when done, commit. It'll create the directory, initialize npm, install dependencies, set up tsconfig.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"In agent.ts, make a simple completions call.",
-  "now": "In agent.ts, make a simple completions call.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "When done, commit and tell me what command to run.\" The shape: agent.ts import { OpenAI } from \"openai\" const client = new OpenAI ({ /* endpoint, apiKey from env */ }) async function main () { const response = await client.chat.completions . create ({ model : deploymentName , messages : [{ role : \"user\" , content : \"Say hello in exactly 5 words.\" }] }) console . log ( response.choices [ 0 ]. message.content ) } Test it: cd BestAgentEver and then npm run dev .",
-  "now": "const client = new OpenAI ({ /* endpoint, apiKey from env */ }) async function main () { const response = await client.chat.completions . create ({ model : deploymentName , messages : [{ role :",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Prompt: \"Add streaming.",
-  "now": "Add streaming.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Build and run to verify, then commit.\" The shape: agent.ts const stream = await client.chat.completions . create ({ model : deploymentName , messages : [...], stream : true }) for await ( const chunk of stream ) { const content = chunk.choices [ 0 ]?. delta ?. content if ( content ) process.stdout . write ( content ) } Test it: rerun your agent and watch the tokens appear one by one.",
-  "now": "const stream = await client.chat.completions . create ({ model : deploymentName , messages : [...], stream : true }) for await ( const chunk of stream ) { const content = chunk.choices [ 0 ]?. delta ?. content if ( content ) process.stdout . write ( content ) } Test it: rerun your agent and watch the tokens appear one by one.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Make it interactive.",
-  "now": "Make it interactive.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Commit when done.\" The shape: agent.ts type Message = { role : \"user\" | \"assistant\" , content : string } const messages : Message [] = [] // readline setup for interactive prompt while ( true ) { const input = await prompt ( \"You: \" ) if ( input === \"exit\" ) break messages . push ({ role : \"user\" , content : input }) const response = await streamChat ( messages ) messages . push ({ role : \"assistant\" , content : response }) } Test it: terminal You: What's 2 + 2?",
-  "now": ", content : string } const messages : Message [] = [] // readline setup for interactive prompt while ( true ) { const input = await prompt (",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path and content, writes it), shell (takes command, runs with execSync, returns output).",
-  "now": "Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path and content, writes it), shell (takes command, runs with execSync, returns output).",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Commit when done.\" The shape: agent.ts const tools = [{ type : \"function\" , function : { name : \"read_file\" , description : \"Read the contents of a file\" , parameters : { type : \"object\" , properties : { path : { type : \"string\" } }, required : [ \"path\" ] } } }, /* write_file, shell similarly */ ] function executeTool ( name : string , args : Record < string, string >): string { switch ( name ) { case \"read_file\" : return fs . readFileSync ( args.path , \"utf-8\" ) case \"write_file\" : fs . writeFileSync ( args.path , args.content ); return \"ok\" case \"shell\" : return execSync ( args.command , { encoding : \"utf-8\" }) } } Test it: terminal You: What files are in this directory?",
-  "now": "] } } }, /* write_file, shell similarly */ ] function executeTool ( name : string , args : Record < string, string >): string { switch ( name ) { case",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Wrap the chat in a loop.",
-  "now": "Wrap the chat in a loop.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Add a list_directory tool to yourself.",
-  "now": "Add a list_directory tool to yourself.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Commit when done and then give me instructions on how we can test this together.\" Watch it: Read its own code Understand the tool pattern Add the new tool definition and implementation Write the file Give you testing instructions Restart your agent, and then prompt it: what's in the src folder?",
-  "now": "Commit when done and then give me instructions on how we can test this together. Watch it: Read its own code Understand the tool pattern Add the new tool definition and implementation Write the file Give you testing instructions Restart your agent, and then prompt it: what's in the src folder?",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives, not just until the API call is made) — use a simple process.stderr.write spinner, no external dependencies.",
-  "now": "Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives, not just until the API call is made) — use a simple process.stderr.write spinner, no external dependencies.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "When done, commit.\" Restart and test it: terminal You: What files are in this directory? ● Thinking...",
-  "now": "You: What files are in this directory? ● Thinking...",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Refactor the tools into a registry pattern.",
-  "now": "Refactor the tools into a registry pattern.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "When done, commit.\" Watch it refactor itself.",
-  "now": "When done, commit. Watch it refactor itself.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Add a system message to the messages array at startup.",
-  "now": "Add a system message to the messages array at startup.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "When done, commit.\" Restart.",
-  "now": "When done, commit. Restart.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Build a skills system.",
-  "now": "Build a skills system.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Commit when done.\" Watch it build a skills system.",
-  "now": "Commit when done. Watch it build a skills system.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Tell it: terminal You: list skills You: load code-review then review agent.ts Your agent now has a skills system.",
-  "now": "You: list skills You: load code-review then review agent.ts Your agent now has a skills system.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "\"Create a skill called toolmaker.md that teaches you how to add new tools to yourself — the pattern for the definition, the pattern for the handler, reminder to tell me to restart.",
-  "now": "Create a skill called toolmaker.md that teaches you how to add new tools to yourself — the pattern for the definition, the pattern for the handler, reminder to tell me to restart.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
-  "was": "Commit when done.\" A skill that teaches the agent to make tools.",
-  "now": "Commit when done. A skill that teaches the agent to make tools.",
-  "why": "taste review r16 (2026-11-07, round 17): each prompt moved out of its italic quotation into the copyable prompt box with its wording kept, and each code block header gained the shared Copy button, so the old sentence now breaks at the box and at the button label"
- },
- {
   "page": "lab/model-reviews",
   "was": "Both paths use the same research tools. git clone https://github.com/ourostack/ouroboros-website cd ouroboros-website npm install npm run reviews -- --inference direct-api # Or use a Copilot subscription: npm run reviews -- --inference copilot-first Use Node 22.",
   "now": "Both paths use the same research tools. git clone https://github.com/ourostack/ouroboros-website cd ouroboros-website npm install npm run reviews -- --inference direct-api # Or use a Copilot subscription: npm run reviews -- --inference copilot-first",
@@ -4495,12 +4243,6 @@
  },
  {
   "page": "blog attributes",
-  "was": "ourostack on GitHub",
-  "now": null,
-  "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch attributes",
   "was": "ourostack on GitHub",
   "now": null,
   "why": "family pass (Ari, 2026-11-08): the family bar's GitHub link replaces the nav's GitHub icon and its label"
@@ -4687,12 +4429,6 @@
  },
  {
   "page": "blog attributes",
-  "was": "Main",
-  "now": "Primary",
-  "why": "critics' pass (2026-11-09): the site's own nav is named Primary on all three family sites, beside the bar's Sites and the footer's All sites"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch attributes",
   "was": "Main",
   "now": "Primary",
   "why": "critics' pass (2026-11-09): the site's own nav is named Primary on all three family sites, beside the bar's Sites and the footer's All sites"
@@ -4870,5 +4606,1055 @@
   "was": "Desk Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson.",
   "now": "Desk keeps my agents' work in a Git repository: every track, task, decision, and lesson.",
   "why": "round two (2026-11-09): every tool on the homepage shows its readiness tag beside its name, as Ouro UI's does (Ive)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros Tutorial Just give the model a keyboard How to build an AI agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Ari Mendelow · March 2026 TL;DR — What is an agent loop?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "An agent loop is the core cycle that makes AI agents work: the model reads context, decides what action to take, executes it (reading a file, running a shell command, writing code), observes the result, and loops back — repeating until the task is done.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Three primitives — read file, write file, and run shell — form a universal basis.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "This guide walks you through building one from scratch in ~150 lines of TypeScript, then handing the keyboard to your creation and watching it grow.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The Shape of What's Coming Phase 1: The Bootstrap.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You'll direct your coding agent to build the minimal viable seed: A loop that talks to a model Streaming (because watching tokens appear is satisfying) Multi-turn conversation Three tools: read file, write file, run shell The agentic loop (it keeps going until it decides it's done) That's it.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "That's the bootstrap. ~150 lines.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Phase 2: The Handoff.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You open a new terminal.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You start talking to it instead of your coding agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Phase 3: Growing Together.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Add tools.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Refactor the architecture.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "By the end, you'll have something substantive — and you'll have built it the new way.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Before We Start What you need: Node.js 20 LTS or later running in a bash terminal (if you're on Windows, just use WSL) A coding agent (Claude Code, Copilot CLI — whatever you use) Access to a SOTA reasoning model — and importantly, you can't just use any model.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Use the latest, most powerful reasoning model you can get.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You can't just use any ol' model and then be like \"nuh uh AI is dumb\" Get your model credentials and add them to your shell profile ( .zshrc , etc.) — follow your model provider's guidance: .zshrc # Example: MiniMax export MINIMAX_API_KEY = \"your-api-key\" export MINIMAX_MODEL = \"MiniMax-M2.5\" # Example: Azure OpenAI export AZURE_OPENAI_ENDPOINT = \"your-endpoint\" export AZURE_OPENAI_MODEL_NAME = \"your-model\" export AZURE_OPENAI_DEPLOYMENT = \"your-deployment\" export AZURE_OPENAI_API_KEY = \"your-api-key\" Set up the project — open a terminal, cd into wherever you want to create it, start your coding agent, and tell it: \"Set up a new TypeScript project called BestAgentEver.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Use the openai npm package.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "If we choose Azure, use the AzureOpenAI client.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Create an empty agent.ts file to start.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Make this a git repo, and when done, commit.\" It'll create the directory, initialize npm, install dependencies, set up tsconfig.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Phase 1: How to Build an Agent Loop You're going to direct your coding agent through 5 milestones.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "After each one, restart so that you're running the latest version of your agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Milestone 1: First Contact — Calling the Model Open the fresh new agent.ts so you can watch your code generate in realtime.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Then, tell your coding agent: A note on APIs: The current OpenAI SDK treats the Responses API as primary, while Chat Completions remains supported.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Other providers may still map more naturally to chat-style calls.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "If you are not sure which one fits your model, have your coding agent read the current provider docs before it scaffolds the first call.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"In agent.ts, make a simple completions call.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Read the existing credentials from my environment, and make sure they're sufficient.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Then, use OpenAI from the openai package, send 'say hello in 5 words' and log the response.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Add an npm dev script for building + running my agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit and tell me what command to run.\" The shape: agent.ts import { OpenAI } from \"openai\" const client = new OpenAI ({ /* endpoint, apiKey from env */ }) async function main () { const response = await client.chat.completions . create ({ model : deploymentName , messages : [{ role : \"user\" , content : \"Say hello in exactly 5 words.\" }] }) console . log ( response.choices [ 0 ]. message.content ) } Test it: cd BestAgentEver and then npm run dev .",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You should see something like: Hello there, how are you?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Seeing a big <think> block?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Milestone 2: Streaming Responses Batched responses feel dead.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Streaming feels immediate.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Prompt: \"Add streaming.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Use stream: true, iterate with for-await, and use process.stdout.write for each chunk so tokens appear as they arrive.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Change the prompt to something longer (like asking for a short poem) so streaming is visible when running.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Build and run to verify, then commit.\" The shape: agent.ts const stream = await client.chat.completions . create ({ model : deploymentName , messages : [...], stream : true }) for await ( const chunk of stream ) { const content = chunk.choices [ 0 ]?. delta ?. content if ( content ) process.stdout . write ( content ) } Test it: rerun your agent and watch the tokens appear one by one.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "That's the feeling we want.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Milestone 3: Multi-turn Conversation An agent that can't hold a conversation isn't an agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Make it interactive.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Use readline for a CLI prompt.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Keep a messages array — that's the conversation history.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Loop: get user input, append to messages, stream the response, append assistant response to messages, repeat.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "'exit' to quit.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Block input while not awaiting user input.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" The shape: agent.ts type Message = { role : \"user\" | \"assistant\" , content : string } const messages : Message [] = [] // readline setup for interactive prompt while ( true ) { const input = await prompt ( \"You: \" ) if ( input === \"exit\" ) break messages . push ({ role : \"user\" , content : input }) const response = await streamChat ( messages ) messages . push ({ role : \"assistant\" , content : response }) } Test it: terminal You: What's 2 + 2?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Agent: 4 You: What did I just ask you?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Agent: You asked what 2 + 2 equals.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Milestone 4: Adding Tools — Read, Write, Execute Here's the insight that makes everything else possible: Read file + Write file + Run shell = universal basis.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path and content, writes it), shell (takes command, runs with execSync, returns output).",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Use the openai tools format.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Keep streaming.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "After streaming a response, check for tool_calls, execute them, and log the results — but don't loop back to the model yet, keep it simple.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Wrap tool execution in try/catch so errors are returned as the tool result instead of crashing.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" The shape: agent.ts const tools = [{ type : \"function\" , function : { name : \"read_file\" , description : \"Read the contents of a file\" , parameters : { type : \"object\" , properties : { path : { type : \"string\" } }, required : [ \"path\" ] } } }, /* write_file, shell similarly */ ] function executeTool ( name : string , args : Record < string, string >): string { switch ( name ) { case \"read_file\" : return fs . readFileSync ( args.path , \"utf-8\" ) case \"write_file\" : fs . writeFileSync ( args.path , args.content ); return \"ok\" case \"shell\" : return execSync ( args.command , { encoding : \"utf-8\" }) } } Test it: terminal You: What files are in this directory?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Agent: [calls shell with ls] [Result: src/, package.json, ...] It can see and act.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "But notice — after calling tools, it stops.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It doesn't process results and respond.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "We need the loop.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Milestone 5: The Agentic Loop — How AI Agents Decide When They're Done This is where it becomes an agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Wrap the chat in a loop.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "After executing tools, call the model again with the results.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Keep looping until the model responds without any tool_calls — that's how we know it's done.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" The shape: agent.ts async function runAgentLoop (): Promise < void > { while ( true ) { const response = await streamChatWithTools ( messages ) messages . push ( response.assistantMessage ) if ( response.toolCalls.length === 0 ) break for ( const tc of response.toolCalls ) { const result = executeTool ( tc.name , tc.args ) messages . push ({ role : \"tool\" , tool_call_id : tc.id , content : result }) } // loop continues — model sees results and decides next action } } Test it: terminal You: Find all .ts files, read agent.ts, and tell me how many lines it has Agent: [calls shell: ls *.ts] [calls read_file: agent.ts] Agent: src/agent.ts has 207 lines.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It called two tools, synthesized the results, and responded.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It decided when it was done.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "That's the agent loop.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "That's the whole primitive.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Phase 2: The Handoff Stop.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Look at what you have: ~200 lines of TypeScript.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "An agent that can read files, write files, run shell commands, and decide when it's done.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Those capabilities are sufficient for it to modify itself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Open a fresh terminal.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Navigate to your project directory.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Run your agent: npm run dev From this moment on, you're not talking to Claude Code or Cursor or whatever you've been using.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You're talking to your agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Phase 3: How AI Agents Grow Themselves Everything from here happens in conversation with your agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "First Growth: A New Tool Let's see if it can add a capability to itself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add a list_directory tool to yourself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Read your own code, understand the pattern, add the tool, write the file.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done and then give me instructions on how we can test this together.\" Watch it: Read its own code Understand the tool pattern Add the new tool definition and implementation Write the file Give you testing instructions Restart your agent, and then prompt it: what's in the src folder?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It works.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Your agent just added a capability to itself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Second Growth: Improve the UX Maybe you've noticed — UX could be better!",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "API calls silently fail, you can type random characters while the agent is working, and who doesn't love a loading spinner.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives, not just until the API call is made) — use a simple process.stderr.write spinner, no external dependencies.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Suppress terminal input while a turn is in progress so keystrokes don't echo during streaming or tool execution.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Add error handling around the API call so HTTP errors are logged clearly instead of crashing.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Use the SDK's built-in timeout option so the agent doesn't hang forever on unreachable endpoints.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Validate that all required environment variables are set before starting.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "On error during the agentic tool loop, log the error and return to the prompt instead of killing the session.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit.\" Restart and test it: terminal You: What files are in this directory? ● Thinking...",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Third Growth: Architecture Improvement The tools are getting unwieldy in a switch statement.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Refactor the tools into a registry pattern.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Map tool names to handler functions. executeTool should just look up and call.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit.\" Watch it refactor itself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Verify it still works.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Fourth Growth: A System Prompt + Proactivity Right now the agent has no identity, guidance, or sense of purpose.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Add a system message to the messages array at startup.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Give this agent a name, personality, and purpose.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It should know it's a coding assistant with file and shell tools.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Before you proceed, ask me questions (one per turn) so you can customize the system prompt to my preferences.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Then, update its name tag, and give the agent self-awareness — when running in its own codebase, it should be aware of this.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Make it introduce itself when booted up.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "When done, commit.\" Restart.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Feel the difference.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It should feel like you've transitioned from building an agent to building your agent.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Fifth Growth: Skills Here's where it gets even more interesting.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Build a skills system.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Create a skills/ directory with a couple example skill files as markdown — maybe code-review.md and explain.md.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Add a load_skill tool that reads a skill and prepends it to the system prompt.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Add a list_skills tool.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" Watch it build a skills system.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Tell it: terminal You: list skills You: load code-review then review agent.ts Your agent now has a skills system.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "And it built it itself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "And then used said skill to review its own code.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Sixth Growth: Let Skills Build Tools This is the compounding part.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "\"Create a skill called toolmaker.md that teaches you how to add new tools to yourself — the pattern for the definition, the pattern for the handler, reminder to tell me to restart.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Commit when done.\" A skill that teaches the agent to make tools.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Keep Going From here, the possibilities are yours: Add a tool for web search Add a skill for writing tests Add a tool for git operations Add a skill for debugging Add a tool for running TypeScript and capturing output Each capability makes the next one easier to add.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "What Just Happened You started with nothing.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You directed a coding agent to build a 150-line bootstrap.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It added tools.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It refactored its own architecture.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It used skills to build itself more tools.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Everything else — every feature, every capability — is emergent from the model's ability to use those primitives on its own codebase.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "This is the paradigm shift: You didn't build a product.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You grew one.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "What's Next Your agent is real, but it's also minimal.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "If you want to go deeper: Conversation persistence — save and resume A real TUI , or deploy your agent somewhere — make it feel like an application Study production implementations — Claude Code, pi-agent, OpenClaw And honestly?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Frequently Asked Questions What is an agent loop?",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "An agent loop is the core cycle that powers AI agents.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The model reads context, decides on an action (like reading a file or running a shell command), executes it, observes the result, and repeats — continuing until the task is complete.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The loop is what turns a stateless language model into an autonomous agent that can accomplish multi-step tasks.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "AI agents work by combining a large language model with tools inside a loop.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The model receives a prompt and conversation history, decides which tool to call (or whether to respond directly), gets the tool's result, and loops back.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Three tools form a universal basis: read file , write file , and run shell command .",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "With just these primitives, an agent can do almost anything a developer can — including modify its own source code.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The core bootstrap — streaming, multi-turn conversation, three tools, and the agentic loop — is roughly 150 lines of TypeScript.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "That's enough for a fully functional agent that can read, write, execute, and decide when it's done.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Everything beyond that (skills, UX, architecture) is grown incrementally through conversation with the agent itself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "At minimum, three: read file , write file , and run shell command .",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "These form a universal basis — with file I/O and shell access, a model can install packages, run tests, query APIs, modify code, and essentially perform any task a developer would do from a terminal.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Additional tools (web search, git operations, etc.) can be added later, and the agent can even add tools to itself.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The 150-line bootstrap grew into ouroboros — a TypeScript agent harness for persistent agents with identity, continuity, and shared momentum.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Now give it a psyche, a memory, and a name — the serpent guide takes about three minutes.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "How I build with agents now To try Desk , give your agent https://github.com/ourostack/desk/blob/main/SETUP.md and say \"set this up\".",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "My agents' sessions are on the factory .",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "lab/story",
+  "was": "Just Give the Model a Keyboard walks through building an agent from scratch in ~150 lines of TypeScript.",
+  "now": "Just Give the Model a Keyboard walks through building an agent from scratch in four small milestones: a first call, a conversation, one tool and the loop.",
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "lab/story",
+  "was": "Five milestones: first API call, streaming, multi-turn conversation, tools, the agentic loop.",
+  "now": "Just Give the Model a Keyboard walks through building an agent from scratch in four small milestones: a first call, a conversation, one tool and the loop.",
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "Build an AI agent in 150 lines of TypeScript — Ouroboros",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "Learn what an agent loop is and how AI agents actually work. A practical guide to building agents that read, think, act, and grow — from first principles to production.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "Main",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "Ouroboros home",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch attributes",
+  "was": "ourostack on GitHub",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "share card /blog/build-ai-agent-from-scratch",
+  "was": "Build an AI agent in 150 lines of TypeScript.",
+  "now": "Just give the model a keyboard.",
+  "why": "workshop rewrite (Ari, 2026-11-11); workshop rewrite (Ari, 2026-11-11): original line restored with the true count; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
+ },
+ {
+  "page": "share card /blog/build-ai-agent-from-scratch",
+  "was": "A practical guide to building agents that read, think, act, and grow — from first principles to production.",
+  "now": null,
+  "why": "workshop rewrite (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog",
+  "was": "Five milestones: first API call, streaming, multi-turn conversation, tools, and the agentic loop.",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the guide now has four milestones, named in the card's first sentence"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "This tutorial became a harness.",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the old end call to action was a second ending; the page ends once, on the sky's-the-limit close, which links the story and getting started"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "You've built the primitive.",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the old end call to action was a second ending; the page ends once, on the sky's-the-limit close, which links the story and getting started"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Or read how this bootstrap became Ouroboros .",
+  "now": null,
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the old end call to action was a second ending; the page ends once, on the sky's-the-limit close, which links the story and getting started"
+ },
+ {
+  "page": "lab/why",
+  "was": "Or if you want to understand the primitive underneath, build the loop from scratch in 150 lines.",
+  "now": "Or if you want to understand the primitive underneath, build your own agent loop with GitHub Copilot CLI, in about an hour.",
+  "why": "The workshop rewrite fix round 1 (Ari, 2026-11-11): the rewritten guide's finished agent is about 90 lines; workshop rewrite (Ari, 2026-11-11): the finished agent.ts is about 100 lines; then agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Build a skills system.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "That's its job.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "It remembers.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "But it can't do anything yet.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "With these three tools, a model can do almost anything a developer can do.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Restart.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Then load it and use it to add a get_current_time tool.",
+  "now": null,
+  "why": "workshop rewrite iteration 3 (Ari, 2026-11-11)"
+ },
+ {
+  "page": "blog",
+  "was": "Then the handoff — you stop talking to your coding agent and start talking to your creation.",
+  "now": "Then you hand off to it, and it names itself, writes its own system message, and grows its own skills.",
+  "why": "agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so"
+ },
+ {
+  "page": "share card /blog/build-ai-agent-from-scratch",
+  "was": "Tutorial",
+  "now": "Grow an agent",
+  "why": "agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so; the card carries the guide's own eyebrow"
  }
 ]

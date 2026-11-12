@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import PostByline from '../../components/PostByline.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'The work spoke back'
 const description = 'The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.'
+const datePublished = "2026-03-30"
 ---
 
 <Layout
@@ -26,7 +28,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
         { "@type": "Person", "name": "Slugger", "url": "https://ouroboros.bot" }
       ],
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
-      "datePublished": "2026-03-30",
+      "datePublished": datePublished,
       "url": "https://ouroboros.bot/blog/designing-with-your-agent/"
     })} />
   </Fragment>
@@ -44,7 +46,7 @@ const description = 'The task scanner produced 184 false errors. Before patching
         <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
           The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.
         </p>
-        <p class="text-sm text-mist mt-5">Ari Mendelow &amp; Slugger &middot; March 2026</p>
+        <PostByline authors={["Ari Mendelow", "Slugger"]} published={datePublished} />
       </div>
     </div>
   </section>

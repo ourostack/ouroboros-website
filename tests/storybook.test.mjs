@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, distExists, readDist, listHtmlFiles } from './support/dist.mjs';
-import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes } from '../src/data/scenes.mjs';
+import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes } from '../src/data/scenes.mjs';
 
 // The storybook world (Ari, 2026-11-06). The art is ourostack/.github brand/,
 // copied byte for byte by scripts/sync-storybook.mjs; the brand audit fetches
@@ -38,7 +38,7 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     assert.ok(block, `${pageOf(file)}: no hero scene`);
     assert.match(block, new RegExp(`data-brand-scene="${hero}"`), pageOf(file));
     const sources = [...block.matchAll(/<source\b[^>]*>/g)].map(([s]) => s);
-    assert.match(sources[0], /media="\(max-width: 640px\)" type="image\/avif" srcset="\/brand\/storybook\/phone\//);
+    assert.match(sources[0], /media="\(max-width: 640px\)[^"]*"[^>]* type="image\/avif" srcset="\/brand\/storybook\/phone\//);
     assert.match(sources[2], /type="image\/avif"/);
     assert.match(sources[3], /type="image\/webp"/);
     const img = block.match(/<img\b[^>]*>/)[0];
@@ -46,6 +46,62 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     assert.match(img, /width="1536" height="(?:512|576|614)"/);
     assert.doesNotMatch(img, /loading=/, `${pageOf(file)}: the hero is never lazy`);
   }
+});
+
+test('a hero with a night version is one picture that fetches only the art for the theme in use', () => {
+  for (const file of pages()) {
+    const html = fs.readFileSync(file, 'utf8');
+    const { hero } = sceneFor(pageOf(file));
+    const opening = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>/)?.[0];
+    const block = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>[\s\S]*?<\/div>/)?.[0];
+    if (!block) continue;
+    const pictures = [...block.matchAll(/<picture\b([^>]*)>([\s\S]*?)<\/picture>/g)];
+    assert.equal(pictures.length, 1, `${pageOf(file)}: one hero picture`);
+    assert.doesNotMatch(pictures[0][1], /class=/, `${pageOf(file)}: a hero picture has no theme class`);
+    const head = html.match(/<head>[\s\S]*?<\/head>/)[0];
+    const night = darkScenes[hero];
+    if (!night) {
+      assert.doesNotMatch(opening, /data-night-scene|--paint-night/, pageOf(file));
+      assert.match(opening, /--paint: url\(/, pageOf(file));
+      assert.doesNotMatch(block, /<script\b/, `${pageOf(file)}: an ordinary hero needs no script`);
+      continue;
+    }
+    const page = pageOf(file);
+    assert.match(opening, new RegExp(`data-night-scene="${night}"`), page);
+    // Both paints ride along, and global.css picks one per theme (never --paint inline,
+    // which would beat the stylesheet).
+    assert.doesNotMatch(opening, /--paint:/, page);
+    for (const [name, s] of [['day', hero], ['night', night]]) {
+      assert.ok(opening.includes(`--paint-${name}: url(${paints[s].wide.uri})`), `${page}: ${name} paint`);
+      assert.ok(opening.includes(`--paint-phone-${name}: url(${paints[s].phone.uri})`), `${page}: ${name} phone paint`);
+    }
+    // The day art asks for a light color scheme and comes first; the night art takes the rest.
+    const sources = [...pictures[0][2].matchAll(/<source\b[^>]*>/g)].map(([t]) => t);
+    assert.equal(sources.length, 8, page);
+    sources.forEach((t, i) => {
+      const light = [0, 1, 4, 5].includes(i);
+      const phone = i < 4;
+      assert.match(t, new RegExp(`srcset="/brand/storybook/${phone ? 'phone' : 'scenes'}/${light ? hero : night}-`), `${page}: source ${i}`);
+      assert.match(t, new RegExp(`data-theme-art="${light ? 'light' : 'dark'}"`), `${page}: source ${i}`);
+      const media = t.match(/\smedia="([^"]*)"/)?.[1];
+      const want = [phone && '(max-width: 640px)', light && '(prefers-color-scheme: light)'].filter(Boolean).join(' and ');
+      assert.equal(media ?? '', want, `${page}: source ${i} media`);
+    });
+    const img = pictures[0][2].match(/<img\b[^>]*>/)[0];
+    assert.match(img, new RegExp(`src="/brand/storybook/headers/${night}\\.webp"`));
+    assert.match(img, /fetchpriority="high"/);
+    assert.doesNotMatch(img, /loading=/);
+    assert.ok(img.includes(` alt="${scenes[night]}"`), `${page}: night alt`);
+    assert.ok(img.includes(`data-light-alt="${scenes[hero]}"`), `${page}: day alt`);
+    // The site's own theme toggle (data-theme) wins over the system's.
+    assert.match(block, /<\/picture>\s*<script>[\s\S]*data-theme[\s\S]*not all[\s\S]*<\/script>/, `${page}: no script follows the chosen theme`);
+    // Only the theme in use is preloaded: no static hero preload, one chosen in the head.
+    assert.doesNotMatch(head, /<link rel="preload" as="image"/, `${page}: a static preload fetches one theme's art for everyone`);
+    const preload = head.match(/<script>\(function \(\) \{ var t = document\.documentElement\.dataset\.theme;[\s\S]*?<\/script>/)?.[0];
+    assert.ok(preload, `${page}: no theme-aware preload`);
+    assert.ok(preload.includes(`/phone/${hero}-384.avif`) && preload.includes(`/scenes/${night}-1536.avif`), page);
+  }
+  assert.deepEqual(Object.keys(darkScenes), ['agent-workbench'], 'only the agent loop guide has a night hero');
 });
 
 test('scenes further down wait for the arrival, and no page shows one scene twice', () => {
@@ -183,10 +239,13 @@ test('every scene on every page is painted with its own dawn behind the art', ()
   let count = 0;
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
-    for (const [, scene, style] of html.matchAll(/<div class="story-scene[^"]*"[^>]*data-brand-scene="([^"]+)"[^>]*style="([^"]*)"/g)) {
-      assert.ok(paints[scene], `${pageOf(file)}: ${scene} has no paint`);
-      assert.ok(style.includes(`--paint: url(${paints[scene].wide.uri})`), `${pageOf(file)}: ${scene} is not painted with its wide art`);
-      assert.ok(style.includes(`--paint-phone: url(${paints[scene].phone.uri})`), `${pageOf(file)}: ${scene} is not painted with its phone crop`);
+    for (const [, scene, night, style] of html.matchAll(/<div class="story-scene[^"]*"[^>]*data-brand-scene="([^"]+)"(?: data-night-scene="([^"]+)")?[^>]*style="([^"]*)"/g)) {
+      // A hero with a night version carries both paints; global.css picks one per theme.
+      for (const [s, suffix] of night ? [[scene, '-day'], [night, '-night']] : [[scene, '']]) {
+        assert.ok(paints[s], `${pageOf(file)}: ${s} has no paint`);
+        assert.ok(style.includes(`--paint${suffix}: url(${paints[s].wide.uri})`), `${pageOf(file)}: ${s} is not painted with its wide art`);
+        assert.ok(style.includes(`--paint-phone${suffix}: url(${paints[s].phone.uri})`), `${pageOf(file)}: ${s} is not painted with its phone crop`);
+      }
       count++;
     }
     // A failed scene image falls back to a smaller size, and steps aside for

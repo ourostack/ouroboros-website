@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import PostByline from '../../components/PostByline.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = "Take the agent's seat"
 const description = "Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send."
+const datePublished = "2026-05-12"
 ---
 
 <Layout
@@ -24,7 +26,7 @@ const description = "Half of every prompt we send lives in our head. Read what y
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
       "dateCreated": "2026-05-12",
-      "datePublished": "2026-05-12",
+      "datePublished": datePublished,
       "url": "https://ouroboros.bot/blog/take-the-agents-seat/"
     })} />
   </Fragment>
@@ -42,7 +44,7 @@ const description = "Half of every prompt we send lives in our head. Read what y
         <p class="text-base text-mist mt-6 leading-relaxed">
           Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.
         </p>
-        <p class="text-sm text-mist mt-4">Ari Mendelow &middot; May 2026</p>
+        <PostByline authors={["Ari Mendelow"]} published={datePublished} class="mt-4" />
       </div>
     </div>
   </section>

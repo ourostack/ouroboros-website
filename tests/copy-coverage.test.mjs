@@ -14,6 +14,10 @@ import { listHtmlFiles, distDir, textOf } from './support/dist.mjs';
 // says why there is nothing to paste: data-copy-exempt="<reason>", for a demo
 // that plays or text shown as evidence.
 //
+// Ouro HX's CodeBlock carries its own Copy button: its <pre> passes when the
+// <figure data-ouro="code-block"> around it has that button, or when the
+// figure says why there is nothing to paste (terminal output).
+//
 // A prompt passes only inside the prompt box: an italic block that is all one
 // quotation of a sentence or more is a prompt written as a blockquote, and
 // fails. A <blockquote> quoting what someone said is not a prompt.
@@ -24,8 +28,14 @@ test('every code block has a Copy button, or says why it has none', () => {
   const missing = [];
   for (const [page, html] of pages) {
     const targets = new Set([...html.matchAll(/data-copy-target="([^"]+)"/g)].map(([, id]) => id));
-    for (const [tag] of html.matchAll(/<pre\b[^>]*>/g)) {
+    for (const { 0: tag, index } of html.matchAll(/<pre\b[^>]*>/g)) {
       if (/\bdata-copy-exempt="[^"]+"/.test(tag)) continue;
+      if (/\bdata-ouro-part="code"/.test(tag)) {
+        const start = html.lastIndexOf('<figure', index);
+        const figure = html.slice(start, index);
+        const open = figure.slice(0, figure.indexOf('>') + 1);
+        if (/\bdata-ouro="code-block"/.test(open) && (/\bdata-ouro-part="copy"/.test(figure) || /\bdata-copy-exempt="[^"]+"/.test(open))) continue;
+      }
       if (/\bclass="[^"]*\bprompt-frame\b/.test(tag)) continue;
       const id = tag.match(/\bid="([^"]+)"/)?.[1];
       if (id && targets.has(id)) continue;

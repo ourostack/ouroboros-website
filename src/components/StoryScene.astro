@@ -17,7 +17,7 @@
   even without, the art. No variant fades into the page: every picture ends
   on a hard edge.
 */
-import { scenes, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
+import { scenes, darkScenes, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -55,17 +55,38 @@ const phoneAspect = hero
 // tiny soft preview of the wide art and of the phone crop, so a slow or failed
 // image still shows this scene's sky and meadow, never a blank box or alt text
 // (taste review r10).
-const paint = paints[scene]
-if (!paint) throw new Error(`StoryScene: no paint for ${scene}; run node scripts/scene-paint.mjs`)
-const style = `${phoneAspect}; --paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
+// A hero with a night version (darkScenes) carries both paints, and global.css
+// picks the one for the theme in use.
+const night = hero ? darkScenes[scene] : undefined
+const paintOf = (s: string) => {
+  if (!paints[s]) throw new Error(`StoryScene: no paint for ${s}; run node scripts/scene-paint.mjs`)
+  return paints[s]
+}
+const paint = paintOf(scene)
+const paintVars = night
+  ? `--paint-day: url(${paint.wide.uri}); --paint-phone-day: url(${paint.phone.uri}); --paint-night: url(${paintOf(night).wide.uri}); --paint-phone-night: url(${paintOf(night).phone.uri})`
+  : `--paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
+const style = `${phoneAspect}; ${paintVars}${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
-const phoneAvif = `${base}/phone/${scene}-384.avif 384w, ${base}/phone/${scene}-768.avif 768w`
-const phoneWebp = `${base}/phone/${scene}-384.webp 384w, ${base}/phone/${scene}-768.webp 768w`
-const wideAvif = `${base}/scenes/${scene}-640.avif 640w, ${base}/scenes/${scene}-960.avif 960w, ${base}/scenes/${scene}-1536.avif 1536w`
-const wideWebp = `${base}/scenes/${scene}-640.webp 640w, ${base}/scenes/${scene}-960.webp 960w, ${base}/headers/${scene}.webp 1536w`
-const fallback = `${base}/headers/${scene}.webp`
+const sources = (s: string) => ({
+  phoneAvif: `${base}/phone/${s}-384.avif 384w, ${base}/phone/${s}-768.avif 768w`,
+  phoneWebp: `${base}/phone/${s}-384.webp 384w, ${base}/phone/${s}-768.webp 768w`,
+  wideAvif: `${base}/scenes/${s}-640.avif 640w, ${base}/scenes/${s}-960.avif 960w, ${base}/scenes/${s}-1536.avif 1536w`,
+  wideWebp: `${base}/scenes/${s}-640.webp 640w, ${base}/scenes/${s}-960.webp 960w, ${base}/headers/${s}.webp 1536w`,
+  fallback: `${base}/headers/${s}.webp`,
+})
+const { phoneAvif, phoneWebp, wideAvif, wideWebp, fallback } = sources(scene)
 const altText = alt ?? scenes[scene]
+// A hero with a night version is still one picture, so only the art for the
+// theme in use is fetched: the day art's sources come first and ask for a light
+// color scheme, and the night art (the site's default theme) takes the rest.
+// The script after it follows the site's own theme toggle (data-theme), which
+// a media query can't see.
+const lightScheme = '(prefers-color-scheme: light)'
+const day = night ? sources(scene) : undefined
+const dark = night ? sources(night) : undefined
+const nightAlt = night ? (alt ?? scenes[night]) : undefined
 const vignette = variant === 'vignette'
 // The storybook art's masters are 1536px wide (ourostack/.github brand/, byte
 // for byte), so a full-width scene on a 2x laptop or a 4K screen is drawn
@@ -74,8 +95,48 @@ const vignette = variant === 'vignette'
 const artWhy = 'Storybook art: the brand masters are 1536px wide; sharper at 2x and 4K needs larger masters from ourostack/.github brand/.'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
-  {hero ? (
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
+  {hero && day && dark ? (
+    <>
+      <picture>
+        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/avif" srcset={day.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/webp" srcset={day.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/avif" srcset={dark.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/webp" srcset={dark.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        <source media={lightScheme} data-media="" data-theme-art="light" type="image/avif" srcset={day.wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source media={lightScheme} data-media="" data-theme-art="light" type="image/webp" srcset={day.wideWebp} sizes={wideSizes} width={w} height={h} />
+        <source data-media="" data-theme-art="dark" type="image/avif" srcset={dark.wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source data-media="" data-theme-art="dark" type="image/webp" srcset={dark.wideWebp} sizes={wideSizes} width={w} height={h} />
+        <img src={dark.fallback} data-light-src={day.fallback} data-dark-src={dark.fallback} width={w} height={h} alt={nightAlt} data-light-alt={altText} data-dark-alt={nightAlt} fetchpriority="high" />
+      </picture>
+      {/* A chosen theme (data-theme, Nav.astro) wins over the system's: the other
+          art's sources are switched off, and the alt follows what is shown. */}
+      <script is:inline>
+        (function () {
+          var pic = document.currentScript.previousElementSibling, img = pic.querySelector('img'), root = document.documentElement;
+          var light = matchMedia('(prefers-color-scheme: light)');
+          var set = function (el, name, value) {
+            if (value == null || value === '') { if (el.hasAttribute(name)) el.removeAttribute(name); }
+            else if (el.getAttribute(name) !== value) el.setAttribute(name, value);
+          };
+          var sync = function () {
+            var chosen = root.dataset.theme === 'light' || root.dataset.theme === 'dark' ? root.dataset.theme : '';
+            var shown = chosen || (light.matches ? 'light' : 'dark');
+            pic.querySelectorAll('source').forEach(function (s) {
+              var base = s.getAttribute('data-media'), art = s.getAttribute('data-theme-art');
+              set(s, 'media', chosen ? (art === chosen ? base : 'not all')
+                : art === 'light' ? (base ? base + ' and ' : '') + '(prefers-color-scheme: light)' : base);
+            });
+            set(img, 'src', img.getAttribute('data-' + (chosen || 'dark') + '-src'));
+            set(img, 'alt', img.getAttribute('data-' + shown + '-alt'));
+          };
+          sync();
+          new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+          light.addEventListener('change', sync);
+        })();
+      </script>
+    </>
+  ) : hero ? (
     <picture>
       <source media="(max-width: 640px)" type="image/avif" srcset={phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
       <source media="(max-width: 640px)" type="image/webp" srcset={phoneWebp} sizes={phoneSizes} width={pw} height={ph} />

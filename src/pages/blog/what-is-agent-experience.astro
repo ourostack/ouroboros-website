@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import PostByline from '../../components/PostByline.astro'
 import { ogPathFor, pageOg } from '../../data/og'
 import modelReviews from '../../data/model-reviews.json'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
@@ -10,6 +11,8 @@ const description = 'Agent Experience is the design surface that appears when an
 const { claimSentence: calloutClaim } = getModelReviewClaims(modelReviews)
 const reviewedHarnessCount = modelReviews.harnesses.length
 const reviewsTitle = pageOg['/lab/model-reviews'].title
+const datePublished = "2026-03-08"
+const dateModified = "2026-10-15"
 ---
 
 <Layout
@@ -29,8 +32,8 @@ const reviewsTitle = pageOg['/lab/model-reviews'].title
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
-      "datePublished": "2026-03-08",
-      "dateModified": "2026-10-15",
+      "datePublished": datePublished,
+      "dateModified": dateModified,
       "url": "https://ouroboros.bot/blog/what-is-agent-experience/"
     })} />
   </Fragment>
@@ -48,7 +51,7 @@ const reviewsTitle = pageOg['/lab/model-reviews'].title
         <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
           The moment an agent has to stay oriented inside a system across time, memory, and interruptions, the agent becomes a user too. UX now holds two experiences. HX. <span class="font-display text-scale">AX</span>.
         </p>
-        <p class="text-sm text-mist mt-5">Ari Mendelow &middot; March 2026 &middot; Updated October 2026</p>
+        <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
       </div>
     </div>
   </section>

@@ -1,9 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import PostByline from '../../components/PostByline.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'Stop being the glue between your agents'
 const description = "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed."
+const datePublished = "2026-02-02"
+const dateModified = "2026-03-06"
 ---
 
 <Layout
@@ -23,8 +26,8 @@ const description = "We were promised an intelligent assistant, and we got a fra
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
-      "datePublished": "2026-02-02",
-      "dateModified": "2026-03-06",
+      "datePublished": datePublished,
+      "dateModified": dateModified,
       "url": "https://ouroboros.bot/blog/stop-being-the-glue/"
     })} />
   </Fragment>
@@ -42,7 +45,7 @@ const description = "We were promised an intelligent assistant, and we got a fra
         <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
           How I stopped copy-pasting between my agents and started collaborating.
         </p>
-        <p class="text-sm text-mist mt-5">Ari Mendelow &middot; February 2026</p>
+        <PostByline authors={["Ari Mendelow"]} published={datePublished} />
       </div>
     </div>
   </section>

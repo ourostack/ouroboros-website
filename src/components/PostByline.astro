@@ -1,0 +1,24 @@
+---
+// A post's byline: its authors, the month it was published and, when it has
+// changed since, the month it was updated. Pass the same ISO dates the post's
+// JSON-LD uses, so the visible dates and the metadata can't drift apart.
+interface Props {
+  authors: string[];
+  published: string;
+  updated?: string;
+  class?: string;
+}
+
+const { authors, published, updated, class: className = 'mt-5' } = Astro.props;
+
+const month = (iso: string) =>
+  new Date(`${iso.slice(0, 10)}T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const publishedMonth = month(published);
+const updatedMonth = updated ? month(updated) : undefined;
+const escape = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const parts = [authors.join(' & '), publishedMonth];
+if (updatedMonth && updatedMonth !== publishedMonth) parts.push(`Updated ${updatedMonth}`);
+// Joined with &middot; as the posts always wrote it, so their HTML stays the same.
+---
+<p class={`text-sm text-mist ${className}`} set:html={parts.map(escape).join(' &middot; ')} />

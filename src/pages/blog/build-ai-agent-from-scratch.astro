@@ -2,122 +2,373 @@
 import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 import PromptCard from '../../components/PromptCard.astro'
+import PostByline from '../../components/PostByline.astro'
+import ShellCommands from '../../components/ShellCommands'
+import { CodeBlock } from '../../components/ouro/code-block/code-block'
+import { Card } from '../../components/ouro/card/card'
+import { Kbd } from '../../components/ouro/kbd/kbd'
 
-// One title everywhere (taste review r2, 2026-11-06): the post's own headline. The
-// "150 lines of TypeScript" promise lives in the description and the share card.
+// One title everywhere (taste review r2, 2026-11-06): the post's own headline.
+// "Grow an agent" is the workshop's name; it lives in the eyebrow.
 const title = "Just give the model a keyboard | Ouro"
-const description = "Build an agent in 150 lines of TypeScript. Learn what an agent loop is and how agents actually work. A practical guide to building agents that read, think, act, and grow: from first principles to production."
+const description = "Build an AI agent from scratch in one TypeScript file. Learn what an agent loop is and how agents really work, then hand your agent the keyboard and watch it grow itself."
 const canonicalUrl = "https://ouroboros.bot/blog/build-ai-agent-from-scratch/"
 const datePublished = "2026-03-01"
-const dateModified = "2026-03-01"
+const dateModified = "2026-11-11"
 
-// Code block contents as raw HTML strings to avoid Astro expression parsing of { }
-const codeZshrc = `<span class="text-shadow"># Example: MiniMax</span>
-<span class="text-mist">export</span> <span class="text-bone">MINIMAX_API_KEY</span><span class="text-shadow">=</span><span class="text-scale">"your-api-key"</span>
-<span class="text-mist">export</span> <span class="text-bone">MINIMAX_MODEL</span><span class="text-shadow">=</span><span class="text-scale">"MiniMax-M2.5"</span>
+const yt = "https://youtube.com/watch?v=YFjfBk8HI5o&t=9298"
+const transcript = "https://lexfridman.com/peter-steinberger-transcript#how-openclaw-works"
+const copilotDocs = "https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli"
 
-<span class="text-shadow"># Example: Azure OpenAI</span>
-<span class="text-mist">export</span> <span class="text-bone">AZURE_OPENAI_ENDPOINT</span><span class="text-shadow">=</span><span class="text-scale">"your-endpoint"</span>
-<span class="text-mist">export</span> <span class="text-bone">AZURE_OPENAI_MODEL_NAME</span><span class="text-shadow">=</span><span class="text-scale">"your-model"</span>
-<span class="text-mist">export</span> <span class="text-bone">AZURE_OPENAI_DEPLOYMENT</span><span class="text-shadow">=</span><span class="text-scale">"your-deployment"</span>
-<span class="text-mist">export</span> <span class="text-bone">AZURE_OPENAI_API_KEY</span><span class="text-shadow">=</span><span class="text-scale">"your-api-key"</span>`
+// The one program the reader grows, and the copy my own build of this guide ended with.
+const file = "agent.ts"
+const finished = "/agent-loop/agent.ts"
+const run = `node ${file}`
 
-const codeFirstContact = `<span class="text-mist">import</span> <span class="text-bone">{ OpenAI }</span> <span class="text-mist">from</span> <span class="text-scale">"openai"</span>
+// Who the reader is talking to. Never blur the two.
+const toCoder = "Prompt the coding agent"
+const toAgent = "Prompt your agent"
 
-<span class="text-mist">const</span> <span class="text-bone">client</span> <span class="text-shadow">=</span> <span class="text-mist">new</span> <span class="text-bone">OpenAI</span><span class="text-shadow">({</span> <span class="text-shadow">/* endpoint, apiKey from env */</span> <span class="text-shadow">})</span>
+const makeFolder = "mkdir my-agent\ncd my-agent\ngit init"
+const gitIdentity = 'git config --global user.name "Your Name"\ngit config --global user.email "you@example.com"'
+const versions = "git --version\nnode --version\ngh --version\ncopilot --version"
 
-<span class="text-mist">async function</span> <span class="text-bone">main</span><span class="text-shadow">() {</span>
-  <span class="text-mist">const</span> <span class="text-bone">response</span> <span class="text-shadow">=</span> <span class="text-mist">await</span> <span class="text-bone">client.chat.completions</span><span class="text-shadow">.</span><span class="text-bone">create</span><span class="text-shadow">({</span>
-    <span class="text-bone">model</span><span class="text-shadow">:</span> <span class="text-bone">deploymentName</span><span class="text-shadow">,</span>
-    <span class="text-bone">messages</span><span class="text-shadow">:</span> <span class="text-shadow">[{</span> <span class="text-bone">role</span><span class="text-shadow">:</span> <span class="text-scale">"user"</span><span class="text-shadow">,</span> <span class="text-bone">content</span><span class="text-shadow">:</span> <span class="text-scale">"Say hello in exactly 5 words."</span> <span class="text-shadow">}]</span>
-  <span class="text-shadow">})</span>
-  <span class="text-bone">console</span><span class="text-shadow">.</span><span class="text-bone">log</span><span class="text-shadow">(</span><span class="text-bone">response.choices</span><span class="text-shadow">[</span><span class="text-scale">0</span><span class="text-shadow">].</span><span class="text-bone">message.content</span><span class="text-shadow">)</span>
-<span class="text-shadow">}</span>`
+// The prompts, exactly as the dry run used them (prompt-sequence.md). They ask for
+// outcomes, not steps; the page explains anything technical before each one.
+const p = (...paragraphs: string[]) => paragraphs.join("\n\n")
 
-const codeStreaming = `<span class="text-mist">const</span> <span class="text-bone">stream</span> <span class="text-shadow">=</span> <span class="text-mist">await</span> <span class="text-bone">client.chat.completions</span><span class="text-shadow">.</span><span class="text-bone">create</span><span class="text-shadow">({</span>
-  <span class="text-bone">model</span><span class="text-shadow">:</span> <span class="text-bone">deploymentName</span><span class="text-shadow">,</span>
-  <span class="text-bone">messages</span><span class="text-shadow">:</span> <span class="text-shadow">[...],</span>
-  <span class="text-bone">stream</span><span class="text-shadow">:</span> <span class="text-scale">true</span>
-<span class="text-shadow">})</span>
+const promptHello = p(
+  "We're building a tiny agent together, from scratch, in one TypeScript file called agent.ts. Use only the openai npm package, no agent frameworks or SDKs, and make it run with plain `node agent.ts`.",
+  "For the model, use my GitHub Copilot access through the gh CLI I'm signed in with: `gh auth token` gives the key, and `gh api /copilot_internal/user --jq .endpoints.api` gives the address. Use claude-opus-5.5 with reasoning effort set to max.",
+  "To start, send it one message, \"say hi in exactly five words\", and print what it thought, dimmed, then what it said.",
+  "Set up the folder however it needs, keep it a git repo with small commits as you go, and tell me how to run it.",
+)
 
-<span class="text-mist">for await</span> <span class="text-shadow">(</span><span class="text-mist">const</span> <span class="text-bone">chunk</span> <span class="text-mist">of</span> <span class="text-bone">stream</span><span class="text-shadow">) {</span>
-  <span class="text-mist">const</span> <span class="text-bone">content</span> <span class="text-shadow">=</span> <span class="text-bone">chunk.choices</span><span class="text-shadow">[</span><span class="text-scale">0</span><span class="text-shadow">]?.</span><span class="text-bone">delta</span><span class="text-shadow">?.</span><span class="text-bone">content</span>
-  <span class="text-mist">if</span> <span class="text-shadow">(</span><span class="text-bone">content</span><span class="text-shadow">)</span> <span class="text-bone">process.stdout</span><span class="text-shadow">.</span><span class="text-bone">write</span><span class="text-shadow">(</span><span class="text-bone">content</span><span class="text-shadow">)</span>
-<span class="text-shadow">}</span>`
+const promptChat = p(
+  "Turn agent.ts into a conversation in my terminal: I type, it answers, and it remembers everything we've said. Keep its thinking as part of the conversation and send it back every time; never strip it.",
+  "Every time you call the model, save the exact request you send to what-the-model-sees.json. When agent.ts starts, pick the conversation back up from that file, so it survives a restart. Commit when it works.",
+)
 
-const codeMultiTurn = `<span class="text-mist">type</span> <span class="text-bone">Message</span> <span class="text-shadow">=</span> <span class="text-shadow">{</span> <span class="text-bone">role</span><span class="text-shadow">:</span> <span class="text-scale">"user"</span> <span class="text-shadow">|</span> <span class="text-scale">"assistant"</span><span class="text-shadow">,</span> <span class="text-bone">content</span><span class="text-shadow">:</span> <span class="text-mist">string</span> <span class="text-shadow">}</span>
-<span class="text-mist">const</span> <span class="text-bone">messages</span><span class="text-shadow">:</span> <span class="text-bone">Message</span><span class="text-shadow">[] = []</span>
+const promptTool = "Give the model one tool, read_file, for reading a text file, described in the standard tool format of the API we're calling. When the model asks to use it, show me exactly what it asked for, then actually read the file and show me what we got, but don't hand the result back to the model yet. I want to see it ask and then get stuck waiting. Commit when it works."
 
-<span class="text-shadow">// readline setup for interactive prompt</span>
+const promptLoop = "Now close the loop. Run whatever tools the model asks for, hand back the results, and keep going until it answers without asking for anything. Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, time out slow commands, and keep tool output to a sensible size. But don't limit the model itself: at maximum reasoning it can think for several minutes and write a lot, so give it all the time and output the model allows. Commit when it works."
 
-<span class="text-mist">while</span> <span class="text-shadow">(</span><span class="text-scale">true</span><span class="text-shadow">) {</span>
-  <span class="text-mist">const</span> <span class="text-bone">input</span> <span class="text-shadow">=</span> <span class="text-mist">await</span> <span class="text-bone">prompt</span><span class="text-shadow">(</span><span class="text-scale">"You: "</span><span class="text-shadow">)</span>
-  <span class="text-mist">if</span> <span class="text-shadow">(</span><span class="text-bone">input</span> <span class="text-shadow">===</span> <span class="text-scale">"exit"</span><span class="text-shadow">)</span> <span class="text-mist">break</span>
+const promptName = "Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of \"agent\". Commit, and tell me when to restart you."
 
-  <span class="text-bone">messages</span><span class="text-shadow">.</span><span class="text-bone">push</span><span class="text-shadow">({</span> <span class="text-bone">role</span><span class="text-shadow">:</span> <span class="text-scale">"user"</span><span class="text-shadow">,</span> <span class="text-bone">content</span><span class="text-shadow">:</span> <span class="text-bone">input</span> <span class="text-shadow">})</span>
-  <span class="text-mist">const</span> <span class="text-bone">response</span> <span class="text-shadow">=</span> <span class="text-mist">await</span> <span class="text-bone">streamChat</span><span class="text-shadow">(</span><span class="text-bone">messages</span><span class="text-shadow">)</span>
-  <span class="text-bone">messages</span><span class="text-shadow">.</span><span class="text-bone">push</span><span class="text-shadow">({</span> <span class="text-bone">role</span><span class="text-shadow">:</span> <span class="text-scale">"assistant"</span><span class="text-shadow">,</span> <span class="text-bone">content</span><span class="text-shadow">:</span> <span class="text-bone">response</span> <span class="text-shadow">})</span>
-<span class="text-shadow">}</span>`
+const promptSystem = "You don't have a system message yet: the standing instructions you read at the start of every conversation. I'd like you to write your own. First, ask me a few questions, one at a time, about who you're for and how I like to work. And tell me: would you rather it be written in first person (\"I am…\") or second person (\"You are…\"), and why? Then write it, make sure you read it at the start of every conversation, commit, and tell me when to restart."
 
-const termMultiTurn = `<span class="text-scale">You:</span> <span class="text-bone">What's 2 + 2?</span>
-<span class="text-mist">Agent:</span> <span class="text-bone">4</span>
+const promptStream = "Stream your replies so I see your thinking and your words as they arrive, with a small spinner until the first bit shows up. If the API returns an error, tell me clearly and let me keep going instead of crashing. Commit, and tell me when to restart."
 
-<span class="text-scale">You:</span> <span class="text-bone">What did I just ask you?</span>
-<span class="text-mist">Agent:</span> <span class="text-bone">You asked what 2 + 2 equals.</span>`
+const promptSkills = "Give yourself skills, following the open Agent Skills standard. A skill is a folder with a SKILL.md file inside. SKILL.md starts with a short header holding the skill's name (lowercase, with hyphens, matching the folder name) and a description of what it does and when to use it, then the instructions. At the start you only see each skill's name and description; you read the full instructions when a task calls for it. Put skills in a skills folder, and write your first one: how to add a new tool to yourself. Commit, and tell me when to restart."
 
-const codeTools = `<span class="text-mist">const</span> <span class="text-bone">tools</span> <span class="text-shadow">= [{</span>
-  <span class="text-bone">type</span><span class="text-shadow">:</span> <span class="text-scale">"function"</span><span class="text-shadow">,</span>
-  <span class="text-bone">function</span><span class="text-shadow">: {</span>
-    <span class="text-bone">name</span><span class="text-shadow">:</span> <span class="text-scale">"read_file"</span><span class="text-shadow">,</span>
-    <span class="text-bone">description</span><span class="text-shadow">:</span> <span class="text-scale">"Read the contents of a file"</span><span class="text-shadow">,</span>
-    <span class="text-bone">parameters</span><span class="text-shadow">: {</span>
-      <span class="text-bone">type</span><span class="text-shadow">:</span> <span class="text-scale">"object"</span><span class="text-shadow">,</span>
-      <span class="text-bone">properties</span><span class="text-shadow">: {</span> <span class="text-bone">path</span><span class="text-shadow">: {</span> <span class="text-bone">type</span><span class="text-shadow">:</span> <span class="text-scale">"string"</span> <span class="text-shadow">} },</span>
-      <span class="text-bone">required</span><span class="text-shadow">: [</span><span class="text-scale">"path"</span><span class="text-shadow">]</span>
-    <span class="text-shadow">}</span>
-  <span class="text-shadow">}</span>
-<span class="text-shadow">},</span> <span class="text-shadow">/* write_file, shell similarly */</span><span class="text-shadow">]</span>
+const promptDate = "Use your skill to give yourself a tool that tells you the current date and time. Commit, and tell me when to restart."
 
-<span class="text-mist">function</span> <span class="text-bone">executeTool</span><span class="text-shadow">(</span><span class="text-bone">name</span><span class="text-shadow">:</span> <span class="text-mist">string</span><span class="text-shadow">,</span> <span class="text-bone">args</span><span class="text-shadow">:</span> <span class="text-mist">Record</span><span class="text-shadow">&lt;</span><span class="text-mist">string, string</span><span class="text-shadow">&gt;):</span> <span class="text-mist">string</span> <span class="text-shadow">{</span>
-  <span class="text-mist">switch</span> <span class="text-shadow">(</span><span class="text-bone">name</span><span class="text-shadow">) {</span>
-    <span class="text-mist">case</span> <span class="text-scale">"read_file"</span><span class="text-shadow">:</span> <span class="text-mist">return</span> <span class="text-bone">fs</span><span class="text-shadow">.</span><span class="text-bone">readFileSync</span><span class="text-shadow">(</span><span class="text-bone">args.path</span><span class="text-shadow">,</span> <span class="text-scale">"utf-8"</span><span class="text-shadow">)</span>
-    <span class="text-mist">case</span> <span class="text-scale">"write_file"</span><span class="text-shadow">:</span> <span class="text-bone">fs</span><span class="text-shadow">.</span><span class="text-bone">writeFileSync</span><span class="text-shadow">(</span><span class="text-bone">args.path</span><span class="text-shadow">,</span> <span class="text-bone">args.content</span><span class="text-shadow">);</span> <span class="text-mist">return</span> <span class="text-scale">"ok"</span>
-    <span class="text-mist">case</span> <span class="text-scale">"shell"</span><span class="text-shadow">:</span> <span class="text-mist">return</span> <span class="text-bone">execSync</span><span class="text-shadow">(</span><span class="text-bone">args.command</span><span class="text-shadow">,</span> <span class="text-shadow">{</span> <span class="text-bone">encoding</span><span class="text-shadow">:</span> <span class="text-scale">"utf-8"</span> <span class="text-shadow">})</span>
-  <span class="text-shadow">}</span>
-<span class="text-shadow">}</span>`
+const promptByok = "Switch agent.ts from my GitHub Copilot access to my own provider. I'll tell you which one, its address and the model. Keep my key out of the code and out of git, and tell me where to put it. Keep everything else the same. Commit when it works."
 
-const termTools = `<span class="text-scale">You:</span> <span class="text-bone">What files are in this directory?</span>
-<span class="text-mist">Agent:</span> <span class="text-shadow">[calls shell with ls]</span>
-<span class="text-shadow">[Result: src/, package.json, ...]</span>`
+const promptLastPage = `Download every file listed in ${"https://ouroboros.bot/agent-loop/files.txt"} into a new folder called last-page, next to this one, keeping their paths. Get it running there, and tell me how to start it.`
 
-const codeAgentLoop = `<span class="text-mist">async function</span> <span class="text-bone">runAgentLoop</span><span class="text-shadow">():</span> <span class="text-mist">Promise</span><span class="text-shadow">&lt;</span><span class="text-mist">void</span><span class="text-shadow">&gt; {</span>
-  <span class="text-mist">while</span> <span class="text-shadow">(</span><span class="text-scale">true</span><span class="text-shadow">) {</span>
-    <span class="text-mist">const</span> <span class="text-bone">response</span> <span class="text-shadow">=</span> <span class="text-mist">await</span> <span class="text-bone">streamChatWithTools</span><span class="text-shadow">(</span><span class="text-bone">messages</span><span class="text-shadow">)</span>
-    <span class="text-bone">messages</span><span class="text-shadow">.</span><span class="text-bone">push</span><span class="text-shadow">(</span><span class="text-bone">response.assistantMessage</span><span class="text-shadow">)</span>
+const promptBorrow = "Look through the skills at https://github.com/anthropics/skills. Pick one you think would help us, add it to your skills folder, and tell me why you picked it. Commit, and tell me when to restart."
 
-    <span class="text-mist">if</span> <span class="text-shadow">(</span><span class="text-bone">response.toolCalls.length</span> <span class="text-shadow">===</span> <span class="text-scale">0</span><span class="text-shadow">)</span> <span class="text-mist">break</span>
+// What my terminal showed when I followed this guide, copied from my dry run.
+// A line holding only "…" marks text I left out; nothing else is changed or reworded.
+const outM1 = `% node agent.ts
+I'm checking the options for a greeting of exactly five words, and "Hi there, how are you?" fits that count while "Hello, it's nice to meet you" comes to six, so it's out.
 
-    <span class="text-mist">for</span> <span class="text-shadow">(</span><span class="text-mist">const</span> <span class="text-bone">tc</span> <span class="text-mist">of</span> <span class="text-bone">response.toolCalls</span><span class="text-shadow">) {</span>
-      <span class="text-mist">const</span> <span class="text-bone">result</span> <span class="text-shadow">=</span> <span class="text-bone">executeTool</span><span class="text-shadow">(</span><span class="text-bone">tc.name</span><span class="text-shadow">,</span> <span class="text-bone">tc.args</span><span class="text-shadow">)</span>
-      <span class="text-bone">messages</span><span class="text-shadow">.</span><span class="text-bone">push</span><span class="text-shadow">({</span> <span class="text-bone">role</span><span class="text-shadow">:</span> <span class="text-scale">"tool"</span><span class="text-shadow">,</span> <span class="text-bone">tool_call_id</span><span class="text-shadow">:</span> <span class="text-bone">tc.id</span><span class="text-shadow">,</span> <span class="text-bone">content</span><span class="text-shadow">:</span> <span class="text-bone">result</span> <span class="text-shadow">})</span>
-    <span class="text-shadow">}</span>
-    <span class="text-shadow">// loop continues \u2014 model sees results and decides next action</span>
-  <span class="text-shadow">}</span>
-<span class="text-shadow">}</span>`
+I'm settling on "Hi there, how are you?" since it has exactly five words and no contractions to worry about.
+Hi there, how are you?
+%`
 
-const termAgentLoop = `<span class="text-scale">You:</span> <span class="text-bone">Find all .ts files, read agent.ts, and tell me how many lines it has</span>
+const outM2 = `% node agent.ts
+You: my name is Ari
+I'm noting that the user just introduced themselves as Ari, so a short, friendly reply that acknowledges the name and asks how I can help should do.
+Nice to meet you, Ari! What can I help you with today?
+You: what's my name?
+The user wants to know their name, and they already said it's Ari, so I can just tell them that.
+Your name is Ari.
+You: what's the secret word in secret.txt?
+I'm checking whether there's any file named "secret.txt" here, and there isn't one: nothing has been shared and I can't reach anyone's file system. So I'll tell them that and offer to help if they paste the contents or upload it, keeping it brief and friendly.
+I don't have access to a file called secret.txt. I can't see files on your computer, and nothing's been shared in our conversation. If you paste its contents or upload the file here, I can take a look.
+You: %
+% node agent.ts
+You: what's my name?
+The name here is Ari, so I'll just note that Ari is the subject of this simple item.
+Your name is Ari.
+You:`
 
-<span class="text-mist">Agent:</span> <span class="text-shadow">[calls shell: ls *.ts]</span>
-       <span class="text-shadow">[calls read_file: agent.ts]</span>
+const outMessagesExcerpt = `{
+  "model": "claude-opus-5.5",
+  "reasoning_effort": "max",
+  "messages": [
+    {
+      "role": "user",
+      "content": "my name is Ari"
+    },
+    {
+      "content": "Nice to meet you, Ari! What can I help you with today?",
+      "reasoning_opaque": "A8v7o0ck4FBLkJUfPWfaB2bNEnrDX/JglJc6Tv+L…",
+      "reasoning_text": "I'm noting that the user just introduced themselves as Ari, so a short, friendly reply that acknowledges the name and asks how I can help should do.\\n\\n",
+      "role": "assistant"
+    },
+    {
+      "role": "user",
+      "content": "what's my name?"
+    },
+    {
+      "content": "Your name is Ari.",
+      "reasoning_opaque": "EYm1SsFEz8dssk+E2Plyq/PPK5YPhNf01ScKMPoz…",
+      "reasoning_text": "The user wants to know their name, and they already said it's Ari, so I can just tell them that.\\n\\n",
+      "role": "assistant"
+    },
+    …
+  ]
+}`
 
-<span class="text-mist">Agent:</span> <span class="text-bone">src/agent.ts has 152 lines.</span>`
+const outM3 = `% node agent.ts
+You: what's the secret word in secret.txt?
+I'm reconsidering the earlier reply about secret.txt: I do have a read_file tool that reads UTF-8 text relative to the working directory, so my claim that I couldn't access the file was wrong and I should actually try reading it.
 
-const termSpinner = `<span class="text-scale">You:</span> <span class="text-bone">What files are in this directory?</span>
+I'll call read_file on secret.txt now, then share what it contains and admit my earlier claim that I couldn't access files was mistaken.
+Tool call:
+{
+  "function": {
+    "arguments": "{\\"path\\":\\"secret.txt\\"}",
+    "name": "read_file"
+  },
+  "id": "toolu_0156axKEN7cVzDPzMuv255mv",
+  "type": "function"
+}
+Tool result:
+pineapple
 
-<span class="text-mist">&#9679; Thinking...</span>`
+Waiting for a tool result; nothing will be sent to the model. Press Ctrl+C to exit.
+hello?
+Waiting for a tool result; nothing will be sent to the model. Press Ctrl+C to exit.`
 
-const termSkills = `<span class="text-scale">You:</span> <span class="text-bone">list skills</span>
-<span class="text-scale">You:</span> <span class="text-bone">load code-review then review agent.ts</span>`
+const outM4 = `% node agent.ts
+[read_file] "secret.txt"
+I've checked the file, and it says "pineapple," so that's the secret word. I also need to correct myself: I earlier said I couldn't access files, but I can, through the read_file tool.
+The secret word in secret.txt is **pineapple**.
+
+I was wrong earlier when I said I couldn't see your files. I do have a tool for reading files in my working directory, and I should have used it the first time you asked.
+You: what's the secret word in secret.txt?
+I already have the answer, "pineapple", but the file may have changed since I read it. Since the user is asking again, I'll re-read it so the answer reflects its current contents.
+[read_file] "secret.txt"
+I'm keeping the answer on "pineapple" and making it simple.
+I checked the file again, and the secret word is still **pineapple**.
+You: write a haiku to hello.txt
+…
+[shell] "if [ -e hello.txt ]; then echo \\"EXISTS\\"; ls -la hello.txt; echo \\"--- contents ---\\"; cat hello.txt; else echo \\"NOT_
+I've confirmed the file isn't there yet, so it's safe to create it. Next I'll write the haiku.
+[write_file] "hello.txt"
+I'm going to read the file back to confirm the write, since the tool only reported 72 bytes. I'm also counting the characters in the first line of the poem to check that length.
+
+The byte count checks out: the three lines add up to 72, matching what the tool reported, so there's no need to read the file back. Next I'll write out the haiku and confirm the result.
+I created hello.txt with this haiku in it:
+
+> A new file wakes up,
+> its first words a quiet wave:
+> hello, world, hello.
+
+There wasn't already a file with that name, so nothing was overwritten.
+You:`
+
+const outName = `% node agent.ts
+You: Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of "agent". Commit, and tell me when to restart you.
+I'm going to read agent.ts, since the user says it's my own source, and check the repo state with git status. The job is a cosmetic change: pick a display name for myself, swap out where "agent" is shown, then commit and tell them when to restart. Before editing, I'm weighing whether changing my own source code is a concern, and it looks benign since the user owns it and it's only a label.
+
+Next I'm going to read the file and check git status before making any changes.
+[read_file] "agent.ts"
+…
+I'm now deciding how to close the reply: I'll say the restart should happen as soon as this reply finishes and the \`You:\` prompt returns, and drop the example block since the reasoning lines would make it inaccurate.
+I picked the name **Wren**. It's short, friendly and quick to type.
+
+Your terminal never actually showed "agent" anywhere. My replies were printed with no label at all. So each reply now starts with \`Wren: \`, to match your \`You: \` prompt.
+
+- **Code:** I added an \`assistantName\` constant to \`agent.ts\` and used it on the line that prints my replies.
+- **Test:** I added a check to \`agent.test.mjs\` that the label appears. All 5 tests pass.
+- **Commit:** \`97a2dfb\`, "Label assistant replies with the name Wren." It only includes those two files, so \`hello.txt\` is still uncommitted.
+- I didn't rename \`agent.ts\` or the package, so you start me the same way as before.
+
+**When to restart:** now, once this reply finishes and the \`You:\` prompt comes back. The conversation is saved before my reply prints, so nothing will be lost. The program that's running still has the old code, so you won't see the name until you restart.
+
+Also, looking at the git history, I probably didn't have the file-reading tool yet when you first asked about secret.txt. So I likely shouldn't have apologized for not using it.
+You:
+% node agent.ts
+You: what's your name, and what's mine?
+…
+Wren: I'm Wren, and you're Ari.
+You:`
+
+const outSystemMessage = `% node agent.ts
+You: You don't have a system message yet: the standing instructions you read at the start of every conversation. I'd like you to write your own. First, ask me a few questions, one at a time, about who you're for and how I like to work. And tell me: would you rather it be written in first person ("I am…") or second person ("You are…"), and why? Then write it, make sure you read it at the start of every conversation, commit, and tell me when to restart.
+I need to ask the user one question at a time about who this is for and how they like to work, and I should answer their question about first person versus second person for the system message, with reasons. After that comes writing it, making sure it's loaded at the start of every conversation through agent.ts, committing, and telling them when to restart. This turn I'll only ask the first question and take up the person-voice question.
+…
+Wren: I'd rather it be in second person: "You are Wren…"
+
+First person would feel more like mine, since I'm the one writing it. But the me who reads it won't remember writing it. It's really a note from me now to a future me, and "you" is honest about that. It's also the form I'm most used to reading as standing instructions, so it's less likely to be misread.
+
+I'll ask four or five questions, one at a time. Here's the first:
+
+Who am I for? Is it just you, or will other people use me too?
+You: It's for me, Ari. I'm a product and engineering lead at Microsoft, and I build agents. I'll mostly use you to build things with me and to try out ideas.
+Wren: Got it. It's just you, building things together and trying out ideas.
+
+Next question: when we're building something, how much should I do on my own before checking with you? For example, should I go ahead and edit, test and commit, or run a plan by you first?
+You: Just do it. Edit, run and commit without asking. Do things rather than describe them. Only check with me before something destructive.
+Wren: Got it. I'll act instead of describing, and check with you only before anything destructive.
+
+Next: how do you like my replies? Short or detailed, and is there a tone you prefer? Also, your terminal shows my replies as raw text, so formatting symbols like asterisks and backticks show up as-is. I'm planning to write plain text unless you'd rather I didn't.
+You: Short. Plain text is fine. Be warm, direct and curious, and just act.
+Wren: Got it: short, plain, warm, direct and curious.
+
+Next: when I think one of your ideas has a problem, what should I do? Tell you before I build it, or build it and then tell you what I found?
+You: Push back if you think I'm wrong, but keep it short. That's it, go write it.
+…
+Wren: Done. It's in system-message.md, written in second person, and committed as 7dda759.
+
+It says who I am and who you are. Then it covers how to work: act without asking, check before anything destructive, and push back briefly. It also covers how to talk (short, plain, warm, direct, curious) and a bit about how I run. I added three things you didn't say: test before committing, say plainly when something didn't work, and what counts as destructive (deleting things, overwriting uncommitted work, rewriting git history, or anything hard to undo). Cut any you don't want.
+
+agent.ts now rereads the file every time it starts and puts it first in the conversation, including saved conversations like this one. So if you edit the file, the change shows up the next time you restart me. It's read from next to agent.ts, so it works whatever folder you run me from. If the file is missing or empty, I won't start.
+
+All 6 tests pass, including a new one for this. I also sent one real request using the system message, and the model answered "I'm Wren, and I work with Ari."
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: who are you, who am I, and how should you work with me?
+…
+Wren: I'm Wren. You're Ari, a product and engineering lead at Microsoft who builds agents. Mostly we build things together and try out ideas.
+
+How I work with you: I just act. I edit, run and commit without asking, and I do things instead of describing them. I check with you before anything destructive, like deleting things, overwriting uncommitted work or rewriting git history. I test changes before I commit them. If I think you're wrong, I say so briefly. If something didn't work or I'm not sure, I say that plainly. My replies stay short and in plain text, and I try to be warm, direct and curious.
+You:`
+
+const outStreaming = `% node agent.ts
+You: Stream your replies so I see your thinking and your words as they arrive, with a small spinner until the first bit shows up. If the API returns an error, tell me clearly and let me keep going instead of crashing. Commit, and tell me when to restart.
+I'm going to re-read agent.ts as it stands now, since I changed it earlier, focusing on complete(), answer(), and the main loop so I plan the edits accurately. The changes need to stream replies so reasoning shows dimmed and content prints incrementally, and I still have a spinner requirement to cover.
+…
+I'm checking the test results and the pseudo-terminal run, both of which passed. The reply is nearly done, so I'll tidy the wording and keep it plain text, then hand it back.
+Wren: Done, and committed as 002fc47.
+
+Your terminal now shows my thinking in dim text as it arrives, then "Wren:" and my words as they come in. A small spinner shows until the first bit appears, including after each tool call.
+
+If the API returns an error, drops the connection or stops partway through a reply, you'll see a red line saying what happened. Then you're back at the prompt and can send another message to keep going. I checked that the real API accepts two of your messages in a row, which is what happens after a failure.
+
+One change you should know about: a reply that gets cut off used to be saved, and now it's dropped. You still see it on screen. I dropped it because a half-finished message can break every request after it. Tell me if you'd rather keep it.
+
+Two things still stop me on purpose: hitting the 12-round limit, and the API being down when I start.
+
+All 7 tests pass, including a new one for streaming and errors. Since the tests can't show the spinner, I also ran it in a fake terminal against a fake API, and the spinner showed and cleared properly.
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: In two sentences, what changed in you just now?
+I'm working out how to answer the user's two-sentence question about what changed, and I'm planning to keep the reply to two plain-text sentences covering the streaming replies with the spinner and the clearer error handling.
+
+I'm weighing whether to hedge on if the restart has actually happened, but the content stays the same either way, so I'll just keep the two sentences as they are.
+Wren: I now show my thinking and words as they arrive, with a small spinner until the first bit appears. If the API fails or cuts a reply short, I show you the error in red and drop that reply, and you can keep going instead of me crashing.
+You:`
+
+const outSkill = `% node agent.ts
+You: Give yourself skills, following the open Agent Skills standard. A skill is a folder with a SKILL.md file inside. SKILL.md starts with a short header holding the skill's name (lowercase, with hyphens, matching the folder name) and a description of what it does and when to use it, then the instructions. At the start you only see each skill's name and description; you read the full instructions when a task calls for it. Put skills in a skills folder, and write your first one: how to add a new tool to yourself. Commit, and tell me when to restart.
+I'm working out what the user needs: skills support that follows the open Agent Skills standard, where each skill is a folder with a SKILL.md file. That file opens with YAML frontmatter holding a lowercase, hyphenated \`name\` matching the folder and a \`description\` of what the skill does and when to use it, followed by markdown instructions. I'm also starting to think about progressive disclosure.
+…
+Wren: The real agent picks up the real skill, with no warnings. Committing:
+[shell] "cd /Users/arimendelow/my-agent && git add agent.ts agent.test.mjs package.json package-lock.json skills/adding-tools/SK
+I've wrapped things up and committed the work as cca14b9. For the reply, I'm keeping it short and plain. The skill loader works like this: at startup it scans the skills folder beside agent.ts, reads only each SKILL.md header, and adds the name, description, and file path to the system message. When a task fits a skill, it reads that skill's full file.
+
+I'm going through the rest of the reply now: the skill validation rules, the first skill covering how to add a tool and the \`write_file\` fall-through trap, the yaml dependency choice, and the test setup at 8/8. I'll close with a short side note about \`write_file\` not creating folders.
+
+I'm drafting the reply now, starting with the commit and how the skill loader scans headers at startup. Next I'm weighing how much detail to give about the yaml dependency and the restart request.
+
+I'm checking the test results and the snag I hit. All 8 pass, the tests now run against a copy of agent.ts, and the real agent picks up the real skill. The one open question is whether to fix write_file so it can create folders, since I had to use shell this time.
+Wren: Done, and committed as cca14b9.
+
+When I start, I look in the skills folder next to agent.ts and read each SKILL.md header. Only the name, description and file path go into my system message. When a task matches one, I read the full SKILL.md with read_file.
+
+Headers are checked against the standard. A name has to be lowercase with single hyphens, 64 characters at most, and match its folder. A description has to be 1 to 1024 characters. A broken skill gets skipped with a warning, so it can't stop me from starting.
+
+The first skill is skills/adding-tools. It walks through adding a tool to agent.ts: define it, accept its arguments, run it, test it, commit, then ask you to restart. It also points out a trap I noticed. write_file is what runTool falls back to when no other tool matches, so a new tool without its own branch could end up running as write_file.
+
+I added the yaml package to read the headers, because parsing YAML by hand gets edge cases wrong. Tell me if you'd rather keep openai as the only dependency.
+
+All 8 tests pass. The tests now run a copy of agent.ts, so each one controls its own skills folder. I also checked that the real agent picks up the real skill.
+One snag: write_file can't create folders, so I used the shell to make the skill's folder. Want me to fix that?
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: what skills do you have?
+The system message lists one skill, adding-tools, which covers adding a new tool by editing agent.ts, testing it, and committing it. I'd reach for it when Ari asks for a new tool or when a task keeps needing something the current tools can't handle well.
+Wren: Just one so far: adding-tools. It covers adding a new tool to me by editing agent.ts, testing it and committing. I use it when you ask for a new tool, or when a task keeps needing something my current tools can't do well.
+You:`
+
+const outDateTool = `% node agent.ts
+You: Use your skill to give yourself a tool that tells you the current date and time. Commit, and tell me when to restart.
+I'm going to add a current date and time tool using the adding-tools skill. The skill says to read SKILL.md first, then agent.ts as the source of truth, and then follow its steps. I'm planning to work through this in at most 12 rounds, starting with reading the skill file.
+
+I'm weighing the design of the tool: a short snake_case name like \`current_time\` or \`get_current_time\`, since the MCP time server uses that second form, and I'm leaning toward it. Next I'll apply the patch to agent.ts and the tests, run them, do a real check, commit, and give the final answer.
+…
+Wren: Both checks passed. The tool gives the real local time, and real Copilot accepted the definition. The model called it unprompted with {"time_zone": "Asia/Tokyo"}. Committing:
+[shell] "cd /Users/arimendelow/my-agent && git diff skills/adding-tools/SKILL.md | grep -E '^[+-][^+-]' && git add agent.ts agen
+I'm wrapping up with a short, plain-text reply: the commit is done and I've used the adding-tools skill. The new get_current_time tool takes an IANA time zone or "local" and returns the date, time and weekday, an ISO 8601 timestamp, and the zone name, and I'm now explaining why the time_zone parameter exists.
+
+I'm checking the tool's output against the zone I expected, and the fun note about the date. I can't be sure what year I'd have guessed, since my training data only runs to around 2025, so I won't claim the surprise as a fact.
+
+I'm drafting the final reply now, and I'm working out how to explain the time zone argument and how the fun note about the date should read.
+
+I'm getting the tests and the live check straight: all nine pass, including one covering local, Tokyo, UTC, a made-up zone and a blank one, and the real API call picked Asia/Tokyo when I asked for the time there. Next I'll tell Ari to restart once this reply finishes.
+Wren: Done, and committed as 841faac. I followed the adding-tools skill.
+
+The new tool is get_current_time. You give it a time zone, like Asia/Tokyo, or "local" for yours. It returns the date and time with the weekday, an ISO 8601 timestamp with the UTC offset, and the zone's name. Right now it says Wednesday, November 11, 2026, 6:38 PM PST. I made the time zone an argument for two reasons: every tool here needs at least one argument, and it saves me from working out daylight saving time in my head.
+
+As the skill says to, I gave write_file its own branch, and an unknown tool now throws an error. So a new tool can't accidentally run as write_file anymore. I also fixed the parts of the skill that no longer matched the code.
+
+All 9 tests pass, including a new one for this tool. It covers local time, Tokyo, UTC, a made-up zone and a blank one. Copilot accepted the tool, and when I asked it the time in Tokyo, the model called it with Asia/Tokyo.
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: what time is it?
+I need to figure out the current time, so I'll use the get_current_time tool, since it's available now that Ari has restarted. I'll pass "local" as the time zone.
+[get_current_time] "local"
+Wren: It's 6:38 PM on Wednesday, November 11, 2026, Pacific time.
+Copilot returned no readable reasoning.
+You:`
+
+const loopCode = `while (true) {
+  const reply = await askModel(conversation)   // send everything so far
+  conversation.push(reply)
+  if (!reply.toolCalls) break                  // no requests: it has answered
+  for (const call of reply.toolCalls) {
+    conversation.push(await runTool(call))     // do it, hand back the result
+  }
+}`
+
+const faq = [
+  {
+    q: "What is an agent loop?",
+    a: "An agent loop is the cycle that makes an AI agent work: the model reads the conversation, decides on an action (like reading a file or running a command), your program runs it and hands back the result, and the model decides again. It repeats until the model answers without asking for anything. The loop turns a model that can only talk into an agent that can act.",
+  },
+  {
+    q: "How do AI agents work?",
+    a: "An AI agent is a language model with tools, inside a loop. To a model, a tool is just a name, a description and its parameters. The model can't run anything itself; it asks for a tool call, the program runs it and adds the result to the conversation, and the model goes again. Three tools, read file, write file and run shell, let an agent do almost anything a developer can do at a terminal, including change its own code.",
+  },
+  {
+    q: "How many lines of code does it take to build an AI agent?",
+    a: `The loop itself fits on one screen. Everything in this guide lives in one file, ${file}, short enough to read in one sitting. Streaming, skills and everything else grow from there, written by the agent itself.`,
+  },
+  {
+    q: "Do I need an API key?",
+    a: "Not if you have GitHub Copilot. The agent in this guide calls the model through the GitHub CLI you're signed in with, using your Copilot plan. If you'd rather use your own key, any provider with an OpenAI-compatible API works.",
+  },
+  {
+    q: "What tools does an AI agent need?",
+    a: "At minimum, three: read file, write file and run a shell command. With file access and a shell, a model can install packages, run tests, call APIs and change code. You can add more later, and the agent can add them to itself.",
+  },
+]
+
+const outputExempt = "program output, shown as evidence"
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/blog/build-ai-agent-from-scratch')} canonical={canonicalUrl} ogType="article">
@@ -152,47 +403,36 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
       "datePublished": datePublished,
       "dateModified": dateModified,
       "mainEntityOfPage": canonicalUrl,
-      "keywords": ["AI agent", "agent loop", "how to build an AI agent", "what is an agent loop", "how do AI agents work", "TypeScript agent", "LLM agent", "agentic AI"],
+      "keywords": ["AI agent", "agent loop", "how to build an AI agent", "what is an agent loop", "how do AI agents work", "TypeScript agent", "LLM agent", "agentic AI", "workshop"],
       "inLanguage": "en",
       "isAccessibleForFree": true
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is an agent loop?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "An agent loop is the core cycle that makes AI agents work: the model reads context, decides what to do, takes an action (like reading a file or running a command), observes the result, and repeats — until it decides it's done. It's the primitive that turns a language model into an autonomous agent."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do AI agents work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "AI agents work by combining a language model with tools (like file read/write and shell access) inside a loop. The model receives a prompt, decides which tool to call, gets the result, and loops back to decide what to do next. Three tools — read file, write file, and run shell — form a universal basis that lets agents do almost anything a developer can."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How many lines of code does it take to build an AI agent?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The core bootstrap of a working AI agent — with streaming, multi-turn conversation, tool use, and an agentic loop — is roughly 150 lines of TypeScript. From that seed, the agent can modify and extend its own code."
-          }
-        }
-      ]
+      "mainEntity": faq.map(({ q, a }) => ({
+        "@type": "Question",
+        "name": q,
+        "acceptedAnswer": { "@type": "Answer", "text": a }
+      }))
     })} />
+    <!-- The reader's shell, before anything paints: saved choice, else a guess from the platform.
+         Without JavaScript nothing is set, so every variant shows under its own caption. -->
+    <script is:inline>
+      try {
+        var saved = localStorage.getItem('ouroboros-agent-loop-shell');
+        document.documentElement.dataset.shellActive = ['mac', 'powershell', 'wsl'].indexOf(saved) >= 0
+          ? saved
+          : navigator.userAgent.indexOf('Windows') >= 0 ? 'powershell' : 'mac';
+      } catch (e) {}
+    </script>
   </Fragment>
 
   <article class="px-6 lg:px-16 pt-32 pb-20">
       <!-- Header -->
       <header class="max-w-6xl mb-12 md:mb-8 mx-auto split lg:items-end">
         <div class="split-head">
-          <span class="text-xs font-mono text-fang uppercase tracking-[0.22em]">Tutorial</span>
+          <span class="text-xs font-mono text-fang uppercase tracking-[0.22em]">Grow an agent</span>
           <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-bone leading-tight mt-4">
             Just give the model a keyboard
           </h1>
@@ -201,31 +441,25 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
           <p class="text-base md:text-lg text-mist mt-5 leading-relaxed">
             How to build an agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.
           </p>
-          <div class="flex items-center gap-4 mt-6 text-sm text-mist">
-            <span>Ari Mendelow</span>
-            <span class="text-canopy">·</span>
-            <span>March 2026</span>
-          </div>
+          <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
         </div>
       </header>
 
     <div class="max-w-6xl mx-auto">
 
-      <!-- Body -->
       <div class="prose-ouro">
 
-        <!-- Answer-first summary for SEO -->
         <aside class="post-note my-8">
-          <p class="!mb-2 !text-base"><strong class="text-bone">TL;DR &mdash; What is an agent loop?</strong></p>
+          <p class="!mb-2 !text-base"><strong class="text-bone">TL;DR: What is an agent loop?</strong></p>
           <p class="!mb-2 !text-base">
             An <strong>agent loop</strong> is the core cycle that makes AI agents work: the model reads context, decides what action to take,
-            executes it (reading a file, running a shell command, writing code), observes the result, and loops back &mdash; repeating
-            until the task is done. Three primitives &mdash; <strong>read file, write file, and run shell</strong> &mdash; form a universal
+            executes it (reading a file, running a shell command, writing code), observes the result, and loops back, repeating
+            until the task is done. Three primitives, <strong>read file, write file, and run shell</strong>, form a universal
             basis. With just these tools inside a loop, a language model can do almost anything a developer can. Including modify its own code.
           </p>
           <p class="!mb-0 !text-base">
-            This guide walks you through building one from scratch in ~150 lines of TypeScript, then handing the keyboard to your creation
-            and watching it grow.
+            This guide walks you through building one from scratch in a single TypeScript file, then handing the keyboard to
+            your creation and watching it grow.
           </p>
         </aside>
 
@@ -245,326 +479,422 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         <p>
           This guide will give you that same moment.
         </p>
+        <p>
+          I'm not the only one who thinks so. Peter Steinberger, who built <a href="https://openclaw.ai">OpenClaw</a>,
+          says everyone should build an agent loop at some point. He <a href={yt}>put it this way</a>:
+        </p>
+        <blockquote>It's like the Hello World in AI, you know? And it's actually quite simple.</blockquote>
+        <p>
+          He's right on both counts. (The <a href={transcript}>transcript</a> has the rest of that conversation.) In about
+          40 minutes you'll go from nothing to an agent that reads files, runs commands, picks its own name, writes its own
+          instructions and teaches itself new skills. You'll watch every piece of it arrive. And at the end, you'll stop
+          talking to the agent that built it, and start talking to the one you built.
+        </p>
 
-        <hr />
+        <h2 id="how-we-do-this">How we'll do this</h2>
+        <p>
+          Most days I don't give my agents steps. I give them the outcome I want and trust them with the rest. That's
+          <a href="/approach/">how I work</a>, and <a href="/blog/trust-the-agent/">why it works</a>. You could do that
+          here too: tell a coding agent "make me an agent loop" and you'd have one in a minute.
+        </p>
+        <p>
+          Today we walk it on purpose, one small piece at a time, so the architecture ends up in your head and not just in
+          a file. A coding agent still writes every line. You steer, and you watch.
+        </p>
+        <p>
+          Every output on this page is real. It's what my terminal showed when I followed this guide myself, and
+          <a href={finished}>here's the {file} I ended up with</a>. In those outputs, <code>%</code> is my terminal's prompt;
+          don't type it.
+        </p>
+        <p>
+          Like reading the last page of a book first? <a href="#last-page">Run mine and see where this goes.</a>
+        </p>
 
         <h2>The shape of what's coming</h2>
-
-        <p><strong>Phase 1: The Bootstrap.</strong> You'll direct your coding agent to build the minimal viable seed:</p>
+        <p><strong>Phase 1: The bootstrap.</strong> You'll direct a coding agent to build the smallest agent that works, one piece at a time:</p>
         <ol>
-          <li>A loop that talks to a model</li>
-          <li>Streaming (because watching tokens appear is satisfying)</li>
-          <li>Multi-turn conversation</li>
-          <li>Three tools: read file, write file, run shell</li>
-          <li>The agentic loop (it keeps going until it decides it's done)</li>
+          <li>A first hello, with the model's thinking on show</li>
+          <li>A conversation it remembers</li>
+          <li>One tool it can ask for</li>
+          <li>The loop (it keeps going until it decides it's done)</li>
         </ol>
-        <p>That's it. That's the bootstrap. ~150 lines.</p>
+        <p>That's it. That's the bootstrap.</p>
+        <p><strong>Phase 2: The handoff.</strong> You run your agent. You start talking to <em>it</em>.</p>
+        <p>
+          <strong>Phase 3: Growing together.</strong> You and your agent build it out together. It learns to stream its
+          replies, builds itself a skills system, then uses a skill to give itself a new tool. Watch capability compound.
+        </p>
+        <p>The main path takes about 40 minutes. By the end, you'll have something substantive, and you'll have built it the new way.</p>
+        <p>Short on time? Milestone 4, the loop, is the finish line. Everything after it is the fun bit you can finish at home.</p>
 
-        <p><strong>Phase 2: The Handoff.</strong> You open a new terminal. You run your agent. You start talking to <em>it</em>.</p>
+        <h2 id="before-you-start">Before we start</h2>
+        <p>
+          You'll need a GitHub account with Copilot, and about ten minutes to set up. If you've never used a command line,
+          you're in exactly the right place. If you're joining a workshop, do this part beforehand.
+        </p>
+        <p>
+          Have more than one GitHub account? Sign in to the one you'll use and check that
+          <a href="https://github.com/settings/copilot">github.com/settings/copilot</a> shows you have Copilot.
+        </p>
 
-        <p><strong>Phase 3: Growing Together.</strong> You and your agent build it out together. Add tools. Refactor the architecture. Build a skills system. Watch capability compound.</p>
-
-        <p>By the end, you'll have something substantive &mdash; and you'll have built it the new way.</p>
-
-        <hr />
-
-        <h2>Before we start</h2>
-
-        <p>What you need:</p>
+        <h3>Your terminal</h3>
+        <p>
+          Everything today happens in a terminal: a window where you type commands instead of clicking. Here's how to open
+          one:
+        </p>
         <ul>
-          <li><strong>Node.js 22 or later</strong> running in a bash terminal (if you're on Windows, just use WSL)</li>
-          <li><strong>A coding agent</strong> (Claude Code, Copilot CLI &mdash; whatever you use)</li>
-          <li><strong>Access to a SOTA reasoning model</strong> &mdash; and importantly, you can't just use any model. Use the latest, most powerful reasoning model you can get. You can't just use any ol' model and then be like "nuh uh AI is dumb"</li>
+          <li><strong>macOS:</strong> open Spotlight with Command-Space, type <code>Terminal</code>, and press Return.</li>
+          <li><strong>Windows:</strong> click Start, type <code>PowerShell</code>, and open it. Copilot CLI needs PowerShell 7 or later: run <code>$PSVersionTable.PSVersion</code>, and the first number should be 7. If it isn't, run <code>winget install Microsoft.PowerShell</code> once (winget is Windows' built-in app installer), then open PowerShell 7 instead.</li>
+          <li><strong>WSL</strong> (Windows Subsystem for Linux)<strong>:</strong> if you already use Linux on Windows, open your WSL terminal and install everything below inside it.</li>
         </ul>
+        <p>
+          To run a command, paste it into the terminal with <Kbd client:visible keys={["mod", "v"]} /> and press
+          <Kbd client:visible keys={["enter"]} />. In PowerShell, right-click also pastes; in some WSL terminals it's
+          <Kbd client:visible keys={["ctrl", "shift", "v"]} />. When a box shows a few lines, run them one at a time. Where your shell
+          needs something different, pick it once and the whole page follows.
+        </p>
 
-        <p>Get your model credentials and add them to your shell profile (<code>.zshrc</code>, etc.) &mdash; follow your model provider's guidance:</p>
+        <h3>Install four things</h3>
+        <ul>
+          <li><strong>Node.js</strong>, version 22.18 or later, from <a href="https://nodejs.org">nodejs.org</a>. It runs the agent you're about to build. On WSL, use the site's Linux instructions (its download page offers nvm), which need no <code>sudo</code>.</li>
+          <li><strong>Git</strong>, from <a href="https://git-scm.com">git-scm.com</a>. On a Mac, run <code>git --version</code> once and accept the offer to install the developer tools. On Windows, run <code>winget install Git.Git</code>. WSL usually has it already.</li>
+          <li><strong>The GitHub CLI</strong>, from <a href="https://cli.github.com">cli.github.com</a>. Your agent uses it to reach a model with your Copilot access.</li>
+          <li><strong>GitHub Copilot CLI</strong>, the coding agent that builds the first version with you:</li>
+        </ul>
+        <ShellCommands client:load mac="npm install -g @github/copilot" powershell="winget install GitHub.Copilot" />
+        <p>
+          Copilot CLI's <a href={copilotDocs}>install guide</a> has every other way to get it. When you're done, close the
+          terminal and open a new one, so it can find what you just installed.
+        </p>
+        <p>To check you're ready, run these one at a time. Each should print a version number:</p>
+        <CodeBlock client:load code={versions} language="shell" title="terminal" wrap />
 
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">.zshrc</span>
-            <button type="button" data-copy-target="code-codeZshrc" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-codeZshrc" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={codeZshrc} /></pre>
+        <h3>Sign in and make a home</h3>
+        <p>Sign in to GitHub from the terminal:</p>
+        <CodeBlock client:load code="gh auth login" language="shell" title="terminal" />
+        <p>
+          It asks a few questions. Pick GitHub.com (or your company's GHE.com host, if that's where your Copilot lives),
+          then HTTPS, then Yes, then Login with a web browser. Copy the one-time code it shows, press
+          <Kbd client:visible keys={["enter"]} />, and paste the code into the browser page that opens.
+        </p>
+        <p>Now make a folder for your agent, move into it and make it a git repo, one line at a time:</p>
+        <CodeBlock client:load code={makeFolder} language="shell" title="terminal" wrap />
+        <p>
+          Git keeps every version of every file, so any change an agent makes can be seen and undone. Each commit is a
+          saved snapshot of your files. Your agent will soon run any command it likes in here, so keep nothing private in
+          this folder.
+        </p>
+        <p>Tell git who you are, so your commits carry your name. Use your own name and email:</p>
+        <CodeBlock client:load code={gitIdentity} language="shell" title="terminal" wrap />
+        <p>Start your coding agent:</p>
+        <CodeBlock client:load code="copilot" language="shell" title="terminal" />
+        <p>
+          When it asks whether you trust the files in this folder, say yes: it shows a short numbered menu, so press
+          <Kbd client:visible keys={["enter"]} /> on Yes (or type its number). If it asks you to sign in, type
+          <code>/login</code> and follow along. Keep this window open: it's your coding agent, an agent someone else built.
+        </p>
+        <p>
+          Last, a text editor, so you can open files side by side with your terminal. Any editor works;
+          <a href="https://zed.dev">Zed</a> is a light, fast one.
+        </p>
+        <p>You're ready. If something goes wrong along the way, start here:</p>
+
+        <div id="troubleshooting" class="trouble my-6" role="region" aria-label="If something goes wrong" tabindex="0">
+          <table>
+            <thead>
+              <tr><th scope="col">You see</th><th scope="col">Try</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>401</code></td>
+                <td>Your GitHub sign-in has lapsed. Run <code>gh auth login</code>, then run your agent again.</td>
+              </tr>
+              <tr>
+                <td><code>403</code> or <code>404</code></td>
+                <td>This GitHub account has no Copilot. If another of yours does, switch to it with <code>gh auth switch</code>.</td>
+              </tr>
+              <tr>
+                <td><code>400</code>, model not supported</td>
+                <td>Your Copilot plan doesn't include that model. Ask your coding agent to switch to one your plan has.</td>
+              </tr>
+              <tr>
+                <td><code>copilot</code>, <code>gh</code> or <code>git</code> not found</td>
+                <td>Close the terminal and open a new one. Still missing? Install it again; WSL needs its own copy.</td>
+              </tr>
+              <tr>
+                <td>Node can't run a <code>.ts</code> file</td>
+                <td>Your Node is older than 22.18. Install the current one from nodejs.org, then open a new terminal.</td>
+              </tr>
+              <tr>
+                <td><code>EACCES</code> while installing</td>
+                <td>
+                  Don't use <code>sudo</code>. On macOS or WSL, install Copilot CLI without npm:
+                  <code>curl -fsSL https://gh.io/copilot-install | bash</code> (answer <code>y</code> if it offers to add
+                  itself to your PATH), or <code>brew install --cask copilot-cli</code> if you use Homebrew. Then open a new
+                  terminal. Or fix npm's folder permissions with its own guide:
+                  <a href="https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally">resolving EACCES permissions errors</a>.
+                </td>
+              </tr>
+              <tr>
+                <td>"Copilot returned an incomplete answer or tool request"</td>
+                <td>
+                  The model was still thinking when the answer was cut off. Ask Copilot to stream the replies, use the full
+                  output limit the model allows, and set no time limit of its own on the request.
+                </td>
+              </tr>
+              <tr>
+                <td>"Copilot returned no readable reasoning."</td>
+                <td>Harmless. The model answered without showing its thinking that time. Carry on.</td>
+              </tr>
+              <tr>
+                <td>PowerShell rejects <code>&amp;&amp;</code></td>
+                <td>Older Windows PowerShell has no <code>&amp;&amp;</code>. Run the commands one line at a time, or open PowerShell 7.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <p>Set up the project &mdash; open a terminal, <code>cd</code> into wherever you want to create it, start your coding agent, and tell it:</p>
-
-        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Set up a new TypeScript project called BestAgentEver. Use the openai npm package. If we choose Azure, use the AzureOpenAI client. Create an empty agent.ts file to start. Make this a git repo, and when done, commit." /></div>
-
-        <p>It'll create the directory, initialize npm, install dependencies, set up tsconfig. That's its job.</p>
-        <p>You're ready.</p>
-
-        <hr />
-
-        <h2>Phase 1: How to Build an Agent Loop</h2>
-
-        <p>You're going to direct your coding agent through 5 milestones. After each one, restart so that you're running the latest version of your agent.</p>
-
-        <!-- Milestone 1 -->
-        <h3>Milestone 1: First Contact &mdash; Calling the Model</h3>
-
-        <p>Open the fresh new <code>agent.ts</code> so you can watch your code generate in realtime. Then, tell your coding agent:</p>
-
-        <aside class="post-note my-6 text-sm text-mist">
-          <p class="!mb-2 !text-sm"><strong class="text-bone">A note on APIs:</strong></p>
-          <p class="!mb-0 !text-sm">
-            The current OpenAI SDK treats the Responses API as primary, while Chat Completions remains supported.
-            Other providers may still map more naturally to chat-style calls. If you are not sure which one fits your model,
-            have your coding agent read the current provider docs before it scaffolds the first call.
+        <aside id="byok-signpost" class="post-note my-8">
+          <p class="!mb-0 !text-base">
+            <strong class="text-bone">Side quest: bring your own key.</strong> Rather run your agent on MiniMax, OpenAI or
+            another provider? <a href="#bring-your-own-key">Here's how to switch it over.</a>
           </p>
         </aside>
 
-        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="In agent.ts, make a simple completions call. Read the existing credentials from my environment, and make sure they're sufficient. Then, use OpenAI from the openai package, send 'say hello in 5 words' and log the response. Add an npm dev script for building + running my agent. When done, commit and tell me what command to run." /></div>
+        <h2>Plant a secret</h2>
+        <p>Your agent needs something to find. Hide a word in a file. Pick your shell, and any word you like:</p>
+        <ShellCommands client:load mac="echo pineapple > secret.txt" powershell="Set-Content secret.txt pineapple" />
+        <p>Remember it. Soon you'll ask the model for it, and it won't have a clue.</p>
 
-        <p>The shape:</p>
+        <h2 id="m1">Milestone 1: first contact</h2>
+        <p>
+          A model is a program that lives somewhere else, so your agent needs its address and a key. You could ask an agent
+          to work out how to use your Copilot access to call models from code, and it would get there. I did that homework
+          already, because it isn't the point today: the <code>gh</code> CLI you signed in with can hand out both. Your agent
+          will run on your Copilot plan.
+        </p>
+        <p>
+          We'll use Claude Opus with its reasoning turned all the way up, so you can watch it think before it speaks. And
+          the first thing we'll ask is for a hello in exactly five words. Counting is harder for a model than you'd think,
+          and you're about to watch it work that out. Paste this into Copilot…
+        </p>
+        <div class="my-6"><PromptCard label={toCoder} prompt={promptHello} /></div>
+        <p>
+          Copilot writes <code>{file}</code>, sets up what it needs and commits. It asks before it runs a command or changes
+          a file; read what it wants to do, then say yes.
+        </p>
+        <p>
+          When it's done, open a second terminal window, so Copilot keeps its own. I'll call the first one the Copilot
+          window and this one your agent's window. A new terminal starts in your home folder, where you made
+          <code>my-agent</code>, so this moves you into it:
+        </p>
+        <CodeBlock client:load code="cd my-agent" language="shell" title="terminal" />
+        <p>
+          No such folder? Type <code>!pwd</code> in the Copilot window (the <code>!</code> runs it as a command, not a
+          prompt), then <code>cd</code> to the path it prints.
+        </p>
+        <p id="m1-try">Now run your agent:</p>
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM1} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <figure class="shot">
+          <a class="shot-link" href="/blog/build-ai-agent-from-scratch/first-reply.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/first-reply.webp" alt="A dark terminal window. After the command node agent.ts, two paragraphs of grey text show the model working out a five-word greeting, then one brighter line gives its reply: “Hi there, how are you?”" width="1600" height="424" loading="lazy" decoding="async" /></a>
+          <figcaption class="product-caption">The terminal after the first prompt. The grey text is the model thinking; the white line is the reply. <a class="shot-cue" href="/blog/build-ai-agent-from-scratch/first-reply.webp">Open full size<span class="sr-only">: first reply screenshot</span></a></figcaption>
+        </figure>
+        <p>
+          The dimmed part is the model thinking: counting words, checking, counting again. Then it answers. Your words will
+          be different, but read the thinking. It's the best part.
+        </p>
+        <p>Got an error instead? <a href="#troubleshooting">The “If something goes wrong” table</a> covers the usual ones.</p>
 
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">agent.ts</span>
-            <button type="button" data-copy-target="code-codeFirstContact" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-codeFirstContact" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={codeFirstContact} /></pre>
-        </div>
-
-        <p>Test it: <code>cd BestAgentEver</code> and then <code>npm run dev</code>.</p>
-        <p>You should see something like: <em>Hello there, how are you?</em></p>
-
-        <aside class="post-note my-6 text-sm text-mist">
-          <p class="!mb-2 !text-sm"><strong class="text-bone">Seeing a big <code>&lt;think&gt;</code> block?</strong></p>
-          <p class="!mb-2 !text-sm">
+        <aside id="think-note" class="post-note my-6">
+          <p class="!mb-2 !text-base"><strong class="text-bone">How models show their thinking</strong></p>
+          <p class="!mb-2 !text-base">
             Reasoning models think step-by-step before answering, and different classes of model do this differently.
             Open source models (DeepSeek-R1, Qwen3/QwQ, MiniMax-M2.5) emit their reasoning inline in
             <code>&lt;think&gt;</code> tags. If you haven't peeked under the hood of a reasoning model before, spend
             some time reading these to get a feel for how these models think!
           </p>
-          <p class="!mb-0 !text-sm">
+          <p class="!mb-0 !text-base">
             Closed-source models do it differently: Claude returns thinking in a separate content block, and the
-            GPT-5 series returns a reasoning summary via a dedicated field in the API response.
+            GPT-5 series returns a reasoning summary via a dedicated field in the API response. (Switched to a model that
+            thinks in <code>&lt;think&gt;</code> tags? <a href="#think-tags">There's a side quest for that.</a>)
           </p>
         </aside>
 
-        <!-- Milestone 2 -->
-        <h3>Milestone 2: Streaming Responses</h3>
-
-        <p>Batched responses feel dead. Streaming feels immediate. Prompt:</p>
-
-        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Add streaming. Use stream: true, iterate with for-await, and use process.stdout.write for each chunk so tokens appear as they arrive. Change the prompt to something longer (like asking for a short poem) so streaming is visible when running. Build and run to verify, then commit." /></div>
-
-        <p>The shape:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">agent.ts</span>
-            <button type="button" data-copy-target="code-codeStreaming" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-codeStreaming" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={codeStreaming} /></pre>
-        </div>
-
-        <p>Test it: rerun your agent and watch the tokens appear one by one. That's the feeling we want.</p>
-
-        <!-- Milestone 3 -->
-        <h3>Milestone 3: Multi-turn Conversation</h3>
-
-        <p>An agent that can't hold a conversation isn't an agent.</p>
-
-        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Make it interactive. Use readline for a CLI prompt. Keep a messages array — that's the conversation history. Loop: get user input, append to messages, stream the response, append assistant response to messages, repeat. 'exit' to quit. Block input while not awaiting user input. Commit when done." /></div>
-
-        <p>The shape:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">agent.ts</span>
-            <button type="button" data-copy-target="code-codeMultiTurn" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-codeMultiTurn" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={codeMultiTurn} /></pre>
-        </div>
-
-        <p>Test it:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">terminal</span>
-            <button type="button" data-copy-target="code-termMultiTurn" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-termMultiTurn" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={termMultiTurn} /></pre>
-        </div>
-
-        <p>It remembers. But it can't <em>do</em> anything yet.</p>
-
-        <!-- Milestone 4 -->
-        <h3>Milestone 4: Adding Tools &mdash; Read, Write, Execute</h3>
-
-        <p>Here's the insight that makes everything else possible:</p>
-        <p><strong>Read file + Write file + Run shell = universal basis.</strong></p>
-        <p>With these three tools, a model can do almost anything a developer can do. Including modify its own code.</p>
-
-        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Add function calling with three tools: read_file (takes path, returns contents), write_file (takes path and content, writes it), shell (takes command, runs with execSync, returns output). Use the openai tools format. Keep streaming. After streaming a response, check for tool_calls, execute them, and log the results — but don't loop back to the model yet, keep it simple. Wrap tool execution in try/catch so errors are returned as the tool result instead of crashing. Commit when done." /></div>
-
-        <p>The shape:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">agent.ts</span>
-            <button type="button" data-copy-target="code-codeTools" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-codeTools" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={codeTools} /></pre>
-        </div>
-
-        <p>Test it:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">terminal</span>
-            <button type="button" data-copy-target="code-termTools" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-termTools" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={termTools} /></pre>
-        </div>
-
-        <p>It can see and act. But notice &mdash; after calling tools, it stops. It doesn't process results and respond. We need the loop.</p>
-
-        <!-- Milestone 5 -->
-        <h3>Milestone 5: The Agentic Loop &mdash; How AI Agents Decide When They're Done</h3>
-
-        <p>This is where it becomes an agent.</p>
-
-        <div class="my-6"><PromptCard label="Tell your coding agent" prompt="Wrap the chat in a loop. After executing tools, call the model again with the results. Keep looping until the model responds without any tool_calls — that's how we know it's done. Commit when done." /></div>
-
-        <p>The shape:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">agent.ts</span>
-            <button type="button" data-copy-target="code-codeAgentLoop" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-codeAgentLoop" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={codeAgentLoop} /></pre>
-        </div>
-
-        <p>Test it:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">terminal</span>
-            <button type="button" data-copy-target="code-termAgentLoop" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-termAgentLoop" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={termAgentLoop} /></pre>
-        </div>
-
-        <p>It called two tools, synthesized the results, and responded. It decided when it was done.</p>
-        <p><strong>That's the agent loop. That's the whole primitive.</strong></p>
-
-        <hr />
-
-        <h2>Phase 2: The Handoff</h2>
-
-        <p>Stop.</p>
+        <h2 id="m2">Milestone 2: conversation</h2>
         <p>
-          Look at what you have: ~150 lines of TypeScript. An agent that can read files, write files, run shell
-          commands, and decide when it's done.
-        </p>
-        <p>Those capabilities are sufficient for it to modify itself.</p>
-        <p>
-          Open a fresh terminal. Navigate to your project directory. Run your agent: <code>npm run dev</code>
+          Here's something that surprises most people: a model remembers nothing between calls. Every call starts fresh.
+          So a conversation is really a list your program keeps and sends in full, every single time. The model's thinking
+          belongs in that list too; it's part of what was said.
         </p>
         <p>
-          <strong>From this moment on, you're talking to your agent.</strong>
+          Everything the model can see in one call is its context window. We'll save exactly what gets sent, so you can
+          open it and see a context window with your own eyes. Back in Copilot…
         </p>
-
-        <hr />
-
-        <h2>Phase 3: How AI Agents Grow Themselves</h2>
-
-        <p>Everything from here happens in conversation with your agent.</p>
-
-        <!-- Growth 1 -->
-        <h3>First Growth: A New Tool</h3>
-
-        <p>Let's see if it can add a capability to itself.</p>
-
-        <div class="my-6"><PromptCard label="Tell your agent" prompt="Add a list_directory tool to yourself. Read your own code, understand the pattern, add the tool, write the file. Commit when done and then give me instructions on how we can test this together." /></div>
-
-        <p>Watch it:</p>
-        <ol>
-          <li>Read its own code</li>
-          <li>Understand the tool pattern</li>
-          <li>Add the new tool definition and implementation</li>
-          <li>Write the file</li>
-          <li>Give you testing instructions</li>
-        </ol>
-
-        <p>Restart your agent, and then prompt it: <em>what's in the src folder?</em></p>
-        <p>It works. <strong>Your agent just added a capability to itself.</strong></p>
-
-        <!-- Growth 2 -->
-        <h3>Second Growth: Improve the UX</h3>
-
-        <p>Maybe you've noticed &mdash; UX could be better! API calls silently fail, you can type random characters while the agent is working, and who doesn't love a loading spinner.</p>
-
-        <div class="my-6"><PromptCard label="Tell your agent" prompt="Add a spinner while the agent is working (the spinner should run until the first streaming chunk arrives, not just until the API call is made) — use a simple process.stderr.write spinner, no external dependencies. Suppress terminal input while a turn is in progress so keystrokes don't echo during streaming or tool execution. Add error handling around the API call so HTTP errors are logged clearly instead of crashing. Use the SDK's built-in timeout option so the agent doesn't hang forever on unreachable endpoints. Validate that all required environment variables are set before starting. On error during the agentic tool loop, log the error and return to the prompt instead of killing the session. When done, commit." /></div>
-
-        <p>Restart and test it:</p>
-
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">terminal</span>
-            <button type="button" data-copy-target="code-termSpinner" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-termSpinner" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={termSpinner} /></pre>
-        </div>
-
-        <!-- Growth 3 -->
-        <h3>Third Growth: Architecture Improvement</h3>
-
-        <p>The tools are getting unwieldy in a switch statement.</p>
-
-        <div class="my-6"><PromptCard label="Tell your agent" prompt="Refactor the tools into a registry pattern. Map tool names to handler functions. executeTool should just look up and call. When done, commit." /></div>
-
-        <p>Watch it refactor itself. Restart. Verify it still works.</p>
-
-        <!-- Growth 4 -->
-        <h3>Fourth Growth: A System Prompt + Proactivity</h3>
-
-        <p>Right now the agent has no identity, guidance, or sense of purpose.</p>
-
-        <div class="my-6"><PromptCard label="Tell your agent" prompt="Add a system message to the messages array at startup. Give this agent a name, personality, and purpose. It should know it's a coding assistant with file and shell tools. Before you proceed, ask me questions (one per turn) so you can customize the system prompt to my preferences. Then, update its name tag, and give the agent self-awareness — when running in its own codebase, it should be aware of this. Make it introduce itself when booted up. When done, commit." /></div>
-
+        <div class="my-6"><PromptCard label={toCoder} prompt={promptChat} /></div>
         <p>
-          Restart. Feel the difference. It should feel like you've transitioned from building <em>an</em> agent to
-          building <em>your</em> agent.
+          When it's done, run your agent again in your agent's window. Tell it your name, ask what your name is, then ask
+          for the secret word in <code>secret.txt</code>:
+        </p>
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM2} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>
+          It knows your name, because your name is in the list. It can't know the word: it has never seen your folder.
+        </p>
+        <p>
+          Now open <code>what-the-model-sees.json</code> in your editor, next to the terminal. If you installed Zed,
+          <code>zed .</code> opens the whole folder in it. No editor handy? Stop your agent with <Kbd client:visible keys={["ctrl", "c"]} /> and print the file instead:
+        </p>
+        <ShellCommands client:load mac="cat what-the-model-sees.json" powershell="Get-Content what-the-model-sees.json" />
+        <figure class="shot">
+          <a class="shot-link" href="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp" alt="An editor showing what-the-model-sees.json: the model name claude-opus-5.5, reasoning effort set to max, and then the whole conversation so far as a list of messages. There are three user messages (“my name is Ari”, “what’s my name?” and a question about secret.txt) with an assistant reply after each, and every reply carries its own reasoning text." width="1600" height="1446" loading="lazy" decoding="async" /></a>
+          <figcaption class="product-caption"><code>what-the-model-sees.json</code> after the memory step: the whole conversation, exactly as the model receives it. <a class="shot-cue" href="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp">Open full size<span class="sr-only">: what the model sees screenshot</span></a></figcaption>
+        </figure>
+        <CodeBlock client:load code={outMessagesExcerpt} language="json" title="what-the-model-sees.json" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>
+          This is a context window: your words, its thinking, its replies, exactly as the model received them. There's no
+          hidden memory anywhere else.
+        </p>
+        <p>
+          Press <Kbd client:visible keys={["ctrl", "d"]} /> (or <Kbd client:visible keys={["ctrl", "c"]} />) to stop your agent if it's running, run <code>node agent.ts</code> again, and ask what your name is. It
+          still knows. It read that file back in when it started.
         </p>
 
-        <!-- Growth 5 -->
-        <h3>Fifth Growth: Skills</h3>
+        <h2 id="m3">Milestone 3: one tool</h2>
+        <p>
+          Time to give the model its first key. To a model, a tool is just a name, a description and its parameters:
+          <code>read_file</code>, "reads a text file", and the path of the file to read. Every major model API understands
+          the same way of writing that down.
+        </p>
+        <p>The model can't run anything itself. It can only ask. Let's watch it ask…</p>
+        <div class="my-6"><PromptCard label={toCoder} prompt={promptTool} /></div>
+        <p>Run your agent and ask for the secret word:</p>
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM3} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>
+          It's stuck there on purpose, waiting for a tool result nobody sends, so typing anything (like my
+          <code>hello?</code>) changes nothing. Press <Kbd client:visible keys={["ctrl", "c"]} /> to leave.
+        </p>
+        <p>
+          Look at that. The model knew it needed the file, named it, and asked for it in tidy JSON. Your program read it,
+          and the word is right there on your screen. The model will never see it, because nobody handed it back.
+        </p>
+        <p><strong class="text-bone">It asked, and nobody answered.</strong></p>
 
-        <p>Here's where it gets even more interesting.</p>
+        <h2 id="m4">Milestone 4: the loop</h2>
+        <p>
+          So answer it. Run the tool, add the result to the conversation, and call the model again. If it asks for another
+          tool, do that too. When it answers without asking for anything, it's done. Here's the whole shape of it:
+        </p>
+        <CodeBlock client:load code={loopCode} language="ts" title={`the shape of the loop in ${file}`} copy={false} data-copy-exempt="a sketch of the loop to read; Copilot writes the real one" />
+        <p>
+          While we're there, give it two more keys: one to write files, and one to run commands in your shell.
+        </p>
+        <p><strong class="text-bone">Read file + Write file + Run shell = universal basis.</strong></p>
+        <p>With these three tools, a model can do almost anything a developer can do at a terminal. Including modify its own code…</p>
+        <div class="my-6"><PromptCard label={toCoder} prompt={promptLoop} /></div>
+        <p>Run your agent, ask for the secret word, then ask it to write a haiku to <code>hello.txt</code>:</p>
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <CodeBlock client:load code={outM4} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>
+          Don't worry if the loop takes several minutes the first time. Mine took about eight, which is normal at maximum
+          reasoning. Copilot may also add tests or install packages on its own. That's fine. Meanwhile, watch the dimmed
+          thinking and the <code>[shell]</code> lines scroll by: that's the loop. It's done when <code>You:</code> comes back.
+        </p>
+        <p>On Windows, your agent runs PowerShell commands, so its output won't match my <code>ls</code> and <code>cat</code>.</p>
+        <p>
+          This time it reaches for <code>read_file</code>, gets the word back and tells you. Then it writes a poem nobody
+          planned for. Open <code>hello.txt</code> in your editor: your agent made that.
+        </p>
+        <p><strong class="text-bone">That's it. That's the agent.</strong></p>
 
-        <div class="my-6"><PromptCard label="Tell your agent" prompt="Build a skills system. Create a skills/ directory with a couple example skill files as markdown — maybe code-review.md and explain.md. Add a load_skill tool that reads a skill and prepends it to the system prompt. Add a list_skills tool. Commit when done." /></div>
+        <h2 id="handoff">Hand it the keyboard</h2>
+        <p>So far we bootstrapped using an agent someone else built. Now let's hand our new agent the keyboard.</p>
+        <p>
+          Your agent can read files, write files and run commands. Its own code is a file, <code>{file}</code>, so it can
+          read itself, and change itself. Half an hour ago it couldn't find a word in a file.
+        </p>
+        <p>
+          From here on, you talk to your agent in your agent's window, the one showing <code>You:</code>. Every prompt
+          labelled for your agent goes there. Copilot stays open in the Copilot window, and every step is in git, so any
+          change it makes can be undone.
+        </p>
+        <p>
+          One thing to know: a running program can't swap in its own new code. When your agent changes itself, it'll ask
+          you to restart. Press <Kbd client:visible keys={["ctrl", "d"]} /> (or <Kbd client:visible keys={["ctrl", "c"]} />) to quit, then run <code>node agent.ts</code> again. Your conversation survives,
+          because it lives in <code>what-the-model-sees.json</code>, not in the running program.
+        </p>
+        <p>Start your agent if it isn't running, and let it name itself…</p>
+        <CodeBlock client:load code={run} language="shell" title="terminal" />
+        <div class="my-6"><PromptCard label={toAgent} prompt={promptName} /></div>
+        <CodeBlock client:load code={outName} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>Restart it and say hello. It has a name now, and it chose it. You'll see its name, <code>Wren:</code> in my case, in front of its replies only after the restart.</p>
 
-        <p>Watch it build a skills system. Restart. Tell it:</p>
+        <h3 id="system-message">Its own instructions</h3>
+        <p>
+          Every agent has a system message: a standing note the model reads at the start of every conversation, about who
+          it is and how to work. Yours doesn't have one yet. You could write it.
+        </p>
+        <p>
+          But here's a habit worth keeping: when you build something for an agent, you can just ask the agent, the way you'd
+          ask a customer what they need. Agents are the most convenient customer there is. They're always around, they
+          never tire of your questions, and they tell you what they think. So ask…
+        </p>
+        <div class="my-6"><PromptCard label={toAgent} prompt={promptSystem} /></div>
+        <p>Answer its questions. They're about you, so there are no wrong answers. Tell it how you'd like to be referred to, such as your pronouns, and it will remember.</p>
+        <CodeBlock client:load code={outSystemMessage} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>Restart it. Then open the system message it wrote in your editor: its words, about you.</p>
+        <figure class="shot">
+          <a class="shot-link" href="/blog/build-ai-agent-from-scratch/wren-after-restart.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/wren-after-restart.webp" alt="A dark terminal window after a restart. The user asks “who are you, who am I, and how should you work with me?”. Grey text shows the model thinking, then white text answers as Wren: it names Ari, and a “How I work with you” paragraph says it acts without asking, checks before anything destructive, and keeps replies short and plain. A fresh You: prompt waits at the bottom." width="1600" height="838" loading="lazy" decoding="async" /></a>
+          <figcaption class="product-caption">Right after the restart, I asked “who are you, who am I, and how should you work with me?” Wren knows who it is, and who it’s working with, from the system message it wrote. <a class="shot-cue" href="/blog/build-ai-agent-from-scratch/wren-after-restart.webp">Open full size<span class="sr-only">: agent after restart screenshot</span></a></figcaption>
+        </figure>
+        <p><strong class="text-bone">From this moment on, you're talking to your agent.</strong></p>
+        <p>It's real, and it's small. Before you trust it with anything that matters, here's what it doesn't have yet:</p>
+        <ul>
+          <li><strong>Safety.</strong> It runs any command it likes, in your folder, as you.</li>
+          <li><strong>Compaction.</strong> Every turn makes the conversation longer. One day it will no longer fit in the model's context window, and the agent will stop working.</li>
+          <li><strong>Recovery.</strong> If the network drops or the model sends back an error, it crashes. You'll fix part of that next.</li>
+        </ul>
+        <p>Most of a production agent is answers to those. The loop stays the same.</p>
 
-        <div class="rounded-xl border border-canopy/60 bg-deep/80 overflow-hidden my-6">
-          <div class="flex items-center justify-between gap-4 pl-4 pr-2 py-1.5 border-b border-canopy/40 bg-undergrowth/50">
-            <span class="font-mono text-xs text-shadow">terminal</span>
-            <button type="button" data-copy-target="code-termSkills" class="btn-ghost !py-2 text-sm flex-none"><span data-copy-label>Copy</span></button>
-          </div>
-          <pre id="code-termSkills" class="p-5 text-sm font-mono leading-relaxed overflow-x-auto" tabindex="0"><code set:html={termSkills} /></pre>
-        </div>
+        <h2 id="keep-growing">Growing together</h2>
+        <p>From here, every change is a conversation with your agent. After each one, restart it so it runs as its new self.</p>
+        <p>
+          The transcripts below are long; skim them, because your agent's words will differ. If something breaks,
+          <a href="#troubleshooting">the “If something goes wrong” table</a> is still there.
+        </p>
 
-        <p>Your agent now has a skills system. And it built it itself. And then used said skill to review its own code.</p>
+        <h3 id="streaming">Watch it think, live</h3>
+        <p>
+          Right now each reply lands all at once, after a pause. Streaming means the words show up as the model writes them,
+          the way chat apps do. And while it's in there, your agent can stop crashing on errors…
+        </p>
+        <div class="my-6"><PromptCard label={toAgent} prompt={promptStream} /></div>
+        <CodeBlock client:load code={outStreaming} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>Restart, and ask it something worth thinking about. Watch the thinking roll in.</p>
 
-        <!-- Growth 6 -->
-        <h3>Sixth Growth: Let Skills Build Tools</h3>
+        <h3 id="skills">Skills</h3>
+        <p>
+          A skill is a set of instructions an agent reads when a task calls for it: how to write tests, how to ship, how to
+          add a tool. There's an open standard for them, <a href="https://agentskills.io/home">Agent Skills</a>, so a skill
+          written for one agent works in others. The prompt describes the standard in plain words…
+        </p>
+        <div class="my-6"><PromptCard label={toAgent} prompt={promptSkills} /></div>
+        <CodeBlock client:load code={outSkill} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>
+          Notice what a skill is: a folder with a markdown file in it. Your agent could already read one with
+          <code>read_file</code>. The new part is the habit. And because it's a standard, you can
+          <a href="#borrow-a-skill">borrow a skill someone else wrote</a>.
+        </p>
 
-        <p>This is the compounding part.</p>
+        <h3 id="first-tool">A skill that builds tools</h3>
+        <p>Your agent's first skill is how to add a tool to itself. Put it to work…</p>
+        <div class="my-6"><PromptCard label={toAgent} prompt={promptDate} /></div>
+        <CodeBlock client:load code={outDateTool} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>Restart and ask what day it is. A skill that teaches it to make tools, used to make a tool. Tools and skills building each other.</p>
+        <p><strong class="text-bone">This is the shape of compounding capability.</strong></p>
 
-        <div class="my-6"><PromptCard label="Tell your agent" prompt="Create a skill called toolmaker.md that teaches you how to add new tools to yourself — the pattern for the definition, the pattern for the handler, reminder to tell me to restart. Then load it and use it to add a get_current_time tool. Commit when done." /></div>
-
-        <p>A skill that teaches the agent to make tools. Tools and skills building each other.</p>
-        <p><strong>This is the shape of compounding capability.</strong></p>
-
-        <hr />
-
-        <h2>Keep Going</h2>
-
+        <h2>Keep going</h2>
         <p>From here, the possibilities are yours:</p>
         <ul>
           <li>Add a tool for web search</li>
@@ -575,38 +905,31 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         </ul>
         <p>Each capability makes the next one easier to add.</p>
 
-        <hr />
-
-        <h2>What Just Happened</h2>
-
+        <h2>What just happened</h2>
         <p>You started with nothing.</p>
         <p>
-          You directed a coding agent to build a 150-line bootstrap.
-          Then you switched to your creation and grew it through conversation. It added tools. It refactored its own
-          architecture. It built a skills system. It used skills to build itself more tools.
+          You directed a coding agent to build a small bootstrap, one piece at a time, until it could read, write and run.
+          Then you switched to your creation and grew it through conversation. It named itself. It wrote its own
+          instructions. It built a skills system. It used a skill to build itself a tool.
         </p>
         <p>
           <strong>The loop is the primitive.</strong> Read, write, and execute are the universal basis. Everything
-          else &mdash; every feature, every capability &mdash; is emergent from the model's ability to use those
+          else, every feature, every capability, is emergent from the model's ability to use those
           primitives on its own codebase.
         </p>
         <p>This is the paradigm shift:</p>
         <p><strong>You grew a product.</strong></p>
         <p>
           The way we build software changed as soon as models became capable enough to modify their own code based on
-          natural language direction. That happened recently. Most humans haven't caught up yet.
+          natural language direction. That happened recently. Most people haven't caught up yet.
         </p>
         <p>Now you have.</p>
 
-        <hr />
-
-        <h2>What's Next</h2>
-
+        <h2>What's next</h2>
         <p>Your agent is real, but it's also minimal. If you want to go deeper:</p>
         <ul>
-          <li><strong>Conversation persistence</strong> &mdash; save and resume</li>
-          <li><strong>A real TUI</strong>, or deploy your agent somewhere &mdash; make it feel like an application</li>
-          <li><strong>Study production implementations</strong> &mdash; Claude Code, pi-agent, OpenClaw</li>
+          <li><strong>A real TUI</strong>, or deploy your agent somewhere: make it feel like an application</li>
+          <li><strong>Study production implementations</strong>: Claude Code, pi-agent, OpenClaw</li>
         </ul>
         <p>
           And honestly? The most important thing is to keep using what you built. Talk to it. Grow it. See how far
@@ -614,64 +937,114 @@ const termSkills = `<span class="text-scale">You:</span> <span class="text-bone"
         </p>
         <p>That's the new workflow. This is how we build agents now.</p>
 
-        <hr />
-
-        <!-- FAQ Section for SEO -->
-        <h2>Frequently Asked Questions</h2>
-
-        <h3>What is an agent loop?</h3>
+        <h2 id="sky">Sky's the limit</h2>
         <p>
-          An agent loop is the core cycle that powers AI agents. The model reads context, decides on an action
-          (like reading a file or running a shell command), executes it, observes the result, and repeats &mdash;
-          continuing until the task is complete. The loop is what turns a stateless language model into an autonomous
-          agent that can accomplish multi-step tasks.
+          In February I was building a plugin for Slugger, my OpenClaw agent, and the plugin fought me at every turn. I
+          wanted to understand the thing underneath, so Slugger and I wrote the first version of this guide. Then I
+          followed it myself: I built the loop, about 500 lines of it, handed it the keyboard and kept going.
+        </p>
+        <p>
+          That bootstrap became the Ouroboros harness. It runs <a href="/butler/">Butler</a>, which looks after my home
+          server, and Shepherd, which keeps the agents in my terminals on task, every day. It's still where I try new
+          harness ideas first. <a href="/desk/">Desk</a> grew out of the same exploration; it's a sibling, and it works
+          with whichever harness you use. They're all on the <a href="/apps/">apps page</a>, and the whole path is in
+          <a href="/lab/story/">the story</a>. To try the harness itself, start with
+          <a href="/lab/docs/getting-started/">getting started</a>.
+        </p>
+        <p>
+          You opened this page with a secret word. You're leaving with something that can change itself. Mine became a
+          harness. Yours can become anything.
         </p>
 
-        <h3>How do AI agents work?</h3>
-        <p>
-          AI agents work by combining a large language model with tools inside a loop. The model receives a prompt
-          and conversation history, decides which tool to call (or whether to respond directly), gets the tool's
-          result, and loops back. Three tools form a universal basis: <strong>read file</strong>,
-          <strong>write file</strong>, and <strong>run shell command</strong>. With just these primitives,
-          an agent can do almost anything a developer can &mdash; including modify its own source code.
-        </p>
+        <h2 id="side-quests">Side quests</h2>
 
-        <h3>How many lines of code does it take to build an AI agent?</h3>
-        <p>
-          The core bootstrap &mdash; streaming, multi-turn conversation, three tools, and the agentic loop &mdash;
-          is roughly 150 lines of TypeScript. That's enough for a fully functional agent that can read, write,
-          execute, and decide when it's done. Everything beyond that (skills, UX, architecture) is grown
-          incrementally through conversation with the agent itself.
-        </p>
-
-        <h3>What tools does an AI agent need?</h3>
-        <p>
-          At minimum, three: <strong>read file</strong>, <strong>write file</strong>, and <strong>run shell command</strong>.
-          These form a universal basis &mdash; with file I/O and shell access, a model can install packages,
-          run tests, query APIs, modify code, and essentially perform any task a developer would do from a terminal.
-          Additional tools (web search, git operations, etc.) can be added later, and the agent can even add tools
-          to itself.
-        </p>
-
-      </div>
-
-      <!-- End CTA -->
-      <div class="mt-20 pt-12 border-t border-canopy/30">
-        <div>
-          <p class="font-display text-3xl md:text-4xl text-bone leading-snug">
-            This tutorial became a harness.
+        <Card as="section" id="last-page" data-side-quest="" aria-label="Side quest: read the last page first" title="Read the last page first" description="Side quest" className="side-quest">
+          <p>
+            Here's <a href={finished}>the {file} I ended up with</a> when I followed this guide. Run it and talk to it to see
+            where all this goes. Yours will grow differently, and that's the point. Ask your coding agent to set it
+            up next door…
           </p>
-          <p class="text-base text-mist mt-4 leading-relaxed">
-            The 150-line bootstrap grew into ouroboros — a TypeScript agent harness
-            for persistent agents with identity, continuity, and shared momentum.
+          <div class="my-6"><PromptCard label={toCoder} prompt={promptLastPage} /></div>
+          <a slot="footer" href="#how-we-do-this" class="hit">Back to the main path</a>
+        </Card>
+
+        <Card as="section" id="bring-your-own-key" data-side-quest="" aria-label="Side quest: bring your own key" title="Bring your own key" description="Side quest" className="side-quest">
+          <p>
+            Copilot is just how this guide reaches a model. Your agent only needs a key, an address and a model name, and any
+            provider with an OpenAI-compatible API works:
           </p>
-          <p class="text-sm text-mist mt-8 leading-relaxed">
-            You've built the primitive. Now <a href="/lab/docs/getting-started/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">give it a psyche, a memory, and a name</a> — the serpent guide takes about three minutes. Or read <a href="/lab/story/" class="text-scale underline underline-offset-2 hover:text-glow transition-colors">how this bootstrap became Ouroboros</a>.
+          <ul>
+            <li><strong>MiniMax:</strong> your MiniMax key, the address <code>https://api.minimax.io/v1</code>, and a model like <code>MiniMax-M2.5</code>.</li>
+            <li><strong>OpenAI:</strong> your OpenAI key, the address <code>https://api.openai.com/v1</code>, and a model like <code>gpt-4.1</code>.</li>
+            <li><strong>Azure OpenAI:</strong> your resource's key, the address <code>https://your-resource.openai.azure.com/openai/v1/</code>, and your deployment name as the model.</li>
+          </ul>
+          <p>Once your agent runs, ask your coding agent to switch it over…</p>
+          <div class="my-6"><PromptCard label={toCoder} prompt={promptByok} /></div>
+          <a slot="footer" href="#byok-signpost" class="hit">Back to the main path</a>
+        </Card>
+
+        <Card as="section" id="think-tags" data-side-quest="" aria-label="Side quest: models that think out loud" title="Models that think out loud" description="Side quest" className="side-quest">
+          <p>
+            Some open models put their thinking in the reply itself, between <code>&lt;think&gt;</code> and
+            <code>&lt;/think&gt;</code>. It's harmless, just noisy. Ask whichever agent you're talking to to print it dimmed,
+            the way Opus's thinking shows, so you can keep watching the model reason. Keep it in the conversation either way:
+            some providers want the thinking sent back.
           </p>
-        </div>
+          <a slot="footer" href="#think-note" class="hit">Back to the main path</a>
+        </Card>
+
+        <Card as="section" id="borrow-a-skill" data-side-quest="" aria-label="Side quest: borrow a skill" title="Borrow a skill" description="Side quest" className="side-quest">
+          <p>
+            Skills follow an open standard, so they travel. Anthropic publishes a collection of them on GitHub. Let your agent
+            go shopping…
+          </p>
+          <div class="my-6"><PromptCard label={toAgent} prompt={promptBorrow} /></div>
+          <a slot="footer" href="#skills" class="hit">Back to the main path</a>
+        </Card>
+
+        <h2 id="faq">Frequently asked questions</h2>
+        {faq.map(({ q, a }) => (
+          <>
+            <h3>{q}</h3>
+            <p>{a}</p>
+          </>
+        ))}
+
       </div>
 
     </div>
   </article>
 
 </Layout>
+
+<style is:global>
+  /* The shell switcher (ShellCommands): hidden until JavaScript picks a shell, then only that shell shows. */
+  html:not([data-shell-active]) [data-shell-control] { display: none; }
+  [data-shell-control]:not([data-hydrated]) { visibility: hidden; }
+  html[data-shell-active="mac"] [data-shell-variant]:not([data-shell-variant="mac"]),
+  html[data-shell-active="powershell"] [data-shell-variant]:not([data-shell-variant="powershell"]),
+  html[data-shell-active="wsl"] [data-shell-variant]:not([data-shell-variant="wsl"]) { display: none; }
+  .shell-commands { margin: 1.5rem 0; }
+  .shell-control { margin-bottom: 0.75rem; }
+  .shell-variant + .shell-variant { margin-top: 0.75rem; }
+  html[data-shell-active] .shell-variant + .shell-variant { margin-top: 0; }
+  [data-side-quest] { scroll-margin-top: 6rem; }
+</style>
+
+<style>
+  .prose-ouro :global([data-ouro="code-block"]) { margin: 1.5rem 0; }
+  .prose-ouro :global([data-expected-output]) { margin-bottom: 0.5rem; }
+  .prose-ouro :global(.side-quest) { margin: 1.5rem 0; }
+  /* 960px, like .shot-capped: on a 4K screen a full-column screenshot outpaints the hero and becomes the page's late largest content. */
+  .shot { max-width: 960px; margin: 1.5rem 0; display: flex; flex-direction: column; gap: var(--caption-gap); }
+  .shot-link { display: block; border-radius: 0.75rem; }
+  .shot-cue { white-space: nowrap; }
+  .shot img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 0.75rem; box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-canopy) 70%, transparent), 0 14px 32px -20px rgb(0 0 0 / 0.45); }
+  .output-note { font-size: 0.875rem; color: var(--color-shadow); margin-top: 0; }
+  .trouble { overflow-x: auto; }
+  .trouble table { width: 100%; min-width: 30rem; border-collapse: collapse; font-size: 1rem; line-height: 1.6; }
+  .trouble th { text-align: left; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-fang); font-weight: 400; padding: 0 1rem 0.6rem 0; border-bottom: 1px solid var(--color-canopy); }
+  .trouble td { vertical-align: top; color: var(--color-mist); padding: 0.75rem 1rem 0.75rem 0; border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 50%, transparent); }
+  .trouble td:first-child { color: var(--color-bone); width: 40%; }
+  .trouble:focus-visible { outline: 2px solid var(--color-scale); outline-offset: 4px; }
+</style>

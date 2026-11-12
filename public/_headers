@@ -2,3 +2,7 @@
 # because Cloudflare applies this file only to what the asset layer serves directly.
 /*
   Strict-Transport-Security: max-age=31536000
+
+# The agent loop guide's TypeScript is code to read, not an MPEG transport stream (.ts).
+/agent-loop/*.ts
+  Content-Type: text/plain; charset=utf-8

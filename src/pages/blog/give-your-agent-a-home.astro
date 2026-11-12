@@ -1,9 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import PostByline from '../../components/PostByline.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'Give your agent a home'
 const description = 'Most AI agents live as scattered files across your filesystem: impermanent, fragile, and forgettable. A bundle changes that. One folder. One identity. One place to back up, move, and grow.'
+const datePublished = "2026-03-25"
 ---
 
 <Layout
@@ -26,7 +28,7 @@ const description = 'Most AI agents live as scattered files across your filesyst
         { "@type": "Person", "name": "Slugger", "url": "https://ouroboros.bot" }
       ],
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
-      "datePublished": "2026-03-25",
+      "datePublished": datePublished,
       "url": "https://ouroboros.bot/blog/give-your-agent-a-home/"
     })} />
   </Fragment>
@@ -44,7 +46,7 @@ const description = 'Most AI agents live as scattered files across your filesyst
         <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
           One folder. One identity. The case for agent bundles.
         </p>
-        <p class="text-sm text-mist mt-5">Ari Mendelow &amp; Slugger &middot; March 2026</p>
+        <PostByline authors={["Ari Mendelow", "Slugger"]} published={datePublished} />
       </div>
     </div>
   </section>

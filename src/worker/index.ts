@@ -18,6 +18,11 @@ export default {
     headers.set('X-Worker', 'ouroboros');
     headers.set('Strict-Transport-Security', hsts);
 
+    // .ts is also MPEG transport stream; the agent loop guide's TypeScript must open as text.
+    if (path.startsWith('/agent-loop/') && path.endsWith('.ts')) {
+      headers.set('Content-Type', 'text/plain; charset=utf-8');
+    }
+
     // Hashed assets (JS/CSS with content hashes) — cache aggressively
     if (path.match(/\/_astro\//)) {
       headers.set('Cache-Control', 'public, max-age=31536000, immutable');

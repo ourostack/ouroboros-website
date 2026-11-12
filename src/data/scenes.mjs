@@ -29,6 +29,8 @@ export const scenes = {
   'ouro-ui-apple': 'A robot sits at a wooden bench with a phone, a tablet and a laptop, each showing a green toggle. Ouro watches from the meadow.',
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
+  'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
+  'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
   'ouro-native-apple-app-shell': 'A pearly snail shell on a mossy rock by a pond, opened up like a dollhouse: bookshelves, a reading chair and a warm lamp curled up inside. Ouro rests against it, as if he grew the house himself.',
@@ -73,7 +75,7 @@ const pages = {
   '/blog/what-is-agent-experience': { hero: 'ouro-ui-core' },
   '/blog/designing-with-your-agent': { hero: 'ouro-workbench' },
   '/blog/stop-being-the-glue': { hero: 'friends-relay' },
-  '/blog/build-ai-agent-from-scratch': { hero: 'homebrew-tap' },
+  '/blog/build-ai-agent-from-scratch': { hero: 'agent-workbench' },
   // Each Lab page has its own corner of the world (taste reviews r2 and r3,
   // 2026-11-06), and no scene repeats between pages one click apart, a page and
   // its parent, or siblings; a page in the nav or the footer shares its scene
@@ -132,6 +134,9 @@ export const ogSceneFor = (route) => sceneFor(route).og
 // The character beside each tool on the homepage, so the world carries on below the panorama.
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
+// A scene with a night version: StoryScene shows it in the dark theme.
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
+
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
   // The homepage's grown-inside rows and the factory, then the character beside each tool (homeTools).
@@ -140,6 +145,7 @@ export function usedScenes() {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
   }
+  for (const scene of [...used]) if (darkScenes[scene]) used.add(darkScenes[scene])
   for (const scene of ['desk', 'ouro-md', 'ouro-hx', 'butler', 'housesitter']) used.add(scene)
   return [...used].sort()
 }
@@ -164,6 +170,8 @@ export const heroFocus = {
   friends: [0.2, 0.97],
   'friends-relay': [0.05, 0.95],
   gatefold: [0.15, 0.88],
+  'agent-workbench': [0.056, 0.911],
+  'agent-workbench-dark': [0.056, 0.911],
   'homebrew-tap': [0.06, 0.88],
   // The roof's arch over the door, down to Ouro's lowest coil.
   housesitter: [0.3, 0.99],
@@ -202,6 +210,8 @@ export const castFoot = {
   friends: 0.97,
   'friends-relay': 0.95,
   gatefold: 0.8,
+  'agent-workbench': 0.911,
+  'agent-workbench-dark': 0.911,
   'homebrew-tap': 0.87,
   // Ouro's coil rests on the art's foot.
   housesitter: 0.985,
@@ -247,6 +257,8 @@ export const phoneCastX = {
   // The dove at the left (.github#15: centre 705).
   'friends-relay': [0.063, 0.89],
   gatefold: [0.42, 0.88],
+  'agent-workbench': [0.068, 0.934],
+  'agent-workbench-dark': [0.068, 0.934],
   'homebrew-tap': [0.38, 0.88],
   // The robots in the window at the left, Ouro's body at the right.
   housesitter: [0.19, 0.905],
