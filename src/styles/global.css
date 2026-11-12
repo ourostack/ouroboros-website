@@ -200,7 +200,7 @@ html, body { overflow-x: clip; }
    container, the type and the spacing scale together instead of leaving a narrow
    strip in the middle of a large display. 16px at 1600px, about 20px at 2560px,
    capped at 24px (a 4K display at 1x). Shared with ouroboros.bot and mendelow.me. */
-@media (min-width: 1600px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
+@media (min-width: 2000px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
 /* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about half its width in content, not a third. */
 @media (min-width: 2000px) { :root { --container-6xl: 84rem; --container-7xl: 92rem; } }
 
@@ -1073,6 +1073,15 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    shorter scene, so the title and the intro's first line sit above the fold at
    1440x900 and 1024x768 (taste review r3). */
 .story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * 100vw)); }
+/* On a wide screen a full-bleed scene grows with the width until the words
+   fall below the fold (Ari, 2026-11-12, on a 4K display: "fix everywhere").
+   From 2000px every scene sits in the nav's column instead, so its floor
+   scales with that column, not the screen. */
+@media (min-width: 2000px) {
+  .story-hero picture { max-width: var(--container-7xl); margin-inline: auto; border-radius: 1rem; }
+  .story-hero img { max-height: max(55vh, calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * min(100vw, var(--container-7xl)))); }
+  .story-hero-content img { max-height: max(min(46vh, 420px), calc(var(--hero-floor, 0.82) * var(--hero-arh, 0.375) * min(100vw, var(--container-7xl)))); }
+}
 /* Every hero ends on a hard edge at its picture's foot, and nothing masks it.
    The box never runs past its image (Ari's ruling on taste review r15), the cast
    stays whole inside it (heroFrame() in src/data/scenes.mjs), and the site's

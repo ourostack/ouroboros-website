@@ -421,7 +421,7 @@ const outputExempt = "program output, shown as evidence"
     <script is:inline>
       try {
         var saved = localStorage.getItem('ouroboros-agent-loop-shell');
-        document.documentElement.dataset.shellActive = ['mac', 'powershell', 'wsl'].indexOf(saved) >= 0
+        document.documentElement.dataset.shellActive = saved === 'powershell' || saved === 'mac'
           ? saved
           : navigator.userAgent.indexOf('Windows') >= 0 ? 'powershell' : 'mac';
       } catch (e) {}
@@ -1022,8 +1022,7 @@ const outputExempt = "program output, shown as evidence"
   html:not([data-shell-active]) [data-shell-control] { display: none; }
   [data-shell-control]:not([data-hydrated]) { visibility: hidden; }
   html[data-shell-active="mac"] [data-shell-variant]:not([data-shell-variant="mac"]),
-  html[data-shell-active="powershell"] [data-shell-variant]:not([data-shell-variant="powershell"]),
-  html[data-shell-active="wsl"] [data-shell-variant]:not([data-shell-variant="wsl"]) { display: none; }
+  html[data-shell-active="powershell"] [data-shell-variant]:not([data-shell-variant="powershell"]) { display: none; }
   .shell-commands { margin: 1.5rem 0; }
   .shell-control { margin-bottom: 0.75rem; }
   .shell-variant + .shell-variant { margin-top: 0.75rem; }

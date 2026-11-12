@@ -2,31 +2,29 @@ import { useEffect, useRef, useState, type JSX } from "react";
 import { CodeBlock } from "@/components/ouro/code-block/code-block";
 import { SegmentedControl } from "@/components/ouro/segmented-control/segmented-control";
 
-// One command in three shells, drawn with Ouro HX's SegmentedControl and
+// One command in two shells (macOS, Linux and WSL share theirs), drawn with Ouro HX's SegmentedControl and
 // CodeBlock. The reader picks a shell once and every switcher on the page
 // follows; the choice is saved under KEY. Without JavaScript every variant
 // shows under its own caption and the control stays hidden (the page's CSS
 // keys both off html[data-shell-active], which an inline script sets early).
 const KEY = "ouroboros-agent-loop-shell";
 const SHELLS = [
-  { value: "mac", label: "macOS", title: "macOS Terminal" },
+  { value: "mac", label: "macOS / Linux / WSL", title: "macOS, Linux or WSL terminal" },
   { value: "powershell", label: "PowerShell", title: "Windows PowerShell" },
-  { value: "wsl", label: "WSL", title: "WSL" },
 ] as const;
 type Shell = (typeof SHELLS)[number]["value"];
 
 interface Props {
   mac: string;
   powershell: string;
-  wsl?: string;
 }
 
 function isShell(value: string | null | undefined): value is Shell {
   return SHELLS.some((shell) => shell.value === value);
 }
 
-export default function ShellCommands({ mac, powershell, wsl = mac }: Props): JSX.Element {
-  const code: Record<Shell, string> = { mac, powershell, wsl };
+export default function ShellCommands({ mac, powershell }: Props): JSX.Element {
+  const code: Record<Shell, string> = { mac, powershell };
   const [shell, setShell] = useState<Shell>("mac");
   const [hydrated, setHydrated] = useState(false);
   const control = useRef<HTMLDivElement>(null);
