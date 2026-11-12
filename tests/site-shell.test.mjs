@@ -166,7 +166,8 @@ test('the Spoonjoy card shows one of Ari\'s own recipes, linked, with the deck c
   assert.match(img[0], /width="1440" height="1200"/);
   const webp = fs.readFileSync(new URL('../public/images/workshop/spoonjoy-recipe.webp', import.meta.url));
   assert.equal(webp.toString('ascii', 12, 16), 'VP8 ', 'A lossy WebP');
-  assert.deepEqual([webp.readUInt16LE(26) & 0x3fff, webp.readUInt16LE(28) & 0x3fff], [1440, 1200], 'The file matches its width and height');
+  // Upscaled 2x (provenance in upscale-provenance.json) so it stays sharp on a 2x screen.
+  assert.deepEqual([webp.readUInt16LE(26) & 0x3fff, webp.readUInt16LE(28) & 0x3fff], [2880, 2400], 'The file is twice its width and height');
   assert.match(img[0], /loading="lazy"/);
   assert.match(img[0], /alt="Ari(&#39;|')s Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion\."/);
   assert.ok(hrefsOf(card[0]).includes('https://spoonjoy.app/recipes/cmq35k4c10001zn0npvsmw05z'), 'The screenshot links to the recipe');

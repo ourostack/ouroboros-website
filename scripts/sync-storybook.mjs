@@ -9,7 +9,7 @@
 import { createHash } from 'node:crypto'
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { usedScenes } from '../src/data/scenes.mjs'
+import { usedScenes, largeAvifWidths, largeWebpWidths } from '../src/data/scenes.mjs'
 
 const brand = process.argv[2]
 if (!brand || !existsSync(join(brand, 'provenance.json'))) {
@@ -25,6 +25,8 @@ export const filesForScene = (scene) => [
   `scenes/${scene}-640.webp`, `scenes/${scene}-640.avif`,
   `scenes/${scene}-960.webp`, `scenes/${scene}-960.avif`,
   `scenes/${scene}-1536.avif`,
+  ...largeAvifWidths.map((w) => `scenes/${scene}-${w}.avif`),
+  ...largeWebpWidths.map((w) => `scenes/${scene}-${w}.webp`),
   `phone/${scene}-384.webp`, `phone/${scene}-384.avif`,
   `phone/${scene}-768.webp`, `phone/${scene}-768.avif`,
   `og/${scene}.jpg`,

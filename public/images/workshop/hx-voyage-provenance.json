@@ -7,7 +7,8 @@
   "dark (prefers-color-scheme: dark)"
  ],
  "size": [
-  1164,
-  1051
- ]
+  2328,
+  2102
+ ],
+ "upscaled": "2026-11-12: upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from the 1164x1051 captures (light 99533b1de2693dca26ee43b9d3c64cc378d41b91ad73f59173f3a39ddd36f75c, dark 4d916947e92d9ed6e1d4ea61fae5c72215a7c854739df9bfe8557e31b5d67914); see upscale-provenance.json"
 }

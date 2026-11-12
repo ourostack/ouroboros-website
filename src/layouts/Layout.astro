@@ -9,7 +9,7 @@ import { labStatusFor } from '../data/lab.mjs'
 import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
 import StoryScene from '../components/StoryScene.astro'
-import { sceneFor, meadowScene, scenes, darkScenes, columnHeroes, columnHeroSrcset, COLUMN_HERO_MEDIA } from '../data/scenes.mjs'
+import { sceneFor, meadowScene, scenes, darkScenes, columnHeroes, columnHeroSrcset, COLUMN_HERO_MEDIA, wideSrcset } from '../data/scenes.mjs'
 
 interface Props {
   title: string
@@ -54,7 +54,7 @@ const heroNight = scene.hero ? darkScenes[scene.hero] : undefined
 // full-bleed preload stops at 1599px and the column art's takes over.
 const heroPreloads = (s: string) => [
   { media: '(max-width: 640px)', srcset: `${heroBase}/phone/${s}-384.avif 384w, ${heroBase}/phone/${s}-768.avif 768w` },
-  { media: scene.hero && columnHeroes[scene.hero] ? '(min-width: 641px) and (max-width: 1599px)' : '(min-width: 641px)', srcset: `${heroBase}/scenes/${s}-640.avif 640w, ${heroBase}/scenes/${s}-960.avif 960w, ${heroBase}/scenes/${s}-1536.avif 1536w` },
+  { media: scene.hero && columnHeroes[scene.hero] ? '(min-width: 641px) and (max-width: 1599px)' : '(min-width: 641px)', srcset: wideSrcset(s, 'avif') },
   ...(scene.hero && columnHeroes[scene.hero] ? [{ media: COLUMN_HERO_MEDIA, srcset: columnHeroSrcset(s, 'avif'), sizes: columnHeroes[scene.hero].sizes }] : []),
 ]
 const themedPreloads = heroNight
@@ -149,7 +149,7 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     ) : scene.hero && (
       <>
         <link rel="preload" as="image" type="image/avif" media="(max-width: 640px)" imagesrcset={`${heroBase}/phone/${scene.hero}-384.avif 384w, ${heroBase}/phone/${scene.hero}-768.avif 768w`} imagesizes="100vw" fetchpriority="high" />
-        <link rel="preload" as="image" type="image/avif" media="(min-width: 641px)" imagesrcset={`${heroBase}/scenes/${scene.hero}-640.avif 640w, ${heroBase}/scenes/${scene.hero}-960.avif 960w, ${heroBase}/scenes/${scene.hero}-1536.avif 1536w`} imagesizes="100vw" fetchpriority="high" />
+        <link rel="preload" as="image" type="image/avif" media="(min-width: 641px)" imagesrcset={wideSrcset(scene.hero, 'avif')} imagesizes="100vw" fetchpriority="high" />
       </>
     )}
     <title>{title}</title>
