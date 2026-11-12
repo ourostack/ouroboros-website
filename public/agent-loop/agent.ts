@@ -23,7 +23,9 @@ const maxToolOutputBytes = 16_000;
 // Added after the dry run so the file runs on Windows too: PowerShell there, $SHELL elsewhere.
 const shell = process.platform === 'win32' ? 'powershell.exe' : process.env.SHELL || '/bin/sh';
 const shellArguments = (command: string): string[] =>
-  process.platform === 'win32' ? ['-NoProfile', '-Command', command] : ['-c', command];
+  process.platform === 'win32'
+    ? ['-NoProfile', '-Command', `try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}; ${command}`]
+    : ['-c', command];
 
 type AssistantMessage = ChatCompletionAssistantMessageParam & Record<string, unknown>;
 
@@ -244,9 +246,12 @@ async function runShell(command: string): Promise<string> {
     function killGroup(): void {
       if (!child.pid || groupStopped) return;
       try {
-        if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(child.pid), '/T', '/F']);
-        else process.kill(-child.pid, 'SIGKILL');
-        groupStopped = true;
+        if (process.platform === 'win32') {
+          if (timedOut) groupStopped = spawnSync('taskkill', ['/pid', String(child.pid), '/T', '/F']).status === 0;
+        } else {
+          process.kill(-child.pid, 'SIGKILL');
+          groupStopped = true;
+        }
       } catch (error) {
         if (!(error instanceof Error && 'code' in error && error.code === 'ESRCH')) {
           reject(new Error(`Could not stop shell process group ${child.pid} (exit ${child.exitCode}, signal ${child.signalCode}): ${error instanceof Error ? error.message : String(error)}`));

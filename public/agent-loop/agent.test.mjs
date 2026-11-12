@@ -107,8 +107,10 @@ async function fixture(run) {
 }
 
 const tool = (id, name, args) => ({ id, name, args });
+// On Windows the agent's shell tool runs PowerShell, so tests that send POSIX shell commands can't run there.
+const posixShellOnly = process.platform === 'win32' && 'sends POSIX shell commands; the agent runs PowerShell on Windows';
 
-test('runs all three tools, returns errors, preserves streamed thinking, and resumes chat', async () => {
+test('runs all three tools, returns errors, preserves streamed thinking, and resumes chat', { skip: posixShellOnly }, async () => {
   await fixture(async ({ directory, history, calls, start }) => {
     await writeFile(join(directory, 'input.txt'), 'original text');
     const output = await start([
@@ -150,7 +152,7 @@ test('runs all three tools, returns errors, preserves streamed thinking, and res
   });
 });
 
-test('bounds file and shell output without bounding model output', async () => {
+test('bounds file and shell output without bounding model output', { skip: posixShellOnly }, async () => {
   await fixture(async ({ directory, history, start }) => {
     await writeFile(join(directory, 'large.txt'), 'a'.repeat(100_000));
     const command = `${JSON.stringify(process.execPath)} -e "process.stdout.write('b'.repeat(100000))"`;
@@ -173,7 +175,7 @@ test('bounds file and shell output without bounding model output', async () => {
   });
 });
 
-test('times out the shell and its descendants, then lets the model answer', async () => {
+test('times out the shell and its descendants, then lets the model answer', { skip: posixShellOnly }, async () => {
   await fixture(async ({ directory, history, start }) => {
     const sleeper = `${JSON.stringify(process.execPath)} -e "setInterval(() => {}, 1000)"`;
     await start([
