@@ -85,9 +85,18 @@ test('every run is followed by what my terminal showed', () => {
   }
 });
 
-// Fails until the controller pastes the dry run's real outputs into the page.
+// Light content pin: the outputs are real terminal text, so they show the prompt they came from.
 test('every output is a real one from the dry run', () => {
-  assert.ok(!html().includes('DRYRUN_PENDING'), 'pending dry run: the page still shows DRYRUN_PENDING in place of real output');
+  assert.ok(!html().includes('DRYRUN_PENDING'), 'the page still shows DRYRUN_PENDING in place of real output');
+  const outputs = [...article().matchAll(/<figure\b([^>]*)>[\s\S]*?<pre\b[^>]*>([\s\S]*?)<\/pre>/g)]
+    .filter(([, attrs]) => /data-expected-output/.test(attrs))
+    .map(([, , inner]) => textOf(inner));
+  assert.ok(outputs.length >= 10, `expected at least 10 output blocks, found ${outputs.length}`);
+  for (const text of outputs) assert.ok(text.length >= 40, `an output block is too short to be real: ${text}`);
+  const joined = outputs.join('\n');
+  assert.match(joined, /Press Ctrl\+C to exit/, 'the messages output no longer shows how the agent says to exit');
+  assert.match(joined, /\[shell\]/, 'no output shows a shell tool call');
+  assert.match(joined, /reasoning_opaque/, 'no output shows the saved conversation');
 });
 
 test('one disclosure, up top, that every output is real', () => {

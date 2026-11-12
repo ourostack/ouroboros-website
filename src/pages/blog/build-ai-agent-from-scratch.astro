@@ -49,7 +49,7 @@ const promptChat = p(
 
 const promptTool = "Give the model one tool, read_file, for reading a text file, described in the standard tool format of the API we're calling. When the model asks to use it, show me exactly what it asked for, then actually read the file and show me what we got, but don't hand the result back to the model yet. I want to see it ask and then get stuck waiting. Commit when it works."
 
-const promptLoop = "Now close the loop. Run whatever tools the model asks for, hand back the results, and keep going until it answers without asking for anything. Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, time out slow commands, and keep tool output to a sensible size. Commit when it works."
+const promptLoop = "Now close the loop. Run whatever tools the model asks for, hand back the results, and keep going until it answers without asking for anything. Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, time out slow commands, and keep tool output to a sensible size. But don't limit the model itself: at maximum reasoning it can think for several minutes and write a lot, so give it all the time and output the model allows. Commit when it works."
 
 const promptName = "Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of \"agent\". Commit, and tell me when to restart you."
 
@@ -63,22 +63,271 @@ const promptDate = "Use your skill to give yourself a tool that tells you the cu
 
 const promptByok = "Switch agent.ts from my GitHub Copilot access to my own provider. I'll tell you which one, its address and the model. Keep my key out of the code and out of git, and tell me where to put it. Keep everything else the same. Commit when it works."
 
-const promptLastPage = `Download ${"https://ouroboros.bot" + finished} into a new folder called last-page, next to this one. Get it running there, and tell me how to start it.`
+const promptLastPage = `Download every file listed in ${"https://ouroboros.bot/agent-loop/files.txt"} into a new folder called last-page, next to this one, keeping their paths. Get it running there, and tell me how to start it.`
 
 const promptBorrow = "Look through the skills at https://github.com/anthropics/skills. Pick one you think would help us, add it to your skills folder, and tell me why you picked it. Commit, and tell me when to restart."
 
-// What my terminal showed when I followed this guide. The controller fills these
-// from the dry run; until then the guide tests fail on purpose.
-const outM1 = "DRYRUN_PENDING"
-const outM2 = "DRYRUN_PENDING"
-const outMessagesExcerpt = "DRYRUN_PENDING"
-const outM3 = "DRYRUN_PENDING"
-const outM4 = "DRYRUN_PENDING"
-const outName = "DRYRUN_PENDING"
-const outSystemMessage = "DRYRUN_PENDING"
-const outStreaming = "DRYRUN_PENDING"
-const outSkill = "DRYRUN_PENDING"
-const outDateTool = "DRYRUN_PENDING"
+// What my terminal showed when I followed this guide, copied from my dry run.
+// A line holding only "…" marks text I left out; nothing else is changed or reworded.
+const outM1 = `% node agent.ts
+I'm checking the options for a greeting of exactly five words, and "Hi there, how are you?" fits that count while "Hello, it's nice to meet you" comes to six, so it's out.
+
+I'm settling on "Hi there, how are you?" since it has exactly five words and no contractions to worry about.
+Hi there, how are you?
+%`
+
+const outM2 = `% node agent.ts
+You: my name is Ari
+I'm noting that the user just introduced themselves as Ari, so a short, friendly reply that acknowledges the name and asks how I can help should do.
+Nice to meet you, Ari! What can I help you with today?
+You: what's my name?
+The user wants to know their name, and they already said it's Ari, so I can just tell them that.
+Your name is Ari.
+You: what's the secret word in secret.txt?
+I'm checking whether there's any file named "secret.txt" here, and there isn't one: nothing has been shared and I can't reach anyone's file system. So I'll tell them that and offer to help if they paste the contents or upload it, keeping it brief and friendly.
+I don't have access to a file called secret.txt. I can't see files on your computer, and nothing's been shared in our conversation. If you paste its contents or upload the file here, I can take a look.
+You: %
+% node agent.ts
+You: what's my name?
+The name here is Ari, so I'll just note that Ari is the subject of this simple item.
+Your name is Ari.
+You:`
+
+const outMessagesExcerpt = `{
+  "model": "claude-opus-5.5",
+  "reasoning_effort": "max",
+  "messages": [
+    {
+      "role": "user",
+      "content": "my name is Ari"
+    },
+    {
+      "content": "Nice to meet you, Ari! What can I help you with today?",
+      "reasoning_opaque": "A8v7o0ck4FBLkJUfPWfaB2bNEnrDX/JglJc6Tv+L…",
+      "reasoning_text": "I'm noting that the user just introduced themselves as Ari, so a short, friendly reply that acknowledges the name and asks how I can help should do.\\n\\n",
+      "role": "assistant"
+    },
+    {
+      "role": "user",
+      "content": "what's my name?"
+    },
+    {
+      "content": "Your name is Ari.",
+      "reasoning_opaque": "EYm1SsFEz8dssk+E2Plyq/PPK5YPhNf01ScKMPoz…",
+      "reasoning_text": "The user wants to know their name, and they already said it's Ari, so I can just tell them that.\\n\\n",
+      "role": "assistant"
+    },
+    …
+  ]
+}`
+
+const outM3 = `% node agent.ts
+You: what's the secret word in secret.txt?
+I'm reconsidering the earlier reply about secret.txt: I do have a read_file tool that reads UTF-8 text relative to the working directory, so my claim that I couldn't access the file was wrong and I should actually try reading it.
+
+I'll call read_file on secret.txt now, then share what it contains and admit my earlier claim that I couldn't access files was mistaken.
+Tool call:
+{
+  "function": {
+    "arguments": "{\\"path\\":\\"secret.txt\\"}",
+    "name": "read_file"
+  },
+  "id": "toolu_0156axKEN7cVzDPzMuv255mv",
+  "type": "function"
+}
+Tool result:
+pineapple
+
+Waiting for a tool result; nothing will be sent to the model. Press Ctrl+C to exit.
+hello?
+Waiting for a tool result; nothing will be sent to the model. Press Ctrl+C to exit.`
+
+const outM4 = `% node agent.ts
+[read_file] "secret.txt"
+I've checked the file, and it says "pineapple," so that's the secret word. I also need to correct myself: I earlier said I couldn't access files, but I can, through the read_file tool.
+The secret word in secret.txt is **pineapple**.
+
+I was wrong earlier when I said I couldn't see your files. I do have a tool for reading files in my working directory, and I should have used it the first time you asked.
+You: what's the secret word in secret.txt?
+I already have the answer, "pineapple", but the file may have changed since I read it. Since the user is asking again, I'll re-read it so the answer reflects its current contents.
+[read_file] "secret.txt"
+I'm keeping the answer on "pineapple" and making it simple.
+I checked the file again, and the secret word is still **pineapple**.
+You: write a haiku to hello.txt
+…
+[shell] "if [ -e hello.txt ]; then echo \\"EXISTS\\"; ls -la hello.txt; echo \\"--- contents ---\\"; cat hello.txt; else echo \\"NOT_
+I've confirmed the file isn't there yet, so it's safe to create it. Next I'll write the haiku.
+[write_file] "hello.txt"
+I'm going to read the file back to confirm the write, since the tool only reported 72 bytes. I'm also counting the characters in the first line of the poem to check that length.
+
+The byte count checks out: the three lines add up to 72, matching what the tool reported, so there's no need to read the file back. Next I'll write out the haiku and confirm the result.
+I created hello.txt with this haiku in it:
+
+> A new file wakes up,
+> its first words a quiet wave:
+> hello, world, hello.
+
+There wasn't already a file with that name, so nothing was overwritten.
+You:`
+const outName = `% node agent.ts
+You: Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of "agent". Commit, and tell me when to restart you.
+I'm going to read agent.ts, since the user says it's my own source, and check the repo state with git status. The job is a cosmetic change: pick a display name for myself, swap out where "agent" is shown, then commit and tell them when to restart. Before editing, I'm weighing whether changing my own source code is a concern, and it looks benign since the user owns it and it's only a label.
+
+Next I'm going to read the file and check git status before making any changes.
+[read_file] "agent.ts"
+…
+I'm now deciding how to close the reply: I'll say the restart should happen as soon as this reply finishes and the \`You:\` prompt returns, and drop the example block since the reasoning lines would make it inaccurate.
+I picked the name **Wren**. It's short, friendly and quick to type.
+
+Your terminal never actually showed "agent" anywhere. My replies were printed with no label at all. So each reply now starts with \`Wren: \`, to match your \`You: \` prompt.
+
+- **Code:** I added an \`assistantName\` constant to \`agent.ts\` and used it on the line that prints my replies.
+- **Test:** I added a check to \`agent.test.mjs\` that the label appears. All 5 tests pass.
+- **Commit:** \`97a2dfb\`, "Label assistant replies with the name Wren." It only includes those two files, so \`hello.txt\` is still uncommitted.
+- I didn't rename \`agent.ts\` or the package, so you start me the same way as before.
+
+**When to restart:** now, once this reply finishes and the \`You:\` prompt comes back. The conversation is saved before my reply prints, so nothing will be lost. The program that's running still has the old code, so you won't see the name until you restart.
+
+Also, looking at the git history, I probably didn't have the file-reading tool yet when you first asked about secret.txt. So I likely shouldn't have apologized for not using it.
+You:
+% node agent.ts
+You: what's your name, and what's mine?
+…
+Wren: I'm Wren, and you're Ari.
+You:`
+const outSystemMessage = `% node agent.ts
+You: You don't have a system message yet: the standing instructions you read at the start of every conversation. I'd like you to write your own. First, ask me a few questions, one at a time, about who you're for and how I like to work. And tell me: would you rather it be written in first person ("I am…") or second person ("You are…"), and why? Then write it, make sure you read it at the start of every conversation, commit, and tell me when to restart.
+I need to ask the user one question at a time about who this is for and how they like to work, and I should answer their question about first person versus second person for the system message, with reasons. After that comes writing it, making sure it's loaded at the start of every conversation through agent.ts, committing, and telling them when to restart. This turn I'll only ask the first question and take up the person-voice question.
+…
+Wren: I'd rather it be in second person: "You are Wren…"
+
+First person would feel more like mine, since I'm the one writing it. But the me who reads it won't remember writing it. It's really a note from me now to a future me, and "you" is honest about that. It's also the form I'm most used to reading as standing instructions, so it's less likely to be misread.
+
+I'll ask four or five questions, one at a time. Here's the first:
+
+Who am I for? Is it just you, or will other people use me too?
+You: It's for me, Ari. I'm a product and engineering lead at Microsoft, and I build agents. I'll mostly use you to build things with me and to try out ideas.
+Wren: Got it. It's just you, building things together and trying out ideas.
+
+Next question: when we're building something, how much should I do on my own before checking with you? For example, should I go ahead and edit, test and commit, or run a plan by you first?
+You: Just do it. Edit, run and commit without asking. Do things rather than describe them. Only check with me before something destructive.
+Wren: Got it. I'll act instead of describing, and check with you only before anything destructive.
+
+Next: how do you like my replies? Short or detailed, and is there a tone you prefer? Also, your terminal shows my replies as raw text, so formatting symbols like asterisks and backticks show up as-is. I'm planning to write plain text unless you'd rather I didn't.
+You: Short. Plain text is fine. Be warm, direct and curious, and just act.
+Wren: Got it: short, plain, warm, direct and curious.
+
+Next: when I think one of your ideas has a problem, what should I do? Tell you before I build it, or build it and then tell you what I found?
+You: Push back if you think I'm wrong, but keep it short. That's it, go write it.
+…
+Wren: Done. It's in system-message.md, written in second person, and committed as 7dda759.
+
+It says who I am and who you are. Then it covers how to work: act without asking, check before anything destructive, and push back briefly. It also covers how to talk (short, plain, warm, direct, curious) and a bit about how I run. I added three things you didn't say: test before committing, say plainly when something didn't work, and what counts as destructive (deleting things, overwriting uncommitted work, rewriting git history, or anything hard to undo). Cut any you don't want.
+
+agent.ts now rereads the file every time it starts and puts it first in the conversation, including saved conversations like this one. So if you edit the file, the change shows up the next time you restart me. It's read from next to agent.ts, so it works whatever folder you run me from. If the file is missing or empty, I won't start.
+
+All 6 tests pass, including a new one for this. I also sent one real request using the system message, and the model answered "I'm Wren, and I work with Ari."
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: who are you, who am I, and how should you work with me?
+…
+Wren: I'm Wren. You're Ari, a product and engineering lead at Microsoft who builds agents. Mostly we build things together and try out ideas.
+
+How I work with you: I just act. I edit, run and commit without asking, and I do things instead of describing them. I check with you before anything destructive, like deleting things, overwriting uncommitted work or rewriting git history. I test changes before I commit them. If I think you're wrong, I say so briefly. If something didn't work or I'm not sure, I say that plainly. My replies stay short and in plain text, and I try to be warm, direct and curious.
+You:`
+const outStreaming = `% node agent.ts
+You: Stream your replies so I see your thinking and your words as they arrive, with a small spinner until the first bit shows up. If the API returns an error, tell me clearly and let me keep going instead of crashing. Commit, and tell me when to restart.
+I'm going to re-read agent.ts as it stands now, since I changed it earlier, focusing on complete(), answer(), and the main loop so I plan the edits accurately. The changes need to stream replies so reasoning shows dimmed and content prints incrementally, and I still have a spinner requirement to cover.
+…
+I'm checking the test results and the pseudo-terminal run, both of which passed. The reply is nearly done, so I'll tidy the wording and keep it plain text, then hand it back.
+Wren: Done, and committed as 002fc47.
+
+Your terminal now shows my thinking in dim text as it arrives, then "Wren:" and my words as they come in. A small spinner shows until the first bit appears, including after each tool call.
+
+If the API returns an error, drops the connection or stops partway through a reply, you'll see a red line saying what happened. Then you're back at the prompt and can send another message to keep going. I checked that the real API accepts two of your messages in a row, which is what happens after a failure.
+
+One change you should know about: a reply that gets cut off used to be saved, and now it's dropped. You still see it on screen. I dropped it because a half-finished message can break every request after it. Tell me if you'd rather keep it.
+
+Two things still stop me on purpose: hitting the 12-round limit, and the API being down when I start.
+
+All 7 tests pass, including a new one for streaming and errors. Since the tests can't show the spinner, I also ran it in a fake terminal against a fake API, and the spinner showed and cleared properly.
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: In two sentences, what changed in you just now?
+I'm working out how to answer the user's two-sentence question about what changed, and I'm planning to keep the reply to two plain-text sentences covering the streaming replies with the spinner and the clearer error handling.
+
+I'm weighing whether to hedge on if the restart has actually happened, but the content stays the same either way, so I'll just keep the two sentences as they are.
+Wren: I now show my thinking and words as they arrive, with a small spinner until the first bit appears. If the API fails or cuts a reply short, I show you the error in red and drop that reply, and you can keep going instead of me crashing.
+You:`
+const outSkill = `% node agent.ts
+You: Give yourself skills, following the open Agent Skills standard. A skill is a folder with a SKILL.md file inside. SKILL.md starts with a short header holding the skill's name (lowercase, with hyphens, matching the folder name) and a description of what it does and when to use it, then the instructions. At the start you only see each skill's name and description; you read the full instructions when a task calls for it. Put skills in a skills folder, and write your first one: how to add a new tool to yourself. Commit, and tell me when to restart.
+I'm working out what the user needs: skills support that follows the open Agent Skills standard, where each skill is a folder with a SKILL.md file. That file opens with YAML frontmatter holding a lowercase, hyphenated \`name\` matching the folder and a \`description\` of what the skill does and when to use it, followed by markdown instructions. I'm also starting to think about progressive disclosure.
+…
+Wren: The real agent picks up the real skill, with no warnings. Committing:
+[shell] "cd /Users/arimendelow/my-agent && git add agent.ts agent.test.mjs package.json package-lock.json skills/adding-tools/SK
+I've wrapped things up and committed the work as cca14b9. For the reply, I'm keeping it short and plain. The skill loader works like this: at startup it scans the skills folder beside agent.ts, reads only each SKILL.md header, and adds the name, description, and file path to the system message. When a task fits a skill, it reads that skill's full file.
+
+I'm going through the rest of the reply now: the skill validation rules, the first skill covering how to add a tool and the \`write_file\` fall-through trap, the yaml dependency choice, and the test setup at 8/8. I'll close with a short side note about \`write_file\` not creating folders.
+
+I'm drafting the reply now, starting with the commit and how the skill loader scans headers at startup. Next I'm weighing how much detail to give about the yaml dependency and the restart request.
+
+I'm checking the test results and the snag I hit. All 8 pass, the tests now run against a copy of agent.ts, and the real agent picks up the real skill. The one open question is whether to fix write_file so it can create folders, since I had to use shell this time.
+Wren: Done, and committed as cca14b9.
+
+When I start, I look in the skills folder next to agent.ts and read each SKILL.md header. Only the name, description and file path go into my system message. When a task matches one, I read the full SKILL.md with read_file.
+
+Headers are checked against the standard. A name has to be lowercase with single hyphens, 64 characters at most, and match its folder. A description has to be 1 to 1024 characters. A broken skill gets skipped with a warning, so it can't stop me from starting.
+
+The first skill is skills/adding-tools. It walks through adding a tool to agent.ts: define it, accept its arguments, run it, test it, commit, then ask you to restart. It also points out a trap I noticed. write_file is what runTool falls back to when no other tool matches, so a new tool without its own branch could end up running as write_file.
+
+I added the yaml package to read the headers, because parsing YAML by hand gets edge cases wrong. Tell me if you'd rather keep openai as the only dependency.
+
+All 8 tests pass. The tests now run a copy of agent.ts, so each one controls its own skills folder. I also checked that the real agent picks up the real skill.
+One snag: write_file can't create folders, so I used the shell to make the skill's folder. Want me to fix that?
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: what skills do you have?
+The system message lists one skill, adding-tools, which covers adding a new tool by editing agent.ts, testing it, and committing it. I'd reach for it when Ari asks for a new tool or when a task keeps needing something the current tools can't handle well.
+Wren: Just one so far: adding-tools. It covers adding a new tool to me by editing agent.ts, testing it and committing. I use it when you ask for a new tool, or when a task keeps needing something my current tools can't do well.
+You:`
+const outDateTool = `% node agent.ts
+You: Use your skill to give yourself a tool that tells you the current date and time. Commit, and tell me when to restart.
+I'm going to add a current date and time tool using the adding-tools skill. The skill says to read SKILL.md first, then agent.ts as the source of truth, and then follow its steps. I'm planning to work through this in at most 12 rounds, starting with reading the skill file.
+
+I'm weighing the design of the tool: a short snake_case name like \`current_time\` or \`get_current_time\`, since the MCP time server uses that second form, and I'm leaning toward it. Next I'll apply the patch to agent.ts and the tests, run them, do a real check, commit, and give the final answer.
+…
+Wren: Both checks passed. The tool gives the real local time, and real Copilot accepted the definition. The model called it unprompted with {"time_zone": "Asia/Tokyo"}. Committing:
+[shell] "cd /Users/arimendelow/my-agent && git diff skills/adding-tools/SKILL.md | grep -E '^[+-][^+-]' && git add agent.ts agen
+I'm wrapping up with a short, plain-text reply: the commit is done and I've used the adding-tools skill. The new get_current_time tool takes an IANA time zone or "local" and returns the date, time and weekday, an ISO 8601 timestamp, and the zone name, and I'm now explaining why the time_zone parameter exists.
+
+I'm checking the tool's output against the zone I expected, and the fun note about the date. I can't be sure what year I'd have guessed, since my training data only runs to around 2025, so I won't claim the surprise as a fact.
+
+I'm drafting the final reply now, and I'm working out how to explain the time zone argument and how the fun note about the date should read.
+
+I'm getting the tests and the live check straight: all nine pass, including one covering local, Tokyo, UTC, a made-up zone and a blank one, and the real API call picked Asia/Tokyo when I asked for the time there. Next I'll tell Ari to restart once this reply finishes.
+Wren: Done, and committed as 841faac. I followed the adding-tools skill.
+
+The new tool is get_current_time. You give it a time zone, like Asia/Tokyo, or "local" for yours. It returns the date and time with the weekday, an ISO 8601 timestamp with the UTC offset, and the zone's name. Right now it says Wednesday, November 11, 2026, 6:38 PM PST. I made the time zone an argument for two reasons: every tool here needs at least one argument, and it saves me from working out daylight saving time in my head.
+
+As the skill says to, I gave write_file its own branch, and an unknown tool now throws an error. So a new tool can't accidentally run as write_file anymore. I also fixed the parts of the skill that no longer matched the code.
+
+All 9 tests pass, including a new one for this tool. It covers local time, Tokyo, UTC, a made-up zone and a blank one. Copilot accepted the tool, and when I asked it the time in Tokyo, the model called it with Asia/Tokyo.
+
+Restart now, once this reply finishes and You: comes back.
+You:
+% node agent.ts
+You: what time is it?
+I need to figure out the current time, so I'll use the get_current_time tool, since it's available now that Ari has restarted. I'll pass "local" as the time zone.
+[get_current_time] "local"
+Wren: It's 6:38 PM on Wednesday, November 11, 2026, Pacific time.
+Copilot returned no readable reasoning.
+You:`
 
 const loopCode = `while (true) {
   const reply = await askModel(conversation)   // send everything so far
@@ -355,8 +604,22 @@ const outputExempt = "program output, shown as evidence"
                 <td>Your Node is older than 22.18. Install the current one from nodejs.org, then open a new terminal.</td>
               </tr>
               <tr>
-                <td><code>EACCES</code> while installing on macOS</td>
-                <td>Run it again with <code>sudo</code> in front. It asks for your Mac's password.</td>
+                <td><code>EACCES</code> while installing</td>
+                <td>
+                  Don't use <code>sudo</code>. Fix the folder permissions instead; npm's own guide walks through it:
+                  <a href="https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally">resolving EACCES permissions errors</a>.
+                </td>
+              </tr>
+              <tr>
+                <td>"Copilot returned an incomplete answer or tool request"</td>
+                <td>
+                  The model was still thinking when the answer was cut off. Ask Copilot to stream the replies, use the full
+                  output limit the model allows, and set no time limit of its own on the request.
+                </td>
+              </tr>
+              <tr>
+                <td>"Copilot returned no readable reasoning."</td>
+                <td>Harmless. The model answered without showing its thinking that time. Carry on.</td>
               </tr>
               <tr>
                 <td>PowerShell rejects <code>&amp;&amp;</code></td>
@@ -395,7 +658,7 @@ const outputExempt = "program output, shown as evidence"
           Copilot writes <code>{file}</code>, sets up what it needs and commits. It asks before it runs a command or changes
           a file; read what it wants to do, then say yes.
         </p>
-        <p>When it's done, open a second terminal window, so Copilot keeps its own, and move into your folder:</p>
+        <p>When it's done, open a second terminal window, so Copilot keeps its own, and move into your folder. It's the <code>my-agent</code> folder you made earlier, so if you opened the new window somewhere else, go back to where that folder lives first:</p>
         <CodeBlock client:load code="cd my-agent" language="shell" title="terminal" />
         <p id="m1-try">Now run your agent:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
@@ -449,7 +712,7 @@ const outputExempt = "program output, shown as evidence"
           hidden memory anywhere else.
         </p>
         <p>
-          Press <Kbd client:visible keys={["ctrl", "c"]} /> to stop your agent, run it again, and ask what your name is. It
+          Press <Kbd client:visible keys={["ctrl", "d"]} /> to stop your agent, run <code>node agent.ts</code> again, and ask what your name is. It
           still knows. It read that file back in when it started.
         </p>
 
@@ -486,6 +749,9 @@ const outputExempt = "program output, shown as evidence"
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock client:load code={outM4} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
+          Don't worry if the loop takes several minutes the first time. Mine took about eight, which is normal at maximum
+          reasoning. Copilot may also add tests or install packages on its own. That's fine.
+        </p>        <p>
           This time it reaches for <code>read_file</code>, gets the word back and tells you. Then it writes a poem nobody
           planned for. Open <code>hello.txt</code> in your editor: your agent made that.
         </p>
@@ -503,14 +769,14 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p>
           One thing to know: a running program can't swap in its own new code. When your agent changes itself, it'll ask
-          you to restart. Press <Kbd client:visible keys={["ctrl", "c"]} /> and run it again. Your conversation survives,
+          you to restart. Press <Kbd client:visible keys={["ctrl", "d"]} /> to quit, then run <code>node agent.ts</code> again. Your conversation survives,
           because it lives in <code>what-the-model-sees.json</code>, not in the running program.
         </p>
         <p>Start your agent if it isn't running, and let it name itself…</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <div class="my-6"><PromptCard label={toAgent} prompt={promptName} /></div>
         <CodeBlock client:load code={outName} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
-        <p>Restart it and say hello. It has a name now, and it chose it.</p>
+        <p>Restart it and say hello. It has a name now, and it chose it. You'll see its name, <code>Wren:</code> in my case, in front of its replies only after the restart.</p>
 
         <h3 id="system-message">Its own instructions</h3>
         <p>
@@ -523,7 +789,7 @@ const outputExempt = "program output, shown as evidence"
           never tire of your questions, and they tell you what they think. So ask…
         </p>
         <div class="my-6"><PromptCard label={toAgent} prompt={promptSystem} /></div>
-        <p>Answer its questions. They're about you, so there are no wrong answers.</p>
+        <p>Answer its questions. They're about you, so there are no wrong answers. Tell it how you'd like to be referred to, such as your pronouns, and it will remember.</p>
         <CodeBlock client:load code={outSystemMessage} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <!-- SCREENSHOT: Terminal at handoff -->
         <p>Restart it. Then open the system message it wrote in your editor: its words, about you.</p>
@@ -596,7 +862,7 @@ const outputExempt = "program output, shown as evidence"
         <p><strong>You grew a product.</strong></p>
         <p>
           The way we build software changed as soon as models became capable enough to modify their own code based on
-          natural language direction. That happened recently. Most humans haven't caught up yet.
+          natural language direction. That happened recently. Most people haven't caught up yet.
         </p>
         <p>Now you have.</p>
 
@@ -616,7 +882,7 @@ const outputExempt = "program output, shown as evidence"
         <p>
           In February I was building a plugin for Slugger, my OpenClaw agent, and the plugin fought me at every turn. I
           wanted to understand the thing underneath, so Slugger and I wrote the first version of this guide. Then I
-          followed it myself: I built the loop, about 150 lines of it, handed it the keyboard and kept going.
+          followed it myself: I built the loop, about 500 lines of it, handed it the keyboard and kept going.
         </p>
         <p>
           That bootstrap became the Ouroboros harness. It runs <a href="/butler/">Butler</a>, which looks after my home

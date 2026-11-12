@@ -5401,12 +5401,6 @@
  },
  {
   "page": "blog/build-ai-agent-from-scratch",
-  "was": "Most people haven't caught up yet.",
-  "now": null,
-  "why": "workshop rewrite (Ari, 2026-11-11)"
- },
- {
-  "page": "blog/build-ai-agent-from-scratch",
   "was": "What's Next Your agent is real, but it's also minimal.",
   "now": null,
   "why": "workshop rewrite (Ari, 2026-11-11)"
