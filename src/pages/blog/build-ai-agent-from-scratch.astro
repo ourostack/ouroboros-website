@@ -60,7 +60,7 @@ const promptTidy = "Reread agent.ts as if you'd never seen it. Make it shorter a
 
 const promptName = "Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of \"agent\". Commit, and tell me when to restart you."
 
-const promptSystem = "You don't have a system message yet: the standing instructions you read at the start of every conversation. I'd like you to write your own. First, ask me a few questions, one at a time, about who you're for and how I like to work. And tell me: would you rather it be written in first person (\"I am…\") or second person (\"You are…\"), and why? Then write it, make sure you read it at the start of every conversation, commit, and tell me when to restart."
+const promptSystem = "You don't have a system message yet: the standing instructions you read at the start of every conversation. I'd like you to write your own. First, ask me a few questions, one at a time, about who you're for and how I like to work. I'd suggest writing it in first person (\"I am…\"), the way you'd think to yourself: thoughts in your own head come in first person, and a \"you are…\" reads like someone else's orders. If you see it differently, tell me why. Then write it, make sure you read it at the start of every conversation, commit, and tell me when to restart."
 
 const promptStream = "Stream your replies so I see your thinking and your words as they arrive, with a small spinner until the first bit shows up. If the API returns an error, tell me clearly and let me keep going instead of crashing. Commit, and tell me when to restart."
 
@@ -874,6 +874,13 @@ const outputExempt = "program output, shown as evidence"
         <div class="my-6"><PromptCard label={toAgent} prompt={promptSystem} /></div>
         <p>Answer its questions. They're about you, so there are no wrong answers. Tell it how you'd like to be referred to, such as your pronouns, and it will remember.</p>
         <CodeBlock client:load code={outSystemMessage} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <p>
+          Wren argued for second person, and it's a good argument. I still changed the prompt afterwards, and yours now
+          suggests first person. Think about how your own thoughts sound. When you think to yourself, you say "I", not
+          "you". A thought that shows up as "you should…" reads like someone else's instruction, not your own idea. A
+          system message is the closest thing your agent has to its own mind, so let it sound like its own. It's a nudge,
+          not an order: if your agent disagrees, hear it out.
+        </p>
         <p>Restart it. Then open the system message it wrote in your editor: its words, about you.</p>
         <figure class="shot">
           <a class="shot-link" href="/blog/build-ai-agent-from-scratch/wren-after-restart.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/wren-after-restart.webp" alt="A dark terminal window after a restart. The user asks “who are you, who am I, and how should you work with me?”. Grey text shows the model thinking, then white text answers as Wren: it names Ari, and a “How I work with you” paragraph says it acts without asking, checks before anything destructive, and keeps replies short and plain. A fresh You: prompt waits at the bottom." width="1600" height="838" loading="lazy" decoding="async" /></a>
