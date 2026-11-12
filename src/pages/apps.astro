@@ -93,7 +93,7 @@ const shelf = [
         ))}
       </ul>
       </div>
-      <StoryScene scene="ouro-md" class="split-body" sizes="(min-width: 1024px) 40rem, 100vw" />
+      <StoryScene scene="ouro-md" class="split-body" sizes="(min-width: 2000px) 47rem, (min-width: 1024px) 40rem, 100vw" />
     </div>
   </section>
 
@@ -104,7 +104,7 @@ const shelf = [
       <ul class="shelf">
         {shelf.map((item) => (
           <li id={item.id}>
-            <StoryScene scene={item.scene} sizes="(min-width: 900px) 34rem, 100vw" />
+            <StoryScene scene={item.scene} sizes="(min-width: 2000px) 41rem, (min-width: 900px) 35rem, 100vw" />
             <div class="shelf-body">
               <h3 class="shelf-name">{item.name}</h3>
               <p class="shelf-status"><span class={`tag ${item.status.tone}`}>{item.status.label}</span> <span class="shelf-detail">{item.detail}</span></p>

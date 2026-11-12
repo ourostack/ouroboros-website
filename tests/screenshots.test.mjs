@@ -41,3 +41,15 @@ test('the Hosted Desk screenshot stands in the demo frame, capped below the scre
   assert.match(css, /\.shot-capped\{max-width:960px\}/);
   assert.match(css, /:root:not\(\[data-theme=light\]\) \.shot-light-only img\{filter:brightness\(\.8\d*\)\}/);
 });
+
+// The housesitter clips are real captures and terminal recordings, too small to fill their columns on a 2x
+// screen and not fit for AI upscaling, so each is held to half its natural width until it is re-recorded at 2x.
+test('each housesitter clip is held to half its natural width', () => {
+  const html = fs.readFileSync(path.join(distDir, 'housesitter/index.html'), 'utf8');
+  const css = fs.readdirSync(path.join(distDir, '_astro')).filter((f) => f.endsWith('.css')).map((f) => fs.readFileSync(path.join(distDir, '_astro', f), 'utf8')).join('\n') + html;
+  for (const [cls, video, natural] of [['restart-clip', 'housesitter-restart.mp4', 960], ['npu-wide', 'housesitter-npu.mp4', 1800], ['night-clip', 'housesitter-night.mp4', 1280]]) {
+    assert.match(html, new RegExp(`class="[^"]*\\b${cls}\\b[\\s\\S]{0,3000}?${video.replace('.', '\\.')}`), `${video} sits in .${cls}`);
+    const cap = css.match(new RegExp(`\\.${cls}\\[[^\\]]+\\]\\{[^}]*max-width:(\\d+)px`))?.[1];
+    assert.ok(cap && Number(cap) <= natural / 2, `.${cls} is capped at ${cap}px, half of ${natural} is ${natural / 2}`);
+  }
+});

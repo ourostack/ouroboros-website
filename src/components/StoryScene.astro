@@ -17,7 +17,7 @@
   even without, the art. No variant fades into the page: every picture ends
   on a hard edge.
 */
-import { scenes, darkScenes, columnHeroes, columnHeroSrcset, COLUMN_HERO_MEDIA, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
+import { scenes, darkScenes, columnHeroes, columnHeroSrcset, wideSrcset, COLUMN_HERO_MEDIA, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -72,8 +72,8 @@ const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
 const sources = (s: string) => ({
   phoneAvif: `${base}/phone/${s}-384.avif 384w, ${base}/phone/${s}-768.avif 768w`,
   phoneWebp: `${base}/phone/${s}-384.webp 384w, ${base}/phone/${s}-768.webp 768w`,
-  wideAvif: `${base}/scenes/${s}-640.avif 640w, ${base}/scenes/${s}-960.avif 960w, ${base}/scenes/${s}-1536.avif 1536w`,
-  wideWebp: `${base}/scenes/${s}-640.webp 640w, ${base}/scenes/${s}-960.webp 960w, ${base}/headers/${s}.webp 1536w`,
+  wideAvif: wideSrcset(s, 'avif'),
+  wideWebp: wideSrcset(s, 'webp'),
   fallback: `${base}/headers/${s}.webp`,
 })
 const { phoneAvif, phoneWebp, wideAvif, wideWebp, fallback } = sources(scene)
@@ -91,14 +91,9 @@ const vignette = variant === 'vignette'
 // A column hero (columnHeroes) has its own 2:1 art from 1600px, listed ahead of the
 // full-bleed art so it wins there and nowhere else.
 const column = hero && night ? columnHeroes[scene] : undefined
-// The storybook art's masters are 1536px wide (ourostack/.github brand/, byte
-// for byte), so a full-width scene on a 2x laptop or a 4K screen is drawn
-// from fewer pixels than the screen has. Ouro check's blurry-image rule is
-// kept off for the art alone, with this reason, until larger masters exist.
-const artWhy = 'Storybook art: the brand masters are 1536px wide; sharper at 2x and 4K needs larger masters from ourostack/.github brand/.'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style}>
   {hero && day && dark ? (
     <>
       <picture>

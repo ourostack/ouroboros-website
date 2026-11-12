@@ -1,0 +1,217 @@
+{
+ "note": "Screenshots too small for their drawn size at 2x DPR. Each was upscaled 2x with Real-ESRGAN (realesr-animevideov3-x2, ncnn-vulkan) from the shipped file, which is the best master that exists; alpha channels were carried through. SSIM is the upscale resized back to the source size against the source. The URL and the width and height attributes are unchanged.",
+ "date": "2026-11-12",
+ "files": {
+  "hosted-desk-connected": {
+   "path": "/images/workshop/hosted-desk-connected.webp",
+   "source": {
+    "size": [
+     1200,
+     804
+    ],
+    "sha256": "efe5a681cb78bbb98335e63c6fc7bcb9f9a49ac4a36b341faaf56546b87723d0"
+   },
+   "output": {
+    "size": [
+     2400,
+     1608
+    ],
+    "sha256": "5d93a2535c5001cce2552d3386fd5066df9f2bb20b46adc96546c9a8c9b62c7d"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from efe5a681cb78bbb98335e63c6fc7bcb9f9a49ac4a36b341faaf56546b87723d0",
+   "ssim": 0.9922
+  },
+  "housesitter-doctor": {
+   "path": "/images/workshop/housesitter-doctor.webp",
+   "source": {
+    "size": [
+     1800,
+     944
+    ],
+    "sha256": "dc0d1e9916ca319b98f11ffb75d5b2076dfd75d515f14832baf2aa2e1da40629"
+   },
+   "output": {
+    "size": [
+     3600,
+     1888
+    ],
+    "sha256": "549eb8cfb137eee7ddc5ec6e67aca2a8ac4fd62aa55d62b9b771dd145ced01d5"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from dc0d1e9916ca319b98f11ffb75d5b2076dfd75d515f14832baf2aa2e1da40629",
+   "ssim": 0.9817
+  },
+  "housesitter-look": {
+   "path": "/images/workshop/housesitter-look.webp",
+   "source": {
+    "size": [
+     1800,
+     711
+    ],
+    "sha256": "566d0b4e35597288a9ff5ea2319a3be42fff9244453c8b746cab9546f4a5d7ad"
+   },
+   "output": {
+    "size": [
+     3600,
+     1422
+    ],
+    "sha256": "ae3579faaaabb880d69b5c0a4edf0cfab4fc33b0f9abf2887830bfbc1373719f"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 566d0b4e35597288a9ff5ea2319a3be42fff9244453c8b746cab9546f4a5d7ad",
+   "ssim": 0.9875
+  },
+  "hx-voyage-light": {
+   "path": "/images/workshop/hx-voyage-light.webp",
+   "source": {
+    "size": [
+     1164,
+     1051
+    ],
+    "sha256": "99533b1de2693dca26ee43b9d3c64cc378d41b91ad73f59173f3a39ddd36f75c"
+   },
+   "output": {
+    "size": [
+     2328,
+     2102
+    ],
+    "sha256": "c3e7a74be95eb8050c0666b546a9332da138e8a3ab834d085d780c954406e136"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 99533b1de2693dca26ee43b9d3c64cc378d41b91ad73f59173f3a39ddd36f75c",
+   "ssim": 0.985
+  },
+  "hx-voyage-dark": {
+   "path": "/images/workshop/hx-voyage-dark.webp",
+   "source": {
+    "size": [
+     1164,
+     1051
+    ],
+    "sha256": "4d916947e92d9ed6e1d4ea61fae5c72215a7c854739df9bfe8557e31b5d67914"
+   },
+   "output": {
+    "size": [
+     2328,
+     2102
+    ],
+    "sha256": "ebdc4b4ec2613a7d818906d128a8ecf93ebbc5748a930949c051762b45488211"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 4d916947e92d9ed6e1d4ea61fae5c72215a7c854739df9bfe8557e31b5d67914",
+   "ssim": 0.9848
+  },
+  "spoonjoy-recipe": {
+   "path": "/images/workshop/spoonjoy-recipe.webp",
+   "source": {
+    "size": [
+     1440,
+     1200
+    ],
+    "sha256": "caaff663e1811590c4873d025ed9de3a07b1b0d13a28f79887863ac50cad03e1"
+   },
+   "output": {
+    "size": [
+     2880,
+     2400
+    ],
+    "sha256": "ee295ea310b9cb6756e205015218605e1498a12ed8d306e0e1e5039cb675cd99"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from caaff663e1811590c4873d025ed9de3a07b1b0d13a28f79887863ac50cad03e1",
+   "ssim": 0.9846
+  },
+  "spoonjoy-recipe-dark": {
+   "path": "/images/workshop/spoonjoy-recipe-dark.webp",
+   "source": {
+    "size": [
+     1440,
+     1200
+    ],
+    "sha256": "f963b57dc8c6de055b607eaf16ebb9716377eab074b56cd9a6137d979f58d5e4"
+   },
+   "output": {
+    "size": [
+     2880,
+     2400
+    ],
+    "sha256": "188111f1b8f581751ba07c5e4c05385051bac5db824453f611f0333eb957bccf"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from f963b57dc8c6de055b607eaf16ebb9716377eab074b56cd9a6137d979f58d5e4",
+   "ssim": 0.9834
+  },
+  "m365crawl-doctor": {
+   "path": "/images/workshop/m365crawl-doctor.png",
+   "source": {
+    "size": [
+     1582,
+     1414
+    ],
+    "sha256": "50a78d132c8a077d9744be941bb74b15d66cf3b0e1ed77ab2643f4c6e130e523"
+   },
+   "output": {
+    "size": [
+     3164,
+     2828
+    ],
+    "sha256": "2891a395f479fce827aa739838dc774853e8b4fec880f84fd69bf829e9d1225d",
+    "webpSha256": "2813ae01c01864efdc01692d58d2fd39cb4c713fe64a3da21050923fc7810339",
+    "note": "PNG fallback quantized to 256 colours; WebP q88 served first via <picture>"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 50a78d132c8a077d9744be941bb74b15d66cf3b0e1ed77ab2643f4c6e130e523",
+   "ssim": 0.9933
+  },
+  "first-reply": {
+   "path": "/blog/build-ai-agent-from-scratch/first-reply.webp",
+   "source": {
+    "size": [
+     1600,
+     424
+    ],
+    "sha256": "192ac310dd6ac13dfff0016f2944e82583598074dc8d256907a793553374bc34"
+   },
+   "output": {
+    "size": [
+     3200,
+     848
+    ],
+    "sha256": "b6e1f7216d45254a602734691800a117dc0447321e8d252f2e2bfafd5360d983"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 192ac310dd6ac13dfff0016f2944e82583598074dc8d256907a793553374bc34",
+   "ssim": 0.991
+  },
+  "what-the-model-sees": {
+   "path": "/blog/build-ai-agent-from-scratch/what-the-model-sees.webp",
+   "source": {
+    "size": [
+     1600,
+     1446
+    ],
+    "sha256": "c420a3906745ee0cfa1ea99f256e7b452dc00666fa9936370b45ac492b3d09a9"
+   },
+   "output": {
+    "size": [
+     3200,
+     2892
+    ],
+    "sha256": "048303cf4d6c747d6e4ea0e354d694ac660e7fdddfaad9a8502ba32863123660"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from c420a3906745ee0cfa1ea99f256e7b452dc00666fa9936370b45ac492b3d09a9",
+   "ssim": 0.9885
+  },
+  "wren-after-restart": {
+   "path": "/blog/build-ai-agent-from-scratch/wren-after-restart.webp",
+   "source": {
+    "size": [
+     1600,
+     838
+    ],
+    "sha256": "4b8b34dbda13e56858ce581eec5194e707083f88bf5308898a4b9d4e44167c0f"
+   },
+   "output": {
+    "size": [
+     3200,
+     1676
+    ],
+    "sha256": "6dbc28097533978dca26ad359a223071924d576a59a079362bc3c7bcbd1bd626"
+   },
+   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 4b8b34dbda13e56858ce581eec5194e707083f88bf5308898a4b9d4e44167c0f",
+   "ssim": 0.9817
+  }
+ }
+}

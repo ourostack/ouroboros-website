@@ -148,6 +148,21 @@ export const columnHeroes = { 'agent-workbench': { sizes: '72rem' } }
 export const columnHeroSrcset = (scene, ext) => columnHeroWidths.map((w) => `/images/guide-hero/${scene}-col-${w}.${ext} ${w}w`).join(', ')
 export const COLUMN_HERO_MEDIA = '(min-width: 1600px)'
 
+// The wide art past 1536px: ourostack/.github brand/ cuts it from each scene's
+// 4x Real-ESRGAN master (brand/upscaled/), so a full-width scene on a 2x laptop
+// or a 4K screen at 2x (7680 device pixels) is drawn from as many pixels as the
+// screen has. WebP, for the few browsers without AVIF, stops at 3072: its 7680
+// files are about 2MB each.
+export const largeAvifWidths = [2304, 3072, 3840, 5120, 7680]
+export const largeWebpWidths = [3072]
+const base = '/brand/storybook'
+/** The wide srcset of a scene: 640 to 7680 in AVIF, 640 to 3072 in WebP. */
+export const wideSrcset = (scene, ext) => (ext === 'avif'
+  ? [640, 960, 1536, ...largeAvifWidths].map((w) => `${base}/scenes/${scene}-${w}.avif ${w}w`)
+  : [...[640, 960].map((w) => `${base}/scenes/${scene}-${w}.webp ${w}w`), `${base}/headers/${scene}.webp 1536w`,
+      ...largeWebpWidths.map((w) => `${base}/scenes/${scene}-${w}.webp ${w}w`)]
+).join(', ')
+
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
   // The homepage's grown-inside rows and the factory, then the character beside each tool (homeTools).
