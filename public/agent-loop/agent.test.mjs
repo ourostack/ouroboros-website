@@ -4,7 +4,7 @@ import { copyFile, mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } 
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const agent = new URL('./agent.ts', import.meta.url);
 const openai = new URL('./node_modules/openai/index.mjs', import.meta.url).href;
@@ -82,7 +82,7 @@ async function fixture(run) {
     };
   `);
   async function start(scenario, input = '', expectFailure = false) {
-    const child = execFile(process.execPath, ['--import', bootstrap, join(app, 'agent.ts')], {
+    const child = execFile(process.execPath, ['--import', pathToFileURL(bootstrap).href, join(app, 'agent.ts')], {
       cwd: directory,
       env: { ...process.env, TEST_SCENARIO: JSON.stringify(scenario) },
       maxBuffer: 4_000_000,
