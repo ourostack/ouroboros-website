@@ -1,0 +1,306 @@
+[
+  {
+    "file": "agent-workbench-col-1152.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1152x576 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1152,
+    "height": 576,
+    "bytes": 196141,
+    "sha256": "338908538f63404aaa48bdf644b83d7d6309b94bee1c4023e5c7b7269e14bc05"
+  },
+  {
+    "file": "agent-workbench-col-1152.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1152x576 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1152,
+    "height": 576,
+    "bytes": 178010,
+    "sha256": "99c80028cb54a40d732b47bed14c53b7003fa108caafd1cbda379370bf328502"
+  },
+  {
+    "file": "agent-workbench-col-1728.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1728x864 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1728,
+    "height": 864,
+    "bytes": 296458,
+    "sha256": "13fbad07e2c36447424231664bf2c6a21cd4b2ecb13fc50a457b61ce4bec1dd3"
+  },
+  {
+    "file": "agent-workbench-col-1728.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1728x864 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1728,
+    "height": 864,
+    "bytes": 301314,
+    "sha256": "979d0ca134da2795da9af6d99e0d5be63022988d6b91b596d474316073d279b9"
+  },
+  {
+    "file": "agent-workbench-col-2304.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 2304x1152 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 2304,
+    "height": 1152,
+    "bytes": 379781,
+    "sha256": "6d7bb0afb1983c77a8e8ef6effe44772019eac21095b7f6c9fc2098f3ab0a000"
+  },
+  {
+    "file": "agent-workbench-col-2304.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 2304x1152 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 2304,
+    "height": 1152,
+    "bytes": 428088,
+    "sha256": "54f2895fb39a60f6440829f3bda3e0e841f9faf002582b45864df684b9e99816"
+  },
+  {
+    "file": "agent-workbench-col-3072.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 3072x1536 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 3072,
+    "height": 1536,
+    "bytes": 480681,
+    "sha256": "45318ed0700c674fbe7171244acecfa85af8c5579ec3df452226f06c8f1b3d18"
+  },
+  {
+    "file": "agent-workbench-col-3072.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench.webp",
+      "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82"
+    },
+    "master": "agent-workbench-light-master",
+    "master_sha256": "847ef7c44c17359f066528f1b861be4809622a302bcc0410b991cf00a09ae047",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (light), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 light master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 3072x1536 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 3072,
+    "height": 1536,
+    "bytes": 583102,
+    "sha256": "b6774931ebbf52ac8abd5c83ac664748e75f6ad74040df5da98359a9ada02ff4"
+  },
+  {
+    "file": "agent-workbench-dark-col-1152.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1152x576 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1152,
+    "height": 576,
+    "bytes": 180922,
+    "sha256": "46788a398093c046bc4e149892682e801b6b54cba0cfb120e3e4db3b1514c896"
+  },
+  {
+    "file": "agent-workbench-dark-col-1152.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1152x576 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1152,
+    "height": 576,
+    "bytes": 166282,
+    "sha256": "c8bb731ef39b321d49cc2b3a598466a29ede9e0a550b372d44304c1da439db4f"
+  },
+  {
+    "file": "agent-workbench-dark-col-1728.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1728x864 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1728,
+    "height": 864,
+    "bytes": 272993,
+    "sha256": "0e1839917427775916433be525b797c457cea5b2480fb007eea285958d0e220b"
+  },
+  {
+    "file": "agent-workbench-dark-col-1728.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 1728x864 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 1728,
+    "height": 864,
+    "bytes": 280500,
+    "sha256": "5c5d74c2ece36765a5d4e0498a69d08d1f715b67307d016d2e1892f7be834b57"
+  },
+  {
+    "file": "agent-workbench-dark-col-2304.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 2304x1152 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 2304,
+    "height": 1152,
+    "bytes": 348781,
+    "sha256": "664372298f1b4f57e44d8342c6d9fd6696b4146c27585ba18a7342aa726f862e"
+  },
+  {
+    "file": "agent-workbench-dark-col-2304.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 2304x1152 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 2304,
+    "height": 1152,
+    "bytes": 393476,
+    "sha256": "81af0df3ded32569514d3dcfe4798603d7de2f9bfd8c01fcefcce2cb6af253c7"
+  },
+  {
+    "file": "agent-workbench-dark-col-3072.avif",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 3072x1536 (Lanczos)",
+    "encoder": "sharp AVIF quality 60 effort 4",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 3072,
+    "height": 1536,
+    "bytes": 442417,
+    "sha256": "b45d4e490e66cfc7aed8d7cd56c312c35f8a219b3b827654adb8d1b3bd559fac"
+  },
+  {
+    "file": "agent-workbench-dark-col-3072.webp",
+    "derivedFrom": {
+      "file": "headers/agent-workbench-dark.webp",
+      "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3"
+    },
+    "master": "agent-workbench-dark-master",
+    "master_sha256": "f2708cb2fa1b619a35663fc001f1b45b1458911ef75126298b54150df0c32c0e",
+    "upscale": "Real-ESRGAN x4",
+    "crop": "6144x3072 from the 6144x4096 upscale at x0 y635 (2:1, focal point 54% 62% of the master)",
+    "use": "guide hero, 2:1 column art from 1600px (dark), responsive width",
+    "operation": "Real-ESRGAN x4 upscale of the 1536x1024 dark master to 6144x4096, cropped 6144x3072 at x0 y635 (2:1, the focal point 54% 62%), resized to 3072x1536 (Lanczos)",
+    "encoder": "sharp WebP quality 82 effort 6",
+    "approval": "Ari chose hero option A, 2026-11-12, and approved AI upscaling of the master. Derived by upscale, crop and resize only; nothing new is drawn.",
+    "width": 3072,
+    "height": 1536,
+    "bytes": 532020,
+    "sha256": "5097ebf6fa576520166c1390dbe06530d535d1d01666a60b766d4da57215108f"
+  }
+]

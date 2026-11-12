@@ -140,11 +140,12 @@ export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
 // 2026-11-12). Its art is the master upscaled and cropped to 2:1 for the column,
-// in the widths below (public/brand/storybook/scenes/<scene>-col-<width>), so
+// in the widths below (public/images/guide-hero/<scene>-col-<width>, with its own
+// provenance.json; not brand/, which mirrors ourostack/.github byte for byte), so
 // the 72rem column is drawn from real pixels at 1x and 2x.
 export const columnHeroWidths = [1152, 1728, 2304, 3072]
 export const columnHeroes = { 'agent-workbench': { sizes: '72rem' } }
-export const columnHeroSrcset = (scene, ext) => columnHeroWidths.map((w) => `/brand/storybook/scenes/${scene}-col-${w}.${ext} ${w}w`).join(', ')
+export const columnHeroSrcset = (scene, ext) => columnHeroWidths.map((w) => `/images/guide-hero/${scene}-col-${w}.${ext} ${w}w`).join(', ')
 export const COLUMN_HERO_MEDIA = '(min-width: 1600px)'
 
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
