@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
+import site from '../src/worker/index.ts';
 
 const distDir = path.join(process.cwd(), 'dist', 'agent-loop');
 const files = ['agent.ts', 'package.json', 'package-lock.json', 'agent.test.mjs', 'system-message.md', 'skills/adding-tools/SKILL.md'];
@@ -16,6 +17,18 @@ test('the finished agent and the files it needs are served', () => {
 test('files.txt lists every served file by its full address, one per line', () => {
   const lines = read('files.txt').split('\n').filter(Boolean);
   assert.deepEqual(lines, files.map((name) => `https://ouroboros.bot/agent-loop/${name}`));
+});
+
+// .ts is also the MPEG transport stream extension, so without these a browser plays or
+// downloads agent.ts instead of showing it (2026-11-11: the preview served video/mp2t).
+test('agent.ts opens as text in a browser', async () => {
+  const headers = fs.readFileSync(path.join(process.cwd(), 'public', '_headers'), 'utf8');
+  assert.match(headers, /^\/agent-loop\/\*\.ts\n\s+Content-Type: text\/plain; charset=utf-8$/m, 'public/_headers has no text/plain rule for /agent-loop/*.ts');
+  const assets = { fetch: async () => new Response('const x = 1', { headers: { 'content-type': 'video/mp2t' } }) };
+  const served = await site.fetch(new Request('https://ouroboros.bot/agent-loop/agent.ts'), { ASSETS: assets });
+  assert.equal(served.headers.get('content-type'), 'text/plain; charset=utf-8');
+  const other = await site.fetch(new Request('https://ouroboros.bot/agent-loop/files.txt'), { ASSETS: { fetch: async () => new Response('x', { headers: { 'content-type': 'text/plain' } }) } });
+  assert.equal(other.headers.get('content-type'), 'text/plain', 'only .ts files are retyped');
 });
 
 test('the demo conversation and node_modules are not served', () => {
