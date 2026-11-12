@@ -757,11 +757,34 @@ const outputExempt = "program output, shown as evidence"
             agent prints dimmed. <code>reasoning_opaque</code> is the model's reasoning, encrypted by the provider. You can't
             read it, and neither can your program.
           </p>
+          <p class="!mb-2 !text-base">
+            Why lock it up? Picture the model doing its homework on scratch paper: half-ideas, wrong turns, things it would
+            never say out loud. The provider hands you a tidy summary and seals the scratch paper in an envelope only it can
+            open. There are three good reasons.
+          </p>
+          <p class="!mb-2 !text-base">
+            <strong class="text-bone">It's the secret recipe.</strong> Raw reasoning is a step-by-step record of how a great
+            model thinks. If anyone could read it, anyone could copy it to train a cheaper lookalike. OpenAI lists
+            "competitive advantage" among <a href="https://openai.com/index/learning-to-reason-with-llms/">its reasons for
+            hiding it</a>.
+          </p>
+          <p class="!mb-2 !text-base">
+            <strong class="text-bone">It keeps the thinking honest.</strong> Labs want to read the raw thoughts to catch a
+            model planning something it shouldn't. That only works if the model thinks freely, so nobody trains the scratch
+            paper to look polished. Unpolished thoughts aren't fit to hand out, so they stay sealed.
+          </p>
+          <p class="!mb-2 !text-base">
+            <strong class="text-bone">Nobody can plant fake thoughts.</strong> The seal works like wax on a letter. When the
+            envelope comes back, the provider checks it's the one its model wrote, so no one can slip in a "thought" the model
+            would trust as its own. Anthropic <a href="https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-encryption">signs
+            every thinking block</a> for exactly this.
+          </p>
           <p class="!mb-0 !text-base">
-            Send it back anyway. On the next call the provider unlocks it, and the model picks up its own train of thought
-            instead of starting cold. That matters most inside the loop, when the model is halfway through a plan and waiting
-            on a tool. It's why the prompt says never strip it. Other providers do the same thing under other names: Anthropic
-            signs its thinking blocks, and OpenAI returns <code>encrypted_content</code>.
+            So why carry an envelope you can't open? Because the model remembers nothing between calls. You're the
+            courier. Send it back, and on the next call the provider unlocks it and the model picks up its own train of
+            thought instead of starting cold. That matters most inside the loop, when the model is halfway through a plan and
+            waiting on a tool. It's why the prompt says never strip it. Other providers do the same thing under other names:
+            Anthropic's signed thinking blocks, and OpenAI's <code>encrypted_content</code>.
           </p>
         </aside>
         <p>
