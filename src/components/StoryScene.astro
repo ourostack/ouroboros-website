@@ -17,7 +17,7 @@
   even without, the art. No variant fades into the page: every picture ends
   on a hard edge.
 */
-import { scenes, darkScenes, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
+import { scenes, darkScenes, columnHeroes, columnHeroSrcset, COLUMN_HERO_MEDIA, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -88,6 +88,9 @@ const day = night ? sources(scene) : undefined
 const dark = night ? sources(night) : undefined
 const nightAlt = night ? (alt ?? scenes[night]) : undefined
 const vignette = variant === 'vignette'
+// A column hero (columnHeroes) has its own 2:1 art from 1600px, listed ahead of the
+// full-bleed art so it wins there and nowhere else.
+const column = hero && night ? columnHeroes[scene] : undefined
 // The storybook art's masters are 1536px wide (ourostack/.github brand/, byte
 // for byte), so a full-width scene on a 2x laptop or a 4K screen is drawn
 // from fewer pixels than the screen has. Ouro check's blurry-image rule is
@@ -95,7 +98,7 @@ const vignette = variant === 'vignette'
 const artWhy = 'Storybook art: the brand masters are 1536px wide; sharper at 2x and 4K needs larger masters from ourostack/.github brand/.'
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
+<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style} data-ouro-allow="blurry-image" data-ouro-allow-why={artWhy}>
   {hero && day && dark ? (
     <>
       <picture>
@@ -103,6 +106,14 @@ const artWhy = 'Storybook art: the brand masters are 1536px wide; sharper at 2x 
         <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/webp" srcset={day.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
         <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/avif" srcset={dark.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
         <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/webp" srcset={dark.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        {column && (
+          <>
+            <source media={`${COLUMN_HERO_MEDIA} and ${lightScheme}`} data-media={COLUMN_HERO_MEDIA} data-theme-art="light" type="image/avif" srcset={columnHeroSrcset(scene, 'avif')} sizes={column.sizes} width="1152" height="576" />
+            <source media={`${COLUMN_HERO_MEDIA} and ${lightScheme}`} data-media={COLUMN_HERO_MEDIA} data-theme-art="light" type="image/webp" srcset={columnHeroSrcset(scene, 'webp')} sizes={column.sizes} width="1152" height="576" />
+            <source media={COLUMN_HERO_MEDIA} data-media={COLUMN_HERO_MEDIA} data-theme-art="dark" type="image/avif" srcset={columnHeroSrcset(night, 'avif')} sizes={column.sizes} width="1152" height="576" />
+            <source media={COLUMN_HERO_MEDIA} data-media={COLUMN_HERO_MEDIA} data-theme-art="dark" type="image/webp" srcset={columnHeroSrcset(night, 'webp')} sizes={column.sizes} width="1152" height="576" />
+          </>
+        )}
         <source media={lightScheme} data-media="" data-theme-art="light" type="image/avif" srcset={day.wideAvif} sizes={wideSizes} width={w} height={h} />
         <source media={lightScheme} data-media="" data-theme-art="light" type="image/webp" srcset={day.wideWebp} sizes={wideSizes} width={w} height={h} />
         <source data-media="" data-theme-art="dark" type="image/avif" srcset={dark.wideAvif} sizes={wideSizes} width={w} height={h} />

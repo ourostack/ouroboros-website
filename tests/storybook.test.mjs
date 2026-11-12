@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, distExists, readDist, listHtmlFiles } from './support/dist.mjs';
-import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes } from '../src/data/scenes.mjs';
+import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes, columnHeroes, columnHeroWidths, COLUMN_HERO_MEDIA } from '../src/data/scenes.mjs';
 
 // The storybook world (Ari, 2026-11-06). The art is ourostack/.github brand/,
 // copied byte for byte by scripts/sync-storybook.mjs; the brand audit fetches
@@ -77,15 +77,23 @@ test('a hero with a night version is one picture that fetches only the art for t
     }
     // The day art asks for a light color scheme and comes first; the night art takes the rest.
     const sources = [...pictures[0][2].matchAll(/<source\b[^>]*>/g)].map(([t]) => t);
-    assert.equal(sources.length, 8, page);
+    // Four phone sources, then (column heroes only) four 2:1 column sources from 1600px, then four wide ones.
+    // The column art comes ahead of the full-bleed art, so it wins from 1600px and nowhere else.
+    const column = Boolean(columnHeroes[hero]);
+    const layout = [['phone', '(max-width: 640px)'], ...(column ? [['col', COLUMN_HERO_MEDIA]] : []), ['wide', '']];
+    assert.equal(sources.length, layout.length * 4, page);
     sources.forEach((t, i) => {
-      const light = [0, 1, 4, 5].includes(i);
-      const phone = i < 4;
-      assert.match(t, new RegExp(`srcset="/brand/storybook/${phone ? 'phone' : 'scenes'}/${light ? hero : night}-`), `${page}: source ${i}`);
+      const [kind, cond] = layout[Math.floor(i / 4)];
+      const light = i % 4 < 2;
+      const dir = kind === 'phone' ? 'brand/storybook/phone' : kind === 'col' ? 'images/guide-hero' : 'brand/storybook/scenes';
+      const infix = kind === 'col' ? '-col-' : '-';
+      assert.match(t, new RegExp(`srcset="/${dir}/${light ? hero : night}${infix}`), `${page}: source ${i}`);
       assert.match(t, new RegExp(`data-theme-art="${light ? 'light' : 'dark'}"`), `${page}: source ${i}`);
+      assert.match(t, new RegExp(`type="image/${i % 2 ? 'webp' : 'avif'}"`), `${page}: source ${i} type`);
       const media = t.match(/\smedia="([^"]*)"/)?.[1];
-      const want = [phone && '(max-width: 640px)', light && '(prefers-color-scheme: light)'].filter(Boolean).join(' and ');
+      const want = [cond, light && '(prefers-color-scheme: light)'].filter(Boolean).join(' and ');
       assert.equal(media ?? '', want, `${page}: source ${i} media`);
+      assert.equal(t.match(/data-media="([^"]*)"/)?.[1], cond, `${page}: source ${i} data-media`);
     });
     const img = pictures[0][2].match(/<img\b[^>]*>/)[0];
     assert.match(img, new RegExp(`src="/brand/storybook/headers/${night}\\.webp"`));
@@ -100,8 +108,37 @@ test('a hero with a night version is one picture that fetches only the art for t
     const preload = head.match(/<script>\(function \(\) \{ var t = document\.documentElement\.dataset\.theme;[\s\S]*?<\/script>/)?.[0];
     assert.ok(preload, `${page}: no theme-aware preload`);
     assert.ok(preload.includes(`/phone/${hero}-384.avif`) && preload.includes(`/scenes/${night}-1536.avif`), page);
+    // A column hero's full-bleed preload stops at 1599px, and its column art's takes over from 1600px.
+    if (column) {
+      assert.ok(preload.includes('(min-width: 641px) and (max-width: 1599px)'), `${page}: the full-bleed preload stops where the column art starts`);
+      for (const s of [hero, night]) assert.ok(preload.includes(`/images/guide-hero/${s}-col-3072.avif 3072w`) && preload.includes('72rem'), `${page}: ${s} column preload`);
+    }
   }
   assert.deepEqual(Object.keys(darkScenes), ['agent-workbench'], 'only the agent loop guide has a night hero');
+});
+
+test('a column hero\'s art is the guide\'s own master, upscaled and cropped, and is at least as wide as the column is drawn at 2x', () => {
+  const brand = new Map(JSON.parse(readDist('brand/storybook/provenance.json')).map((e) => [e.file, e]));
+  const by = new Map(JSON.parse(readDist('images/guide-hero/provenance.json')).map((e) => [e.file, e]));
+  assert.deepEqual(Object.keys(columnHeroes), ['agent-workbench']);
+  assert.equal(Math.max(...columnHeroWidths), 3072, 'the 72rem column at 2x on a 4K screen is 2304px; the widest file has room above it');
+  for (const hero of Object.keys(columnHeroes)) {
+    for (const [scene, header] of [[hero, `headers/${hero}.webp`], [darkScenes[hero], `headers/${darkScenes[hero]}.webp`]]) {
+      for (const w of columnHeroWidths) for (const ext of ['avif', 'webp']) {
+        const e = by.get(`${scene}-col-${w}.${ext}`);
+        assert.ok(e, `${scene} ${w} ${ext} is in provenance`);
+        assert.equal(e.width, w);
+        assert.equal(e.height, w / 2, 'the column art is 2:1');
+        assert.equal(e.derivedFrom.file, header);
+        assert.equal(e.master_sha256, brand.get(header).generation[0].master_sha256, `${scene}: the column art names the hero's own master`);
+        assert.match(e.master, /^agent-workbench-(light|dark)-master$/);
+        assert.equal(e.upscale, 'Real-ESRGAN x4');
+        assert.match(e.approval, /^Ari chose hero option A, 2026-11-12/);
+        const bytes = fs.readFileSync(new URL(`../dist/images/guide-hero/${e.file}`, import.meta.url));
+        assert.equal(createHash('sha256').update(bytes).digest('hex'), e.sha256, `${e.file} is served with exactly its provenance bytes`);
+      }
+    }
+  }
 });
 
 test('scenes further down wait for the arrival, and no page shows one scene twice', () => {
