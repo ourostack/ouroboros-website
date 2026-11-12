@@ -9,10 +9,13 @@ name: site-checks
 # ouro-check.json holds its waivers and budgets. Each shard first proves
 # lib/ouro/check is byte for byte Ouro UI's release at OURO_UI_TAG. Time to the
 # largest content (LCP) is gated at a budget wide enough for the runners' noise;
-# taste reviewers then judge only what a tool can't measure.
+# taste reviewers then judge only what a tool can't measure. The agent bundle job
+# proves the public demo bundle in public/agent-loop/ installs from the public npm
+# registry with a cold npm ci and passes its own tests on Linux, Windows and macOS.
 #
 # The last job is named site-checks so it stays the one required check on
-# main: it passes only when the page checks and every Ouro check shard pass.
+# main: it passes only when the page checks, the agent bundle and every Ouro check
+# shard pass.
 
 on:
   pull_request:
@@ -195,14 +198,45 @@ jobs:
             ouro-check/findings
           if-no-files-found: warn
 
+  agent-bundle:
+    name: agent bundle
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['22.18.0', '24']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Every resolved URL in the lockfile is the public npm registry
+        shell: bash
+        working-directory: public/agent-loop
+        run: |
+          node -e 'const lock = JSON.parse(require("fs").readFileSync("package-lock.json", "utf8")); const bad = Object.entries(lock.packages || {}).filter(([, p]) => p.resolved && !p.resolved.startsWith("https://registry.npmjs.org/")); if (bad.length) { for (const [name, p] of bad) console.error(name + " -> " + p.resolved); process.exit(1); }'
+
+      - name: npm ci
+        working-directory: public/agent-loop
+        run: npm ci
+
+      - name: npm test
+        working-directory: public/agent-loop
+        run: npm test
+
   site-checks:
     name: site-checks
-    needs: [pages, ouro-check]
+    needs: [pages, agent-bundle, ouro-check]
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: The page checks and every Ouro check shard pass
+      - name: The page checks, the agent bundle and every Ouro check shard pass
         run: |
           echo "page checks: ${{ needs.pages.result }}"
+          echo "agent bundle: ${{ needs.agent-bundle.result }}"
           echo "ouro check:  ${{ needs.ouro-check.result }}"
-          [ "${{ needs.pages.result }}" = success ] && [ "${{ needs.ouro-check.result }}" = success ]
+          [ "${{ needs.pages.result }}" = success ] && [ "${{ needs.agent-bundle.result }}" = success ] && [ "${{ needs.ouro-check.result }}" = success ]
