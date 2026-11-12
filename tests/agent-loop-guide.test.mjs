@@ -73,7 +73,7 @@ test('one program in one file: every run is node agent.ts', () => {
 
 test('every run is followed by what my terminal showed', () => {
   const source = article();
-  const blocks = [...source.matchAll(/<figure\b([^>]*)>[\s\S]*?<pre\b[^>]*>([\s\S]*?)<\/pre>/g)].map(([, attrs, inner]) => ({
+  const blocks = [...source.matchAll(/<figure\b([^>]*)>(?:(?!<\/figure>)[\s\S])*?<pre\b[^>]*>([\s\S]*?)<\/pre>/g)].map(([, attrs, inner]) => ({
     output: /data-expected-output/.test(attrs),
     text: textOf(inner),
   }));
@@ -89,7 +89,7 @@ test('every run is followed by what my terminal showed', () => {
 // Light content pin: the outputs are real terminal text, so they show the prompt they came from.
 test('every output is a real one from the dry run', () => {
   assert.ok(!html().includes('DRYRUN_PENDING'), 'the page still shows DRYRUN_PENDING in place of real output');
-  const outputs = [...article().matchAll(/<figure\b([^>]*)>[\s\S]*?<pre\b[^>]*>([\s\S]*?)<\/pre>/g)]
+  const outputs = [...article().matchAll(/<figure\b([^>]*)>(?:(?!<\/figure>)[\s\S])*?<pre\b[^>]*>([\s\S]*?)<\/pre>/g)]
     .filter(([, attrs]) => /data-expected-output/.test(attrs))
     .map(([, , inner]) => textOf(inner));
   assert.ok(outputs.length >= 10, `expected at least 10 output blocks, found ${outputs.length}`);
@@ -206,4 +206,40 @@ test('the byline keeps the publication date and notes the update', () => {
   assert.match(source, /Ari Mendelow &middot; March 2026 &middot; Updated November 2026/, 'byline');
   assert.ok(source.includes('"datePublished":"2026-03-01"'), 'datePublished');
   assert.ok(source.includes('"dateModified":"2026-11-11"'), 'dateModified');
+});
+
+test('the three dry-run screenshots are real figures with alt text and files', () => {
+  const figures = [...article().matchAll(/<figure\b[^>]*class="shot"[^>]*>([\s\S]*?)<\/figure>/g)].map(([, inner]) => inner);
+  assert.equal(figures.length, 3, 'three screenshot figures');
+  assert.ok(!/SCREENSHOT:/.test(html()), 'a screenshot marker survived');
+  const expected = {
+    'first-reply.webp': [1600, 424],
+    'what-the-model-sees.webp': [1600, 1446],
+    'wren-after-restart.webp': [1600, 838],
+  };
+  const seen = [];
+  for (const inner of figures) {
+    const img = inner.match(/<img\b[^>]*>/)[0];
+    const src = img.match(/\ssrc="([^"]+)"/)[1];
+    const alt = img.match(/\salt="([^"]+)"/)?.[1] ?? '';
+    const file = src.split('/').pop();
+    assert.ok(alt.length > 60 && !/^screenshot/i.test(alt), `${file}: alt text must describe the image`);
+    assert.ok(fs.existsSync(`public${src}`), `${src} is missing from public/`);
+    assert.ok(expected[file], `unexpected image ${file}`);
+    assert.match(img, new RegExp(`width="${expected[file][0]}"\\s+height="${expected[file][1]}"`), `${file}: intrinsic size`);
+    assert.match(img, /loading="lazy"/, `${file}: lazy`);
+    assert.match(img, /decoding="async"/, `${file}: async decode`);
+    const caption = textOf(inner.match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)[1]);
+    assert.ok(caption.length > 20, `${file}: caption`);
+    seen.push(file);
+  }
+  assert.deepEqual(seen.sort(), Object.keys(expected).sort());
+});
+
+test('the restart screenshot follows the restart paragraph, not the one before it', () => {
+  const source = article();
+  const at = (needle) => source.indexOf(needle);
+  assert.ok(at('Restart it. Then open the system message') > -1);
+  assert.ok(at('wren-after-restart.webp') > at('Restart it. Then open the system message'), 'figure comes after the restart step');
+  assert.ok(at('wren-after-restart.webp') < at('From this moment on'), 'figure comes before the handoff line');
 });
