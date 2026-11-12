@@ -1,0 +1,143 @@
+
+> ouroboros-website@0.0.1 build
+> astro build
+
+13:07:48 [content] Syncing content
+13:07:48 [content] Synced content
+13:07:48 [types] Generated 29ms
+13:07:48 [build] output: "static"
+13:07:48 [build] mode: "static"
+13:07:48 [build] directory: /Users/arimendelow/code/ouroboros-website-agent-loop/dist/
+13:07:48 [build] Collecting build info...
+13:07:48 [build] ✓ Completed in 49ms.
+13:07:48 [build] Building static entrypoints...
+13:07:50 [vite] ✓ built in 1.36s
+13:07:50 [build] ✓ Completed in 1.38s.
+
+ building client (vite) 
+13:07:50 [vite] transforming...
+13:07:50 [vite] ✓ 25 modules transformed.
+13:07:50 [vite] rendering chunks...
+13:07:50 [vite] computing gzip size...
+13:07:50 [vite] dist/_astro/client.BkDVtqqA.js  224.00 kB │ gzip: 69.61 kB
+13:07:50 [vite] ✓ built in 370ms
+
+ generating static routes 
+13:07:50 ▶ src/pages/404.astro
+13:07:50   └─ /404.html (+15ms) 
+13:07:50 ▶ src/pages/approach.astro
+13:07:50   └─ /approach/index.html (+4ms) 
+13:07:50 ▶ src/pages/apps.astro
+13:07:50   └─ /apps/index.html (+4ms) 
+13:07:50 ▶ src/pages/blog/build-ai-agent-from-scratch.astro
+13:07:50   └─ /blog/build-ai-agent-from-scratch/index.html (+4ms) 
+13:07:50 ▶ src/pages/blog/designing-with-your-agent.astro
+13:07:50   └─ /blog/designing-with-your-agent/index.html (+4ms) 
+13:07:50 ▶ src/pages/blog/give-your-agent-a-home.astro
+13:07:50   └─ /blog/give-your-agent-a-home/index.html (+2ms) 
+13:07:50 ▶ src/pages/blog/index.astro
+13:07:50   └─ /blog/index.html (+4ms) 
+13:07:50 ▶ src/pages/blog/stop-being-the-glue.astro
+13:07:50   └─ /blog/stop-being-the-glue/index.html (+2ms) 
+13:07:50 ▶ src/pages/blog/take-the-agents-seat.astro
+13:07:50   └─ /blog/take-the-agents-seat/index.html (+3ms) 
+13:07:50 ▶ src/pages/blog/trust-the-agent.astro
+13:07:50   └─ /blog/trust-the-agent/index.html (+2ms) 
+13:07:50 ▶ src/pages/blog/what-is-agent-experience.astro
+13:07:50   └─ /blog/what-is-agent-experience/index.html (+2ms) 
+13:07:50 ▶ src/pages/brief.astro
+13:07:50   └─ /brief/index.html (+2ms) 
+13:07:50 ▶ src/pages/butler.astro
+13:07:50   └─ /butler/index.html (+2ms) 
+13:07:50 ▶ src/pages/desk.astro
+13:07:50   └─ /desk/index.html (+2ms) 
+13:07:50 ▶ src/pages/housesitter.astro
+13:07:50   └─ /housesitter/index.html (+2ms) 
+13:07:50 ▶ src/pages/index.astro
+13:07:50   └─ /index.html (+3ms) 
+13:07:50 ▶ src/pages/lab/docs/architecture.astro
+13:07:50   └─ /lab/docs/architecture/index.html (+3ms) 
+13:07:50 ▶ src/pages/lab/docs/bundles-and-psyche.astro
+13:07:50   └─ /lab/docs/bundles-and-psyche/index.html (+2ms) 
+13:07:50 ▶ src/pages/lab/docs/continuity-and-memory.astro
+13:07:50   └─ /lab/docs/continuity-and-memory/index.html (+1ms) 
+13:07:50 ▶ src/pages/lab/docs/getting-started.astro
+13:07:50   └─ /lab/docs/getting-started/index.html (+2ms) 
+13:07:50 ▶ src/pages/lab/docs/index.astro
+13:07:50   └─ /lab/docs/index.html (+1ms) 
+13:07:50 ▶ src/pages/lab/docs/skills-and-prompts.astro
+13:07:50   └─ /lab/docs/skills-and-prompts/index.html (+1ms) 
+13:07:50 ▶ src/pages/lab/docs/tasks-and-work.astro
+13:07:50   └─ /lab/docs/tasks-and-work/index.html (+2ms) 
+13:07:50 ▶ src/pages/lab/how-desk-started.astro
+13:07:50   └─ /lab/how-desk-started/index.html (+1ms) 
+13:07:50 ▶ src/pages/lab/index.astro
+13:07:50   └─ /lab/index.html (+2ms) 
+13:07:50 ▶ src/pages/lab/model-reviews/[provider].astro
+13:07:50   ├─ /lab/model-reviews/anthropic/index.html (+3ms) 
+13:07:50   ├─ /lab/model-reviews/openai/index.html (+3ms) 
+13:07:50   ├─ /lab/model-reviews/gemini/index.html (+2ms) 
+13:07:50   └─ /lab/model-reviews/minimax/index.html (+2ms) 
+13:07:50 ▶ src/pages/lab/model-reviews.astro
+13:07:50   └─ /lab/model-reviews/index.html (+2ms) 
+13:07:50 ▶ src/pages/lab/story.astro
+13:07:50   └─ /lab/story/index.html (+2ms) 
+13:07:50 ▶ src/pages/lab/what-is-an-agent-harness.astro
+13:07:50   └─ /lab/what-is-an-agent-harness/index.html (+1ms) 
+13:07:50 ▶ src/pages/lab/why.astro
+13:07:50   └─ /lab/why/index.html (+2ms) 
+13:07:50 λ src/pages/llms.txt.ts
+13:07:50   └─ /llms.txt (+0ms) 
+13:07:50 λ src/pages/og/[...slug].jpg.ts
+13:07:50   ├─ /og/og-home.jpg (+1.38s) 
+13:07:52   ├─ /og/og-approach.jpg (+244ms) 
+13:07:52   ├─ /og/og-brief.jpg (+219ms) 
+13:07:52   ├─ /og/og-desk.jpg (+227ms) 
+13:07:52   ├─ /og/og-butler.jpg (+305ms) 
+13:07:53   ├─ /og/og-housesitter.jpg (+286ms) 
+13:07:53   ├─ /og/og-ouro-md.jpg (+207ms) 
+13:07:53   ├─ /og/og-ouro-md-download.jpg (+176ms) 
+13:07:53   ├─ /og/og-apps.jpg (+244ms) 
+13:07:54   ├─ /og/og-lab.jpg (+183ms) 
+13:07:54   ├─ /og/og-lab-why.jpg (+171ms) 
+13:07:54   ├─ /og/og-lab-story.jpg (+245ms) 
+13:07:54   ├─ /og/og-lab-how-desk-started.jpg (+277ms) 
+13:07:54   ├─ /og/og-lab-what-is-an-agent-harness.jpg (+253ms) 
+13:07:55   ├─ /og/og-lab-model-reviews.jpg (+196ms) 
+13:07:55   ├─ /og/og-lab-docs.jpg (+201ms) 
+13:07:55   ├─ /og/og-blog.jpg (+182ms) 
+13:07:55   ├─ /og/og-blog-trust-the-agent.jpg (+298ms) 
+13:07:56   ├─ /og/og-blog-take-the-agents-seat.jpg (+288ms) 
+13:07:56   ├─ /og/og-blog-give-your-agent-a-home.jpg (+253ms) 
+13:07:56   ├─ /og/og-blog-what-is-agent-experience.jpg (+297ms) 
+13:07:56   ├─ /og/og-blog-designing-with-your-agent.jpg (+347ms) 
+13:07:57   ├─ /og/og-blog-stop-being-the-glue.jpg (+338ms) 
+13:07:57   ├─ /og/og-blog-build-ai-agent-from-scratch.jpg (+326ms) 
+13:07:57   ├─ /og/og-privacy.jpg (+233ms) 
+13:07:58   ├─ /og/og-terms.jpg (+229ms) 
+13:07:58   ├─ /og/og-404.jpg (+211ms) 
+13:07:58   ├─ /og/og-lab-docs-getting-started.jpg (+256ms) 
+13:07:58   ├─ /og/og-lab-docs-bundles-and-psyche.jpg (+263ms) 
+13:07:59   ├─ /og/og-lab-docs-continuity-and-memory.jpg (+316ms) 
+13:07:59   ├─ /og/og-lab-docs-architecture.jpg (+287ms) 
+13:07:59   ├─ /og/og-lab-docs-tasks-and-work.jpg (+326ms) 
+13:08:00   ├─ /og/og-lab-docs-skills-and-prompts.jpg (+250ms) 
+13:08:00   ├─ /og/og-lab-model-reviews-anthropic.jpg (+212ms) 
+13:08:00   ├─ /og/og-lab-model-reviews-openai.jpg (+267ms) 
+13:08:00   ├─ /og/og-lab-model-reviews-gemini.jpg (+234ms) 
+13:08:01   └─ /og/og-lab-model-reviews-minimax.jpg (+274ms) 
+13:08:01 ▶ src/pages/ouro-md/download.astro
+13:08:01   └─ /ouro-md/download/index.html (+2ms) 
+13:08:01 ▶ src/pages/ouro-md.astro
+13:08:01   └─ /ouro-md/index.html (+2ms) 
+13:08:01 ▶ src/pages/privacy.astro
+13:08:01   └─ /privacy/index.html (+1ms) 
+13:08:01 ▶ src/pages/terms.astro
+13:08:01   └─ /terms/index.html (+1ms) 
+13:08:01 ▶ /origin
+13:08:01   └─ /origin/index.html (+0ms) 
+13:08:01 ✓ Completed in 10.76s.
+
+13:08:01 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+13:08:01 [build] 37 page(s) built in 12.71s
+13:08:01 [build] Complete!
