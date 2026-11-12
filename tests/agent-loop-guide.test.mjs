@@ -6,6 +6,7 @@
 //   npm run build && node --test tests/agent-loop-guide.test.mjs
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { readDist, textOf, hrefsOf } from './support/dist.mjs';
 
 const PAGE = 'blog/build-ai-agent-from-scratch/index.html';
@@ -97,6 +98,9 @@ test('every output is a real one from the dry run', () => {
   assert.match(joined, /Press Ctrl\+C to exit/, 'the messages output no longer shows how the agent says to exit');
   assert.match(joined, /\[shell\]/, 'no output shows a shell tool call');
   assert.match(joined, /reasoning_opaque/, 'no output shows the saved conversation');
+  assert.match(joined, /node agent\.ts You: \S/, 'no output shows the agent\'s real "You:" prompt');
+  const agent = fs.readFileSync(new URL('../public/agent-loop/agent.ts', import.meta.url), 'utf8');
+  assert.ok(agent.includes("prompt: 'You: '"), 'the published agent.ts no longer uses the "You: " prompt the outputs show');
 });
 
 test('one disclosure, up top, that every output is real', () => {

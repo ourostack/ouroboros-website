@@ -47,6 +47,8 @@ test('every URL and path is wrapped: prose, links, mono spans and preformatted t
   assert.equal(wrapCode('<pre>npx init --no-monorepo</pre>'), '<pre>npx init <span class="tok">--no-monorepo</span></pre>');
   // A short flag never splits after its hyphen (Linux Chromium broke "-" / "p" at 320; site-checks, round 21).
   assert.equal(wrapCode('<pre>goose recipe deeplink x -p a=b</pre>'), '<pre>goose recipe deeplink x <span class="nobr">-p</span> a=b</pre>');
+  // A character class with a hyphen in a quoted pattern never splits after the hyphen.
+  assert.equal(wrapCode("<pre>grep -E '^[+-][^+-]' x</pre>"), "<pre>grep <span class=\"nobr\">-E</span> <span class=\"nobr\">'^[+-][^+-]'</span> x</pre>");
   // Ordinary words, scripts, styles, attributes and the head stay as they are.
   const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
   assert.equal(wrapCode(untouched), untouched);

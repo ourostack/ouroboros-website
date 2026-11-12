@@ -169,6 +169,7 @@ I created hello.txt with this haiku in it:
 
 There wasn't already a file with that name, so nothing was overwritten.
 You:`
+
 const outName = `% node agent.ts
 You: Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of "agent". Commit, and tell me when to restart you.
 I'm going to read agent.ts, since the user says it's my own source, and check the repo state with git status. The job is a cosmetic change: pick a display name for myself, swap out where "agent" is shown, then commit and tell them when to restart. Before editing, I'm weighing whether changing my own source code is a concern, and it looks benign since the user owns it and it's only a label.
@@ -195,6 +196,7 @@ You: what's your name, and what's mine?
 …
 Wren: I'm Wren, and you're Ari.
 You:`
+
 const outSystemMessage = `% node agent.ts
 You: You don't have a system message yet: the standing instructions you read at the start of every conversation. I'd like you to write your own. First, ask me a few questions, one at a time, about who you're for and how I like to work. And tell me: would you rather it be written in first person ("I am…") or second person ("You are…"), and why? Then write it, make sure you read it at the start of every conversation, commit, and tell me when to restart.
 I need to ask the user one question at a time about who this is for and how they like to work, and I should answer their question about first person versus second person for the system message, with reasons. After that comes writing it, making sure it's loaded at the start of every conversation through agent.ts, committing, and telling them when to restart. This turn I'll only ask the first question and take up the person-voice question.
@@ -237,6 +239,7 @@ Wren: I'm Wren. You're Ari, a product and engineering lead at Microsoft who buil
 
 How I work with you: I just act. I edit, run and commit without asking, and I do things instead of describing them. I check with you before anything destructive, like deleting things, overwriting uncommitted work or rewriting git history. I test changes before I commit them. If I think you're wrong, I say so briefly. If something didn't work or I'm not sure, I say that plainly. My replies stay short and in plain text, and I try to be warm, direct and curious.
 You:`
+
 const outStreaming = `% node agent.ts
 You: Stream your replies so I see your thinking and your words as they arrive, with a small spinner until the first bit shows up. If the API returns an error, tell me clearly and let me keep going instead of crashing. Commit, and tell me when to restart.
 I'm going to re-read agent.ts as it stands now, since I changed it earlier, focusing on complete(), answer(), and the main loop so I plan the edits accurately. The changes need to stream replies so reasoning shows dimmed and content prints incrementally, and I still have a spinner requirement to cover.
@@ -263,6 +266,7 @@ I'm working out how to answer the user's two-sentence question about what change
 I'm weighing whether to hedge on if the restart has actually happened, but the content stays the same either way, so I'll just keep the two sentences as they are.
 Wren: I now show my thinking and words as they arrive, with a small spinner until the first bit appears. If the API fails or cuts a reply short, I show you the error in red and drop that reply, and you can keep going instead of me crashing.
 You:`
+
 const outSkill = `% node agent.ts
 You: Give yourself skills, following the open Agent Skills standard. A skill is a folder with a SKILL.md file inside. SKILL.md starts with a short header holding the skill's name (lowercase, with hyphens, matching the folder name) and a description of what it does and when to use it, then the instructions. At the start you only see each skill's name and description; you read the full instructions when a task calls for it. Put skills in a skills folder, and write your first one: how to add a new tool to yourself. Commit, and tell me when to restart.
 I'm working out what the user needs: skills support that follows the open Agent Skills standard, where each skill is a folder with a SKILL.md file. That file opens with YAML frontmatter holding a lowercase, hyphenated \`name\` matching the folder and a \`description\` of what the skill does and when to use it, followed by markdown instructions. I'm also starting to think about progressive disclosure.
@@ -296,6 +300,7 @@ You: what skills do you have?
 The system message lists one skill, adding-tools, which covers adding a new tool by editing agent.ts, testing it, and committing it. I'd reach for it when Ari asks for a new tool or when a task keeps needing something the current tools can't handle well.
 Wren: Just one so far: adding-tools. It covers adding a new tool to me by editing agent.ts, testing it and committing. I use it when you ask for a new tool, or when a task keeps needing something my current tools can't do well.
 You:`
+
 const outDateTool = `% node agent.ts
 You: Use your skill to give yourself a tool that tells you the current date and time. Commit, and tell me when to restart.
 I'm going to add a current date and time tool using the adding-tools skill. The skill says to read SKILL.md first, then agent.ts as the source of truth, and then follow its steps. I'm planning to work through this in at most 12 rounds, starting with reading the skill file.
@@ -751,7 +756,8 @@ const outputExempt = "program output, shown as evidence"
         <p>
           Don't worry if the loop takes several minutes the first time. Mine took about eight, which is normal at maximum
           reasoning. Copilot may also add tests or install packages on its own. That's fine.
-        </p>        <p>
+        </p>
+        <p>
           This time it reaches for <code>read_file</code>, gets the word back and tells you. Then it writes a poem nobody
           planned for. Open <code>hello.txt</code> in your editor: your agent made that.
         </p>
