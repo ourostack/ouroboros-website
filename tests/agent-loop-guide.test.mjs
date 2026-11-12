@@ -99,8 +99,6 @@ test('every output is a real one from the dry run', () => {
   assert.match(joined, /\[shell\]/, 'no output shows a shell tool call');
   assert.match(joined, /reasoning_opaque/, 'no output shows the saved conversation');
   assert.match(joined, /node agent\.ts You: \S/, 'no output shows the agent\'s real "You:" prompt');
-  const agent = fs.readFileSync(new URL('../public/agent-loop/agent.ts', import.meta.url), 'utf8');
-  assert.ok(agent.includes("prompt: 'You: '"), 'the published agent.ts no longer uses the "You: " prompt the outputs show');
 });
 
 test('one disclosure, up top, that every output is real', () => {
@@ -140,9 +138,9 @@ test('links Steinberger at the moment', () => {
   assert.ok(!textOf(html()).includes('Lex reminded'), 'play-by-play of the conversation');
 });
 
-test('no agent SDK and no style reference', () => {
+test('no agent SDK, no standards name-drops and no style reference', () => {
   const text = textOf(html());
-  for (const banned of ['Ted Lasso', '@github/copilot-sdk', '@openai/agents']) {
+  for (const banned of ['Ted Lasso', '@github/copilot-sdk', '@openai/agents', 'agentskills', 'Agent Skills standard', 'universal basis']) {
     assert.ok(!text.includes(banned), `page mentions ${banned}`);
   }
 });
@@ -157,14 +155,13 @@ test('troubleshooting covers the real errors', () => {
   assert.ok(!html().includes('quota-fix'), 'a link to the removed quota fix');
 });
 
-test('the finished file is one link away', () => {
+test('offers no half-built agent to download', () => {
   const hrefs = hrefsOf(html());
-  assert.ok(hrefs.includes('/agent-loop/agent.ts'), 'no link to /agent-loop/agent.ts');
+  assert.ok(!hrefs.some((h) => h.startsWith('/agent-loop/')), 'a link into the removed /agent-loop/ bundle');
 });
 
 test('cites the sources it leans on', () => {
   const hrefs = hrefsOf(html());
-  assert.ok(hrefs.some((h) => h.startsWith('https://agentskills.io')), 'no Agent Skills link');
   assert.ok(hrefs.some((h) => h.startsWith('https://openclaw.ai')), 'no OpenClaw link');
   assert.ok(hrefs.some((h) => h.includes('lexfridman.com/peter-steinberger-transcript')), 'no transcript link');
 });

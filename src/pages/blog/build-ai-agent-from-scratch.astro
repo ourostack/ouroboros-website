@@ -11,7 +11,7 @@ import { Kbd } from '../../components/ouro/kbd/kbd'
 // One title everywhere (taste review r2, 2026-11-06): the post's own headline.
 // "Grow an agent" is the workshop's name; it lives in the eyebrow.
 const title = "Just give the model a keyboard | Ouro"
-const description = "Build an AI agent from scratch in one TypeScript file. Learn what an agent loop is and how agents really work, then hand your agent the keyboard and watch it grow itself."
+const description = "Build an AI agent from scratch, one small step at a time. Learn what an agent loop is and how agents really work, then hand your agent the keyboard and watch it grow itself."
 const canonicalUrl = "https://ouroboros.bot/blog/build-ai-agent-from-scratch/"
 const datePublished = "2026-03-01"
 const dateModified = "2026-11-12"
@@ -20,9 +20,8 @@ const yt = "https://youtube.com/watch?v=YFjfBk8HI5o&t=9298"
 const transcript = "https://lexfridman.com/peter-steinberger-transcript#how-openclaw-works"
 const copilotDocs = "https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli"
 
-// The one program the reader grows, and the copy my own build of this guide ended with.
+// The one program the reader grows.
 const file = "agent.ts"
-const finished = "/agent-loop/agent.ts"
 const run = `node ${file}`
 
 // Who the reader is talking to. Never blur the two.
@@ -40,7 +39,7 @@ const versions = "git --version\nnode --version\ngh --version\ncopilot --version
 const p = (...paragraphs: string[]) => paragraphs.join("\n\n")
 
 const promptHello = p(
-  "We're building a tiny agent together, from scratch, in one TypeScript file called agent.ts. Use only the openai npm package, no agent frameworks or SDKs, and make it run with plain `node agent.ts`.",
+  "We're building a tiny agent together, from scratch, in one file called agent.ts. Build the agent part by hand: the only add-on should be the openai package, for talking to the model, with no ready-made agent kits. Make it run with plain `node agent.ts`.",
   "For the model, use my GitHub Copilot access through the gh CLI I'm signed in with: `gh auth token` gives the key, and `gh api /copilot_internal/user --jq .endpoints.api` gives the address. Use claude-opus-5.5 with reasoning effort set to max.",
   "Write it for a person to read, because I'll read every line to learn how agents work. Keep it short and plain: the fewest lines that do the job, no clever tricks, no extra layers, nothing I didn't ask for. Add a short comment wherever something important happens, saying what it does and why.",
   "To start, send it one message, \"say hi in exactly five words\", and print what it thought, dimmed, then what it said.",
@@ -52,7 +51,7 @@ const promptChat = p(
   "Every time you call the model, save the exact request you send to what-the-model-sees.json. When agent.ts starts, pick the conversation back up from that file, so it survives a restart. Commit when it works.",
 )
 
-const promptTool = "Give the model one tool, read_file, for reading a text file, described in the standard tool format of the API we're calling. When the model asks to use it, show me exactly what it asked for, then actually read the file and show me what we got, but don't hand the result back to the model yet. I want to see it ask and then get stuck waiting. Commit when it works."
+const promptTool = "Give the model one tool, read_file, for reading a text file. When the model asks to use it, show me exactly what it asked for, then actually read the file and show me what we got, but don't hand the result back to the model yet. I want to see it ask and then get stuck waiting. Commit when it works."
 
 const promptLoop = "Now close the loop. Run whatever tools the model asks for, hand back the results, and keep going until it answers without asking for anything. Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, time out slow commands, and keep tool output to a sensible size. But don't limit the model itself: at maximum reasoning it can think for several minutes and write a lot, so give it all the time and output the model allows. Keep it short and readable: the whole file, loop and all three tools, should stay well under 200 lines, comments included. Before you commit, reread agent.ts and cut anything I didn't ask for. Commit when it works."
 
@@ -64,13 +63,12 @@ const promptSystem = "You don't have a system message yet: the standing instruct
 
 const promptStream = "Stream your replies so I see your thinking and your words as they arrive, with a small spinner until the first bit shows up. If the API returns an error, tell me clearly and let me keep going instead of crashing. Commit, and tell me when to restart."
 
-const promptSkills = "Give yourself skills, following the open Agent Skills standard. A skill is a folder with a SKILL.md file inside. SKILL.md starts with a short header holding the skill's name (lowercase, with hyphens, matching the folder name) and a description of what it does and when to use it, then the instructions. At the start you only see each skill's name and description; you read the full instructions when a task calls for it. Put skills in a skills folder, and write your first one: how to add a new tool to yourself. Commit, and tell me when to restart."
+const promptSkills = "Give yourself skills: instructions you pick up when a task needs them. Each skill gets its own folder inside a skills folder, holding a SKILL.md file that starts with the skill's name and one line on when to use it, then the instructions. When you start, read only those names and lines, so you know what you have; read a skill's full instructions only when a task calls for it. Write your first skill: how to add a new tool to yourself. Commit, and tell me when to restart."
 
 const promptDate = "Use your skill to give yourself a tool that tells you the current date and time. Commit, and tell me when to restart."
 
 const promptByok = "Switch agent.ts from my GitHub Copilot access to my own provider. I'll tell you which one, its address and the model. Keep my key out of the code and out of git, and tell me where to put it. Keep everything else the same. Commit when it works."
 
-const promptLastPage = `Download every file listed in ${"https://ouroboros.bot/agent-loop/files.txt"} into a new folder called last-page, next to this one, keeping their paths. Get it running there, and tell me how to start it.`
 
 const promptBorrow = "Look through the skills at https://github.com/anthropics/skills. Pick one you think would help us, add it to your skills folder, and tell me why you picked it. Commit, and tell me when to restart."
 
@@ -274,28 +272,19 @@ I'm weighing whether to hedge on if the restart has actually happened, but the c
 Wren: I now show my thinking and words as they arrive, with a small spinner until the first bit appears. If the API fails or cuts a reply short, I show you the error in red and drop that reply, and you can keep going instead of me crashing.
 You:`
 
-const outSkill = `% node agent.ts
-You: Give yourself skills, following the open Agent Skills standard. A skill is a folder with a SKILL.md file inside. SKILL.md starts with a short header holding the skill's name (lowercase, with hyphens, matching the folder name) and a description of what it does and when to use it, then the instructions. At the start you only see each skill's name and description; you read the full instructions when a task calls for it. Put skills in a skills folder, and write your first one: how to add a new tool to yourself. Commit, and tell me when to restart.
-I'm working out what the user needs: skills support that follows the open Agent Skills standard, where each skill is a folder with a SKILL.md file. That file opens with YAML frontmatter holding a lowercase, hyphenated \`name\` matching the folder and a \`description\` of what the skill does and when to use it, followed by markdown instructions. I'm also starting to think about progressive disclosure.
-…
+const outSkill = `…
 Wren: The real agent picks up the real skill, with no warnings. Committing:
 [shell] "cd /Users/arimendelow/my-agent && git add agent.ts agent.test.mjs package.json package-lock.json skills/adding-tools/SK
-I've wrapped things up and committed the work as cca14b9. For the reply, I'm keeping it short and plain. The skill loader works like this: at startup it scans the skills folder beside agent.ts, reads only each SKILL.md header, and adds the name, description, and file path to the system message. When a task fits a skill, it reads that skill's full file.
-
-I'm going through the rest of the reply now: the skill validation rules, the first skill covering how to add a tool and the \`write_file\` fall-through trap, the yaml dependency choice, and the test setup at 8/8. I'll close with a short side note about \`write_file\` not creating folders.
-
-I'm drafting the reply now, starting with the commit and how the skill loader scans headers at startup. Next I'm weighing how much detail to give about the yaml dependency and the restart request.
-
-I'm checking the test results and the snag I hit. All 8 pass, the tests now run against a copy of agent.ts, and the real agent picks up the real skill. The one open question is whether to fix write_file so it can create folders, since I had to use shell this time.
+…
 Wren: Done, and committed as cca14b9.
 
 When I start, I look in the skills folder next to agent.ts and read each SKILL.md header. Only the name, description and file path go into my system message. When a task matches one, I read the full SKILL.md with read_file.
 
-Headers are checked against the standard. A name has to be lowercase with single hyphens, 64 characters at most, and match its folder. A description has to be 1 to 1024 characters. A broken skill gets skipped with a warning, so it can't stop me from starting.
+…
 
 The first skill is skills/adding-tools. It walks through adding a tool to agent.ts: define it, accept its arguments, run it, test it, commit, then ask you to restart. It also points out a trap I noticed. write_file is what runTool falls back to when no other tool matches, so a new tool without its own branch could end up running as write_file.
 
-I added the yaml package to read the headers, because parsing YAML by hand gets edge cases wrong. Tell me if you'd rather keep openai as the only dependency.
+…
 
 All 8 tests pass. The tests now run a copy of agent.ts, so each one controls its own skills folder. I also checked that the real agent picks up the real skill.
 One snag: write_file can't create folders, so I used the shell to make the skill's folder. Want me to fix that?
@@ -312,11 +301,10 @@ const outDateTool = `% node agent.ts
 You: Use your skill to give yourself a tool that tells you the current date and time. Commit, and tell me when to restart.
 I'm going to add a current date and time tool using the adding-tools skill. The skill says to read SKILL.md first, then agent.ts as the source of truth, and then follow its steps. I'm planning to work through this in at most 12 rounds, starting with reading the skill file.
 
-I'm weighing the design of the tool: a short snake_case name like \`current_time\` or \`get_current_time\`, since the MCP time server uses that second form, and I'm leaning toward it. Next I'll apply the patch to agent.ts and the tests, run them, do a real check, commit, and give the final answer.
 …
 Wren: Both checks passed. The tool gives the real local time, and real Copilot accepted the definition. The model called it unprompted with {"time_zone": "Asia/Tokyo"}. Committing:
 [shell] "cd /Users/arimendelow/my-agent && git diff skills/adding-tools/SKILL.md | grep -E '^[+-][^+-]' && git add agent.ts agen
-I'm wrapping up with a short, plain-text reply: the commit is done and I've used the adding-tools skill. The new get_current_time tool takes an IANA time zone or "local" and returns the date, time and weekday, an ISO 8601 timestamp, and the zone name, and I'm now explaining why the time_zone parameter exists.
+…
 
 I'm checking the tool's output against the zone I expected, and the fun note about the date. I can't be sure what year I'd have guessed, since my training data only runs to around 2025, so I won't claim the surprise as a fact.
 
@@ -361,11 +349,11 @@ const faq = [
   },
   {
     q: "How many lines of code does it take to build an AI agent?",
-    a: `The loop itself fits on one screen. Everything in this guide lives in one file, ${file}, short enough to read in one sitting. Streaming, skills and everything else grow from there, written by the agent itself.`,
+    a: `The loop itself fits on one screen. Your whole agent lives in one file, ${file}, short enough to read in one sitting. Streaming, skills and everything else grow from there, written by the agent itself.`,
   },
   {
     q: "Do I need an API key?",
-    a: "Not if you have GitHub Copilot. The agent in this guide calls the model through the GitHub CLI you're signed in with, using your Copilot plan. If you'd rather use your own key, any provider with an OpenAI-compatible API works.",
+    a: "Not if you have GitHub Copilot. The agent in this guide calls the model through the GitHub CLI you're signed in with, using your Copilot plan. If you'd rather use your own key, most AI providers work.",
   },
   {
     q: "What tools does an AI agent need?",
@@ -459,11 +447,11 @@ const outputExempt = "program output, shown as evidence"
           <p class="!mb-2 !text-base">
             An <strong>agent loop</strong> is the core cycle that makes AI agents work: the model reads context, decides what action to take,
             executes it (reading a file, running a shell command, writing code), observes the result, and loops back, repeating
-            until the task is done. Three primitives, <strong>read file, write file, and run shell</strong>, form a universal
-            basis. With just these tools inside a loop, a language model can do almost anything a developer can. Including modify its own code.
+            until the task is done. Three tools, <strong>read file, write file, and run shell</strong>, are all it
+            needs. With just these tools inside a loop, a language model can do almost anything a developer can. Including modify its own code.
           </p>
           <p class="!mb-0 !text-base">
-            This guide walks you through building one from scratch in a single TypeScript file, then handing the keyboard to
+            This guide walks you through building one from scratch, then handing the keyboard to
             your creation and watching it grow.
           </p>
         </aside>
@@ -512,12 +500,8 @@ const outputExempt = "program output, shown as evidence"
           plain code with comments that say why. If yours comes back long or hard to follow, say so. It's your agent.
         </p>
         <p>
-          Every output on this page is real. It's what my terminal showed when I followed this guide myself, and
-          <a href={finished}>here's the {file} I ended up with</a>. In those outputs, <code>%</code> is my terminal's prompt;
-          don't type it.
-        </p>
-        <p>
-          Like reading the last page of a book first? <a href="#last-page">Run mine and see where this goes.</a>
+          Every output on this page is real. It's what my terminal showed when I followed this guide myself. In those
+          outputs, <code>%</code> is my terminal's prompt; don't type it.
         </p>
 
         <h2>The shape of what's coming</h2>
@@ -719,14 +703,14 @@ const outputExempt = "program output, shown as evidence"
         <aside id="think-note" class="post-note my-6">
           <p class="!mb-2 !text-base"><strong class="text-bone">How models show their thinking</strong></p>
           <p class="!mb-2 !text-base">
-            Reasoning models think step-by-step before answering, and different classes of model do this differently.
-            Open source models (DeepSeek-R1, Qwen3/QwQ, MiniMax-M2.5) emit their reasoning inline in
-            <code>&lt;think&gt;</code> tags. If you haven't peeked under the hood of a reasoning model before, spend
+            Reasoning models think step-by-step before answering, and different models show it in different ways.
+            Some open models, like DeepSeek-R1, Qwen3 and MiniMax-M2.5, write their thinking right into the reply,
+            between <code>&lt;think&gt;</code> tags. If you haven't peeked under the hood of a reasoning model before, spend
             some time reading these to get a feel for how these models think!
           </p>
           <p class="!mb-0 !text-base">
-            Closed-source models do it differently: Claude returns thinking in a separate content block, and the
-            GPT-5 series returns a reasoning summary via a dedicated field in the API response. (Switched to a model that
+            Others keep it apart from the answer: Claude sends its thinking separately, and OpenAI's GPT-5 models send a
+            short summary of theirs. (Switched to a model that
             thinks in <code>&lt;think&gt;</code> tags? <a href="#think-tags">There's a side quest for that.</a>)
           </p>
         </aside>
@@ -776,7 +760,7 @@ const outputExempt = "program output, shown as evidence"
           <p class="!mb-0 !text-base">
             Send it back anyway. On the next call the provider unlocks it, and the model picks up its own train of thought
             instead of starting cold. That matters most inside the loop, when the model is halfway through a plan and waiting
-            on a tool. It's why the prompt says never strip it. Other APIs do the same thing under other names: Anthropic
+            on a tool. It's why the prompt says never strip it. Other providers do the same thing under other names: Anthropic
             signs its thinking blocks, and OpenAI returns <code>encrypted_content</code>.
           </p>
         </aside>
@@ -788,8 +772,8 @@ const outputExempt = "program output, shown as evidence"
         <h2 id="m3">Milestone 3: one tool</h2>
         <p>
           Time to give the model its first key. To a model, a tool is just a name, a description and its parameters:
-          <code>read_file</code>, "reads a text file", and the path of the file to read. Every major model API understands
-          the same way of writing that down.
+          <code>read_file</code>, "reads a text file", and the path of the file to read. Every major model understands
+          tools written down this way.
         </p>
         <p>The model can't run anything itself. It can only ask. Let's watch it ask…</p>
         <div class="my-6"><PromptCard label={toCoder} prompt={promptTool} /></div>
@@ -801,7 +785,7 @@ const outputExempt = "program output, shown as evidence"
           <code>hello?</code>) changes nothing. Press <Kbd client:visible keys={["ctrl", "c"]} /> to leave.
         </p>
         <p>
-          Look at that. The model knew it needed the file, named it, and asked for it in tidy JSON. Your program read it,
+          Look at that. The model knew it needed the file, named it, and asked for it in a neat little note your program can read. Your program read it,
           and the word is right there on your screen. The model will never see it, because nobody handed it back.
         </p>
         <p><strong class="text-bone">It asked, and nobody answered.</strong></p>
@@ -815,7 +799,7 @@ const outputExempt = "program output, shown as evidence"
         <p>
           While we're there, give it two more keys: one to write files, and one to run commands in your shell.
         </p>
-        <p><strong class="text-bone">Read file + Write file + Run shell = universal basis.</strong></p>
+        <p><strong class="text-bone">Read file + Write file + Run shell = all it needs.</strong></p>
         <p>With these three tools, a model can do almost anything a developer can do at a terminal. Including modify its own code…</p>
         <div class="my-6"><PromptCard label={toCoder} prompt={promptLoop} /></div>
         <p>Run your agent, ask for the secret word, then ask it to write a haiku to <code>hello.txt</code>:</p>
@@ -914,15 +898,15 @@ const outputExempt = "program output, shown as evidence"
         <h3 id="skills">Skills</h3>
         <p>
           A skill is a set of instructions an agent reads when a task calls for it: how to write tests, how to ship, how to
-          add a tool. There's an open standard for them, <a href="https://agentskills.io/home">Agent Skills</a>, so a skill
-          written for one agent works in others. The prompt describes the standard in plain words…
+          add a tool. Your agent only needs to know which skills it has, then reads one in full when it's needed. Ask for
+          them…
         </p>
         <div class="my-6"><PromptCard label={toAgent} prompt={promptSkills} /></div>
         <CodeBlock client:load code={outSkill} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
-          Notice what a skill is: a folder with a markdown file in it. Your agent could already read one with
-          <code>read_file</code>. The new part is the habit. And because it's a standard, you can
-          <a href="#borrow-a-skill">borrow a skill someone else wrote</a>.
+          Notice what a skill is: a folder with a page of instructions in it. Your agent could already read one with
+          <code>read_file</code>. The new part is the habit. And because a skill is just a folder, you can
+          <a href="#borrow-a-skill">borrow one someone else wrote</a>.
         </p>
 
         <h3 id="first-tool">A skill that builds tools</h3>
@@ -939,7 +923,7 @@ const outputExempt = "program output, shown as evidence"
           <li>Add a skill for writing tests</li>
           <li>Add a tool for git operations</li>
           <li>Add a skill for debugging</li>
-          <li>Add a tool for running TypeScript and capturing output</li>
+          <li>Add a tool that runs code and shows you what it printed</li>
         </ul>
         <p>Each capability makes the next one easier to add.</p>
 
@@ -951,11 +935,10 @@ const outputExempt = "program output, shown as evidence"
           instructions. It built a skills system. It used a skill to build itself a tool.
         </p>
         <p>
-          <strong>The loop is the primitive.</strong> Read, write, and execute are the universal basis. Everything
-          else, every feature, every capability, is emergent from the model's ability to use those
-          primitives on its own codebase.
+          <strong>The loop is the whole trick.</strong> Read, write and run are all it needs. Everything else, every
+          feature, every capability, grows out of the model using those three on its own code.
         </p>
-        <p>This is the paradigm shift:</p>
+        <p>This is the shift:</p>
         <p><strong>You grew a product.</strong></p>
         <p>
           The way we build software changed as soon as models became capable enough to modify their own code based on
@@ -966,7 +949,7 @@ const outputExempt = "program output, shown as evidence"
         <h2>What's next</h2>
         <p>Your agent is real, but it's also minimal. If you want to go deeper:</p>
         <ul>
-          <li><strong>A real TUI</strong>, or deploy your agent somewhere: make it feel like an application</li>
+          <li><strong>A proper full-screen terminal app</strong>, or put your agent online: make it feel like an application</li>
           <li><strong>Study production implementations</strong>: Claude Code, pi-agent, OpenClaw</li>
         </ul>
         <p>
@@ -996,20 +979,10 @@ const outputExempt = "program output, shown as evidence"
 
         <h2 id="side-quests">Side quests</h2>
 
-        <Card as="section" id="last-page" data-side-quest="" aria-label="Side quest: read the last page first" title="Read the last page first" description="Side quest" className="side-quest">
-          <p>
-            Here's <a href={finished}>the {file} I ended up with</a> when I followed this guide. Run it and talk to it to see
-            where all this goes. Yours will grow differently, and that's the point. Ask your coding agent to set it
-            up next door…
-          </p>
-          <div class="my-6"><PromptCard label={toCoder} prompt={promptLastPage} /></div>
-          <a slot="footer" href="#how-we-do-this" class="hit">Back to the main path</a>
-        </Card>
-
         <Card as="section" id="bring-your-own-key" data-side-quest="" aria-label="Side quest: bring your own key" title="Bring your own key" description="Side quest" className="side-quest">
           <p>
-            Copilot is just how this guide reaches a model. Your agent only needs a key, an address and a model name, and any
-            provider with an OpenAI-compatible API works:
+            Copilot is just how this guide reaches a model. Your agent only needs a key, an address and a model name, and most
+            providers work:
           </p>
           <ul>
             <li><strong>MiniMax:</strong> your MiniMax key, the address <code>https://api.minimax.io/v1</code>, and a model like <code>MiniMax-M2.5</code>.</li>
@@ -1033,7 +1006,7 @@ const outputExempt = "program output, shown as evidence"
 
         <Card as="section" id="borrow-a-skill" data-side-quest="" aria-label="Side quest: borrow a skill" title="Borrow a skill" description="Side quest" className="side-quest">
           <p>
-            Skills follow an open standard, so they travel. Anthropic publishes a collection of them on GitHub. Let your agent
+            A skill is just a folder of instructions, so skills travel. Anthropic publishes a collection of them on GitHub. Let your agent
             go shopping…
           </p>
           <div class="my-6"><PromptCard label={toAgent} prompt={promptBorrow} /></div>
