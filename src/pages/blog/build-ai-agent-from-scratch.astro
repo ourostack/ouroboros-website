@@ -14,7 +14,7 @@ const title = "Just give the model a keyboard | Ouro"
 const description = "Build an AI agent from scratch in one TypeScript file. Learn what an agent loop is and how agents really work, then hand your agent the keyboard and watch it grow itself."
 const canonicalUrl = "https://ouroboros.bot/blog/build-ai-agent-from-scratch/"
 const datePublished = "2026-03-01"
-const dateModified = "2026-11-11"
+const dateModified = "2026-11-12"
 
 const yt = "https://youtube.com/watch?v=YFjfBk8HI5o&t=9298"
 const transcript = "https://lexfridman.com/peter-steinberger-transcript#how-openclaw-works"
@@ -33,13 +33,16 @@ const makeFolder = "mkdir my-agent\ncd my-agent\ngit init"
 const gitIdentity = 'git config --global user.name "Your Name"\ngit config --global user.email "you@example.com"'
 const versions = "git --version\nnode --version\ngh --version\ncopilot --version"
 
-// The prompts, exactly as the dry run used them (prompt-sequence.md). They ask for
-// outcomes, not steps; the page explains anything technical before each one.
+// The prompts, as the dry run used them (prompt-sequence.md), plus the asks for short,
+// readable code added after the first workshop (2026-11-12), where Copilot wrote nearly
+// 400 lines for the loop. They ask for outcomes, not steps; the page explains anything
+// technical before each one.
 const p = (...paragraphs: string[]) => paragraphs.join("\n\n")
 
 const promptHello = p(
   "We're building a tiny agent together, from scratch, in one TypeScript file called agent.ts. Use only the openai npm package, no agent frameworks or SDKs, and make it run with plain `node agent.ts`.",
   "For the model, use my GitHub Copilot access through the gh CLI I'm signed in with: `gh auth token` gives the key, and `gh api /copilot_internal/user --jq .endpoints.api` gives the address. Use claude-opus-5.5 with reasoning effort set to max.",
+  "Write it for a person to read, because I'll read every line to learn how agents work. Keep it short and plain: the fewest lines that do the job, no clever tricks, no extra layers, nothing I didn't ask for. Add a short comment wherever something important happens, saying what it does and why.",
   "To start, send it one message, \"say hi in exactly five words\", and print what it thought, dimmed, then what it said.",
   "Set up the folder however it needs, keep it a git repo with small commits as you go, and tell me how to run it.",
 )
@@ -51,7 +54,9 @@ const promptChat = p(
 
 const promptTool = "Give the model one tool, read_file, for reading a text file, described in the standard tool format of the API we're calling. When the model asks to use it, show me exactly what it asked for, then actually read the file and show me what we got, but don't hand the result back to the model yet. I want to see it ask and then get stuck waiting. Commit when it works."
 
-const promptLoop = "Now close the loop. Run whatever tools the model asks for, hand back the results, and keep going until it answers without asking for anything. Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, time out slow commands, and keep tool output to a sensible size. But don't limit the model itself: at maximum reasoning it can think for several minutes and write a lot, so give it all the time and output the model allows. Commit when it works."
+const promptLoop = "Now close the loop. Run whatever tools the model asks for, hand back the results, and keep going until it answers without asking for anything. Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, time out slow commands, and keep tool output to a sensible size. But don't limit the model itself: at maximum reasoning it can think for several minutes and write a lot, so give it all the time and output the model allows. Keep it short and readable: the whole file, loop and all three tools, should stay well under 200 lines, comments included. Before you commit, reread agent.ts and cut anything I didn't ask for. Commit when it works."
+
+const promptTidy = "Reread agent.ts as if you'd never seen it. Make it shorter and easier to follow without changing what it does: remove anything I didn't ask for, merge anything repeated, and make sure every important part has a short comment saying what it does and why. Run it to check it still works, then commit."
 
 const promptName = "Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of \"agent\". Commit, and tell me when to restart you."
 
@@ -485,8 +490,8 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <blockquote>It's like the Hello World in AI, you know? And it's actually quite simple.</blockquote>
         <p>
-          He's right on both counts. (The <a href={transcript}>transcript</a> has the rest of that conversation.) In about
-          40 minutes you'll go from nothing to an agent that reads files, runs commands, picks its own name, writes its own
+          He's right on both counts. (The <a href={transcript}>transcript</a> has the rest of that conversation.) In an hour
+          or two you'll go from nothing to an agent that reads files, runs commands, picks its own name, writes its own
           instructions and teaches itself new skills. You'll watch every piece of it arrive. And at the end, you'll stop
           talking to the agent that built it, and start talking to the one you built.
         </p>
@@ -500,6 +505,11 @@ const outputExempt = "program output, shown as evidence"
         <p>
           Today we walk it on purpose, one small piece at a time, so the architecture ends up in your head and not just in
           a file. A coding agent still writes every line. You steer, and you watch.
+        </p>
+        <p>
+          One more thing is different from everyday work. Code that agents write for themselves tends to be long and
+          dense, and nobody minds, because nobody reads it. Here you'll read every line, so the prompts ask for short,
+          plain code with comments that say why. If yours comes back long or hard to follow, say so. It's your agent.
         </p>
         <p>
           Every output on this page is real. It's what my terminal showed when I followed this guide myself, and
@@ -524,7 +534,7 @@ const outputExempt = "program output, shown as evidence"
           <strong>Phase 3: Growing together.</strong> You and your agent build it out together. It learns to stream its
           replies, builds itself a skills system, then uses a skill to give itself a new tool. Watch capability compound.
         </p>
-        <p>The main path takes about 40 minutes. By the end, you'll have something substantive, and you'll have built it the new way.</p>
+        <p>On your own, the main path takes about an hour. In a group, with everyone reading along and asking questions, plan on two. By the end, you'll have something substantive, and you'll have built it the new way.</p>
         <p>Short on time? Milestone 4, the loop, is the finish line. Everything after it is the fun bit you can finish at home.</p>
 
         <h2 id="before-you-start">Before we start</h2>
@@ -755,6 +765,21 @@ const outputExempt = "program output, shown as evidence"
           This is a context window: your words, its thinking, its replies, exactly as the model received them. There's no
           hidden memory anywhere else.
         </p>
+
+        <aside id="opaque-note" class="post-note my-6">
+          <p class="!mb-2 !text-base"><strong class="text-bone">What's that scrambled <code>reasoning_opaque</code>?</strong></p>
+          <p class="!mb-2 !text-base">
+            Each reply carries its thinking twice. <code>reasoning_text</code> is the version you can read, and the one your
+            agent prints dimmed. <code>reasoning_opaque</code> is the model's reasoning, encrypted by the provider. You can't
+            read it, and neither can your program.
+          </p>
+          <p class="!mb-0 !text-base">
+            Send it back anyway. On the next call the provider unlocks it, and the model picks up its own train of thought
+            instead of starting cold. That matters most inside the loop, when the model is halfway through a plan and waiting
+            on a tool. It's why the prompt says never strip it. Other APIs do the same thing under other names: Anthropic
+            signs its thinking blocks, and OpenAI returns <code>encrypted_content</code>.
+          </p>
+        </aside>
         <p>
           Press <Kbd client:visible keys={["ctrl", "d"]} /> (or <Kbd client:visible keys={["ctrl", "c"]} />) to stop your agent if it's running, run <code>node agent.ts</code> again, and ask what your name is. It
           still knows. It read that file back in when it started.
@@ -807,12 +832,18 @@ const outputExempt = "program output, shown as evidence"
           planned for. Open <code>hello.txt</code> in your editor: your agent made that.
         </p>
         <p><strong class="text-bone">That's it. That's the agent.</strong></p>
+        <p>
+          Now read it. Open <code>{file}</code> and go top to bottom: the loop, the three tools, the file it saves. You
+          should be able to follow every line; that's why we walked here instead of asking for it all at once. Lost
+          somewhere, or is it long? Ask Copilot to tidy it…
+        </p>
+        <div class="my-6"><PromptCard label={toCoder} prompt={promptTidy} /></div>
 
         <h2 id="handoff">Hand it the keyboard</h2>
         <p>So far we bootstrapped using an agent someone else built. Now let's hand our new agent the keyboard.</p>
         <p>
           Your agent can read files, write files and run commands. Its own code is a file, <code>{file}</code>, so it can
-          read itself, and change itself. Half an hour ago it couldn't find a word in a file.
+          read itself, and change itself. Not long ago it couldn't find a word in a file.
         </p>
         <p>
           From here on, you talk to your agent in your agent's window, the one showing <code>You:</code>. Every prompt
