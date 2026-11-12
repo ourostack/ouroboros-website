@@ -214,11 +214,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Every resolved URL in the lockfile is the public npm registry
+      - name: The lockfile is version 2 or later, and every resolved URL in it is the public npm registry
         shell: bash
         working-directory: public/agent-loop
         run: |
-          node -e 'const lock = JSON.parse(require("fs").readFileSync("package-lock.json", "utf8")); const bad = Object.entries(lock.packages || {}).filter(([, p]) => p.resolved && !p.resolved.startsWith("https://registry.npmjs.org/")); if (bad.length) { for (const [name, p] of bad) console.error(name + " -> " + p.resolved); process.exit(1); }'
+          node -e 'const lock = JSON.parse(require("fs").readFileSync("package-lock.json", "utf8")); if (!(lock.lockfileVersion >= 2)) { console.error("lockfileVersion " + lock.lockfileVersion + " is older than 2"); process.exit(1); } const bad = Object.entries(lock.packages || {}).filter(([, p]) => p.resolved && !p.resolved.startsWith("https://registry.npmjs.org/")); if (bad.length) { for (const [name, p] of bad) console.error(name + " -> " + p.resolved); process.exit(1); }'
 
       - name: npm ci
         working-directory: public/agent-loop
