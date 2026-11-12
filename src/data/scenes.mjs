@@ -137,6 +137,16 @@ export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-
 // A scene with a night version: StoryScene shows it in the dark theme.
 export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
 
+// A hero that, from 1600px, sits in the content column below the page's words
+// instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
+// 2026-11-12). Its art is the master upscaled and cropped to 2:1 for the column,
+// in the widths below (public/brand/storybook/scenes/<scene>-col-<width>), so
+// the 72rem column is drawn from real pixels at 1x and 2x.
+export const columnHeroWidths = [1152, 1728, 2304, 3072]
+export const columnHeroes = { 'agent-workbench': { sizes: '72rem' } }
+export const columnHeroSrcset = (scene, ext) => columnHeroWidths.map((w) => `/brand/storybook/scenes/${scene}-col-${w}.${ext} ${w}w`).join(', ')
+export const COLUMN_HERO_MEDIA = '(min-width: 1600px)'
+
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
   // The homepage's grown-inside rows and the factory, then the character beside each tool (homeTools).

@@ -18,7 +18,9 @@ walk(new URL('../src', import.meta.url).pathname);
 test('no text has its own max-width: it flows to the width of its column', () => {
   const offenders = [];
   for (const file of files) {
-    const source = fs.readFileSync(file, 'utf8');
+    let source = fs.readFileSync(file, 'utf8');
+    // The one exception: Ari chose design A for the agent loop guide (2026-11-12), words in a 44rem column over the 72rem art, from 1600px.
+    source = source.split('\n').filter((line) => !/\[data-hero-column\]/.test(line)).join('\n');
     const rel = path.relative(process.cwd(), file);
     for (const [cls] of source.matchAll(/\b(?:(?:sm|md|lg|xl|2xl):)?max-w-(?:\[[\d.]+(?:ch|rem|em)\]|xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|prose)\b/g)) {
       if (/SerpentGuidePreview/.test(rel) && cls === 'max-w-2xl') continue; // a terminal mock, not flowing text
