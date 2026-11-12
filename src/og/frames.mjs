@@ -28,3 +28,24 @@ export async function plateFrame(src) {
     .toBuffer()
   return { base, plateH }
 }
+
+// The feature card (2026-11-11, for the few pages shared widely on their own):
+// the words stand on the same solid cream plate down the card's left side, with
+// the gold rule along its right edge, and a card-height window of the canonical
+// header stands beside it at full strength, so the cast reads large even as a
+// thumbnail. The header is only resized and cropped: `height` scales it, and
+// `left` slides the window to its cast.
+export async function featureFrame(src, { plateW, height = H, left }) {
+  const artW = W - plateW
+  const scaled = await sharp(src).resize({ height }).removeAlpha().toBuffer()
+  const { width: sw, height: sh } = await sharp(scaled).metadata()
+  if (left < 0 || left + artW > sw || sh < H) throw new Error(`og: the feature window ${left}+${artW} misses the ${sw}x${sh} header ${src}`)
+  const art = await sharp(scaled).extract({ left, top: sh - H, width: artW, height: H }).toBuffer()
+  const { paper, gold, goldEdge, rule } = PLATE
+  const plate = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${plateW}" height="${H}"><rect width="${plateW}" height="${H}" fill="${paper}"/><rect x="${plateW - rule}" width="${rule - 1}" height="${H}" fill="${gold}"/><rect x="${plateW - 1}" width="1" height="${H}" fill="${goldEdge}"/></svg>`)
+  const base = await sharp({ create: { width: W, height: H, channels: 3, background: paper } })
+    .composite([{ input: plate, top: 0, left: 0 }, { input: art, top: 0, left: plateW }])
+    .png()
+    .toBuffer()
+  return { base, plateW }
+}

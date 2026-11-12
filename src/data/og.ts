@@ -46,6 +46,11 @@ export interface OgEntry {
   subtitle?: string
   tag?: string
   mark?: OgMark
+  // A feature card, for the few pages shared widely on their own: the title set
+  // larger on a cream plate down the left, a short deck under it, and the
+  // scene's cast at full strength beside it (FEATURE in src/pages/og/[...slug].jpg.ts).
+  // The deck says what the reader gets; keep it under 90 characters.
+  feature?: { deck: string }
 }
 
 const { winner, allChose, winnerCount, totalReviews } = getModelReviewClaims(modelReviews)
@@ -173,8 +178,9 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/build-ai-agent-from-scratch': {
     title: 'Just give the model a keyboard.',
-    subtitle: 'Build an agent in about 100 lines of TypeScript. A practical guide to building agents that read, think, act, and grow: from first principles to production.',
-    tag: 'Tutorial',
+    subtitle: 'A one-hour, hands-on walk: prompt GitHub Copilot CLI to build your own agent loop in TypeScript, then hand off to it.',
+    tag: 'Grow an agent',
+    feature: { deck: 'Build your own agent loop with GitHub Copilot CLI. One hour, no API keys.' },
   },
   '/privacy': {
     title: 'Privacy.',
