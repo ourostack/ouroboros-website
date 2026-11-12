@@ -10,6 +10,12 @@
     "/housesitter/": {
       "first-content": "Its largest content is the workshop video's first frame, which waits for the video file: 5.37 to 16.36 s at 1440 and 3840 (runs 42687903505 to 42728469008)."
     },
+    "/blog/build-ai-agent-from-scratch/": {
+      "first-content": "Its largest content at 3840 is a transcript far below the fold, drawn only when the check scrolls the page to look for overlaps: 13.08 s light and 17.38 s dark (run 43153514247)."
+    },
+    "/origin/": {
+      "first-content": "It redirects to /blog/build-ai-agent-from-scratch/, whose largest content at 3840 is a transcript far below the fold, drawn only when the check scrolls the page to look for overlaps: 13.08 s light and 17.38 s dark (run 43153514247)."
+    },
     "/lab/docs/architecture/": {
       "layout-shift": "The h1's second clause rewraps on a 390-wide phone when Cormorant loads: 0.109 against the 0.1 budget, the same in every run (runs 42687903505 to 42728469008)."
     }
