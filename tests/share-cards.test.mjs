@@ -131,6 +131,66 @@ test('the Butler card stands its title on a solid cream plate over the whole sce
   assert.ok((lum(paper) + 0.05) / (lum([0x1a, 0x21, 0x18]) + 0.05) >= 7);
 });
 
+// The feature card (src/data/og.ts, `feature`): pages shared widely on their
+// own set the title larger, since feeds show cards at a third of their size.
+// The solid plate takes the left with a gold rule down its edge, and the
+// canonical header stands beside it, resized and cropped but never repainted.
+test('the agent loop guide card stands a large title on a plate beside its scene', async () => {
+  const { default: sharp } = await import('sharp');
+  const { PLATE, W, H } = await import('../src/og/frames.mjs');
+  const src = fs.readFileSync('src/pages/og/[...slug].jpg.ts', 'utf8');
+  const titleSize = Number(src.match(/export const FEATURE_TITLE_SIZE = (\d+)/)?.[1]);
+  assert.ok(titleSize > Number(src.match(/export const TITLE_SIZE = (\d+)/)?.[1]), 'the feature title is larger than the one title size');
+  const [, plateW, height, left] = src.match(/'agent-workbench': \{ file: 'headers\/agent-workbench\.webp', plateW: (\d+), height: (\d+), left: (\d+) \}/).map(Number);
+  assert.ok(pageOg['/blog/build-ai-agent-from-scratch'].feature, 'the guide card is a feature card');
+  const file = path.join(distDir, 'og/og-blog-build-ai-agent-from-scratch.jpg');
+  const { data, info } = await sharp(file).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  assert.deepEqual([info.width, info.height], [W, H]);
+  const px = (x, y) => { const i = (y * info.width + x) * 3; return [data[i], data[i + 1], data[i + 2]]; };
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const near = (a, b, tol) => a.every((v, i) => Math.abs(v - b[i]) <= tol);
+  const paper = hex(PLATE.paper);
+  for (let y = 2; y < H - 2; y += 5) for (const x of [2, 8, plateW - PLATE.rule - 6]) assert.ok(near(px(x, y), paper, 6), `plate at ${x},${y} is ${px(x, y)}, not the page colour`);
+  const gold = hex(PLATE.gold);
+  for (let y = 4; y < H - 4; y += 7) assert.ok(near(px(plateW - PLATE.rule + 1, y), gold, 18), `no gold rule at y=${y}`);
+  const scaled = await sharp(`public/brand/storybook/headers/agent-workbench.webp`).resize({ height }).removeAlpha().toBuffer();
+  const scene = await sharp(scaled).extract({ left, top: 0, width: W - plateW, height: H }).raw().toBuffer();
+  const artW = W - plateW;
+  let diff = 0;
+  let n = 0;
+  for (let y = 0; y < H; y += 3) for (let x = 0; x < artW; x += 3) {
+    for (let c = 0; c < 3; c++) diff += Math.abs(scene[(y * artW + x) * 3 + c] - data[(y * W + plateW + x) * 3 + c]);
+    n += 3;
+  }
+  assert.ok(diff / n < 6, `the scene beside the plate differs from the canonical art by ${(diff / n).toFixed(1)} levels`);
+});
+
+// Unfurls in Teams, Slack, iMessage, LinkedIn and X read these: the image's
+// type and secure URL, the locale, and a title without the tab's site suffix,
+// since og:site_name already names the site.
+test('every page completes its Open Graph image and locale tags', () => {
+  for (const file of listHtmlFiles()) {
+    const html = fs.readFileSync(file, 'utf8');
+    const image = meta(html, 'property', 'og:image');
+    if (!image) continue;
+    const page = path.relative(distDir, file);
+    assert.ok(image.startsWith('https://ouroboros.bot/'), `${page}: og:image is absolute`);
+    assert.equal(meta(html, 'property', 'og:image:secure_url'), image, `${page}: og:image:secure_url`);
+    assert.equal(meta(html, 'property', 'og:image:type'), 'image/jpeg', `${page}: og:image:type`);
+    assert.equal(meta(html, 'property', 'og:locale'), 'en_US', `${page}: og:locale`);
+    const title = meta(html, 'property', 'og:title');
+    assert.ok(title && !/\| Ouro/.test(title), `${page}: og:title "${title}"`);
+    assert.equal(meta(html, 'name', 'twitter:title'), title, `${page}: twitter:title`);
+  }
+  const guide = fs.readFileSync(path.join(distDir, 'blog/build-ai-agent-from-scratch/index.html'), 'utf8');
+  assert.equal(meta(guide, 'property', 'og:title'), 'Just give the model a keyboard');
+  assert.equal(meta(guide, 'property', 'og:type'), 'article');
+  assert.equal(meta(guide, 'property', 'og:url'), 'https://ouroboros.bot/blog/build-ai-agent-from-scratch/');
+  assert.equal(meta(guide, 'name', 'twitter:card'), 'summary_large_image');
+  assert.ok(meta(guide, 'property', 'article:published_time'), 'article:published_time');
+  assert.ok(meta(guide, 'property', 'article:modified_time'), 'article:modified_time');
+});
+
 // No share card lays anything over its art (Ari, 2026-11-08: no picture fades
 // to nothing): no scrim, no wash, no made-up sky the art melts into. A card
 // shows its scene's own crop, or stands its title on the solid plate.
