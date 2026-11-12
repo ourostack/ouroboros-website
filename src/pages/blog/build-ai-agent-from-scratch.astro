@@ -1035,7 +1035,8 @@ const outputExempt = "program output, shown as evidence"
   .prose-ouro :global([data-ouro="code-block"]) { margin: 1.5rem 0; }
   .prose-ouro :global([data-expected-output]) { margin-bottom: 0.5rem; }
   .prose-ouro :global(.side-quest) { margin: 1.5rem 0; }
-  .shot { margin: 1.5rem 0; display: flex; flex-direction: column; gap: var(--caption-gap); }
+  /* 960px, like .shot-capped: on a 4K screen a full-column screenshot outpaints the hero and becomes the page's late largest content. */
+  .shot { max-width: 960px; margin: 1.5rem 0; display: flex; flex-direction: column; gap: var(--caption-gap); }
   .shot-link { display: block; border-radius: 0.75rem; }
   .shot-cue { white-space: nowrap; }
   .shot img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 0.75rem; box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-canopy) 70%, transparent), 0 14px 32px -20px rgb(0 0 0 / 0.45); }
