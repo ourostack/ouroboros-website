@@ -5656,5 +5656,35 @@
   "was": "Tutorial",
   "now": "Grow an agent",
   "why": "agent loop share card (Ari, 2026-11-11): the guide is now a one-hour walk with GitHub Copilot CLI, so every description of it says so; the card carries the guide's own eyebrow"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Reasoning models think step-by-step before answering, and different classes of model do this differently.",
+  "now": "Reasoning models think step-by-step before answering, and different models show it in different ways.",
+  "why": "plain-words pass (Ari, 2026-11-12): say what we mean without jargon a non-technical reader doesn't need"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Open source models (DeepSeek-R1, Qwen3/QwQ, MiniMax-M2.5) emit their reasoning inline in <think> tags.",
+  "now": "Some open models, like DeepSeek-R1, Qwen3 and MiniMax-M2.5, write their thinking right into the reply, between <think> tags.",
+  "why": "plain-words pass (Ari, 2026-11-12): say what we mean without jargon a non-technical reader doesn't need"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Closed-source models do it differently: Claude returns thinking in a separate content block, and the GPT-5 series returns a reasoning summary via a dedicated field in the API response.",
+  "now": "Others keep it apart from the answer: Claude sends its thinking separately, and OpenAI's GPT-5 models send a short summary of theirs.",
+  "why": "plain-words pass (Ari, 2026-11-12): say what we mean without jargon a non-technical reader doesn't need"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "The loop is the primitive.",
+  "now": "The loop is the whole trick.",
+  "why": "plain-words pass (Ari, 2026-11-12): say what we mean without jargon a non-technical reader doesn't need"
+ },
+ {
+  "page": "blog/build-ai-agent-from-scratch",
+  "was": "Read, write, and execute are the universal basis.",
+  "now": "Read, write and run are all it needs.",
+  "why": "plain-words pass (Ari, 2026-11-12): say what we mean without jargon a non-technical reader doesn't need"
  }
 ]
