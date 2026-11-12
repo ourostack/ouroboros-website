@@ -231,9 +231,23 @@ test('the three dry-run screenshots are real figures with alt text and files', (
     assert.match(img, /decoding="async"/, `${file}: async decode`);
     const caption = textOf(inner.match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)[1]);
     assert.ok(caption.length > 20, `${file}: caption`);
+    assert.doesNotMatch(caption, /\bAri['’]s run\b|\bwho Ari is\b|\bfrom my run\b/i, `${file}: caption voice and provenance`);
+    const wrapper = inner.match(/<a\b[^>]*class="shot-link"[^>]*>([\s\S]*?)<\/a>/);
+    assert.ok(wrapper && wrapper[1].includes(img), `${file}: the image sits inside its full-size link`);
+    assert.equal(wrapper[0].match(/\shref="([^"]+)"/)[1], src, `${file}: the image link points at its own file`);
+    assert.match(wrapper[0], /tabindex="-1"/, `${file}: image link leaves the tab order to the cue`);
+    const cue = inner.match(/<figcaption\b[^>]*>[\s\S]*?(<a\b[^>]*class="shot-cue"[^>]*>([\s\S]*?)<\/a>)[\s\S]*?<\/figcaption>/);
+    assert.ok(cue, `${file}: caption carries an "Open full size" cue`);
+    assert.equal(cue[1].match(/\shref="([^"]+)"/)[1], src, `${file}: cue points at the full-size file`);
+    assert.ok(!/\starget=/.test(cue[1]) && !/\starget=/.test(wrapper[0]), `${file}: links open in place`);
+    assert.ok(!/tabindex=/.test(cue[1]), `${file}: the cue stays keyboard-focusable`);
+    assert.match(textOf(cue[2]), /^Open full size/, `${file}: cue text`);
+    assert.match(cue[2], /class="sr-only"/, `${file}: cue names its picture for screen readers`);
     seen.push(file);
   }
   assert.deepEqual(seen.sort(), Object.keys(expected).sort());
+  assert.match(html(), /Right after the restart, I asked “who are you, who am I, and how should you work with me\?”/, 'handoff caption says what was asked');
+  assert.match(html(), /who it’s working with/, 'handoff caption reads for any reader');
 });
 
 test('the restart screenshot follows the restart paragraph, not the one before it', () => {

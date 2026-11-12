@@ -669,8 +669,8 @@ const outputExempt = "program output, shown as evidence"
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock client:load code={outM1} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <figure class="shot">
-          <img src="/blog/build-ai-agent-from-scratch/first-reply.webp" alt="A dark terminal window. After the command node agent.ts, two paragraphs of grey text show the model working out a five-word greeting, then one brighter line gives its reply: “Hi there, how are you?”" width="1600" height="424" loading="lazy" decoding="async" />
-          <figcaption class="product-caption">My terminal after the first prompt. The grey text is the model thinking; the white line is the reply.</figcaption>
+          <a class="shot-link" href="/blog/build-ai-agent-from-scratch/first-reply.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/first-reply.webp" alt="A dark terminal window. After the command node agent.ts, two paragraphs of grey text show the model working out a five-word greeting, then one brighter line gives its reply: “Hi there, how are you?”" width="1600" height="424" loading="lazy" decoding="async" /></a>
+          <figcaption class="product-caption">The terminal after the first prompt. The grey text is the model thinking; the white line is the reply. <a class="shot-cue" href="/blog/build-ai-agent-from-scratch/first-reply.webp">Open full size<span class="sr-only">: first reply screenshot</span></a></figcaption>
         </figure>
         <p>
           The dimmed part is the model thinking: counting words, checking, counting again. Then it answers. Your words will
@@ -714,8 +714,8 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p>Now open <code>what-the-model-sees.json</code> in your editor, next to the terminal.</p>
         <figure class="shot">
-          <img src="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp" alt="An editor showing what-the-model-sees.json: the model name claude-opus-5.5, reasoning effort set to max, and then the whole conversation so far as a list of messages. There are three user messages (“my name is Ari”, “what’s my name?” and a question about secret.txt) with an assistant reply after each, and every reply carries its own reasoning text." width="1600" height="1446" loading="lazy" decoding="async" />
-          <figcaption class="product-caption">From Ari’s run: <code>what-the-model-sees.json</code> after the memory step. The whole conversation, exactly as the model receives it.</figcaption>
+          <a class="shot-link" href="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp" alt="An editor showing what-the-model-sees.json: the model name claude-opus-5.5, reasoning effort set to max, and then the whole conversation so far as a list of messages. There are three user messages (“my name is Ari”, “what’s my name?” and a question about secret.txt) with an assistant reply after each, and every reply carries its own reasoning text." width="1600" height="1446" loading="lazy" decoding="async" /></a>
+          <figcaption class="product-caption"><code>what-the-model-sees.json</code> after the memory step: the whole conversation, exactly as the model receives it. <a class="shot-cue" href="/blog/build-ai-agent-from-scratch/what-the-model-sees.webp">Open full size<span class="sr-only">: what the model sees screenshot</span></a></figcaption>
         </figure>
         <CodeBlock client:load code={outMessagesExcerpt} language="json" title="what-the-model-sees.json" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
@@ -805,8 +805,8 @@ const outputExempt = "program output, shown as evidence"
         <CodeBlock client:load code={outSystemMessage} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>Restart it. Then open the system message it wrote in your editor: its words, about you.</p>
         <figure class="shot">
-          <img src="/blog/build-ai-agent-from-scratch/wren-after-restart.webp" alt="A dark terminal window after a restart. The user asks “who are you, who am I, and how should you work with me?”. Grey text shows the model thinking, then white text answers as Wren: it names Ari, and a “How I work with you” paragraph says it acts without asking, checks before anything destructive, and keeps replies short and plain. A fresh You: prompt waits at the bottom." width="1600" height="838" loading="lazy" decoding="async" />
-          <figcaption class="product-caption">From Ari’s run, right after the restart. Wren knows who it is, and who Ari is, from the system message it wrote.</figcaption>
+          <a class="shot-link" href="/blog/build-ai-agent-from-scratch/wren-after-restart.webp" tabindex="-1"><img src="/blog/build-ai-agent-from-scratch/wren-after-restart.webp" alt="A dark terminal window after a restart. The user asks “who are you, who am I, and how should you work with me?”. Grey text shows the model thinking, then white text answers as Wren: it names Ari, and a “How I work with you” paragraph says it acts without asking, checks before anything destructive, and keeps replies short and plain. A fresh You: prompt waits at the bottom." width="1600" height="838" loading="lazy" decoding="async" /></a>
+          <figcaption class="product-caption">Right after the restart, I asked “who are you, who am I, and how should you work with me?” Wren knows who it is, and who it’s working with, from the system message it wrote. <a class="shot-cue" href="/blog/build-ai-agent-from-scratch/wren-after-restart.webp">Open full size<span class="sr-only">: agent after restart screenshot</span></a></figcaption>
         </figure>
         <p><strong class="text-bone">From this moment on, you're talking to your agent.</strong></p>
         <p>It's real, and it's small. Before you trust it with anything that matters, here's what it doesn't have yet:</p>
@@ -992,6 +992,8 @@ const outputExempt = "program output, shown as evidence"
   .prose-ouro :global([data-expected-output]) { margin-bottom: 0.5rem; }
   .prose-ouro :global(.side-quest) { margin: 1.5rem 0; }
   .shot { margin: 1.5rem 0; display: flex; flex-direction: column; gap: var(--caption-gap); }
+  .shot-link { display: block; border-radius: 0.75rem; }
+  .shot-cue { white-space: nowrap; }
   .shot img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 0.75rem; box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-canopy) 70%, transparent), 0 14px 32px -20px rgb(0 0 0 / 0.45); }
   .output-note { font-size: 0.875rem; color: var(--color-shadow); margin-top: 0; }
   .trouble { overflow-x: auto; }
