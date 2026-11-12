@@ -253,7 +253,9 @@ function wrapText(html) {
                 ? `<span class="nobr">${word}</span>` // "-->" in a transcript never splits as "--" / ">"
                 : /^-{1,2}[\p{L}\p{N}]/u.test(word) && entityLength(word) <= NOWRAP_MAX
                   ? `<span class="nobr">${word}</span>` // a flag ("-p") never splits as "-" / "p" (Linux Chromium breaks there; site-checks, round 21)
-                  : word,
+                  : /\[[^\]\s]*-[^\]\s]*\]/.test(word) && entityLength(word) <= NOWRAP_MAX
+                    ? `<span class="nobr">${word}</span>` // a character class in a quoted pattern ("'^[+-][^+-]'") never splits after its hyphen
+                    : word,
       );
     parts[i] = heading
       ? part.split(TERM_RE).map((piece, k) => (k % 2 ? `<span class="nobr">${piece}</span>` : words(piece))).join('')
