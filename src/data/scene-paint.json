@@ -251,6 +251,18 @@
       "uri": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAADQAgCdASoQAAwAAkA4JbACdDiAN5DIjEt/rwWyHpkAAP75L51xj/m0ItTFPvZhB+rcjvfOtZSB3j3xA59i1+Vw4iAAAo7LdleU9GAr2mvB/yhhGzKkCU0B5l9+Kgq8PB66aHm01PQFKG/dPQB5Dur/73RyWbNf3ufx1OeXRXW/1f2FfSDHkF3y2BfetjOpmijgAAAA"
     }
   },
+  "ouro-workbench-dark": {
+    "wide": {
+      "from": "headers/ouro-workbench-dark.webp",
+      "sha256": "16ce2182fa7b10c61955b4d8a422af7ba57f3e412ef1e5a1f9feec855a7d1cd8",
+      "uri": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAQCdASoQAAYAAkA4JZACdAEQUK91yWAA/vlNF2FmJS33iqoA6wwbjsn/ZtBXhSEzXi89bQKno9p47BJdice22qt2twjKGe+ZlDl9wj+20CyG1hpwNILB/lsH6XiBQAA="
+    },
+    "phone": {
+      "from": "phone/ouro-workbench-dark-384.webp",
+      "sha256": "1ab9c6624a6cba51d3e48e79947f1d28e9e9a72d166d7813abc40b100b09adb6",
+      "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAACQAgCdASoQAAwAAkA4JbACdDBHiIgJzZpyaazpgAD+9rQbU7ejl9bybM+JZjV/JVgT1sh8cRYRUX9YDLN2yJ54/y8eicjb+ybL68u7l+oe+xd4bzMNV3V+imkNVD0A+y8jUj09fTsjHAQ9ArsX+OWbkvyX5LTVg782PvctMNBobH/arpEVdOOwGPqdz+9haHPrL5AAAAA="
+    }
+  },
   "ouroboros": {
     "wide": {
       "from": "headers/ouroboros.webp",
