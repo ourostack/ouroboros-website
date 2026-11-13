@@ -30,6 +30,7 @@ export const scenes = {
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
+  'ouro-ui-apple-dark': 'At night under a starry sky, a robot sits at a wooden bench with a phone, a tablet and a laptop, each screen glowing with a green toggle. Ouro watches from the moonlit meadow.',
   'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
@@ -135,7 +136,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -180,7 +181,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
+const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -208,6 +209,7 @@ export const heroFocus = {
   'ouro-md': [0.2, 0.86],
   'ouro-native-apple-app-shell': [0.1, 0.8],
   'ouro-ui-apple': [0.05, 0.91],
+  'ouro-ui-apple-dark': [0.05, 0.91],
   'ouro-ui-core': [0.18, 0.88],
   'ouro-work': [0.2, 0.88],
   'ouro-workbench': [0.28, 0.86],
@@ -248,6 +250,7 @@ export const castFoot = {
   'ouro-md': 0.85,
   'ouro-native-apple-app-shell': 0.72,
   'ouro-ui-apple': 0.905,
+  'ouro-ui-apple-dark': 0.905,
   'ouro-ui-core': 0.84,
   'ouro-work': 0.85,
   'ouro-workbench': 0.76,
@@ -297,6 +300,7 @@ export const phoneCastX = {
   'ouro-native-apple-app-shell': [0.5, 0.885],
   // .github#15: centre 840.
   'ouro-ui-apple': [0.21, 0.931],
+  'ouro-ui-apple-dark': [0.21, 0.931],
   'ouro-ui-core': [0.4, 0.88],
   'ouro-work': [0.42, 0.88],
   'ouro-workbench': [0.55, 0.86],

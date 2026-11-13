@@ -215,6 +215,18 @@
       "uri": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACQAgCdASoQAAkAAkA4JbACdDBACIrMAKImXwwzgAD+1Rah3MrC8zFWph941+4JsaodmJcDTneDXRjy5bMuRFHbjLt8NuoCH/hBGRdOKbvPuPUu7xSCKNpn+hled2Y6/uMUFNMr//wxIO0Gpa7kzf796fMvUTK/y/9+LSsAAAA="
     }
   },
+  "ouro-ui-apple-dark": {
+    "wide": {
+      "from": "headers/ouro-ui-apple-dark.webp",
+      "sha256": "ca67e7d9c1b9defd27b244e7eed85fc348da714d076369968f14834dfa680b7f",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQAgCdASoQAAYAAkA4JbACdAYtpbTtMjMblAAA/vaz+H8FjxA7JaSK9yKhBBcC/V40PRiVOtWxZogehRLv37FvifyWgfi3aTcmO9n1d8q3QY18U5+Z3+Dss7nH95xYVBKiA8FxWH7zeLVkHxZlrfQAAAA="
+    },
+    "phone": {
+      "from": "phone/ouro-ui-apple-dark-384.webp",
+      "sha256": "43dc1371b527ced2422ff286d6490465ac0a6436b757b03845dc37a29c75dd5a",
+      "uri": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAABwAgCdASoQAAkAAkA4JbACdDBHSIrK0pTzRZ0AAP74k41yzYZ+PR2yBXAWWolk6iS6StuMgFVhpXuci47IeN0+JzWQ/nzuc2+gc79iZ7xJ+mX+jl6gDl5yZmRfON38u9AKEy+T1T4/ybYHvNWTtf8DpSt7fODCG+vgAAAA"
+    }
+  },
   "ouro-ui-core": {
     "wide": {
       "from": "headers/ouro-ui-core.webp",
