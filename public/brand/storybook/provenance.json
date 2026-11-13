@@ -7951,5 +7951,264 @@
     "height": 630,
     "bytes": 319443,
     "sha256": "415a2bee06cf159d22e4df46c2aa2e83e45334ff734242160ca2b467cb3f7364"
+  },
+  {
+    "file": "headers/ouro-native-apple-app-shell-dark.webp",
+    "for": "https://ouroboros.bot/blog/give-your-agent-a-home/",
+    "model": "GitHub Copilot CLI built-in image_generation tool, 1536x1024, quality high",
+    "generated": "Dark master, 2026-11-13, edited from the light master",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Ari asked for night versions of the site heroes, 2026-11-13; this is the same scene at night.",
+    "crop": "1536x576 from the 1536x1024 master (rows 176–752), WebP q86",
+    "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af",
+    "generation": [
+      {
+        "master": "ouro-native-apple-app-shell-dark-master",
+        "master_sha256": "5e34e2f7590e18ddc9cddf3dc8918390da9e9fc4ce9fd52ac09e0da3f6c3f727",
+        "prompt": "(Summary of the prompt.) The light master edited to night: the same snail-shell house, Ouro, rock, meadow and pond under a deep blue starry sky with a full moon; the shell's lamps, the trail lights and the pond's reflections glow warm in the dark. No text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "ouro-native-apple-app-shell light master (the light master)"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-640.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "sharp (libwebp) WebP quality 82 effort 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 41218,
+    "sha256": "74495fd716038b87f139e21e70f5eab54fec3eb669e79495e9e6dce6479ad24e"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-640.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 47324,
+    "sha256": "85ee198aa75fb1442e26bd2c6d19550d9adfff69ca9a18b660db0050bcd4e0af"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-960.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "sharp (libwebp) WebP quality 82 effort 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 80444,
+    "sha256": "f64ff6a96a9ffc8e9b7873cbbb5a50e4241727f00e01b7f415a94f79f2e7c4e0"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-960.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 83325,
+    "sha256": "a09ef7e871f1e54be798b277b1c8e3846025a428318f7f33184c97ff34cf7939"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-1536.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 170318,
+    "sha256": "e5e2110f4201cfa063e6ef306d15fdea91946559810bc23ec06bb1c85bcc85b5"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-2304.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene upscaled to 2304x864 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Lanczos upscale of the 1536 px header; no AI upscaler was run on this night art yet, so it is softer than the light scene at these widths.",
+    "width": 2304,
+    "height": 864,
+    "bytes": 215121,
+    "sha256": "9ecb8eca2395e9c6f262fbad7765e6592520e99c8ccf45b527045bc04431f977"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-3072.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene upscaled to 3072x1152 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Lanczos upscale of the 1536 px header; no AI upscaler was run on this night art yet, so it is softer than the light scene at these widths.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 269148,
+    "sha256": "d076811d2626815117c17de72d78c00868dd339b0c76563aafddaa1a8328487a"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-3072.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene upscaled to 3072x1152 (Lanczos)",
+    "encoder": "sharp (libwebp) WebP quality 82 effort 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Lanczos upscale of the 1536 px header; no AI upscaler was run on this night art yet, so it is softer than the light scene at these widths.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 337864,
+    "sha256": "b20fb55f7aeefcacc6e710228dc02dd5164d08e4d74a04c6e58607dcf7b23050"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-3840.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene upscaled to 3840x1440 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Lanczos upscale of the 1536 px header; no AI upscaler was run on this night art yet, so it is softer than the light scene at these widths.",
+    "width": 3840,
+    "height": 1440,
+    "bytes": 332142,
+    "sha256": "1ce8cb683ca31a170c68961c494d459679e5f5c948b887cf1d70f8e8c0549941"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-5120.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene upscaled to 5120x1920 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Lanczos upscale of the 1536 px header; no AI upscaler was run on this night art yet, so it is softer than the light scene at these widths.",
+    "width": 5120,
+    "height": 1920,
+    "bytes": 420283,
+    "sha256": "25d0938762e94ad5f95e2b2763bd5a938ae2f08f0ebd63f8b505edd4b4772324"
+  },
+  {
+    "file": "scenes/ouro-native-apple-app-shell-dark-7680.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene upscaled to 7680x2880 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Lanczos upscale of the 1536 px header; no AI upscaler was run on this night art yet, so it is softer than the light scene at these widths.",
+    "width": 7680,
+    "height": 2880,
+    "bytes": 595415,
+    "sha256": "0ed1451f8ce03b2acf34a9bc2eebe57037b0b80bee959eefd1078619768bc6d7"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-dark-384.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [500, 0, 1268, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "sharp (libwebp) WebP quality 82 effort 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 26300,
+    "sha256": "dc2c404c5e4626b56a3676dac6abcbb20fbd36c20a9496641a71ab9b6e42993a"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-dark-384.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [500, 0, 1268, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 26905,
+    "sha256": "ea9ac1e21412eea711874255caab6ad9ddd9d92bcc1f258c25c0b5f2d7e5848a"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-dark-768.webp",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [500, 0, 1268, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "sharp (libwebp) WebP quality 82 effort 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 74234,
+    "sha256": "2c5b872b75f25ad36af354417f23b17a61e16d336d091d180ffb57e06f915236"
+  },
+  {
+    "file": "phone/ouro-native-apple-app-shell-dark-768.avif",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [500, 0, 1268, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "sharp (libheif) AVIF quality 60 effort 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 67683,
+    "sha256": "706cb3789995a86322f3a773a2040a2fa15d66aee180ed2901cd0c363399aab0"
+  },
+  {
+    "file": "og/ouro-native-apple-app-shell-dark.jpg",
+    "derivedFrom": {
+      "file": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [152, 0, 1249, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "sharp (mozjpeg) JPEG quality 88, 4:4:4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 240090,
+    "sha256": "974f2e59ed7544090be3925b1c2356f2f597699e9d0b9a07c27e75e7201a57d6"
   }
 ]

@@ -203,6 +203,18 @@
       "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAACwAgCdASoQAAwAAkA4JbACdDBGgae7aRrRauW4nAAA/vZeKe7JSd71WZl37sB5ZfVlz/mZfajmlQoyZaFISo+Yuiab6PsCzg6RXQH58NXPbubHevH5pS3r8RpzMevlWdatxmy/vZNPUvqv/OqNkvhIZ/ITefCq2S34D+MsCLf/HFLwsW/B4qv4H9iAjXfYluUoAiUAAAA="
     }
   },
+  "ouro-native-apple-app-shell-dark": {
+    "wide": {
+      "from": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af",
+      "uri": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAACwAgCdASoQAAYAAkA4JbACdDiM94lIhoxjZ+U+HIAA/vXdqbNgWeYTGcHiZt+WgL5Z81fpST2v/1bbgSeTw03vm/QEPDEkP09aB3nMw89RO9aivfxfN70M7x/E7+P+ZRkb0pOcAnI2nqrujY/JREjZbNe4ju72R1bwAAAA"
+    },
+    "phone": {
+      "from": "phone/ouro-native-apple-app-shell-dark-384.webp",
+      "sha256": "dc2c404c5e4626b56a3676dac6abcbb20fbd36c20a9496641a71ab9b6e42993a",
+      "uri": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAABwAgCdASoQAAwAAkA4JbACdDBJiIiIli/ZSqYAAP6mzc1w6Skftn/lFZJ19xjwe+0KGPS0B9o/NiG79Unx5YVdgteWkqXAbh094p0iuL9AL1329R4uuF5jsWt+Vvr43RdGfN3jf3qF51rbpwne6KUdDFMj91MRauv3furPULxjrwPa3+YBb39FbedVFvNZ0/uV0gc/LzyB6wAyQ/MxgGafHmIAFz3aV/h7CEAA"
+    }
+  },
   "ouro-ui-apple": {
     "wide": {
       "from": "headers/ouro-ui-apple.webp",
