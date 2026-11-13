@@ -110,13 +110,25 @@
   "gatefold": {
     "wide": {
       "from": "headers/gatefold.webp",
-      "sha256": "92c4760b6b1282fdeb6ce3251204925215084e28e6f6ce4becf411eeec1bf8e7",
-      "uri": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABwAgCdASoQAAYAAkA4JbACdLoAEIwXo5Rq94gAAOJ9IJ19zRHz7jf3Hr3/igVgdIuw4RMlRzhUJYkwedOjTWwxezV+n66qCVyOP6i6uiIH1toTng4DW8c8NPxk+g9Y0iWOpV2uskX2+IQm/4AAAA=="
+      "sha256": "da7b8bd40fcd27d3579edf450715926825ed4a8df7c40e3333ea91aea107d7f4",
+      "uri": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAwAgCdASoQAAYAAkA4JbACdLoAEJINH0TMQAD2kX8ZtGzaNbr1W32M0J2hoA3qWML2MIVP+TbjznmtUyaYcXywtbAAwxCix3y6Q7/m5wbSY3P1BoWQ8Vr3VEBz6p/5aBABbWLFHnmFzbIAAAA="
     },
     "phone": {
       "from": "phone/gatefold-384.webp",
-      "sha256": "ce453f57dc160cf8df0bae140120c82e379a47de8b285cf07693da7bbb5bdaa4",
-      "uri": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABwAgCdASoQAAwAAkA4JbACdDBQAWu8UTMNY52AAP7wc5osTVfjQJvN8hpNcLjcmXVjCe03BVtWWxPMHueyKxrONfOc/5Szgp3xq1bZLJJcfEQ+YwO/yA6faNz8Tu387iyg6nFj0v70MG4D5N/fzl2jakeviuXEMY10OefurP/z2fef8TWyylFruG+/dZRVe3gAAA=="
+      "sha256": "54b059e399d74cb7f64ae5ee8b945c7b0281e5ddebf6e13007bc79e027e13b76",
+      "uri": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAACwAgCdASoQAAwAAkA4JbACdDBMyVP+PtVMu4rwygAA/vKAJOvafHt9Z2l2QxN7tYlKXiXg1Wjucj1ztK3H/2OJjOeGZG/Fvtan5YueNJifS68IQZbpHCWx5JOUYf47675py+4yGVmoEtagYASQHRX7Dad/ti7SHtRov97qZG4xw+58nxUJx281LtcUmRt/mH+xa6Cdi1of3WUVX8+agAAA"
+    }
+  },
+  "gatefold-dark": {
+    "wide": {
+      "from": "headers/gatefold-dark.webp",
+      "sha256": "904c26b0d9bb9a5c50fd20f28a311046bad865484e6cf3cc29e28f99598d0e21",
+      "uri": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQAQCdASoQAAYAAkA4JQBOgB6uuJY8AAD++JQ5LfLGn3PNymO3Z9p2z+ie09wPPmachXsfjtXlhrRT4PqdKF+yA9ZHZSDDENv8WPPcMy+jaDG//GVI+0aK1VAAAA=="
+    },
+    "phone": {
+      "from": "phone/gatefold-dark-384.webp",
+      "sha256": "18238a1dc8e1f97582ff4c67485bbc33cdfb3547463d3ee641e0cfcd2c8562a4",
+      "uri": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABQAgCdASoQAAwAAkA4JbACdAaeVn1xBY7uZ4AA/t3A2Q0fQaZLQR/5Xslptms+h92/PJnebxI9nfXP20WZnUtszNq6WZpN2y2PuazdhrW2LqY9j0Xtyra5pdK6gIWOYfaL22rOCGApS971utpLq5zNdhuFHgIOVTSuKKuqm1zzCqdk5xkpuetOJ0AAAA=="
     }
   },
   "homebrew-tap": {

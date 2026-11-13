@@ -24,7 +24,8 @@ export const scenes = {
   'ouro-work': 'A stone cottage with a row of wooden mailboxes and a round vault door. Ouro, wearing a lanyard, carries an envelope up the trail.',
   'ouroboros-skills': 'A bookcase of rolled scrolls under a vine. One robot reads at a little desk while Ouro hands another robot a scroll.',
   'flow-review': 'A row of little paintings on easels along the trail. A robot with a clipboard takes notes while Ouro, in round spectacles, inspects one through a magnifying glass.',
-  gatefold: 'A giant open storybook on a picnic blanket, with stacked books, a mug of coffee and a small notebook. Ouro rests beside it, mid-chapter.',
+  gatefold: 'A giant open storybook on a picnic blanket in a dawn meadow, with stacked books, a mug of coffee and a phone. Ouro rests beside it, mid-chapter.',
+  'gatefold-dark': 'A giant open storybook on a picnic blanket at night under a starry sky and a crescent moon, with stacked books, a mug of coffee and a glowing phone. Ouro rests beside it, mid-chapter.',
   'playwright-focus-proof': 'A person relaxes in an armchair with a laptop and a cup of tea while two little robots work at their own table beside a tall clock, and Ouro keeps an eye on the trail.',
   'ouro-ui-apple': 'A robot sits at a wooden bench with a phone, a tablet and a laptop, each showing a green toggle. Ouro watches from the meadow.',
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
@@ -135,7 +136,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', gatefold: 'gatefold-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -196,7 +197,9 @@ export const heroFocus = {
   'flow-review': [0.18, 0.84],
   friends: [0.2, 0.97],
   'friends-relay': [0.05, 0.95],
-  gatefold: [0.15, 0.88],
+  // Ouro's head down to the phone on the blanket.
+  gatefold: [0.04, 0.93],
+  'gatefold-dark': [0.04, 0.93],
   'agent-workbench': [0.056, 0.911],
   'agent-workbench-dark': [0.056, 0.911],
   'homebrew-tap': [0.06, 0.88],
@@ -236,7 +239,8 @@ export const castFoot = {
   // The robots' shoes rest on the blanket's front edge.
   friends: 0.97,
   'friends-relay': 0.95,
-  gatefold: 0.8,
+  gatefold: 0.81,
+  'gatefold-dark': 0.81,
   'agent-workbench': 0.911,
   'agent-workbench-dark': 0.911,
   'homebrew-tap': 0.87,
@@ -283,7 +287,8 @@ export const phoneCastX = {
   friends: [0.098, 0.906],
   // The dove at the left (.github#15: centre 705).
   'friends-relay': [0.063, 0.89],
-  gatefold: [0.42, 0.88],
+  gatefold: [0.378, 0.918],
+  'gatefold-dark': [0.378, 0.918],
   'agent-workbench': [0.068, 0.934],
   'agent-workbench-dark': [0.068, 0.934],
   'homebrew-tap': [0.38, 0.88],
