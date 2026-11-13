@@ -11,7 +11,7 @@
 //     harness", "Ouro HX"), nor does any word break inside itself (round 19:
 //     "X- / ray").
 // It also fails when a heading runs past its own box or into the screen's
-// 16px edge. h1-lines.mjs still owns the phone clause rule for h1s.
+// 16px edge. h1-lines.mjs adds the h1-only checks on phones.
 //
 //   npm run build && node scripts/heading-lines.mjs
 //   node scripts/heading-lines.mjs --base https://ouroboros.bot   (a live site)
