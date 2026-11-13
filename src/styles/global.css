@@ -634,15 +634,15 @@ a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow
    ("Skills / for agents.", "uses / a model.": taste review r15). */
 :is(h1, h2, h3, h4, h5, h6), :is(h1, h2, h3, h4, h5, h6):is(.font-display, .post-title) { text-wrap: balance; }
 p, li, dd, figcaption { text-wrap: pretty; }
-/* An h1 of two clauses reads as two thoughts (Ari's ruling on taste review
-   r16, 2026-11-07). On a phone each clause (.t-clause) starts its own line,
-   and a clause breaks only when it is wider than the column, and then only
-   between its phrases (.t-ph never breaks inside). A .t-ph-soft phrase is
-   held whole too, except on the narrowest phones, where even a phrase can't
-   fit and it may break between the .t-ph parts inside it.
-   scripts/h1-lines.mjs prints every h1's lines at 320, 390 and 430. */
+/* Headings flow across the full width; nothing forces a clause or sentence
+   onto its own line (Ari's ruling, 2026-11-13: "text should always use full
+   width, where reasonable", replacing the clause-per-line phone rule of taste
+   review r16). A line breaks only between phrases (.t-ph never breaks
+   inside). A .t-ph-soft phrase is held whole too, except on the narrowest
+   phones, where even a phrase can't fit and it may break between the .t-ph
+   parts inside it. scripts/h1-lines.mjs prints every h1's lines at 320, 390
+   and 430. */
 .t-ph { white-space: nowrap; }
-@media (max-width: 639.98px) { .t-clause { display: block; } }
 @media (min-width: 360px) { .t-ph-soft { white-space: nowrap; } }
 /* On the narrowest phones (under 360px) every h1 scales with the screen, so a
    compound term ("Which agent harness", "Agent Experience?") fits whole on a

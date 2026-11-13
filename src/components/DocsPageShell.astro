@@ -7,8 +7,8 @@ interface Props {
   canonical?: string
   intro?: string
   ogImage?: string
-  /** The h1 as clauses of phrases, for a two-clause title (see .t-clause in
-      global.css). "~" inside a phrase marks a break for the narrowest phones
+  /** The h1 as clauses of phrases, for a two-clause title. Clauses flow inline
+      across the full width; .t-clause only marks them for the line checks. "~" inside a phrase marks a break for the narrowest phones
       only. Joined with spaces, it must read exactly as the title. */
   lines?: string[][]
 }
