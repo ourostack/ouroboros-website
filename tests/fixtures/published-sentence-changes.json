@@ -3590,8 +3590,14 @@
  {
   "page": "blog/what-is-agent-experience",
   "was": "Ari Mendelow · March 2026 \"I spent more time trying to get my agents back on track than we actually spent working.\" If that line feels familiar, you have already felt bad AX.",
-  "now": "Ari Mendelow · March 2026 · Updated October 2026",
-  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+  "now": "Ari Mendelow · March 2026 · Updated November 2026",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX; updated again 2026-11-13 with the November note"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Ari Mendelow · February 2026 I wrote this a week into using OpenClaw , the open-source AI agent that became the foundation for everything I've built since.",
+  "now": "Ari Mendelow · February 2026 · Updated November 2026",
+  "why": "November update (Ari, 2026-11-13): the byline shows the update, and a note links the meat proxy"
  },
  {
   "page": "blog/what-is-agent-experience",

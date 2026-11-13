@@ -6,7 +6,7 @@ import { ogPathFor } from '../../data/og'
 const title = 'Stop being the glue between your agents'
 const description = "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed."
 const datePublished = "2026-02-02"
-const dateModified = "2026-03-06"
+const dateModified = "2026-11-13"
 ---
 
 <Layout
@@ -45,7 +45,7 @@ const dateModified = "2026-03-06"
         <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
           How I stopped copy-pasting between my agents and started collaborating.
         </p>
-        <PostByline authors={["Ari Mendelow"]} published={datePublished} />
+        <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
       </div>
     </div>
   </section>
@@ -188,6 +188,13 @@ const dateModified = "2026-03-06"
         <p class="!mb-2 !text-base"><strong class="text-bone">Epilogue — March 2026</strong></p>
         <p class="!mb-0 !text-sm text-mist">
           Six weeks after writing this, I hit every wall I predicted — and some I didn't. Identity drift, context amnesia, rule bloat, fighting the architecture. The collaboration loop I described here was real, and the infrastructure underneath wasn't ready for it. That's what led to <a href="/lab/">Ouroboros</a>: an agent harness designed from scratch around the idea that your agent is a teammate — and that the planning artifacts, the shared memory, the collaborative process described in this essay should be first-class primitives.
+        </p>
+      </aside>
+
+      <aside class="post-note my-8">
+        <p class="!mb-2 !text-base"><strong class="text-bone">Update — November 2026</strong></p>
+        <p class="!mb-0 !text-sm text-mist">
+          Other people are writing about this now, and a close cousin of it has a name. In August, Niklas Gruhn asked people <a href="https://gruhn.me/blog/2026-08-03/">not to be a meat proxy</a>: someone who pastes a question into an AI and forwards the answer back without reading it, checking it or adding anything. It isn't quite the glue I meant. The glue copies between tools and agents that can't reach each other. The meat proxy relays answers without adding judgment. In both, the human has become the relay.
         </p>
       </aside>
     </div>
