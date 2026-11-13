@@ -1196,8 +1196,13 @@ main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
 .story-scene img:not([src]), .story-scene img[data-failed] { visibility: hidden; }
 
 /* Column hero pages (data-hero-column, see StoryScene.astro), from 1600px. The
-   header and the picture share --hero-width; the lede takes the full column and
-   balances so no word is stranded. Sizing lives in the custom properties on main. */
+   header, the picture and the body share --hero-width; the lede takes the full
+   column and balances so no word is stranded. Sizing lives in the custom
+   properties on main. The 4px corner and the missing gold trail (::after) are
+   on purpose: the picture is framed in the column, not bled into the page.
+   --hero-width's 72rem is also the picture's sizes in scenes.mjs (columnHeroes):
+   change both together. Its 100% - 8rem arm takes over only on screens narrower
+   than 80rem, which from 1600px means a default font above 20px. */
 @media (min-width: 1600px) {
   main:has(> .story-hero[data-hero-column]) {
     --hero-width: min(72rem, 100% - 8rem);
