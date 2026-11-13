@@ -107,6 +107,18 @@
       "uri": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAAAwAwCdASoQAAwAAkA4JbACdDiJeVA+CAiMTFSMPa89ZgMAAP72L+2KaDBOcuAjlP589qzRnlv/SGZq09cTKbpYbmmgPQ5lyxptgj/oZfGn7OErDIwFfz4V6kP0CfbNE7C1kGNYAYG1k6YU9u/v+wi9p8nzVvIEFt34ZJ3DYOjydYtyb+bRMgx/oAAAAA=="
     }
   },
+  "friends-relay-dark": {
+    "wide": {
+      "from": "headers/friends-relay-dark.webp",
+      "sha256": "2751abf1dd08786b7ce9e0d3c2a51c742016f9551c71e92b68f92e34e56a416d",
+      "uri": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADwAQCdASoQAAYAAkA4JbACdAE0/vgHG/AA/vXwgFkDyNe8HfGMktEM7KqKNfJEoYVAC92uicCTrfeEGZQoIc9f4/5teAdgPm0N65huHgz+DYCracjx7986ftj8pBugeTiAAA=="
+    },
+    "phone": {
+      "from": "phone/friends-relay-dark-384.webp",
+      "sha256": "64d26de02da350c3e17e2dd98a77c6c8d018c0384f9a551348fb52f9ac9a5fa3",
+      "uri": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADwAgCdASoQAAwAAkA4JbACdDiAN45IiAw6uq/w0O+IAAD+8zjHHI/MT/5ZcxKEh3iSs/gn6M1SPl5kg/vQ1a7Odbf/DrU0bT4f+efPRjt7ckEH0jPn3jR2+Q22eqUo2HlYEbHMxdfkh3/OjcYfn6nNMK/Yybc5PXnR6B+acaM/qZuwuvesyf5eoULr64mPIAAAAA=="
+    }
+  },
   "gatefold": {
     "wide": {
       "from": "headers/gatefold.webp",
