@@ -144,6 +144,7 @@ export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
 // provenance.json; not brand/, which mirrors ourostack/.github byte for byte), so
 // the 72rem column is drawn from real pixels at 1x and 2x.
 export const columnHeroWidths = [1152, 1728, 2304, 3072]
+// sizes is --hero-width's 72rem in global.css: change both together.
 export const columnHeroes = { 'agent-workbench': { sizes: '72rem' } }
 export const columnHeroSrcset = (scene, ext) => columnHeroWidths.map((w) => `/images/guide-hero/${scene}-col-${w}.${ext} ${w}w`).join(', ')
 export const COLUMN_HERO_MEDIA = '(min-width: 1600px)'
