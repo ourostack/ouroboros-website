@@ -677,7 +677,7 @@ p, li, dd, figcaption { text-wrap: pretty; }
    r16, 2026-11-07: one page left 128px). The hero's own bottom padding sets
    the step, so a body's first block adds no top margin of its own there.
    scripts/hero-gap.mjs measures every page at 320, 390 and 430. */
-@media (max-width: 767.98px) { .prose-ouro > :first-child { margin-top: 0; } }
+@media (max-width: 767.98px) { .prose-ouro > :first-child, .prose-ouro > h2:first-child:not(.heading-section) { margin-top: 0; } }
 
 /* ── Focus ── */
 /* The outline follows each element's own corners; never set a radius here, or rounded buttons and cards go square when focused.
