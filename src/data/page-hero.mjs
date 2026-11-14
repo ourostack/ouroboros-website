@@ -9,7 +9,7 @@ export const pageHeroRoutes = [
   /^\/lab\/docs\/[^/]+\/?$/,
   /^\/desk\/?$/,
   /^\/apps\/?$/,
-  /^\/(approach|brief)\/?$/,
+  /^\/(approach|brief|privacy|terms)\/?$/,
   /^\/butler\/?$/,
   /^\/ouro-md(\/download)?\/?$/,
   /^\/housesitter\/?$/,
