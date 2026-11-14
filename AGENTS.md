@@ -171,6 +171,7 @@ src/
     Layout.astro         ← root <html><head><body>, family bar, nav, footer, Lab status bar, copy-button script
   lib/
     model-review-claims.mjs ← getModelReviewClaims()
+    page-markdown.mjs    ← writes /index.md, the home page's Markdown twin, from its built HTML; the nav's Agent view switch (components/AgentView.astro) shows it
     ouro/                ← helpers the Ouro HX components import (installed with them)
   pages/
     index.astro          ← /

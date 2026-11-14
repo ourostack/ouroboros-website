@@ -1,0 +1,32 @@
+---
+/*
+  The nav's Agent view switch on the home page (Ouro HX's Switch, hydrated),
+  with the line that tells a screen reader what the page now shows. Without
+  scripts the switch can't work, so a plain link to the same file takes its
+  place (@media (scripting: none)); an agent reading the HTML finds that link too.
+*/
+import AgentViewSwitch from './AgentViewSwitch'
+import { MARKDOWN_PAGES } from '../lib/page-markdown.mjs'
+
+const src = `/${MARKDOWN_PAGES['/']}`
+---
+
+<div class="agent-view-control" data-agent-view-control>
+  <div class="agent-view-switch"><AgentViewSwitch client:idle /></div>
+  <a class="agent-view-fallback" href={src}>Agent view</a>
+  <span class="sr-only" role="status" data-agent-view-status></span>
+</div>
+
+<style>
+  .agent-view-control { display: flex; flex-shrink: 0; align-items: center; }
+  .agent-view-switch { display: flex; }
+  .agent-view-switch :global(label) { white-space: nowrap; }
+  /* Under 375px the bar has no room for the word: the switch keeps it as its
+     name (aria-labelledby reads a hidden label), and shows alone. */
+  @media (width < 23.4375rem) { .agent-view-switch :global([data-ouro-label]) { display: none; } }
+  .agent-view-fallback { display: none; }
+  @media (scripting: none) {
+    .agent-view-switch { display: none; }
+    .agent-view-fallback { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--color-scale); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); }
+  }
+</style>

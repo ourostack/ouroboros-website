@@ -219,7 +219,7 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     <div class="family-bar-wrap max-sm:hidden">
       <FamilyBar links={family} current={familyId} className={familyBarAlign} />
     </div>
-    <Nav />
+    <Nav><slot name="nav" slot="tools" /></Nav>
     {/* The nav is sticky under the family bar and overlays the page's first
         --nav-h, as a fixed nav did, so every hero and top padding keeps its place. */}
     <main id="main" class="relative z-10 mt-[calc(-1*var(--nav-h))]">
