@@ -8,6 +8,7 @@ export const pageHeroRoutes = [
   /^\/lab\/(why|story|how-desk-started|what-is-an-agent-harness|model-reviews|docs)\/?$/,
   /^\/desk\/?$/,
   /^\/apps\/?$/,
+  /^\/(approach|brief)\/?$/,
   /^\/butler\/?$/,
   /^\/ouro-md(\/download)?\/?$/,
   /^\/housesitter\/?$/,
