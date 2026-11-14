@@ -30,6 +30,8 @@ export const scenes = {
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
+  'friends-relay-dark': 'A stone dovecote tower at night under a starry sky and a crescent moon, its windows glowing, where white doves carry letters across the misty hills, a robot waving at each end, and Ouro in a postman’s cap at the foot of the tower.',
+  'ouro-ui-core-dark': 'Paint pots on a bench at night pour glowing ribbons of green and cream into a phone, a laptop and a tablet below, with misty hills and village lights behind. Ouro looks on, pleased with the colours.',
   'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
@@ -135,7 +137,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'friends-relay': 'friends-relay-dark', 'ouro-ui-core': 'ouro-ui-core-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -180,7 +182,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
+const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 320], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -195,23 +197,25 @@ export const heroFocus = {
   factory: [0.2, 0.94],
   'flow-review': [0.18, 0.84],
   friends: [0.2, 0.97],
-  'friends-relay': [0.05, 0.95],
+  'friends-relay': [0.04, 0.95],
   gatefold: [0.15, 0.88],
   'agent-workbench': [0.056, 0.911],
   'agent-workbench-dark': [0.056, 0.911],
+  'friends-relay-dark': [0.04, 0.95],
   'homebrew-tap': [0.06, 0.88],
   // The roof's arch over the door, down to Ouro's lowest coil.
   housesitter: [0.3, 0.99],
-  m365crawl: [0.22, 0.93],
+  m365crawl: [0.02, 0.98],
   'ouro-apps-site': [0.05, 0.9],
   'ouro-hx': [0.12, 0.93],
   'ouro-md': [0.2, 0.86],
   'ouro-native-apple-app-shell': [0.1, 0.8],
   'ouro-ui-apple': [0.05, 0.91],
   'ouro-ui-core': [0.18, 0.88],
+  'ouro-ui-core-dark': [0.18, 0.88],
   'ouro-work': [0.2, 0.88],
   'ouro-workbench': [0.28, 0.86],
-  'ouroboros-skills': [0.05, 0.92],
+  'ouroboros-skills': [0.06, 0.955],
   'ouroboros-website': [0.24, 0.92],
   ouroboros: [0.12, 0.95],
   ourostack: [0.15, 0.85],
@@ -239,20 +243,22 @@ export const castFoot = {
   gatefold: 0.8,
   'agent-workbench': 0.911,
   'agent-workbench-dark': 0.911,
+  'friends-relay-dark': 0.95,
   'homebrew-tap': 0.87,
   // Ouro's coil rests on the art's foot.
   housesitter: 0.985,
-  m365crawl: 0.93,
+  m365crawl: 0.98,
   'ouro-apps-site': 0.87,
   'ouro-hx': 0.925,
   'ouro-md': 0.85,
   'ouro-native-apple-app-shell': 0.72,
   'ouro-ui-apple': 0.905,
   'ouro-ui-core': 0.84,
+  'ouro-ui-core-dark': 0.84,
   'ouro-work': 0.85,
   'ouro-workbench': 0.76,
   // The robot's feet, not Ouro's coil.
-  'ouroboros-skills': 0.84,
+  'ouroboros-skills': 0.955,
   'ouroboros-website': 0.89,
   ouroboros: 0.945,
   ourostack: 0.83,
@@ -281,15 +287,16 @@ export const phoneCastX = {
   // .github#15: 2:1, centre 952.
   'flow-review': [0.099, 0.901],
   friends: [0.098, 0.906],
-  // The dove at the left (.github#15: centre 705).
-  'friends-relay': [0.063, 0.89],
+  // The big dove at the left, Ouro's coil at the right (v4 master).
+  'friends-relay': [0.06, 0.86],
   gatefold: [0.42, 0.88],
   'agent-workbench': [0.068, 0.934],
   'agent-workbench-dark': [0.068, 0.934],
+  'friends-relay-dark': [0.06, 0.86],
   'homebrew-tap': [0.38, 0.88],
   // The robots in the window at the left, Ouro's body at the right.
   housesitter: [0.19, 0.905],
-  m365crawl: [0.46, 0.885],
+  m365crawl: [0.365, 0.885],
   'ouro-apps-site': [0.43, 0.88],
   // .github#15: centre 780.
   'ouro-hx': [0.063, 0.936],
@@ -298,12 +305,13 @@ export const phoneCastX = {
   // .github#15: centre 840.
   'ouro-ui-apple': [0.21, 0.931],
   'ouro-ui-core': [0.4, 0.88],
+  'ouro-ui-core-dark': [0.4, 0.88],
   'ouro-work': [0.42, 0.88],
   'ouro-workbench': [0.55, 0.86],
   ouroboros: [0.49, 0.88],
   // The reading robot at the left, the robot taking the scroll at the right.
-  // .github#15: centre 734.
-  'ouroboros-skills': [0.068, 0.932],
+  // Phone crop box [120, 0, 1502, 576] of the 1536 header.
+  'ouroboros-skills': [0.067, 0.933],
   'ouroboros-website': [0.43, 0.88],
   // Ouro at the left, the waving robot's hand at the right.
   ourostack: [0.069, 0.94],
@@ -404,7 +412,7 @@ export function heroFrame(scene, { product = false } = {}) {
 }
 
 /** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
-export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' ? [1536, 614] : [1536, 576])
+export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' || scene === 'friends-relay-dark' ? [1536, 614] : [1536, 576])
 
 // A thumbnail in a list shows every scene at one aspect, THUMB_ASPECT (Ari's
 // ruling on taste review r18, 2026-11-07: the blog index's vignettes came in
