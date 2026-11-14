@@ -302,8 +302,8 @@
  {
   "page": "blog/stop-being-the-glue",
   "was": "The Collaboration Loop YOU steer plan → ← refine YOUR AGENT partner execute → ← learn RESULTS &circlearrowleft; feedback AI can't make decisions for us, but it can accelerate our decision making — and the best decisions emerge from collaboration, not isolation.",
-  "now": "The Collaboration Loop YOU steer plan → ← refine YOUR AGENT partner execute → ← learn RESULTS &circlearrowleft; feedback AI can accelerate our decision making, and the best decisions emerge from collaboration.",
-  "why": "approved antithesis rewrite"
+  "now": "Instead: Plan Together, Delegate the Doing AI can accelerate our decision making, and the best decisions emerge from collaboration.",
+  "why": "approved antithesis rewrite; 2026-11-14: the loop diagram is redrawn as an open SVG ring (Ari: \"you can absolutely update the graphics / charts on there\"), so its labels sit in the drawing and the caption follows it; its caption pairs with the first diagram's \"Today:\" once both draw the same hourglass"
  },
  {
   "page": "blog/stop-being-the-glue",
@@ -2834,8 +2834,8 @@
  {
   "page": "blog/stop-being-the-glue attributes",
   "was": "We were promised an intelligent assistant. Instead, we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed.",
-  "now": "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed.",
-  "why": "approved antithesis rewrite"
+  "now": "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, carrying work by hand between our agents and the places it lives. Here's what changed.",
+  "why": "approved antithesis rewrite; 2026-11-14: the glue sits between agents and the places work lives (Ari: \"it's not glue between your agents, its glue between agents and all the different surfaces\")"
  },
  {
   "page": "blog/take-the-agents-seat attributes",
@@ -3590,8 +3590,14 @@
  {
   "page": "blog/what-is-agent-experience",
   "was": "Ari Mendelow · March 2026 \"I spent more time trying to get my agents back on track than we actually spent working.\" If that line feels familiar, you have already felt bad AX.",
-  "now": "Ari Mendelow · March 2026 · Updated October 2026",
-  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX"
+  "now": "Ari Mendelow · March 2026 · Updated November 2026",
+  "why": "framing fix (Ari, 2026-10-15): UX is the parent of HX and AX; DX sits beside UX; updated again 2026-11-13 with the November note"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Ari Mendelow · February 2026 I wrote this a week into using OpenClaw , the open-source AI agent that became the foundation for everything I've built since.",
+  "now": "Ari Mendelow · February 2026 · Updated November 2026",
+  "why": "November update (Ari, 2026-11-13): the byline shows the update, and a note links the meat proxy"
  },
  {
   "page": "blog/what-is-agent-experience",
@@ -3668,8 +3674,8 @@
  {
   "page": "blog/stop-being-the-glue",
   "was": "Stop being the glue between your AI tools | Ouroboros Essay Stop being the glue How I stopped copy-pasting between AI tools and started collaborating.",
-  "now": "Stop being the glue between your agents | Ouro Essay Stop being the glue How I stopped copy-pasting between my agents and started collaborating.",
-  "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark"
+  "now": "Stop being the glue between your agents and your work | Ouro Essay Stop being the glue How I stopped carrying work between my agents and the places it lives.",
+  "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark; 2026-11-14: \"between your agents\" lost the point (Ari: \"it's not glue between your agents, its glue between agents and all the different surfaces\"), so the title names both sides; 2026-11-14: the glue sits between agents and the places work lives, not between agents (Ari: \"it's not glue between your agents, its glue between agents and all the different surfaces\"), so you copy-paste for your agents; 2026-11-14 review: the dek carries the places, so the point lands before the hero"
  },
  {
   "page": "blog/take-the-agents-seat",
@@ -3752,8 +3758,8 @@
  {
   "page": "blog/stop-being-the-glue attributes",
   "was": "Stop being the glue between your AI tools | Ouroboros",
-  "now": "Stop being the glue between your agents | Ouro",
-  "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark"
+  "now": "Stop being the glue between your agents and your work | Ouro",
+  "why": "Ari, 2026-10-16: the title suffix is the brand, Ouro (one suffix site-wide, ruling 2.13), and the home link's name matches the ouro wordmark; 2026-11-14: \"between your agents\" lost the point (Ari: \"it's not glue between your agents, its glue between agents and all the different surfaces\"), so the title names both sides"
  },
  {
   "page": "blog/stop-being-the-glue attributes",
@@ -3986,8 +3992,8 @@
  {
   "page": "share card /blog/stop-being-the-glue",
   "was": "How I stopped copy-pasting between AI tools and started collaborating with one persistent agent.",
-  "now": "Stop copy-pasting between tools, and start collaborating with one persistent agent.",
-  "why": "Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's"
+  "now": "Stop carrying work between your agents and the places it lives. Give your agent a door.",
+  "why": "Ari, 2026-10-16 cringe pass: every share card shows the Ouro character, so a card never speaks in the first person (it reads as the snake talking) or calls the essays the serpent's; 2026-11-14: the glue sits between agents and the places work lives (Ari: \"it's not glue between your agents, its glue between agents and all the different surfaces\")"
  },
  {
   "page": "index",
@@ -4100,8 +4106,8 @@
  {
   "page": "blog",
   "was": "How I stopped copy-pasting between AI tools and started collaborating.",
-  "now": "How I stopped copy-pasting between my agents and started collaborating.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+  "now": "How I stopped carrying work between my agents and the places it lives.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; 2026-11-14: the glue sits between agents and the places work lives, not between agents (Ari: \"it's not glue between your agents, its glue between agents and all the different surfaces\"), so you copy-paste for your agents; 2026-11-14 review: the dek carries the places, so the point lands before the hero"
  },
  {
   "page": "lab",
@@ -4112,8 +4118,8 @@
  {
   "page": "share card /blog/stop-being-the-glue",
   "was": "Stop being the glue between your AI tools.",
-  "now": "Stop being the glue between your agents.",
-  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged"
+  "now": "Stop being the glue between your agents and your work.",
+  "why": "Ari, 2026-10-24: say \"agent\", not \"AI\", in visible essay titles and blurbs; URLs and essay bodies unchanged; 2026-11-14: \"between your agents\" lost the point (Ari: \"it's not glue between your agents, its glue between agents and all the different surfaces\"), so the title names both sides"
  },
  {
   "page": "blog/take-the-agents-seat",
@@ -5692,5 +5698,17 @@
   "was": "Your agent can fetch the live version directly at ouroboros.bot/skills/manifest.json Words used here Psyche Five Markdown files that define who the agent is, loaded every turn.",
   "now": "Your agent can fetch the live version directly from its skills manifest at ouroboros.bot/skills/manifest.json Words used here Psyche Five Markdown files that define who the agent is, loaded every turn.",
   "why": "lab heroes on Ouro HX (2026-11-13): naming the skills manifest keeps the docs lede from flipping between one line and two when the web font swaps in, which moved the page on CI"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Epilogue — March 2026 Six weeks after writing this, I hit every wall I predicted — and some I didn't.",
+  "now": "Six weeks later I hit every wall I predicted, and some I didn't.",
+  "why": "November update (Ari, 2026-11-14): notes no longer sit in a glowing bar; the epilogue becomes a section headed Six weeks later, beside Nine months on; the heading already says six weeks, so the sentence no longer repeats it"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Today: You Are The Glue Azure DevOps Notebook LM GitHub Copilot &UpDownArrow; &UpDownArrow; &UpDownArrow; YOU (the glue) &UpDownArrow; &UpDownArrow; &UpDownArrow; ChatGPT Claude Perplexity VS Code M365 Copilot Teams Outlook That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task.",
+  "now": "Today: You Are The Glue That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task.",
+  "why": "2026-11-14: the glue diagram is redrawn as an open SVG with every tool's line running through you (Ari: \"you can absolutely update the graphics / charts on there\"); the tool names sit in the drawing and the title becomes its caption"
  }
 ]

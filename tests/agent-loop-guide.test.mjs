@@ -200,7 +200,7 @@ test('the first prompt reaches the model through gh and Copilot', () => {
 
 test('the byline keeps the publication date and notes the update', () => {
   const source = html();
-  assert.match(source, /Ari Mendelow &middot; March 2026 &middot; Updated November 2026/, 'byline');
+  assert.match(source, /Ari Mendelow&nbsp;&middot; March 2026&nbsp;&middot; Updated November 2026/, 'byline');
   assert.ok(source.includes('"datePublished":"2026-03-01"'), 'datePublished');
   assert.ok(source.includes('"dateModified":"2026-11-12"'), 'dateModified');
 });
