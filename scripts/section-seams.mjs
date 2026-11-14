@@ -101,7 +101,7 @@ function changes() {
     const el = document.querySelector(sel);
     if (el && !out.has(y(el.getBoundingClientRect().top))) out.set(y(el.getBoundingClientRect().top), false);
   }
-  const scenes = [...document.querySelectorAll('.story-scene img, .story-scene')].map((el) => {
+  const scenes = [...document.querySelectorAll('.story-scene img, .story-scene, [data-ouro="hero"] [data-slot="media"]')].map((el) => {
     const r = el.getBoundingClientRect();
     return [y(r.top), y(r.bottom)];
   });

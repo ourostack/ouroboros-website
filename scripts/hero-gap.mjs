@@ -10,7 +10,7 @@
 // The hero is the <section> that holds the page's h1, or a narrower
 // [data-hero-text] around the h1 where the body shares that section. Its text
 // ends at the lowest visible text in it, or at the foot of art shown whole
-// inside it (.story-contained, the Ouro Hero's media); the body starts at the top of the
+// inside it (the Ouro Hero's media); the body starts at the top of the
 // block holding the first visible text below that. Every page in dist/ (or every
 // sitemap page under --base) is measured at 320x640, 390x844 and 430x932, and
 // a gap more than 4px off its rhythm fails.
@@ -86,7 +86,7 @@ function measure() {
   // section (the docs pages' split layout), or else the h1's <section> or
   // <header>.
   const head = h1.closest('[data-hero-text], section, header') || h1.parentElement;
-  const art = [...head.querySelectorAll('.story-contained')];
+  const art = [...head.querySelectorAll('[data-ouro="hero"] [data-slot="media"]')];
   const end = Math.max(...[h1, ...content(head), ...art].map((el) => el.getBoundingClientRect().bottom));
   const main = document.querySelector('main') || document.body;
   const next = content(main)
