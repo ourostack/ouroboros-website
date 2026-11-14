@@ -10,7 +10,15 @@
   Slots: "title" for a title with markup (it replaces the title prop),
   "description" for the lede (a post's lede and its byline), "actions" for
   the links under the lede.
+
+  Astro hands the Hero every named slot as a prop, even one that renders
+  nothing ({cond && <Fragment slot="actions">} still makes an "actions" slot),
+  and the Hero then draws an empty element for it. So each slot is rendered to
+  HTML here and passed as a prop only when it has something in it, wrapped the
+  way Astro wraps a slot: in <astro-static-slot>, which Astro removes again
+  from a component that isn't hydrated.
 */
+import { createElement } from 'react'
 import { Hero } from './ouro/hero/hero'
 import StoryScene from './StoryScene.astro'
 import { sceneFor } from '../data/scenes.mjs'
@@ -27,13 +35,23 @@ interface Props {
 const { eyebrow, title, scene: sceneProp, class: className } = Astro.props
 const route = sceneFor(Astro.url.pathname)
 const scene = sceneProp ?? route.hero
+
+const filled = async (name: string) => {
+  if (!Astro.slots.has(name)) return undefined
+  const html = (await Astro.slots.render(name)).trim()
+  return html === '' ? undefined : html
+}
+const asNode = (html: string | undefined) =>
+  html === undefined ? undefined : createElement('astro-static-slot', { dangerouslySetInnerHTML: { __html: html } })
+const titleHtml = await filled('title')
+const heroTitle = titleHtml !== undefined ? asNode(titleHtml) : title
+const description = asNode(await filled('description'))
+const actions = asNode(await filled('actions'))
+const eyebrowText = eyebrow?.trim() || undefined
 ---
 <div class:list={['page-hero px-6 md:px-12 lg:px-16 pt-(--nav-h) pb-12 md:pb-14', className]}>
   <div class="max-w-6xl mx-auto">
-    <Hero layout="column" motion="none" headingLevel={1} eyebrow={eyebrow} className="[--hero-width:100%]!">
-      <Fragment slot="title">{Astro.slots.has('title') ? <slot name="title" /> : title}</Fragment>
-      {Astro.slots.has('description') && <Fragment slot="description"><slot name="description" /></Fragment>}
-      {Astro.slots.has('actions') && <Fragment slot="actions"><slot name="actions" /></Fragment>}
+    <Hero layout="column" motion="none" headingLevel={1} eyebrow={eyebrowText} title={heroTitle} description={description} actions={actions} className="[--hero-width:100%]!">
       {scene && <Fragment slot="media"><StoryScene scene={scene} variant="hero" contained sizes={PAGE_HERO_SIZES} product={route.product} /></Fragment>}
     </Hero>
   </div>
