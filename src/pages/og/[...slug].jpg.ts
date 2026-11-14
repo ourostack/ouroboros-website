@@ -104,15 +104,14 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'ouroboros': [680, 6, 1194, 180],
   'ouroboros-skills': [830, 6, 1194, 240],
   'ouroboros-website': [770, 6, 1194, 196],
-  'ourostack': [330, 6, 1060, 190],
   'playwright-focus-proof': [16, 30, 1194, 172],
   'shepherd': [240, 6, 800, 250],
+  // On its title plate (230px tall: the 3:1 art is shorter at card width), the words centred down it.
+  'workshop': [16, 60, 1194, 222],
 }
-// A card can be set in a different framing of the same canonical art: the home
-// card takes the whole-world header at card height and slides the window right,
-// so the picnic, both robots and the sheep fit whole (taste review r3). The
+// A card can be set in a different framing of the same canonical art. The
 // art's bytes are only resized and cropped here, never repainted.
-// Taste review r5 reframed two more: the shell and the apps stall slide right
+// Taste review r5 reframed two: the shell and the apps stall slide right
 // so the words get the wide sunset sky instead of a sliver.
 // Taste review r5 found three scenes whose cast is wider than any card-height
 // window: the canonical card crop cut the robot's head (Ouro UI for Apple), Ouro's
@@ -124,7 +123,6 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
 // would need the art to fade into it, and no picture fades.
 type PlateFrame = { file: string; plate: true }
 const FRAME: Record<string, { file: string; left: number; height?: number } | PlateFrame> = {
-  ourostack: { file: 'headers/ourostack.webp', left: 690 },
   'ouro-native-apple-app-shell': { file: 'headers/ouro-native-apple-app-shell.webp', left: 480 },
   'ouro-apps-site': { file: 'headers/ouro-apps-site.webp', left: 480 },
   'ouro-ui-apple': { file: 'headers/ouro-ui-apple.webp', plate: true },
@@ -151,6 +149,10 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   // The housesitter's chimney meets the top of its art too, and its only open sky sits
   // beside Ouro's lantern, too narrow for a title: the same plate.
   housesitter: { file: 'headers/housesitter.webp', plate: true },
+  // The workshop's roof beams run across the top of its art, and its cast
+  // spans the whole width, from Ouro's flower pot to the parcel robots: the
+  // same plate, so Ouro is still there to find on the home card.
+  workshop: { file: 'headers/workshop.webp', plate: true },
 }
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.

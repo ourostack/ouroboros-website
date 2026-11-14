@@ -418,7 +418,8 @@ test('every page carries the family bar above the nav, this site marked', () => 
     assert.deepEqual([...bar.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]), family.map((l) => l.label));
     const marked = [...bar.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
     assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the bar marks ${current}`);
-    assert.doesNotMatch(html, /<astro-island\b/, `${file}: the family bar ships no client script`);
+    // The home page hydrates its Agent view switch; the bar is never inside an island.
+    for (const [island] of html.matchAll(/<astro-island\b[\s\S]*?<\/astro-island>/g)) assert.ok(!island.includes('data-ouro="family-bar"'), `${file}: the family bar ships no client script`);
   }
 });
 
@@ -466,7 +467,8 @@ test('the nav repeats no family link on a wide screen, and is glass from the top
   assert.match(nav, /id="nav-bg" class="nav-glass"/);
   const navSrc = fs.readFileSync(new URL('../src/components/Nav.astro', import.meta.url), 'utf8');
   assert.match(navSrc, /\.nav-glass\s*\{[^}]*background:\s*color-mix\(in srgb, var\(--color-deep\) 9\d%/);
-  assert.doesNotMatch(html, /bg-transparent/);
+  // The Agent view switch's empty track is transparent by design; the header is not.
+  assert.doesNotMatch(html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, ''), /bg-transparent/);
 });
 
 test('no built page or agent file contains a deny-listed string', (t) => {

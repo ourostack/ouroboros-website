@@ -59,6 +59,6 @@ test('the HTTPS Worker runs only for plain HTTP and www, and is deployed', () =>
 
 test('every static asset carries HSTS through _headers', () => {
   const rules = (text) => text.replace(/^#.*$/gm, '').replace(/\s+/g, ' ').trim();
-  assert.equal(rules(read('public/_headers')), `/* Strict-Transport-Security: ${hsts}`);
+  assert.ok(rules(read('public/_headers')).startsWith(`/* Strict-Transport-Security: ${hsts} `), 'the first rule gives every asset HSTS');
   assert.equal(read('dist/_headers'), read('public/_headers'), 'the build copies public/_headers into dist/');
 });

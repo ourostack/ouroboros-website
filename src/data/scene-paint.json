@@ -101,18 +101,13 @@
   },
   "glue-unstuck": {
     "from": "headers/glue-unstuck.webp",
-    "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828",
+    "sha256": "3f4579e87b5d73b3db949417ba3521acc8950dde1e19b9762ae14f04dc85c7c9",
     "colour": "#f8c8a8"
   },
   "glue-unstuck-dark": {
     "from": "headers/glue-unstuck-dark.webp",
-    "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3",
+    "sha256": "886bfec293b418fbb14cea6978bdc82bc809ecb30b1be6f8ad1026dd5618e6c0",
     "colour": "#282808"
-  },
-  "homebrew-tap": {
-    "from": "headers/homebrew-tap.webp",
-    "sha256": "20a21ea38d2fb4c131fadeed68c5bdd3697d1dee141f4a69bb754b09fdbd01c4",
-    "colour": "#f8b8a8"
   },
   "housesitter": {
     "from": "headers/housesitter.webp",
@@ -239,16 +234,6 @@
     "sha256": "2c86ac5d369710bd7a76b42ea738f6d5c66139a4065fc2c9d959a13eaab9f3a8",
     "colour": "#080808"
   },
-  "ourostack": {
-    "from": "headers/ourostack.webp",
-    "sha256": "39b88009a7a666f8dd994cdf63c96935c4090d3782ee17281424a62f5809a9cf",
-    "colour": "#f8b898"
-  },
-  "ourostack-dark": {
-    "from": "headers/ourostack-dark.webp",
-    "sha256": "72f09244bd77f14580ad3e393e7bcf70feaf3342bd5bee9473e231175fff98a7",
-    "colour": "#183888"
-  },
   "playwright-focus-proof": {
     "from": "headers/playwright-focus-proof.webp",
     "sha256": "b13887e66eacb73ad761eb2fb52313191f4cd4b3fd377ae771f3bf8feb02ecd7",
@@ -268,5 +253,15 @@
     "from": "headers/shepherd-dark.webp",
     "sha256": "d4520bd0b60f45717980a6ad653a471decd57c126182c4c9e903e63b86960f32",
     "colour": "#183888"
+  },
+  "workshop": {
+    "from": "headers/workshop.webp",
+    "sha256": "e594b225425c1ae46897ade456c3f96df93b2b9ac8389fdf44fcea95f0ec6e56",
+    "colour": "#a85828"
+  },
+  "workshop-dark": {
+    "from": "headers/workshop-dark.webp",
+    "sha256": "1be4971acb218da7b2282c4081db56f38ed9301f17789a2f5058d0c2bfd1e024",
+    "colour": "#282828"
   }
 }
