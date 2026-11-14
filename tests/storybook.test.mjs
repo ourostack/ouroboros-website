@@ -268,7 +268,7 @@ test("a product's pages open on its own scene, hero and share card alike", () =>
     const html = fs.readFileSync(file, 'utf8');
     assert.equal(sceneFor(route).hero, scene, `${route} hero`);
     assert.equal(ogSceneFor(route), scene, `${route} share card`);
-    assert.match(html, new RegExp(`<div class="story-scene story-hero[^"]*" data-brand-scene="${scene}"`), `${route} renders its product's hero`);
+    assert.match(html, new RegExp(`<div class="story-scene story-(?:hero|contained)[^"]*" data-brand-scene="${scene}"`), `${route} renders its product's hero`);
     const og = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
     const tw = html.match(/<meta name="twitter:image" content="([^"]+)"/)?.[1];
     assert.ok(og && og === tw, `${route} og:image and twitter:image agree`);

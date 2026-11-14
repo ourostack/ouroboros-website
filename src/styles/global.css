@@ -510,6 +510,10 @@ html, body { overflow-x: clip; }
   flex: none;
   object-fit: contain;
 }
+/* A product's mark beside its name in a PageHero title (the h1). */
+.hero-mark-title { display: flex; align-items: center; gap: 1rem; }
+.hero-mark-title > img { width: 3.5rem; height: 3.5rem; }
+@media (min-width: 768px) { .hero-mark-title > img { width: 4rem; height: 4rem; } }
 .spoonjoy-mark {
   display: inline-block;
   flex: none;
