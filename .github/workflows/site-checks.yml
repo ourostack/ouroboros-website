@@ -30,7 +30,9 @@ name: site-checks
 # push, deploy-early goes at once when the proof job shows this exact tree
 # already passed site-checks on its own pull request (scripts/tested-tree.mjs;
 # every gap fails closed). Otherwise, or when that deploy fails, deploy goes
-# after main's own checks pass. Main runs every check either way.
+# after main's own checks pass. Main runs every check either way. Only main's
+# head deploys; a deploy that skips confirms the head deploys, and otherwise
+# dispatches this workflow on main (scripts/deploy-head.mjs).
 
 on:
   pull_request:
@@ -359,6 +361,7 @@ jobs:
     needs: proof
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.proof.outputs.tested == 'true'
     permissions:
+      actions: write
       contents: read
       deployments: write
     uses: ./.github/workflows/deploy.yml
@@ -371,6 +374,7 @@ jobs:
     needs: [site-checks, deploy-early]
     if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.site-checks.result == 'success' && needs.deploy-early.result != 'success'
     permissions:
+      actions: write
       contents: read
       deployments: write
     uses: ./.github/workflows/deploy.yml

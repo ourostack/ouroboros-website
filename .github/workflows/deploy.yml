@@ -2,13 +2,44 @@ name: Deploy to Cloudflare
 
 # Production deploys only from site-checks.yml, on main, after a gate passed:
 # at once when scripts/tested-tree.mjs proves the pull request's run already
-# passed on this exact tree, otherwise after main's own checks pass.
+# passed on this exact tree, otherwise after main's own checks pass. Only main's
+# head deploys; a deploy that skips makes sure the head still does (settle).
 
 on:
   workflow_call:
 
 jobs:
+  # Is this commit still main's head? Asked outside the production-deploy
+  # group, because GitHub keeps one pending job per group and cancels the older
+  # pending one when another queues: a stale commit joining the group could
+  # cancel the head's waiting deploy. A newer head deploys itself, so a stale
+  # commit skips, and a late deploy never rolls production back. A failed
+  # lookup fails the job, never skips the deploy.
+  head:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions:
+      contents: read
+    outputs:
+      current: ${{ steps.head.outputs.current }}
+    steps:
+      - name: Is this commit main's head?
+        id: head
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          head=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          [[ "$head" =~ ^[0-9a-f]{40}$ ]]
+          if [ "$head" = "$GITHUB_SHA" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::main is now at $head, which deploys itself; skipping $GITHUB_SHA."
+          fi
+
   deploy:
+    needs: head
+    if: needs.head.outputs.current == 'true'
     runs-on: ubuntu-latest
     # About twice the usual minute and a bit; a hung wrangler fails in minutes.
     timeout-minutes: 4
@@ -19,12 +50,12 @@ jobs:
     permissions:
       contents: read
       deployments: write
+    outputs:
+      current: ${{ steps.head.outputs.current }}
     steps:
       - uses: actions/checkout@v4
 
-      # A newer commit on main deploys itself, so an older one that reaches
-      # here later skips rather than roll production back. Checked inside the
-      # concurrency group; a failed lookup fails the deploy, never skips it.
+      # Asked again inside the group: main may have moved while this waited.
       - name: Is this commit still main's head?
         id: head
         run: |
@@ -83,3 +114,26 @@ jobs:
               \"keyLocation\": \"https://ouroboros.bot/11939a2530214da79d49b3a8908b8c9c.txt\",
               \"urlList\": $URLS
             }"
+
+  # A deploy that skipped may have cancelled main's head's pending deploy on
+  # its way through the group. Confirm the head deployed or has a deploy
+  # coming; otherwise dispatch site-checks on main, which checks and deploys
+  # it (scripts/deploy-head.mjs). Any error fails this job visibly.
+  settle:
+    needs: [head, deploy]
+    if: always() && (needs.head.outputs.current == 'false' || needs.deploy.outputs.current == 'false')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts/deploy-head.mjs
+          sparse-checkout-cone-mode: false
+
+      - name: Has main's head deployed, or is its deploy coming?
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/deploy-head.mjs
