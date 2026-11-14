@@ -9,7 +9,7 @@
 import { createHash } from 'node:crypto'
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { usedScenes, largeAvifWidths, largeWebpWidths, meadowScene } from '../src/data/scenes.mjs'
+import { usedScenes, largeAvifWidths, largeWebpWidths, meadowScene, darkScenes } from '../src/data/scenes.mjs'
 
 const brand = process.argv[2]
 if (!brand || !existsSync(join(brand, 'provenance.json'))) {
@@ -30,7 +30,7 @@ export const filesForScene = (scene) => [
   `phone/${scene}-384.webp`, `phone/${scene}-384.avif`,
   `phone/${scene}-768.webp`, `phone/${scene}-768.avif`,
   // The meadow spans a phone's full width, so it needs the 1152 crop at 2x.
-  ...(scene === meadowScene ? [`phone/${scene}-1152.webp`, `phone/${scene}-1152.avif`] : []),
+  ...(scene === meadowScene || scene === darkScenes[meadowScene] ? [`phone/${scene}-1152.webp`, `phone/${scene}-1152.avif`] : []),
   `og/${scene}.jpg`,
 ]
 const files = [

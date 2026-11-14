@@ -12160,6 +12160,36 @@
     "sha256": "3c0fdc1695e44a5bd13d137b0131515c01ff24525e203ddcc52e7d5db433a0e8"
   },
   {
+    "file": "phone/ouroboros-website-dark-1152.webp",
+    "derivedFrom": {
+      "file": "upscaled/ouroboros-website-dark.webp",
+      "sha256": "92938f8574b8d1e89c6dac8eecb16beda9fba12823a35444749fa06e239e14de"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [1952, 0, 5024, 2304] of the 4x master then resize to 1152x864 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 1152,
+    "height": 864,
+    "bytes": 180166,
+    "sha256": "1986481eeb3ef82198418023c2b02fa87213d2f497b6f92ef0fb5c53c3bd467c"
+  },
+  {
+    "file": "phone/ouroboros-website-dark-1152.avif",
+    "derivedFrom": {
+      "file": "upscaled/ouroboros-website-dark.webp",
+      "sha256": "92938f8574b8d1e89c6dac8eecb16beda9fba12823a35444749fa06e239e14de"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [1952, 0, 5024, 2304] of the 4x master then resize to 1152x864 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 1152,
+    "height": 864,
+    "bytes": 139656,
+    "sha256": "b14cdcdb2c8d3b5a8b8f4d0b33cfc7f81f5e59b4590fc68577ed896f67db74db"
+  },
+  {
     "file": "og/ouroboros-website-dark.jpg",
     "derivedFrom": {
       "file": "headers/ouroboros-website-dark.webp",
