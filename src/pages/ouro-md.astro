@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHero from '../components/PageHero.astro'
 import OuroMdMedia from '../components/OuroMdMedia.astro'
 import { ogPathFor } from '../data/og'
 import { ouroMdInstall } from '../data/principles.mjs'
@@ -11,20 +12,22 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/ouro-md')} canonical="https://ouroboros.bot/ouro-md/">
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-10 md:pt-44">
-    <div class="max-w-6xl mx-auto md-hero">
-      <div class="grid gap-5 content-start min-w-0 split-head hero-copy md-copy">
-        <div class="flex items-center gap-4">
-          <img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile w-14 h-14 md:w-16 md:h-16" />
-          <h1 class="heading-lead">Ouro MD</h1>
-        </div>
-        <p class="product-lede" data-hero-lede>My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
-        <div class="btn-row" data-primary-action>
-          <a href={ouroMdDownload} class="btn-primary">Download for Mac &rarr;</a>
-          <span class="text-sm text-mist">macOS 15 or later. Signed, notarized, updates itself.</span>
-        </div>
+  {/* The words sit above Ouro MD's scene, never over it (Ouro HX Hero). The Download
+      button follows the lede inside the description, so on a phone it is the lede's next sibling. */}
+  <PageHero>
+    <span slot="title" class="hero-mark-title"><img src="/brand/ouro-md-icon.png" width="64" height="64" alt="" class="mark-tile" />Ouro MD</span>
+    <Fragment slot="description">
+      <p class="product-lede" data-hero-lede>My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
+      <div class="mt-6 btn-row" data-primary-action>
+        <a href={ouroMdDownload} class="btn-primary">Download for Mac &rarr;</a>
+        <span class="text-sm text-mist">macOS 15 or later. Signed, notarized, updates itself.</span>
       </div>
-      <div class="min-w-0 split-body hero-media"><OuroMdMedia only="agent" /></div>
+    </Fragment>
+  </PageHero>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-10">
+    <div class="max-w-6xl mx-auto md-demo">
+      <div class="min-w-0 md-media"><OuroMdMedia only="agent" /></div>
       <p class="md-aside text-lg text-mist leading-relaxed">When a document needs to leave the screen, Ouro MD prints it or saves a PDF from a preview where you set the margins, type size, line spacing, paper, and which headings start a new page.</p>
     </div>
   </section>
@@ -54,33 +57,14 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
 </Layout>
 
 <style>
-  /* The hero: the words, the recording and the print note, in reading order.
-     The recording is never drawn larger than its own pixels (--clip-w in
-     global.css), so wherever the hero is wider it sits beside the print note
-     instead of stretching across the page (Ari, 2026-11-09: "never designed
-     to be so large"). Phone: words, recording, note. From 1280 on a tall
-     screen: words and note on the left, the recording on the right, its
-     column as wide as the recording. Stacked (1024 to 1279, 1280x800 and the
-     short laptops, where the 5/12 column would push Download toward the
-     fold): the words across, then the recording with the note beside it. */
-  .md-hero { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "media" "aside"; gap: 1.25rem 4rem; }
-  .md-copy { grid-area: copy; }
-  .md-aside { grid-area: aside; margin: 0; }
-  .md-hero > .hero-media { grid-area: media; margin-top: 0.75rem; }
-  /* Stacked, the note keeps the section rhythm (2.5rem) under the recording's caption. */
-  .md-hero > .md-aside { margin-top: 1.25rem; }
+  /* Under the hero: the recording and the print note. The recording is never
+     drawn larger than its own pixels (--clip-w in global.css), so wherever the
+     column is wider it sits beside the note instead of stretching across the
+     page (Ari, 2026-11-09: "never designed to be so large"). Phone: recording,
+     then note. */
+  .md-demo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem 4rem; }
+  .md-aside { margin: 0; }
   @media (min-width: 1024px) {
-    .md-hero { grid-template-columns: minmax(0, var(--clip-w)) minmax(16rem, 1fr); grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
-    .md-hero > .hero-media, .md-hero > .md-aside { margin-top: 0; }
-    .md-copy { align-self: start; }
-  }
-  @media (min-width: 1280px) {
-    .md-hero { grid-template-columns: minmax(0, 1fr) min(var(--clip-w), calc((100% - 4rem) * 7 / 12)); grid-template-rows: auto 1fr; grid-template-areas: "copy media" "aside media"; row-gap: 1.25rem; align-items: start; }
-    .md-hero > .hero-media { justify-self: end; width: 100%; }
-  }
-  @media (min-width: 1280px) and (max-height: 960px) and (min-aspect-ratio: 33 / 20), (min-width: 1280px) and (max-height: 820px) {
-    .md-hero { grid-template-columns: minmax(0, var(--clip-w)) minmax(16rem, 1fr); grid-template-rows: none; grid-template-areas: "copy copy" "media aside"; row-gap: 2.5rem; align-items: center; }
-    .md-hero > .hero-media { justify-self: stretch; }
+    .md-demo { grid-template-columns: minmax(0, var(--clip-w)) minmax(16rem, 1fr); align-items: center; }
   }
 </style>
-
