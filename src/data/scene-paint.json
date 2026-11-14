@@ -146,13 +146,13 @@
   "m365crawl": {
     "wide": {
       "from": "headers/m365crawl.webp",
-      "sha256": "392463431c1a2b8b67babf0733361cebb27e76d089808f1467b971df6a6721ca",
-      "uri": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAABwAgCdASoQAAYAAkA4JbACdLoAngAELa/VFU4AAP7cmf0lEaDz/uoH8kwdSz60Q+zW9xxiIu5oeLRZlS/Naci3tdDCpqAAyjdrVWtv/ggzM6tOkrrnM84KFxy5Hc4vU/s/8aG7xCkfw797AAA="
+      "sha256": "3e97c03c12e1139e69e095021411093c6cf2cadaa1c57097dc9487a909e75dc1",
+      "uri": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAABwAgCdASoQAAYAAkA4JbACdDBACIgMs6B2lJQAAP7sTvvHKrebvkkXrpa29NiOaR3DdPUHsH90MHMInnbirO8TcExPp1Uz3CDSk7VzRONa/7n1y/sWtD8/8+xpUh+4TKdMgxv8G/9VtAo5XZEdp/24rjKAAA=="
     },
     "phone": {
       "from": "phone/m365crawl-384.webp",
-      "sha256": "6306b03f02cf27016d07d9e6227f262f7c691f960eb244f2701016eec79205a6",
-      "uri": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAACwAgCdASoQAAwAAkA4JbACdDiAN46IiAnAdJPCVYAA/ulfLu3eBIvf2XLyYwxTZKkiL5iDE+vJOsg0S/VUgwPFObs3VU3xu2ofG3ly/E1sjoXapPhGz6fAHI4LyuuCtvXH4RbV4dncCH6oj//GHaVTenz2j/7/8fYHuur/wbSYn00WEemP/iUSQdtUaX5BJ+HfUoJxT+FvKs/MstAAAA=="
+      "sha256": "ed00e2768582f4b68568e58887c3ad1533a6cf886927e6e3c554c56098f16180",
+      "uri": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACwAgCdASoQAAwAAkA4JbACdDXAOkRIg4lAy+52g4AA/q3bIDwL3NNgbTgqSzpPJPbKY01U9eMeP8iOyJYrPndsSndtlar3dROdV3yE4ApzjorC60Q2O60LtZo/Cr4bnjFTweXC7utUOtH4dbd0Rv/5UcbfiUh19zA2omRL/PXKpDvl19y8G2MT/2ohviG7odybIv/nXShu9Dsq0h+rZ+37Ce+974AA"
     }
   },
   "ouro-apps-site": {
@@ -266,13 +266,13 @@
   "ouroboros-skills": {
     "wide": {
       "from": "headers/ouroboros-skills.webp",
-      "sha256": "ff378cd148c24a9bb749aeacf7ba81c6c27957a6b9c51d3643e598e651b9429c",
-      "uri": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwAgCdASoQAAYAAkA4JbACdLoAArktsDjKIAD5UU2S85Lep/LE3sUL88vXA3eko4IHzHhAz3eIlnnO62NpO8+IdahK2nhF3/pHdwqQpntGlFYEBf8kCW8vAwV8XzkmsQ1IkQOvJ1/n8AAA"
+      "sha256": "1a840c76cded0153ec53d7425b0262f36c82d9418717fd4af92cf5d748d20080",
+      "uri": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAAAQAgCdASoQAAYAAkA4JbACdAYstUT+VoZAAP1Rw1E7Pzk0yJQ6BESDbslQGfBgFAdtatScvuTJ3iBBNR8xHjXAtXI5y6PnjjeGid8fZzKucf++s4+jvP7kriKb+GzG/5iA/V0ReX/Bv+7X9A87wh3XER6lPQpXcAA="
     },
     "phone": {
       "from": "phone/ouroboros-skills-384.webp",
-      "sha256": "abad40da5411b91792c64c43cce654b8812955bbccacb7fe8d8c9351f0d288bb",
-      "uri": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQAgCdASoQAAgAAkA4JbACdDiAByRVWH273sgA/cS33iKIcgT2/wlZjrwz6hx142vuH/+dRps78GLejC0E6hEviUfOWg5LpJYpnYRPoceuDbsf/ffVGRRvP76arhR0Vb/8EfVdf7xgVSJecFJrD8zrym0bkAAA"
+      "sha256": "ca1dfa2bba344c260beb2f91d721a6a13c87425ce4cdef9c677d1ceb6137d086",
+      "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAACQAgCdASoQAAcAAkA4JbACdDiAN5AIhkpfNS388AD+wg5f90jyOhK/zC79cFET0sEKYLZipeWh/hO2VcyqNicdYhQZokqQb82AVm2AAlNIRmf5GGO8uL1/LEeQAtQv+0vGrvrn0/+Df7fQzhepZ9BrrlfGQaPuNgAAAA=="
     }
   },
   "ouroboros-website": {
