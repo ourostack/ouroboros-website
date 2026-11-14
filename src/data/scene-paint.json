@@ -19,6 +19,16 @@
     "sha256": "481b7dccde15de3f6b0c12a8698f5c1430b6440c6e06a39d12e81ad1ac7a478c",
     "colour": "#183888"
   },
+  "ax-trail-map": {
+    "from": "headers/ax-trail-map.webp",
+    "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da",
+    "colour": "#f8b898"
+  },
+  "ax-trail-map-dark": {
+    "from": "headers/ax-trail-map-dark.webp",
+    "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf",
+    "colour": "#082878"
+  },
   "butler": {
     "from": "headers/butler.webp",
     "sha256": "4c772e5bb3734fd7c644cde84f14e8acd2a9bfc10b56ed9812fb8ed6b6a705f2",
@@ -88,6 +98,16 @@
     "from": "headers/gatefold-dark.webp",
     "sha256": "904c26b0d9bb9a5c50fd20f28a311046bad865484e6cf3cc29e28f99598d0e21",
     "colour": "#a898a8"
+  },
+  "glue-unstuck": {
+    "from": "headers/glue-unstuck.webp",
+    "sha256": "3f4579e87b5d73b3db949417ba3521acc8950dde1e19b9762ae14f04dc85c7c9",
+    "colour": "#f8c8a8"
+  },
+  "glue-unstuck-dark": {
+    "from": "headers/glue-unstuck-dark.webp",
+    "sha256": "886bfec293b418fbb14cea6978bdc82bc809ecb30b1be6f8ad1026dd5618e6c0",
+    "colour": "#282808"
   },
   "housesitter": {
     "from": "headers/housesitter.webp",
