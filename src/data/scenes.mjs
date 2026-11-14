@@ -30,6 +30,7 @@ export const scenes = {
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
+  'ouro-ui-core-dark': 'Paint pots on a bench at night pour glowing ribbons of green and cream into a phone, a laptop and a tablet below, with misty hills and village lights behind. Ouro looks on, pleased with the colours.',
   'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
@@ -135,7 +136,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'ouro-ui-core': 'ouro-ui-core-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -209,6 +210,7 @@ export const heroFocus = {
   'ouro-native-apple-app-shell': [0.1, 0.8],
   'ouro-ui-apple': [0.05, 0.91],
   'ouro-ui-core': [0.18, 0.88],
+  'ouro-ui-core-dark': [0.18, 0.88],
   'ouro-work': [0.2, 0.88],
   'ouro-workbench': [0.28, 0.86],
   'ouroboros-skills': [0.05, 0.92],
@@ -249,6 +251,7 @@ export const castFoot = {
   'ouro-native-apple-app-shell': 0.72,
   'ouro-ui-apple': 0.905,
   'ouro-ui-core': 0.84,
+  'ouro-ui-core-dark': 0.84,
   'ouro-work': 0.85,
   'ouro-workbench': 0.76,
   // The robot's feet, not Ouro's coil.
@@ -298,6 +301,7 @@ export const phoneCastX = {
   // .github#15: centre 840.
   'ouro-ui-apple': [0.21, 0.931],
   'ouro-ui-core': [0.4, 0.88],
+  'ouro-ui-core-dark': [0.4, 0.88],
   'ouro-work': [0.42, 0.88],
   'ouro-workbench': [0.55, 0.86],
   ouroboros: [0.49, 0.88],
