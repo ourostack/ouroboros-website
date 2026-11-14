@@ -10,6 +10,7 @@ export const pageHeroRoutes = [
   /^\/apps\/?$/,
   /^\/butler\/?$/,
   /^\/ouro-md(\/download)?\/?$/,
+  /^\/housesitter\/?$/,
 ]
 
 export const usesPageHero = (pathname) => pageHeroRoutes.some((route) => route.test(pathname))
