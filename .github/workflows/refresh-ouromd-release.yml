@@ -2,13 +2,13 @@ name: Refresh Ouro MD release metadata
 
 # Rewrites public/ouro-md/stable.json from Ouro MD's latest GitHub release
 # (scripts/refresh-ouromd-release.mjs). When it changed, it opens a pull request,
-# runs site-checks on it, merges it when site-checks passes, and deploys main.
-# main requires site-checks, so the workflow can't push there directly (run
-# 43535365241 was rejected with GH013). A pull request or push made with the
-# workflow's own token starts no pull_request or push run, so it dispatches
-# site-checks itself (on the pull request, then on main after the merge) and
-# deploys itself. Moved here from ourostack/ouro-apps-site with Ouro MD's
-# download page (2026-11-07).
+# runs site-checks on it, merges it when site-checks passes, and runs
+# site-checks on main, which deploys when it passes. main requires site-checks,
+# so the workflow can't push there directly (run 43535365241 was rejected with
+# GH013). A pull request or push made with the workflow's own token starts no
+# pull_request or push run, so it dispatches site-checks itself (on the pull
+# request, then on main after the merge). Moved here from
+# ourostack/ouro-apps-site with Ouro MD's download page (2026-11-07).
 
 on:
   schedule:
@@ -19,7 +19,6 @@ permissions:
   contents: write
   pull-requests: write
   actions: write
-  deployments: write
 
 concurrency:
   group: refresh-ouromd-release
@@ -105,29 +104,8 @@ jobs:
     needs: propose
     if: needs.propose.outputs.merged == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    # Shared with deploy.yml, so two production deploys never run at once.
-    concurrency:
-      group: production-deploy
-      cancel-in-progress: false
+    timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-
-      # The merge commit starts no push run, so give main its verdict here.
-      - run: gh workflow run site-checks.yml --ref main
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - run: npm ci
-
-      - run: npx astro build
-
-      - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy --config wrangler-worker.jsonc
+      # The merge commit starts no push run, so dispatch site-checks on main:
+      # it gives main its verdict and deploys production when that passes.
+      - run: gh workflow run site-checks.yml --repo "$GITHUB_REPOSITORY" --ref main
