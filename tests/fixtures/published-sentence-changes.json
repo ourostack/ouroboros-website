@@ -302,8 +302,8 @@
  {
   "page": "blog/stop-being-the-glue",
   "was": "The Collaboration Loop YOU steer plan → ← refine YOUR AGENT partner execute → ← learn RESULTS &circlearrowleft; feedback AI can't make decisions for us, but it can accelerate our decision making — and the best decisions emerge from collaboration, not isolation.",
-  "now": "The Collaboration Loop YOU steer plan → ← refine YOUR AGENT partner execute → ← learn RESULTS &circlearrowleft; feedback AI can accelerate our decision making, and the best decisions emerge from collaboration.",
-  "why": "approved antithesis rewrite"
+  "now": "The Collaboration Loop AI can accelerate our decision making, and the best decisions emerge from collaboration.",
+  "why": "approved antithesis rewrite; 2026-11-14: the loop diagram is redrawn as an open SVG ring (Ari: \"you can absolutely update the graphics / charts on there\"), so its labels sit in the drawing and the caption follows it"
  },
  {
   "page": "blog/stop-being-the-glue",
@@ -5704,5 +5704,11 @@
   "was": "Epilogue — March 2026 Six weeks after writing this, I hit every wall I predicted — and some I didn't.",
   "now": "Six weeks later Six weeks after writing this, I hit every wall I predicted — and some I didn't.",
   "why": "November update (Ari, 2026-11-14): notes no longer sit in a glowing bar; the epilogue becomes a section headed Six weeks later, beside Nine months on"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Today: You Are The Glue Azure DevOps Notebook LM GitHub Copilot &UpDownArrow; &UpDownArrow; &UpDownArrow; YOU (the glue) &UpDownArrow; &UpDownArrow; &UpDownArrow; ChatGPT Claude Perplexity VS Code M365 Copilot Teams Outlook That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task.",
+  "now": "Today: You Are The Glue That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task.",
+  "why": "2026-11-14: the glue diagram is redrawn as an open SVG with every tool's line running through you (Ari: \"you can absolutely update the graphics / charts on there\"); the tool names sit in the drawing and the title becomes its caption"
  }
 ]

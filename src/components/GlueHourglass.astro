@@ -1,0 +1,99 @@
+---
+// The two diagrams in "Stop being the glue", drawn as one before-and-after pair.
+// Before: every tool's work squeezes through you at the neck of an hourglass (copy, then
+// paste), so you are the bottleneck. After: the same tools, the same hourglass, but your
+// agent sits at the neck and carries the work, and you sit beside it in one loop: you plan
+// together, and the results come back. Two layouts, so labels never shrink on a phone.
+interface Props {
+  centre: 'you' | 'agent';
+  label: string;
+  caption: string;
+  id: string;
+}
+const { centre, label, caption, id } = Astro.props;
+
+const top = ['Azure DevOps', 'ChatGPT', 'Notebook LM', 'Claude', 'GitHub Copilot'];
+const bottom = ['Perplexity', 'Teams', 'M365 Copilot', 'VS Code', 'Outlook'];
+
+type Chip = { name: string; x: number; y: number; w: number };
+type View = { kind: string; w: number; h: number; neck: [number, number]; r: number; font: number; chips: Chip[]; you: [number, number]; loopLabel: boolean };
+
+const chipWidth = (name: string, font: number) => Math.round(name.length * font * 0.56 + font * 1.9);
+const row = (names: string[], xs: number[], y: number, font: number) => names.map((name, i) => ({ name, x: xs[i], y, w: chipWidth(name, font) }));
+
+const views: View[] = [
+  {
+    kind: 'wide', w: 860, h: 420, neck: [430, 210], r: 44, font: 14, you: [130, 210], loopLabel: true,
+    chips: [...row(top, [110, 270, 430, 590, 750], 36, 14), ...row(bottom, [110, 270, 430, 590, 750], 384, 14)],
+  },
+  {
+    kind: 'narrow', w: 360, h: 560, neck: [180, 280], r: 36, font: 12, you: [42, 280], loopLabel: false,
+    // Staggered rows: each outer-row strand drops through a gap in the row nearer the neck.
+    chips: [
+      ...row([top[0], top[2], top[4]], [62, 180, 296], 26, 12), ...row([top[1], top[3]], [122, 240], 70, 12),
+      ...row([bottom[1], bottom[3]], [122, 240], 490, 12), ...row([bottom[0], bottom[2], bottom[4]], [62, 180, 296], 534, 12),
+    ],
+  },
+];
+
+// Each strand leaves its chip and bends into the neck, so together they draw the hourglass.
+const strand = (v: View, c: Chip) => {
+  const [nx, ny] = v.neck;
+  const fromTop = c.y < ny;
+  const y1 = c.y + (fromTop ? 15 : -15);
+  const y2 = ny + (fromTop ? -v.r : v.r);
+  const bend = ny + (fromTop ? -v.r * 2.2 : v.r * 2.2);
+  return `M ${c.x} ${y1} C ${c.x} ${(y1 + bend) / 2}, ${nx} ${bend}, ${nx} ${y2}`;
+};
+const agent = centre === 'agent';
+---
+<figure class:list={['glue-figure not-prose my-14', agent && 'glue-figure--after']} aria-labelledby={`${id}-caption`}>
+  {views.map((v) => (
+    <svg class:list={['glue-diagram', `glue-diagram--${v.kind}`]} viewBox={`0 0 ${v.w} ${v.h}`} role="img" aria-label={label}>
+      {agent && (
+        <defs>
+          <linearGradient id={`${id}-${v.kind}-trail`} gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2={v.h}>
+            <stop offset="0" stop-color="var(--trail-glow)" />
+            <stop offset="0.5" stop-color="var(--color-scale)" />
+            <stop offset="1" stop-color="var(--trail-glow)" />
+          </linearGradient>
+        </defs>
+      )}
+      <g class={agent ? 'hg-strands hg-strands--carried' : 'hg-strands'} stroke={agent ? `url(#${id}-${v.kind}-trail)` : undefined}>
+        {v.chips.map((c) => <path d={strand(v, c)} />)}
+      </g>
+      {v.chips.map((c) => (
+        <g class="hg-chip">
+          <rect x={c.x - c.w / 2} y={c.y - 15} width={c.w} height="30" rx="15" />
+          <text x={c.x} y={c.y + 1} text-anchor="middle" dominant-baseline="middle" style={`font-size:${v.font}px`}>{c.name}</text>
+        </g>
+      ))}
+      {!agent && (
+        <>
+          <circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} class="hg-you" />
+          <text x={v.neck[0]} y={v.neck[1] - 6} class="hg-name" text-anchor="middle" dominant-baseline="middle">You</text>
+          <text x={v.neck[0]} y={v.neck[1] + 15} class="hg-note" text-anchor="middle" dominant-baseline="middle">(the glue)</text>
+          <text x={v.neck[0] + v.r + 22} y={v.neck[1] - v.r - 26} class="hg-verb">copy</text>
+          <text x={v.neck[0] + v.r + 22} y={v.neck[1] + v.r + 36} class="hg-verb">paste</text>
+        </>
+      )}
+      {agent && (
+        <>
+          <circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} class="hg-agent" />
+          <image href="/brand/storybook/icons/ouro.svg" x={v.neck[0] - v.r * 0.72} y={v.neck[1] - v.r * 0.72} width={v.r * 1.44} height={v.r * 1.44} />
+          <text x={v.neck[0] + v.r + 14} y={v.neck[1]} class="hg-name" dominant-baseline="middle">Your agent</text>
+          <path d={`M ${v.you[0] + 34} ${v.neck[1] - 10} C ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] - 40}, ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] - 40}, ${v.neck[0] - v.r - 8} ${v.neck[1] - 10}`} class="hg-loop" marker-end={`url(#${id}-${v.kind}-arrow)`} />
+          <path d={`M ${v.neck[0] - v.r - 8} ${v.neck[1] + 10} C ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] + 40}, ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] + 40}, ${v.you[0] + 34} ${v.neck[1] + 10}`} class="hg-loop" marker-end={`url(#${id}-${v.kind}-arrow)`} />
+          <marker id={`${id}-${v.kind}-arrow`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L8 5 L1 9" class="hg-arrowhead" />
+          </marker>
+          <circle cx={v.you[0]} cy={v.neck[1]} r="30" class="hg-you hg-you--free" />
+          <text x={v.you[0]} y={v.neck[1] + 1} class="hg-name" text-anchor="middle" dominant-baseline="middle">You</text>
+          <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] - 46} class="hg-verb" text-anchor="middle">{v.loopLabel ? 'plan together' : 'plan'}</text>
+          <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] + 58} class="hg-verb" text-anchor="middle">{v.loopLabel ? 'results, and what we learned' : 'results'}</text>
+        </>
+      )}
+    </svg>
+  ))}
+  <figcaption id={`${id}-caption`} class="glue-caption">{caption}</figcaption>
+</figure>

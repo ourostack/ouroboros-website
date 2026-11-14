@@ -1366,3 +1366,29 @@ main > section.border-t::before, .trail-top::before {
 @utility press {
     transition: scale var(--ouro-duration-press) var(--ouro-ease-out), background-color var(--ouro-duration-fast) ease, border-color var(--ouro-duration-fast) ease, color var(--ouro-duration-fast) ease, opacity var(--ouro-duration-fast) ease;
 }
+
+/* The before-and-after hourglass in "Stop being the glue" (GlueHourglass.astro). Tools are
+   chips because each is a separate thing; a narrow layout on phones keeps labels at body size. */
+.glue-figure { margin-inline: auto; width: min(100%, 50rem); }
+.glue-diagram { display: block; width: 100%; height: auto; overflow: visible; }
+.glue-diagram--narrow { width: min(100%, 24rem); margin-inline: auto; }
+.glue-diagram--wide { display: none; }
+@media (min-width: 40rem) {
+  .glue-diagram--wide { display: block; }
+  .glue-diagram--narrow { display: none; }
+}
+.hg-strands path { fill: none; stroke: var(--trail-glow); stroke-width: 1.6; stroke-dasharray: 3 5; stroke-linecap: round; opacity: 0.9; }
+.hg-strands--carried path { stroke: inherit; stroke-width: 2.4; stroke-dasharray: none; opacity: 1; }
+.hg-chip rect { fill: var(--background); stroke: color-mix(in srgb, var(--color-mist) 45%, transparent); stroke-width: 1; }
+.hg-chip text { fill: var(--color-mist); font-family: var(--font-body); }
+.hg-you { fill: color-mix(in srgb, var(--trail-glow) 16%, var(--background)); stroke: var(--trail-glow); stroke-width: 1.6; }
+.hg-you--free { fill: var(--background); stroke: var(--color-scale); }
+.hg-agent { fill: color-mix(in srgb, var(--color-scale) 12%, var(--background)); stroke: var(--color-scale); stroke-width: 1.6; }
+.hg-name { fill: var(--color-bone); font-family: var(--font-display); font-size: 22px; }
+.hg-note { fill: var(--color-mist); font-family: var(--font-body); font-size: 12px; }
+.hg-verb { fill: var(--color-shadow); font-family: var(--font-body); font-size: 14px; letter-spacing: 0.02em; }
+.hg-loop { fill: none; stroke: var(--color-scale); stroke-width: 2; stroke-linecap: round; }
+.hg-arrowhead { fill: none; stroke: var(--color-scale); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.glue-diagram--narrow .hg-name { font-size: 19px; }
+.glue-diagram--narrow .hg-verb { font-size: 13px; }
+.glue-caption { margin-top: 1.25rem; text-align: center; font-family: var(--font-display); font-size: 1.375rem; color: var(--color-bone); }

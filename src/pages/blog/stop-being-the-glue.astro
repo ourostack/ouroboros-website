@@ -3,11 +3,13 @@ import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
 import { ogPathFor } from '../../data/og'
+import GlueHourglass from '../../components/GlueHourglass.astro'
 
 const title = 'Stop being the glue between your agents'
 const description = "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed."
 const datePublished = "2026-02-02"
 const dateModified = "2026-11-13"
+
 ---
 
 <Layout
@@ -71,34 +73,8 @@ const dateModified = "2026-11-13"
 
       <p>We became the glue, mindlessly copy-pasting output from one tool as input to another tool. We became the bottleneck.</p>
 
-      <!-- Diagram 1 -->
-      <div class="my-12 py-4 not-prose">
-        <p class="font-mono text-xs text-scale uppercase tracking-[0.2em] mb-6 text-center">Today: You Are The Glue</p>
-        <div class="flex flex-col items-center gap-4">
-          <div class="flex flex-wrap justify-center gap-3">
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">Azure DevOps</span>
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">Notebook LM</span>
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">GitHub Copilot</span>
-          </div>
-          <div class="flex gap-1 text-canopy/40"><span>&UpDownArrow;</span><span>&UpDownArrow;</span><span>&UpDownArrow;</span></div>
-          <div class="px-8 py-4 rounded-xl border-2 border-scale/40 bg-scale/10">
-            <span class="font-display text-xl text-bone">YOU</span>
-            <span class="block text-xs text-mist font-mono mt-1">(the glue)</span>
-          </div>
-          <div class="flex gap-1 text-canopy/40"><span>&UpDownArrow;</span><span>&UpDownArrow;</span><span>&UpDownArrow;</span></div>
-          <div class="flex flex-wrap justify-center gap-3">
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">ChatGPT</span>
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">Claude</span>
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">Perplexity</span>
-          </div>
-          <div class="flex flex-wrap justify-center gap-3 mt-2">
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">VS Code</span>
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">M365 Copilot</span>
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">Teams</span>
-            <span class="px-3 py-1.5 rounded-lg border border-canopy/40 text-xs text-mist font-mono">Outlook</span>
-          </div>
-        </div>
-      </div>
+      <!-- Diagram 1: before. Every tool's work squeezes through you. -->
+      <GlueHourglass id="glue-before" centre="you" caption="Today: You Are The Glue" label="An hourglass. Ten tools sit at the top and bottom: Azure DevOps, Notebook LM, GitHub Copilot, ChatGPT and Claude above; Perplexity, VS Code, M365 Copilot, Teams and Outlook below. Every line between them squeezes through one person at the narrow neck, copying from the top and pasting into the bottom: you, the glue, and the bottleneck." />
 
       <p>That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task. Building a simple chat bot, he discovered that models had become capable enough that we no longer needed a human in the loop. That if you give a model access to your terminal and send it a voice note, it will, without direction, find the tools it needs lying around and <a href="https://youtu.be/AcwK1Uuwc0U?t=217">build itself the capability to transcribe it and respond to you</a>.</p>
 
@@ -140,34 +116,8 @@ const dateModified = "2026-11-13"
 
       <p>Until my agent can operate across all surfaces of my life, I'm still the copy-paste glue, still the bottleneck. But the chicken-and-egg problem — bots couldn't prove value without access, sites wouldn't grant access without proof — has been solved. The internet is transitioning from "keep bots out at all costs" to "more bots than humans." Companies like <a href="https://1password.com/blog/its-openclaw">1Password</a> and <a href="https://bitwarden.com/blog/use-bitwarden-to-keep-track-of-your-ai-agents-credentials/">Bitwarden</a> are starting to figure out how to safely give agents the access they need.</p>
 
-      <!-- Diagram 2 -->
-      <div class="my-12 py-4 not-prose">
-        <p class="font-mono text-xs text-scale uppercase tracking-[0.2em] mb-6 text-center">The Collaboration Loop</p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <div class="px-6 py-4 rounded-xl border border-scale/30 bg-scale/5 text-center min-w-[120px]">
-            <span class="font-display text-lg text-bone">YOU</span>
-            <span class="block text-xs text-mist font-mono mt-1">steer</span>
-          </div>
-          <div class="flex flex-col items-center gap-1 text-xs text-mist font-mono">
-            <span class="text-scale">plan <span class="flow-turn">&rarr;</span></span>
-            <span class="text-mist"><span class="flow-turn">&larr;</span> refine</span>
-          </div>
-          <div class="px-6 py-4 rounded-xl border border-scale/30 bg-scale/5 text-center min-w-[140px]">
-            <span class="font-display text-lg text-bone">YOUR AGENT</span>
-            <span class="block text-xs text-mist font-mono mt-1">partner</span>
-          </div>
-          <div class="flex flex-col items-center gap-1 text-xs text-mist font-mono">
-            <span class="text-scale">execute <span class="flow-turn">&rarr;</span></span>
-            <span class="text-mist"><span class="flow-turn">&larr;</span> learn</span>
-          </div>
-          <div class="px-6 py-4 rounded-xl border border-canopy/30 bg-canopy/5 text-center min-w-[120px]">
-            <span class="font-display text-lg text-bone">RESULTS</span>
-          </div>
-        </div>
-        <div class="text-center mt-4">
-          <span class="text-xs text-mist font-mono">&circlearrowleft; feedback</span>
-        </div>
-      </div>
+      <!-- Diagram 2: after. The same hourglass, with your agent at the neck. -->
+      <GlueHourglass id="glue-after" centre="agent" caption="The Collaboration Loop" label="The same hourglass of ten tools, but now your agent, Ouro, sits at the neck and carries the work between them. You sit beside it, joined in one loop: you plan together, and the results, and what you both learned, come back to you." />
 
       <p>AI can accelerate our decision making, and the best decisions emerge from collaboration.</p>
 
