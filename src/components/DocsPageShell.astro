@@ -25,6 +25,7 @@ const {
 if (lines && lines.map((clause) => clause.join(' ')).join(' ').replaceAll('~', ' ') !== title) throw new Error(`DocsPageShell lines must read as the title: ${title}`)
 
 import Layout from '../layouts/Layout.astro'
+import PageHero from './PageHero.astro'
 ---
 
 <Layout
@@ -47,33 +48,28 @@ import Layout from '../layouts/Layout.astro'
     })} />
   </Fragment>
 
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-20 md:pt-40 md:pb-24">
-    <div class="max-w-6xl mx-auto split">
-      <div class="split-head" data-hero-text>
-        <h1 class="font-display text-bone leading-[1.05] text-[2.25rem] sm:text-[2.75rem] md:text-[3.75rem]">
-          {lines ? lines.map((clause, i) => (
-            <>{i > 0 && ' '}<span class="t-clause">{clause.map((phrase, j) => (
-              <>{j > 0 && ' '}{phrase.includes('~')
-                ? <span class="t-ph-soft">{phrase.split('~').map((part, k) => <>{k > 0 && ' '}<span class="t-ph">{part}</span></>)}</span>
-                : <span class="t-ph">{phrase}</span>}</>
-            ))}</span></>
-          )) : title}
-        </h1>
+  <PageHero>
+    <Fragment slot="title">{lines ? lines.map((clause, i) => (
+      <>{i > 0 && ' '}<span class="t-clause">{clause.map((phrase, j) => (
+        <>{j > 0 && ' '}{phrase.includes('~')
+          ? <span class="t-ph-soft">{phrase.split('~').map((part, k) => <>{k > 0 && ' '}<span class="t-ph">{part}</span></>)}</span>
+          : <span class="t-ph">{phrase}</span>}</>
+      ))}</span></>
+    )) : title}</Fragment>
+    <Fragment slot="description"><p class="m-0">{description}</p></Fragment>
+  </PageHero>
 
-        <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">{description}</p>
-
+  <section class="px-6 md:px-12 lg:px-16 pb-20 md:pb-24">
+    <div class="max-w-6xl mx-auto space-y-16">
+      <div class="space-y-10">
         {intro && (
-          <div class="mt-10 border-l-2 border-scale/60 pl-6">
+          <div class="border-l-2 border-scale/60 pl-6">
             <p class="text-base text-mist leading-relaxed">{intro}</p>
           </div>
         )}
-
-        <Glossary class="mt-10" />
+        <Glossary wide />
       </div>
-
-      <div class="split-body mt-12 md:mt-16 space-y-16">
-        <slot />
-      </div>
+      <slot />
     </div>
   </section>
 </Layout>
