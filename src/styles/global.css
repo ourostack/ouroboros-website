@@ -759,7 +759,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 }
 
 /* ── Prose ── */
-.prose-ouro p {
+.prose-ouro p:not(blockquote.not-prose p) {
   color: var(--color-mist);
   font-size: 1.125rem;
   line-height: 1.85;
@@ -822,7 +822,9 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 /* A filled button inside prose keeps its own text colour, not the link green. */
 .prose-ouro a.bg-bone,
 .prose-ouro a.bg-bone:hover { color: var(--color-void); text-decoration: none; }
-.prose-ouro blockquote {
+/* A blockquote marked not-prose is a pull quote that sets its own type, so
+   neither this rule nor the paragraph rule above may restyle it. */
+.prose-ouro blockquote:not(.not-prose) {
   border-left: 2px solid var(--color-canopy);
   padding-left: 1.25rem;
   margin: 1.5rem 0;
