@@ -17,7 +17,7 @@ const { class: extra = '', wide = false } = Astro.props
     {terms.map((t) => (
       <div>
         <dt class="font-display text-xl text-bone">{t.term}</dt>
-        <dd class="text-sm text-mist">{t.def} <a href={t.href} class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">More &rarr;</a></dd>
+        <dd class="text-sm text-mist">{t.def} <a href={t.href} aria-label={`More about ${t.term}`} class="text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow">More &rarr;</a></dd>
       </div>
     ))}
   </dl>

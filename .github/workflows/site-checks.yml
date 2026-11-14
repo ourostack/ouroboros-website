@@ -10,7 +10,8 @@ name: site-checks
 #   - ouro-check: Ouro check (lib/ouro/check, from Ouro UI) walks every page at
 #     390x844, 1440x900 and 3840x2160 in light and dark, in six shards;
 #     ouro-check.json holds its waivers and budgets. Each shard first proves
-#     lib/ouro/check is byte for byte Ouro UI's release at OURO_UI_TAG. Time to
+#     lib/ouro/check, and each file of the AX kit it runs on in lib/ouro/ax,
+#     is byte for byte Ouro UI's release at OURO_UI_TAG. Time to
 #     the largest content (LCP) is gated at a budget wide enough for the
 #     runners' noise; taste reviewers then judge only what a tool can't measure.
 # tests/check-shards.test.mjs fails when a matrix drops a shard.
@@ -52,7 +53,7 @@ permissions:
 # The Ouro UI release this site's Ouro items come from. Reinstall them from a new
 # tag before changing it here.
 env:
-  OURO_UI_TAG: v1.3.10
+  OURO_UI_TAG: v1.3.67
 
 jobs:
   tests:
@@ -273,11 +274,15 @@ jobs:
           repository: ourostack/ouro-ui
           ref: ${{ env.OURO_UI_TAG }}
           path: .ouro-ui
-          sparse-checkout: registry/ouro/check
+          sparse-checkout: |
+            registry/ouro/check
+            registry/ouro/ax
           persist-credentials: false
 
-      - name: lib/ouro/check is Ouro UI ${{ env.OURO_UI_TAG }}'s
-        run: diff -r .ouro-ui/registry/ouro/check lib/ouro/check
+      - name: lib/ouro/check and its AX kit are Ouro UI ${{ env.OURO_UI_TAG }}'s
+        run: |
+          diff -r .ouro-ui/registry/ouro/check lib/ouro/check
+          for f in lib/ouro/ax/*.ts; do cmp ".ouro-ui/registry/ouro/ax/$(basename "$f")" "$f"; done
 
       - run: npm run build
 

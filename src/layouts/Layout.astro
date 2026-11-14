@@ -64,7 +64,7 @@ const heroPreloads = (s: string) => [
   ...(columnHero ? [{ media: COLUMN_HERO_MEDIA, srcset: columnHeroSrcset(s, 'avif'), sizes: columnHeroes[scene.hero].sizes }] : []),
 ]
 const themedPreloads = heroNight
-  ? `(function () { var t = document.documentElement.dataset.theme; if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; ${JSON.stringify({ light: heroPreloads(scene.hero), dark: heroPreloads(heroNight) })}[t].forEach(function (p) { var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.type = 'image/avif'; l.media = p.media; l.setAttribute('imagesrcset', p.srcset); l.setAttribute('imagesizes', p.sizes || '100vw'); l.setAttribute('fetchpriority', 'high'); document.head.appendChild(l); }); })();`
+  ? `(function () { var t = document.documentElement.dataset.theme; if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; (${JSON.stringify({ light: heroPreloads(scene.hero), dark: heroPreloads(heroNight) })})[t].forEach(function (p) { var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.type = 'image/avif'; l.media = p.media; l.setAttribute('imagesrcset', p.srcset); l.setAttribute('imagesizes', p.sizes || '100vw'); l.setAttribute('fetchpriority', 'high'); document.head.appendChild(l); }); })();`
   : ''
 // Content pages (a Lab piece, a doc, a review, a post) open on a shorter scene,
 // so the title and the first line of the intro sit above the fold on a laptop

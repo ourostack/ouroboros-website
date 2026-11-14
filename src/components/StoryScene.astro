@@ -15,12 +15,12 @@
                    first, with no crop, drift or trail.
 
   The art is never re-encoded or cropped in a build step; CSS crops the
-  meadow band with object-fit. Behind it sits the scene's own paint (a tiny
-  soft preview, src/data/scene-paint.json), so the dawn is there before, and
+  meadow band with object-fit. Behind it sits the scene's own paint (the art's
+  main colour, src/data/scene-paint.json), so its colour is there before, and
   even without, the art. No variant fades into the page: every picture ends
   on a hard edge.
 */
-import { scenes, darkScenes, columnHeroes, columnHeroSrcset, wideSrcset, COLUMN_HERO_MEDIA, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
+import { scenes, darkScenes, meadowScene, columnHeroes, columnHeroSrcset, wideSrcset, COLUMN_HERO_MEDIA, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -56,27 +56,29 @@ const frame = heroFrame(scene, { product })
 const phoneAspect = hero && !contained
   ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`
   : `--phone-ar: ${pw} / ${ph}`
-// The scene's own dawn, painted behind the art (scripts/scene-paint.mjs): a
-// tiny soft preview of the wide art and of the phone crop, so a slow or failed
-// image still shows this scene's sky and meadow, never a blank box or alt text
-// (taste review r10).
-// A hero with a night version (darkScenes) carries both paints, and global.css
+// The scene's own colour, painted behind the art (scripts/scene-paint.mjs),
+// so a slow or failed image still shows this scene's main colour, never a
+// blank box or alt text (taste review r10).
+// A hero with a night version (darkScenes) carries both colours, and global.css
 // picks the one for the theme in use.
 const night = hero ? darkScenes[scene] : undefined
 const paintOf = (s: string) => {
   if (!paints[s]) throw new Error(`StoryScene: no paint for ${s}; run node scripts/scene-paint.mjs`)
-  return paints[s]
+  return paints[s].colour
 }
-const paint = paintOf(scene)
 const paintVars = night
-  ? `--paint-day: url(${paint.wide.uri}); --paint-phone-day: url(${paint.phone.uri}); --paint-night: url(${paintOf(night).wide.uri}); --paint-phone-night: url(${paintOf(night).phone.uri})`
-  : `--paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
+  ? `--paint-day: ${paintOf(scene)}; --paint-night: ${paintOf(night)}`
+  : `--paint: ${paintOf(scene)}`
 const style = `${phoneAspect}; ${paintVars}${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : contained ? (sizes ?? '100vw') : '100vw'
+// The meadow spans the phone's full width, so it also carries the 1152 crop
+// (scripts/sync-storybook.mjs) to stay sharp at 2x on a 390px screen.
+const phoneWidths = (s: string) => (s === meadowScene ? [384, 768, 1152] : [384, 768])
+const phoneSrcset = (s: string, ext: string) => phoneWidths(s).map((pw) => `${base}/phone/${s}-${pw}.${ext} ${pw}w`).join(', ')
 const sources = (s: string) => ({
-  phoneAvif: `${base}/phone/${s}-384.avif 384w, ${base}/phone/${s}-768.avif 768w`,
-  phoneWebp: `${base}/phone/${s}-384.webp 384w, ${base}/phone/${s}-768.webp 768w`,
+  phoneAvif: phoneSrcset(s, 'avif'),
+  phoneWebp: phoneSrcset(s, 'webp'),
   wideAvif: wideSrcset(s, 'avif'),
   wideWebp: wideSrcset(s, 'webp'),
   fallback: `${base}/headers/${s}.webp`,
@@ -98,7 +100,7 @@ const vignette = variant === 'vignette'
 const column = hero && night && !contained ? columnHeroes[scene] : undefined
 ---
 
-<div class:list={['story-scene', contained && hero ? 'story-contained' : `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && !contained && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style}>
+<div class:list={['story-scene', contained && hero ? 'story-contained' : `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && !contained && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} data-ouro-allow={variant === 'meadow' ? 'dark-art' : undefined} data-ouro-allow-why={variant === 'meadow' ? 'the footer meadow is the same dawn band in both themes, not a hero; its 1152 phone crop has no night twin yet' : undefined} style={style}>
   {hero && day && dark ? (
     <>
       <picture>

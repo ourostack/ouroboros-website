@@ -11871,6 +11871,36 @@
     "sha256": "253d080a5e60ec90b0a6a5cc19fa0b23f1bc485b9a18c60159bc28205969ea9b"
   },
   {
+    "file": "phone/ouroboros-website-1152.webp",
+    "derivedFrom": {
+      "file": "upscaled/ouroboros-website.webp",
+      "sha256": "40d5497fd64ef8f0c2ecb9e40211a5458ada72b8afcff05db07b08d39809cc81"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [1952, 0, 5024, 2304] of the 4x master then resize to 1152x864 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 1152,
+    "height": 864,
+    "bytes": 175518,
+    "sha256": "435474fe36a9c4289e8e140d5b59cd26e255c65c86f72d0bcb4a50b0085ece7c"
+  },
+  {
+    "file": "phone/ouroboros-website-1152.avif",
+    "derivedFrom": {
+      "file": "upscaled/ouroboros-website.webp",
+      "sha256": "40d5497fd64ef8f0c2ecb9e40211a5458ada72b8afcff05db07b08d39809cc81"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [1952, 0, 5024, 2304] of the 4x master then resize to 1152x864 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 1152,
+    "height": 864,
+    "bytes": 135594,
+    "sha256": "eaa51aa2a98021278569989b53ebd2ef53d3b3db203565a995ec8e9a9ce7bb69"
+  },
+  {
     "file": "og/ouroboros-website.jpg",
     "derivedFrom": {
       "file": "headers/ouroboros-website.webp",
