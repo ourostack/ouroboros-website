@@ -71,7 +71,7 @@ test('every page advertises an existing card with its size and alt text', () => 
 test('the homepage card says what the card shows', () => {
   const html = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
   const entry = pageOg['/'];
-  assert.equal(meta(html, 'property', 'og:image:alt'), `${entry.title} ${scenes.ourostack}`);
+  assert.equal(meta(html, 'property', 'og:image:alt'), `${entry.title} ${scenes.workshop}`);
 });
 
 // One type scale on every card (taste review r5, 2026-11-06): the title is set
