@@ -88,6 +88,11 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* The body and headline faces load with the stylesheet, not after it, so
+        a lede that wraps differently in the fallback face doesn't push the hero
+        art down when the real face swaps in. */}
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-regular.woff2" crossorigin />
     <script is:inline>
       // Apply a saved theme before first paint, so there is no flash.
       try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
