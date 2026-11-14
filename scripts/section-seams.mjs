@@ -119,95 +119,106 @@ const browser = await chromium.launch({
   ignoreDefaultArgs: ['--enable-features=CDPScreenshotNewSurface'],
 });
 // Decodes a screenshot in the browser itself (no image library, so the same
-// script runs on both sites): the mean colour of each row in a 12px strip at
-// each side edge, 2px in.
+// script runs on both sites): the mean colour of each row of a 12px strip.
+// Only the two strips are captured, 2px in from each side edge, so the page
+// is never encoded or decoded at full width.
 const decoder = await (await browser.newContext()).newPage();
-async function sideStrips(png) {
+async function strip(png) {
   return decoder.evaluate(async (src) => {
     const img = new Image();
     img.src = src;
     await img.decode();
     const h = img.naturalHeight;
-    const strip = (x0) => {
-      const c = document.createElement('canvas');
-      c.width = 12;
-      c.height = h;
-      const g = c.getContext('2d', { willReadFrequently: true });
-      g.drawImage(img, x0, 0, 12, h, 0, 0, 12, h);
-      const d = g.getImageData(0, 0, 12, h).data;
-      const out = new Array(h * 3).fill(0);
-      for (let r = 0; r < h; r++) for (let x = 0; x < 12; x++) for (let k = 0; k < 3; k++) out[r * 3 + k] += d[(r * 12 + x) * 4 + k] / 12;
-      return out;
-    };
-    return { left: strip(2), right: strip(img.naturalWidth - 14), height: h };
+    const c = document.createElement('canvas');
+    c.width = 12;
+    c.height = h;
+    const g = c.getContext('2d', { willReadFrequently: true });
+    g.drawImage(img, 0, 0);
+    const d = g.getImageData(0, 0, 12, h).data;
+    const out = new Array(h * 3).fill(0);
+    for (let r = 0; r < h; r++) for (let x = 0; x < 12; x++) for (let k = 0; k < 3; k++) out[r * 3 + k] += d[(r * 12 + x) * 4 + k] / 12;
+    return { rows: out, height: h };
   }, 'data:image/png;base64,' + png.toString('base64'));
 }
 const result = { base, pages: pages.length, checked: 0, worst: 0, failures: [], all: [] };
-for (const page of pages) {
-  for (const [width, height] of VIEWPORTS) {
-    for (const scheme of ['light', 'dark']) {
-      const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: scheme, reducedMotion: 'reduce', deviceScaleFactor: 1 });
-      await ctx.addInitScript((t) => { try { localStorage.setItem('theme', t); } catch {} }, scheme);
-      const p = await ctx.newPage();
-      await p.goto(base + page, { waitUntil: 'load' });
-      // Mark every block that really draws the trail on its top edge (its
-      // ::before is shown and paints the trail's image), before hiding it.
-      await p.evaluate(() => {
-        for (const el of document.querySelectorAll('main *, .story-meadow, footer')) {
-          const b = getComputedStyle(el, '::before');
-          if (b.display !== 'none' && b.content !== 'none' && /data:image\/svg/.test(b.backgroundImage) && Math.abs(parseFloat(b.top) + parseFloat(b.height) / 2) < 2) el.setAttribute('data-seam-trail', '');
-          // A hero draws the trail on its foot instead (its ::after is
-          // centred on the art's bottom edge, or hangs from it where the cast
-          // stands on the edge): the change below it is trailed.
-          const a = getComputedStyle(el, '::after');
-          const footAt = parseFloat(a.top) - el.getBoundingClientRect().height;
-          if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && (Math.abs(footAt + parseFloat(a.height) / 2) < 2 || Math.abs(footAt + 6) < 2)) el.setAttribute('data-seam-trail-foot', '');
-        }
-      });
-      await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
-      await p.evaluate(() => document.fonts.ready);
-      const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
-      // In slices: a full-page PNG taller than about 32k px (the model-review
-      // transcripts at 1440) is past what the browser can decode in one image.
-      const edges = { left: [], right: [], height: 0 };
-      for (let top = 0; top < m.height; top += SLICE) {
-        const shot = await p.screenshot({ fullPage: true, clip: { x: 0, y: top, width, height: Math.min(SLICE, m.height - top) } });
-        const part = await sideStrips(shot);
-        edges.left.push(...part.left);
-        edges.right.push(...part.right);
-        edges.height += part.height;
-      }
-      await ctx.close();
-      const inScene = (r) => m.scenes.some(([a, b]) => r >= a - 1 && r <= b + 1);
-      const row = (r, side) => edges[side].slice(r * 3, r * 3 + 3);
-      const band = (r0, side) => { const s = [0, 0, 0]; for (let r = r0; r < r0 + 3; r++) { const v = row(r, side); for (let c = 0; c < 3; c++) s[c] += v[c] / 3; } return s; };
-      const seen = new Set();
-      for (const [at, trail] of m.at) {
-        let worst = 0;
-        let where = at;
-        for (const x0 of ['left', 'right']) {
-          for (let r = Math.max(3, at - WINDOW); r < Math.min(edges.height - 3, at + WINDOW); r++) {
-            if (inScene(r) || inScene(r - 1)) continue;
-            if (trail && Math.abs(r - at) <= 3) continue;
-            // Three rows either side, so the ground's fine grain (a level or two,
-            // row to row) never reads as a step; a real seam holds on both sides.
-            if (inScene(r - 3) || inScene(r + 2)) continue;
-            const a = band(r - 3, x0);
-            const b = band(r, x0);
-            const d = Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]);
-            if (d > worst) { worst = d; where = r; }
-          }
-        }
-        if (seen.has(where)) continue;
-        seen.add(where);
-        result.checked++;
-        result.worst = Math.max(result.worst, worst);
-        const line = `${width}${scheme[0]} ${page} y=${where}${trail ? ' (trail)' : ''}: ${worst.toFixed(1)}`;
-        result.all.push(line);
-        if (worst > MAX_JUMP) result.failures.push(`${line} (a seam: the ground steps ${worst.toFixed(1)} in one row)`);
+// Each page, viewport and scheme is read in its own context, SEAMS_JOBS at a
+// time (default 4); results are gathered in the same order as a serial run.
+const tasks = pages.flatMap((page) => VIEWPORTS.flatMap(([width, height]) => ['light', 'dark'].map((scheme) => ({ page, width, height, scheme }))));
+async function read({ page, width, height, scheme }) {
+  const out = { checked: 0, worst: 0, failures: [], all: [] };
+  const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: scheme, reducedMotion: 'reduce', deviceScaleFactor: 1 });
+  await ctx.addInitScript((t) => { try { localStorage.setItem('theme', t); } catch {} }, scheme);
+  const p = await ctx.newPage();
+  await p.goto(base + page, { waitUntil: 'load' });
+  // Mark every block that really draws the trail on its top edge (its
+  // ::before is shown and paints the trail's image), before hiding it.
+  await p.evaluate(() => {
+    for (const el of document.querySelectorAll('main *, .story-meadow, footer')) {
+      const b = getComputedStyle(el, '::before');
+      if (b.display !== 'none' && b.content !== 'none' && /data:image\/svg/.test(b.backgroundImage) && Math.abs(parseFloat(b.top) + parseFloat(b.height) / 2) < 2) el.setAttribute('data-seam-trail', '');
+      // A hero draws the trail on its foot instead (its ::after is
+      // centred on the art's bottom edge, or hangs from it where the cast
+      // stands on the edge): the change below it is trailed.
+      const a = getComputedStyle(el, '::after');
+      const footAt = parseFloat(a.top) - el.getBoundingClientRect().height;
+      if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && (Math.abs(footAt + parseFloat(a.height) / 2) < 2 || Math.abs(footAt + 6) < 2)) el.setAttribute('data-seam-trail-foot', '');
+    }
+  });
+  await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
+  await p.evaluate(() => document.fonts.ready);
+  const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
+  // In slices: a full-page PNG taller than about 32k px (the model-review
+  // transcripts at 1440) is past what the browser can decode in one image.
+  const edges = { left: [], right: [], height: 0 };
+  for (let top = 0; top < m.height; top += SLICE) {
+    const h = Math.min(SLICE, m.height - top);
+    const left = await strip(await p.screenshot({ fullPage: true, clip: { x: 2, y: top, width: 12, height: h } }));
+    const right = await strip(await p.screenshot({ fullPage: true, clip: { x: width - 14, y: top, width: 12, height: h } }));
+    edges.left.push(...left.rows);
+    edges.right.push(...right.rows);
+    edges.height += left.height;
+  }
+  await ctx.close();
+  const inScene = (r) => m.scenes.some(([a, b]) => r >= a - 1 && r <= b + 1);
+  const row = (r, side) => edges[side].slice(r * 3, r * 3 + 3);
+  const band = (r0, side) => { const s = [0, 0, 0]; for (let r = r0; r < r0 + 3; r++) { const v = row(r, side); for (let c = 0; c < 3; c++) s[c] += v[c] / 3; } return s; };
+  const seen = new Set();
+  for (const [at, trail] of m.at) {
+    let worst = 0;
+    let where = at;
+    for (const x0 of ['left', 'right']) {
+      for (let r = Math.max(3, at - WINDOW); r < Math.min(edges.height - 3, at + WINDOW); r++) {
+        if (inScene(r) || inScene(r - 1)) continue;
+        if (trail && Math.abs(r - at) <= 3) continue;
+        // Three rows either side, so the ground's fine grain (a level or two,
+        // row to row) never reads as a step; a real seam holds on both sides.
+        if (inScene(r - 3) || inScene(r + 2)) continue;
+        const a = band(r - 3, x0);
+        const b = band(r, x0);
+        const d = Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]);
+        if (d > worst) { worst = d; where = r; }
       }
     }
+    if (seen.has(where)) continue;
+    seen.add(where);
+    out.checked++;
+    out.worst = Math.max(out.worst, worst);
+    const line = `${width}${scheme[0]} ${page} y=${where}${trail ? ' (trail)' : ''}: ${worst.toFixed(1)}`;
+    out.all.push(line);
+    if (worst > MAX_JUMP) out.failures.push(`${line} (a seam: the ground steps ${worst.toFixed(1)} in one row)`);
   }
+  return out;
+}
+const outs = new Array(tasks.length);
+let next = 0;
+await Promise.all(Array.from({ length: Math.min(Math.max(1, Number(process.env.SEAMS_JOBS || 4)), tasks.length) }, async () => {
+  while (next < tasks.length) { const n = next++; outs[n] = await read(tasks[n]); }
+}));
+for (const out of outs) {
+  result.checked += out.checked;
+  result.worst = Math.max(result.worst, out.worst);
+  result.all.push(...out.all);
+  result.failures.push(...out.failures);
 }
 await browser.close();
 server?.close();

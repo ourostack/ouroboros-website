@@ -7,24 +7,24 @@
 //   npm run build && npm run check:all                  (serves dist/ itself)
 //   SITE_BASE=http://127.0.0.1:4321 npm run check:all   (a build served elsewhere)
 //   npm run check:all -- --only drama,cta               (a subset)
+//   npm run check:all -- --shard 2/4                    (one of four shards)
 //
+// --shard k/n runs the k-th of n shards, split by each check's measured time
+// (scripts/check-shards.mjs); site-checks runs the shards on separate runners.
 // Each check gets `--base <SITE_BASE>` and writes its output to
 // <CHECK_LOGS or check-logs>/<name>.log. Checks run CHECK_JOBS at a time
 // (default 3). It fails when any check fails, and also when a check:* script
-// in package.json is missing from CHECKS below, so a new check can never be
-// left out of CI.
+// in package.json is missing from CHECKS in scripts/check-shards.mjs, so a new check can never be
+// left out of CI. A check still running after CHECK_TIMEOUT seconds (default
+// 240) is killed with its whole process group and fails as "timed out", so a
+// hung check names itself in minutes instead of holding the job.
 
 import { spawn } from 'node:child_process';
 import { appendFileSync, createWriteStream, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve as resolvePath } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveDist } from './serve-dist.mjs';
-
-export const CHECKS = [
-  'text', 'hero', 'column', 'fallback', 'seams', 'menu', 'hit', 'h1', 'gap',
-  'spaces', 'ends', 'swap', 'swipe', 'headings', 'drama', 'buttons', 'grid',
-  'captions', 'cta',
-];
+import { CHECKS, SECONDS, parseShard, shard } from './check-shards.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const args = process.argv.slice(2);
@@ -35,16 +35,19 @@ const declared = Object.keys(scripts).filter((s) => s.startsWith('check:') && s 
 const unlisted = declared.filter((n) => !CHECKS.includes(n));
 const stale = CHECKS.filter((n) => !declared.includes(n));
 if (unlisted.length || stale.length) {
-  if (unlisted.length) console.error(`check:all is missing ${unlisted.map((n) => `check:${n}`).join(', ')}: add it to CHECKS in scripts/check-all.mjs`);
+  if (unlisted.length) console.error(`check:all is missing ${unlisted.map((n) => `check:${n}`).join(', ')}: add it to CHECKS, with its time in SECONDS, in scripts/check-shards.mjs`);
   if (stale.length) console.error(`check:all lists ${stale.map((n) => `check:${n}`).join(', ')}, which package.json does not define`);
   process.exit(1);
 }
 
 const only = opt('--only')?.split(',');
-const run = only ? CHECKS.filter((n) => only.includes(n)) : CHECKS;
+const part = opt('--shard') ? parseShard(opt('--shard')) : undefined;
+const listed = only ? CHECKS.filter((n) => only.includes(n)) : CHECKS;
+const run = part ? shard(listed, part.count)[part.index].checks : listed;
 const logs = resolvePath(ROOT, opt('--logs') || process.env.CHECK_LOGS || 'check-logs'); // an absolute CHECK_LOGS stays as given
 mkdirSync(logs, { recursive: true });
 const jobs = Math.max(1, Number(process.env.CHECK_JOBS || 3));
+const limit = Math.max(1, Number(process.env.CHECK_TIMEOUT || 240));
 
 let base = (opt('--base') || process.env.SITE_BASE || '').replace(/\/$/, '');
 let server;
@@ -52,22 +55,36 @@ if (!base) {
   server = await serveDist({ port: Number(process.env.PORT || 4321) });
   base = server.base;
 }
-console.log(`checking ${base} with ${run.length} checks, ${jobs} at a time; logs in ${logs}`);
+console.log(`checking ${base} with ${run.length} checks${part ? ` (shard ${part.index + 1} of ${part.count}: ${run.join(', ')})` : ''}, ${jobs} at a time; logs in ${logs}`);
 
 function check(name) {
   return new Promise((resolve) => {
     const started = Date.now();
     const log = createWriteStream(join(logs, `${name}.log`));
-    const child = spawn('npm', ['run', '--silent', `check:${name}`, '--', '--base', base], { cwd: ROOT, env: { ...process.env, SITE_BASE: base } });
+    // detached: the check's node process and its Chromium share one process
+    // group, so a timeout kills all of them, not just npm.
+    const child = spawn('npm', ['run', '--silent', `check:${name}`, '--', '--base', base], { cwd: ROOT, env: { ...process.env, SITE_BASE: base }, detached: true });
+    let timedOut = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      try { process.kill(-child.pid, 'SIGKILL'); } catch {}
+    }, limit * 1000);
     let tail = '';
     const keep = (chunk) => { log.write(chunk); tail = (tail + chunk).slice(-1500); };
     child.stdout.on('data', keep);
     child.stderr.on('data', keep);
     child.on('close', (code) => {
+      clearTimeout(timer);
+      if (timedOut) {
+        const note = `\ncheck:${name} timed out after ${limit}s (CHECK_TIMEOUT) and was killed\n`;
+        log.write(note);
+        tail = (tail + note).slice(-1500);
+      }
       log.end();
       const seconds = Math.round((Date.now() - started) / 1000);
-      console.log(`${code === 0 ? 'pass' : 'FAIL'}  check:${name}  (${seconds}s)`);
-      resolve({ name, ok: code === 0, seconds, tail });
+      const ok = code === 0 && !timedOut;
+      console.log(`${ok ? 'pass' : 'FAIL'}  check:${name}  (${seconds}s${timedOut ? ', timed out' : ''})`);
+      resolve({ name, ok, timedOut, seconds, tail });
     });
   });
 }
@@ -80,11 +97,11 @@ await Promise.all(Array.from({ length: Math.min(jobs, queue.length) }, async () 
 await server?.close();
 
 const failed = results.filter((r) => !r.ok);
-const summary = ['', '| check | result | seconds |', '| --- | --- | --- |',
-  ...run.map((n) => results.find((r) => r.name === n)).map((r) => `| check:${r.name} | ${r.ok ? 'pass' : '**FAIL**'} | ${r.seconds} |`)].join('\n');
+const summary = ['', '| check | result | seconds | recorded |', '| --- | --- | --- | --- |',
+  ...run.map((n) => results.find((r) => r.name === n)).map((r) => `| check:${r.name} | ${r.ok ? 'pass' : r.timedOut ? '**FAIL (timed out)**' : '**FAIL**'} | ${r.seconds} | ${SECONDS[r.name]} |`)].join('\n');
 console.log(summary);
 for (const r of failed) console.log(`\n--- check:${r.name} (last lines; full log in ${join(logs, r.name + '.log')}) ---\n${r.tail}`);
-writeFileSync(join(logs, 'summary.txt'), run.map((n) => results.find((r) => r.name === n)).map((r) => `${('check:' + r.name).padEnd(26)} ${r.ok ? 'pass' : 'FAIL'}`).join('\n') + '\n');
+writeFileSync(join(logs, 'summary.txt'), run.map((n) => results.find((r) => r.name === n)).map((r) => `${('check:' + r.name).padEnd(26)} ${r.ok ? 'pass' : r.timedOut ? 'FAIL (timed out)' : 'FAIL'}`).join('\n') + '\n');
 if (process.env.GITHUB_STEP_SUMMARY) {
   appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## Page checks against ${base}\n${summary}\n`);
 }

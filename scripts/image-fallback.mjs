@@ -5,7 +5,9 @@
 //   npm run build && node scripts/image-fallback.mjs
 //   node scripts/image-fallback.mjs --base https://ouroboros.bot   (a live site)
 //
-// On each page in PAGES it
+// On each page in PAGES (a full-bleed hero, and the home page's art contained in
+// Ouro HX's Hero, which draws 1152px wide at 1920, so it is checked at 2x there to
+// reach the same 2304 file) it
 // answers chosen scene requests with a 503 and fails unless the hero lands on
 // the expected file:
 //  - 1920, the 2304 AVIF fails:          the 1536 AVIF (the next size down);
@@ -25,7 +27,10 @@ const args = process.argv.slice(2);
 const opt = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
 const DIST = fileURLToPath(new URL('../dist', import.meta.url));
 const PORT = 6200;
-const PAGES = ['/lab/model-reviews/', '/'];
+const PAGES = [
+  { path: '/lab/model-reviews/', img: '.story-hero img', wideDpr: 1 },
+  { path: '/', img: '.story-contained img', wideDpr: 2 },
+];
 const CASES = [
   { name: '2304 AVIF fails', viewport: [1920, 1080], dpr: 1, block: /scenes\/[\w-]+-2304\.avif$/, want: /scenes\/[\w-]+-1536\.avif$/ },
   { name: 'every AVIF fails', viewport: [1920, 1080], dpr: 1, block: /\.avif$/, want: /scenes\/[\w-]+-960\.webp$/ },
@@ -55,17 +60,18 @@ if (!base) {
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 const failures = [];
 let checked = 0;
-for (const page of PAGES) {
+for (const { path: page, img, wideDpr } of PAGES) {
   for (const c of CASES) {
-    const ctx = await browser.newContext({ viewport: { width: c.viewport[0], height: c.viewport[1] }, deviceScaleFactor: c.dpr, reducedMotion: 'reduce' });
+    const dpr = c.viewport[0] === 1920 ? wideDpr : c.dpr;
+    const ctx = await browser.newContext({ viewport: { width: c.viewport[0], height: c.viewport[1] }, deviceScaleFactor: dpr, reducedMotion: 'reduce' });
     const p = await ctx.newPage();
     const blocked = [];
     await p.route((url) => c.block.test(url.pathname), (route) => { blocked.push(new URL(route.request().url()).pathname); return route.fulfill({ status: 503, body: 'unavailable' }); });
     await p.goto(base + page, { waitUntil: 'load' });
-    const hero = p.locator('.story-hero img').first();
+    const hero = p.locator(img).first();
     let state;
     try {
-      await p.waitForFunction(() => { const i = document.querySelector('.story-hero img'); return i && ((i.complete && i.naturalWidth > 0) || i.hasAttribute('data-failed')); }, null, { timeout: 15000 });
+      await p.waitForFunction((sel) => { const i = document.querySelector(sel); return i && ((i.complete && i.naturalWidth > 0) || i.hasAttribute('data-failed')); }, img, { timeout: 15000 });
       state = await hero.evaluate((i) => ({ src: i.currentSrc || i.src, ok: i.complete && i.naturalWidth > 0, failed: i.hasAttribute('data-failed'), shown: getComputedStyle(i).visibility }));
     } catch {
       state = await hero.evaluate((i) => ({ src: i.currentSrc || i.src, ok: false, failed: i.hasAttribute('data-failed'), shown: getComputedStyle(i).visibility }));

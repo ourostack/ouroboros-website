@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
+import PageHero from '../../components/PageHero.astro'
 import { ogPathFor, pageOg } from '../../data/og'
 import modelReviews from '../../data/model-reviews.json'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
@@ -38,23 +39,13 @@ const dateModified = "2026-10-15"
     })} />
   </Fragment>
 
-  <!-- Header -->
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-8">
-    <div class="max-w-6xl mx-auto split lg:items-end">
-      <div class="split-head">
-        <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
-        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
-          <span class="t-ph">What is</span> <span class="t-ph">Agent Experience?</span>
-        </h1>
-      </div>
-      <div class="split-body">
-        <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
-          The moment an agent has to stay oriented inside a system across time, memory, and interruptions, the agent becomes a user too. UX now holds two experiences. HX. <span class="font-display text-scale">AX</span>.
-        </p>
-        <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
-      </div>
-    </div>
-  </section>
+  <PageHero eyebrow="Essay">
+    <Fragment slot="title"><span class="t-ph">What is</span> <span class="t-ph">Agent Experience?</span></Fragment>
+    <Fragment slot="description">
+      <p class="m-0">The moment an agent has to stay oriented inside a system across time, memory, and interruptions, the agent becomes a user too. UX now holds two experiences. HX. <span class="font-display text-scale">AX</span>.</p>
+      <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
+    </Fragment>
+  </PageHero>
 
   <!-- Body -->
   <section class="px-6 md:px-12 lg:px-16 pt-0 md:pt-2 pb-20 md:pb-28">

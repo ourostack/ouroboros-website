@@ -11,7 +11,7 @@
     "reviews:headless": "node scripts/model-reviews.cjs --headless",
     "test:model-reviews": "node --test tests/model-reviews.test.cjs tests/model-reviews-workflow.test.cjs tests/model-review-claims.test.mjs tests/md.test.mjs",
     "test:seo-metadata": "npm run build && node --test tests/seo-metadata.test.mjs",
-    "test": "npm run build && node --test 'tests/*.test.*'",
+    "test": "npm run build && node --test --test-timeout=60000 'tests/*.test.*'",
     "smoke": "node scripts/smoke-preview.mjs",
     "check:text": "node scripts/text-breaks.mjs",
     "check:hero": "node scripts/hero-joins.mjs",

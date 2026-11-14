@@ -1,0 +1,40 @@
+---
+/*
+  The top of a page on Ouro HX's Hero (layout="column"): the eyebrow, the title
+  and the lede in the page's column, and the page's scene below them, shown whole
+  in that same column. The words never sit over the art.
+
+  The Hero's column is 75rem wide less 4rem; here it takes the page's column
+  (max-w-6xl) instead, so the header, the art and the body share one edge.
+
+  Slots: "title" for a title with markup (it replaces the title prop),
+  "description" for the lede (a post's lede and its byline), "actions" for
+  the links under the lede.
+*/
+import { Hero } from './ouro/hero/hero'
+import StoryScene from './StoryScene.astro'
+import { sceneFor } from '../data/scenes.mjs'
+import { PAGE_HERO_SIZES } from '../data/page-hero.mjs'
+
+interface Props {
+  eyebrow?: string
+  title?: string
+  /** The page's scene; by default the route's hero scene (src/data/scenes.mjs). */
+  scene?: string
+  class?: string
+}
+
+const { eyebrow, title, scene: sceneProp, class: className } = Astro.props
+const route = sceneFor(Astro.url.pathname)
+const scene = sceneProp ?? route.hero
+---
+<div class:list={['page-hero px-6 md:px-12 lg:px-16 pt-(--nav-h) pb-12 md:pb-14', className]}>
+  <div class="max-w-6xl mx-auto">
+    <Hero layout="column" motion="none" headingLevel={1} eyebrow={eyebrow} className="[--hero-width:100%]!">
+      <Fragment slot="title">{Astro.slots.has('title') ? <slot name="title" /> : title}</Fragment>
+      {Astro.slots.has('description') && <Fragment slot="description"><slot name="description" /></Fragment>}
+      {Astro.slots.has('actions') && <Fragment slot="actions"><slot name="actions" /></Fragment>}
+      {scene && <Fragment slot="media"><StoryScene scene={scene} variant="hero" contained sizes={PAGE_HERO_SIZES} product={route.product} /></Fragment>}
+    </Hero>
+  </div>
+</div>

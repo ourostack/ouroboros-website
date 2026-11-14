@@ -1,14 +1,18 @@
 name: Deploy to Cloudflare
 
+# Production deploys only from site-checks.yml, on main, after a gate passed:
+# at once when scripts/tested-tree.mjs proves the pull request's run already
+# passed on this exact tree, otherwise after main's own checks pass.
+
 on:
-  push:
-    branches: [main]
+  workflow_call:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # Shared with refresh-ouromd-release.yml, which deploys too, so two
-    # production deploys never run at once.
+    # About twice the usual minute and a bit; a hung wrangler fails in minutes.
+    timeout-minutes: 4
+    # One production deploy at a time, in the order they queue.
     concurrency:
       group: production-deploy
       cancel-in-progress: false
@@ -18,19 +22,39 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # A newer commit on main deploys itself, so an older one that reaches
+      # here later skips rather than roll production back. Checked inside the
+      # concurrency group; a failed lookup fails the deploy, never skips it.
+      - name: Is this commit still main's head?
+        id: head
+        run: |
+          head=$(git ls-remote --exit-code origin refs/heads/main | cut -f1)
+          [ -n "$head" ]
+          if [ "$head" = "$GITHUB_SHA" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::main is now at $head, which deploys itself; skipping $GITHUB_SHA."
+          fi
+
       - uses: actions/setup-node@v4
+        if: steps.head.outputs.current == 'true'
         with:
           node-version: 22
+          cache: npm
 
       - run: npm ci
+        if: steps.head.outputs.current == 'true'
       # OG cards are now generated dynamically as part of the Astro build
       # via the [...slug].png.ts endpoint reading src/data/og.ts. There is
       # no separate generate-og.ts step anymore — the manual script was
       # removed because it was the antipattern that caused stale OG cards.
       # See AGENTS.md "OG cards" rule and src/pages/og/[...slug].png.ts.
       - run: npx astro build
+        if: steps.head.outputs.current == 'true'
 
       - name: Deploy to Cloudflare Workers
+        if: steps.head.outputs.current == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -38,12 +62,14 @@ jobs:
 
       # Plain-HTTP and www requests: a 301 to https://ouroboros.bot (src/worker/https.mjs).
       - name: Deploy the HTTPS redirect Worker
+        if: steps.head.outputs.current == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --config wrangler-https.jsonc
 
       - name: Notify search engines (IndexNow)
+        if: steps.head.outputs.current == 'true'
         run: |
           test -f dist/sitemap-0.xml
           URLS=$(grep -oP '(?<=<loc>)[^<]+' dist/sitemap-0.xml \

@@ -146,6 +146,19 @@
   src: local('Arial'), local('ArialMT'), local('Helvetica');
   size-adjust: 97.9%;
 }
+/* Ouro HX's Hero caps its lede at 60ch (v1.3.17; #136 left it "for Ouro UI"),
+   and a ch is the width of the font's "0": 0.656em in Outfit but 0.544em in
+   the Arial fallback, which matches Outfit's average width, not its digits.
+   So while Outfit loaded the lede was 120px narrower and a line taller, and
+   when Outfit arrived everything under it moved up 32px: layout shift 0.16
+   against the 0.1 budget on /blog/what-is-agent-experience/ at 1440 (site-
+   checks runs 43544667635, 43544776067 and 43545085886). Text flows to the
+   width of its column here (tests/text-width.test.mjs), so the cap goes, and
+   the lede is the same width in either font. Unlayered, so it outranks the
+   utility. */
+[data-ouro="hero"] [data-slot="description"] {
+  max-width: none;
+}
 @font-face {
   font-family: 'JetBrains Mono';
   font-style: normal;

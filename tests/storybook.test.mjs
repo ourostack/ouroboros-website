@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, distExists, readDist, listHtmlFiles } from './support/dist.mjs';
-import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes, columnHeroes, columnHeroWidths, COLUMN_HERO_MEDIA } from '../src/data/scenes.mjs';
+import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes, columnHeroes, columnHeroWidths, COLUMN_HERO_MEDIA, phoneSize } from '../src/data/scenes.mjs';
 
 // The storybook world (Ari, 2026-11-06). The art is ourostack/.github brand/,
 // copied byte for byte by scripts/sync-storybook.mjs; the brand audit fetches
@@ -29,12 +29,32 @@ test('every storybook file is served with exactly its provenance bytes, and noth
   }
 });
 
+// Reads a WebP's canvas size from its header: VP8X, lossy VP8 or lossless VP8L.
+function webpSize(file) {
+  const b = fs.readFileSync(file);
+  const chunk = b.toString('ascii', 12, 16);
+  if (chunk === 'VP8X') return [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+  if (chunk === 'VP8 ') return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+  if (chunk === 'VP8L') { const n = b.readUInt32LE(21); return [1 + (n & 0x3fff), 1 + ((n >> 14) & 0x3fff)]; }
+  throw new Error(`${file}: not a WebP`);
+}
+
+test('every phone crop is the size the phone hero box is drawn at, so the art is never stretched or cropped again', () => {
+  const dir = path.join('public', 'brand', 'storybook', 'phone');
+  const crops = fs.readdirSync(dir).filter((f) => f.endsWith('-768.webp'));
+  assert.ok(crops.length > 10);
+  for (const f of crops) {
+    const scene = f.replace(/-768\.webp$/, '');
+    assert.deepEqual(webpSize(path.join(dir, f)), phoneSize(scene), `${scene}: phoneSizes in src/data/scenes.mjs must match the crop .github serves`);
+  }
+});
+
 test('every page opens on its scene: AVIF then WebP, the phone crop under 640px, loaded first', () => {
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
     const { hero } = sceneFor(pageOf(file));
     if (!hero) { assert.doesNotMatch(html, /class="story-scene story-hero/, `${pageOf(file)} has no hero scene`); continue; }
-    const block = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>[\s\S]*?<\/picture>/)?.[0];
+    const block = html.match(/<div class="story-scene story-(?:hero|contained)[^"]*"[^>]*>[\s\S]*?<\/picture>/)?.[0];
     assert.ok(block, `${pageOf(file)}: no hero scene`);
     assert.match(block, new RegExp(`data-brand-scene="${hero}"`), pageOf(file));
     const sources = [...block.matchAll(/<source\b[^>]*>/g)].map(([s]) => s);
@@ -52,8 +72,8 @@ test('a hero with a night version is one picture that fetches only the art for t
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
     const { hero } = sceneFor(pageOf(file));
-    const opening = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>/)?.[0];
-    const block = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>[\s\S]*?<\/div>/)?.[0];
+    const opening = html.match(/<div class="story-scene story-(?:hero|contained)[^"]*"[^>]*>/)?.[0];
+    const block = html.match(/<div class="story-scene story-(?:hero|contained)[^"]*"[^>]*>[\s\S]*?<\/div>/)?.[0];
     if (!block) continue;
     const pictures = [...block.matchAll(/<picture\b([^>]*)>([\s\S]*?)<\/picture>/g)];
     assert.equal(pictures.length, 1, `${pageOf(file)}: one hero picture`);
@@ -79,7 +99,8 @@ test('a hero with a night version is one picture that fetches only the art for t
     const sources = [...pictures[0][2].matchAll(/<source\b[^>]*>/g)].map(([t]) => t);
     // Four phone sources, then (column heroes only) four 2:1 column sources from 1600px, then four wide ones.
     // The column art comes ahead of the full-bleed art, so it wins from 1600px and nowhere else.
-    const column = Boolean(columnHeroes[hero]);
+    // A page hero (PageHero) shows the scene whole in the page's column, so it never takes the column art.
+    const column = Boolean(columnHeroes[hero]) && !opening.includes('story-contained');
     const layout = [['phone', '(max-width: 640px)'], ...(column ? [['col', COLUMN_HERO_MEDIA]] : []), ['wide', '']];
     assert.equal(sources.length, layout.length * 4, page);
     sources.forEach((t, i) => {
@@ -114,7 +135,7 @@ test('a hero with a night version is one picture that fetches only the art for t
       for (const s of [hero, night]) assert.ok(preload.includes(`/images/guide-hero/${s}-col-3072.avif 3072w`) && preload.includes('72rem'), `${page}: ${s} column preload`);
     }
   }
-  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'ouro-ui-core'], 'every night hero is listed');
+  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'apple-distribution-kit', 'butler', 'desk', 'factory', 'flow-review', 'friends', 'friends-relay', 'gatefold', 'housesitter', 'm365crawl', 'ouro-apps-site', 'ouro-md', 'ouro-native-apple-app-shell', 'ouro-ui-apple', 'ouro-ui-core', 'ouro-work', 'ouro-workbench', 'ouroboros', 'ouroboros-skills', 'ouroboros-website', 'ourostack', 'playwright-focus-proof', 'shepherd'], 'every night hero is listed');
 });
 
 test('a column hero\'s art is the guide\'s own master, upscaled and cropped, and is at least as wide as the column is drawn at 2x', () => {
