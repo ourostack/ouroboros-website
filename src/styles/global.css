@@ -651,7 +651,8 @@ a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow
 /* Headings balance their lines, so a phone never leaves one word hanging
    ("Skills / for agents.", "uses / a model.": taste review r15). */
 :is(h1, h2, h3, h4, h5, h6), :is(h1, h2, h3, h4, h5, h6):is(.font-display, .post-title) { text-wrap: balance; }
-p, li, dd, figcaption { text-wrap: pretty; }
+/* Running text wraps pretty; in the base layer, so a text-balance or text-wrap utility on one block still wins. */
+@layer base { p, li, dd, figcaption { text-wrap: pretty; } }
 /* Headings flow across the full width; nothing forces a clause or sentence
    onto its own line (Ari's ruling, 2026-11-13: "text should always use full
    width, where reasonable", replacing the clause-per-line phone rule of taste

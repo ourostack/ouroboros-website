@@ -369,13 +369,13 @@ const wastes = [
   .smells strong { font-family: var(--font-display); font-weight: 400; font-size: 1.875rem; line-height: 1.15; color: var(--color-bone); }
   .principles { display: flex; flex-wrap: wrap; gap: 0.25rem 2.25rem; }
   /* Each row stands a finger tall (44px; taste review r15: the rows were 28px). */
-  .principle { display: inline-block; padding-block: 0.55rem; gap: 0.6rem; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
+  .principle { display: inline-block; padding-block: 0.55rem; gap: 0.6rem; text-wrap: balance; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); transition: color 0.2s; }
   .principle:hover { color: var(--color-scale); }
   .principle-n { margin-right: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-scale); }
   .principle-arrow { display: inline-block; margin-left: 0.4rem; color: var(--color-scale); transition: transform 0.2s; }
   .principle:hover .principle-arrow { transform: translateX(0.2rem); }
   .method-close { margin-top: 2.5rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
-  .factory-lead { margin-top: 1.25rem; text-wrap: wrap; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.3; color: var(--color-bone); }
+  .factory-lead { margin-top: 1.25rem; text-wrap: pretty; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.3; color: var(--color-bone); }
   @media (min-width: 768px) { .factory-lead { font-size: 1.875rem; } }
   @media (min-width: 1024px) { .factory-lead { margin-top: 1.75rem; } }
   .factory-body { display: grid; gap: 1.25rem; margin-top: 2rem; font-size: 1.125rem; line-height: 1.65; color: var(--color-mist); }
