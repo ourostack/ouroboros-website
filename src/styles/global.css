@@ -135,15 +135,19 @@
 /* Metric-matched fallbacks: while the web fonts load, the local serif and sans
    are scaled to the same average width, so lines wrap the same way before and
    after the swap and nothing below moves (CLS, taste review r5). The ratios are
-   measured text widths: Cormorant / Times New Roman, Outfit / Arial. */
+   measured text widths: Cormorant / Times New Roman, Outfit / Arial. Liberation
+   Serif and Sans share those metrics and stand in on Linux, where the Microsoft
+   faces are missing and the swap would otherwise rewrap the lede. */
 @font-face {
   font-family: 'Cormorant Fallback';
-  src: local('Times New Roman'), local('TimesNewRomanPSMT'), local('Times');
+  src: local('Times New Roman'), local('TimesNewRomanPSMT'), local('Times'),
+    local('Liberation Serif'), local('LiberationSerif');
   size-adjust: 96.5%;
 }
 @font-face {
   font-family: 'Outfit Fallback';
-  src: local('Arial'), local('ArialMT'), local('Helvetica');
+  src: local('Arial'), local('ArialMT'), local('Helvetica'),
+    local('Liberation Sans'), local('LiberationSans');
   size-adjust: 97.9%;
 }
 /* Ouro HX's Hero caps its lede at 60ch (v1.3.17; #136 left it "for Ouro UI"),
