@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { parseInlineMd } from '../src/lib/md.mjs'
+import { holdLastWords, parseInlineMd } from '../src/lib/md.mjs'
 
 test('renders safe model citations without exposing long raw URLs', () => {
   assert.equal(
@@ -25,5 +25,12 @@ test('a link wrapped in parentheses keeps the closing parenthesis out of the URL
   assert.equal(
     parseInlineMd('[wiki](https://en.wikipedia.org/wiki/Lean_(manufacturing))'),
     '<a href="https://en.wikipedia.org/wiki/Lean_(manufacturing)" target="_blank" rel="noopener noreferrer">wiki</a>',
+  )
+})
+
+test('holds each paragraph\'s last two words together, leaving a long last word and markup free', () => {
+  assert.equal(
+    holdLastWords('<p>maintained record-keeping.</p><p>A long path src/mind/prompt-builder.ts</p><p>See <code>x</code></p>'),
+    '<p>maintained&nbsp;record-keeping.</p><p>A long path src/mind/prompt-builder.ts</p><p>See <code>x</code></p>',
   )
 })

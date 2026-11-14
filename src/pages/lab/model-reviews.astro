@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import PageHero from '../../components/PageHero.astro'
 import modelReviews from '../../data/model-reviews.json'
 import { ogPathFor } from '../../data/og'
-import { parseInlineMd } from '../../lib/md.mjs'
+import { holdLastWords, parseInlineMd } from '../../lib/md.mjs'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
 
 const reviews = modelReviews.reviews
@@ -129,7 +129,7 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
             </div>
             <!-- Evaluations are paragraphs of `**Name** — text` per harness.
                  parseInlineMd handles bold + code spans + paragraph wrapping. -->
-            <div class="prose-ouro" set:html={parseInlineMd(review.evaluations, { wrapInParagraphs: true })}></div>
+            <div class="prose-ouro" set:html={holdLastWords(parseInlineMd(review.evaluations, { wrapInParagraphs: true }))}></div>
           </div>
         ))}
       </div>
