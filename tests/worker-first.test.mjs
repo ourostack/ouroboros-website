@@ -37,6 +37,12 @@ test('no built page runs the Worker first', () => {
   const pages = [];
   const walk = (dir) => { for (const e of fs.readdirSync(dir, { withFileTypes: true })) { const f = path.join(dir, e.name); e.isDirectory() ? walk(f) : pages.push('/' + path.relative(dist, f)); } };
   walk(dist);
-  const hit = pages.filter((p) => workerFirst(p) || (p.endsWith('/index.html') && workerFirst(p.slice(0, -'index.html'.length))));
+  // The build's own receipts, which the Worker answers first and falls back on (src/worker/receipts.mjs).
+  const workerFallbacks = ['/api/receipts.json'];
+  const hit = pages.filter((p) => !workerFallbacks.includes(p) && (workerFirst(p) || (p.endsWith('/index.html') && workerFirst(p.slice(0, -'index.html'.length)))));
   assert.deepEqual(hit, [], 'built files matched by run_worker_first');
+});
+
+test('the home page receipts reach the Worker', () => {
+  assert.ok(workerFirst('/api/receipts.json'), '/api/receipts.json is not in assets.run_worker_first, so the asset layer answers it with the 404 page');
 });

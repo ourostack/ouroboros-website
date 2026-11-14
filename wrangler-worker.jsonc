@@ -20,7 +20,8 @@
       "/og/*.png",
       "/og/og-ouro-hx.*",
       "/sitemap.xml",
-      "/ouro-hx*"
+      "/ouro-hx*",
+      "/api/*"
     ]
   },
   "routes": [
