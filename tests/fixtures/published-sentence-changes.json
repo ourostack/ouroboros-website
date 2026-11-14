@@ -5686,5 +5686,11 @@
   "was": "Read, write, and execute are the universal basis.",
   "now": "Read, write and run are all it needs.",
   "why": "plain-words pass (Ari, 2026-11-12): say what we mean without jargon a non-technical reader doesn't need"
+ },
+ {
+  "page": "lab/docs",
+  "was": "Your agent can fetch the live version directly at ouroboros.bot/skills/manifest.json Words used here Psyche Five Markdown files that define who the agent is, loaded every turn.",
+  "now": "Your agent can fetch the live version directly from its skills manifest at ouroboros.bot/skills/manifest.json Words used here Psyche Five Markdown files that define who the agent is, loaded every turn.",
+  "why": "lab heroes on Ouro HX (2026-11-13): naming the skills manifest keeps the docs lede from flipping between one line and two when the web font swaps in, which moved the page on CI"
  }
 ]
