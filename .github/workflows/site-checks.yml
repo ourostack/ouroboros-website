@@ -17,6 +17,11 @@ name: site-checks
 #
 # The last job is named site-checks so it stays the one required check on
 # main: it passes only when the tests and every page and Ouro check shard pass.
+# It also times the run (scripts/ci-budget.mjs): each job's wait and work go to
+# the step summary, and on a pull request it fails when the critical path, the
+# longest job timed from its own start, is over 7 minutes. On main it only
+# reports and records an overrun in one issue. tests/ci-budget.test.mjs fails
+# when a new check job is missing from its needs.
 # On a pull request a failed shard cancels its siblings; main always runs whole.
 # refresh-ouromd-release.yml dispatches it on the pull requests it opens, since
 # a pull request opened with a workflow's own token starts no pull_request run.
@@ -299,6 +304,10 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 2
+    permissions:
+      actions: read
+      contents: read
+      issues: write
     steps:
       - name: The tests and every page and Ouro check shard pass
         run: |
@@ -306,6 +315,19 @@ jobs:
           echo "page checks: ${{ needs.pages.result }}"
           echo "ouro check:  ${{ needs.ouro-check.result }}"
           [ "${{ needs.tests.result }}" = success ] && [ "${{ needs.pages.result }}" = success ] && [ "${{ needs.ouro-check.result }}" = success ]
+
+      - uses: actions/checkout@v4
+        if: ${{ !cancelled() }}
+        with:
+          sparse-checkout: scripts/ci-budget.mjs
+          sparse-checkout-cone-mode: false
+
+      - name: The critical path is within its 7 minute budget
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUDGET_OWNER: arimendelow
+        run: node scripts/ci-budget.mjs
 
   # On a push to main: did this exact tree, workflows included, already pass
   # site-checks on its own pull request? scripts/tested-tree.mjs answers
