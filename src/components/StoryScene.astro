@@ -61,7 +61,8 @@ const phoneAspect = hero && !contained
 // blank box or alt text (taste review r10).
 // A hero with a night version (darkScenes) carries both colours, and global.css
 // picks the one for the theme in use.
-const night = hero ? darkScenes[scene] : undefined
+// The footer meadow follows the theme too, so a night page never ends on the dawn band.
+const night = hero || variant === 'meadow' ? darkScenes[scene] : undefined
 const paintOf = (s: string) => {
   if (!paints[s]) throw new Error(`StoryScene: no paint for ${s}; run node scripts/scene-paint.mjs`)
   return paints[s].colour
@@ -74,7 +75,7 @@ const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 10
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : contained ? (sizes ?? '100vw') : '100vw'
 // The meadow spans the phone's full width, so it also carries the 1152 crop
 // (scripts/sync-storybook.mjs) to stay sharp at 2x on a 390px screen.
-const phoneWidths = (s: string) => (s === meadowScene ? [384, 768, 1152] : [384, 768])
+const phoneWidths = (s: string) => (s === meadowScene || s === darkScenes[meadowScene] ? [384, 768, 1152] : [384, 768])
 const phoneSrcset = (s: string, ext: string) => phoneWidths(s).map((pw) => `${base}/phone/${s}-${pw}.${ext} ${pw}w`).join(', ')
 const sources = (s: string) => ({
   phoneAvif: phoneSrcset(s, 'avif'),
@@ -100,7 +101,7 @@ const vignette = variant === 'vignette'
 const column = hero && night && !contained ? columnHeroes[scene] : undefined
 ---
 
-<div class:list={['story-scene', contained && hero ? 'story-contained' : `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && !contained && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} data-ouro-allow={variant === 'meadow' ? 'dark-art' : undefined} data-ouro-allow-why={variant === 'meadow' ? 'the footer meadow is the same dawn band in both themes, not a hero; its 1152 phone crop has no night twin yet' : undefined} style={style}>
+<div class:list={['story-scene', contained && hero ? 'story-contained' : `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && !contained && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style}>
   {hero && day && dark ? (
     <>
       <picture>
@@ -157,6 +158,46 @@ const column = hero && night && !contained ? columnHeroes[scene] : undefined
       <source type="image/webp" srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
       <img src={fallback} width={w} height={h} alt={altText} fetchpriority="high" />
     </picture>
+  ) : variant === 'meadow' && day && dark ? (
+    <>
+      {/* Deferred like any scene below the arrival, with the day and night art the hero's way: the day sources ask for
+          a light scheme, the night art takes the rest, and the script after it follows the site's own theme toggle. */}
+      <picture data-defer="far">
+        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/avif" data-srcset={day.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/webp" data-srcset={day.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/avif" data-srcset={dark.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/webp" data-srcset={dark.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        <source media={lightScheme} data-media="" data-theme-art="light" type="image/avif" data-srcset={day.wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source media={lightScheme} data-media="" data-theme-art="light" type="image/webp" data-srcset={day.wideWebp} sizes={wideSizes} width={w} height={h} />
+        <source data-media="" data-theme-art="dark" type="image/avif" data-srcset={dark.wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source data-media="" data-theme-art="dark" type="image/webp" data-srcset={dark.wideWebp} sizes={wideSizes} width={w} height={h} />
+        <img data-src={dark.fallback} data-light-src={day.fallback} data-dark-src={dark.fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" />
+      </picture>
+      <noscript><img src={dark.fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" /></noscript>
+      <script is:inline>
+        (function () {
+          var pic = document.currentScript.parentElement.querySelector('picture'), img = pic.querySelector('img'), root = document.documentElement;
+          var light = matchMedia('(prefers-color-scheme: light)');
+          var set = function (el, name, value) {
+            if (value == null || value === '') { if (el.hasAttribute(name)) el.removeAttribute(name); }
+            else if (el.getAttribute(name) !== value) el.setAttribute(name, value);
+          };
+          var sync = function () {
+            var chosen = root.dataset.theme === 'light' || root.dataset.theme === 'dark' ? root.dataset.theme : '';
+            pic.querySelectorAll('source').forEach(function (s) {
+              var base = s.getAttribute('data-media'), art = s.getAttribute('data-theme-art');
+              set(s, 'media', chosen ? (art === chosen ? base : 'not all')
+                : art === 'light' ? (base ? base + ' and ' : '') + '(prefers-color-scheme: light)' : base);
+            });
+            // Until the meadow comes within reach its image waits in data-src (Layout.astro); after that, src.
+            set(img, img.hasAttribute('src') ? 'src' : 'data-src', img.getAttribute('data-' + (chosen || 'dark') + '-src'));
+          };
+          sync();
+          new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+          light.addEventListener('change', sync);
+        })();
+      </script>
+    </>
   ) : vignette ? (
     <>
       <picture data-defer>
