@@ -655,7 +655,7 @@ a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow
    ("Skills / for agents.", "uses / a model.": taste review r15). */
 :is(h1, h2, h3, h4, h5, h6), :is(h1, h2, h3, h4, h5, h6):is(.font-display, .post-title) { text-wrap: balance; }
 /* Running text wraps pretty; in the base layer, so a text-balance or text-wrap utility on one block still wins. */
-@layer base { p, li, dd, figcaption { text-wrap: pretty; } }
+@layer base { p, li, dd, figcaption, blockquote { text-wrap: pretty; } }
 /* A paragraph in the Hero's lede keeps the Hero's wrap (balanced in the column), not the pretty above, so a lede never ends on a short line. */
 @layer base { [data-ouro="hero"] [data-slot="description"] p { text-wrap: inherit; } }
 /* Headings flow across the full width; nothing forces a clause or sentence
