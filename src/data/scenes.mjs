@@ -24,11 +24,15 @@ export const scenes = {
   'ouro-work': 'A stone cottage with a row of wooden mailboxes and a round vault door. Ouro, wearing a lanyard, carries an envelope up the trail.',
   'ouroboros-skills': 'A bookcase of rolled scrolls under a vine. One robot reads at a little desk while Ouro hands another robot a scroll.',
   'flow-review': 'A row of little paintings on easels along the trail. A robot with a clipboard takes notes while Ouro, in round spectacles, inspects one through a magnifying glass.',
-  gatefold: 'A giant open storybook on a picnic blanket, with stacked books, a mug of coffee and a small notebook. Ouro rests beside it, mid-chapter.',
+  gatefold: 'A giant open storybook on a picnic blanket in a dawn meadow, with stacked books, a mug of coffee and a phone. Ouro rests beside it, mid-chapter.',
+  'gatefold-dark': 'A giant open storybook on a picnic blanket at night under a starry sky and a crescent moon, with stacked books, a mug of coffee and a glowing phone. Ouro rests beside it, mid-chapter.',
   'playwright-focus-proof': 'A person relaxes in an armchair with a laptop and a cup of tea while two little robots work at their own table beside a tall clock, and Ouro keeps an eye on the trail.',
+  'playwright-focus-proof-dark': 'The same garden at night under a starry sky: a person relaxes in an armchair with a glowing laptop while two little robots work at their own table beside a tall clock, and Ouro keeps an eye on the trail as it glows through the dark.',
   'ouro-ui-apple': 'A robot sits at a wooden bench with a phone, a tablet and a laptop, each showing a green toggle. Ouro watches from the meadow.',
+  'ouro-ui-apple-dark': 'At night under a starry sky, a robot sits at a wooden bench with a phone, a tablet and a laptop, each screen glowing with a green toggle. Ouro watches from the moonlit meadow.',
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
+  'ouro-workbench-dark': 'A covered workbench at night under a starry sky, with a pegboard of tools, a glowing lantern and a row of little monitors lit amber. Ouro curls up on a cushion beside it, off the clock.',
   'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
   'friends-relay-dark': 'A stone dovecote tower at night under a starry sky and a crescent moon, its windows glowing, where white doves carry letters across the misty hills, a robot waving at each end, and Ouro in a postman’s cap at the foot of the tower.',
   'ouro-ui-core-dark': 'Paint pots on a bench at night pour glowing ribbons of green and cream into a phone, a laptop and a tablet below, with misty hills and village lights behind. Ouro looks on, pleased with the colours.',
@@ -36,6 +40,7 @@ export const scenes = {
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
   'ouro-native-apple-app-shell': 'A pearly snail shell on a mossy rock by a pond, opened up like a dollhouse: bookshelves, a reading chair and a warm lamp curled up inside. Ouro rests against it, as if he grew the house himself.',
+  'ouro-native-apple-app-shell-dark': 'A glowing snail-shell house at night under a starry sky, its little rooms lit by lamps and lined with books, on a rock by a pond with trails of light winding through the meadow. Ouro curls up beside it, smiling.',
   'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
 }
@@ -137,7 +142,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'friends-relay': 'friends-relay-dark', 'ouro-ui-core': 'ouro-ui-core-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-workbench': 'ouro-workbench-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -182,7 +187,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 320], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
+const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -198,7 +203,9 @@ export const heroFocus = {
   'flow-review': [0.18, 0.84],
   friends: [0.2, 0.97],
   'friends-relay': [0.04, 0.95],
-  gatefold: [0.15, 0.88],
+  // Ouro's head down to the phone on the blanket.
+  gatefold: [0.04, 0.93],
+  'gatefold-dark': [0.04, 0.93],
   'agent-workbench': [0.056, 0.911],
   'agent-workbench-dark': [0.056, 0.911],
   'friends-relay-dark': [0.04, 0.95],
@@ -210,16 +217,20 @@ export const heroFocus = {
   'ouro-hx': [0.12, 0.93],
   'ouro-md': [0.2, 0.86],
   'ouro-native-apple-app-shell': [0.1, 0.8],
+  'ouro-native-apple-app-shell-dark': [0.07, 0.9],
   'ouro-ui-apple': [0.05, 0.91],
+  'ouro-ui-apple-dark': [0.05, 0.91],
   'ouro-ui-core': [0.18, 0.88],
   'ouro-ui-core-dark': [0.18, 0.88],
   'ouro-work': [0.2, 0.88],
   'ouro-workbench': [0.28, 0.86],
+  'ouro-workbench-dark': [0.2, 0.88],
   'ouroboros-skills': [0.06, 0.955],
   'ouroboros-website': [0.24, 0.92],
   ouroboros: [0.12, 0.95],
   ourostack: [0.15, 0.85],
   'playwright-focus-proof': [0.13, 0.97],
+  'playwright-focus-proof-dark': [0.05, 0.985],
   shepherd: [0.12, 0.96],
 }
 
@@ -240,7 +251,8 @@ export const castFoot = {
   // The robots' shoes rest on the blanket's front edge.
   friends: 0.97,
   'friends-relay': 0.95,
-  gatefold: 0.8,
+  gatefold: 0.81,
+  'gatefold-dark': 0.81,
   'agent-workbench': 0.911,
   'agent-workbench-dark': 0.911,
   'friends-relay-dark': 0.95,
@@ -252,11 +264,14 @@ export const castFoot = {
   'ouro-hx': 0.925,
   'ouro-md': 0.85,
   'ouro-native-apple-app-shell': 0.72,
+  'ouro-native-apple-app-shell-dark': 0.845,
   'ouro-ui-apple': 0.905,
+  'ouro-ui-apple-dark': 0.905,
   'ouro-ui-core': 0.84,
   'ouro-ui-core-dark': 0.84,
   'ouro-work': 0.85,
   'ouro-workbench': 0.76,
+  'ouro-workbench-dark': 0.77,
   // The robot's feet, not Ouro's coil.
   'ouroboros-skills': 0.955,
   'ouroboros-website': 0.89,
@@ -264,6 +279,7 @@ export const castFoot = {
   ourostack: 0.83,
   // The person's sneakers under the armchair.
   'playwright-focus-proof': 0.97,
+  'playwright-focus-proof-dark': 0.985,
   // The big sheep's hooves at the right.
   shepherd: 0.935,
 }
@@ -289,7 +305,8 @@ export const phoneCastX = {
   friends: [0.098, 0.906],
   // The big dove at the left, Ouro's coil at the right (v4 master).
   'friends-relay': [0.06, 0.86],
-  gatefold: [0.42, 0.88],
+  gatefold: [0.378, 0.918],
+  'gatefold-dark': [0.378, 0.918],
   'agent-workbench': [0.068, 0.934],
   'agent-workbench-dark': [0.068, 0.934],
   'friends-relay-dark': [0.06, 0.86],
@@ -302,12 +319,15 @@ export const phoneCastX = {
   'ouro-hx': [0.063, 0.936],
   'ouro-md': [0.47, 0.87],
   'ouro-native-apple-app-shell': [0.5, 0.885],
+  'ouro-native-apple-app-shell-dark': [0.469, 0.924],
   // .github#15: centre 840.
   'ouro-ui-apple': [0.21, 0.931],
+  'ouro-ui-apple-dark': [0.21, 0.931],
   'ouro-ui-core': [0.4, 0.88],
   'ouro-ui-core-dark': [0.4, 0.88],
   'ouro-work': [0.42, 0.88],
   'ouro-workbench': [0.55, 0.86],
+  'ouro-workbench-dark': [0.51, 0.875],
   ouroboros: [0.49, 0.88],
   // The reading robot at the left, the robot taking the scroll at the right.
   // Phone crop box [120, 0, 1502, 576] of the 1536 header.
@@ -317,6 +337,7 @@ export const phoneCastX = {
   ourostack: [0.069, 0.94],
   // The person in the armchair at the left, Ouro at the right.
   'playwright-focus-proof': [0.09, 0.923],
+  'playwright-focus-proof-dark': [0.054, 0.94],
   // The sheep by the gate at the left, the big sheep at the right.
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],

@@ -120,7 +120,7 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
     assert.doesNotMatch(style, /--hero-fade|--hero-origin|--hero-apron|--paint-foot/, `${file}: a hero carries fade machinery`);
     const frame = heroFrame(scene, { product: sceneFor(routeOfFile(file)).product });
     assert.equal(y, frame.y / 100, `${file}: --hero-y is not heroFrame()'s`);
-    const below = new RegExp(`data-brand-scene="${scene}" data-trail-below`).test(html);
+    const below = new RegExp(`data-brand-scene="${scene}"(?: data-night-scene="[^"]+")? data-trail-below`).test(html);
     assert.equal(below, frame.trailBelow, `${file}: the trail ${frame.trailBelow ? 'must hang below' : 'sits on'} the edge`);
     if (below) assert.ok(1 - castFoot[scene] < FOOT_ROOM && y === 1, `${file}: only a cast on the art's own foot hangs the trail below`);
     const [top] = heroFocus[scene] ?? [0.2];

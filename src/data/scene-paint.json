@@ -131,6 +131,18 @@
       "uri": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAACwAgCdASoQAAwAAkA4JbACdDBMyVP+PtVMu4rwygAA/vKAJOvafHt9Z2l2QxN7tYlKXiXg1Wjucj1ztK3H/2OJjOeGZG/Fvtan5YueNJifS68IQZbpHCWx5JOUYf47675py+4yGVmoEtagYASQHRX7Dad/ti7SHtRov97qZG4xw+58nxUJx281LtcUmRt/mH+xa6Cdi1of3WUVX8+agAAA"
     }
   },
+  "gatefold-dark": {
+    "wide": {
+      "from": "headers/gatefold-dark.webp",
+      "sha256": "904c26b0d9bb9a5c50fd20f28a311046bad865484e6cf3cc29e28f99598d0e21",
+      "uri": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQAQCdASoQAAYAAkA4JQBOgB6uuJY8AAD++JQ5LfLGn3PNymO3Z9p2z+ie09wPPmachXsfjtXlhrRT4PqdKF+yA9ZHZSDDENv8WPPcMy+jaDG//GVI+0aK1VAAAA=="
+    },
+    "phone": {
+      "from": "phone/gatefold-dark-384.webp",
+      "sha256": "18238a1dc8e1f97582ff4c67485bbc33cdfb3547463d3ee641e0cfcd2c8562a4",
+      "uri": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABQAgCdASoQAAwAAkA4JbACdAaeVn1xBY7uZ4AA/t3A2Q0fQaZLQR/5Xslptms+h92/PJnebxI9nfXP20WZnUtszNq6WZpN2y2PuazdhrW2LqY9j0Xtyra5pdK6gIWOYfaL22rOCGApS971utpLq5zNdhuFHgIOVTSuKKuqm1zzCqdk5xkpuetOJ0AAAA=="
+    }
+  },
   "homebrew-tap": {
     "wide": {
       "from": "headers/homebrew-tap.webp",
@@ -215,6 +227,18 @@
       "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAACwAgCdASoQAAwAAkA4JbACdDBGgae7aRrRauW4nAAA/vZeKe7JSd71WZl37sB5ZfVlz/mZfajmlQoyZaFISo+Yuiab6PsCzg6RXQH58NXPbubHevH5pS3r8RpzMevlWdatxmy/vZNPUvqv/OqNkvhIZ/ITefCq2S34D+MsCLf/HFLwsW/B4qv4H9iAjXfYluUoAiUAAAA="
     }
   },
+  "ouro-native-apple-app-shell-dark": {
+    "wide": {
+      "from": "headers/ouro-native-apple-app-shell-dark.webp",
+      "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af",
+      "uri": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAACwAgCdASoQAAYAAkA4JbACdDiM94lIhoxjZ+U+HIAA/vXdqbNgWeYTGcHiZt+WgL5Z81fpST2v/1bbgSeTw03vm/QEPDEkP09aB3nMw89RO9aivfxfN70M7x/E7+P+ZRkb0pOcAnI2nqrujY/JREjZbNe4ju72R1bwAAAA"
+    },
+    "phone": {
+      "from": "phone/ouro-native-apple-app-shell-dark-384.webp",
+      "sha256": "dc2c404c5e4626b56a3676dac6abcbb20fbd36c20a9496641a71ab9b6e42993a",
+      "uri": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAABwAgCdASoQAAwAAkA4JbACdDBJiIiIli/ZSqYAAP6mzc1w6Skftn/lFZJ19xjwe+0KGPS0B9o/NiG79Unx5YVdgteWkqXAbh094p0iuL9AL1329R4uuF5jsWt+Vvr43RdGfN3jf3qF51rbpwne6KUdDFMj91MRauv3furPULxjrwPa3+YBb39FbedVFvNZ0/uV0gc/LzyB6wAyQ/MxgGafHmIAFz3aV/h7CEAA"
+    }
+  },
   "ouro-ui-apple": {
     "wide": {
       "from": "headers/ouro-ui-apple.webp",
@@ -225,6 +249,18 @@
       "from": "phone/ouro-ui-apple-384.webp",
       "sha256": "84a65118214eecaf9664fd387e2e2128ce9360386553352a3868fc94b3cb2e3c",
       "uri": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAQAgCdASoQAAkAAkA4JbACdDBAAWjm4Q5AAP7VFM9Fxx9VhPDTfpfm0WncWdyknPRvbGpAKBmm8Pop5u8wHIJPD8WsYkLZSaS1Hv3l54VvBHyup+flMoEQLn35YYtpMzYTH//U5NT2S4/w5M4Avm6Whx8caR31KRLwAAAA"
+    }
+  },
+  "ouro-ui-apple-dark": {
+    "wide": {
+      "from": "headers/ouro-ui-apple-dark.webp",
+      "sha256": "211a892dc4cbb0f91f0666bdb447fde80f829834ea56bb9d24d9802c584819a1",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQAgCdASoQAAYAAkA4JbACdDBJQY1NBcHgAP72tAqXYk7qBgoGaGGJmQcAqpkmtVBlnFhkZmBHJvoHTDtb0Q2FVbskcSHcgNDItb5ZWLsRxmGmPzX/id/B5EwkO/7IyPLG3DyRFOh/NxF0EkRibvwAAAA="
+    },
+    "phone": {
+      "from": "phone/ouro-ui-apple-dark-384.webp",
+      "sha256": "375377767532f7934d06aad177c96a218911b2ffad6b3d6e0db846dfae03ffa9",
+      "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQAgCdASoQAAkAAkA4JbACdDBDwWqeEK8GvwAA/vfXEeH6WvTQaBmDClSG8J98Zsfr5eDZsNRuqr67IvpHo2iloH4eHv+IMJ4cO58Q7dwtH9fWk+4qjFse0FslrsW/mJOT39yD/0ljaQZscDlNv1lFYrfP/ei7gNAAAA=="
     }
   },
   "ouro-ui-core": {
@@ -273,6 +309,18 @@
       "from": "phone/ouro-workbench-384.webp",
       "sha256": "4c79ced3f7ff9347eceeeafec73f69f46e6ce466d8a41a7a8cec41e32ee125b0",
       "uri": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAADQAgCdASoQAAwAAkA4JbACdDiAN5DIjEt/rwWyHpkAAP75L51xj/m0ItTFPvZhB+rcjvfOtZSB3j3xA59i1+Vw4iAAAo7LdleU9GAr2mvB/yhhGzKkCU0B5l9+Kgq8PB66aHm01PQFKG/dPQB5Dur/73RyWbNf3ufx1OeXRXW/1f2FfSDHkF3y2BfetjOpmijgAAAA"
+    }
+  },
+  "ouro-workbench-dark": {
+    "wide": {
+      "from": "headers/ouro-workbench-dark.webp",
+      "sha256": "16ce2182fa7b10c61955b4d8a422af7ba57f3e412ef1e5a1f9feec855a7d1cd8",
+      "uri": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAQCdASoQAAYAAkA4JZACdAEQUK91yWAA/vlNF2FmJS33iqoA6wwbjsn/ZtBXhSEzXi89bQKno9p47BJdice22qt2twjKGe+ZlDl9wj+20CyG1hpwNILB/lsH6XiBQAA="
+    },
+    "phone": {
+      "from": "phone/ouro-workbench-dark-384.webp",
+      "sha256": "1ab9c6624a6cba51d3e48e79947f1d28e9e9a72d166d7813abc40b100b09adb6",
+      "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAACQAgCdASoQAAwAAkA4JbACdDBHiIgJzZpyaazpgAD+9rQbU7ejl9bybM+JZjV/JVgT1sh8cRYRUX9YDLN2yJ54/y8eicjb+ybL68u7l+oe+xd4bzMNV3V+imkNVD0A+y8jUj09fTsjHAQ9ArsX+OWbkvyX5LTVg782PvctMNBobH/arpEVdOOwGPqdz+9haHPrL5AAAAA="
     }
   },
   "ouroboros": {
@@ -333,6 +381,18 @@
       "from": "phone/playwright-focus-proof-384.webp",
       "sha256": "685adbd6fb2927f7afe99f40bbc5e56b93c745409efc87f32b4f743589fe9b9c",
       "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABwAgCdASoQAAcAAkA4JbACdDBDyIfMAMZKCTQAAP7XP8w2Q1xMmOK17a+b8Hq2mR+4xMy4gR41Bxap7CVV95dLOnGQkxwyzJX61CS/tAhVScISJ/v3MN11mH9zPKdMAL7+hv90LdtqjaqGaZ1oQvUoIf6qy479wAAAAA=="
+    }
+  },
+  "playwright-focus-proof-dark": {
+    "wide": {
+      "from": "headers/playwright-focus-proof-dark.webp",
+      "sha256": "a9c33363717c293cc43be217a1e201526891e1a8abc611f64de812f62f35152b",
+      "uri": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQAgCdASoQAAYAAkA4JbACdAEU2+d/pSAAAP70gNRpOAL71FFLb8KvramGYAzpoiffQdEgWrWTRKveS939e3KGboPrg0Z9mYGmVqpGe3/p+8D3DfDnGpJrvFO7FBk/+DbTt3ypf01U98a3dfVMx63+QAAAAA=="
+    },
+    "phone": {
+      "from": "phone/playwright-focus-proof-dark-384.webp",
+      "sha256": "feb4a464180d75ee24d339d81ce24b764b0c09c863413abd991a8424288dca30",
+      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwAgCdASoQAAYAAkA4JbACdAYtpjOKrHRQAAD+9KFW7k+tXd5kxXTjS0EPAxfD2uCXYjju8XyZYfdHY9nvJ9hHoglq+7IaiaX+P4nfx4B590Uht+JzjUmdU7t9YKTBKg52o+1uVg85LWxIbeP5sgAA"
     }
   },
   "shepherd": {
