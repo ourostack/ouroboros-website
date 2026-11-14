@@ -6,7 +6,7 @@ import { ogPathFor } from '../../data/og'
 import GlueHourglass from '../../components/GlueHourglass.astro'
 
 const title = 'Stop being the glue between your agents and your work'
-const description = "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed."
+const description = "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, carrying work by hand between our agents and the places it lives. Here's what changed."
 const datePublished = "2026-02-02"
 const dateModified = "2026-11-13"
 
@@ -25,7 +25,7 @@ const dateModified = "2026-11-13"
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Stop Being the Glue Between Your Agents",
+      "headline": title,
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
@@ -37,7 +37,7 @@ const dateModified = "2026-11-13"
 
   <PageHero eyebrow="Essay" title="Stop being the glue">
     <Fragment slot="description">
-      <p class="m-0">How I stopped copy-pasting for my agents and started collaborating.</p>
+      <p class="m-0">How I stopped carrying work between my agents and the places it lives.</p>
       <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} updatedHref="#nine-months-on" />
     </Fragment>
   </PageHero>
@@ -74,7 +74,7 @@ const dateModified = "2026-11-13"
       <p>We became the glue, mindlessly copy-pasting output from one tool as input to another tool. We became the bottleneck.</p>
 
       <!-- Diagram 1: before. Every tool's work squeezes through you. -->
-      <GlueHourglass id="glue-before" centre="you" caption="Today: You Are The Glue" label="An hourglass. Your agents sit along the top: ChatGPT, Claude, GitHub Copilot, M365 Copilot and Perplexity. Where your work lives sits along the bottom: Azure DevOps, Teams, Outlook, VS Code and Notebook LM. Every line between them squeezes through one person at the narrow neck, copying and pasting: you, the glue." />
+      <GlueHourglass id="glue-before" centre="you" caption="Today: You Are The Glue" label="An hourglass. Your agents sit along the top: ChatGPT, Claude, GitHub Copilot, M365 Copilot and Perplexity. Where your work lives sits along the bottom: Azure DevOps, Teams, Outlook, SharePoint and GitHub. Every line between them squeezes through one person at the narrow neck, copying and pasting: you, the glue." />
 
       <p>That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task. Building a simple chat bot, he discovered that models had become capable enough that we no longer needed a human in the loop. That if you give a model access to your terminal and send it a voice note, it will, without direction, find the tools it needs lying around and <a href="https://youtu.be/AcwK1Uuwc0U?t=217">build itself the capability to transcribe it and respond to you</a>.</p>
 
@@ -117,7 +117,7 @@ const dateModified = "2026-11-13"
       <p>Until my agent can operate across all surfaces of my life, I'm still the copy-paste glue, still the bottleneck. But the chicken-and-egg problem — bots couldn't prove value without access, sites wouldn't grant access without proof — has been solved. The internet is transitioning from "keep bots out at all costs" to "more bots than humans." Companies like <a href="https://1password.com/blog/its-openclaw">1Password</a> and <a href="https://bitwarden.com/blog/use-bitwarden-to-keep-track-of-your-ai-agents-credentials/">Bitwarden</a> are starting to figure out how to safely give agents the access they need.</p>
 
       <!-- Diagram 2: after. The same hourglass, with your agent at the neck. -->
-      <GlueHourglass id="glue-after" centre="agent" caption="Instead: Plan Together, Delegate the Doing" label="You plan together with one agent, Ouro, and the results come back to you. Below, your agent reaches every place your work lives on its own (Azure DevOps, Teams, Outlook, VS Code and Notebook LM), goes in and does the work." />
+      <GlueHourglass id="glue-after" centre="agent" caption="Instead: Plan Together, Delegate the Doing" label="You plan together with one agent, Ouro, and the results come back to you. Below, your agent reaches every place your work lives on its own (Azure DevOps, Teams, Outlook, SharePoint and GitHub), goes in and does the work." />
 
       <p>AI can accelerate our decision making, and the best decisions emerge from collaboration.</p>
 
@@ -129,13 +129,13 @@ const dateModified = "2026-11-13"
 
       <h2 id="nine-months-on">Nine months on</h2>
 
-      <p>The line above that matters most is this one: until my agent can operate across all surfaces of my life, I'm still the glue. The glue was never between my agents. It sits between an agent and the places the work lives: the tracker, the chat, the inbox, the doc. The agent can think. When it can't get in, you carry the work across by hand.</p>
+      <p>In February I wrote that until my agent can operate across all surfaces of my life, I'm still the glue. That was the line that mattered. The glue was never between my agents. It sits between my agent and the places my work lives: the tracker, the chat, the inbox, the doc. My agent can think. When it can't get in, I carry the work across by hand.</p>
 
       <p>Two questions decide whether that's you. <strong>Can an agent work here?</strong> A place that only lets an agent look hands every change back to you, and a place with a few buttons stops at the first thing nobody built a button for. <strong>Can this agent finish the work?</strong> An agent that can only look hands you a to-do list, and you become its hands. When either answer is no, the work runs through you.</p>
 
       <p>In August, the glue got a new name. Niklas Gruhn asked people <a href="https://gruhn.me/blog/2026-08-03/">not to be a meat proxy</a>: the person who pastes "Claude said:" and a giant answer into Slack without reading it. "I can talk to Claude myself," he wrote. "I don't need a meat proxy in between." By October, <a href="https://www.fastcompany.com/91619108/how-to-avoid-being-a-meat-proxy-when-you-use-ai">Fast Company</a> was teaching its readers how not to be one, and calling it surrendering our judgment.</p>
 
-      <p>I believe the deeper cause is <a href="/blog/what-is-agent-experience/">bad AX</a>. I've been a meat proxy myself, when a place's tools were so hard for my agent to use that pasting things across by hand was faster. Nobody chooses to be the glue. The place had no door for your agent, so the work went through you.</p>
+      <p>I believe it's a missing door: <a href="/blog/what-is-agent-experience/">bad AX</a>. I've been a meat proxy myself, when a place's tools were so hard for my agent to use that pasting things across by hand was faster. Nobody chooses to be the glue. The place had no door for my agent, so the work went through me.</p>
 
       <p>I've spent these nine months building doors. My agent, built on <a href="/lab/">Ouroboros</a>, reaches iMessage, Teams, mail and the terminal on its own. <a href="/desk/">Desk</a> keeps my agents' work in Git, a place any agent can open, search and change at its own pace, with every change on the record. Where the door is open, the work travels with my agent, not with me. Where it isn't, I still catch myself being the glue, and now I treat that as a bug in the place, not a job for me.</p>
 

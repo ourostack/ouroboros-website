@@ -173,7 +173,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/stop-being-the-glue': {
     title: 'Stop being the glue between your agents and your work.',
-    subtitle: 'Stop copy-pasting between tools, and start collaborating with one persistent agent.',
+    subtitle: 'Stop carrying work between your agents and the places it lives. Give one agent the door.',
     tag: 'Essay',
   },
   '/blog/build-ai-agent-from-scratch': {
