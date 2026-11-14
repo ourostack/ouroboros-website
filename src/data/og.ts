@@ -173,7 +173,7 @@ export const pageOg: Record<string, OgEntry> = {
   },
   '/blog/stop-being-the-glue': {
     title: 'Stop being the glue between your agents and your work.',
-    subtitle: 'Stop carrying work between your agents and the places it lives. Give one agent the door.',
+    subtitle: 'Stop carrying work between your agents and the places it lives. Give your agent a door.',
     tag: 'Essay',
   },
   '/blog/build-ai-agent-from-scratch': {
