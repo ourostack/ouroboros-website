@@ -1,18 +1,23 @@
 name: site-checks
 
-# Every PR and every push to main builds the site, runs the node tests, serves
-# the build on 127.0.0.1 the way the Worker does (scripts/serve-dist.mjs), and
-# runs every page check (npm run check:all) and the brand audit
-# (ourostack/.github brand/tools/audit.mjs --origin --dist) against it. Beside
-# it, Ouro check (lib/ouro/check, from Ouro UI) walks every page of the same
-# build at 390x844, 1440x900 and 3840x2160 in light and dark, in four shards;
-# ouro-check.json holds its waivers and budgets. Each shard first proves
-# lib/ouro/check is byte for byte Ouro UI's release at OURO_UI_TAG. Time to the
-# largest content (LCP) is gated at a budget wide enough for the runners' noise;
-# taste reviewers then judge only what a tool can't measure.
+# Every PR and every push to main builds the site and runs every gate on it, in
+# parallel jobs so the run is only as long as its longest share:
+#   - tests: npm test (the build and the node tests), then serves the build on
+#     127.0.0.1 the way the Worker does (scripts/serve-dist.mjs) and runs the
+#     brand audit (ourostack/.github brand/tools/audit.mjs --origin --dist).
+#   - pages: every page check (npm run check:all) against the same build,
+#     split into four shards by measured time (scripts/check-shards.mjs).
+#   - ouro-check: Ouro check (lib/ouro/check, from Ouro UI) walks every page at
+#     390x844, 1440x900 and 3840x2160 in light and dark, in six shards;
+#     ouro-check.json holds its waivers and budgets. Each shard first proves
+#     lib/ouro/check is byte for byte Ouro UI's release at OURO_UI_TAG. Time to
+#     the largest content (LCP) is gated at a budget wide enough for the
+#     runners' noise; taste reviewers then judge only what a tool can't measure.
+# tests/check-shards.test.mjs fails when a matrix drops a shard.
 #
 # The last job is named site-checks so it stays the one required check on
-# main: it passes only when the page checks and every Ouro check shard pass.
+# main: it passes only when the tests and every page and Ouro check shard pass.
+# On a pull request a failed shard cancels its siblings; main always runs whole.
 # refresh-ouromd-release.yml dispatches it on the pull requests it opens, since
 # a pull request opened with a workflow's own token starts no pull_request run.
 
@@ -37,15 +42,14 @@ env:
   OURO_UI_TAG: v1.3.10
 
 jobs:
-  pages:
-    name: page checks
+  tests:
+    name: tests and brand audit
     runs-on: ubuntu-latest
-    # About twice the usual 5 minutes (median of runs on 2026-11-13 and 14).
-    timeout-minutes: 12
+    # About twice the usual 1.5 minutes, with room for a slow apt mirror.
+    timeout-minutes: 5
     env:
       SITE_BASE: http://127.0.0.1:4321
       CHECK_LOGS: ${{ github.workspace }}/check-logs
-      CHECK_JOBS: 2
     steps:
       - uses: actions/checkout@v4
 
@@ -83,14 +87,10 @@ jobs:
         id: serve
         run: |
           test -f dist/index.html
+          mkdir -p "$CHECK_LOGS"
           nohup node scripts/serve-dist.mjs --port 4321 > "$CHECK_LOGS/serve-dist.log" 2>&1 &
-          for i in $(seq 1 50); do curl -fsS -o /dev/null "$SITE_BASE/" && exit 0; sleep 0.2; done
+          for _ in $(seq 1 50); do curl -fsS -o /dev/null "$SITE_BASE/" && exit 0; sleep 0.2; done
           echo "dist/ did not come up on $SITE_BASE" && exit 1
-
-      - name: Page checks (npm run check:all)
-        id: checks
-        continue-on-error: true
-        run: npm run check:all
 
       - name: Check out ourostack/.github main for the brand audit
         uses: actions/checkout@v4
@@ -107,11 +107,11 @@ jobs:
           set -o pipefail
           node .brand-dotgithub/brand/tools/audit.mjs --only site:ouroboros.bot --origin "$SITE_BASE" --dist dist --format text 2>&1 | tee "$CHECK_LOGS/brand-audit.log"
 
-      - name: Upload check logs
+      - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: site-checks-logs
+          name: site-checks-logs-tests
           path: check-logs/
           if-no-files-found: warn
 
@@ -120,28 +120,96 @@ jobs:
         run: |
           line() { printf '%-28s %s\n' "$1" "$2"; }
           {
-            echo "## site-checks"
+            echo "## tests and brand audit"
             echo '```'
             line "npm test" "${{ steps.test.outcome }}"
             line "serve dist" "${{ steps.serve.outcome }}"
-            line "check:all" "${{ steps.checks.outcome }}"
-            [ -f check-logs/summary.txt ] && sed 's/^/  /' check-logs/summary.txt
             line "brand audit" "${{ steps.audit.outcome }}"
             echo '```'
           } | tee -a "$GITHUB_STEP_SUMMARY"
-          for o in "${{ steps.test.outcome }}" "${{ steps.serve.outcome }}" "${{ steps.checks.outcome }}" "${{ steps.audit.outcome }}"; do
-            [ "$o" = success ] || { echo "page checks failed: see the steps above and the site-checks-logs artifact"; exit 1; }
+          for o in "${{ steps.test.outcome }}" "${{ steps.serve.outcome }}" "${{ steps.audit.outcome }}"; do
+            [ "$o" = success ] || { echo "failed: see the steps above and the site-checks-logs-tests artifact"; exit 1; }
           done
 
-  ouro-check:
-    name: ouro check ${{ matrix.shard }}/4
+  pages:
+    name: page checks ${{ matrix.shard }}/4
     runs-on: ubuntu-latest
-    # About twice the usual 3 minutes per shard.
-    timeout-minutes: 7
+    # About twice the usual 2.5 minutes. A hung check is killed after
+    # CHECK_TIMEOUT (240 seconds) and named before this.
+    timeout-minutes: 6
     strategy:
-      fail-fast: false
+      fail-fast: ${{ github.event_name == 'pull_request' }}
       matrix:
         shard: [1, 2, 3, 4]
+    env:
+      SHARDS: 4
+      SITE_BASE: http://127.0.0.1:4321
+      CHECK_LOGS: ${{ github.workspace }}/check-logs
+      CHECK_JOBS: 2
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Cache Playwright's Chromium
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium and its OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Chromium's OS dependencies (browser cached)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - run: npm run build
+
+      - name: Serve the build on 127.0.0.1
+        id: serve
+        run: |
+          test -f dist/index.html
+          mkdir -p "$CHECK_LOGS"
+          nohup node scripts/serve-dist.mjs --port 4321 > "$CHECK_LOGS/serve-dist.log" 2>&1 &
+          for _ in $(seq 1 50); do curl -fsS -o /dev/null "$SITE_BASE/" && exit 0; sleep 0.2; done
+          echo "dist/ did not come up on $SITE_BASE" && exit 1
+
+      - name: Page checks, shard ${{ matrix.shard }} of 4
+        run: npm run check:all -- --shard "${{ matrix.shard }}/$SHARDS"
+
+      - name: Summary
+        if: always()
+        run: |
+          [ -f check-logs/summary.txt ] || exit 0
+          { echo "## page checks ${{ matrix.shard }}/4"; echo '```'; cat check-logs/summary.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-checks-logs-${{ matrix.shard }}-of-4
+          path: check-logs/
+          if-no-files-found: warn
+
+  ouro-check:
+    name: ouro check ${{ matrix.shard }}/6
+    runs-on: ubuntu-latest
+    # About twice the usual 2.5 minutes per shard.
+    timeout-minutes: 6
+    strategy:
+      fail-fast: ${{ github.event_name == 'pull_request' }}
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6]
+    env:
+      SHARDS: 6
     steps:
       - uses: actions/checkout@v4
 
@@ -182,8 +250,8 @@ jobs:
       - run: npm run build
 
       # Exits 0 when clean and 3 on findings; each finding has a captioned close-up in findings/.
-      - name: Ouro check, shard ${{ matrix.shard }} of 4
-        run: node lib/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check --shard ${{ matrix.shard }}/4
+      - name: Ouro check, shard ${{ matrix.shard }} of 6
+        run: node lib/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check --shard "${{ matrix.shard }}/$SHARDS"
 
       - name: Summary
         if: ${{ !cancelled() }}
@@ -193,7 +261,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: ouro-check-${{ matrix.shard }}-of-4
+          name: ouro-check-${{ matrix.shard }}-of-6
           path: |
             ouro-check/report.json
             ouro-check/summary.md
@@ -202,13 +270,14 @@ jobs:
 
   site-checks:
     name: site-checks
-    needs: [pages, ouro-check]
+    needs: [tests, pages, ouro-check]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - name: The page checks and every Ouro check shard pass
+      - name: The tests and every page and Ouro check shard pass
         run: |
+          echo "tests:       ${{ needs.tests.result }}"
           echo "page checks: ${{ needs.pages.result }}"
           echo "ouro check:  ${{ needs.ouro-check.result }}"
-          [ "${{ needs.pages.result }}" = success ] && [ "${{ needs.ouro-check.result }}" = success ]
+          [ "${{ needs.tests.result }}" = success ] && [ "${{ needs.pages.result }}" = success ] && [ "${{ needs.ouro-check.result }}" = success ]
