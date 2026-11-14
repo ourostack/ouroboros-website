@@ -5,8 +5,15 @@
   in that same column. The words never sit over the art.
 
   The Hero takes the page's column (max-w-6xl) with fullWidth, so the header,
-  the art and the body share one edge. The art rises in (motion="rise", its
-  keyframes from ouro-base in global.css).
+  the art and the body share one edge. The art rises in (the Hero's own
+  starting-style transition, timed by ouro-base's motion tokens in global.css).
+
+  The scene is the Hero's picture: its day art as `light` and its night art
+  (darkScenes) as `dark`. The Hero shows the twin for the page's
+  dark variant, which follows the site's theme (.dark, set from data-theme and
+  the system's in Layout.astro), and fetches only that one. Each twin keeps the
+  phone crop below 640px and the wide art above it, at the sizes the preloads in
+  Layout.astro ask for, so the art is fetched once.
 
   Slots: "eyebrow" for an eyebrow with markup, such as a status tag (it
   replaces the eyebrow prop), "title" for a title with markup (it replaces the title prop),
@@ -22,8 +29,8 @@
 */
 import { createElement } from 'react'
 import { Hero } from './ouro/hero/hero'
-import StoryScene from './StoryScene.astro'
-import { sceneFor } from '../data/scenes.mjs'
+import type { HeroPicture } from './ouro/hero/hero'
+import { scenes, darkScenes, sceneFor, sceneRatio, phoneSize, wideSrcset } from '../data/scenes.mjs'
 import { PAGE_HERO_SIZES } from '../data/page-hero.mjs'
 
 interface Props {
@@ -37,6 +44,30 @@ interface Props {
 const { eyebrow, title, scene: sceneProp, class: className } = Astro.props
 const route = sceneFor(Astro.url.pathname)
 const scene = sceneProp ?? route.hero
+if (scene && !(scene in scenes)) throw new Error(`PageHero: unknown scene ${scene}`)
+
+const base = '/brand/storybook'
+const art = (s: string): HeroPicture => {
+  const [w, h] = sceneRatio(s)
+  const [pw, ph] = phoneSize(s)
+  const phone = (ext: string) => `${base}/phone/${s}-384.${ext} 384w, ${base}/phone/${s}-768.${ext} 768w`
+  return {
+    src: `${base}/headers/${s}.webp`,
+    width: w,
+    height: h,
+    alt: scenes[s],
+    priority: true,
+    sources: [
+      { media: '(max-width: 640px)', type: 'image/avif', srcSet: phone('avif'), sizes: PAGE_HERO_SIZES, width: pw, height: ph },
+      { media: '(max-width: 640px)', type: 'image/webp', srcSet: phone('webp'), sizes: PAGE_HERO_SIZES, width: pw, height: ph },
+      { type: 'image/avif', srcSet: wideSrcset(s, 'avif'), sizes: PAGE_HERO_SIZES, width: w, height: h },
+      { type: 'image/webp', srcSet: wideSrcset(s, 'webp'), sizes: PAGE_HERO_SIZES, width: w, height: h },
+    ],
+  }
+}
+const night = scene ? darkScenes[scene] : undefined
+if (scene && !night) throw new Error(`PageHero: ${scene} has no night art in darkScenes`)
+const picture = scene && night ? { light: art(scene), dark: art(night) } : undefined
 
 const filled = async (name: string) => {
   if (!Astro.slots.has(name)) return undefined
@@ -54,8 +85,6 @@ const eyebrowText = eyebrowHtml !== undefined ? asNode(eyebrowHtml) : eyebrow?.t
 ---
 <div class:list={['page-hero px-6 md:px-12 lg:px-16 pt-(--nav-h) pb-12 md:pb-14', className]}>
   <div class="max-w-6xl mx-auto">
-    <Hero layout="column" fullWidth headingLevel={1} eyebrow={eyebrowText} title={heroTitle} description={description} actions={actions}>
-      {scene && <Fragment slot="media"><StoryScene scene={scene} variant="hero" contained sizes={PAGE_HERO_SIZES} product={route.product} /></Fragment>}
-    </Hero>
+    <Hero data-brand-scene={scene} layout="column" fullWidth headingLevel={1} eyebrow={eyebrowText} title={heroTitle} description={description} actions={actions} picture={picture} />
   </div>
 </div>

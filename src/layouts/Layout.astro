@@ -96,6 +96,16 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     <script is:inline>
       // Apply a saved theme before first paint, so there is no flash.
       try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+      // Ouro HX's components (Hero's light and dark pictures) follow Tailwind's
+      // dark variant, which reads .dark on <html>. The site's theme is the chosen
+      // data-theme, else the system's, so .dark follows both, from first paint.
+      (function () {
+        var root = document.documentElement, light = matchMedia('(prefers-color-scheme: light)');
+        function sync() { var t = root.dataset.theme; root.classList.toggle('dark', t === 'dark' || (t !== 'light' && !light.matches)); }
+        sync();
+        new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+        light.addEventListener('change', sync);
+      })();
       // A scene image that fails (a 503, a dropped connection) falls back to the
       // next smaller size of the same art, then to the 960 WebP, then to any
       // size left; only when every size has failed does it step aside for the
@@ -109,7 +119,7 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
       document.addEventListener('DOMContentLoaded', function () { document.querySelectorAll('.story-scene img').forEach(function (img) { if (img.complete) landed(img); }); });
       document.addEventListener('error', function (e) {
         var img = e.target, pic = img && img.parentElement;
-        if (!img || img.tagName !== 'IMG' || !img.closest || !img.closest('.story-scene')) return;
+        if (!img || img.tagName !== 'IMG' || !img.closest || !img.closest('.story-scene, [data-ouro="hero"] [data-slot="media"]')) return;
         var abs = function (u) { return new URL(u, location.href).href; };
         var failed = abs(img.currentSrc || img.getAttribute('src') || '');
         var tried = img.__tried || (img.__tried = {});
@@ -317,7 +327,8 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
           }, { rootMargin: '2400px 0px' });
           deferred.forEach(function(p) { (p.getAttribute('data-defer') === 'far' ? far : io).observe(p); });
         }
-        var hero = document.querySelector('.story-hero img, .story-contained img');
+        // The hero's image: a full-bleed scene's, or the twin Ouro HX's Hero shows.
+        var hero = Array.prototype.filter.call(document.querySelectorAll('.story-hero img, [data-ouro="hero"] [data-slot="image"]'), function (img) { return img.getClientRects().length; })[0];
         if (!hero || hero.complete) { start(); return; }
         var started = false;
         function once() { if (!started) { started = true; start(); } }
