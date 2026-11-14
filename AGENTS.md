@@ -231,7 +231,7 @@ ouro.bot's website moved onto this site on 2026-11-06 (Ari: "we need a unified d
 Ouro MD's download page lives here now, so every change to it (and every taste round on it) is made in this repository:
 
 - The page is `src/pages/ouro-md/download.astro`; `/ouro-md/` stays the product page.
-- `public/ouro-md/stable.json` is the release metadata the page reads. `.github/workflows/refresh-ouromd-release.yml` rewrites it hourly from Ouro MD's latest GitHub release (`scripts/refresh-ouromd-release.mjs`), commits it, and deploys, because a push made by the workflow's own token does not start `deploy.yml`.
+- `public/ouro-md/stable.json` is the release metadata the page reads. `.github/workflows/refresh-ouromd-release.yml` rewrites it hourly from Ouro MD's latest GitHub release (`scripts/refresh-ouromd-release.mjs`). When it changed, the workflow opens a pull request, dispatches `site-checks` on it (a pull request opened with the workflow's own token starts no run), merges it when that passes, then dispatches `site-checks` on main and deploys, because a merge made with that token doesn't start `deploy.yml` either. main requires `site-checks`, so the workflow never pushes there directly.
 - `public/ouro-md-install.sh` is the one-line installer, a copy of ourostack/ouro-md `web/ouro-md-install.sh`; keep the two byte for byte the same.
 
 `tests/ouro-bot-forwards.test.mjs` fails if a forward target disappears; when you move one of those pages or files, update that Worker's map too.
