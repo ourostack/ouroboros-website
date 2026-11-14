@@ -85,6 +85,9 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'friends-relay': [16, 14, 1194, 142],
   'gatefold': [16, 6, 1194, 140],
   'agent-workbench': [16, 30, 1194, 172],
+  // On their title plates, like the butler's (2026-11-14 essay heroes).
+  'ax-trail-map': [16, 30, 1194, 172],
+  'glue-unstuck': [16, 30, 1194, 172],
   'homebrew-tap': [16, 30, 1194, 172],
   // On its title plate, like the butler's.
   'housesitter': [16, 30, 1194, 172],
@@ -133,6 +136,9 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   factory: { file: 'headers/factory.webp', plate: true },
   'friends-relay': { file: 'headers/friends-relay.webp', plate: true },
   'agent-workbench': { file: 'headers/agent-workbench.webp', plate: true },
+  // The essay heroes' casts run wider than a card-height window.
+  'ax-trail-map': { file: 'headers/ax-trail-map.webp', plate: true },
+  'glue-unstuck': { file: 'headers/glue-unstuck.webp', plate: true },
   'homebrew-tap': { file: 'headers/homebrew-tap.webp', plate: true },
   // The workbench's purple hills left its titles at about 2.7:1 once no
   // scrim washed them (Clippy, 2026-11-09): the same plate.

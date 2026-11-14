@@ -1126,6 +1126,529 @@
     "sha256": "02071bcf1824a14436a6b9a45167e9850e93f09cacca24303bfd12ad3ad83481"
   },
   {
+    "file": "headers/ax-trail-map.webp",
+    "for": "https://ouroboros.bot/blog/what-is-agent-experience/",
+    "model": "GitHub Copilot app built-in image_generation tool, 1536x1024, quality high",
+    "generated": "2026-11-14, for Ari",
+    "approval": "Ari asked for new headers for both essays, 2026-11-14: \"the header images both also need more work. 'what is agent experience' header doesnt tell me anything, and 'stop being the glue' header is both super weird AND ouro is broken\", then \"i suggest rethinking from first principles\". Concepts and their independent taste reviews: https://github.com/arimendelow/desk/tree/main/ouro-public-web/article-november-updates/art",
+    "crop": "1536x576 from the 1536x1024 master (rows 220-796), WebP q86 (Pillow 11.3)",
+    "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da",
+    "generation": [
+      {
+        "master": "ax-trail-map-master",
+        "master_sha256": "cbcea2ba3bc782a73f63a73d80dfe893c5cd3e4ac8efd9c5af36390c61dbdb79",
+        "prompt": "(Summary of the prompt.) Wide storybook scene in Ouro's world at dawn: a low wooden map board on two posts, built at Ouro's eye level, shows a painted map of the glowing trail, with a 'you are here' pin shaped like a tiny green ring (Ouro's own shape). Ouro, on-model (one closed ring, head on top, tail tip beside the snout, no limbs), leans over the board's corner peering at the pin, lit by the dawn with a rim light and a contact shadow. The glowing trail winds off into the misty hills. No people, no text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "brand/ouro.png",
+          "brand/headers/ourostack.webp (decoded to PNG)"
+        ],
+        "kept": "https://github.com/arimendelow/desk/blob/main/ouro-public-web/article-november-updates/art/ax-trail-map-master.png",
+        "note": "Three steps: the scene drawn from brand/ouro.png and headers/ourostack.webp; Ouro alone redrawn to the reference pose; Ouro alone turned toward the map and relit in the scene's light, after an independent review asked that he use the map rather than face the camera."
+      }
+    ]
+  },
+  {
+    "file": "scenes/ax-trail-map-640.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 51248,
+    "sha256": "c6032f8b93e075609fac8ff00eb9df4b91be4f98c4cf110db65f98cf7b6aca82"
+  },
+  {
+    "file": "scenes/ax-trail-map-640.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 42583,
+    "sha256": "1e57eb7fcd17c9cd2341d12abb1d0e870bbcf3866d21d7363f55ce3d95e98be1"
+  },
+  {
+    "file": "scenes/ax-trail-map-960.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 92720,
+    "sha256": "3faf1a48e9fefe5fff1f090ea68c2e71e630ff6349bf4a11c96e6ec23db6ba52"
+  },
+  {
+    "file": "scenes/ax-trail-map-960.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 72639,
+    "sha256": "7ebac58638504f38ac6392e0d6c9831ac0f0591eeae5fccc870dd7f8232d11bd"
+  },
+  {
+    "file": "scenes/ax-trail-map-1536.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 131113,
+    "sha256": "5afacdb52e65c344a441f5c29f2bf3cd154142cb73ac4be5f2696e3282b71d66"
+  },
+  {
+    "file": "scenes/ax-trail-map-2304.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map.webp",
+      "sha256": "364028122645d22b4f3dc1235c6bc7591ec09b2acd8f02821e624e240860de26"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 2304x864 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 2304,
+    "height": 864,
+    "bytes": 205305,
+    "sha256": "8a179da6d449dbf0c1558580761e07c0050730b24d0177b557d9441043322106"
+  },
+  {
+    "file": "scenes/ax-trail-map-3072.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map.webp",
+      "sha256": "364028122645d22b4f3dc1235c6bc7591ec09b2acd8f02821e624e240860de26"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 264427,
+    "sha256": "b8d9e1a27efc76295403a027e2c040e85b9615cd21cbe3ad8bfc87eff7dc400a"
+  },
+  {
+    "file": "scenes/ax-trail-map-3840.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map.webp",
+      "sha256": "364028122645d22b4f3dc1235c6bc7591ec09b2acd8f02821e624e240860de26"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3840x1440 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3840,
+    "height": 1440,
+    "bytes": 318492,
+    "sha256": "5d721a421774c4a704f9d3742573ec3a668bbfcd57c094582ebf0f1cf52406d0"
+  },
+  {
+    "file": "scenes/ax-trail-map-5120.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map.webp",
+      "sha256": "364028122645d22b4f3dc1235c6bc7591ec09b2acd8f02821e624e240860de26"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 5120x1920 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 5120,
+    "height": 1920,
+    "bytes": 403916,
+    "sha256": "645eef5dbe229bf5800a24e996a3ca4893b8f80a85acad4ef0e2bef12f833d15"
+  },
+  {
+    "file": "scenes/ax-trail-map-7680.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map.webp",
+      "sha256": "364028122645d22b4f3dc1235c6bc7591ec09b2acd8f02821e624e240860de26"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 7680,
+    "height": 2880,
+    "bytes": 568534,
+    "sha256": "37222da552146e9c0bf6a72d57f6445017a3ac838e45bb5b63228ae775152466"
+  },
+  {
+    "file": "scenes/ax-trail-map-3072.webp",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map.webp",
+      "sha256": "364028122645d22b4f3dc1235c6bc7591ec09b2acd8f02821e624e240860de26"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 396674,
+    "sha256": "efa3eb31a199a831991321c3a2b0cdcec59112035aa292b02c78530d0019c080"
+  },
+  {
+    "file": "phone/ax-trail-map-384.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 33002,
+    "sha256": "e364b914cb82417e555de8851e0a612732e6c2b2f28effd627690e70f2cd82eb"
+  },
+  {
+    "file": "phone/ax-trail-map-384.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 27604,
+    "sha256": "b3f0acab9db9fb4df69bdc671c19ebe2c29bafaf155ece9905b2d0bd3235ca44"
+  },
+  {
+    "file": "phone/ax-trail-map-768.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 88208,
+    "sha256": "448b0bb452b4aa35f30f4079d970027a6118688fb47dc6f24ce092025fb4c666"
+  },
+  {
+    "file": "phone/ax-trail-map-768.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 67515,
+    "sha256": "63dba52cb1e6d132b8b6489954dd39bfb1955c537a6fa62477722ad03ec83367"
+  },
+  {
+    "file": "og/ax-trail-map.jpg",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map.webp",
+      "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [112, 0, 1209, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 284208,
+    "sha256": "1ebb010240bbfbb387f7f655cb4f2aaefd5aec10f90097aba925882d9c23f41c"
+  },
+  {
+    "file": "headers/ax-trail-map-dark.webp",
+    "for": "https://ouroboros.bot/blog/what-is-agent-experience/",
+    "model": "GitHub Copilot app built-in image_generation tool, 1536x1024, quality high",
+    "generated": "2026-11-14, for Ari",
+    "approval": "Ari asked for new headers for both essays, 2026-11-14: \"the header images both also need more work. 'what is agent experience' header doesnt tell me anything, and 'stop being the glue' header is both super weird AND ouro is broken\", then \"i suggest rethinking from first principles\". Concepts and their independent taste reviews: https://github.com/arimendelow/desk/tree/main/ouro-public-web/article-november-updates/art",
+    "crop": "1536x576 from the 1536x1024 master (rows 220-796), WebP q86 (Pillow 11.3)",
+    "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf",
+    "generation": [
+      {
+        "master": "ax-trail-map-dark-master",
+        "master_sha256": "e300ab116b944180e9077cedb096513b014293677e44cc72f417f036bc13afb5",
+        "prompt": "(Summary of the prompt.) The day master edited to night in the style of headers/desk-dark.webp: the same scene, composition, Ouro and map board under a deep blue starry sky with a crescent moon and village lights; the trail, the painted map and the ring pin glow warm green and amber and light Ouro's face. No text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "master:ax-trail-map-master",
+          "brand/headers/desk-dark.webp (decoded to PNG)"
+        ],
+        "kept": "https://github.com/arimendelow/desk/blob/main/ouro-public-web/article-november-updates/art/ax-trail-map-dark-master.png"
+      }
+    ]
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-640.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 51746,
+    "sha256": "301167fee070f00d43a81874a3e0b64fae6ba0488c09758fae6bd35596172bfd"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-640.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 44963,
+    "sha256": "a29e9b2fefa4f074b50b5c8f64c3d44cb0ee7a070e0a3c44b30e770ef6c8746c"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-960.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 96282,
+    "sha256": "ca3c426cef61f3080835d4844e3c1e8b744f64b9aea539667aa660f042ea6373"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-960.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 78966,
+    "sha256": "68627aaa8d8271119d95161b815ae5b9c8d6dbd904523a90094f584094e94920"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-1536.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 143592,
+    "sha256": "a447b43d7e706cb12f4982735d417df17f3677451ef56913f6a11b28b2a0213a"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-2304.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map-dark.webp",
+      "sha256": "6f6c94263a9303694765f9d40b761c39fe4ed367381d92526770a34fcaa1549d"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 2304x864 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 2304,
+    "height": 864,
+    "bytes": 229356,
+    "sha256": "c7a7bccf176442113c31fc8b956b6ab8e71af945a8303c665198281885687fc2"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-3072.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map-dark.webp",
+      "sha256": "6f6c94263a9303694765f9d40b761c39fe4ed367381d92526770a34fcaa1549d"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 296160,
+    "sha256": "5ff36034b5b318690bbb9f664eacb126ae5c9d0fe1e49d91ebed3465ac26d81d"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-3840.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map-dark.webp",
+      "sha256": "6f6c94263a9303694765f9d40b761c39fe4ed367381d92526770a34fcaa1549d"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3840x1440 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3840,
+    "height": 1440,
+    "bytes": 356740,
+    "sha256": "ac7b1436c7664e8830331f6bb56b4a02000c907951408687e4890c32e7d8a641"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-5120.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map-dark.webp",
+      "sha256": "6f6c94263a9303694765f9d40b761c39fe4ed367381d92526770a34fcaa1549d"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 5120x1920 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 5120,
+    "height": 1920,
+    "bytes": 452221,
+    "sha256": "010c9548c7569e88463279ee019bde3bc0df6f92408314dcb728194c851a9df9"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-7680.avif",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map-dark.webp",
+      "sha256": "6f6c94263a9303694765f9d40b761c39fe4ed367381d92526770a34fcaa1549d"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 7680,
+    "height": 2880,
+    "bytes": 634562,
+    "sha256": "6c4dac6fd75503289ba520f7175703c585684f1c75485bc1e5009b26ccbaab4c"
+  },
+  {
+    "file": "scenes/ax-trail-map-dark-3072.webp",
+    "derivedFrom": {
+      "file": "upscaled/ax-trail-map-dark.webp",
+      "sha256": "6f6c94263a9303694765f9d40b761c39fe4ed367381d92526770a34fcaa1549d"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 436904,
+    "sha256": "49304938679f6122b84a9be5da4725717eec997f5fd25e4bd1f92b68882c2d23"
+  },
+  {
+    "file": "phone/ax-trail-map-dark-384.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 32676,
+    "sha256": "02f71f377e67fbcf704e4ecbb6007e8622a8d031a04149ce0a8cf7819647aeb1"
+  },
+  {
+    "file": "phone/ax-trail-map-dark-384.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 384x288 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 288,
+    "bytes": 28325,
+    "sha256": "dbc47b9796736f5b48b54f421bba8904fa5d1ae533f0a4dbdd725391a8619720"
+  },
+  {
+    "file": "phone/ax-trail-map-dark-768.webp",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 88854,
+    "sha256": "7e720d9c1f9c8afab348446b449547ca4e8cde471e557731d0e7a63a001ab756"
+  },
+  {
+    "file": "phone/ax-trail-map-dark-768.avif",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "phone hero (4:3)",
+    "operation": "crop box [276, 0, 1044, 576] then resize to 768x576 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 576,
+    "bytes": 70814,
+    "sha256": "ae40297e9b9ac9fa8b36ffd7c1db180bc0d58d444f859c8957ca5469de642703"
+  },
+  {
+    "file": "og/ax-trail-map-dark.jpg",
+    "derivedFrom": {
+      "file": "headers/ax-trail-map-dark.webp",
+      "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [112, 0, 1209, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 287773,
+    "sha256": "9cc141886bfa184a9e709a6b9490339cb13f9e941fcae16675b13ab9d8910d46"
+  },
+  {
     "file": "headers/butler.webp",
     "for": "butler",
     "model": "GitHub Copilot CLI built-in image_generation tool, 1536x1024, quality high",
@@ -4923,6 +5446,529 @@
     "height": 630,
     "bytes": 235268,
     "sha256": "5c567f33c3328498c8f64c204b2a351cdcfa0730cccc535962f4277fb920d5e6"
+  },
+  {
+    "file": "headers/glue-unstuck.webp",
+    "for": "https://ouroboros.bot/blog/stop-being-the-glue/",
+    "model": "GitHub Copilot app built-in image_generation tool, 1536x1024, quality high",
+    "generated": "2026-11-14, for Ari",
+    "approval": "Ari asked for new headers for both essays, 2026-11-14: \"the header images both also need more work. 'what is agent experience' header doesnt tell me anything, and 'stop being the glue' header is both super weird AND ouro is broken\", then \"i suggest rethinking from first principles\". Concepts and their independent taste reviews: https://github.com/arimendelow/desk/tree/main/ouro-public-web/article-november-updates/art",
+    "crop": "1536x576 from the 1536x1024 master (rows 250-826), WebP q86 (Pillow 11.3)",
+    "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828",
+    "generation": [
+      {
+        "master": "glue-unstuck-master",
+        "master_sha256": "626c3c6891e46989710c2d79c969a057fef3c51cee1a38aa99d722ad26d83090",
+        "prompt": "(Summary of the prompt.) Wide storybook scene in Ouro's world at dawn, the moment after being the glue: three single-purpose robots at little stalls (a rubber stamp, a magnifying glass, a quill for hands); the glowing trail links them and their blank papers stream along it and through Ouro's ring as Ouro (on-model) carries the work. Front right, the freed person relaxes against a mossy rock with a mug of tea, one foot in a striped sock; front centre, a capped white glue bottle on its side and the person's empty shoe still stuck in a dried glue puddle. No text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "brand/ouro.png",
+          "brand/headers/ourostack.webp (decoded to PNG)"
+        ],
+        "kept": "https://github.com/arimendelow/desk/blob/main/ouro-public-web/article-november-updates/art/glue-unstuck-master.png",
+        "note": "Redrawn from an earlier 'stuck being the glue' master (the person mid-pass between the robots, one shoe in the glue) after an independent review asked for one beat with Ouro as the fix; then Ouro alone redrawn to the reference pose."
+      }
+    ]
+  },
+  {
+    "file": "scenes/glue-unstuck-640.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 60354,
+    "sha256": "ba6aa8cb6ecebc4bdde0d2c0901e3924fbe0bc6ea43448d327c99eddbc7b2a77"
+  },
+  {
+    "file": "scenes/glue-unstuck-640.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 52144,
+    "sha256": "84cffe3d841f03a005e580d7dc8924828b72fbb799dfd1f303939f0d4220093d"
+  },
+  {
+    "file": "scenes/glue-unstuck-960.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 115374,
+    "sha256": "c2188213be31fcdf072495758e2f69f322a1d5fb800d58eb2ad10c7e61485135"
+  },
+  {
+    "file": "scenes/glue-unstuck-960.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 96326,
+    "sha256": "3bcc69cb58778ef62ce2298f3b8204f449bde25d025a9ffa3736fd02efc22144"
+  },
+  {
+    "file": "scenes/glue-unstuck-1536.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 186015,
+    "sha256": "ade6d1e777089fc4233472a8dea9b4144b3d5eb116d2034833220713cfc902b3"
+  },
+  {
+    "file": "scenes/glue-unstuck-2304.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck.webp",
+      "sha256": "84fc2d44c58404142cf0b73ed841222de604463295f592c92e225bc84b0c04f2"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 2304x864 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 2304,
+    "height": 864,
+    "bytes": 292634,
+    "sha256": "bed1584a462ea79a71688a0939b93ffbbc3f6cd74ebc03c64b8c36d8dc63245c"
+  },
+  {
+    "file": "scenes/glue-unstuck-3072.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck.webp",
+      "sha256": "84fc2d44c58404142cf0b73ed841222de604463295f592c92e225bc84b0c04f2"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 381899,
+    "sha256": "a9b7472e22950ffec148522f288924b0bc0b8a51eb647011fb675319a0ff0386"
+  },
+  {
+    "file": "scenes/glue-unstuck-3840.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck.webp",
+      "sha256": "84fc2d44c58404142cf0b73ed841222de604463295f592c92e225bc84b0c04f2"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3840x1440 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3840,
+    "height": 1440,
+    "bytes": 464126,
+    "sha256": "c103f09b492d13be08917141404f2609806f7beb532d426a7153cb93543da067"
+  },
+  {
+    "file": "scenes/glue-unstuck-5120.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck.webp",
+      "sha256": "84fc2d44c58404142cf0b73ed841222de604463295f592c92e225bc84b0c04f2"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 5120x1920 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 5120,
+    "height": 1920,
+    "bytes": 591444,
+    "sha256": "efbb2fb9de4870176c23ef1c4447f97b3c9239e4255a5a6802630f7aaf53dd93"
+  },
+  {
+    "file": "scenes/glue-unstuck-7680.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck.webp",
+      "sha256": "84fc2d44c58404142cf0b73ed841222de604463295f592c92e225bc84b0c04f2"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 7680,
+    "height": 2880,
+    "bytes": 830881,
+    "sha256": "6d5a9789a413e10860db1c50573aeb29eb4c6a69ad186650f17fed992da0f196"
+  },
+  {
+    "file": "scenes/glue-unstuck-3072.webp",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck.webp",
+      "sha256": "84fc2d44c58404142cf0b73ed841222de604463295f592c92e225bc84b0c04f2"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 538550,
+    "sha256": "5f7d078869e944720806898ee4c0cd34d64e2bfb900a8a65b410143f74d84377"
+  },
+  {
+    "file": "phone/glue-unstuck-384.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 384x192 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 192,
+    "bytes": 29130,
+    "sha256": "eab0e1db8fe0ec72dbfac87ae98243ab51eaff8913243ab1eec6880f1bc45644"
+  },
+  {
+    "file": "phone/glue-unstuck-384.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 384x192 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 192,
+    "bytes": 25992,
+    "sha256": "3959eec699e9ee9cbe54366b4ee52970a3daa65edc4c8c6b665b89f39f3e2982"
+  },
+  {
+    "file": "phone/glue-unstuck-768.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 768x384 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 384,
+    "bytes": 93318,
+    "sha256": "7bd9143e7d0c8fe89553be23b29a0c20d0c765b5476cac02fc6bc94c62feb1c1"
+  },
+  {
+    "file": "phone/glue-unstuck-768.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 768x384 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 384,
+    "bytes": 77322,
+    "sha256": "eff41982f206b4b791077a0c36baa7bcc5396f47049172f72e897fdbddc124d1"
+  },
+  {
+    "file": "og/glue-unstuck.jpg",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck.webp",
+      "sha256": "def656f305af52402ad205bb4cf9142c1031cd65e5062394674eacfd12a2a828"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [392, 0, 1489, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 325770,
+    "sha256": "c52b6dadc889c9edf2a61c25ab7a4a1618ee7174151bcf1cd67d06a286a6f769"
+  },
+  {
+    "file": "headers/glue-unstuck-dark.webp",
+    "for": "https://ouroboros.bot/blog/stop-being-the-glue/",
+    "model": "GitHub Copilot app built-in image_generation tool, 1536x1024, quality high",
+    "generated": "2026-11-14, for Ari",
+    "approval": "Ari asked for new headers for both essays, 2026-11-14: \"the header images both also need more work. 'what is agent experience' header doesnt tell me anything, and 'stop being the glue' header is both super weird AND ouro is broken\", then \"i suggest rethinking from first principles\". Concepts and their independent taste reviews: https://github.com/arimendelow/desk/tree/main/ouro-public-web/article-november-updates/art",
+    "crop": "1536x576 from the 1536x1024 master (rows 250-826), WebP q86 (Pillow 11.3)",
+    "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3",
+    "generation": [
+      {
+        "master": "glue-unstuck-dark-master",
+        "master_sha256": "e4e66923b5da88b019f7c8b724182438c60cd82f2db2c265a5aadf1f1b9e2a9f",
+        "prompt": "(Summary of the prompt.) The day master edited to night in the style of headers/desk-dark.webp: the same scene and composition under a deep blue starry sky with a crescent moon and village lights; lanterns on the stalls and by the person's rock, the robots' eyes, the trail and the streaming papers glow warm. No text, letters, numbers, logos or symbols anywhere.",
+        "input_images": [
+          "master:glue-unstuck-master",
+          "brand/headers/desk-dark.webp (decoded to PNG)"
+        ],
+        "kept": "https://github.com/arimendelow/desk/blob/main/ouro-public-web/article-november-updates/art/glue-unstuck-dark-master.png"
+      }
+    ]
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-640.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 58442,
+    "sha256": "2409b59f2d06ca8b70a0aadab697ed04d14f151f0dbd1aa3c42fdc350d37cf81"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-640.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 640x240 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 640,
+    "height": 240,
+    "bytes": 51825,
+    "sha256": "1a78174ccebe738977ab875dc684c8fc1258394e4825be9d724f76de9a4eaa69"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-960.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 116024,
+    "sha256": "66ec0084bc6c1377a260d0cc365a5311a024ed9eea3c0139c28395c9ded04540"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-960.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene resized to 960x360 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 960,
+    "height": 360,
+    "bytes": 98995,
+    "sha256": "3e93356c1b59b5552088105fd2668f4ff818f74445d3a478663a8e7f78d21b58"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-1536.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "site hero, responsive width",
+    "operation": "whole scene",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1536,
+    "height": 576,
+    "bytes": 194784,
+    "sha256": "fdd17fe9e3c49a569f120769e3995383e4af3086318baeef016578fc3550a679"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-2304.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck-dark.webp",
+      "sha256": "63ddc16330838e2dd4311ee1aebc38ec308592c3b419db2a934f18cd133487fa"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 2304x864 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 2304,
+    "height": 864,
+    "bytes": 303162,
+    "sha256": "2f8a4d45f56cd2ddc6adfbf65f27ba2da1b460cec593ccfb703b77d9e8f3add6"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-3072.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck-dark.webp",
+      "sha256": "63ddc16330838e2dd4311ee1aebc38ec308592c3b419db2a934f18cd133487fa"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 396687,
+    "sha256": "e24c6659f4760557b33238524b8383f43c131c3a4adb0f13f1a8e94ba032c447"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-3840.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck-dark.webp",
+      "sha256": "63ddc16330838e2dd4311ee1aebc38ec308592c3b419db2a934f18cd133487fa"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3840x1440 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3840,
+    "height": 1440,
+    "bytes": 482564,
+    "sha256": "62d82b6b7999b603635e0a4041469d1808220c5fcd88dc24407a101400649912"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-5120.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck-dark.webp",
+      "sha256": "63ddc16330838e2dd4311ee1aebc38ec308592c3b419db2a934f18cd133487fa"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 5120x1920 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 5120,
+    "height": 1920,
+    "bytes": 611146,
+    "sha256": "2a776c405584b50317dce20822323049d9ba35f385209a7e03d166347b013258"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-7680.avif",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck-dark.webp",
+      "sha256": "63ddc16330838e2dd4311ee1aebc38ec308592c3b419db2a934f18cd133487fa"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 7680,
+    "height": 2880,
+    "bytes": 854394,
+    "sha256": "b93b25c990aaef023b0e88129d1c37deb829008f6b34e531dc5a4cfd58bf7883"
+  },
+  {
+    "file": "scenes/glue-unstuck-dark-3072.webp",
+    "derivedFrom": {
+      "file": "upscaled/glue-unstuck-dark.webp",
+      "sha256": "63ddc16330838e2dd4311ee1aebc38ec308592c3b419db2a934f18cd133487fa"
+    },
+    "use": "site hero, responsive width",
+    "operation": "4x master resized to 3072x1152 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
+    "width": 3072,
+    "height": 1152,
+    "bytes": 548892,
+    "sha256": "9840d798c411978cb554d7de948cc3af0c86cae5c65d218d0ed6bf7906d30b09"
+  },
+  {
+    "file": "phone/glue-unstuck-dark-384.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 384x192 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 192,
+    "bytes": 29104,
+    "sha256": "121eac17f76d0a96e7344b2f134457e0640f2b8b29018a0ef2e8d10a70c7395f"
+  },
+  {
+    "file": "phone/glue-unstuck-dark-384.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 384x192 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 384,
+    "height": 192,
+    "bytes": 25871,
+    "sha256": "34b190044f3d464262bc9ee412798ec7c0a965c933a0690e934898a30db36002"
+  },
+  {
+    "file": "phone/glue-unstuck-dark-768.webp",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 768x384 (Lanczos)",
+    "encoder": "Pillow WebP quality 82 method 6",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 384,
+    "bytes": 95174,
+    "sha256": "990ab6cc0e07ebb4ab0c78d2d6a493d125d1e8298abee66dc0ec94bd62b7d8b7"
+  },
+  {
+    "file": "phone/glue-unstuck-dark-768.avif",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "phone hero (2:1)",
+    "operation": "crop box [384, 0, 1536, 576] then resize to 768x384 (Lanczos)",
+    "encoder": "Pillow AVIF quality 60 speed 4",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 768,
+    "height": 384,
+    "bytes": 81417,
+    "sha256": "e3d249792ee3528d8fdf98addfdefb752d3626e4601d6058cd9ed793107287f5"
+  },
+  {
+    "file": "og/glue-unstuck-dark.jpg",
+    "derivedFrom": {
+      "file": "headers/glue-unstuck-dark.webp",
+      "sha256": "1f0997d9b0a1fbee7def013945a8eca8b7313987e952f44a43d01ceaa8c779e3"
+    },
+    "use": "Open Graph and Twitter card (1200x630)",
+    "operation": "crop box [392, 0, 1489, 576] then resize to 1200x630 (Lanczos)",
+    "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
+    "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
+    "width": 1200,
+    "height": 630,
+    "bytes": 333807,
+    "sha256": "71058defc2f4886ea1c3a92334d92d57d435441c91c66c19bbef43ab903a1c70"
   },
   {
     "file": "headers/homebrew-tap.webp",
