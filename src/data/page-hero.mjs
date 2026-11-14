@@ -5,6 +5,7 @@ export const pageHeroRoutes = [
   /^\/$/,
   /^\/blog(\/[^/]+)?\/?$/,
   /^\/lab\/(why|story|how-desk-started|what-is-an-agent-harness|model-reviews|docs)\/?$/,
+  /^\/desk\/?$/,
 ]
 
 export const usesPageHero = (pathname) => pageHeroRoutes.some((route) => route.test(pathname))
