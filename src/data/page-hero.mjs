@@ -1,7 +1,11 @@
 // Pages that open on Ouro HX's Hero (PageHero.astro) rather than the full-bleed
 // StoryScene under the nav: the words sit above the page's scene, and the art is
 // shown whole inside the page's column, never under the text.
-export const pageHeroRoutes = [/^\/$/, /^\/blog(\/[^/]+)?\/?$/]
+export const pageHeroRoutes = [
+  /^\/$/,
+  /^\/blog(\/[^/]+)?\/?$/,
+  /^\/lab\/(why|story|how-desk-started|what-is-an-agent-harness|model-reviews|docs)\/?$/,
+]
 
 export const usesPageHero = (pathname) => pageHeroRoutes.some((route) => route.test(pathname))
 

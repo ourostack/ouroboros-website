@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import HeroCover from '../../components/HeroCover.astro'
+import PageHero from '../../components/PageHero.astro'
 import modelReviews from '../../data/model-reviews.json'
 import { ogPathFor } from '../../data/og'
 import { parseInlineMd } from '../../lib/md.mjs'
@@ -35,21 +35,18 @@ const runDate = new Date(modelReviews.generated).toLocaleDateString('en-US', { t
     })} />
   </Fragment>
 
-  <!-- Hero — uses the shared HeroCover so this page matches every other top-level page -->
-  <HeroCover>
+  <PageHero>
     <Fragment slot="title">
-      {/* Breaks only between phrases on a phone: "Which agent harness" held
-          whole at every width (Ari's ruling on taste review r17: a compound
-          term never breaks, and "harness" stood alone at 320), then "do
-          frontier", "models prefer?" (taste review r16: "frontier" stood
-          alone at 320). */}
-      <span class="t-ph">Which agent harness</span> <span class="t-ph">do frontier</span> <span class="t-ph">models prefer?</span>
+      {/* "Which agent harness" stays whole at every width (Ari's ruling on
+          taste review r17: a compound term never breaks). */}
+      <span class="t-ph">Which agent harness</span> do frontier models prefer?
     </Fragment>
-    <Fragment slot="subhead">{shortClaim}<span class="block mt-4 text-base text-mist">Run on {runDate}.</span></Fragment>
-    <Fragment slot="body">
-      Each model was given web search, URL fetching, and a list of {harnessCountWord} publicly documented agent harnesses. They were asked to research freely, then state which one they would most want to inhabit.
+    <Fragment slot="description">
+      <p class="m-0 text-scale">{shortClaim}</p>
+      <p class="m-0 mt-4">Each model was given web search, URL fetching, and a list of {harnessCountWord} publicly documented agent harnesses. They were asked to research freely, then state which one they would most want to inhabit.</p>
+      <p class="m-0 mt-4 text-sm">Run on {runDate}.</p>
     </Fragment>
-  </HeroCover>
+  </PageHero>
 
   <!-- Jump links: the page runs long, so each model's verdict and its
        per-harness rationale are one tap from the top (taste review r5). Plain

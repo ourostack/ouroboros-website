@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import HeroCover from '../../components/HeroCover.astro'
+import PageHero from '../../components/PageHero.astro'
 import Glossary from '../../components/Glossary.astro'
 import OuroborosRing from '../../components/OuroborosRing.astro'
 import modelReviews from '../../data/model-reviews.json'
@@ -45,13 +45,12 @@ const organs = [
   </Fragment>
 
   <!-- ═══════ 1. HERO ═══════ -->
-  <HeroCover>
-    <Fragment slot="title">Persistence is not enough.</Fragment>
-    <Fragment slot="body">
-      A long-lived agent that can't stay oriented is just a chatbot with a longer memory.
-      Ouroboros lowers the cost of self-recovery — so the human can collaborate without re-briefing.
+  <PageHero title="Persistence is not enough.">
+    <Fragment slot="description">
+      <p class="m-0">A long-lived agent that can't stay oriented is just a chatbot with a longer memory.
+      Ouroboros lowers the cost of self-recovery — so the human can collaborate without re-briefing.</p>
     </Fragment>
-  </HeroCover>
+  </PageHero>
 
   <div class="px-6 md:px-12 lg:px-16"><Glossary class="max-w-6xl mx-auto" wide /></div>
 
