@@ -31,6 +31,7 @@ export const scenes = {
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
   'ouro-ui-core-dark': 'Paint pots on a bench at night pour glowing ribbons of green and cream into a phone, a laptop and a tablet below, with misty hills and village lights behind. Ouro looks on, pleased with the colours.',
+  'playwright-focus-proof-dark': 'The same garden at night under a starry sky: a person relaxes in an armchair with a glowing laptop while two little robots work at their own table beside a tall clock, and Ouro keeps an eye on the trail as it glows through the dark.',
   'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
@@ -136,7 +137,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'ouro-ui-core': 'ouro-ui-core-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -181,7 +182,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
+const phoneSizes = { ourostack: [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 384], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'ouro-ui-apple': [768, 432], 'flow-review': [768, 384], factory: [768, 384], friends: [768, 432], housesitter: [768, 432] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -218,6 +219,7 @@ export const heroFocus = {
   ouroboros: [0.12, 0.95],
   ourostack: [0.15, 0.85],
   'playwright-focus-proof': [0.13, 0.97],
+  'playwright-focus-proof-dark': [0.05, 0.985],
   shepherd: [0.12, 0.96],
 }
 
@@ -261,6 +263,7 @@ export const castFoot = {
   ourostack: 0.83,
   // The person's sneakers under the armchair.
   'playwright-focus-proof': 0.97,
+  'playwright-focus-proof-dark': 0.985,
   // The big sheep's hooves at the right.
   shepherd: 0.935,
 }
@@ -313,6 +316,7 @@ export const phoneCastX = {
   ourostack: [0.069, 0.94],
   // The person in the armchair at the left, Ouro at the right.
   'playwright-focus-proof': [0.09, 0.923],
+  'playwright-focus-proof-dark': [0.054, 0.94],
   // The sheep by the gate at the left, the big sheep at the right.
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],

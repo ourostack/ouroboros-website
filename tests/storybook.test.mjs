@@ -114,7 +114,7 @@ test('a hero with a night version is one picture that fetches only the art for t
       for (const s of [hero, night]) assert.ok(preload.includes(`/images/guide-hero/${s}-col-3072.avif 3072w`) && preload.includes('72rem'), `${page}: ${s} column preload`);
     }
   }
-  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'ouro-ui-core'], 'every night hero is listed');
+  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'ouro-ui-core', 'playwright-focus-proof'], 'every night hero is listed');
 });
 
 test('a column hero\'s art is the guide\'s own master, upscaled and cropped, and is at least as wide as the column is drawn at 2x', () => {

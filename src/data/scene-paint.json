@@ -323,6 +323,18 @@
       "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABwAgCdASoQAAcAAkA4JbACdDBDyIfMAMZKCTQAAP7XP8w2Q1xMmOK17a+b8Hq2mR+4xMy4gR41Bxap7CVV95dLOnGQkxwyzJX61CS/tAhVScISJ/v3MN11mH9zPKdMAL7+hv90LdtqjaqGaZ1oQvUoIf6qy479wAAAAA=="
     }
   },
+  "playwright-focus-proof-dark": {
+    "wide": {
+      "from": "headers/playwright-focus-proof-dark.webp",
+      "sha256": "a9c33363717c293cc43be217a1e201526891e1a8abc611f64de812f62f35152b",
+      "uri": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQAgCdASoQAAYAAkA4JbACdAEU2+d/pSAAAP70gNRpOAL71FFLb8KvramGYAzpoiffQdEgWrWTRKveS939e3KGboPrg0Z9mYGmVqpGe3/p+8D3DfDnGpJrvFO7FBk/+DbTt3ypf01U98a3dfVMx63+QAAAAA=="
+    },
+    "phone": {
+      "from": "phone/playwright-focus-proof-dark-384.webp",
+      "sha256": "feb4a464180d75ee24d339d81ce24b764b0c09c863413abd991a8424288dca30",
+      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwAgCdASoQAAYAAkA4JbACdAYtpjOKrHRQAAD+9KFW7k+tXd5kxXTjS0EPAxfD2uCXYjju8XyZYfdHY9nvJ9hHoglq+7IaiaX+P4nfx4B590Uht+JzjUmdU7t9YKTBKg52o+1uVg85LWxIbeP5sgAA"
+    }
+  },
   "shepherd": {
     "wide": {
       "from": "headers/shepherd.webp",
