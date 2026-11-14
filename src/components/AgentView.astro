@@ -1,0 +1,194 @@
+---
+/*
+  Agent view: the home page as an agent reads it. The nav's switch
+  (AgentViewControl.astro) flips the page to its Markdown twin, fetched from
+  its real URL (/index.md, written from this page's own HTML at build:
+  src/lib/page-markdown.mjs), with the response's real status, type, size and
+  time. Nothing here is a mock: what shows is what the server sent.
+
+  The flip keeps your place: the section you were reading lines up with its
+  heading in the Markdown, and back again. It wipes down from the nav where
+  view transitions exist, and swaps at once with reduced motion. Focus stays
+  on the switch, and the switch's status line says what changed.
+*/
+import { MARKDOWN_PAGES, SITE } from '../lib/page-markdown.mjs'
+
+const src = `/${MARKDOWN_PAGES['/']}`
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+---
+
+{/* The script comes first: the section stays main's last child for global.css's meadow rules. */}
+<script>
+  const root = document.documentElement
+  const panel = document.getElementById('agent-view') as HTMLElement
+  const doc = panel.querySelector('[data-agent-doc]') as HTMLElement
+  const response = panel.querySelector('[data-agent-response]') as HTMLElement
+  const weight = panel.querySelector('[data-agent-weight]') as HTMLElement
+  const status = document.querySelector('[data-agent-view-status]') as HTMLElement | null
+  const control = document.querySelector('[data-agent-view-control]')
+  const src = panel.dataset.src!
+
+  const kb = (bytes: number) => `${(bytes / 1024).toFixed(1)} KB`
+  const key = (text: string) => text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+  const el = (tag: string, className: string, text: string) => Object.assign(document.createElement(tag), { className, textContent: text })
+
+  // One line of Markdown as text and spans: links live, marks quiet, each picture's description lit.
+  const TOKEN = /(!\[)([^\]]*)(\]\()(https?:\/\/[^\s)]+)(\))|(\]\()(https?:\/\/[^\s)]+)(\))|(\*\*|\[)/g
+  function line(text: string, inMeta: boolean): Node[] {
+    if (inMeta || text === '---') return [el('span', 'md-meta', text)]
+    const head = /^(\s*)(#{1,6} )(.*)$/.exec(text)
+    if (head) {
+      const span = el('span', 'md-head', '')
+      span.dataset.heading = key(head[3])
+      span.append(el('span', 'md-mark', head[2]), ...inline(head[3]))
+      return [document.createTextNode(head[1]), span]
+    }
+    const list = /^(\s*)([-*]|\d+\.)( .*)$/.exec(text)
+    if (list) return [document.createTextNode(list[1]), el('span', 'md-mark', list[2]), ...inline(list[3])]
+    if (text.startsWith('```')) return [el('span', 'md-mark', text)]
+    return inline(text)
+  }
+  const anchor = (url: string) => Object.assign(el('a', '', url), { href: url })
+  function inline(text: string): Node[] {
+    const out: Node[] = []
+    let at = 0
+    for (const m of text.matchAll(TOKEN)) {
+      if (m.index! > at) out.push(document.createTextNode(text.slice(at, m.index)))
+      if (m[1]) out.push(el('span', 'md-mark', m[1]), el('span', 'md-alt', m[2]), el('span', 'md-mark', m[3]), anchor(m[4]), el('span', 'md-mark', m[5]))
+      else if (m[6]) out.push(el('span', 'md-mark', m[6]), anchor(m[7]), el('span', 'md-mark', m[8]))
+      else out.push(el('span', 'md-mark', m[9]))
+      at = m.index! + m[0].length
+    }
+    if (at < text.length) out.push(document.createTextNode(text.slice(at)))
+    return out
+  }
+
+  let loading: Promise<void> | undefined
+  function load(): Promise<void> {
+    return (loading ??= (async () => {
+      const started = performance.now()
+      const res = await fetch(src, { cache: 'no-cache' })
+      const text = await res.text()
+      const ms = Math.round(performance.now() - started)
+      const bytes = new TextEncoder().encode(text).length
+      const type = (res.headers.get('content-type') ?? 'unknown type').split(';')[0]
+      response.textContent = `→ ${res.status} · ${type} · ${kb(bytes)} · ${ms} ms`
+      if (!res.ok) {
+        doc.textContent = `The server answered ${res.status}. Open the file with the link above.`
+        loading = undefined
+        return
+      }
+      const page = (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)?.decodedBodySize
+      if (page) weight.textContent = `The HTML you were reading is ${kb(page)}; this is ${kb(bytes)}.`
+      const lines = text.replace(/\n$/, '').split('\n')
+      let meta = lines[0] === '---'
+      const nodes: Node[] = []
+      lines.forEach((t, i) => {
+        if (i > 0) nodes.push(document.createTextNode('\n'))
+        nodes.push(...line(t, meta && i > 0 && t !== '---'))
+        if (i > 0 && t === '---') meta = false
+      })
+      doc.replaceChildren(...nodes)
+    })().catch((error) => {
+      loading = undefined
+      response.textContent = '→ no answer'
+      doc.textContent = `The file didn't load (${error?.message ?? error}). Open it with the link above.`
+    }))
+  }
+
+  // Where you are reading: the last heading in the top third of the screen,
+  // kept at the same height on the other side. From the page's own title, the
+  // other side opens at its top.
+  type Heading = { el: HTMLElement; key: string }
+  const humanHeadings = (): Heading[] => [...document.querySelectorAll<HTMLElement>('main#main :is(h1, h2, h3, h4)')]
+    .filter((h) => !panel.contains(h))
+    .map((h) => {
+      const copy = h.cloneNode(true) as HTMLElement
+      copy.querySelectorAll('noscript, [aria-hidden="true"]').forEach((n) => n.remove())
+      return { el: h, key: key(copy.textContent ?? '') }
+    })
+  const docHeadings = (): Heading[] => [...doc.querySelectorAll<HTMLElement>('[data-heading]')].map((h) => ({ el: h, key: h.dataset.heading! }))
+  function place(headings: Heading[]) {
+    const reading = headings.filter((h) => h.el.getBoundingClientRect().top <= innerHeight / 3).pop()
+    return reading && reading !== headings[0] ? { key: reading.key, offset: reading.el.getBoundingClientRect().top } : undefined
+  }
+
+  function flip(on: boolean) {
+    if (root.hasAttribute('data-agent-view') === on) return
+    const where = place(on ? humanHeadings() : docHeadings())
+    const swap = () => {
+      root.toggleAttribute('data-agent-view', on)
+      panel.hidden = !on
+      const target = where && (on ? docHeadings() : humanHeadings()).find((h) => h.key === where.key)
+      window.scrollTo({ top: target ? target.el.getBoundingClientRect().top + scrollY - where!.offset : 0, behavior: 'instant' })
+    }
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!still && 'startViewTransition' in document) {
+      root.setAttribute('data-agent-flip', '')
+      const transition = document.startViewTransition(swap)
+      transition.finished.finally(() => root.removeAttribute('data-agent-flip'))
+    } else swap()
+    if (status) status.textContent = on ? `Agent view on: showing ${src}, the Markdown an agent reads for this page.` : 'Agent view off: showing the page.'
+    document.dispatchEvent(new CustomEvent('agent-view:state', { detail: on }))
+  }
+
+  // Fetch as soon as someone reaches for the switch, so the flip doesn't wait.
+  control?.addEventListener('pointerenter', () => void load(), { once: true })
+  control?.addEventListener('focusin', () => void load(), { once: true })
+  // The last ask wins: off while the file is still loading stays off.
+  let wanted = false
+  document.addEventListener('agent-view', async (event) => {
+    wanted = (event as CustomEvent<boolean>).detail
+    if (wanted) await load()
+    flip(wanted)
+  })
+</script>
+
+
+{/* Last in main, on the ground band the last section has (bg-deep/40), so global.css
+    meets the meadow exactly as it did before the agent view was here. */}
+<section id="agent-view" class="agent-view bg-deep/40 px-6 md:px-12 lg:px-16" aria-labelledby="agent-view-heading" data-src={src} hidden>
+  <div class="max-w-6xl mx-auto">
+    <h2 id="agent-view-heading" class="heading-section">This page, as an agent reads it</h2>
+    <p class="dek agent-view-dek">The same words and links, with every picture as its description. <span data-agent-weight></span></p>
+    <p class="agent-request"><span class="agent-verb">GET</span> <a href={src} class={link}>{SITE}{src}</a> <span data-agent-response></span></p>
+    <pre class="agent-doc" data-agent-doc data-copy-exempt="the file an agent reads, shown as evidence; the link above opens it"></pre>
+    <p class="agent-view-more">An agent finds this file from the page's head, and the rest of the site from <a href="/llms.txt" class={link}>llms.txt</a>.</p>
+  </div>
+</section>
+
+<style>
+  #agent-view { padding-top: calc(var(--nav-h) + 2.5rem); padding-bottom: 4rem; }
+  @media (min-width: 768px) { #agent-view { padding-top: calc(var(--nav-h) + 4rem); padding-bottom: 6rem; } }
+  .agent-view-dek { margin-top: 1rem; }
+  .agent-request { margin-top: 2rem; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7; color: var(--color-mist); overflow-wrap: anywhere; }
+  .agent-verb { color: var(--color-bone); font-weight: 600; }
+  .agent-doc {
+    margin: 1.5rem 0 0;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-canopy) 45%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    color: var(--color-bone);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  @media (min-width: 768px) { .agent-doc { font-size: 0.875rem; } }
+  .agent-view-more { margin-top: 2rem; color: var(--color-mist); }
+  /* The Markdown's own marks stay quiet; the words, the headings and the pictures' descriptions carry it. */
+  .agent-doc :global(.md-mark) { color: var(--color-shadow); }
+  .agent-doc :global(.md-head) { font-weight: 700; }
+  .agent-doc :global(.md-meta) { color: var(--color-mist); }
+  .agent-doc :global(.md-alt) { color: var(--color-scale); }
+  .agent-doc :global(a) { color: var(--color-mist); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-mist) 45%, transparent); text-underline-offset: 3px; }
+  .agent-doc :global(a:hover) { color: var(--color-scale); text-decoration-color: currentColor; }
+
+  /* Flipped: the page gives way to the agent's copy; the nav and the footer stay. */
+  :global(html[data-agent-view] main#main > :not(#agent-view)) { display: none; }
+  :global(html[data-agent-view] .story-meadow) { display: none; }
+  @keyframes agent-wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+  :global(html[data-agent-flip]::view-transition-old(root)) { animation: none; }
+  :global(html[data-agent-flip]::view-transition-new(root)) { animation: agent-wipe 480ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+</style>
+

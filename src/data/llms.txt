@@ -35,6 +35,7 @@ Each project takes issues on GitHub under https://github.com/ourostack. Ask the 
 
 ## Optional
 
+- [The home page as Markdown](https://ouroboros.bot/index.md): the front page written out for you, the same words and links with each picture as its description.
 - [Harness skills manifest](https://ouroboros.bot/skills/manifest.json): skills for agents working with an Ouroboros harness install.
 - [Sitemap](https://ouroboros.bot/sitemap-index.xml)
 

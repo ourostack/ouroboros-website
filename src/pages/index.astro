@@ -14,6 +14,8 @@ import StoryScene from '../components/StoryScene.astro'
 import PageHero from '../components/PageHero.astro'
 import { buildReceipts as receipts } from '../lib/build-receipts.mjs'
 import { formatPacific, formatCount } from '../lib/receipts.mjs'
+import AgentView from '../components/AgentView.astro'
+import AgentViewControl from '../components/AgentViewControl.astro'
 
 // Every visible word on this page is transcribed from the copy deck
 // (ouroboros.bot homepage, 2026-10-11), except the receipts under the hero,
@@ -58,6 +60,7 @@ const wastes = [
 
 <Layout title={title} description={description} ogImage={ogPathFor('/')} canonical="https://ouroboros.bot/">
   <Fragment slot="head">
+    <link rel="alternate" type="text/markdown" href="/index.md" title="This page as Markdown, for agents" />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebPage",
@@ -343,6 +346,10 @@ const wastes = [
       </div>
     </div>
   </section>
+
+  {/* Agent view: the nav's switch, and the page as an agent reads it (hidden until it's on). */}
+  <AgentViewControl slot="nav" />
+  <AgentView />
 </Layout>
 
 <style>

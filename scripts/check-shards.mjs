@@ -11,13 +11,13 @@
 export const SECONDS = {
   seams: 88, hero: 42, text: 40, swipe: 37, captions: 33, drama: 32, grid: 31,
   hit: 24, headings: 21, cta: 18, gap: 17, ends: 15, h1: 15, column: 14,
-  spaces: 13, buttons: 12, swap: 10, menu: 7, fallback: 4,
+  spaces: 13, buttons: 12, swap: 10, agent: 8, menu: 7, fallback: 4,
 };
 
 export const CHECKS = [
   'text', 'hero', 'column', 'fallback', 'seams', 'menu', 'hit', 'h1', 'gap',
   'spaces', 'ends', 'swap', 'swipe', 'headings', 'drama', 'buttons', 'grid',
-  'captions', 'cta',
+  'captions', 'cta', 'agent',
 ];
 
 // Splits checks into n shards by SECONDS: longest first, each into the
