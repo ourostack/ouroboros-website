@@ -20,6 +20,12 @@ name: site-checks
 # On a pull request a failed shard cancels its siblings; main always runs whole.
 # refresh-ouromd-release.yml dispatches it on the pull requests it opens, since
 # a pull request opened with a workflow's own token starts no pull_request run.
+#
+# It is also the only way production deploys (deploy.yml), on main only. On a
+# push, deploy-early goes at once when the proof job shows this exact tree
+# already passed site-checks on its own pull request (scripts/tested-tree.mjs;
+# every gap fails closed). Otherwise, or when that deploy fails, deploy goes
+# after main's own checks pass. Main runs every check either way.
 
 on:
   pull_request:
@@ -52,6 +58,25 @@ jobs:
       CHECK_LOGS: ${{ github.workspace }}/check-logs
     steps:
       - uses: actions/checkout@v4
+
+      # The tree this pull request run checks out (its merge with main). When
+      # the pull request lands as a commit with this exact tree, the proof job
+      # finds this artifact and main deploys without waiting for its own run.
+      - name: Record the tree this run tests
+        id: tree
+        if: github.event_name == 'pull_request'
+        run: |
+          tree=$(git rev-parse 'HEAD^{tree}')
+          echo "$tree" > "$RUNNER_TEMP/tested-tree.txt"
+          echo "sha=$tree" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
+        with:
+          name: tested-tree-${{ steps.tree.outputs.sha }}
+          path: ${{ runner.temp }}/tested-tree.txt
+          retention-days: 1
+          overwrite: true
 
       - uses: actions/setup-node@v4
         with:
@@ -281,3 +306,50 @@ jobs:
           echo "page checks: ${{ needs.pages.result }}"
           echo "ouro check:  ${{ needs.ouro-check.result }}"
           [ "${{ needs.tests.result }}" = success ] && [ "${{ needs.pages.result }}" = success ] && [ "${{ needs.ouro-check.result }}" = success ]
+
+  # On a push to main: did this exact tree, workflows included, already pass
+  # site-checks on its own pull request? scripts/tested-tree.mjs answers
+  # tested=true only when every condition holds and false on any gap.
+  proof:
+    name: tree already tested on its pull request
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    outputs:
+      tested: ${{ steps.proof.outputs.tested }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts/tested-tree.mjs
+          sparse-checkout-cone-mode: false
+
+      - id: proof
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/tested-tree.mjs
+
+  deploy-early:
+    name: production deploy (tree tested on its pull request)
+    needs: proof
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.proof.outputs.tested == 'true'
+    permissions:
+      contents: read
+      deployments: write
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+
+  # Main still runs every gate. When the tree wasn't proven, or the early
+  # deploy failed, production deploys only after those gates pass.
+  deploy:
+    name: production deploy (after main's checks)
+    needs: [site-checks, deploy-early]
+    if: always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.site-checks.result == 'success' && needs.deploy-early.result != 'success'
+    permissions:
+      contents: read
+      deployments: write
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
