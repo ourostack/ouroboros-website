@@ -12,7 +12,9 @@
 // <CHECK_LOGS or check-logs>/<name>.log. Checks run CHECK_JOBS at a time
 // (default 3). It fails when any check fails, and also when a check:* script
 // in package.json is missing from CHECKS below, so a new check can never be
-// left out of CI.
+// left out of CI. A check still running after CHECK_TIMEOUT seconds (default
+// 240) is killed with its whole process group and fails as "timed out", so a
+// hung check names itself in minutes instead of holding the job.
 
 import { spawn } from 'node:child_process';
 import { appendFileSync, createWriteStream, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -45,6 +47,7 @@ const run = only ? CHECKS.filter((n) => only.includes(n)) : CHECKS;
 const logs = resolvePath(ROOT, opt('--logs') || process.env.CHECK_LOGS || 'check-logs'); // an absolute CHECK_LOGS stays as given
 mkdirSync(logs, { recursive: true });
 const jobs = Math.max(1, Number(process.env.CHECK_JOBS || 3));
+const limit = Math.max(1, Number(process.env.CHECK_TIMEOUT || 240));
 
 let base = (opt('--base') || process.env.SITE_BASE || '').replace(/\/$/, '');
 let server;
@@ -58,16 +61,30 @@ function check(name) {
   return new Promise((resolve) => {
     const started = Date.now();
     const log = createWriteStream(join(logs, `${name}.log`));
-    const child = spawn('npm', ['run', '--silent', `check:${name}`, '--', '--base', base], { cwd: ROOT, env: { ...process.env, SITE_BASE: base } });
+    // detached: the check's node process and its Chromium share one process
+    // group, so a timeout kills all of them, not just npm.
+    const child = spawn('npm', ['run', '--silent', `check:${name}`, '--', '--base', base], { cwd: ROOT, env: { ...process.env, SITE_BASE: base }, detached: true });
+    let timedOut = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      try { process.kill(-child.pid, 'SIGKILL'); } catch {}
+    }, limit * 1000);
     let tail = '';
     const keep = (chunk) => { log.write(chunk); tail = (tail + chunk).slice(-1500); };
     child.stdout.on('data', keep);
     child.stderr.on('data', keep);
     child.on('close', (code) => {
+      clearTimeout(timer);
+      if (timedOut) {
+        const note = `\ncheck:${name} timed out after ${limit}s (CHECK_TIMEOUT) and was killed\n`;
+        log.write(note);
+        tail = (tail + note).slice(-1500);
+      }
       log.end();
       const seconds = Math.round((Date.now() - started) / 1000);
-      console.log(`${code === 0 ? 'pass' : 'FAIL'}  check:${name}  (${seconds}s)`);
-      resolve({ name, ok: code === 0, seconds, tail });
+      const ok = code === 0 && !timedOut;
+      console.log(`${ok ? 'pass' : 'FAIL'}  check:${name}  (${seconds}s${timedOut ? ', timed out' : ''})`);
+      resolve({ name, ok, timedOut, seconds, tail });
     });
   });
 }
@@ -81,10 +98,10 @@ await server?.close();
 
 const failed = results.filter((r) => !r.ok);
 const summary = ['', '| check | result | seconds |', '| --- | --- | --- |',
-  ...run.map((n) => results.find((r) => r.name === n)).map((r) => `| check:${r.name} | ${r.ok ? 'pass' : '**FAIL**'} | ${r.seconds} |`)].join('\n');
+  ...run.map((n) => results.find((r) => r.name === n)).map((r) => `| check:${r.name} | ${r.ok ? 'pass' : r.timedOut ? '**FAIL (timed out)**' : '**FAIL**'} | ${r.seconds} |`)].join('\n');
 console.log(summary);
 for (const r of failed) console.log(`\n--- check:${r.name} (last lines; full log in ${join(logs, r.name + '.log')}) ---\n${r.tail}`);
-writeFileSync(join(logs, 'summary.txt'), run.map((n) => results.find((r) => r.name === n)).map((r) => `${('check:' + r.name).padEnd(26)} ${r.ok ? 'pass' : 'FAIL'}`).join('\n') + '\n');
+writeFileSync(join(logs, 'summary.txt'), run.map((n) => results.find((r) => r.name === n)).map((r) => `${('check:' + r.name).padEnd(26)} ${r.ok ? 'pass' : r.timedOut ? 'FAIL (timed out)' : 'FAIL'}`).join('\n') + '\n');
 if (process.env.GITHUB_STEP_SUMMARY) {
   appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## Page checks against ${base}\n${summary}\n`);
 }

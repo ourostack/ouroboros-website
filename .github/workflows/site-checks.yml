@@ -40,7 +40,8 @@ jobs:
   pages:
     name: page checks
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # About twice the usual 5 minutes (median of runs on 2026-11-13 and 14).
+    timeout-minutes: 12
     env:
       SITE_BASE: http://127.0.0.1:4321
       CHECK_LOGS: ${{ github.workspace }}/check-logs
@@ -135,7 +136,8 @@ jobs:
   ouro-check:
     name: ouro check ${{ matrix.shard }}/4
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # About twice the usual 3 minutes per shard.
+    timeout-minutes: 7
     strategy:
       fail-fast: false
       matrix:
@@ -203,6 +205,7 @@ jobs:
     needs: [pages, ouro-check]
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - name: The page checks and every Ouro check shard pass
         run: |
