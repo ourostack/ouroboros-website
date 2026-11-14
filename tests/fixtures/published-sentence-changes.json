@@ -5698,5 +5698,11 @@
   "was": "Your agent can fetch the live version directly at ouroboros.bot/skills/manifest.json Words used here Psyche Five Markdown files that define who the agent is, loaded every turn.",
   "now": "Your agent can fetch the live version directly from its skills manifest at ouroboros.bot/skills/manifest.json Words used here Psyche Five Markdown files that define who the agent is, loaded every turn.",
   "why": "lab heroes on Ouro HX (2026-11-13): naming the skills manifest keeps the docs lede from flipping between one line and two when the web font swaps in, which moved the page on CI"
+ },
+ {
+  "page": "blog/stop-being-the-glue",
+  "was": "Epilogue — March 2026 Six weeks after writing this, I hit every wall I predicted — and some I didn't.",
+  "now": "Six weeks later Six weeks after writing this, I hit every wall I predicted — and some I didn't.",
+  "why": "November update (Ari, 2026-11-14): notes no longer sit in a glowing bar; the epilogue becomes a section headed Six weeks later, beside Nine months on"
  }
 ]

@@ -1284,10 +1284,14 @@ main > section.border-t::before, .trail-top::before {
 }
 @keyframes trail-breathe { from { opacity: 0.6; } to { opacity: 1; } }
 
-/* A note beside the essay: open on the page, set off by a thread of trail light, no box. */
-.post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
-/* fade-ok: a 3px thread of trail light beside a note's words; no picture lies under it */
-.post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: 3px; background: linear-gradient(180deg, transparent, var(--trail-glow) 20%, var(--trail-core) 50%, var(--trail-glow) 80%, transparent); box-shadow: 0 0 10px color-mix(in srgb, var(--trail-glow) 60%, transparent); }
+/* A note beside the essay: open on the page between two hairlines, in body
+   type a step smaller, never a box and never a glowing bar (Ari, 2026-11-14:
+   "the yellow bar thing is so ugly and the text sizing is just weird"). */
+.post-note { padding: 1.25rem 0; border-block: 1px solid color-mix(in srgb, var(--color-canopy) 30%, transparent); }
+.prose-ouro .post-note p:not(blockquote.not-prose p) { font-size: 1rem; line-height: 1.8; }
+.prose-ouro .post-note p:last-child { margin-bottom: 0; }
+/* Opening an essay, the hero above already sets it off: only the hairline below. */
+.post-note:first-child { border-top: 0; padding-top: 0; }
 
 /* An open definition list (the agent bundle's folders): a name and what it
    holds, on hairlines, never a box (taste review r3, 2026-11-06). */

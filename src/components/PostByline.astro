@@ -25,6 +25,7 @@ if (updatedMonth && updatedMonth !== publishedMonth) {
   const label = escape(`Updated ${updatedMonth}`);
   html.push(updatedHref ? `<a class="underline decoration-1 underline-offset-4 hover:text-bone" href="${escape(updatedHref).replace(/"/g, '&quot;')}">${label}</a>` : label);
 }
-// Joined with &middot; as the posts always wrote it, so their HTML stays the same.
+// Joined with &middot; as the posts always wrote it; the no-break space keeps each dot
+// on the line before it, so a wrapped byline never starts with a dot.
 ---
-<p class={`text-sm text-mist ${className}`} set:html={html.join(' &middot; ')} />
+<p class={`text-sm text-mist ${className}`} set:html={html.join('&nbsp;&middot; ')} />
