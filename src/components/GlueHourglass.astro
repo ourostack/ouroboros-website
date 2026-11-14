@@ -40,10 +40,13 @@ const views: View[] = [
 const strand = (v: View, c: Chip) => {
   const [nx, ny] = v.neck;
   const fromTop = c.y < ny;
-  const y1 = c.y + (fromTop ? 15 : -15);
-  const y2 = ny + (fromTop ? -v.r : v.r);
+  const yChip = c.y + (fromTop ? 15 : -19);
+  const yNeck = ny + (fromTop ? -v.r - 4 : v.r);
   const bend = ny + (fromTop ? -v.r * 2.2 : v.r * 2.2);
-  return `M ${c.x} ${y1} C ${c.x} ${(y1 + bend) / 2}, ${nx} ${bend}, ${nx} ${y2}`;
+  // Work runs down the glass: out of the top tools, through the neck, into the bottom tools.
+  return fromTop
+    ? `M ${c.x} ${yChip} C ${c.x} ${(yChip + bend) / 2}, ${nx} ${bend}, ${nx} ${yNeck}`
+    : `M ${nx} ${yNeck} C ${nx} ${bend}, ${c.x} ${(yChip + bend) / 2}, ${c.x} ${yChip}`;
 };
 const agent = centre === 'agent';
 ---
@@ -60,7 +63,7 @@ const agent = centre === 'agent';
         </defs>
       )}
       <g class={agent ? 'hg-strands hg-strands--carried' : 'hg-strands'} stroke={agent ? `url(#${id}-${v.kind}-trail)` : undefined}>
-        {v.chips.map((c) => <path d={strand(v, c)} />)}
+        {v.chips.map((c) => <path d={strand(v, c)} marker-end={agent ? undefined : `url(#${id}-${v.kind}-flow)`} />)}
       </g>
       {v.chips.map((c) => (
         <g class="hg-chip">
@@ -70,6 +73,12 @@ const agent = centre === 'agent';
       ))}
       {!agent && (
         <>
+          <marker id={`${id}-${v.kind}-flow`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M1 1 L8 5 L1 9" class="hg-flowhead" />
+          </marker>
+          {[0, 1, 2, 3].map((i) => (
+            <rect x={v.neck[0] - v.r - 30 + i * 3} y={v.neck[1] - v.r - 6 - i * 5} width="22" height="28" rx="2" class="hg-sheet" transform={`rotate(${-14 + i * 6} ${v.neck[0] - v.r - 19 + i * 3} ${v.neck[1] - v.r + 8 - i * 5})`} />
+          ))}
           <circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} class="hg-you" />
           <text x={v.neck[0]} y={v.neck[1] - 6} class="hg-name" text-anchor="middle" dominant-baseline="middle">You</text>
           <text x={v.neck[0]} y={v.neck[1] + 15} class="hg-note" text-anchor="middle" dominant-baseline="middle">(the glue)</text>
@@ -79,9 +88,11 @@ const agent = centre === 'agent';
       )}
       {agent && (
         <>
+          <clipPath id={`${id}-${v.kind}-disc`}><circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} /></clipPath>
+          <image href="/brand/storybook/icons/ouro-192.png" x={v.neck[0] - v.r} y={v.neck[1] - v.r} width={v.r * 2} height={v.r * 2} clip-path={`url(#${id}-${v.kind}-disc)`} />
           <circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} class="hg-agent" />
-          <image href="/brand/storybook/icons/ouro.svg" x={v.neck[0] - v.r * 0.72} y={v.neck[1] - v.r * 0.72} width={v.r * 1.44} height={v.r * 1.44} />
           <text x={v.neck[0] + v.r + 14} y={v.neck[1]} class="hg-name" dominant-baseline="middle">Your agent</text>
+          <text x={v.neck[0] + v.r + 22} y={v.neck[1] - v.r - 26} class="hg-verb">does the work</text>
           <path d={`M ${v.you[0] + 34} ${v.neck[1] - 10} C ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] - 40}, ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] - 40}, ${v.neck[0] - v.r - 8} ${v.neck[1] - 10}`} class="hg-loop" marker-end={`url(#${id}-${v.kind}-arrow)`} />
           <path d={`M ${v.neck[0] - v.r - 8} ${v.neck[1] + 10} C ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] + 40}, ${(v.you[0] + v.neck[0]) / 2} ${v.neck[1] + 40}, ${v.you[0] + 34} ${v.neck[1] + 10}`} class="hg-loop" marker-end={`url(#${id}-${v.kind}-arrow)`} />
           <marker id={`${id}-${v.kind}-arrow`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
@@ -89,8 +100,17 @@ const agent = centre === 'agent';
           </marker>
           <circle cx={v.you[0]} cy={v.neck[1]} r="30" class="hg-you hg-you--free" />
           <text x={v.you[0]} y={v.neck[1] + 1} class="hg-name" text-anchor="middle" dominant-baseline="middle">You</text>
-          <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] - 46} class="hg-verb" text-anchor="middle">{v.loopLabel ? 'plan together' : 'plan'}</text>
-          <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] + 58} class="hg-verb" text-anchor="middle">{v.loopLabel ? 'results, and what we learned' : 'results'}</text>
+          {v.loopLabel ? (
+            <>
+              <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] - 46} class="hg-verb" text-anchor="middle">plan together</text>
+              <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] + 58} class="hg-verb" text-anchor="middle">results, and what we learned</text>
+            </>
+          ) : (
+            <>
+              <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] - 62} class="hg-verb" text-anchor="middle">plan<tspan x={(v.you[0] + v.neck[0]) / 2 + 4} dy="16">together</tspan></text>
+              <text x={(v.you[0] + v.neck[0]) / 2 + 4} y={v.neck[1] + 58} class="hg-verb" text-anchor="middle">results +<tspan x={(v.you[0] + v.neck[0]) / 2 + 4} dy="16">learning</tspan></text>
+            </>
+          )}
         </>
       )}
     </svg>
