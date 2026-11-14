@@ -12,10 +12,14 @@ export const scenes = {
   ourostack: 'Dawn over misty hills. Ouro, a round green snake, sits on a glowing trail that loops past the whole crew: a little factory puffing smoke, a desk under a blossom tree, a lectern, a control panel, a silver cloche, a flock of sheep, and two people and their robots waving from a picnic blanket.',
   'ourostack-dark': 'Night over misty hills under a starry sky, with village lights in the valleys. Ouro, a round green snake, sits on a glowing trail that loops past the whole crew: a little factory with lit windows puffing smoke, a desk under a blossom tree with its lamp on, a lectern, a control panel, a silver cloche, a flock of sheep, and two people and their robots waving from a picnic blanket.',
   'ouro-apps-site': 'A market stall with a green-striped awning, stacked with wrapped gifts, one box open and glowing. Ouro leans in beside it like a shopkeeper who has been up since dawn.',
+  'ouro-apps-site-dark': 'A market stall at night with a green-striped awning, stacked with wrapped gifts, one box open and glowing, and a lit village in the valley below. Ouro leans in beside it like a shopkeeper keeping late hours.',
   desk: 'A wooden desk on a hilltop meadow at sunrise, with a lamp, a tidy stack of folders and a potted plant. Ouro sits beside it, and the glowing trail winds off to more desks in the distance.',
+  'desk-dark': 'A wooden desk on a hilltop meadow at night under a starry sky, its lamp glowing over a tidy stack of folders and a potted plant. Ouro sits beside it, and the glowing trail winds off to more lamplit desks in the distance.',
   'ouro-md': 'A reading lectern holding a fresh page, a lamp and a cup of tea on a stool, and loose pages drifting in the breeze. Ouro peeks over the lectern to read along.',
+  'ouro-md-dark': 'A reading lectern holding a fresh page at night, a glowing lamp and a cup of tea on a stool, and loose pages drifting in the breeze, with village lights in the misty hills below. Ouro peeks over the lectern to read along.',
   'ouro-hx': 'A woman and a little robot fit chunky green controls into a big panel on a workbench in the meadow, while Ouro watches from the trail.',
   butler: 'A stone cottage with a server cabinet blinking green in its doorway, a watering can and a flower path. Ouro waits by the step holding a silver cloche, ready to serve.',
+  'butler-dark': 'A stone cottage at night with a server cabinet blinking green in its doorway, its lanterns lit, a watering can and a flower path. Ouro waits by the step holding a silver cloche, ready to serve.',
   housesitter: 'A round-doored cottage at sunrise, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
   'housesitter-dark': 'A round-doored cottage at night under a starry sky, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
   ouroboros: 'A round-doored burrow in a grassy hill, with a mailbox, an old telephone and letters and speech bubbles fluttering home. Ouro sits out front, the glowing trail looping past the door.',
@@ -48,6 +52,7 @@ export const scenes = {
   'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
+  'm365crawl-dark': 'A library nook at night, crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need, while the misty hills outside sit dark.',
   'ouro-native-apple-app-shell': 'A pearly snail shell on a mossy rock by a pond, opened up like a dollhouse: bookshelves, a reading chair and a warm lamp curled up inside. Ouro rests against it, as if he grew the house himself.',
   'ouro-native-apple-app-shell-dark': 'A glowing snail-shell house at night under a starry sky, its little rooms lit by lamps and lined with books, on a rock by a pond with trails of light winding through the meadow. Ouro curls up beside it, smiling.',
   'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
@@ -153,7 +158,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -210,7 +215,9 @@ export const heroFocus = {
   'apple-distribution-kit': [0.13, 0.82],
   'apple-distribution-kit-dark': [0.13, 0.82],
   butler: [0.18, 0.84],
+  'butler-dark': [0.18, 0.84],
   desk: [0.22, 0.88],
+  'desk-dark': [0.22, 0.88],
   factory: [0.2, 0.94],
   'factory-dark': [0.2, 0.94],
   'flow-review': [0.18, 0.84],
@@ -229,9 +236,12 @@ export const heroFocus = {
   housesitter: [0.3, 0.99],
   'housesitter-dark': [0.3, 0.99],
   m365crawl: [0.02, 0.98],
+  'm365crawl-dark': [0.02, 0.98],
   'ouro-apps-site': [0.05, 0.9],
+  'ouro-apps-site-dark': [0.05, 0.9],
   'ouro-hx': [0.12, 0.93],
   'ouro-md': [0.2, 0.86],
+  'ouro-md-dark': [0.2, 0.86],
   'ouro-native-apple-app-shell': [0.1, 0.8],
   'ouro-native-apple-app-shell-dark': [0.07, 0.9],
   'ouro-ui-apple': [0.05, 0.91],
@@ -268,7 +278,9 @@ export const castFoot = {
   'apple-distribution-kit': 0.64,
   'apple-distribution-kit-dark': 0.64,
   butler: 0.82,
+  'butler-dark': 0.82,
   desk: 0.85,
+  'desk-dark': 0.85,
   factory: 0.935,
   'factory-dark': 0.935,
   'flow-review': 0.83,
@@ -287,9 +299,12 @@ export const castFoot = {
   housesitter: 0.985,
   'housesitter-dark': 0.985,
   m365crawl: 0.98,
+  'm365crawl-dark': 0.98,
   'ouro-apps-site': 0.87,
+  'ouro-apps-site-dark': 0.87,
   'ouro-hx': 0.925,
   'ouro-md': 0.85,
+  'ouro-md-dark': 0.85,
   'ouro-native-apple-app-shell': 0.72,
   'ouro-native-apple-app-shell-dark': 0.845,
   'ouro-ui-apple': 0.905,
@@ -331,7 +346,9 @@ export const phoneCastX = {
   'apple-distribution-kit-dark': [0.40, 0.82],
   // Ouro's body; the cloche he holds out reaches 0.955.
   butler: [0.43, 0.90],
+  'butler-dark': [0.43, 0.90],
   desk: [0.48, 0.89],
+  'desk-dark': [0.48, 0.89],
   // .github#14 moved this crop's centre to 850 (r14).
   factory: [0.65, 0.92],
   'factory-dark': [0.65, 0.92],
@@ -352,10 +369,13 @@ export const phoneCastX = {
   housesitter: [0.19, 0.905],
   'housesitter-dark': [0.19, 0.905],
   m365crawl: [0.365, 0.885],
+  'm365crawl-dark': [0.365, 0.885],
   'ouro-apps-site': [0.43, 0.88],
+  'ouro-apps-site-dark': [0.43, 0.88],
   // .github#15: centre 780.
   'ouro-hx': [0.063, 0.936],
   'ouro-md': [0.47, 0.87],
+  'ouro-md-dark': [0.47, 0.87],
   'ouro-native-apple-app-shell': [0.5, 0.885],
   'ouro-native-apple-app-shell-dark': [0.469, 0.924],
   // .github#15: centre 840.
