@@ -58,6 +58,8 @@ export const scenes = {
   'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'apple-distribution-kit-dark': 'A market workbench of wrapped green parcels at night, lit by hanging lanterns, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
+  workshop: 'Ari’s open timber workshop on a hilltop at sunrise. A man in a navy blazer stands at a chalkboard, pointing at a drawing of a little house with a heart window and a checkmark, while friendly robots work at their benches: one drafts a plan, one tinkers under a green lamp, a brass one checks a scroll through a magnifying glass. Two more carry parcels tied with green ribbon down a glowing trail to a village in the misty hills, and Ouro peeks out of a flower pot on the windowsill.',
+  'workshop-dark': 'Ari’s open timber workshop on a hilltop at night, its lamps glowing under a starry sky. A man in a navy blazer stands at a chalkboard, pointing at a drawing of a little house with a heart window and a checkmark, while friendly robots with glowing eyes work at their benches: one drafts a plan, one tinkers under a green lamp, a brass one checks a scroll through a magnifying glass. Two more carry parcels tied with green ribbon down a glowing trail to the lit village below, and Ouro peeks out of a flower pot on the windowsill.',
   'ouroboros-website-dark': 'A rose-covered gateway at night with its wooden doors thrown open, a lantern atop a signpost pointing every which way, and the glowing trail winding off to a lit cottage on the far hill. Ouro sits by the gate.',
 }
 
@@ -69,7 +71,9 @@ export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler'
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
 const pages = {
-  '/': { hero: 'ourostack' },
+  // Ari's workshop, its robots shipping parcels, and Ouro only once, small,
+  // in a flower pot (Ari, 2026-11-14: "rn i'm drowning in ouro the snake").
+  '/': { hero: 'workshop' },
   // Product pages (and /apps/) open on the content pages' shorter scene, so
   // the primary action (Download or Install) sits in the first view at
   // 1024x768 and up (Ari's ruling on taste review r20). The cast stays whole:
@@ -158,7 +162,7 @@ export const ogSceneFor = (route) => sceneFor(route).og
 export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -203,7 +207,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432] }
+const phoneSizes = { ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -264,6 +268,9 @@ export const heroFocus = {
   'playwright-focus-proof-dark': [0.05, 0.985],
   shepherd: [0.12, 0.96],
   'shepherd-dark': [0.12, 0.96],
+  // Ouro's head in the flower pot and the man's hair, down to the man's shoes.
+  workshop: [0.04, 0.85],
+  'workshop-dark': [0.04, 0.85],
 }
 
 // The lowest point of any character's body in each scene's wide art (Ouro's
@@ -330,6 +337,9 @@ export const castFoot = {
   // The big sheep's hooves at the right.
   shepherd: 0.935,
   'shepherd-dark': 0.935,
+  // The man's shoes; the parcel robot's feet are higher.
+  workshop: 0.84,
+  'workshop-dark': 0.84,
 }
 
 // Where the cast stands across each scene's phone crop (brand/phone/<scene>-768),
@@ -405,6 +415,10 @@ export const phoneCastX = {
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],
   'shepherd-dark': [0.06, 0.91],
+  // The blue robot at the left, the parcel robot's hand at the right (its parcels reach 0.97).
+  // .github#80: 5:3 at centre 636, box [210, 0, 1063, 512].
+  workshop: [0.115, 0.89],
+  'workshop-dark': [0.115, 0.89],
 }
 // Named exemptions: a character the canonical art itself cuts at its own edge.
 // The crop already stands against the header's edge there, so no crop centre
@@ -496,8 +510,8 @@ export function heroFrame(scene, { product = false } = {}) {
   return { need: +need.toFixed(3), floor: +floor.toFixed(3), y: +(y * 100).toFixed(1), foot, trailBelow: y === 1 && 1 - foot < FOOT_ROOM }
 }
 
-/** The width:height of a scene's wide art. The whole-world panorama is 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
-export const sceneRatio = (scene) => (scene === 'ourostack' ? [1536, 512] : scene === 'friends-relay' || scene === 'friends-relay-dark' ? [1536, 614] : [1536, 576])
+/** The width:height of a scene's wide art. The whole-world panorama and the workshop are 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
+export const sceneRatio = (scene) => (['ourostack', 'ourostack-dark', 'workshop', 'workshop-dark'].includes(scene) ? [1536, 512] : scene === 'friends-relay' || scene === 'friends-relay-dark' ? [1536, 614] : [1536, 576])
 
 // A thumbnail in a list shows every scene at one aspect, THUMB_ASPECT (Ari's
 // ruling on taste review r18, 2026-11-07: the blog index's vignettes came in
