@@ -12,16 +12,11 @@ import { acts } from '../data/acts.mjs'
 import ActBody from '../components/ActBody.astro'
 import StoryScene from '../components/StoryScene.astro'
 import PageHero from '../components/PageHero.astro'
-import { buildReceipts as receipts } from '../lib/build-receipts.mjs'
-import { formatPacific, formatCount } from '../lib/receipts.mjs'
 import AgentView from '../components/AgentView.astro'
 import AgentViewControl from '../components/AgentViewControl.astro'
 
 // Every visible word on this page is transcribed from the copy deck
-// (ouroboros.bot homepage, 2026-10-11), except the receipts under the hero,
-// written in Ari's home page rethink (2026-11-14): their numbers and pull
-// requests come from GitHub (src/lib/receipts.mjs), never typed in.
-// Builders never write copy here.
+// (ouroboros.bot homepage, 2026-10-11). Builders never write copy here.
 const title = 'How can humans and agents do more together? | Ouro'
 // Link previews put this beside the Ouro character, so it never greets as Ari (cringe pass, 2026-10-16).
 const description = "Ari Mendelow's workshop: the tools he's built for working with agents, how he uses them, and where it all started."
@@ -42,8 +37,6 @@ const factoryDetail = entry('factory').detail
 const ouroMdPage = '/ouro-md/'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const section = 'relative px-6 md:px-12 lg:px-16 py-14 md:py-24 border-t border-canopy/20 reveal'
-// The hero's own foot (pb-12 md:pb-14) is half the gap, so the section under it adds the other half.
-const firstSection = 'relative px-6 md:px-12 lg:px-16 pt-12 pb-14 md:pt-10 md:pb-24 border-t border-canopy/20 reveal'
 
 
 const wastes = [
@@ -85,37 +78,9 @@ const wastes = [
     </a>
   </PageHero>
 
-  <!-- Receipts: the last 24 hours of merged pull requests across ourostack, live from GitHub -->
-  {receipts && (
-  <section id="receipts" class={`${firstSection} scroll-mt-16`} aria-labelledby="receipts-heading" data-receipts data-as-of={receipts.asOf} data-count={receipts.count}>
-    <div class="max-w-6xl mx-auto">
-      <div class="section-head">
-        <h2 id="receipts-heading" class="heading-section">My agents' last 24 hours.</h2>
-        <p class="dek">They write, review and merge almost everything I ship.</p>
-      </div>
-      <div class="receipts">
-        <div class="tally">
-          <p class="tally-n" data-r="count" data-ouro-allow="type-scale" data-ouro-allow-why="The count is the section's one display figure, set like a poster numeral; it is neither running text nor a heading.">{formatCount(receipts.count)}</p>
-          <p class="tally-what">pull requests merged<span data-r="repos-phrase" hidden={receipts.repos === null}>, across <span data-r="repos">{receipts.repos}</span> ourostack repositories</span>.</p>
-          <p class="tally-more" data-r="more" hidden={receipts.week === null || receipts.all === null}><span data-r="week">{formatCount(receipts.week ?? 0)}</span> in the last 7 days. <span data-r="all">{formatCount(receipts.all ?? 0)}</span> in all.</p>
-          <p class="tally-asof"><span class="live-dot" aria-hidden="true"></span>As of <time data-r="as-of" datetime={receipts.asOf}>{formatPacific(receipts.asOf)}</time></p>
-        </div>
-        <div class="latest">
-          <p class="block-label latest-label">Latest</p>
-          <ol class="receipt-list" data-r="latest" data-ouro-allow="lone-word leaked-value" data-ouro-allow-why="Pull request titles are shown as their authors wrote them, and change with every merge.">
-            {receipts.latest.map((pr) => (
-              <li><a href={pr.url} class="receipt"><span class="receipt-title">{pr.title}</span><span class="receipt-meta">{pr.repo} #{pr.number} · <time datetime={pr.mergedAt} data-ago>{formatPacific(pr.mergedAt, receipts.asOf)}</time>&nbsp;&#8599;</span></a></li>
-            ))}
-          </ol>
-          <p class="receipts-all"><a href={receipts.search} data-r="search" class={`hit ${link}`}>See every one on GitHub &#8599;</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-  )}
-
   <!-- 2. Ouroboros: what it is, the evidence, what grew inside it -->
-  <section id="ouroboros" class={`${receipts ? section : firstSection} scroll-mt-16`} aria-labelledby="ouroboros-heading">
+  <!-- The hero's own foot (pb-12 md:pb-14) is half the gap, so this section adds the other half. -->
+  <section id="ouroboros" class="relative px-6 md:px-12 lg:px-16 pt-12 pb-14 md:pt-10 md:pb-24 border-t border-canopy/20 reveal scroll-mt-16" aria-labelledby="ouroboros-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="ouroboros-heading" class="heading-section heading-mark"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render" />Ouroboros</h2>
       <div class="split split-media ouroboros-intro">
@@ -464,156 +429,4 @@ const wastes = [
   .hx-voyage { display: block; }
   .hx-voyage img { display: block; width: 100%; height: auto; }
 
-  /* Receipts: the count large, then the latest pull requests as ruled rows, like the start links below.
-     From 1024px the count and the list sit side by side, both under the full-width heading. The rows
-     are :global because the page's script redraws them. */
-  .receipts { display: grid; gap: 2.5rem 4rem; margin-top: 2.5rem; }
-  @media (min-width: 1024px) { .receipts { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; } }
-  .tally-n { font-family: var(--font-display); font-size: clamp(5.5rem, 3rem + 11vw, 10rem); line-height: 0.8; letter-spacing: -0.03em; font-variant-numeric: lining-nums tabular-nums; color: var(--color-scale); }
-  .tally-what { margin-top: 0.75rem; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
-  @media (min-width: 768px) { .tally-what { font-size: 1.875rem; } }
-  .tally-more { margin-top: 0.75rem; font-size: 1.125rem; line-height: 1.6; color: var(--color-mist); }
-  .tally-asof { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); }
-  /* Lit only while the page holds an answer from the last few minutes (the script sets .is-live). */
-  .live-dot { display: none; width: 0.5rem; height: 0.5rem; border-radius: 9999px; background: var(--color-scale); }
-  [data-receipts].is-live .live-dot { display: inline-block; }
-  .latest .latest-label { margin-top: 0; margin-bottom: 0.25rem; }
-  .receipt-list :global(.receipt) { display: flex; flex-direction: column; align-items: flex-start; gap: 0.3rem; padding: 0.9rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
-  .receipt-list :global(li:last-child .receipt) { border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
-  .receipt-list :global(.receipt-title) { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.25; color: var(--color-bone); text-wrap: pretty; transition: color 0.2s; }
-  @media (min-width: 768px) { .receipt-list :global(.receipt-title) { font-size: 1.5rem; } }
-  .receipt-list :global(.receipt-meta) { font-size: 1rem; color: var(--color-scale); }
-  .receipt-list :global(.receipt:hover .receipt-title) { color: var(--color-scale); }
-  .receipts-all { margin-top: 1.25rem; font-size: 1.125rem; }
-  @media (prefers-reduced-motion: no-preference) {
-    [data-receipts].is-live .live-dot { animation: receipt-pulse 2.4s ease-in-out infinite; }
-    .receipt-list :global(.receipt.is-new .receipt-title) { animation: receipt-new 2.4s ease-out; }
-  }
-  @keyframes receipt-pulse { 50% { opacity: 0.35; } }
-  @keyframes receipt-new { from { color: var(--color-scale); } }
 </style>
-
-<script>
-  // Swaps in the receipts the Worker has now (/api/receipts.json, src/worker/receipts.mjs) and keeps
-  // asking every two minutes while the page is open; an answer that fails, or isn't newer than what the
-  // page shows, changes nothing. Times read as "14 min ago" in place of the build's Pacific times. The
-  // count rises from zero the first time it comes into view, unless the reader asks for less motion.
-  import { ago, formatCount, isValidReceipts } from '../lib/receipts.mjs'
-
-  const root = document.querySelector<HTMLElement>('[data-receipts]')
-  if (root) {
-    const part = <T extends HTMLElement = HTMLElement>(name: string) => root.querySelector<T>(`[data-r="${name}"]`)!
-    const countEl = part('count')
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)')
-    let asOf = root.dataset.asOf!
-    let count = Number(root.dataset.count)
-    let shownCount = count
-    let frame = 0
-
-    const tween = (from: number, to: number) => {
-      cancelAnimationFrame(frame)
-      if (reduce.matches || from === to) {
-        shownCount = to
-        countEl.textContent = formatCount(to)
-        return
-      }
-      const start = performance.now()
-      const ms = from === 0 ? 1600 : 900
-      const step = (t: number) => {
-        const p = Math.min(1, (t - start) / ms)
-        shownCount = Math.round(from + (to - from) * (1 - (1 - p) ** 3))
-        countEl.textContent = formatCount(shownCount)
-        if (p < 1) frame = requestAnimationFrame(step)
-      }
-      frame = requestAnimationFrame(step)
-    }
-
-    const timeText = (iso: string) => {
-      const at = new Date(iso)
-      const sameDay = at.toDateString() === new Date().toDateString()
-      return new Intl.DateTimeFormat(undefined, { ...(sameDay ? {} : { month: 'short', day: 'numeric' }), hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(at)
-    }
-    const tick = () => {
-      for (const t of root.querySelectorAll<HTMLTimeElement>('time[data-ago]')) t.textContent = ago(t.dateTime)
-      const asOfEl = part<HTMLTimeElement>('as-of')
-      asOfEl.textContent = timeText(asOfEl.dateTime)
-      root.classList.toggle('is-live', Date.now() - Date.parse(asOf) < 10 * 60 * 1000)
-    }
-
-    // A title's paths break only after a slash, as the build's code-wrap breaks them.
-    const titleNode = (title: string) => {
-      const span = document.createElement('span')
-      span.className = 'receipt-title'
-      title.split(/(?<=\/)/).forEach((piece, i) => {
-        if (i) span.append(document.createElement('wbr'))
-        span.append(piece)
-      })
-      return span
-    }
-    type Pr = { title: string; url: string; repo: string; number: number; mergedAt: string }
-    const item = (pr: Pr, fresh: boolean) => {
-      const li = document.createElement('li')
-      const a = document.createElement('a')
-      a.href = pr.url
-      a.className = fresh ? 'receipt is-new' : 'receipt'
-      const meta = document.createElement('span')
-      meta.className = 'receipt-meta'
-      const time = document.createElement('time')
-      time.dateTime = pr.mergedAt
-      time.dataset.ago = ''
-      time.textContent = ago(pr.mergedAt)
-      meta.append(`${pr.repo} #${pr.number} · `, time, '\u00a0\u2197')
-      a.append(titleNode(pr.title), meta)
-      li.append(a)
-      return li
-    }
-
-    const show = (r: any) => {
-      const shown = new Set([...root.querySelectorAll<HTMLAnchorElement>('.receipt')].map((a) => a.href))
-      asOf = r.asOf
-      part<HTMLTimeElement>('as-of').dateTime = r.asOf
-      part('repos-phrase').hidden = r.repos === null
-      if (r.repos !== null) part('repos').textContent = String(r.repos)
-      part('more').hidden = r.week === null || r.all === null
-      if (r.week !== null) part('week').textContent = formatCount(r.week)
-      if (r.all !== null) part('all').textContent = formatCount(r.all)
-      part<HTMLAnchorElement>('search').href = r.search
-      part('latest').replaceChildren(...r.latest.map((pr: Pr) => item(pr, !shown.has(pr.url))))
-      const from = shownCount
-      count = r.count
-      tween(from, count)
-      tick()
-    }
-
-    let last = 0
-    const refresh = async () => {
-      if (document.visibilityState !== 'visible') return
-      last = Date.now()
-      try {
-        const res = await fetch('/api/receipts.json', { headers: { accept: 'application/json' } })
-        if (!res.ok || !res.headers.get('content-type')?.includes('json')) return
-        const r = await res.json()
-        if (isValidReceipts(r) && Date.parse(r.asOf) > Date.parse(asOf)) show(r)
-      } catch {
-        // Offline, or the Worker isn't there: the page keeps what it has.
-      }
-    }
-
-    tick()
-    setInterval(tick, 30 * 1000)
-    refresh()
-    setInterval(refresh, 2 * 60 * 1000)
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && Date.now() - last > 2 * 60 * 1000) refresh()
-    })
-
-    if (!reduce.matches && 'IntersectionObserver' in window) {
-      const seen = new IntersectionObserver((entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return
-        seen.disconnect()
-        tween(0, count)
-      }, { threshold: 0.6 })
-      seen.observe(countEl)
-    }
-  }
-</script>

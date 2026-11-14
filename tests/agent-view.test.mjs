@@ -31,7 +31,6 @@ test('index.md gives each picture once, as its description, and every link in fu
   assert.doesNotMatch(md, /\]\((?!https?:)/, 'every link is absolute');
   assert.doesNotMatch(md, /\]\([^)\s]*\\/, 'no Markdown escapes inside an address');
   assert.doesNotMatch(md, /<(img|picture|source|span|div)\b|\u00A0/);
-  // Its heading, not its words: a merged pull request's title in the receipts may say "as an agent reads it" too.
   assert.ok(!md.split('\n').some((line) => /^#+ This page, as an agent reads it$/.test(line.trim())), 'the Agent view itself is not part of the page');
 });
 
