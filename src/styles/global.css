@@ -279,11 +279,12 @@ html, body { overflow-x: clip; }
 }
 :root[data-theme="light"] { --destructive: #c8001e; }
 @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --destructive: #c8001e; } }
-/* ouro-base (ouro-ui v1.3.10): the motion, layer and sheet tokens, and the
-   status and avatar colours, set for this site's dark theme here and its
-   light theme below (Ouro's own values for each). The site never sets
-   .dark, so they follow data-theme and the system setting as the palette does. */
+/* ouro-base (ouro-ui v1.3.67): the corner shape, the motion, layer and sheet
+   tokens, and the status and avatar colours, set for this site's dark theme
+   here and its light theme below (Ouro's own values for each). They follow
+   data-theme and the system setting as the palette does. */
 :root {
+  --ouro-corner-shape: squircle;
   --destructive-foreground: #000000;
   --success: #4ade80;
   --success-foreground: #000000;
@@ -386,6 +387,18 @@ html, body { overflow-x: clip; }
   --color-avatar-3: var(--avatar-3);
   --color-avatar-2: var(--avatar-2);
   --color-avatar-1: var(--avatar-1);
+}
+/* ouro-base's corner shape: every rounded Ouro part is a squircle, and
+   anything that says rounded-full stays round, whatever it sits in. */
+@layer base {
+  :where([data-ouro], [data-ouro] *)[class*="rounded"]:not([class*="rounded-full"]) {
+    --corner-shape: var(--ouro-corner-shape);
+    corner-shape: var(--ouro-corner-shape);
+  }
+  [class*="rounded-full"] {
+    --corner-shape: round;
+    corner-shape: round;
+  }
 }
 /* ouro-base's keyframes, at the top level as ouro-base.css has them: in
    @theme, Tailwind would keep only those an --animate-* token names. */
@@ -642,7 +655,7 @@ a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow
    ("Skills / for agents.", "uses / a model.": taste review r15). */
 :is(h1, h2, h3, h4, h5, h6), :is(h1, h2, h3, h4, h5, h6):is(.font-display, .post-title) { text-wrap: balance; }
 /* Running text wraps pretty; in the base layer, so a text-balance or text-wrap utility on one block still wins. */
-@layer base { p, li, dd, figcaption { text-wrap: pretty; } }
+@layer base { p, li, dd, figcaption, blockquote { text-wrap: pretty; } }
 /* A paragraph in the Hero's lede keeps the Hero's wrap (balanced in the column), not the pretty above, so a lede never ends on a short line. */
 @layer base { [data-ouro="hero"] [data-slot="description"] p { text-wrap: inherit; } }
 /* Headings flow across the full width; nothing forces a clause or sentence
@@ -1178,26 +1191,20 @@ main:has(+ .story-meadow) > :last-child:not([class~="bg-deep/40"]) { padding-bot
 /* A tinted section that ends the page meets the meadow directly, so no strip
    of page colour sits between the tint and the art (taste review r9). */
 main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
-/* A scene still on its way, or one whose image failed, shows its own dawn:
-   StoryScene paints a tiny soft preview of the art behind it (--paint for the
-   wide art, --paint-phone for the phone crop; scripts/scene-paint.mjs), framed
-   as the art is, so the sky, hills and meadow are already where they will be
-   (taste review r10: a brief 503 left /apps/'s hero as alt text on a beige
-   box). It is the art's own colour, so nothing flashes when the art lands.
-   Never a broken-image glyph, never alt text on show, never a hairline. */
-.story-scene { background: var(--paint, none) 50% 50% / cover no-repeat, #E9C9A0; }
-.story-hero { background-position: 50% var(--hero-y, 50%); }
-/* The phone crop is shown whole at its own aspect, and so is its paint. */
-.story-vignette { background-image: var(--paint-phone, none); background-size: 100% 100%; }
-@media (max-width: 640px) {
-  .story-scene { background-image: var(--paint-phone, none); background-size: 100% 100%; }
-}
-/* A hero with a night version (StoryScene, darkScenes) paints the night art
-   in the site's default dark theme and the day art in light. */
-.story-scene[data-night-scene] { --paint: var(--paint-night); --paint-phone: var(--paint-phone-night); }
-:root[data-theme="light"] .story-scene[data-night-scene] { --paint: var(--paint-day); --paint-phone: var(--paint-phone-day); }
+/* A scene still on its way, or one whose image failed, shows its own colour:
+   StoryScene paints the art's main colour behind it (--paint;
+   scripts/scene-paint.mjs), as Ouro HX's Hero does with its picture's
+   `placeholder` (taste review r10: a brief 503 left /apps/'s hero as alt text
+   on a beige box). A colour, not a tiny picture blown up, so nothing on show
+   is ever blurry. Never a broken-image glyph, never alt text on show, never a
+   hairline. */
+.story-scene { background: var(--paint, #E9C9A0); }
+/* A hero with a night version (StoryScene, darkScenes) paints the night art's
+   colour in the site's default dark theme and the day art's in light. */
+.story-scene[data-night-scene] { --paint: var(--paint-night); }
+:root[data-theme="light"] .story-scene[data-night-scene] { --paint: var(--paint-day); }
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .story-scene[data-night-scene] { --paint: var(--paint-day); --paint-phone: var(--paint-phone-day); }
+  :root:not([data-theme="dark"]) .story-scene[data-night-scene] { --paint: var(--paint-day); }
 }
 /* Once the art has landed, its paint goes: nothing of the placeholder shows
    anywhere, not even a sliver at an edge (Ari's ruling, taste review r15).

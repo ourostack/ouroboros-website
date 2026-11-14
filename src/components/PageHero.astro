@@ -32,6 +32,7 @@ import { Hero } from './ouro/hero/hero'
 import type { HeroPicture } from './ouro/hero/hero'
 import { scenes, darkScenes, sceneFor, sceneRatio, phoneSize, wideSrcset } from '../data/scenes.mjs'
 import { PAGE_HERO_SIZES } from '../data/page-hero.mjs'
+import paints from '../data/scene-paint.json'
 
 interface Props {
   eyebrow?: string
@@ -56,6 +57,8 @@ const art = (s: string): HeroPicture => {
     width: w,
     height: h,
     alt: scenes[s],
+    // The art's main colour, in the picture's box while it loads (scripts/scene-paint.mjs).
+    placeholder: paints[s]?.colour,
     priority: true,
     sources: [
       { media: '(max-width: 640px)', type: 'image/avif', srcSet: phone('avif'), sizes: PAGE_HERO_SIZES, width: pw, height: ph },

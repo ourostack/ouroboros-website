@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
+import vm from 'node:vm';
 import { distDir, distExists, readDist, listHtmlFiles } from './support/dist.mjs';
 import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes, columnHeroes, columnHeroWidths, phoneSize } from '../src/data/scenes.mjs';
 
@@ -83,8 +84,9 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
       assert.ok(img.includes(` alt="${scenes[scene]}"`), `${page}: ${scheme} alt`);
     }
     // Both twins render lazy so the hidden one never loads; the Hero's inline script
-    // makes the shown one eager before the parser reaches the next tag.
-    assert.match(html, /<\/picture><script>\(function\(s\)\{[\s\S]{0,300}g\.loading="eager"[\s\S]{0,40}<\/script>/, `${page}: the shown twin is not made eager`);
+    // makes the shown one eager before the parser reaches the next tag, and marks the
+    // media data-loaded once it lands.
+    assert.match(html, /<\/picture><script>\(function\(s,u\)\{[\s\S]{0,300}g\.loading="eager"[\s\S]{0,120}setAttribute\("data-loaded",""\)[\s\S]{0,120}<\/script>/, `${page}: the shown twin is not made eager`);
   }
 });
 
@@ -108,6 +110,8 @@ test('a hero with a night version fetches only the art for the theme in use', ()
     const preload = head.match(/<script>\(function \(\) \{ var t = document\.documentElement\.dataset\.theme;[\s\S]*?<\/script>/)?.[0];
     assert.ok(preload, `${page}: no theme-aware preload`);
     assert.ok(preload.includes(`/phone/${hero}-384.avif`) && preload.includes(`/scenes/${night}-1536.avif`), page);
+    // It must run: a bare object after a statement parses as a block and throws.
+    assert.doesNotThrow(() => new vm.Script(preload.slice('<script>'.length, -'</script>'.length)), `${page}: the theme-aware preload does not parse`);
   }
   assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'apple-distribution-kit', 'butler', 'desk', 'factory', 'flow-review', 'friends', 'friends-relay', 'gatefold', 'housesitter', 'm365crawl', 'ouro-apps-site', 'ouro-md', 'ouro-native-apple-app-shell', 'ouro-ui-apple', 'ouro-ui-core', 'ouro-work', 'ouro-workbench', 'ouroboros', 'ouroboros-skills', 'ouroboros-website', 'ourostack', 'playwright-focus-proof', 'shepherd'], 'every night hero is listed');
 });
@@ -254,33 +258,34 @@ test("a product's pages open on its own scene, hero and share card alike", () =>
 
 // A painted placeholder behind every scene (taste review r10, 2026-11-06: a
 // brief Cloudflare 503 left /apps/'s hero showing alt text on a beige box).
-// Each scene carries a tiny soft preview of its own art, painted from the
-// bytes it serves (scripts/scene-paint.mjs), and a failed image steps aside.
+// Each scene carries its own art's main colour, taken from the bytes it
+// serves (scripts/scene-paint.mjs): a colour, never a tiny picture blown up
+// into a blur. A failed image steps aside.
 const paints = JSON.parse(fs.readFileSync(new URL('../src/data/scene-paint.json', import.meta.url), 'utf8'));
 
-test('every scene paint comes from the art the site serves now, and stays tiny', () => {
-  for (const [scene, paint] of Object.entries(paints)) {
-    for (const kind of ['wide', 'phone']) {
-      const { from, sha256, uri } = paint[kind];
-      assert.equal(sha(path.join(distDir, 'brand/storybook', from)), sha256, `${scene} ${kind} paint is stale: run node scripts/scene-paint.mjs`);
-      assert.match(uri, /^data:image\/webp;base64,[A-Za-z0-9+/=]+$/);
-      assert.ok(uri.length < 600, `${scene} ${kind} paint is ${uri.length} characters`);
-    }
+test('every scene paint comes from the art the site serves now, and is a colour', () => {
+  for (const [scene, { from, sha256, colour }] of Object.entries(paints)) {
+    assert.equal(sha(path.join(distDir, 'brand/storybook', from)), sha256, `${scene} paint is stale: run node scripts/scene-paint.mjs`);
+    assert.match(colour, /^#[0-9a-f]{6}$/, `${scene} paint is not a colour`);
   }
 });
 
-test('every scene on every page is painted with its own dawn behind the art', () => {
+test('every scene on every page is painted with its own colour behind the art', () => {
   let count = 0;
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
     for (const [, scene, night, style] of html.matchAll(/<div class="story-scene[^"]*"[^>]*data-brand-scene="([^"]+)"(?: data-night-scene="([^"]+)")?[^>]*style="([^"]*)"/g)) {
-      // A hero with a night version carries both paints; global.css picks one per theme.
+      // A hero with a night version carries both colours; global.css picks one per theme.
       for (const [s, suffix] of night ? [[scene, '-day'], [night, '-night']] : [[scene, '']]) {
         assert.ok(paints[s], `${pageOf(file)}: ${s} has no paint`);
-        assert.ok(style.includes(`--paint${suffix}: url(${paints[s].wide.uri})`), `${pageOf(file)}: ${s} is not painted with its wide art`);
-        assert.ok(style.includes(`--paint-phone${suffix}: url(${paints[s].phone.uri})`), `${pageOf(file)}: ${s} is not painted with its phone crop`);
+        assert.ok(style.includes(`--paint${suffix}: ${paints[s].colour}`), `${pageOf(file)}: ${s} is not painted with its colour`);
       }
+      assert.doesNotMatch(style, /url\(/, `${pageOf(file)}: ${scene} is painted with a picture`);
       count++;
+    }
+    // Each Hero picture, day and night, waits on its own art's colour.
+    for (const [, img] of html.matchAll(/<img data-slot="image"([^>]*)>/g)) {
+      assert.match(img, /background-color:#[0-9a-f]{6}/, `${pageOf(file)}: a Hero picture has no placeholder colour`);
     }
     // A failed scene image falls back to a smaller size, and steps aside for
     // the paint only when every size has failed (Layout.astro's head script;
@@ -292,7 +297,7 @@ test('every scene on every page is painted with its own dawn behind the art', ()
   }
   assert.ok(count > 0, `only ${count} scenes checked`);
   const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
-  assert.match(css, /\.story-scene \{ background: var\(--paint, none\)/);
+  assert.match(css, /\.story-scene \{ background: var\(--paint, #E9C9A0\); \}/);
   assert.match(css, /\.story-scene img \{ border: 0; color: transparent; \}/);
   assert.match(css, /\.story-scene img\[data-failed\], \[data-ouro="hero"\] \[data-slot="image"\]\[data-failed\] \{ visibility: hidden; \}/);
 });
