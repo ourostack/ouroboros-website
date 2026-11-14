@@ -8,6 +8,7 @@ export const pageHeroRoutes = [
   /^\/lab\/(why|story|how-desk-started|what-is-an-agent-harness|model-reviews|docs)\/?$/,
   /^\/desk\/?$/,
   /^\/butler\/?$/,
+  /^\/ouro-md(\/download)?\/?$/,
 ]
 
 export const usesPageHero = (pathname) => pageHeroRoutes.some((route) => route.test(pathname))
