@@ -11,6 +11,13 @@
 //   - it uploaded the artifact tested-tree-<this commit's tree>;
 //   - it is site-checks.yml, on a pull_request event, from this repository (not a fork);
 //   - its head is the head of the pull request merged as this commit;
+//   - it belongs to that pull request into main: its branch is the pull request's
+//     branch, every pull request ever opened from that branch targets main, and
+//     the run's own pull_requests list, while GitHub still fills it, names that
+//     pull request into main. GitHub empties the list once the pull request
+//     merges and its branch is deleted, so the branch's pull requests carry the
+//     binding: a run of another pull request with the same head into another base
+//     is rejected either way;
 //   - it completed with success and finished within MAX_AGE_MS.
 //
 // Usage (in Actions, with GH_TOKEN): node scripts/tested-tree.mjs
@@ -24,13 +31,20 @@ export const MAX_AGE_MS = 24 * 60 * 60 * 1000;
 export const artifactName = (tree) => `tested-tree-${tree}`;
 
 // Why a run can't stand in for main's, or null when it can.
-export function reject(run, { repo, pr, now = Date.now(), maxAgeMs = MAX_AGE_MS }) {
+export function reject(run, { repo, pr, branchPulls, now = Date.now(), maxAgeMs = MAX_AGE_MS }) {
   if (!run) return 'no run';
   if (run.path !== WORKFLOW) return `workflow is ${run.path}`;
   if (run.event !== 'pull_request') return `event is ${run.event}`;
   if (run.head_repository?.full_name !== repo) return `head repository is ${run.head_repository?.full_name}`;
   if (pr?.head?.repo?.full_name !== repo) return `pull request is from ${pr?.head?.repo?.full_name}`;
   if (run.head_sha !== pr.head.sha) return `run head ${run.head_sha} is not the pull request's head ${pr.head.sha}`;
+  if (!pr.head.ref || run.head_branch !== pr.head.ref) return `run branch ${run.head_branch} is not the pull request's branch ${pr.head.ref}`;
+  const listed = run.pull_requests ?? [];
+  if (!Array.isArray(listed)) return 'run has no pull request list';
+  if (listed.length && !(listed.some((p) => p.number === pr.number) && listed.every((p) => p.base?.ref === 'main'))) return `run is not for pull request #${pr.number} into main`;
+  if (!Array.isArray(branchPulls) || !branchPulls.some((p) => p.number === pr.number)) return `pull requests from ${pr.head.ref} don't include #${pr.number}`;
+  const other = branchPulls.find((p) => p.base?.ref !== 'main');
+  if (other) return `pull request #${other.number} from the same branch targets ${other.base?.ref}`;
   if (run.status !== 'completed') return `status is ${run.status}`;
   if (run.conclusion !== 'success') return `conclusion is ${run.conclusion}`;
   const age = now - Date.parse(run.updated_at);
@@ -60,6 +74,11 @@ export async function prove({ repo, sha, token, fetchImpl = fetch, now = () => D
   if (!/^[0-9a-f]{40}$/.test(tree ?? '')) return { tested: false, reason: 'no tree for the commit' };
   const pr = mergedPull(await api(`/repos/${repo}/commits/${sha}/pulls`, token, fetchImpl), sha);
   if (!pr) return { tested: false, reason: 'not the merge of exactly one pull request into main' };
+  if (!pr.head?.ref) return { tested: false, reason: 'the pull request has no branch' };
+  // Every pull request ever opened from the branch, so a run of one into another
+  // base can't stand in. A full page might be truncated, so it fails closed.
+  const branchPulls = await api(`/repos/${repo}/pulls?state=all&head=${encodeURIComponent(`${repo.split('/')[0]}:${pr.head.ref}`)}&per_page=100`, token, fetchImpl);
+  if (!Array.isArray(branchPulls) || branchPulls.length >= 100) return { tested: false, reason: 'pull requests from the branch could not be listed in full' };
   const name = artifactName(tree);
   const started = now();
   for (;;) {
@@ -68,10 +87,10 @@ export async function prove({ repo, sha, token, fetchImpl = fetch, now = () => D
     let pending = false;
     for (const id of ids) {
       const run = await api(`/repos/${repo}/actions/runs/${id}`, token, fetchImpl);
-      const why = reject(run, { repo, pr, now: now() });
+      const why = reject(run, { repo, pr, branchPulls, now: now() });
       if (!why) return { tested: true, run: id, tree, pr: pr.number };
       log(`run ${id}: ${why}`);
-      if (run.status !== 'completed' && !reject({ ...run, status: 'completed', conclusion: 'success', updated_at: new Date(now()).toISOString() }, { repo, pr, now: now() })) pending = true;
+      if (run.status !== 'completed' && !reject({ ...run, status: 'completed', conclusion: 'success', updated_at: new Date(now()).toISOString() }, { repo, pr, branchPulls, now: now() })) pending = true;
     }
     if (!pending || now() - started >= waitMs) return { tested: false, reason: ids.length ? 'no run qualifies' : `no ${name} artifact`, tree, pr: pr.number };
     await sleep(pollMs);

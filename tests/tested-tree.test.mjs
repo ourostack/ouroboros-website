@@ -19,21 +19,24 @@ const goodRun = () => ({
   event: 'pull_request',
   head_repository: { full_name: repo },
   head_sha: head,
+  head_branch: 'feature',
+  pull_requests: [],
   status: 'completed',
   conclusion: 'success',
   updated_at: '2026-11-14T02:59:00Z',
 });
-const goodPull = () => ({ number: 138, merge_commit_sha: sha, merged_at: '2026-11-14T02:59:05Z', base: { ref: 'main' }, head: { sha: head, repo: { full_name: repo } } });
+const goodPull = () => ({ number: 138, merge_commit_sha: sha, merged_at: '2026-11-14T02:59:05Z', base: { ref: 'main' }, head: { sha: head, ref: 'feature', repo: { full_name: repo } } });
 
 // A fake GitHub API. `runs` is a list of run states returned in turn, so a
 // test can model a run that finishes while proof polls.
-function fakeApi({ commit = { tree: { sha: tree } }, pulls = [goodPull()], artifacts = [{ name: artifactName(tree), expired: false, workflow_run: { id: 7 } }], runs = [goodRun()], fail } = {}) {
+function fakeApi({ commit = { tree: { sha: tree } }, pulls = [goodPull()], branchPulls = [goodPull()], artifacts = [{ name: artifactName(tree), expired: false, workflow_run: { id: 7 } }], runs = [goodRun()], fail } = {}) {
   let call = 0;
   return async (url) => {
     const path = new URL(url).pathname + new URL(url).search;
     if (fail && path.includes(fail)) return { ok: false, status: 500, json: async () => ({}) };
     const body = path.startsWith(`/repos/${repo}/git/commits/`) ? commit
       : path.endsWith('/pulls') ? pulls
+      : path.startsWith(`/repos/${repo}/pulls?state=all&head=ourostack%3Afeature&`) ? branchPulls
       : path.includes('/actions/artifacts') ? { artifacts }
       : path.includes('/actions/runs/') ? runs[Math.min(call++, runs.length - 1)]
       : undefined;
@@ -53,6 +56,11 @@ test('a passed same-repo pull request run on the identical tree proves it', asyn
   assert.equal(r.run, 7);
 });
 
+test('a run that still lists its pull request into main proves it', async () => {
+  const r = await run({ runs: [{ ...goodRun(), pull_requests: [{ number: 138, base: { ref: 'main' } }] }] });
+  assert.equal(r.tested, true, r.reason);
+});
+
 test('waits for a run that is still finishing, then trusts its success', async () => {
   const r = await run({ runs: [{ ...goodRun(), status: 'in_progress', conclusion: null }, { ...goodRun(), updated_at: '2026-11-14T03:00:15Z' }] });
   assert.equal(r.tested, true, r.reason);
@@ -60,7 +68,15 @@ test('waits for a run that is still finishing, then trusts its success', async (
 
 const failsClosed = {
   'a run from a fork': { runs: [{ ...goodRun(), head_repository: { full_name: 'someone/fork' } }] },
-  'a pull request from a fork': { pulls: [{ ...goodPull(), head: { sha: head, repo: { full_name: 'someone/fork' } } }] },
+  'a pull request from a fork': { pulls: [{ ...goodPull(), head: { sha: head, ref: 'feature', repo: { full_name: 'someone/fork' } } }] },
+  'a run of another PR with the same head and another base': { runs: [{ ...goodRun(), pull_requests: [{ number: 200, base: { ref: 'next' } }] }] },
+  'a run listing this PR and another into another base': { runs: [{ ...goodRun(), pull_requests: [{ number: 138, base: { ref: 'main' } }, { number: 200, base: { ref: 'next' } }] }] },
+  'a merged run whose branch also opened a PR into another base': { branchPulls: [goodPull(), { ...goodPull(), number: 200, base: { ref: 'next' } }] },
+  'a run from another branch at the same head': { runs: [{ ...goodRun(), head_branch: 'other' }] },
+  'a run without a branch': { runs: [{ ...goodRun(), head_branch: null }] },
+  'a pull request without a branch': { pulls: [{ ...goodPull(), head: { sha: head, repo: { full_name: repo } } }] },
+  'a branch whose pull requests omit the merged one': { branchPulls: [{ ...goodPull(), number: 139 }] },
+  'a branch with a full page of pull requests': { branchPulls: Array.from({ length: 100 }, () => goodPull()) },
   'a run on another head than the merged one': { runs: [{ ...goodRun(), head_sha: 'd'.repeat(40) }] },
   'a failed run': { runs: [{ ...goodRun(), conclusion: 'failure' }] },
   'a cancelled run': { runs: [{ ...goodRun(), conclusion: 'cancelled' }] },
@@ -88,7 +104,7 @@ for (const [name, opts] of Object.entries(failsClosed)) {
 }
 
 test('fails closed when any API call errors (the script turns the throw into tested=false)', async () => {
-  for (const fail of ['/git/commits/', '/pulls', '/actions/artifacts', '/actions/runs/']) {
+  for (const fail of ['/git/commits/', '/pulls', 'state=all', '/actions/artifacts', '/actions/runs/']) {
     await assert.rejects(run({ fail }), /500/, fail);
   }
   const src = readFileSync(new URL('../scripts/tested-tree.mjs', import.meta.url), 'utf8');
