@@ -200,7 +200,7 @@ export const heroFocus = {
   gatefold: [0.15, 0.88],
   'agent-workbench': [0.056, 0.911],
   'agent-workbench-dark': [0.056, 0.911],
-  'friends-relay-dark': [0.03, 0.97],
+  'friends-relay-dark': [0.05, 0.95],
   'homebrew-tap': [0.06, 0.88],
   // The roof's arch over the door, down to Ouro's lowest coil.
   housesitter: [0.3, 0.99],
@@ -241,7 +241,7 @@ export const castFoot = {
   gatefold: 0.8,
   'agent-workbench': 0.911,
   'agent-workbench-dark': 0.911,
-  'friends-relay-dark': 0.97,
+  'friends-relay-dark': 0.95,
   'homebrew-tap': 0.87,
   // Ouro's coil rests on the art's foot.
   housesitter: 0.985,
