@@ -89,11 +89,6 @@
     "sha256": "904c26b0d9bb9a5c50fd20f28a311046bad865484e6cf3cc29e28f99598d0e21",
     "colour": "#a898a8"
   },
-  "homebrew-tap": {
-    "from": "headers/homebrew-tap.webp",
-    "sha256": "20a21ea38d2fb4c131fadeed68c5bdd3697d1dee141f4a69bb754b09fdbd01c4",
-    "colour": "#f8b8a8"
-  },
   "housesitter": {
     "from": "headers/housesitter.webp",
     "sha256": "4378e32293fb8f3950fe1c03815f70a8a4c1dfab5af1d319d27f64017da0e827",

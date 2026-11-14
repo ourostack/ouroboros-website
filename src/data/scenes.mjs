@@ -158,9 +158,6 @@ export function sceneFor(pathname) {
 /** The scene a route's share card is set in. */
 export const ogSceneFor = (route) => sceneFor(route).og
 
-// The character beside each tool on the homepage, so the world carries on below the panorama.
-export const homeTools = { desk: 'desk', 'ouro-md': 'ouro-md', 'ouro-ui': 'ouro-ui-core', m365crawl: 'm365crawl', spoonjoy: 'homebrew-tap' }
-
 // A scene with a night version: StoryScene shows it in the dark theme.
 export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
 
@@ -193,8 +190,8 @@ export const wideSrcset = (scene, ext) => (ext === 'avif'
 
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
-  // The homepage's grown-inside rows and the factory, then the character beside each tool (homeTools).
-  const used = new Set([meadowScene, 'friends', 'shepherd', 'factory', 'ouroboros', ...Object.values(homeTools)])
+  // The homepage's two inline scenes: the harness and the factory.
+  const used = new Set([meadowScene, 'factory', 'ouroboros'])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)

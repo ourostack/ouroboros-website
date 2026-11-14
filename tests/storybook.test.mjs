@@ -162,7 +162,7 @@ test('the products show their own scenes on the shelf and on the homepage', () =
   }
   assert.match(apps, /data-brand-scene="ouro-md"/);
   const home = readDist('index.html');
-  for (const scene of ['workshop', 'ouroboros', 'friends', 'shepherd', 'butler', 'factory', meadowScene]) {
+  for (const scene of ['workshop', 'ouroboros', 'factory', meadowScene]) {
     assert.ok(new RegExp(`data-brand-scene="${scene}"`).test(home) || heroPictures(home)?.light.body.includes(`/headers/${scene}.webp"`), `the homepage shows ${scene}`);
   }
 });

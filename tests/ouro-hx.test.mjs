@@ -26,7 +26,6 @@ test('the Ouro UI entry marks HX ready to use, and AX as what comes next', () =>
   assert.match(html, /class="tag tag-today"[^>]*>Use today</);
   assert.doesNotMatch(text, /under construction/i);
   assert.doesNotMatch(text, /still being defined/);
-  assert.match(html, /data-brand-scene="ouro-ui-core"/);
   assert.doesNotMatch(html, /src="[^"]*\.svg"|href="[^"]*ouro-ax|install|stable|production-ready/i);
   assert.ok(html.includes(`href="${voyage}"`), 'The entry links to the live showcase');
 });
