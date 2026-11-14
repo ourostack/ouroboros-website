@@ -1,13 +1,16 @@
 import { redirectResponse } from './redirects.mjs';
 import { hsts, httpsRedirect, withHsts } from './https.mjs';
+import { RECEIPTS_PATH, receiptsResponse } from './receipts.mjs';
 
 export default {
-  async fetch(request: Request, env: any): Promise<Response> {
+  async fetch(request: Request, env: any, ctx: any): Promise<Response> {
     const insecure = httpsRedirect(request);
     if (insecure) return insecure;
 
     const moved = redirectResponse(request);
     if (moved) return withHsts(moved);
+
+    if (new URL(request.url).pathname === RECEIPTS_PATH) return withHsts(await receiptsResponse(request, env, ctx));
 
     const response = await env.ASSETS.fetch(request);
     const url = new URL(request.url);
