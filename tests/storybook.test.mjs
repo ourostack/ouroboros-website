@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { distDir, distExists, readDist, listHtmlFiles } from './support/dist.mjs';
-import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes, columnHeroes, columnHeroWidths, COLUMN_HERO_MEDIA } from '../src/data/scenes.mjs';
+import { sceneFor, ogSceneFor, meadowScene, scenes, productScenes, darkScenes, columnHeroes, columnHeroWidths, COLUMN_HERO_MEDIA, phoneSize } from '../src/data/scenes.mjs';
 
 // The storybook world (Ari, 2026-11-06). The art is ourostack/.github brand/,
 // copied byte for byte by scripts/sync-storybook.mjs; the brand audit fetches
@@ -26,6 +26,26 @@ test('every storybook file is served with exactly its provenance bytes, and noth
   for (const file of walk(path.join(distDir, 'brand/storybook'))) {
     const rel = path.relative(path.join(distDir, 'brand/storybook'), file);
     if (rel !== 'provenance.json') assert.ok(listed.has(rel), `${rel} is not in provenance.json`);
+  }
+});
+
+// Reads a WebP's canvas size from its header: VP8X, lossy VP8 or lossless VP8L.
+function webpSize(file) {
+  const b = fs.readFileSync(file);
+  const chunk = b.toString('ascii', 12, 16);
+  if (chunk === 'VP8X') return [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+  if (chunk === 'VP8 ') return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+  if (chunk === 'VP8L') { const n = b.readUInt32LE(21); return [1 + (n & 0x3fff), 1 + ((n >> 14) & 0x3fff)]; }
+  throw new Error(`${file}: not a WebP`);
+}
+
+test('every phone crop is the size the phone hero box is drawn at, so the art is never stretched or cropped again', () => {
+  const dir = path.join('public', 'brand', 'storybook', 'phone');
+  const crops = fs.readdirSync(dir).filter((f) => f.endsWith('-768.webp'));
+  assert.ok(crops.length > 10);
+  for (const f of crops) {
+    const scene = f.replace(/-768\.webp$/, '');
+    assert.deepEqual(webpSize(path.join(dir, f)), phoneSize(scene), `${scene}: phoneSizes in src/data/scenes.mjs must match the crop .github serves`);
   }
 });
 
