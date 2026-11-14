@@ -41,12 +41,16 @@ test('pageMarkdown keeps what an agent can use and leaves out what it can not', 
     <picture data-scheme="light"><img src="/day.webp" alt="By day"></picture><picture data-scheme="dark"><img src="/night.webp" alt="By night"></picture>
     <p><img src="/deco.svg" alt=""><span aria-hidden="true">glyph</span><span hidden>later</span><button>Pause</button><a href="/desk/"> Desk </a></p>
     <video aria-label="A clip"><source src="/c.webm" type="video/webm"><source src="/c.mp4" type="video/mp4"></video>
+    <ul><li><div><h4>Friends</h4><p>Who an agent knows.</p></div></li><li><h4>Butler</h4><p>Looks after a server.</p></li></ul>
+    <ul><li>Plain item</li><li>Another</li></ul>
   </main></body></html>`, '/x/');
   assert.match(out, /^---\ntitle: "T \| Ouro"\ndescription: "D"\nurl: https:\/\/ouroboros\.bot\/x\/\n---\n\n# Hi\n/);
   assert.ok(out.includes('Act 1 **Capability.** Getting'), 'pieces set as blocks keep a space between them');
   assert.ok(out.includes('![By day](https://ouroboros.bot/day.webp)'));
   assert.ok(out.includes('[Desk](https://ouroboros.bot/desk/)'));
   assert.ok(out.includes('[Video: A clip](https://ouroboros.bot/c.mp4)'));
+  assert.ok(out.includes('\n#### Friends\n\nWho an agent knows.') && out.includes('\n#### Butler\n'), 'a list of sections, each opening on a heading, reads as sections');
+  assert.ok(out.includes('- Plain item\n- Another'), 'a plain list stays a list');
   for (const gone of ['Primary nav', 'By night', 'deco', 'glyph', 'later', 'Pause']) assert.ok(!out.includes(gone), `"${gone}" should be left out`);
 });
 

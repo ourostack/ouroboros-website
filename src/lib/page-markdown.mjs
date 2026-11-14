@@ -61,6 +61,32 @@ function spaceBlocks(node) {
   node.children = out;
 }
 
+const HEADING = /^h[1-6]$/;
+const firstElement = (node) => {
+  for (const child of node.children ?? []) {
+    if (child.type === 'text' && !child.value.trim()) continue;
+    if (child.type !== 'element') return null;
+    return HEADING.test(child.tagName) ? child : firstElement(child);
+  }
+  return null;
+};
+
+// A list whose items each open on a heading is a run of sections, not a list:
+// its headings stand on their own lines ("#### Friends"), not as "- #### Friends".
+function unwrapSectionLists(node) {
+  if (!node.children) return;
+  node.children = node.children.flatMap((child) => {
+    if (child.type === 'element' && /^[ou]l$/.test(child.tagName)) {
+      const items = child.children.filter((c) => c.type === 'element');
+      if (items.length && items.every((li) => li.tagName === 'li' && firstElement(li))) {
+        return items.map((li) => ({ ...li, tagName: 'div' }));
+      }
+    }
+    return [child];
+  });
+  node.children.forEach(unwrapSectionLists);
+}
+
 function prune(node, route, inPre = false) {
   if (!node.children) return;
   node.children = node.children.filter((child) => !dropped(child));
@@ -109,6 +135,7 @@ export function pageMarkdown(html, route) {
   const main = select('main', tree);
   if (!main) throw new Error(`page-markdown: ${route} has no <main>`);
   prune(main, route);
+  unwrapSectionLists(main);
   const title = select('title', tree)?.children?.[0]?.value ?? '';
   const description = select('meta[name="description"]', tree)?.properties?.content ?? '';
   const url = select('link[rel="canonical"]', tree)?.properties?.href ?? SITE + route;
