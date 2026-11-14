@@ -189,7 +189,7 @@ test('the products show their own scenes on the shelf and on the homepage', () =
 
 test('the 404 finds Ouro off the trail, by the gate, with signposts home', () => {
   const html = readDist('404.html');
-  assert.match(html, /story-hero" data-brand-scene="ouroboros-website"/);
+  assert.match(html, /data-ouro="hero"[\s\S]*?story-contained" data-brand-scene="ouroboros-website"/);
   assert.doesNotMatch(html, /story-meadow/);
   assert.match(html, /garden gate/);
   assert.match(html, /class="signpost/);
