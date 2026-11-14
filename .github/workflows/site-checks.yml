@@ -53,7 +53,7 @@ permissions:
 # The Ouro UI release this site's Ouro items come from. Reinstall them from a new
 # tag before changing it here.
 env:
-  OURO_UI_TAG: v1.3.98
+  OURO_UI_TAG: v1.3.99
 
 jobs:
   tests:

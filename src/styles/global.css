@@ -279,12 +279,13 @@ html, body { overflow-x: clip; }
 }
 :root[data-theme="light"] { --destructive: #c8001e; }
 @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --destructive: #c8001e; } }
-/* ouro-base (ouro-ui v1.3.67): the corner shape, the motion, layer and sheet
+/* ouro-base (ouro-ui v1.3.99): the corner shape, the motion, layer and sheet
    tokens, and the status and avatar colours, set for this site's dark theme
    here and its light theme below (Ouro's own values for each). They follow
    data-theme and the system setting as the palette does. */
 :root {
   --ouro-corner-shape: squircle;
+  --ouro-radius-scale: 1;
   --destructive-foreground: #000000;
   --success: #4ade80;
   --success-foreground: #000000;
@@ -413,6 +414,48 @@ html, body { overflow-x: clip; }
   [class*="rounded-full"] {
     --corner-shape: round;
     corner-shape: round;
+  }
+  [data-ouro-surface] {
+    display: none;
+  }
+}
+/* ouro-base's 0.7 radius scale where corner-shape is missing is left out: this
+   site keeps Tailwind's fixed radii above, so --ouro-radius-scale stays 1 and a
+   control's squircle surface matches its own corner. */
+/* The squircle where corner-shape is missing: a control's surface slot (data-ouro-surface) paints the fill, the ring and the state layer through squircle clip paths, so the element keeps its box, its outline and its shadow. */
+@supports not (corner-shape: squircle) {
+  [data-ouro-squircle] {
+    background-color: transparent;
+    border-color: transparent;
+    --tw-ring-color: transparent;
+  }
+  [data-ouro-squircle]::before {
+    display: none;
+  }
+  [data-ouro-surface] {
+    --ouro-sq-m: max(0px, calc(var(--ouro-sq-r) - var(--ouro-sq-w)));
+    --ouro-sq-o: 0 calc(var(--ouro-sq-r)*1), calc(var(--ouro-sq-r)*0.04) calc(var(--ouro-sq-r)*0.38), calc(var(--ouro-sq-r)*0.16) calc(var(--ouro-sq-r)*0.16), calc(var(--ouro-sq-r)*0.38) calc(var(--ouro-sq-r)*0.04), calc(var(--ouro-sq-r)*1) 0, calc(100% - var(--ouro-sq-r)*1) 0, calc(100% - var(--ouro-sq-r)*0.38) calc(var(--ouro-sq-r)*0.04), calc(100% - var(--ouro-sq-r)*0.16) calc(var(--ouro-sq-r)*0.16), calc(100% - var(--ouro-sq-r)*0.04) calc(var(--ouro-sq-r)*0.38), 100% calc(var(--ouro-sq-r)*1), 100% calc(100% - var(--ouro-sq-r)*1), calc(100% - var(--ouro-sq-r)*0.04) calc(100% - var(--ouro-sq-r)*0.38), calc(100% - var(--ouro-sq-r)*0.16) calc(100% - var(--ouro-sq-r)*0.16), calc(100% - var(--ouro-sq-r)*0.38) calc(100% - var(--ouro-sq-r)*0.04), calc(100% - var(--ouro-sq-r)*1) 100%, calc(var(--ouro-sq-r)*1) 100%, calc(var(--ouro-sq-r)*0.38) calc(100% - var(--ouro-sq-r)*0.04), calc(var(--ouro-sq-r)*0.16) calc(100% - var(--ouro-sq-r)*0.16), calc(var(--ouro-sq-r)*0.04) calc(100% - var(--ouro-sq-r)*0.38), 0 calc(100% - var(--ouro-sq-r)*1);
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--ouro-bg, transparent);
+    clip-path: polygon(var(--ouro-sq-o));
+  }
+  [data-ouro-surface]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: var(--ouro-state, 0);
+  }
+  [data-ouro-surface]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--ouro-bd, transparent);
+    clip-path: polygon(evenodd, var(--ouro-sq-o), 0 calc(var(--ouro-sq-r)*1), var(--ouro-sq-w) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*1), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.04) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.38), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.16) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.16), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.38) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.04), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*1) var(--ouro-sq-w), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*1) var(--ouro-sq-w), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.38) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.04), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.16) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.16), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.04) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.38), calc(100% - var(--ouro-sq-w)) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*1), calc(100% - var(--ouro-sq-w)) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*1), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.04) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.38), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.16) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.16), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.38) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.04), calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*1) calc(100% - var(--ouro-sq-w)), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*1) calc(100% - var(--ouro-sq-w)), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.38) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.04), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.16) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.16), calc(var(--ouro-sq-w) + var(--ouro-sq-m)*0.04) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*0.38), var(--ouro-sq-w) calc(100% - var(--ouro-sq-w) + var(--ouro-sq-m)*1), var(--ouro-sq-w) calc(var(--ouro-sq-w) + var(--ouro-sq-m)*1), 0 calc(var(--ouro-sq-r)*1));
   }
 }
 /* ouro-base's keyframes, at the top level as ouro-base.css has them: in
