@@ -13,11 +13,14 @@ name: site-checks
 #
 # The last job is named site-checks so it stays the one required check on
 # main: it passes only when the page checks and every Ouro check shard pass.
+# refresh-ouromd-release.yml dispatches it on the pull requests it opens, since
+# a pull request opened with a workflow's own token starts no pull_request run.
 
 on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 # A newer push to a pull request cancels its older run. Runs not triggered by a pull request each
 # get their own group, so they are never cancelled.

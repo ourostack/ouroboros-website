@@ -1,10 +1,14 @@
 name: Refresh Ouro MD release metadata
 
 # Rewrites public/ouro-md/stable.json from Ouro MD's latest GitHub release
-# (scripts/refresh-ouromd-release.mjs) and, when it changed, commits it and
-# deploys. It deploys itself because a push made with the workflow's own token
-# does not start deploy.yml. Moved here from ourostack/ouro-apps-site with Ouro
-# MD's download page (2026-11-07).
+# (scripts/refresh-ouromd-release.mjs). When it changed, it opens a pull request,
+# runs site-checks on it, merges it when site-checks passes, and deploys main.
+# main requires site-checks, so the workflow can't push there directly (run
+# 43535365241 was rejected with GH013). A pull request or push made with the
+# workflow's own token starts no pull_request or push run, so it dispatches
+# site-checks itself (on the pull request, then on main after the merge) and
+# deploys itself. Moved here from ourostack/ouro-apps-site with Ouro MD's
+# download page (2026-11-07).
 
 on:
   schedule:
@@ -13,23 +17,26 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
   deployments: write
 
 concurrency:
   group: refresh-ouromd-release
   cancel-in-progress: false
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
-  refresh:
+  propose:
     runs-on: ubuntu-latest
-    # Shared with deploy.yml, so two production deploys never run at once.
-    concurrency:
-      group: production-deploy
-      cancel-in-progress: false
+    timeout-minutes: 40
+    outputs:
+      merged: ${{ steps.merge.outputs.merged }}
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           ref: main
 
       - uses: actions/setup-node@v4
@@ -37,8 +44,6 @@ jobs:
           node-version: 22
 
       - run: node scripts/refresh-ouromd-release.mjs
-        env:
-          GH_TOKEN: ${{ github.token }}
 
       - id: changes
         run: |
@@ -46,26 +51,82 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "version=$(node -p 'require("./public/ouro-md/stable.json").version')" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit refreshed metadata
+      - name: Open the pull request
+        id: pr
         if: steps.changes.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.changes.outputs.version }}
         run: |
+          branch="ouromd-refresh/v$VERSION"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
           git add public/ouro-md/stable.json
-          git commit -m "data: refresh Ouro MD stable release metadata"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git commit -m "Point the Ouro MD download at v$VERSION"
+          git push --force origin "$branch"
+          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
+            gh pr create --base main --head "$branch" --title "Point the Ouro MD download at v$VERSION" \
+              --body "Ouro MD v$VERSION is its latest release. $GITHUB_WORKFLOW (run $GITHUB_RUN_ID) rewrote public/ouro-md/stable.json from it, runs site-checks on this pull request, and merges and deploys it when site-checks passes."
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - if: steps.changes.outputs.changed == 'true'
-        run: npm ci
+      - name: Run site-checks on it
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
+          SHA: ${{ steps.pr.outputs.sha }}
+        run: |
+          gh workflow run site-checks.yml --ref "$BRANCH"
+          run=
+          for _ in $(seq 30); do
+            run=$(gh run list --workflow site-checks.yml --event workflow_dispatch --commit "$SHA" --json databaseId --jq '.[0].databaseId')
+            [ -n "$run" ] && break
+            sleep 10
+          done
+          [ -n "$run" ] || { echo "::error::site-checks didn't start on $BRANCH ($SHA)."; exit 1; }
+          echo "site-checks run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$run" >> "$GITHUB_STEP_SUMMARY"
+          gh run watch "$run" --interval 60 --exit-status > /dev/null
 
-      - if: steps.changes.outputs.changed == 'true'
-        run: npx astro build
+      - name: Merge it
+        id: merge
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
+          SHA: ${{ steps.pr.outputs.sha }}
+        run: |
+          gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA"
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: propose
+    if: needs.propose.outputs.merged == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Shared with deploy.yml, so two production deploys never run at once.
+    concurrency:
+      group: production-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      # The merge commit starts no push run, so give main its verdict here.
+      - run: gh workflow run site-checks.yml --ref main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - run: npx astro build
 
       - name: Deploy to Cloudflare Workers
-        if: steps.changes.outputs.changed == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
