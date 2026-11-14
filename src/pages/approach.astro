@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHero from '../components/PageHero.astro'
 import { ogPathFor } from '../data/og'
 import { factoryUrl, rfcUrl, smells } from '../data/principles.mjs'
 import { acts } from '../data/acts.mjs'
@@ -33,18 +34,22 @@ const h3 = 'font-display text-2xl text-bone leading-snug scroll-mt-24 mt-12 mb-4
     })} />
   </Fragment>
 
-  <section class="relative overflow-hidden px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-8">
-    <div class="max-w-6xl relative mx-auto approach">
-      <h1 class="heading-lead"><span class="t-clause"><span class="t-ph">When an agent</span> <span class="t-ph">gets it wrong,</span></span> <span class="t-clause"><span class="t-ph">look at</span> <span class="t-ph">what you gave it.</span></span></h1>
-      <div class="mt-6">
-        <p class="text-lg md:text-xl text-bone leading-relaxed">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
-        <p class="text-lg md:text-xl text-bone leading-relaxed mt-6">I see this agentic era in three acts:</p>
-        <ol class="acts">
-          {acts.map((act) => (
-            <li><strong>{act.name}</strong> <ActBody body={act.body} /></li>
-          ))}
-        </ol>
-      </div>
+  {/* The words sit above the page's scene, never over it (Ouro HX Hero); the three acts follow the art. */}
+  <PageHero>
+    <Fragment slot="title"><span class="t-clause"><span class="t-ph">When an agent</span> <span class="t-ph">gets it wrong,</span></span> <span class="t-clause"><span class="t-ph">look at</span> <span class="t-ph">what you gave it.</span></span></Fragment>
+    <Fragment slot="description">
+      <p class="m-0">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+    </Fragment>
+  </PageHero>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-12 md:pb-8">
+    <div class="max-w-6xl mx-auto approach">
+      <p class="text-lg md:text-xl text-bone leading-relaxed">I see this agentic era in three acts:</p>
+      <ol class="acts">
+        {acts.map((act) => (
+          <li><strong>{act.name}</strong> <ActBody body={act.body} /></li>
+        ))}
+      </ol>
     </div>
   </section>
 

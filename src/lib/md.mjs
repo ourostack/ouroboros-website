@@ -44,3 +44,10 @@ export function parseInlineMd(text, options = {}) {
 
   return html
 }
+
+// A paragraph's last two words, held together with a no-break space, so a long model paragraph ends on two words
+// wherever the browser's `text-wrap: pretty` breaks its lines. The words stay the model's own; a last word over 15
+// characters, or one in markup, is left free to wrap.
+export function holdLastWords(html) {
+  return html.replace(/ ([^\s<>]{1,15})<\/p>/g, '&nbsp;$1</p>')
+}

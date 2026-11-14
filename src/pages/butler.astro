@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHero from '../components/PageHero.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor, entry } from '../data/readiness.mjs'
 
@@ -45,16 +46,18 @@ const chat = [
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/butler')} canonical="https://ouroboros.bot/butler/">
-  <section class="px-6 md:px-12 lg:px-16 pt-28 pb-12 md:pt-36">
-    <div class="max-w-6xl mx-auto hero-flow">
-      <h1 class="heading-lead page-mark"><img src="/brand/butler-render.webp" srcset="/brand/butler-render-128.webp 128w, /brand/butler-render-256.webp 256w" sizes="72px" width="72" height="72" alt="" decoding="async" class="mark-render" />Ouro Butler</h1>
-      <p class="mt-6 product-lede" data-hero-lede>An Ouroboros agent that looks after a home server. It notices when something your household counts on stops working, fixes what it is allowed to, and tells you the rest on Telegram.</p>
+  {/* The words sit above the Butler's scene, never over it (Ouro HX Hero); the readiness tag and its detail are the eyebrow.
+      The install link follows the lede inside the description, so on a phone it is the lede's next sibling. */}
+  <PageHero>
+    <span slot="eyebrow" class="flex flex-wrap items-center gap-x-3 gap-y-1"><span class={`tag ${status.tone}`}>{status.label}</span><span>{statusDetail}.</span></span>
+    <span slot="title" class="hero-mark-title"><img src="/brand/butler-render.webp" srcset="/brand/butler-render-128.webp 128w, /brand/butler-render-256.webp 256w" sizes="(min-width: 768px) 64px, 56px" width="64" height="64" alt="" class="mark-render" />Ouro Butler</span>
+    <Fragment slot="description">
+      <p class="product-lede" data-hero-lede>An Ouroboros agent that looks after a home server. It notices when something your household counts on stops working, fixes what it is allowed to, and tells you the rest on Telegram.</p>
       <div class="mt-6 btn-row" data-primary-action>
         <a href="#install" class="btn-primary">Install it</a>
       </div>
-      <p class="mt-6 flex flex-wrap items-center gap-3"><span class={`tag ${status.tone}`}>{status.label}</span><span class="text-mist">{statusDetail}.</span></p>
-    </div>
-  </section>
+    </Fragment>
+  </PageHero>
 
   <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="does-heading">
     <div class="max-w-6xl mx-auto">

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
+import PageHero from '../../components/PageHero.astro'
 import { ogPathFor } from '../../data/og'
 import { factoryUrl } from '../../data/principles.mjs'
 
@@ -32,23 +33,12 @@ const datePublished = "2026-04-28"
     })} />
   </Fragment>
 
-  <!-- Header -->
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-8">
-    <div class="max-w-6xl mx-auto split lg:items-end">
-      <div class="split-head">
-        <span class="eyebrow block mb-6">Essay</span>
-        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
-          Trust the Fucking Agent
-        </h1>
-      </div>
-      <div class="split-body">
-        <p class="text-base text-mist mt-6 leading-relaxed">
-          We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.
-        </p>
-        <PostByline authors={["Ari Mendelow"]} published={datePublished} class="mt-4" />
-      </div>
-    </div>
-  </section>
+  <PageHero eyebrow="Essay" title="Trust the Fucking Agent">
+    <Fragment slot="description">
+      <p class="m-0">We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.</p>
+      <PostByline authors={["Ari Mendelow"]} published={datePublished} />
+    </Fragment>
+  </PageHero>
 
   <!-- Body -->
   <section class="px-6 md:px-12 lg:px-16 pb-20 md:pb-28">

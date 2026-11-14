@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
+import PageHero from '../../components/PageHero.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'Give your agent a home'
@@ -33,23 +34,12 @@ const datePublished = "2026-03-25"
     })} />
   </Fragment>
 
-  <!-- Header -->
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-12 md:pt-44 md:pb-8">
-    <div class="max-w-6xl mx-auto split lg:items-end">
-      <div class="split-head">
-        <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">Essay</span>
-        <h1 class="font-display text-bone leading-[1.05] text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem]">
-          Give your agent a home
-        </h1>
-      </div>
-      <div class="split-body">
-        <p class="text-base md:text-lg text-mist mt-6 leading-relaxed">
-          One folder. One identity. The case for agent bundles.
-        </p>
-        <PostByline authors={["Ari Mendelow", "Slugger"]} published={datePublished} />
-      </div>
-    </div>
-  </section>
+  <PageHero eyebrow="Essay" title="Give your agent a home">
+    <Fragment slot="description">
+      <p class="m-0">One folder. One identity. The case for agent bundles.</p>
+      <PostByline authors={["Ari Mendelow", "Slugger"]} published={datePublished} />
+    </Fragment>
+  </PageHero>
 
   <!-- Body -->
   <section class="px-6 md:px-12 lg:px-16 pt-0 md:pt-2 pb-20 md:pb-28">

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import WorkshopVideo from '../components/WorkshopVideo.astro'
+import PageHero from '../components/PageHero.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor } from '../data/readiness.mjs'
 
@@ -77,26 +78,31 @@ const verified = [
 ---
 
 <Layout title={title} description={description} ogImage={ogPathFor('/housesitter')} canonical="https://ouroboros.bot/housesitter/">
-  <section class="px-6 md:px-12 lg:px-16 pt-32 pb-[2.8125rem] md:pb-10 md:pt-44">
-    <div class="max-w-6xl mx-auto grid gap-10 xl:grid-cols-[1fr_1.15fr] product-hero">
-      <div class="grid gap-5 content-start min-w-0 hero-copy">
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <h1 class="heading-lead">housesitter</h1>
-          <span class={`tag ${status.tone}`}>{status.label}</span>
+  {/* The words sit above housesitter's scene, never over it (Ouro HX Hero); the readiness tag is the eyebrow.
+      The demo command follows the lede inside the description, so on a phone it is the lede's next sibling. */}
+  <PageHero>
+    <span slot="eyebrow"><span class={`tag ${status.tone}`}>{status.label}</span></span>
+    <span slot="title">housesitter</span>
+    <Fragment slot="description">
+      <p class="product-lede" data-hero-lede>A $100 KVM beside your agents’ Mac. When the Mac restarts, it unlocks FileVault. When it can’t, it tells you. And the Mac and its KVM watch each other.</p>
+      <div class="mt-6 grid gap-2" data-primary-action>
+        <div class="flex flex-wrap items-center gap-3">
+          <pre id="housesitter-demo" class="command">{demo}</pre>
+          <button type="button" data-copy-target="housesitter-demo" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
         </div>
-        <p class="product-lede" data-hero-lede>A $100 KVM beside your agents’ Mac. When the Mac restarts, it unlocks FileVault. When it can’t, it tells you. And the Mac and its KVM watch each other.</p>
-        <div class="grid gap-2" data-primary-action>
-          <div class="flex flex-wrap items-center gap-3">
-            <pre id="housesitter-demo" class="command">{demo}</pre>
-            <button type="button" data-copy-target="housesitter-demo" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
-          </div>
-          <span class="caption-mono">Real frames from that day. No hardware needed.</span>
-        </div>
+        <span class="caption-mono">Real frames from that day. No hardware needed.</span>
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-12 md:pb-16">
+    <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[minmax(0,1fr)_480px] items-start">
+      <div class="grid gap-5 content-start min-w-0">
         <p class="text-lg text-bone leading-relaxed">Its own NPU reads your Mac’s clock, so a clock that stops reads as stopped.</p>
         <p class="text-lg text-mist leading-relaxed">We pressed Restart on our Mac mini and touched nothing else. The KVM saw FileVault through the Mac’s own HDMI port, recognised the prompt it had been taught on the restart before, and typed once, by itself: 70 seconds from Restart to desktop.</p>
         <p class="text-sm text-mist">The smart plug is next: <a href={`${repo}/issues/11`} class={link}>follow it</a>.</p>
       </div>
-      <figure class="min-w-0 hero-media restart-clip">
+      <figure class="min-w-0 restart-clip">
         <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: logging out 3 seconds after Restart, which our agent pressed, the only touch; shutting down; boot seen, the Mac found the KVM's keyboard again; FileVault, the screen it was taught, steady, now it may type, the prompt zoomed twice; typed once, by itself, the field blurred; logging in; then a card: 70 s from Restart to desktop, nobody at the Mac, housesitter 0.2 on the KVM beside it." />
         <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Unlocked by housesitter 0.2 at 22:56 on 8 November. Only the shutdown, boot and FileVault frames are shown, and the typed field is blurred, because its dots would give away the password’s length.</span></figcaption>
       </figure>

@@ -1,36 +1,91 @@
 name: Deploy to Cloudflare
 
+# Production deploys only from site-checks.yml, on main, after a gate passed:
+# at once when scripts/tested-tree.mjs proves the pull request's run already
+# passed on this exact tree, otherwise after main's own checks pass. Only main's
+# head deploys; a deploy that skips makes sure the head still does (settle).
+
 on:
-  push:
-    branches: [main]
+  workflow_call:
 
 jobs:
-  deploy:
+  # Is this commit still main's head? Asked outside the production-deploy
+  # group, because GitHub keeps one pending job per group and cancels the older
+  # pending one when another queues: a stale commit joining the group could
+  # cancel the head's waiting deploy. A newer head deploys itself, so a stale
+  # commit skips, and a late deploy never rolls production back. A failed
+  # lookup fails the job, never skips the deploy.
+  head:
     runs-on: ubuntu-latest
-    # Shared with refresh-ouromd-release.yml, which deploys too, so two
-    # production deploys never run at once.
+    timeout-minutes: 2
+    permissions:
+      contents: read
+    outputs:
+      current: ${{ steps.head.outputs.current }}
+    steps:
+      - name: Is this commit main's head?
+        id: head
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          head=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          [[ "$head" =~ ^[0-9a-f]{40}$ ]]
+          if [ "$head" = "$GITHUB_SHA" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::main is now at $head, which deploys itself; skipping $GITHUB_SHA."
+          fi
+
+  deploy:
+    needs: head
+    if: needs.head.outputs.current == 'true'
+    runs-on: ubuntu-latest
+    # About twice the usual minute and a bit; a hung wrangler fails in minutes.
+    timeout-minutes: 4
+    # One production deploy at a time, in the order they queue.
     concurrency:
       group: production-deploy
       cancel-in-progress: false
     permissions:
       contents: read
       deployments: write
+    outputs:
+      current: ${{ steps.head.outputs.current }}
     steps:
       - uses: actions/checkout@v4
 
+      # Asked again inside the group: main may have moved while this waited.
+      - name: Is this commit still main's head?
+        id: head
+        run: |
+          head=$(git ls-remote --exit-code origin refs/heads/main | cut -f1)
+          [ -n "$head" ]
+          if [ "$head" = "$GITHUB_SHA" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::main is now at $head, which deploys itself; skipping $GITHUB_SHA."
+          fi
+
       - uses: actions/setup-node@v4
+        if: steps.head.outputs.current == 'true'
         with:
           node-version: 22
+          cache: npm
 
       - run: npm ci
+        if: steps.head.outputs.current == 'true'
       # OG cards are now generated dynamically as part of the Astro build
       # via the [...slug].png.ts endpoint reading src/data/og.ts. There is
       # no separate generate-og.ts step anymore — the manual script was
       # removed because it was the antipattern that caused stale OG cards.
       # See AGENTS.md "OG cards" rule and src/pages/og/[...slug].png.ts.
       - run: npx astro build
+        if: steps.head.outputs.current == 'true'
 
       - name: Deploy to Cloudflare Workers
+        if: steps.head.outputs.current == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -38,12 +93,14 @@ jobs:
 
       # Plain-HTTP and www requests: a 301 to https://ouroboros.bot (src/worker/https.mjs).
       - name: Deploy the HTTPS redirect Worker
+        if: steps.head.outputs.current == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --config wrangler-https.jsonc
 
       - name: Notify search engines (IndexNow)
+        if: steps.head.outputs.current == 'true'
         run: |
           test -f dist/sitemap-0.xml
           URLS=$(grep -oP '(?<=<loc>)[^<]+' dist/sitemap-0.xml \
@@ -57,3 +114,26 @@ jobs:
               \"keyLocation\": \"https://ouroboros.bot/11939a2530214da79d49b3a8908b8c9c.txt\",
               \"urlList\": $URLS
             }"
+
+  # A deploy that skipped may have cancelled main's head's pending deploy on
+  # its way through the group. Confirm the head deployed or has a deploy
+  # coming; otherwise dispatch site-checks on main, which checks and deploys
+  # it (scripts/deploy-head.mjs). Any error fails this job visibly.
+  settle:
+    needs: [head, deploy]
+    if: always() && (needs.head.outputs.current == 'false' || needs.deploy.outputs.current == 'false')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts/deploy-head.mjs
+          sparse-checkout-cone-mode: false
+
+      - name: Has main's head deployed, or is its deploy coming?
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/deploy-head.mjs

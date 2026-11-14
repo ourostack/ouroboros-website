@@ -47,6 +47,7 @@ function px(expr, { w, h, floor, arh }) {
 }
 
 const pages = () => listHtmlFiles().filter((file) => !/http-equiv="refresh"/.test(fs.readFileSync(file, 'utf8')));
+const fullBleed = () => pages().filter((file) => /<div class="story-scene story-hero/.test(fs.readFileSync(file, 'utf8')));
 
 test('global.css caps every desktop hero by the page\'s own floor', () => {
   for (const cap of [heroCap, contentCap]) assert.match(cap, /var\(--hero-floor/, cap);
@@ -70,7 +71,9 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
     }
     checked++;
   }
-  assert.ok(checked > 20, `only ${checked} heroes checked`);
+  // Every page now opens on Ouro's contained Hero, so this full-bleed set may be
+  // empty; the guard proves the pattern finds every full-bleed hero still shipped.
+  assert.equal(checked, fullBleed().length, `only ${checked} of ${fullBleed().length} full-bleed heroes checked`);
 });
 
 // Every hero ends on a hard edge at its picture's foot (Ari, 2026-11-08: no
@@ -120,7 +123,7 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
     assert.doesNotMatch(style, /--hero-fade|--hero-origin|--hero-apron|--paint-foot/, `${file}: a hero carries fade machinery`);
     const frame = heroFrame(scene, { product: sceneFor(routeOfFile(file)).product });
     assert.equal(y, frame.y / 100, `${file}: --hero-y is not heroFrame()'s`);
-    const below = new RegExp(`data-brand-scene="${scene}" data-trail-below`).test(html);
+    const below = new RegExp(`data-brand-scene="${scene}"(?: data-night-scene="[^"]+")? data-trail-below`).test(html);
     assert.equal(below, frame.trailBelow, `${file}: the trail ${frame.trailBelow ? 'must hang below' : 'sits on'} the edge`);
     if (below) assert.ok(1 - castFoot[scene] < FOOT_ROOM && y === 1, `${file}: only a cast on the art's own foot hangs the trail below`);
     const [top] = heroFocus[scene] ?? [0.2];
@@ -138,7 +141,9 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
     }
     checked++;
   }
-  assert.ok(checked > 20, `only ${checked} heroes checked`);
+  // Every page now opens on Ouro's contained Hero, so this full-bleed set may be
+  // empty; the guard proves the pattern finds every full-bleed hero still shipped.
+  assert.equal(checked, fullBleed().length, `only ${checked} of ${fullBleed().length} full-bleed heroes checked`);
 });
 
 test('the cast\'s foot counts every character, not only Ouro', () => {

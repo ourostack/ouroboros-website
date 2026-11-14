@@ -10,14 +10,17 @@
   variant="meadow" the short band above the footer, deferred.
   variant="vignette" a small 4:3 portrait of a product's character beside its
                    name (the phone crop, which frames Ouro and the product), deferred.
+  contained        with variant="hero": the art as Ouro HX's Hero media (PageHero),
+                   shown whole at its own aspect inside the page's column, loaded
+                   first, with no crop, drift or trail.
 
   The art is never re-encoded or cropped in a build step; CSS crops the
-  meadow band with object-fit. Behind it sits the scene's own paint (a tiny
-  soft preview, src/data/scene-paint.json), so the dawn is there before, and
+  meadow band with object-fit. Behind it sits the scene's own paint (the art's
+  main colour, src/data/scene-paint.json), so its colour is there before, and
   even without, the art. No variant fades into the page: every picture ends
   on a hard edge.
 */
-import { scenes, darkScenes, columnHeroes, columnHeroSrcset, wideSrcset, COLUMN_HERO_MEDIA, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
+import { scenes, darkScenes, meadowScene, columnHeroes, columnHeroSrcset, wideSrcset, COLUMN_HERO_MEDIA, sceneRatio, phoneSize, heroFrame, thumbPosition } from '../data/scenes.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -28,9 +31,11 @@ interface Props {
   class?: string
   /** A product page's hero: its floor may drop to PRODUCT_FLOOR (heroFrame()). */
   product?: boolean
+  /** A hero shown whole inside Ouro HX's Hero (PageHero), not full bleed under the nav. */
+  contained?: boolean
 }
 
-const { scene, variant = 'inline', sizes, alt, class: className, product = false } = Astro.props
+const { scene, variant = 'inline', sizes, alt, class: className, product = false, contained = false } = Astro.props
 if (!(scene in scenes)) throw new Error(`StoryScene: unknown scene ${scene}`)
 const base = '/brand/storybook'
 const [w, h] = sceneRatio(scene)
@@ -48,30 +53,33 @@ const hero = variant === 'hero'
 // past its art. Where the feet stand too near that edge for the trail's glow,
 // the trail hangs below it (data-trail-below).
 const frame = heroFrame(scene, { product })
-const phoneAspect = hero
+const phoneAspect = hero && !contained
   ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`
   : `--phone-ar: ${pw} / ${ph}`
-// The scene's own dawn, painted behind the art (scripts/scene-paint.mjs): a
-// tiny soft preview of the wide art and of the phone crop, so a slow or failed
-// image still shows this scene's sky and meadow, never a blank box or alt text
-// (taste review r10).
-// A hero with a night version (darkScenes) carries both paints, and global.css
+// The scene's own colour, painted behind the art (scripts/scene-paint.mjs),
+// so a slow or failed image still shows this scene's main colour, never a
+// blank box or alt text (taste review r10).
+// A hero with a night version (darkScenes) carries both colours, and global.css
 // picks the one for the theme in use.
-const night = hero ? darkScenes[scene] : undefined
+// The footer meadow follows the theme too, so a night page never ends on the dawn band.
+const night = hero || variant === 'meadow' ? darkScenes[scene] : undefined
 const paintOf = (s: string) => {
   if (!paints[s]) throw new Error(`StoryScene: no paint for ${s}; run node scripts/scene-paint.mjs`)
-  return paints[s]
+  return paints[s].colour
 }
-const paint = paintOf(scene)
 const paintVars = night
-  ? `--paint-day: url(${paint.wide.uri}); --paint-phone-day: url(${paint.phone.uri}); --paint-night: url(${paintOf(night).wide.uri}); --paint-phone-night: url(${paintOf(night).phone.uri})`
-  : `--paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
+  ? `--paint-day: ${paintOf(scene)}; --paint-night: ${paintOf(night)}`
+  : `--paint: ${paintOf(scene)}`
 const style = `${phoneAspect}; ${paintVars}${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
-const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
+const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : contained ? (sizes ?? '100vw') : '100vw'
+// The meadow spans the phone's full width, so it also carries the 1152 crop
+// (scripts/sync-storybook.mjs) to stay sharp at 2x on a 390px screen.
+const phoneWidths = (s: string) => (s === meadowScene || s === darkScenes[meadowScene] ? [384, 768, 1152] : [384, 768])
+const phoneSrcset = (s: string, ext: string) => phoneWidths(s).map((pw) => `${base}/phone/${s}-${pw}.${ext} ${pw}w`).join(', ')
 const sources = (s: string) => ({
-  phoneAvif: `${base}/phone/${s}-384.avif 384w, ${base}/phone/${s}-768.avif 768w`,
-  phoneWebp: `${base}/phone/${s}-384.webp 384w, ${base}/phone/${s}-768.webp 768w`,
+  phoneAvif: phoneSrcset(s, 'avif'),
+  phoneWebp: phoneSrcset(s, 'webp'),
   wideAvif: wideSrcset(s, 'avif'),
   wideWebp: wideSrcset(s, 'webp'),
   fallback: `${base}/headers/${s}.webp`,
@@ -90,10 +98,10 @@ const nightAlt = night ? (alt ?? scenes[night]) : undefined
 const vignette = variant === 'vignette'
 // A column hero (columnHeroes) has its own 2:1 art from 1600px, listed ahead of the
 // full-bleed art so it wins there and nowhere else.
-const column = hero && night ? columnHeroes[scene] : undefined
+const column = hero && night && !contained ? columnHeroes[scene] : undefined
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style}>
+<div class:list={['story-scene', contained && hero ? 'story-contained' : `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && !contained && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style}>
   {hero && day && dark ? (
     <>
       <picture>
@@ -150,6 +158,46 @@ const column = hero && night ? columnHeroes[scene] : undefined
       <source type="image/webp" srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
       <img src={fallback} width={w} height={h} alt={altText} fetchpriority="high" />
     </picture>
+  ) : variant === 'meadow' && day && dark ? (
+    <>
+      {/* Deferred like any scene below the arrival, with the day and night art the hero's way: the day sources ask for
+          a light scheme, the night art takes the rest, and the script after it follows the site's own theme toggle. */}
+      <picture data-defer="far">
+        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/avif" data-srcset={day.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/webp" data-srcset={day.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/avif" data-srcset={dark.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/webp" data-srcset={dark.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+        <source media={lightScheme} data-media="" data-theme-art="light" type="image/avif" data-srcset={day.wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source media={lightScheme} data-media="" data-theme-art="light" type="image/webp" data-srcset={day.wideWebp} sizes={wideSizes} width={w} height={h} />
+        <source data-media="" data-theme-art="dark" type="image/avif" data-srcset={dark.wideAvif} sizes={wideSizes} width={w} height={h} />
+        <source data-media="" data-theme-art="dark" type="image/webp" data-srcset={dark.wideWebp} sizes={wideSizes} width={w} height={h} />
+        <img data-src={dark.fallback} data-light-src={day.fallback} data-dark-src={dark.fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" />
+      </picture>
+      <noscript><img src={dark.fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" /></noscript>
+      <script is:inline>
+        (function () {
+          var pic = document.currentScript.parentElement.querySelector('picture'), img = pic.querySelector('img'), root = document.documentElement;
+          var light = matchMedia('(prefers-color-scheme: light)');
+          var set = function (el, name, value) {
+            if (value == null || value === '') { if (el.hasAttribute(name)) el.removeAttribute(name); }
+            else if (el.getAttribute(name) !== value) el.setAttribute(name, value);
+          };
+          var sync = function () {
+            var chosen = root.dataset.theme === 'light' || root.dataset.theme === 'dark' ? root.dataset.theme : '';
+            pic.querySelectorAll('source').forEach(function (s) {
+              var base = s.getAttribute('data-media'), art = s.getAttribute('data-theme-art');
+              set(s, 'media', chosen ? (art === chosen ? base : 'not all')
+                : art === 'light' ? (base ? base + ' and ' : '') + '(prefers-color-scheme: light)' : base);
+            });
+            // Until the meadow comes within reach its image waits in data-src (Layout.astro); after that, src.
+            set(img, img.hasAttribute('src') ? 'src' : 'data-src', img.getAttribute('data-' + (chosen || 'dark') + '-src'));
+          };
+          sync();
+          new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+          light.addEventListener('change', sync);
+        })();
+      </script>
+    </>
   ) : vignette ? (
     <>
       <picture data-defer>

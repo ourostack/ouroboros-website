@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import HeroCover from '../../components/HeroCover.astro'
+import PageHero from '../../components/PageHero.astro'
 import { ogPathFor } from '../../data/og'
 
 const headline = "How Desk started: Slugger's to-do list"
@@ -119,19 +119,13 @@ const entries = [
     })} />
   </Fragment>
 
-  <HeroCover>
-    <Fragment slot="title">
-      <span class="t-clause"><span class="t-ph-soft"><span class="t-ph">Slugger</span> <span class="t-ph">wrote himself</span></span> <span class="t-ph">a to-do list.</span></span>
-      <span class="t-clause text-mist"><span class="t-ph">It grew into Desk.</span></span>
+  <PageHero>
+    <Fragment slot="title">Slugger wrote himself a to-do list. <span class="text-mist">It grew into Desk.</span></Fragment>
+    <Fragment slot="description">
+      <p class="m-0">Write the plan down where the next agent will read it. My OpenClaw agent taught me that, and I've built on it ever since.</p>
+      <p class="m-0 mt-5 text-sm">Ari Mendelow &middot; October 2026</p>
     </Fragment>
-    <Fragment slot="body">
-      Write the plan down where the next agent will read it. My OpenClaw agent taught me that, and I've built on it ever since.
-    </Fragment>
-  </HeroCover>
-
-  <section class="px-6 md:px-12 lg:px-16 mt-0 md:-mt-12 mb-16 reveal">
-    <p class="text-sm text-shadow text-center">Ari Mendelow &middot; October 2026</p>
-  </section>
+  </PageHero>
 
   <section class="px-6 md:px-12 lg:px-16 mb-16">
     <div class="max-w-6xl mx-auto">

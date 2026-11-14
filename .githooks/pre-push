@@ -1,0 +1,10 @@
+#!/bin/sh
+# Catch in about 25 seconds what site-checks would catch in about 3 minutes.
+# It replaces no gate: site-checks still runs everything. Turn it on once per
+# clone with `git config core.hooksPath .githooks`; skip a push with --no-verify.
+set -e
+cd "$(git rev-parse --show-toplevel)"
+if command -v actionlint >/dev/null 2>&1; then
+  actionlint -shellcheck= .github/workflows/*.yml
+fi
+npm test --silent

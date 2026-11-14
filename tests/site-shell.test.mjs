@@ -58,9 +58,10 @@ test('homepage head and hero follow the deck, with a portrait linking to mendelo
   assert.ok(distExists('images/workshop/ari-portrait-1200.avif'));
   assert.doesNotMatch(html, /src="https?:\/\//, 'No hotlinked images');
   const css = fs.readdirSync(path.join(distDir, '_astro')).filter((n) => n.endsWith('.css')).map((n) => fs.readFileSync(path.join(distDir, '_astro', n), 'utf8')).join('\n') + html;
-  // Ari, 2026-10-20: on a phone the photo leads at full width, cropped wide around the face; beside the copy from 768px.
-  assert.match(css, /\.portrait(\[[^\]]+\])?\{[^}]*width:100%/);
-  assert.match(css, /\.portrait-img(\[[^\]]+\])?\{[^}]*aspect-ratio:3\s*\/\s*2/);
+  // The hero is Ouro's Hero, whose one media slot holds the scene; the photo is a round avatar
+  // beside its link in the Hero's actions (supersedes Ari's 2026-10-20 full-width phone photo).
+  assert.match(html, /<a href="https:\/\/mendelow\.me" class="hero-pic portrait"/);
+  assert.match(css, /\.portrait-img(\[[^\]]+\])?\{[^}]*aspect-ratio:1[;}]/);
   assert.doesNotMatch(html, /ouroboros-spin/, 'The ring lives on /lab/ only');
   assert.doesNotMatch(text, /People keep ending up as the glue/);
 });

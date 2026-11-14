@@ -21,7 +21,7 @@ import type { PageIssue } from "./size-check.ts";
 //                      corners don't nest
 //   baked-corner       (readCorners) a picture or video whose own pixels draw a corner of another colour, such as a
 //                      screen recording of a window with its dark corner, inside the page's frame
-//   type-scale         more text sizes, or more font weights, than a type scale holds
+//   type-scale         more text sizes, or more font weights in running text or in headings, than a type scale holds
 //   shadow-scale       more distinct shadows than an elevation scale holds
 //   grey-on-colour     grey text on a coloured background, which reads washed out: use a shade of the background's hue
 //   heading-hierarchy  a heading drawn larger than the heading it sits under, each at the largest size its text is drawn
@@ -55,6 +55,8 @@ interface CornerMedia {
   radius: number;
   /** The colour behind the media's frame, which shows outside its rounded corners. */
   behind: number[];
+  /** The colours the frame and the media draw at their edges themselves: borders and outlines, which a corner may show. */
+  own: number[][];
 }
 
 interface CornerReading {
@@ -64,6 +66,7 @@ interface CornerReading {
   shot: string;
   radius: number;
   behind: number[];
+  own: number[][];
   /** The corners the screen shows: on the screen, and not under another element (a fixed bar, say). */
   corners: string[];
 }
@@ -90,6 +93,33 @@ function findDesignIssues({ pictureShare = 0.55, pictureRatio = 1.25, pictureMin
     const w = words(el);
     return w ? ` "${w.slice(0, 40)}${w.length > 40 ? "…" : ""}"` : "";
   };
+  // The part of a box that is drawn: its rect cut by each ancestor that clips it (overflow other than visible, or paint
+  // containment) to that ancestor's padding box, following containing blocks, so an absolutely positioned box escapes
+  // ancestors below its positioned one and a fixed box escapes them all. null when nothing of it is drawn.
+  const drawnRect = (el: Element): DOMRect | null => {
+    const box = el.getBoundingClientRect();
+    let [left, top, right, bottom] = [box.left, box.top, box.right, box.bottom];
+    const own = getComputedStyle(el).position;
+    let escaping = own === "absolute";
+    if (own !== "fixed") {
+      for (let n = el.parentElement; n && n !== document.documentElement; n = n.parentElement) {
+        const s = getComputedStyle(n);
+        const positioned = s.position !== "static";
+        // Overflow doesn't apply to inline boxes or display: contents, and body's goes to the viewport when html's is visible.
+        const clips = !/^(inline|contents)$/.test(s.display) && !(n === document.body && getComputedStyle(document.documentElement).overflow === "visible");
+        if (clips && (!escaping || positioned)) {
+          const c = n.getBoundingClientRect();
+          const [x, y] = [c.left + n.clientLeft, c.top + n.clientTop];
+          const paint = /paint|strict|content/.test(s.contain);
+          if (paint || s.overflowX !== "visible") [left, right] = [Math.max(left, x), Math.min(right, x + n.clientWidth)];
+          if (paint || s.overflowY !== "visible") [top, bottom] = [Math.max(top, y), Math.min(bottom, y + n.clientHeight)];
+        }
+        if (positioned) escaping = s.position === "absolute";
+        if (s.position === "fixed") break;
+      }
+    }
+    return right - left >= 2 && bottom - top >= 2 ? new DOMRect(left, top, right - left, bottom - top) : null;
+  };
   const shown = (el: Element) => {
     if (el.closest("[hidden], template, .visually-hidden, .sr-only")) return false;
     const r = el.getBoundingClientRect();
@@ -98,7 +128,7 @@ function findDesignIssues({ pictureShare = 0.55, pictureRatio = 1.25, pictureMin
       const s = getComputedStyle(n);
       if (s.display === "none" || s.visibility === "hidden" || Number(s.opacity) <= 0.05) return false;
     }
-    return true;
+    return drawnRect(el) !== null;
   };
   const px = (value: string) => parseFloat(value) || 0;
   const all = [...document.body.querySelectorAll("*")].filter((el) => !el.closest("svg, script, style, template, head") || el.tagName === "svg");
@@ -211,9 +241,10 @@ function findDesignIssues({ pictureShare = 0.55, pictureRatio = 1.25, pictureMin
     }
   }
 
-  // cramped-heading: a heading (with the icon on its row) too close to a picture or a filled or framed box beside it.
+  // cramped-heading: a heading (with the icon on its row) too close to a picture or a filled or framed box beside it,
+  // each measured by the part of it that is drawn.
   const blocks = visible.filter((el) => {
-    const r = el.getBoundingClientRect();
+    const r = drawnRect(el)!;
     return r.width >= 48 && r.height >= 48 && filled(el);
   });
   for (const heading of headings) {
@@ -223,11 +254,11 @@ function findDesignIssues({ pictureShare = 0.55, pictureRatio = 1.25, pictureMin
     const size = px(getComputedStyle(heading).fontSize);
     const onRow = /flex/.test(ps.display) && !ps.flexDirection.startsWith("column") && [...parent.children].every((c) => c === heading || c.getBoundingClientRect().height <= size * 2.5);
     const row = onRow ? parent : heading;
-    const r = row.getBoundingClientRect();
+    const r = drawnRect(row) ?? drawnRect(heading)!;
     let worst: { block: Element; gap: number; need: number } | null = null;
     for (const block of blocks) {
       if (block.contains(row) || row.contains(block)) continue;
-      const b = block.getBoundingClientRect();
+      const b = drawnRect(block)!;
       const across = Math.min(r.right, b.right) - Math.max(r.left, b.left);
       if (across < Math.min(r.width, b.width) * 0.3 || b.bottom > r.top + 2) continue;
       // The same item: the smallest box holding both holds no other heading, and is no page-wide container.
@@ -295,23 +326,31 @@ function findDesignIssues({ pictureShare = 0.55, pictureRatio = 1.25, pictureMin
     }
   }
 
-  // type-scale and shadow-scale: what the page draws, counted once.
-  const texts = visible.filter(hasText);
+  // type-scale and shadow-scale: what the page draws, counted once. Text an element opts out of with a reason (hand
+  // lettering, say) is art, so it is left out of the size and weight counts; the rest of the page is still counted.
+  const texts = visible.filter((el) => hasText(el) && !optedOut(el, "type-scale"));
   const count = <T,>(values: T[]) => {
     const seen = new Map<T, number>();
     for (const v of values) seen.set(v, (seen.get(v) ?? 0) + 1);
     return seen;
   };
   const sizes = count(texts.map((el) => Math.round(px(getComputedStyle(el).fontSize) * 2) / 2));
-  const weights = count(texts.map((el) => Number(getComputedStyle(el).fontWeight)));
+  // Weights are counted within a text role: headings keep their own weight, so a semibold heading leaves the running
+  // text its regular, medium and bold, as Refactoring UI's two or three weights for UI text intend.
+  const isHeading = (el: Element) => el.closest("h1, h2, h3, h4, h5, h6, [role='heading']") !== null;
+  const weightsOf = (heading: boolean) => count(texts.filter((el) => isHeading(el) === heading).map((el) => Number(getComputedStyle(el).fontWeight)));
   const rarest = <T,>(seen: Map<T, number>, of: (el: Element) => T) => texts.find((el) => of(el) === [...seen].sort((a, b) => a[1] - b[1])[0]![0])!;
-  if (sizes.size > maxSizes && !optedOut(document.body, "type-scale")) {
+  if (sizes.size > maxSizes) {
     const list = [...sizes.keys()].sort((a, b) => a - b);
     issues.push({ ref: ref(rarest(sizes, (el) => Math.round(px(getComputedStyle(el).fontSize) * 2) / 2)), rule: "type-scale", element: "the page's text sizes", detail: `${list.length} sizes (${list.join(", ")} px); a type scale holds ${maxSizes} or fewer` });
   }
-  if (weights.size > maxWeights && !optedOut(document.body, "type-scale")) {
+  for (const heading of [false, true]) {
+    const weights = weightsOf(heading);
+    if (weights.size <= maxWeights) continue;
     const list = [...weights.keys()].sort((a, b) => a - b);
-    issues.push({ ref: ref(rarest(weights, (el) => Number(getComputedStyle(el).fontWeight))), rule: "type-scale", element: "the page's font weights", detail: `${list.length} weights (${list.join(", ")}); keep to ${maxWeights}` });
+    const role = (el: Element) => isHeading(el) === heading;
+    const rarestWeight = [...weights].sort((a, b) => a[1] - b[1])[0]![0];
+    issues.push({ ref: ref(texts.find((el) => role(el) && Number(getComputedStyle(el).fontWeight) === rarestWeight)!), rule: "type-scale", element: heading ? "the page's heading weights" : "the page's font weights", detail: `${list.length} weights (${list.join(", ")}); keep to ${maxWeights}` });
   }
   const shadowed = visible.filter((el) => getComputedStyle(el).boxShadow !== "none" && frameOf(el) === null);
   const shadows = count(shadowed.map((el) => getComputedStyle(el).boxShadow));
@@ -379,17 +418,29 @@ function listCornerMedia(limit = 12): CornerMedia[] {
       if (/hidden|clip/.test(ns.overflow) && (parseFloat(ns.borderTopLeftRadius) || 0) > radius) [radius, frame] = [parseFloat(ns.borderTopLeftRadius), n];
     }
     const context = document.createElement("canvas").getContext("2d", { willReadFrequently: true })!;
-    let behind = [255, 255, 255];
-    for (let n = frame.parentElement; n; n = n.parentElement) {
+    // A CSS colour as RGB, or null when it is mostly transparent.
+    const rgb = (colour: string) => {
       context.clearRect(0, 0, 1, 1);
-      context.fillStyle = getComputedStyle(n).backgroundColor;
+      context.fillStyle = colour;
       context.fillRect(0, 0, 1, 1);
       const [red, green, blue, alpha] = context.getImageData(0, 0, 1, 1).data;
-      if (alpha! >= 128) {
-        behind = [red!, green!, blue!];
+      return alpha! >= 128 ? [red!, green!, blue!] : null;
+    };
+    let behind = [255, 255, 255];
+    for (let n = frame.parentElement; n; n = n.parentElement) {
+      const fill = rgb(getComputedStyle(n).backgroundColor);
+      if (fill) {
+        behind = fill;
         break;
       }
     }
+    // Never their fills: a dark card behind a recording would hide the recording's dark corners.
+    const own = [el, frame].flatMap((n) => {
+      const ns = getComputedStyle(n);
+      const sides = ["top", "right", "bottom", "left"].filter((side) => parseFloat(ns.getPropertyValue(`border-${side}-width`)) > 0);
+      const outline = ns.outlineStyle !== "none" && parseFloat(ns.outlineWidth) > 0 ? [ns.outlineColor] : [];
+      return [...sides.map((side) => ns.getPropertyValue(`border-${side}-color`)), ...outline].map(rgb).filter((c): c is number[] => c !== null);
+    });
     counter.__ouroCheckRef = (counter.__ouroCheckRef ?? 0) + 1;
     const ref = `c${counter.__ouroCheckRef}`;
     el.setAttribute("data-ouro-check-ref", `${el.getAttribute("data-ouro-check-ref") ?? ""} ${ref}`.trim());
@@ -397,7 +448,7 @@ function listCornerMedia(limit = 12): CornerMedia[] {
     const name = src && !/^(data|blob):/.test(src) ? new URL(src, location.href).pathname.split("/").filter(Boolean).slice(-2).join("/") : el.tagName.toLowerCase();
     // A round crop (an avatar, a pill) is round on purpose; its corners are the page's.
     if (radius >= Math.min(r.width, r.height) / 4) continue;
-    found.push({ ref, element: name, box: { x: r.left + scrollX, y: r.top + scrollY, width: r.width, height: r.height }, radius, behind });
+    found.push({ ref, element: name, box: { x: r.left + scrollX, y: r.top + scrollY, width: r.width, height: r.height }, radius, behind, own });
   }
   return found;
 }
@@ -408,15 +459,21 @@ async function mediaDrawn(ref: string): Promise<void> {
   const el = document.querySelector(`[data-ouro-check-ref~="${ref}"]`)!;
   const wait = (event: string) => Promise.race([new Promise((done) => el.addEventListener(event, done, { once: true })), new Promise((done) => setTimeout(done, 3000))]);
   if (el instanceof HTMLVideoElement) {
-    el.pause();
+    if (!el.paused) {
+      const paused = wait("pause");
+      el.pause();
+      await paused;
+    }
     if (el.readyState < 2) {
       el.preload = "auto";
       el.load();
       await wait("loadeddata");
     }
-    if (el.currentTime !== 0) {
+    // WebKit can report where playback stopped after a seek has landed, so look again and seek again until it holds.
+    for (let tries = 0; el.currentTime !== 0 && tries < 3; tries++) {
       el.currentTime = 0;
       await wait("seeked");
+      await new Promise((done) => requestAnimationFrame(done));
     }
   } else if (el instanceof HTMLImageElement) await el.decode().catch(() => undefined);
   await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
@@ -451,7 +508,7 @@ function shownCorners(ref: string): { corners: string[]; clip: { x: number; y: n
 // photograph's dark corners aren't one.
 async function readCorners(readings: CornerReading[]): Promise<PageIssue[]> {
   const issues: PageIssue[] = [];
-  for (const { ref, element, shot, radius, behind, corners: shown } of readings) {
+  for (const { ref, element, shot, radius, behind: computed, own, corners: shown } of readings) {
     const picture = new Image();
     picture.src = shot;
     await picture.decode();
@@ -474,12 +531,16 @@ async function readCorners(readings: CornerReading[]): Promise<PageIssue[]> {
     const reach = Math.min(Math.ceil(radius * 1.2) + 4, 40, Math.floor(Math.min(w, h) / 4));
     // The colour of a corner's band, or null when it has none.
     const band = ([, x, y, dx, dy]: (typeof corners)[number]): number[] | null => {
+      // What shows behind the frame: the nearest fill in the styles, or the page as drawn at the corner's own tip, outside
+      // a curve of 3 px or more, whatever paints it there.
+      const tip = radius >= 3 ? at(x, y) : computed;
       let odd: number[] | null = null;
       for (let c = 1; c <= reach; c++) {
         const [k, a, d] = [at(x + dx * c, y + dy * c), at(x + dx * edge, y + dy * c), at(x + dx * c, y + dy * edge)];
         if (far(a, d) >= 40) continue;
         if (odd && far(k, a) < 40 && far(k, d) < 40) return odd;
-        if (!odd && offBlend(k, behind, a) > 80 && far(k, d) > 80) odd = k;
+        // A colour the frame or the media draws itself (its border, its fill) is its own frame, not a corner baked in.
+        if (!odd && offBlend(k, computed, a) > 80 && offBlend(k, tip, a) > 80 && far(k, d) > 80 && !own.some((c) => offBlend(k, computed, c) < 40)) odd = k;
       }
       return null;
     };
