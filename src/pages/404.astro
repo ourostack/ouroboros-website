@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHero from '../components/PageHero.astro'
 
 // The hero (src/data/scenes.mjs) is the open gate with its signpost: Ouro has
 // wandered off the glowing trail, and the signpost offers the way back.
@@ -14,42 +15,33 @@ const ways = [
 ---
 
 <Layout title="Not found | Ouro" description="Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it." ogImage={ogPathFor('/404')}>
-  <section class="relative px-6 lg:px-16 pb-16">
-    <div class="relative z-10 max-w-6xl mx-auto split">
-      <div class="split-head text-center">
-        <span class="font-mono text-xs text-fang uppercase tracking-[0.22em] block mb-6">404</span>
+  <PageHero eyebrow="404" title="Lost in the coils.">
+    <Fragment slot="description"><p class="m-0">Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it.</p></Fragment>
+  </PageHero>
 
-        <h1 class="font-display text-[3rem] sm:text-[4rem] md:text-[6rem] text-bone leading-[0.95]">
-          Lost in the coils.
-        </h1>
-      </div>
+  <section class="px-6 md:px-12 lg:px-16 pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto">
+      <p class="text-base text-mist leading-relaxed">
+        This page has been consumed by the context window. Nothing remains.
+      </p>
 
-      <div class="split-body text-center">
-        <p class="text-lg md:text-xl text-bone mt-6 leading-relaxed">
-          Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it.
-        </p>
-        <p class="text-base text-mist mt-3 leading-relaxed">
-          This page has been consumed by the context window. Nothing remains.
-        </p>
-
-        <ul class="signpost mt-10" aria-label="Ways back to the trail">
-          {/* Each arrow sits at its sign's pointed end: after the words on a
-              sign pointing right, before them on one pointing left (taste
-              review r16). */}
-          {ways.map(([href, label], i) => (
-            <li>{i % 2
-              ? <a href={href} class="sign sign-left"><span aria-hidden="true">← </span>{label}</a>
-              : <a href={href} class="sign sign-right">{label}<span aria-hidden="true"> →</span></a>}</li>
-          ))}
-        </ul>
-      </div>
+      <ul class="signpost mt-10" aria-label="Ways back to the trail">
+        {/* Each arrow sits at its sign's pointed end: after the words on a
+            sign pointing right, before them on one pointing left (taste
+            review r16). */}
+        {ways.map(([href, label], i) => (
+          <li>{i % 2
+            ? <a href={href} class="sign sign-left"><span aria-hidden="true">← </span>{label}</a>
+            : <a href={href} class="sign sign-right">{label}<span aria-hidden="true"> →</span></a>}</li>
+        ))}
+      </ul>
     </div>
   </section>
 </Layout>
 
 <style>
   /* The signpost from the scene, in words: wooden arrows pointing both ways. */
-  .signpost { display: grid; justify-items: center; gap: 0.6rem; }
+  .signpost { display: grid; justify-items: start; gap: 0.6rem; }
   .sign { display: inline-block; padding: 0.55rem 1.4rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--color-bone); background: color-mix(in srgb, var(--color-amber) 16%, var(--color-deep)); border: 1px solid color-mix(in srgb, var(--color-amber) 40%, transparent); transition: color 0.2s, border-color 0.2s, transform 0.3s var(--ease-expo); }
   .sign-right { clip-path: polygon(0 0, calc(100% - 0.9rem) 0, 100% 50%, calc(100% - 0.9rem) 100%, 0 100%); padding-right: 2rem; }
   .sign-left { clip-path: polygon(0.9rem 0, 100% 0, 100% 100%, 0.9rem 100%, 0 50%); padding-left: 2rem; }
