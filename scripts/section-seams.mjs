@@ -110,7 +110,14 @@ function changes() {
 }
 
 const SLICE = 8000;
-const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
+// Playwright turns on Chromium's CDPScreenshotNewSurface, which copies the
+// page for a screenshot before the browser has drawn a frame for it and
+// sometimes gets nothing back ("Unable to capture screenshot"). Without it,
+// Chromium waits for the redraw first; the pixels are the same.
+const browser = await chromium.launch({
+  ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}),
+  ignoreDefaultArgs: ['--enable-features=CDPScreenshotNewSurface'],
+});
 // Decodes a screenshot in the browser itself (no image library, so the same
 // script runs on both sites): the mean colour of each row in a 12px strip at
 // each side edge, 2px in.
