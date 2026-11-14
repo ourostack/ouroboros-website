@@ -206,25 +206,25 @@
   "ouro-ui-apple": {
     "wide": {
       "from": "headers/ouro-ui-apple.webp",
-      "sha256": "ac557ed7510250f9516f0817a5ad8121f7c3c5bd1f77792411388aba408340e9",
-      "uri": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwAgCdASoQAAYAAkA4JbACdLoAAwnFG6RcAAD82Lyc4PljU5FxhBH6dRn8sW0rPNzh0goH+DbeIaXhFF7ssDKVJUk6nynfODO9iI/1/4lzUrJHc51WaWev3iovLfp0hkC02pl16pmllZpr4+AAAA=="
+      "sha256": "270082ebb2474c6eca32d7b4a92086bde33580a93412bc55886ec37fa1f6c596",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABwAgCdASoQAAYAAkA4JbACdLoAfiIDJCWMb+eAAP38cqDN3CoxV3E12Y/R1AqpiHl06XV00NBn8ckDWad9t1S+SuPIu0wcweQiVf/C6OGmNf51lHzuBf/8e9/sv8teyZVZcn0DDrYU6mB/FIfH/4AAAAA="
     },
     "phone": {
       "from": "phone/ouro-ui-apple-384.webp",
-      "sha256": "c4f766cdad6a46e40c638ba22b19b081c2944364c76e8676f084bf956d05fc80",
-      "uri": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAACQAgCdASoQAAkAAkA4JbACdDBACIrMAKImXwwzgAD+1Rah3MrC8zFWph941+4JsaodmJcDTneDXRjy5bMuRFHbjLt8NuoCH/hBGRdOKbvPuPUu7xSCKNpn+hled2Y6/uMUFNMr//wxIO0Gpa7kzf796fMvUTK/y/9+LSsAAAA="
+      "sha256": "84a65118214eecaf9664fd387e2e2128ce9360386553352a3868fc94b3cb2e3c",
+      "uri": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAQAgCdASoQAAkAAkA4JbACdDBAAWjm4Q5AAP7VFM9Fxx9VhPDTfpfm0WncWdyknPRvbGpAKBmm8Pop5u8wHIJPD8WsYkLZSaS1Hv3l54VvBHyup+flMoEQLn35YYtpMzYTH//U5NT2S4/w5M4Avm6Whx8caR31KRLwAAAA"
     }
   },
   "ouro-ui-apple-dark": {
     "wide": {
       "from": "headers/ouro-ui-apple-dark.webp",
-      "sha256": "ca67e7d9c1b9defd27b244e7eed85fc348da714d076369968f14834dfa680b7f",
-      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQAgCdASoQAAYAAkA4JbACdAYtpbTtMjMblAAA/vaz+H8FjxA7JaSK9yKhBBcC/V40PRiVOtWxZogehRLv37FvifyWgfi3aTcmO9n1d8q3QY18U5+Z3+Dss7nH95xYVBKiA8FxWH7zeLVkHxZlrfQAAAA="
+      "sha256": "211a892dc4cbb0f91f0666bdb447fde80f829834ea56bb9d24d9802c584819a1",
+      "uri": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQAgCdASoQAAYAAkA4JbACdDBJQY1NBcHgAP72tAqXYk7qBgoGaGGJmQcAqpkmtVBlnFhkZmBHJvoHTDtb0Q2FVbskcSHcgNDItb5ZWLsRxmGmPzX/id/B5EwkO/7IyPLG3DyRFOh/NxF0EkRibvwAAAA="
     },
     "phone": {
       "from": "phone/ouro-ui-apple-dark-384.webp",
-      "sha256": "43dc1371b527ced2422ff286d6490465ac0a6436b757b03845dc37a29c75dd5a",
-      "uri": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAABwAgCdASoQAAkAAkA4JbACdDBHSIrK0pTzRZ0AAP74k41yzYZ+PR2yBXAWWolk6iS6StuMgFVhpXuci47IeN0+JzWQ/nzuc2+gc79iZ7xJ+mX+jl6gDl5yZmRfON38u9AKEy+T1T4/ybYHvNWTtf8DpSt7fODCG+vgAAAA"
+      "sha256": "375377767532f7934d06aad177c96a218911b2ffad6b3d6e0db846dfae03ffa9",
+      "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQAgCdASoQAAkAAkA4JbACdDBDwWqeEK8GvwAA/vfXEeH6WvTQaBmDClSG8J98Zsfr5eDZsNRuqr67IvpHo2iloH4eHv+IMJ4cO58Q7dwtH9fWk+4qjFse0FslrsW/mJOT39yD/0ljaQZscDlNv1lFYrfP/ei7gNAAAA=="
     }
   },
   "ouro-ui-core": {
