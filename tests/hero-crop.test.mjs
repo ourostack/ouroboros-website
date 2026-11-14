@@ -70,7 +70,9 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
     }
     checked++;
   }
-  assert.ok(checked > 20, `only ${checked} heroes checked`);
+  // Pages that open on Ouro's contained Hero leave this full-bleed set, so it shrinks;
+  // the guard only proves the pattern still finds heroes.
+  assert.ok(checked > 0, `only ${checked} heroes checked`);
 });
 
 // Every hero ends on a hard edge at its picture's foot (Ari, 2026-11-08: no
@@ -138,7 +140,9 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
     }
     checked++;
   }
-  assert.ok(checked > 20, `only ${checked} heroes checked`);
+  // Pages that open on Ouro's contained Hero leave this full-bleed set, so it shrinks;
+  // the guard only proves the pattern still finds heroes.
+  assert.ok(checked > 0, `only ${checked} heroes checked`);
 });
 
 test('the cast\'s foot counts every character, not only Ouro', () => {
