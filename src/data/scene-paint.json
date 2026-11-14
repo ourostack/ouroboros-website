@@ -59,6 +59,18 @@
       "uri": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAACwAgCdASoQAAwAAkA4JbACdDBJiIHK0vH4ZOAviAAA/qwOo+rKjzNxb4AZpmcufes9zBcVBeZliZCqdFTnpL10983P3hLr2JtmFWLkqZ5FygLj0cnLMXgh3SerCVo4pz5cFB7zCLU/t59D//C5NbHj4/AqX+q4v2kL/71YNNb8z+L3v/+LiwlOOS2XGea1g94f333v33wBlAAA"
     }
   },
+  "butler-dark": {
+    "wide": {
+      "from": "headers/butler-dark.webp",
+      "sha256": "c7f0f16c2828e03181da1ad8c0bd53ff2a15eb2993aa37177ee0c01704f53489",
+      "uri": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQAgCdASoQAAYAAkA4JbACdAYstSZh892gAP713MlGJQiuvFxEeiXwI9CJA+DGZvGrz5E3BLCTyJpBPHyMrWrpcp0ALRZgGep7/OqJ9WTeao87+Z2ez/CPZ7X8YxlNywMso5r8Z4piNasymPNmntL2xiAAAA=="
+    },
+    "phone": {
+      "from": "phone/butler-dark-384.webp",
+      "sha256": "af8405066e981a319395cf17aaac140f3376569e667c14a7dda17b86a55a1371",
+      "uri": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACwAgCdASoQAAwAAkA4JbACdDiAN4zIhQrA977yIWAA/uaQDF8o0cufn3RnpJk8NAqJPZ8+wBudpHTHJXlVNHMvB7NmgYb03vlyPbE4wzDByBDi6suOy4afMq+KoautBeezqJDub+245s+XGxr5xG4U+cGYKe7VJj/8Fu6B8XOO9gVKF4Hl/xEU98Y63mBZXX8XFuRa+Q7VtvEQHay6xmRgeD8GaIAA"
+    }
+  },
   "desk": {
     "wide": {
       "from": "headers/desk.webp",
@@ -69,6 +81,18 @@
       "from": "phone/desk-384.webp",
       "sha256": "00d74539449fbb132eb953e518de18d13addb4efbfd214519cc5196e7c2f6d66",
       "uri": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAAAwAgCdASoQAAwAAkA4JbACdDBGgZB2k94wAAD+4Nucvg+QL3gkHRcnW+OMkePqTKalB4fEEp5G1r4P7WKemxaStZ4nENymWnUAUeeJfsqkptdcIJSxYh3d7rFy7xAa84PU/R1DwFv+XGieoN/5sJHv0z/9Y/U1SOtrf772itY20MfMTWMiB0Ut2r9WQuYAAAA="
+    }
+  },
+  "desk-dark": {
+    "wide": {
+      "from": "headers/desk-dark.webp",
+      "sha256": "fe082edcfda807ebb031d4329a33e16442e835b455d879e00d57bb1711b6cc8b",
+      "uri": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAwAgCdASoQAAYAAkA4JbACdAYtpvvECXvOwAD+8zhC2YB+Yj2o5LvuR+mKWOIL/PMUTsV8vNGen7e8DYd72LeGl79Wnst4nXImRf69YP1D/B4ZD+D9+5PP1cAp9sRfyxkvJVfNcYKu+2mxAAA="
+    },
+    "phone": {
+      "from": "phone/desk-dark-384.webp",
+      "sha256": "30c7bb2b3b6683b62a01c6c312b95cd8e05667a737f3aa0e51fa8eb806c0a8b5",
+      "uri": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACwAgCdASoQAAwAAkA4JbACdLoAfhWREZgWsQYdZrAA/vkYgJMAXKjO/94ykdZo8Uj/GO9XMtnEoyQOxynFAvgSvzQ9OIZjX+btgeB05a4RGxFH+rY/yjFOWeUELoXZdZRNflL9slB/MUg2hT0Wfw4C883X6/8cf+bWWuxihtDdr89RI7U8TFuuEaIKj8m8RgAAAA=="
     }
   },
   "factory": {
@@ -239,6 +263,18 @@
       "uri": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACwAgCdASoQAAwAAkA4JbACdDXAOkRIg4lAy+52g4AA/q3bIDwL3NNgbTgqSzpPJPbKY01U9eMeP8iOyJYrPndsSndtlar3dROdV3yE4ApzjorC60Q2O60LtZo/Cr4bnjFTweXC7utUOtH4dbd0Rv/5UcbfiUh19zA2omRL/PXKpDvl19y8G2MT/2ohviG7odybIv/nXShu9Dsq0h+rZ+37Ce+974AA"
     }
   },
+  "m365crawl-dark": {
+    "wide": {
+      "from": "headers/m365crawl-dark.webp",
+      "sha256": "9cf4ca51bfdd0788f776c287af589cebf6aa2861faf8f9c2178f72512191ec1b",
+      "uri": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwAgCdASoQAAYAAkA4JbACdAEe4dBPlhXgQAD+9Fo38dhcMsCxB3cufjj/XPqh1jp7jXGdiD91O1OgxD1mZjI8ph78vtuTY0yVRrUpAP22f90x1/g1E1P+/+fexeYmCk/DAbRZY/g3/dr7FNh+0+1cIrexIbl5zgAAAA=="
+    },
+    "phone": {
+      "from": "phone/m365crawl-dark-384.webp",
+      "sha256": "7d2231fa69b2807777d63fa4e3ff817fa07d82d279d0ae9ee27caae240c13915",
+      "uri": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4IKoAAACwAgCdASoQAAwAAkA4JbACdDBFCIPLL5KrTAZDvQAA/t44uy9Vhx91s20xKMmoEO2HBr2YjSSyfQ8vIw+FTOLxRacGuQhmEFPXnKd4eqeGTODgJYGZyvPwzkLXWdYP4VfDxFXD8mUSZmf50bBFiNW/f/lWH/+P6yeNVWn5JHUf5/5v92P6DIPwdIGUxnHFBYOZf7ERj7b5FczZgikL9sgNpsyd5BeLpkgAAA=="
+    }
+  },
   "ouro-apps-site": {
     "wide": {
       "from": "headers/ouro-apps-site.webp",
@@ -249,6 +285,18 @@
       "from": "phone/ouro-apps-site-384.webp",
       "sha256": "da0b8d110de8c2cb99fd4ece7e47e8b873fab78829f42b18a6ff942e3a8f86a8",
       "uri": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAADQAgCdASoQAAwAAkA4JbACdEf/2RURB5ly0JQ6TEK8AP6asWPf3uIfN+P2DRfqFVv8zmZhPtQqa3kUk2XiNbXohV4JaqjafRX69UKLeU4T2VpkVEiwxFrZ2MvXCmAUhjDsgQDnrj2/4rOxq/tN39dd0YfvXl/4VRA7/r8nQ5c79vXDzOMLOja37dfjKbgjzh5b8GgAAAA="
+    }
+  },
+  "ouro-apps-site-dark": {
+    "wide": {
+      "from": "headers/ouro-apps-site-dark.webp",
+      "sha256": "9b620374a25079c1d0eb839e9e534f35d4a2cf00cf9b89874685c46048645c55",
+      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAQAgCdASoQAAYAAkA4JbACdDBOQXIhNW8wAP70Xzn4agCbb6FVzpYBY+napMwRODMUa+3p0H8LLddNGd2jglmgj0kOhOYxvF37fXGqxn5tDvV/sAch7PF/3MzlJsTaPhmX38/rjgVBRP4olHokAAAA"
+    },
+    "phone": {
+      "from": "phone/ouro-apps-site-dark-384.webp",
+      "sha256": "ba1cdd353e70547538f495f8d08e8f8b19a01f48707277bf4c964c08e9ae526e",
+      "uri": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAADQAgCdASoQAAwAAkA4JbACdLoAfiiRDZI44k6S3zoAAP7Q8W/Foh02/j9ypbLjTKf972HXLG98anCPWwMB5gu1iRt9iRMn7zufx8W/gYh08IcZxb23DPYpge8xkdzk7x9tu4H6No9Vj5M9uP2sTxPprJ03f0/8sNqIWZbRgs9r/L9rcxu0Tgdwat6PQBO1BZrG1/l0kN0IV0Ecu84GjwAA"
     }
   },
   "ouro-hx": {
@@ -273,6 +321,18 @@
       "from": "phone/ouro-md-384.webp",
       "sha256": "80c1817a780c6ff8800d25f64bdb8f9d04f5fa5c63ef9997926689db9049cfae",
       "uri": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADQAgCdASoQAAwAAkA4JbACdFKATiIRB5f7rDCsJzAAAP7uPyrOaeEhZPV6L/hqUrcqyXr1aXl+X9GQlN8ZvZxV3zYkx6HVaYm6EgekMF3G4ct/YK2QUyXWnoqiQG2mKMPISKUHNQ1xljvF+9VxU0/mWuf/z/TKV7fvrZu34wncVtUbgCi77tNpfg8SPOfdJaYgAA=="
+    }
+  },
+  "ouro-md-dark": {
+    "wide": {
+      "from": "headers/ouro-md-dark.webp",
+      "sha256": "29aa946bdce41a2795f0a25968a230e1e31fb68229f990d73ae14a5920164eff",
+      "uri": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAQCdASoQAAYAAkA4JbACdADpNKdti/QA/ukH7B7p9jJ6RN+hNnQwHLJW0pvhfkD2ECR+qbGPvbgl1vkrvUA3kkne2LrEjWUXiPey3w6qWybytS2+NzLAQ60oX+bVFdPZaiO0QI7bySFOd1MWLePJOk723bCAAAA="
+    },
+    "phone": {
+      "from": "phone/ouro-md-dark-384.webp",
+      "sha256": "98c37a05d193a2d8ede06904344e8c2af12c3136e1996b11b9aa558c9ba3ba6e",
+      "uri": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAACQAgCdASoQAAwAAkA4JbACdDBKyIgL+3X91hKZAAD+8bcdZw69O5lE9L+MJRphYq9IKkge+F9X+dMzPwGuR3vcrRY2EmOvkvjS59BcOX/SMNDzgnS7SsNPZDfoHbUDbQV8CfEwMpA2XE0/SPMGvuvrL1dUX0FiLveuL7mAntWWf8RiJ932Xj6pjOWze1ao6mx7xF/m872l07NMAAA="
     }
   },
   "ouro-native-apple-app-shell": {
