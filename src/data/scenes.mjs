@@ -196,11 +196,11 @@ export const heroFocus = {
   factory: [0.2, 0.94],
   'flow-review': [0.18, 0.84],
   friends: [0.2, 0.97],
-  'friends-relay': [0.05, 0.95],
+  'friends-relay': [0.04, 0.95],
   gatefold: [0.15, 0.88],
   'agent-workbench': [0.056, 0.911],
   'agent-workbench-dark': [0.056, 0.911],
-  'friends-relay-dark': [0.05, 0.95],
+  'friends-relay-dark': [0.04, 0.95],
   'homebrew-tap': [0.06, 0.88],
   // The roof's arch over the door, down to Ouro's lowest coil.
   housesitter: [0.3, 0.99],
@@ -284,12 +284,12 @@ export const phoneCastX = {
   // .github#15: 2:1, centre 952.
   'flow-review': [0.099, 0.901],
   friends: [0.098, 0.906],
-  // The dove at the left (.github#15: centre 705).
-  'friends-relay': [0.063, 0.89],
+  // The big dove at the left, Ouro's coil at the right (v4 master).
+  'friends-relay': [0.06, 0.86],
   gatefold: [0.42, 0.88],
   'agent-workbench': [0.068, 0.934],
   'agent-workbench-dark': [0.068, 0.934],
-  'friends-relay-dark': [0.063, 0.89],
+  'friends-relay-dark': [0.06, 0.86],
   'homebrew-tap': [0.38, 0.88],
   // The robots in the window at the left, Ouro's body at the right.
   housesitter: [0.19, 0.905],

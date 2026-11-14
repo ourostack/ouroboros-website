@@ -98,25 +98,25 @@
   "friends-relay": {
     "wide": {
       "from": "headers/friends-relay.webp",
-      "sha256": "205d2284661e7e4f90a58d33f39811677ad5d7d38dff5b42c4143e93259c47b7",
-      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwAgCdASoQAAYAAkA4JbACdLoAfhuChqh3dgD+1/+hUXM5FLMetGgK9+Dq/5lWFrNUz4Vg4/DpoxeI+cTCwFoW3p9SHn1n7zeZbv+P57VKsPZJs6evGfpUSf4N+1UHPWG81Qnd7NBeZhuGqgayIAAA"
+      "sha256": "ceaaf36e93d3227595467c7aac5366be2a9bb7e10bf622f398489c02ef4bbe43",
+      "uri": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAABwAgCdASoQAAYAAkA4JbACdLoAnjPeQAT0lgIAAP7iPi28sYrmZ/M75/U7KGZOvny1G7XTxK2+KmS5vCbSJOTdMTgek7gn+Rvln5x/PkPKUl9gaT/XS/P3sh/9DftqZj+PmetMjT0dgt3ETJOl0gAA"
     },
     "phone": {
       "from": "phone/friends-relay-384.webp",
-      "sha256": "46cd6039b1086b44bfda40f877dc2bb0a2aa0899c6d5c723d053a273f844388f",
-      "uri": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAAAwAwCdASoQAAwAAkA4JbACdDiJeVA+CAiMTFSMPa89ZgMAAP72L+2KaDBOcuAjlP589qzRnlv/SGZq09cTKbpYbmmgPQ5lyxptgj/oZfGn7OErDIwFfz4V6kP0CfbNE7C1kGNYAYG1k6YU9u/v+wi9p8nzVvIEFt34ZJ3DYOjydYtyb+bRMgx/oAAAAA=="
+      "sha256": "8cd366c760126eb0b569fead63e2a3e7e27f175a8e2b6d629dc721b06ed9d659",
+      "uri": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADQAgCdASoQAAwAAkA4JbACdDiJeUA+DwiLTFSBIPCAAP71AlKW418qJ7UfdB/ZWEZqCXyk9ktKBOmJcHedJLV5cBjcLC7YeAHF5vVpG9jyPpZnjwwn/hBePrf7x6uTkje63CvrIfGv/aZDIoj0eRk6h7YNPk5LoNelFtPQfYkbten4+AAAAA=="
     }
   },
   "friends-relay-dark": {
     "wide": {
       "from": "headers/friends-relay-dark.webp",
-      "sha256": "26b37cbf76f17117be17b84f80f84448f9984741aa1b7475d4fdacdcc896f7f0",
-      "uri": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAABQAgCdASoQAAYAAkA4JbACdDBLwZq5gM21lAAA/vfV9PfS6HJSOVj5Yg/TCbEzJWUv19yK0O8dn99tSyyhe4VeWkPv3M6/xsFRdypvw0Gm7NycHfwYzXfm0CVJyPhIPm06ARHM/AAAAA=="
+      "sha256": "de289ba1db4f55c524f37de267ff8aa88187478247029789db3ec3ba07748450",
+      "uri": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQAAYAAkA4JbACdDBLwZBor7KhQAD+9vQ2wJY00yEGpm4nz7Sznp6vt15TC3dSZNVTVb6lpcxL34hX/+NgqLgF/hoNN2b+kqO/oboReRdSN7/MaXG9dtCk4ZDP5ErhFLAAAA=="
     },
     "phone": {
       "from": "phone/friends-relay-dark-384.webp",
-      "sha256": "5cab6e8f1d088f4b389c6df01a62c9b89ffd928510c4cfe2be7e0dc0a76465c9",
-      "uri": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAAAQAgCdASoQAAwAAkA4JbACdDBOiIZIc0kAAP74l9fIX2oUr4XE/IDupH6GMvEv1Xl46L3U3+3ZcxiniFeFwJ4h4EHNPrmtskpq3aLSuMDgY5yoN82zFaWrxgCl0Hwdvs2fbo6/19+X/T/vVC23oC9Tl5bVcq2e9mfx+f3qpB/No4qnSaf6cKAAHtAAAA=="
+      "sha256": "a5016e4e8eb326b436b5d1caa1488de0625205744f549535a745da5b04e6b953",
+      "uri": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADQAgCdASoQAAwAAkA4JbACdDiAN4sIiUvx/F2znLeAAP73n3k3OfGuoNZnJU4VHsOPtA/gSrHzkI9UOgcPLTU15nSucIq3EAR7GwP8kBynccrcf/6A9T+LqzEHkp/fVDzkhmnIAf4BnLf6toaP6cuBiWr7Ry3eo7GGueG4Fucg0Yau335Zt29ShdDmn7IQQAA="
     }
   },
   "gatefold": {
