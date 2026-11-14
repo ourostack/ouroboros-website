@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import HeroCover from '../../components/HeroCover.astro'
+import PageHero from '../../components/PageHero.astro'
 import { ogPathFor } from '../../data/og'
 
 const headline = 'Code a model can use: how Ouroboros started'
@@ -107,20 +107,13 @@ const entries = [
   </Fragment>
 
   <!-- Header -->
-  <HeroCover>
-    <Fragment slot="title">
-      <span class="t-clause"><span class="t-ph">Code a model</span> <span class="t-ph">can use,</span></span>
-      <span class="t-clause text-mist"><span class="t-ph">not code</span> <span class="t-ph">that uses a model.</span></span>
+  <PageHero>
+    <Fragment slot="title">Code a model can use, <span class="text-mist">not code that uses a model.</span></Fragment>
+    <Fragment slot="description">
+      <p class="m-0">How a plugin for my OpenClaw agent turned into a harness I built from scratch.</p>
+      <p class="m-0 mt-5 text-sm">Ari Mendelow &middot; March 2026, updated October 2026</p>
     </Fragment>
-    <Fragment slot="body">
-      How a plugin for my OpenClaw agent turned into a harness I built from scratch.
-    </Fragment>
-  </HeroCover>
-
-  <!-- Byline -->
-  <section class="px-6 md:px-12 lg:px-16 mt-0 md:-mt-12 mb-16 reveal">
-    <p class="text-sm text-shadow text-center">Ari Mendelow &middot; March 2026, updated October 2026</p>
-  </section>
+  </PageHero>
 
   {/* Orientation for a reader arriving cold. The story itself follows unchanged. */}
   <section class="px-6 md:px-12 lg:px-16 mb-16">

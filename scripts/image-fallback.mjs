@@ -28,7 +28,7 @@ const opt = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : unde
 const DIST = fileURLToPath(new URL('../dist', import.meta.url));
 const PORT = 6200;
 const PAGES = [
-  { path: '/lab/model-reviews/', img: '.story-hero img', wideDpr: 1 },
+  { path: '/lab/model-reviews/', img: '.story-contained img', wideDpr: 2 },
   { path: '/', img: '.story-contained img', wideDpr: 2 },
 ];
 const CASES = [

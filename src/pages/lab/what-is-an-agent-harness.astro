@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import HeroCover from '../../components/HeroCover.astro'
+import PageHero from '../../components/PageHero.astro'
 import { ogPathFor } from '../../data/og'
 
 const title = 'What is an agent harness?'
@@ -33,14 +33,13 @@ const cards = [
     })} />
   </Fragment>
 
-  <HeroCover>
-    <Fragment slot="title">What is an agent harness?</Fragment>
-    <Fragment slot="body">
-      If an agent loop is the primitive that lets a model act, an agent harness is the larger system that helps the same agent stay oriented, persist across sessions, and work across time.
+  <PageHero title="What is an agent harness?">
+    <Fragment slot="description">
+      <p class="m-0">If an agent loop is the primitive that lets a model act, an agent harness is the larger system that helps the same agent stay oriented, persist across sessions, and work across time.</p>
     </Fragment>
-  </HeroCover>
+  </PageHero>
 
-  <section class="px-6 md:px-12 lg:px-16 pt-0 md:pt-16 pb-16 md:pb-24">
+  <section class="px-6 md:px-12 lg:px-16 pb-16 md:pb-24">
     <div class="max-w-6xl mx-auto prose-ouro">
       <p>Start with the simplest version.</p>
 

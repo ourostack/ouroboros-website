@@ -1305,22 +1305,10 @@ main > section.border-t::before, .trail-top::before {
    review r15: it measured 20px). The row clips its leading dot, so the
    link's own box, not an invisible hit area, carries the size. */
 .lab-line .lab-item > a { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; min-width: 2.75rem; }
-/* A centred hero (HeroCover) centres the way in and out of it too: the
-   breadcrumb and its status chip, and the block that follows the lead, such
-   as "Words used here" (Ari's ruling, taste review r14: a left-aligned
-   breadcrumb above a centred title on six Lab pages, and the glossary flush
-   left under a centred lead on a phone). Centred, the row has no hidden
-   start for a dot to sit in, so the first item and the status chip carry
-   none: the chip is set off by the row's gap, which also falls away where
-   the chip wraps to a line of its own (/lab/docs/ at 320), so no line
-   starts on a stray dot. scripts/hero-joins.mjs holds every page's
-   breadcrumb to its h1's alignment. */
-.lab-status:has(+ .hero-cover) .lab-items { justify-content: center; margin-left: 0; column-gap: 0.625rem; }
-.lab-status:has(+ .hero-cover) .lab-item { padding-left: 0.625rem; }
-.lab-status:has(+ .hero-cover) .lab-item::before { left: 0; transform: translateX(-50%); }
-.lab-status:has(+ .hero-cover) :is(.lab-item:first-child, .lab-item:has(> .tag)) { padding-left: 0; }
-.lab-status:has(+ .hero-cover) :is(.lab-item:first-child, .lab-item:has(> .tag))::before { content: none; }
-.hero-cover + * > [data-glossary], .hero-cover + [data-glossary] { text-align: center; }
+/* Over a page on Ouro HX's Hero (PageHero.astro) the breadcrumb clears the nav
+   itself, so the hero under it starts at the Hero's own top room. Both start
+   at the column's left edge (scripts/hero-joins.mjs). */
+.lab-status + .page-hero { padding-top: 0; }
 /* No decorative orbs, blobs or gradient washes outside the scene art (taste
    review r16: a blurred green orb on /approach/ read as a smudge). The light
    comes from the storybook scenes; a section's ground band may tint a section,
