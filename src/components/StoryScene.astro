@@ -10,6 +10,9 @@
   variant="meadow" the short band above the footer, deferred.
   variant="vignette" a small 4:3 portrait of a product's character beside its
                    name (the phone crop, which frames Ouro and the product), deferred.
+  contained        with variant="hero": the art as Ouro HX's Hero media (PageHero),
+                   shown whole at its own aspect inside the page's column, loaded
+                   first, with no crop, drift or trail.
 
   The art is never re-encoded or cropped in a build step; CSS crops the
   meadow band with object-fit. Behind it sits the scene's own paint (a tiny
@@ -28,9 +31,11 @@ interface Props {
   class?: string
   /** A product page's hero: its floor may drop to PRODUCT_FLOOR (heroFrame()). */
   product?: boolean
+  /** A hero shown whole inside Ouro HX's Hero (PageHero), not full bleed under the nav. */
+  contained?: boolean
 }
 
-const { scene, variant = 'inline', sizes, alt, class: className, product = false } = Astro.props
+const { scene, variant = 'inline', sizes, alt, class: className, product = false, contained = false } = Astro.props
 if (!(scene in scenes)) throw new Error(`StoryScene: unknown scene ${scene}`)
 const base = '/brand/storybook'
 const [w, h] = sceneRatio(scene)
@@ -48,7 +53,7 @@ const hero = variant === 'hero'
 // past its art. Where the feet stand too near that edge for the trail's glow,
 // the trail hangs below it (data-trail-below).
 const frame = heroFrame(scene, { product })
-const phoneAspect = hero
+const phoneAspect = hero && !contained
   ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`
   : `--phone-ar: ${pw} / ${ph}`
 // The scene's own dawn, painted behind the art (scripts/scene-paint.mjs): a
@@ -68,7 +73,7 @@ const paintVars = night
   : `--paint: url(${paint.wide.uri}); --paint-phone: url(${paint.phone.uri})`
 const style = `${phoneAspect}; ${paintVars}${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
-const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : '100vw'
+const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : contained ? (sizes ?? '100vw') : '100vw'
 const sources = (s: string) => ({
   phoneAvif: `${base}/phone/${s}-384.avif 384w, ${base}/phone/${s}-768.avif 768w`,
   phoneWebp: `${base}/phone/${s}-384.webp 384w, ${base}/phone/${s}-768.webp 768w`,
@@ -90,10 +95,10 @@ const nightAlt = night ? (alt ?? scenes[night]) : undefined
 const vignette = variant === 'vignette'
 // A column hero (columnHeroes) has its own 2:1 art from 1600px, listed ahead of the
 // full-bleed art so it wins there and nowhere else.
-const column = hero && night ? columnHeroes[scene] : undefined
+const column = hero && night && !contained ? columnHeroes[scene] : undefined
 ---
 
-<div class:list={['story-scene', `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style}>
+<div class:list={['story-scene', contained && hero ? 'story-contained' : `story-${variant}`, className]} data-brand-scene={scene} data-night-scene={night} data-trail-below={hero && !contained && frame.trailBelow ? '' : undefined} data-hero-column={column ? '' : undefined} style={style}>
   {hero && day && dark ? (
     <>
       <picture>

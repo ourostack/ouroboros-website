@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import { ogPathFor } from '../../data/og'
 import PromptCard from '../../components/PromptCard.astro'
 import PostByline from '../../components/PostByline.astro'
+import PageHero from '../../components/PageHero.astro'
 import ShellCommands from '../../components/ShellCommands'
 import { CodeBlock } from '../../components/ouro/code-block/code-block'
 import { Card } from '../../components/ouro/card/card'
@@ -421,22 +422,14 @@ const outputExempt = "program output, shown as evidence"
     </script>
   </Fragment>
 
-  <article class="px-6 lg:px-16 pt-32 pb-20">
-      <!-- Header -->
-      <header class="max-w-6xl mb-12 md:mb-8 mx-auto split lg:items-end">
-        <div class="split-head">
-          <span class="text-xs font-mono text-fang uppercase tracking-[0.22em]">Grow an agent</span>
-          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-bone leading-tight mt-4">
-            Just give the model a keyboard
-          </h1>
-        </div>
-        <div class="split-body">
-          <p class="text-base md:text-lg text-mist mt-5 leading-relaxed">
-            How to build an agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.
-          </p>
-          <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
-        </div>
-      </header>
+  <PageHero eyebrow="Grow an agent" title="Just give the model a keyboard">
+    <Fragment slot="description">
+      <p class="m-0">How to build an agent from scratch, understand what an agent loop really is, and grow something that modifies its own code.</p>
+      <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
+    </Fragment>
+  </PageHero>
+
+  <article class="px-6 md:px-12 lg:px-16 pb-20">
 
     <div class="max-w-6xl mx-auto">
 

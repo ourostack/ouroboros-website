@@ -10,6 +10,7 @@ import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
 import StoryScene from '../components/StoryScene.astro'
 import { sceneFor, meadowScene, scenes, darkScenes, columnHeroes, columnHeroSrcset, COLUMN_HERO_MEDIA, wideSrcset } from '../data/scenes.mjs'
+import { usesPageHero, PAGE_HERO_SIZES } from '../data/page-hero.mjs'
 
 interface Props {
   title: string
@@ -50,12 +51,17 @@ const heroBase = scene.hero ? `/brand/storybook` : ''
 // in use: the saved theme, or else the system's, chosen in the head before the
 // preloads are added. Every other hero's preloads are static.
 const heroNight = scene.hero ? darkScenes[scene.hero] : undefined
+// A page on Ouro HX's Hero (PageHero.astro, page-hero.mjs) draws its scene inside
+// the page's column, not full bleed, so its preloads take the column's sizes.
+const pageHero = Boolean(scene.hero) && usesPageHero(Astro.url.pathname)
+const heroSizes = pageHero ? PAGE_HERO_SIZES : '100vw'
 // A column hero (columnHeroes) is drawn from its own 2:1 art from 1600px, so the
 // full-bleed preload stops at 1599px and the column art's takes over.
+const columnHero = !pageHero && scene.hero && columnHeroes[scene.hero]
 const heroPreloads = (s: string) => [
-  { media: '(max-width: 640px)', srcset: `${heroBase}/phone/${s}-384.avif 384w, ${heroBase}/phone/${s}-768.avif 768w` },
-  { media: scene.hero && columnHeroes[scene.hero] ? '(min-width: 641px) and (max-width: 1599px)' : '(min-width: 641px)', srcset: wideSrcset(s, 'avif') },
-  ...(scene.hero && columnHeroes[scene.hero] ? [{ media: COLUMN_HERO_MEDIA, srcset: columnHeroSrcset(s, 'avif'), sizes: columnHeroes[scene.hero].sizes }] : []),
+  { media: '(max-width: 640px)', srcset: `${heroBase}/phone/${s}-384.avif 384w, ${heroBase}/phone/${s}-768.avif 768w`, sizes: heroSizes },
+  { media: columnHero ? '(min-width: 641px) and (max-width: 1599px)' : '(min-width: 641px)', srcset: wideSrcset(s, 'avif'), sizes: heroSizes },
+  ...(columnHero ? [{ media: COLUMN_HERO_MEDIA, srcset: columnHeroSrcset(s, 'avif'), sizes: columnHeroes[scene.hero].sizes }] : []),
 ]
 const themedPreloads = heroNight
   ? `(function () { var t = document.documentElement.dataset.theme; if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; ${JSON.stringify({ light: heroPreloads(scene.hero), dark: heroPreloads(heroNight) })}[t].forEach(function (p) { var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.type = 'image/avif'; l.media = p.media; l.setAttribute('imagesrcset', p.srcset); l.setAttribute('imagesizes', p.sizes || '100vw'); l.setAttribute('fetchpriority', 'high'); document.head.appendChild(l); }); })();`
@@ -148,8 +154,8 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
       <script is:inline set:html={themedPreloads} />
     ) : scene.hero && (
       <>
-        <link rel="preload" as="image" type="image/avif" media="(max-width: 640px)" imagesrcset={`${heroBase}/phone/${scene.hero}-384.avif 384w, ${heroBase}/phone/${scene.hero}-768.avif 768w`} imagesizes="100vw" fetchpriority="high" />
-        <link rel="preload" as="image" type="image/avif" media="(min-width: 641px)" imagesrcset={wideSrcset(scene.hero, 'avif')} imagesizes="100vw" fetchpriority="high" />
+        <link rel="preload" as="image" type="image/avif" media="(max-width: 640px)" imagesrcset={`${heroBase}/phone/${scene.hero}-384.avif 384w, ${heroBase}/phone/${scene.hero}-768.avif 768w`} imagesizes={heroSizes} fetchpriority="high" />
+        <link rel="preload" as="image" type="image/avif" media="(min-width: 641px)" imagesrcset={wideSrcset(scene.hero, 'avif')} imagesizes={heroSizes} fetchpriority="high" />
       </>
     )}
     <title>{title}</title>
@@ -202,7 +208,7 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     {/* The nav is sticky under the family bar and overlays the page's first
         --nav-h, as a fixed nav did, so every hero and top padding keeps its place. */}
     <main id="main" class="relative z-10 mt-[calc(-1*var(--nav-h))]">
-      {scene.hero && <StoryScene scene={scene.hero} variant="hero" product={scene.product} class={contentHero || scene.content ? 'story-hero-content' : undefined} />}
+      {scene.hero && !pageHero && <StoryScene scene={scene.hero} variant="hero" product={scene.product} class={contentHero || scene.content ? 'story-hero-content' : undefined} />}
       {lab && (
         <div class:list={['lab-status z-20 px-6 md:px-12 lg:px-16', scene.hero ? 'relative pt-5' : 'absolute top-(--nav-h) inset-x-0 pt-3']} data-lab-status={lab.status}>
           {/* One line, never two stacked rows (taste reviews r3 and r4): the way back, what
@@ -306,7 +312,7 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
           }, { rootMargin: '2400px 0px' });
           deferred.forEach(function(p) { (p.getAttribute('data-defer') === 'far' ? far : io).observe(p); });
         }
-        var hero = document.querySelector('.story-hero img');
+        var hero = document.querySelector('.story-hero img, .story-contained img');
         if (!hero || hero.complete) { start(); return; }
         var started = false;
         function once() { if (!started) { started = true; start(); } }

@@ -54,7 +54,7 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     const html = fs.readFileSync(file, 'utf8');
     const { hero } = sceneFor(pageOf(file));
     if (!hero) { assert.doesNotMatch(html, /class="story-scene story-hero/, `${pageOf(file)} has no hero scene`); continue; }
-    const block = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>[\s\S]*?<\/picture>/)?.[0];
+    const block = html.match(/<div class="story-scene story-(?:hero|contained)[^"]*"[^>]*>[\s\S]*?<\/picture>/)?.[0];
     assert.ok(block, `${pageOf(file)}: no hero scene`);
     assert.match(block, new RegExp(`data-brand-scene="${hero}"`), pageOf(file));
     const sources = [...block.matchAll(/<source\b[^>]*>/g)].map(([s]) => s);
@@ -72,8 +72,8 @@ test('a hero with a night version is one picture that fetches only the art for t
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
     const { hero } = sceneFor(pageOf(file));
-    const opening = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>/)?.[0];
-    const block = html.match(/<div class="story-scene story-hero[^"]*"[^>]*>[\s\S]*?<\/div>/)?.[0];
+    const opening = html.match(/<div class="story-scene story-(?:hero|contained)[^"]*"[^>]*>/)?.[0];
+    const block = html.match(/<div class="story-scene story-(?:hero|contained)[^"]*"[^>]*>[\s\S]*?<\/div>/)?.[0];
     if (!block) continue;
     const pictures = [...block.matchAll(/<picture\b([^>]*)>([\s\S]*?)<\/picture>/g)];
     assert.equal(pictures.length, 1, `${pageOf(file)}: one hero picture`);
@@ -99,7 +99,8 @@ test('a hero with a night version is one picture that fetches only the art for t
     const sources = [...pictures[0][2].matchAll(/<source\b[^>]*>/g)].map(([t]) => t);
     // Four phone sources, then (column heroes only) four 2:1 column sources from 1600px, then four wide ones.
     // The column art comes ahead of the full-bleed art, so it wins from 1600px and nowhere else.
-    const column = Boolean(columnHeroes[hero]);
+    // A page hero (PageHero) shows the scene whole in the page's column, so it never takes the column art.
+    const column = Boolean(columnHeroes[hero]) && !opening.includes('story-contained');
     const layout = [['phone', '(max-width: 640px)'], ...(column ? [['col', COLUMN_HERO_MEDIA]] : []), ['wide', '']];
     assert.equal(sources.length, layout.length * 4, page);
     sources.forEach((t, i) => {
