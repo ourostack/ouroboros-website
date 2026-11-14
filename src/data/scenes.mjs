@@ -205,7 +205,7 @@ export const heroFocus = {
   'homebrew-tap': [0.06, 0.88],
   // The roof's arch over the door, down to Ouro's lowest coil.
   housesitter: [0.3, 0.99],
-  m365crawl: [0.22, 0.93],
+  m365crawl: [0.02, 0.98],
   'ouro-apps-site': [0.05, 0.9],
   'ouro-hx': [0.12, 0.93],
   'ouro-md': [0.2, 0.86],
@@ -215,7 +215,7 @@ export const heroFocus = {
   'ouro-ui-core-dark': [0.18, 0.88],
   'ouro-work': [0.2, 0.88],
   'ouro-workbench': [0.28, 0.86],
-  'ouroboros-skills': [0.05, 0.92],
+  'ouroboros-skills': [0.06, 0.955],
   'ouroboros-website': [0.24, 0.92],
   ouroboros: [0.12, 0.95],
   ourostack: [0.15, 0.85],
@@ -247,7 +247,7 @@ export const castFoot = {
   'homebrew-tap': 0.87,
   // Ouro's coil rests on the art's foot.
   housesitter: 0.985,
-  m365crawl: 0.93,
+  m365crawl: 0.98,
   'ouro-apps-site': 0.87,
   'ouro-hx': 0.925,
   'ouro-md': 0.85,
@@ -258,7 +258,7 @@ export const castFoot = {
   'ouro-work': 0.85,
   'ouro-workbench': 0.76,
   // The robot's feet, not Ouro's coil.
-  'ouroboros-skills': 0.84,
+  'ouroboros-skills': 0.955,
   'ouroboros-website': 0.89,
   ouroboros: 0.945,
   ourostack: 0.83,
@@ -296,7 +296,7 @@ export const phoneCastX = {
   'homebrew-tap': [0.38, 0.88],
   // The robots in the window at the left, Ouro's body at the right.
   housesitter: [0.19, 0.905],
-  m365crawl: [0.46, 0.885],
+  m365crawl: [0.365, 0.885],
   'ouro-apps-site': [0.43, 0.88],
   // .github#15: centre 780.
   'ouro-hx': [0.063, 0.936],
@@ -310,8 +310,8 @@ export const phoneCastX = {
   'ouro-workbench': [0.55, 0.86],
   ouroboros: [0.49, 0.88],
   // The reading robot at the left, the robot taking the scroll at the right.
-  // .github#15: centre 734.
-  'ouroboros-skills': [0.068, 0.932],
+  // Phone crop box [120, 0, 1502, 576] of the 1536 header.
+  'ouroboros-skills': [0.067, 0.933],
   'ouroboros-website': [0.43, 0.88],
   // Ouro at the left, the waving robot's hand at the right.
   ourostack: [0.069, 0.94],
