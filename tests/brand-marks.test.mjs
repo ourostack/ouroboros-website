@@ -26,7 +26,7 @@ test('normal logo placements use the approved rich renders, not the old vector m
   }
 });
 
-test('HD logo exports ship responsive lossless images and one small-use SVG per mark', () => {
+test('HD logo exports ship responsive lossless images, and Desk one flat small-use SVG', () => {
   for (const mark of ['ouro', 'desk']) {
     for (const suffix of ['', '-128', '-256']) {
       const file = `brand/${mark}-render${suffix}.webp`;
@@ -37,10 +37,12 @@ test('HD logo exports ship responsive lossless images and one small-use SVG per 
       assert.equal(bytes.toString('ascii', 12, 16), 'VP8L');
       assert.notEqual(bytes.readUInt32LE(21) & 0x10000000, 0, `${file} has alpha`);
     }
-    const svg = fs.readFileSync(path.join(distDir, `brand/${mark}.svg`), 'utf8');
-    assert.equal((svg.match(/<path\b/g) || []).length, 1);
-    assert.doesNotMatch(svg, /<(?:circle|ellipse|image|mask|clipPath)\b/);
   }
+  // Desk's small-use mark is one flat path. Ouro's is the family favicon, with his face since
+  // ourostack/.github#109; tests/storybook.test.mjs holds it to brand/icons/ouro.svg byte for byte.
+  const desk = fs.readFileSync(path.join(distDir, 'brand/desk.svg'), 'utf8');
+  assert.equal((desk.match(/<path\b/g) || []).length, 1);
+  assert.doesNotMatch(desk, /<(?:circle|ellipse|image|mask|clipPath)\b/);
 });
 
 test('the snake hover moves clockwise and is enabled only without reduced motion', () => {
