@@ -58,6 +58,8 @@ export const scenes = {
   'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'apple-distribution-kit-dark': 'A market workbench of wrapped green parcels at night, lit by hanging lanterns, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
+  airship: 'A glass-and-brass airship sails at sunrise above a sea of clouds and snowy peaks. At the bow, a faceless glass figure in a green scarf holds a spyglass at the hip and opens a mitten toward the horizon, Ouro, an emerald-glass snake, sitting on the rail beside them like a pet; Loop, a small jade-glass agent in goggles and a flying scarf, steers at the wheel, an amber agent in a red knit cap climbs the rigging, and a sea-blue agent in a leather apron kneels to turn a valve, tongue out in concentration.',
+  'airship-dark': 'The same glass-and-brass airship at night, under a sky full of stars and a crescent moon, its envelope and lanterns glowing above the moonlit clouds: the glass figure at the bow with a spyglass at the hip opens a mitten toward the horizon, Ouro sits on the rail beside them, Loop steers at the wheel, an amber agent in a red knit cap climbs the rigging, and a sea-blue agent in a leather apron turns a valve.',
   workshop: 'On a wooden deck at dawn above a misty forest valley, a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
   'workshop-dark': 'The same wooden deck at night, under stars and a crescent moon above the misty forest valley, a lantern glowing on its post: a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
   'ouroboros-website-dark': 'A rose-covered gateway at night with its wooden doors thrown open, a lantern atop a signpost pointing every which way, and the glowing trail winding off to a lit cottage on the far hill. Ouro sits by the gate.',
@@ -75,10 +77,11 @@ export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler'
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
 const pages = {
-  // The workshop, redrawn in glass (.github#92): a person presses go as Loop
-  // hands them the finished checklist, and Ouro only once, coiled on the crate
-  // (Ari, 2026-11-14: "rn i'm drowning in ouro the snake").
-  '/': { hero: 'workshop' },
+  // The airship (.github#115): the person at the bow looks toward where
+  // they're going while the agents crew the ship, and Ouro only once, as the
+  // person's pet on the rail (Ari, 2026-11-15: "we need diversity of photos!!";
+  // the workshop read too close to ui.ouroboros.bot's hero).
+  '/': { hero: 'airship' },
   // Product pages (and /apps/) open on the content pages' shorter scene, so
   // the primary action (Download or Install) sits in the first view at
   // 1024x768 and up (Ari's ruling on taste review r20). The cast stays whole:
@@ -164,7 +167,7 @@ export function sceneFor(pathname) {
 export const ogSceneFor = (route) => sceneFor(route).og
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -276,6 +279,9 @@ export const heroFocus = {
   'playwright-focus-proof-dark': [0.05, 0.985],
   shepherd: [0.12, 0.96],
   'shepherd-dark': [0.12, 0.96],
+  // The rigger's knit cap, down to the kneeling engineer's foot.
+  airship: [0.06, 0.9],
+  'airship-dark': [0.06, 0.9],
   // Loop's antenna, down to the glass figure's feet.
   workshop: [0.012, 0.955],
   'workshop-dark': [0.012, 0.955],
@@ -350,6 +356,9 @@ export const castFoot = {
   // The big sheep's hooves at the right.
   shepherd: 0.935,
   'shepherd-dark': 0.935,
+  // The kneeling engineer's foot; the glass figure's feet stand higher.
+  airship: 0.9,
+  'airship-dark': 0.9,
   // The glass figure's feet; Loop and Ouro stand higher, on the crate.
   workshop: 0.955,
   'workshop-dark': 0.955,
@@ -433,6 +442,10 @@ export const phoneCastX = {
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],
   'shepherd-dark': [0.06, 0.91],
+  // The kneeling engineer at the left, the person's open mitten at the right.
+  // .github#115: 4:3 at centre 680, box [338, 0, 1021, 512].
+  airship: [0.075, 0.87],
+  'airship-dark': [0.075, 0.87],
   // The glass figure's elbow at the left, the tip of Ouro's tail at the right.
   // .github#92: 5:3 at centre 768, box [341, 0, 1195, 512].
   workshop: [0.14, 0.855],
@@ -527,8 +540,8 @@ export function heroFrame(scene, { product = false } = {}) {
   return { need: +need.toFixed(3), floor: +floor.toFixed(3), y: +(y * 100).toFixed(1), foot, trailBelow: y === 1 && 1 - foot < FOOT_ROOM }
 }
 
-/** The width:height of a scene's wide art. The whole-world panorama and the workshop are 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
-export const sceneRatio = (scene) => (['ourostack', 'ourostack-dark', 'workshop', 'workshop-dark'].includes(scene) ? [1536, 512] : scene === 'friends-relay' || scene === 'friends-relay-dark' ? [1536, 614] : [1536, 576])
+/** The width:height of a scene's wide art. The whole-world panorama, the workshop and the airship are 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
+export const sceneRatio = (scene) => (['ourostack', 'ourostack-dark', 'workshop', 'workshop-dark', 'airship', 'airship-dark'].includes(scene) ? [1536, 512] : scene === 'friends-relay' || scene === 'friends-relay-dark' ? [1536, 614] : [1536, 576])
 
 // A thumbnail in a list shows every scene at one aspect, THUMB_ASPECT (Ari's
 // ruling on taste review r18, 2026-11-07: the blog index's vignettes came in

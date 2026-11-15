@@ -9,6 +9,16 @@
     "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3",
     "colour": "#1848a8"
   },
+  "airship": {
+    "from": "headers/airship.webp",
+    "sha256": "c53a649df06d1c78fd4830c4b8b095bc9c71bf1318575a0f17834a2357dbc62c",
+    "colour": "#f8d8d8"
+  },
+  "airship-dark": {
+    "from": "headers/airship-dark.webp",
+    "sha256": "4ef00c495ab51812e9a95a589835515fdc3b02777089b27aa5300fdbccca6e15",
+    "colour": "#082868"
+  },
   "apple-distribution-kit": {
     "from": "headers/apple-distribution-kit.webp",
     "sha256": "67b4c1b3030092cf5f1af0e55a0ee478f123a7370a034d5ec7c971e58e652e7e",
@@ -253,15 +263,5 @@
     "from": "headers/shepherd-dark.webp",
     "sha256": "52fe9c59e3301cd04b9a94a505afd383675b7b83a83d5a46d80656be5a5908ab",
     "colour": "#183888"
-  },
-  "workshop": {
-    "from": "headers/workshop.webp",
-    "sha256": "3dd057ea402e9c0f8d904b843e640064fe7a14854ac872aac8423ca72354a72e",
-    "colour": "#f8b898"
-  },
-  "workshop-dark": {
-    "from": "headers/workshop-dark.webp",
-    "sha256": "a543964d8e469650b2a8de616e5ef180fde85148964c985f70158cceb74f5a4d",
-    "colour": "#082858"
   }
 }
