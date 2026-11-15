@@ -198,7 +198,7 @@ export const wideSrcset = (scene, ext) => (ext === 'avif'
 
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
-  // The homepage's two inline scenes: the harness and the factory.
+  // The homepage's inline scene: the factory.
   const used = new Set([meadowScene, 'factory', 'ouroboros'])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)

@@ -356,25 +356,27 @@ test('homepage ends with ways in, by what the reader wants, each one link', () =
 
 test('homepage sections appear in reading order', () => {
   const text = homeText();
+  // The home catch-up (Ari, 2026-11-15, docs/home-catch-up.md): how I work first, then the
+  // tools as the proof, the factory, and the story of where it started, Ouroboros last.
   const order = [
     'How can humans and agents do more together?',
     "Hello!! I'm Ari, and that question is behind everything I build.",
-    "Ouroboros is the agent harness I built from scratch",
-    'Every frontier model we asked picked Ouroboros.',
-    'Grown inside it', 'Friends', 'Ouro Shepherd', 'Ouro Butler',
+    'When an agent gets it wrong, look at what you gave it.',
+    'Act 1 Capability.', 'Act 2 Orientation.', 'Act 3 Work design.',
+    'Failure modes I watch for',
+    "What's been working",
     'Built by watching agents work',
     "Desk keeps my agents' work in a Git repository",
     'My agents write their plans and reports in Markdown.',
     'Ouro HX is a React component library',
     'm365crawl gives my agent one searchable archive',
     "Spoonjoy is my recipe app, and where I work out",
-    'When an agent gets it wrong, look at what you gave it.',
-    'Act 1 Capability.', 'Act 2 Orientation.', 'Act 3 Work design.',
-    'Failure modes I watch for',
-    "What's been working",
     'Software factories can learn from real ones.',
     "Lean's eight wastes, as they show up with agents",
     'It started with Slugger.',
+    "Ouroboros is the agent harness I built from scratch",
+    'Every frontier model we asked picked Ouroboros.',
+    'Grown inside it', 'Friends', 'Ouro Shepherd', 'Ouro Butler',
     'Start with what you need.',
   ];
   let at = -1;
