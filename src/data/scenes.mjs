@@ -58,8 +58,8 @@ export const scenes = {
   'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'apple-distribution-kit-dark': 'A market workbench of wrapped green parcels at night, lit by hanging lanterns, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and a sunlit path winding off to a cottage on the far hill. Ouro sits by the gate.',
-  airship: 'A glass-and-brass airship sails at sunrise above a sea of clouds and snowy peaks. At the bow, a faceless glass figure in a green scarf holds a spyglass at the hip and opens a mitten toward the horizon, Ouro, an emerald-glass snake, sitting on the rail beside them like a pet; Loop, a small jade-glass agent in goggles and a flying scarf, steers at the wheel, an amber agent in a red knit cap climbs the rigging, and a sea-blue agent in a leather apron kneels to turn a valve, tongue out in concentration.',
-  'airship-dark': 'The same glass-and-brass airship at night, under a sky full of stars and a crescent moon, its envelope and lanterns glowing above the moonlit clouds: the glass figure at the bow with a spyglass at the hip opens a mitten toward the horizon, Ouro sits on the rail beside them, Loop steers at the wheel, an amber agent in a red knit cap climbs the rigging, and a sea-blue agent in a leather apron turns a valve.',
+  airship: 'A glass-and-brass airship sails at sunrise above a sea of clouds and snowy peaks. At the bow, a faceless glass figure in a leather flight jacket and a green scarf rests one mitten on the rail and holds a spyglass lowered at the hip, looking out at the horizon, with Ouro, a small emerald-glass snake, sitting on the rail beside them like a pet; Loop, a small jade-glass agent in goggles and a flying scarf, steers at the wheel, an amber agent in a red knit cap climbs a rope ladder, and a sea-blue agent in a leather apron kneels to turn a valve.',
+  'airship-dark': 'The same glass-and-brass airship at night, under a sky full of stars and a full moon, its lanterns glowing above the moonlit clouds: the glass figure at the bow rests a mitten on the rail with a spyglass at the hip, Ouro sits on the rail beside them, Loop steers at the wheel, an amber agent in a red knit cap climbs a rope ladder, and a sea-blue agent in a leather apron turns a valve.',
   workshop: 'On a wooden deck at dawn above a misty forest valley, a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
   'workshop-dark': 'The same wooden deck at night, under stars and a crescent moon above the misty forest valley, a lantern glowing on its post: a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
   'ouroboros-website-dark': 'A rose-covered gateway at night with its wooden doors thrown open, a lantern atop a signpost pointing every which way, and a lit path winding off to a cottage on the far hill. Ouro sits by the gate.',
@@ -77,7 +77,7 @@ export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler'
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
 const pages = {
-  // The airship (.github#115): the person at the bow looks toward where
+  // The airship (.github#115, redrawn in #152): the person at the bow looks toward where
   // they're going while the agents crew the ship, and Ouro only once, as the
   // person's pet on the rail (Ari, 2026-11-15: "we need diversity of photos!!";
   // the workshop read too close to ui.ouroboros.bot's hero).
@@ -442,10 +442,10 @@ export const phoneCastX = {
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],
   'shepherd-dark': [0.06, 0.91],
-  // The kneeling engineer at the left, the person's open mitten at the right.
-  // .github#115: 4:3 at centre 680, box [338, 0, 1021, 512].
-  airship: [0.075, 0.87],
-  'airship-dark': [0.075, 0.87],
+  // The kneeling engineer's boot at the left, Ouro on the rail at the right.
+  // .github#152: 4:3 at centre 680, box [338, 0, 1021, 512].
+  airship: [0.06, 0.87],
+  'airship-dark': [0.06, 0.87],
   // The glass figure's elbow at the left, the tip of Ouro's tail at the right.
   // .github#92: 5:3 at centre 768, box [341, 0, 1195, 512].
   workshop: [0.14, 0.855],

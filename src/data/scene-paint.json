@@ -11,12 +11,12 @@
   },
   "airship": {
     "from": "headers/airship.webp",
-    "sha256": "c53a649df06d1c78fd4830c4b8b095bc9c71bf1318575a0f17834a2357dbc62c",
-    "colour": "#f8d8d8"
+    "sha256": "759a5e8c91db921d452cc81656c5a73428069898846ce810a13c65f99b82497a",
+    "colour": "#f8d8c8"
   },
   "airship-dark": {
     "from": "headers/airship-dark.webp",
-    "sha256": "4ef00c495ab51812e9a95a589835515fdc3b02777089b27aa5300fdbccca6e15",
+    "sha256": "74ce54c74641f5dea2376f06fe9160acfe766ca3f9b75fc96b182be350a04c01",
     "colour": "#082868"
   },
   "apple-distribution-kit": {
