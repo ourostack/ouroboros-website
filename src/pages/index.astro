@@ -78,54 +78,40 @@ const wastes = [
     </a>
   </PageHero>
 
-  <!-- 2. Ouroboros: what it is, the evidence, what grew inside it -->
+  <!-- 2. How I work with agents: the first thing a visitor reads under the hero -->
   <!-- The hero's own foot (pb-12 md:pb-14) is half the gap, so this section adds the other half. -->
-  <section id="ouroboros" class="relative px-6 md:px-12 lg:px-16 pt-12 pb-14 md:pt-10 md:pb-24 border-t border-canopy/20 reveal scroll-mt-16" aria-labelledby="ouroboros-heading">
+  <section id="how-i-work" class="relative px-6 md:px-12 lg:px-16 pt-12 pb-14 md:pt-10 md:pb-24 border-t border-canopy/20 reveal scroll-mt-16" aria-labelledby="method-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="ouroboros-heading" class="heading-section heading-mark"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render" />Ouroboros</h2>
-      <div class="split split-media ouroboros-intro">
-      <div class="lead split-head">
-        <p>Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.</p>
-        <p><a href="/lab/" class={`hit ${link}`}>The harness &rarr;</a></p>
-      </div>
-      <StoryScene scene="ouroboros" class="split-body" sizes="(min-width: 2000px) 47rem, (min-width: 1024px) 40rem, 100vw" />
+      <div class="section-head">
+        <h2 id="method-heading" class="heading-section">When an agent gets it wrong, look at what you gave it.</h2>
+        <p class="dek">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
       </div>
 
-      <h3 class="heading-sub sub-block">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h3>
-      <p class="dek">We asked each which of {modelReviews.harnesses.length} harnesses it would most want to wake up in. In their words:</p>
-      <div class="mt-8"><ModelQuotes /></div>
+      <p class="block-label">I see this agentic era in three acts</p>
+      <ol class="acts">
+        {acts.map((act, i) => (
+          <li><span class="act-n">Act {i + 1}</span><strong class="act-name">{act.name}</strong><span class="act-body"><ActBody body={act.body} home /></span></li>
+        ))}
+      </ol>
 
-      <h3 class="heading-sub sub-block">Grown inside it</h3>
-      <ul class="grown">
-        <li id="friends">
-          <div class="grown-body">
-            <h4 class="grown-name">Friends</h4>
-            <p class="grown-status"><span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span> {friendsDetail}</p>
-            <p>Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.</p>
-            <p><a href="https://github.com/ourostack/friends" class={`hit ${link}`}>Friends on GitHub &#8599;</a></p>
-          </div>
-        </li>
-        <li id="shepherd">
-          <div class="grown-body">
-            <h4 class="grown-name">Ouro Shepherd</h4>
-            <p class="grown-status"><span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span> {shepherdDetail}</p>
-            <p>Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.</p>
-            <p><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={`hit ${link}`}>How Shepherd decides &#8599;</a></p>
-          </div>
-        </li>
-        <li id="butler">
-          <div class="grown-body">
-            <h4 class="grown-name">Ouro Butler</h4>
-            <p class="grown-status"><span class={`tag ${butlerLabel.tone}`}>{butlerLabel.label}</span> {butlerDetail}</p>
-            <p>An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.</p>
-            <p><a href="/butler/" class={`hit ${link}`}>Ouro Butler &rarr;</a></p>
-          </div>
-        </li>
+      <p class="block-label">Failure modes I watch for</p>
+      <ul class="smells">
+        {smells.map((smell) => (
+          <li><strong>{smell.name}</strong> <span>{smell.short}</span></li>
+        ))}
       </ul>
+
+      <p class="block-label">What's been working</p>
+      <ol class="principles">
+        {principles.map((p) => (
+          <li><a href={`/approach/#${p.id}`} class="principle group"><span class="principle-n">{p.n}</span>{p.title}<span class="principle-arrow" aria-hidden="true">&rarr;</span></a></li>
+        ))}
+      </ol>
+      <p class="method-close">And when I fix something, I fix it for the whole system, so the next agent starts out ahead. <a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
     </div>
   </section>
 
-  <!-- 3. The lab -->
+  <!-- 3. The tools, built by watching agents work -->
   <section class={`${section} bg-deep/40`} aria-labelledby="built-heading">
     <div class="max-w-6xl mx-auto">
       <div class="section-head">
@@ -197,40 +183,8 @@ const wastes = [
     </div>
   </section>
 
-  <!-- 4. How I work with agents -->
-  <section class={section} aria-labelledby="method-heading">
-    <div class="max-w-6xl mx-auto">
-      <div class="section-head">
-        <h2 id="method-heading" class="heading-section">When an agent gets it wrong, look at what you gave it.</h2>
-        <p class="dek">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
-      </div>
-
-      <p class="block-label">I see this agentic era in three acts</p>
-      <ol class="acts">
-        {acts.map((act, i) => (
-          <li><span class="act-n">Act {i + 1}</span><strong class="act-name">{act.name}</strong><span class="act-body"><ActBody body={act.body} home /></span></li>
-        ))}
-      </ol>
-
-      <p class="block-label">Failure modes I watch for</p>
-      <ul class="smells">
-        {smells.map((smell) => (
-          <li><strong>{smell.name}</strong> <span>{smell.short}</span></li>
-        ))}
-      </ul>
-
-      <p class="block-label">What's been working</p>
-      <ol class="principles">
-        {principles.map((p) => (
-          <li><a href={`/approach/#${p.id}`} class="principle group"><span class="principle-n">{p.n}</span>{p.title}<span class="principle-arrow" aria-hidden="true">&rarr;</span></a></li>
-        ))}
-      </ol>
-      <p class="method-close">And when I fix something, I fix it for the whole system, so the next agent starts out ahead. <a href="/approach/#fix-the-system" class={link}>Fix it for the next agent &rarr;</a></p>
-    </div>
-  </section>
-
-  <!-- 5. The factory -->
-  <section id="factory" class={`${section} bg-deep/40 scroll-mt-16`} aria-labelledby="factory-heading">
+  <!-- 4. The factory -->
+  <section id="factory" class={`${section} scroll-mt-16`} aria-labelledby="factory-heading">
     <div class="max-w-6xl mx-auto">
       <div class="section-head">
         <h2 id="factory-heading" class="heading-section">Software factories can learn from real ones.</h2>
@@ -261,8 +215,8 @@ const wastes = [
     </div>
   </section>
 
-  <!-- 6. Where it started -->
-  <section class={section} aria-labelledby="origin-heading">
+  <!-- 5. Where it started: Slugger, then the harness that grew out of him -->
+  <section class={`${section} bg-deep/40`} aria-labelledby="origin-heading">
     <div class="max-w-6xl mx-auto">
       <div class="origin-head">
         <h2 id="origin-heading" class="heading-section">It started with <span class="text-scale">Slugger.</span></h2>
@@ -281,6 +235,49 @@ const wastes = [
         <p class="product-links"><a href="/lab/story/" class={link}>The full story &rarr;</a></p>
         <p class="product-links"><a href="/lab/how-desk-started/" class={link}>How Desk started &rarr;</a></p>
       </div>
+    </div>
+  </section>
+
+  <!-- 6. Ouroboros: what it is, the evidence, what grew inside it -->
+  <section id="ouroboros" class={`${section} scroll-mt-16`} aria-labelledby="ouroboros-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="ouroboros-heading" class="heading-section heading-mark"><img src="/brand/ouro-render.webp" srcset="/brand/ouro-render-128.webp 128w, /brand/ouro-render-256.webp 256w" sizes="64px" width="64" height="64" alt="" loading="lazy" decoding="async" class="mark-render" />Ouroboros</h2>
+      <div class="lead ouroboros-intro">
+        <p>Ouroboros is the agent harness I built from scratch, and it's where I test what agents need. Most harnesses are built for a coding session. Ouroboros is built for a personal agent that lives with you for months, across iMessage, Teams, mail and the terminal. It keeps its identity, memory and people in one folder it can read and change, so it stays oriented from one conversation to the next.</p>
+        <p><a href="/lab/" class={`hit ${link}`}>The harness &rarr;</a></p>
+      </div>
+
+      <h3 class="heading-sub sub-block">{reviewHeading} <span class="text-scale">{reviewWinner}.</span></h3>
+      <p class="dek">We asked each which of {modelReviews.harnesses.length} harnesses it would most want to wake up in. In their words:</p>
+      <div class="mt-8"><ModelQuotes /></div>
+
+      <h3 class="heading-sub sub-block">Grown inside it</h3>
+      <ul class="grown">
+        <li id="friends">
+          <div class="grown-body">
+            <h4 class="grown-name">Friends</h4>
+            <p class="grown-status"><span class={`tag ${friendsLabel.tone}`}>{friendsLabel.label}</span> {friendsDetail}</p>
+            <p>Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it.</p>
+            <p><a href="https://github.com/ourostack/friends" class={`hit ${link}`}>Friends on GitHub &#8599;</a></p>
+          </div>
+        </li>
+        <li id="shepherd">
+          <div class="grown-body">
+            <h4 class="grown-name">Ouro Shepherd</h4>
+            <p class="grown-status"><span class={`tag ${shepherdLabel.tone}`}>{shepherdLabel.label}</span> {shepherdDetail}</p>
+            <p>Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it.</p>
+            <p><a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={`hit ${link}`}>How Shepherd decides &#8599;</a></p>
+          </div>
+        </li>
+        <li id="butler">
+          <div class="grown-body">
+            <h4 class="grown-name">Ouro Butler</h4>
+            <p class="grown-status"><span class={`tag ${butlerLabel.tone}`}>{butlerLabel.label}</span> {butlerDetail}</p>
+            <p>An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest.</p>
+            <p><a href="/butler/" class={`hit ${link}`}>Ouro Butler &rarr;</a></p>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -352,7 +349,6 @@ const wastes = [
   .grown-body { display: grid; gap: 0.5rem; align-content: start; }
   .grown-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
   .ouroboros-intro, .factory-split { margin-top: 1.5rem; }
-  .ouroboros-intro .lead { margin-top: 0; }
   .factory-split .factory-body { margin-top: 0; }
   @media (min-width: 1024px) { .ouroboros-intro, .factory-split { align-items: center; } }
   .grown-name { text-wrap: pretty; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.1; color: var(--color-bone); }
