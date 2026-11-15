@@ -95,7 +95,8 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'm365crawl': [16, 30, 1194, 172],
   'ouro-apps-site': [560, 4, 1196, 166],
   'ouro-hx': [640, 6, 1194, 316],
-  'ouro-md': [390, 6, 1194, 190],
+  // On its title plate, like the butler's.
+  'ouro-md': [16, 30, 1194, 172],
   'ouro-native-apple-app-shell': [720, 6, 1194, 240],
   'ouro-ui-apple': [16, 30, 1194, 172],
   'ouro-ui-core': [16, 30, 1194, 172],
@@ -151,6 +152,9 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   // The housesitter's chimney meets the top of its art too, and its only open sky sits
   // beside Ouro's lantern, too narrow for a title: the same plate.
   housesitter: { file: 'headers/housesitter.webp', plate: true },
+  // The reading lectern's loose pages fly through the top-left sky, so its
+  // old title zone set the words among them (render QA Q3): the same plate.
+  'ouro-md': { file: 'headers/ouro-md.webp', plate: true },
   // The card catalogue and the scroll stacks were redrawn with Ouro standing
   // tall in their skies, so their old title zones set the words over his head
   // and tail (render QA, 2026-11-14): the same plate.
