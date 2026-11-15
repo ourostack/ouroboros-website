@@ -108,7 +108,8 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'ouroboros-website': [770, 6, 1194, 196],
   'playwright-focus-proof': [16, 30, 1194, 172],
   'shepherd': [240, 6, 800, 250],
-  // On its title plate (230px tall: the 3:1 art is shorter at card width), the words centred down it.
+  // The airship and the workshop stand on their title plates (230px tall: the 3:1 art is shorter at card width), the words centred down it.
+  'airship': [16, 60, 1194, 222],
   'workshop': [16, 60, 1194, 222],
 }
 // A card can be set in a different framing of the same canonical art. The
@@ -161,6 +162,9 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   // a title sits beside them, too narrow: the same plate, so all three, Ouro
   // too, stay whole on the home card.
   workshop: { file: 'headers/workshop.webp', plate: true },
+  // The airship's envelope fills the top of its art and its cast spans the
+  // deck, so its only sky sits right of the bow, too narrow: the same plate.
+  airship: { file: 'headers/airship.webp', plate: true },
 }
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.
