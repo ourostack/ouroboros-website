@@ -4943,14 +4943,18 @@
       "file": "headers/friends-relay.webp",
       "sha256": "c10d881fe1f2992130f10810506cdf979bb0b5f446b78fa95e13ecc8aabc7a42"
     },
+    "alsoFrom": {
+      "file": "skies/friends-relay.webp",
+      "sha256": "8eda4e42cb72487a952e5b2291aebf3e1621610c5625636d57204158db3545a4"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x480 (Lanczos) on the card's foot; the 150 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/friends-relay.webp above it, its last 32 rows cross-faded into the header's top (1536x914), crop box [0, 108, 1535, 914] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 266541,
-    "sha256": "2e9444e79a3c34e62ff3a420c643c3a39da21edb9ad2af942854cdca7059cd74"
+    "bytes": 315716,
+    "sha256": "67fc9bff4c6acb6491a2a318bba3ce1116ad6dd19add6c47eda878c08cf6881f"
   },
   {
     "file": "headers/friends-relay-dark.webp",
@@ -5224,14 +5228,18 @@
       "file": "headers/friends-relay-dark.webp",
       "sha256": "bb268ac6480f164ad95f93729121d8828a9c74af0731c4dcf844ab136e80f66c"
     },
+    "alsoFrom": {
+      "file": "skies/friends-relay-dark.webp",
+      "sha256": "d2a4249487bc020699658ff12cce26a9c19c3cf5f40bb093e642762a2b15d262"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x480 (Lanczos) on the card's foot; the 150 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/friends-relay-dark.webp above it, its last 32 rows cross-faded into the header's top (1536x914), crop box [0, 108, 1535, 914] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 245996,
-    "sha256": "99255db55ccd769fd8cd49b89aca34d63d25141fa5769de4536aa33c4c4d6663"
+    "bytes": 274312,
+    "sha256": "08eca57136c8c0159acc3585cdfd8243c1f8d83d8b5dc4aee3ffc1ce59bbfddd"
   },
   {
     "file": "headers/gatefold.webp",
@@ -6026,14 +6034,18 @@
       "file": "headers/glue-unstuck.webp",
       "sha256": "533efec2cdbb2d71ffb7584848ba6830e92617c8e6d382f8d71a5049d38ac4ba"
     },
+    "alsoFrom": {
+      "file": "skies/glue-unstuck.webp",
+      "sha256": "ac8381c746062b8a73b6c68bae37f0933f14839884610c4fb9fe2609db91efcd"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x450 (Lanczos) on the card's foot; the 180 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/glue-unstuck.webp above it, its last 32 rows cross-faded into the header's top (1536x816), crop box [0, 10, 1535, 816] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 289501,
-    "sha256": "78411e1659d46afe7ada2ecda4a194c791205669a1dfd1411b112634a1cd42b0"
+    "bytes": 335323,
+    "sha256": "ed12655546207ff4d5a963de90f978ca33edb0e3b9903457c4922f525292a93e"
   },
   {
     "file": "headers/glue-unstuck-dark.webp",
@@ -6309,14 +6321,18 @@
       "file": "headers/glue-unstuck-dark.webp",
       "sha256": "4621047d6faafbdc4907296f753b8759b29904bc1d91642d132f5c9b367426a2"
     },
+    "alsoFrom": {
+      "file": "skies/glue-unstuck-dark.webp",
+      "sha256": "19b0b7028df38c8b6a9c7ce4fc93cae7ab7f374ae86f1244b557b32903f568a5"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x450 (Lanczos) on the card's foot; the 180 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/glue-unstuck-dark.webp above it, its last 32 rows cross-faded into the header's top (1536x816), crop box [0, 10, 1535, 816] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 282099,
-    "sha256": "b92270456b70b21fa60e793827285b12ce82c3fe504bdb7fbc7ff4786c2c6669"
+    "bytes": 314418,
+    "sha256": "a6263098cdadef1852b868840e538ce7d8608121e9de596325d19bd88f45166c"
   },
   {
     "file": "headers/housesitter.webp",
@@ -10177,14 +10193,18 @@
       "file": "headers/ouro-ui-core.webp",
       "sha256": "3c89c0b48b1e4384b8bbcfbc1593e288afbea8dbcea7aaec769997c383025d52"
     },
+    "alsoFrom": {
+      "file": "skies/ouro-ui-core.webp",
+      "sha256": "c092d4fe185ef5fdb1bf2dce73a66d507c54f6b0dc156291615e25f490700bea"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x450 (Lanczos) on the card's foot; the 180 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/ouro-ui-core.webp above it, its last 32 rows cross-faded into the header's top (1536x816), crop box [0, 10, 1535, 816] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 266455,
-    "sha256": "6a2f18811025ea079e1ed8f8a6d74533e5ebc8da01fa3e33440c288514f1f8cb"
+    "bytes": 302260,
+    "sha256": "c1e03733d7474d82e5f0c41fa50c8d8508c9541d0775a7117ef48af81eede323"
   },
   {
     "file": "headers/ouro-ui-core-dark.webp",
@@ -10436,14 +10456,18 @@
       "file": "headers/ouro-ui-core-dark.webp",
       "sha256": "e2f22a004807b213ce1b3cdf232a8fe14290fc26db160fbd94894d0c59e7a596"
     },
+    "alsoFrom": {
+      "file": "skies/ouro-ui-core-dark.webp",
+      "sha256": "811466f58819813ad5df51642af6423bad32e481820e212f6710f0217186ff7b"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x450 (Lanczos) on the card's foot; the 180 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/ouro-ui-core-dark.webp above it, its last 32 rows cross-faded into the header's top (1536x800), crop box [0, 0, 1524, 800] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 252853,
-    "sha256": "5f6021d2260ac48426c254d97fb0c54b3af39a7c5f7acac46b9e10e46ac4b400"
+    "bytes": 285098,
+    "sha256": "fad2e6e2dd9714eb12c7fd17187becb4412988936f5661326ef158be85870fc1"
   },
   {
     "file": "headers/ouro-work.webp",
@@ -13751,14 +13775,18 @@
       "file": "headers/playwright-focus-proof.webp",
       "sha256": "93e09ff5d370bd220cc04ecd06b2ea1aa367064bc8f38eed193b9b25c5158dcc"
     },
+    "alsoFrom": {
+      "file": "skies/playwright-focus-proof.webp",
+      "sha256": "f87a018de447758bf822813eaaca803bbe6f9ea9cabaa7886390ca9da62e1d39"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x450 (Lanczos) on the card's foot; the 180 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/playwright-focus-proof.webp above it, its last 32 rows cross-faded into the header's top (1536x816), crop box [1, 10, 1536, 816] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 241464,
-    "sha256": "548ba0199b81f9c8aa188b9e2ec5ab7d3e0fa37f841bf8bfd0a29bf316477cf6"
+    "bytes": 288091,
+    "sha256": "5ab324e5a0abdd1452721f6fb96a1eb8528c0c80e7598c830fb1e5d521afd99b"
   },
   {
     "file": "headers/playwright-focus-proof-dark.webp",
@@ -14032,14 +14060,18 @@
       "file": "headers/playwright-focus-proof-dark.webp",
       "sha256": "c904f176a2d47dcb1a78cc6a336294709c5404e83dab8fafc3dd0e54e73d5cd1"
     },
+    "alsoFrom": {
+      "file": "skies/playwright-focus-proof-dark.webp",
+      "sha256": "0303ec9e36913dfb0c5b003c898c60505c981db4f37313f22be93aa444fb8f24"
+    },
     "use": "Open Graph and Twitter card (1200x630)",
-    "operation": "whole scene resized to 1200x450 (Lanczos) on the card's foot; the 180 px above carry the scene's top 24 rows of sky up, averaged per column and blurred sideways (Gaussian radius 120), fading into the scene over its top 32 px",
+    "operation": "the header with skies/playwright-focus-proof-dark.webp above it, its last 32 rows cross-faded into the header's top (1536x816), crop box [1, 10, 1536, 816] then resize to 1200x630 (Lanczos)",
     "encoder": "Pillow JPEG quality 88, 4:4:4, optimized",
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 243903,
-    "sha256": "2f6ff05c3f8e76a8175771b8ec249bc8cd2061c04d80df53e7b84c6e80ddc3ef"
+    "bytes": 283064,
+    "sha256": "849a811afc6d4594357c71f4d89e9c73719d886d93099ddf7a6cae5f55a6eb91"
   },
   {
     "file": "headers/shepherd.webp",
