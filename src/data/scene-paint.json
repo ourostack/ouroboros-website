@@ -141,8 +141,8 @@
   },
   "ouro-hx": {
     "from": "headers/ouro-hx.webp",
-    "sha256": "9adc7c4ae24c02782d7fce70318cfe5c535ea02af8b07f6f1533c2d60a7cb5cf",
-    "colour": "#f8b898"
+    "sha256": "168960f5daa485a69349c469ff3ed59db954e1e59794c03eaa0ab66157778c9b",
+    "colour": "#f8c8a8"
   },
   "ouro-md": {
     "from": "headers/ouro-md.webp",
