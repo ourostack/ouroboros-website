@@ -256,12 +256,12 @@
   },
   "workshop": {
     "from": "headers/workshop.webp",
-    "sha256": "9c347063d1fd9e9b8a06098136ca7e38ded7fa20541859bd309dd6dc9ba83051",
+    "sha256": "3dd057ea402e9c0f8d904b843e640064fe7a14854ac872aac8423ca72354a72e",
     "colour": "#f8b898"
   },
   "workshop-dark": {
     "from": "headers/workshop-dark.webp",
-    "sha256": "b3e4c51f6ad2ad464e74abcab30a0f2abc05abdcc2a03b04eba130481bbab041",
+    "sha256": "a543964d8e469650b2a8de616e5ef180fde85148964c985f70158cceb74f5a4d",
     "colour": "#082858"
   }
 }
