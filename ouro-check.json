@@ -18,6 +18,9 @@
     },
     "/lab/docs/architecture/": {
       "layout-shift": "The h1's second clause rewraps on a 390-wide phone when Cormorant loads: 0.109 against the 0.1 budget, the same in every run (runs 42687903505 to 42728469008)."
+    },
+    "/blog/": {
+      "baked-corner": "The night gatefold scene's hero (scenes/gatefold-dark, .github#119–#149) paints a daisy against a tree trunk in its top-left corner and a firefly in its bottom-left, both right on the corners' diagonals, so the corner reading sees a band of another colour; the corners are the frame's own, clean at 1440×900@2x (run 43766879079, findings/blog-1-raw.png)."
     }
   }
 }
