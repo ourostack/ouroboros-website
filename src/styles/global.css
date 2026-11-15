@@ -1257,12 +1257,13 @@ main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
    is ever blurry. Never a broken-image glyph, never alt text on show, never a
    hairline. */
 .story-scene { background: var(--paint, #E9C9A0); }
-/* A hero with a night version (StoryScene, darkScenes) paints the night art's
-   colour in the site's default dark theme and the day art's in light. */
-.story-scene[data-night-scene] { --paint: var(--paint-night); }
-:root[data-theme="light"] .story-scene[data-night-scene] { --paint: var(--paint-day); }
+/* A scene with a night version (StoryScene, darkScenes) paints the night art's
+   colour in the site's default dark theme and the day art's in light, and a
+   vignette frames its thumbnail on the art the theme shows. */
+.story-scene[data-night-scene] { --paint: var(--paint-night); --thumb-pos: var(--thumb-pos-night); }
+:root[data-theme="light"] .story-scene[data-night-scene] { --paint: var(--paint-day); --thumb-pos: var(--thumb-pos-day); }
 @media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .story-scene[data-night-scene] { --paint: var(--paint-day); }
+  :root:not([data-theme="dark"]) .story-scene[data-night-scene] { --paint: var(--paint-day); --thumb-pos: var(--thumb-pos-day); }
 }
 /* Once the art has landed, its paint goes: nothing of the placeholder shows
    anywhere, not even a sliver at an edge (Ari's ruling, taste review r15).

@@ -46,10 +46,10 @@ export const scenes = {
   'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'ouro-workbench-dark': 'A covered workbench at night under a starry sky, with a pegboard of tools, a glowing lantern and a row of little monitors lit amber. Ouro curls up on a cushion beside it, off the clock.',
-  'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
+  'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
   'friends-relay-dark': 'A stone dovecote tower at night under a starry sky and a crescent moon, its windows glowing, where white doves carry letters across the misty hills, a robot waving at each end, and Ouro in a postman’s cap at the foot of the tower.',
   'ouro-ui-core-dark': 'Paint pots on a bench at night pour glowing ribbons of green and cream into a phone, a laptop and a tablet below, with misty hills and village lights behind. Ouro looks on, pleased with the colours.',
-  'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on its chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
+  'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
   'm365crawl-dark': 'A library nook at night, crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need, while the misty hills outside sit dark.',
@@ -58,8 +58,8 @@ export const scenes = {
   'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'apple-distribution-kit-dark': 'A market workbench of wrapped green parcels at night, lit by hanging lanterns, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
-  workshop: 'Ari’s open timber workshop on a hilltop at sunrise. A man in a navy blazer stands at a chalkboard, pointing at a drawing of a little house with a heart window and a checkmark, while friendly robots work at their benches: one drafts a plan, one tinkers under a green lamp, a brass one checks a scroll through a magnifying glass. Two more carry parcels tied with green ribbon down a glowing trail to a village in the misty hills, and Ouro peeks out of a flower pot on the windowsill.',
-  'workshop-dark': 'Ari’s open timber workshop on a hilltop at night, its lamps glowing under a starry sky. A man in a navy blazer stands at a chalkboard, pointing at a drawing of a little house with a heart window and a checkmark, while friendly robots with glowing eyes work at their benches: one drafts a plan, one tinkers under a green lamp, a brass one checks a scroll through a magnifying glass. Two more carry parcels tied with green ribbon down a glowing trail to the lit village below, and Ouro peeks out of a flower pot on the windowsill.',
+  workshop: 'On a wooden deck at dawn above a misty forest valley, a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
+  'workshop-dark': 'The same wooden deck at night, under stars and a crescent moon above the misty forest valley, a lantern glowing on its post: a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
   'ouroboros-website-dark': 'A rose-covered gateway at night with its wooden doors thrown open, a lantern atop a signpost pointing every which way, and the glowing trail winding off to a lit cottage on the far hill. Ouro sits by the gate.',
   'ax-trail-map': 'A low wooden trail map stands in a dawn meadow, built at Ouro’s height, its painted trail ending at a little green ring-shaped pin. Ouro leans over the corner of the board and peers at the pin with a pleased smile: that’s me, right there.',
   'ax-trail-map-dark': 'The same trail map at night under a starry sky and a crescent moon. Its painted trail and the little green ring-shaped pin glow, lighting Ouro’s face as he leans over the board and finds himself on the map.',
@@ -75,8 +75,9 @@ export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler'
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
 const pages = {
-  // Ari's workshop, its robots shipping parcels, and Ouro only once, small,
-  // in a flower pot (Ari, 2026-11-14: "rn i'm drowning in ouro the snake").
+  // The workshop, redrawn in glass (.github#92): a person presses go as Loop
+  // hands them the finished checklist, and Ouro only once, coiled on the crate
+  // (Ari, 2026-11-14: "rn i'm drowning in ouro the snake").
   '/': { hero: 'workshop' },
   // Product pages (and /apps/) open on the content pages' shorter scene, so
   // the primary action (Download or Install) sits in the first view at
@@ -275,9 +276,9 @@ export const heroFocus = {
   'playwright-focus-proof-dark': [0.05, 0.985],
   shepherd: [0.12, 0.96],
   'shepherd-dark': [0.12, 0.96],
-  // Ouro's head in the flower pot and the man's hair, down to the man's shoes.
-  workshop: [0.04, 0.85],
-  'workshop-dark': [0.04, 0.85],
+  // Loop's antenna, down to the glass figure's feet.
+  workshop: [0.012, 0.955],
+  'workshop-dark': [0.012, 0.955],
 }
 
 // The lowest point of any character's body in each scene's wide art (Ouro's
@@ -349,9 +350,9 @@ export const castFoot = {
   // The big sheep's hooves at the right.
   shepherd: 0.935,
   'shepherd-dark': 0.935,
-  // The man's shoes; the parcel robot's feet are higher.
-  workshop: 0.84,
-  'workshop-dark': 0.84,
+  // The glass figure's feet; Loop and Ouro stand higher, on the crate.
+  workshop: 0.955,
+  'workshop-dark': 0.955,
 }
 
 // Where the cast stands across each scene's phone crop (brand/phone/<scene>-768),
@@ -432,10 +433,10 @@ export const phoneCastX = {
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],
   'shepherd-dark': [0.06, 0.91],
-  // The blue robot at the left, the parcel robot's hand at the right (its parcels reach 0.97).
-  // .github#80: 5:3 at centre 636, box [210, 0, 1063, 512].
-  workshop: [0.115, 0.89],
-  'workshop-dark': [0.115, 0.89],
+  // The glass figure's elbow at the left, the tip of Ouro's tail at the right.
+  // .github#92: 5:3 at centre 768, box [341, 0, 1195, 512].
+  workshop: [0.14, 0.855],
+  'workshop-dark': [0.14, 0.855],
 }
 // Named exemptions: a character the canonical art itself cuts at its own edge.
 // The crop already stands against the header's edge there, so no crop centre
