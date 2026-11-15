@@ -111,12 +111,12 @@
   },
   "glue-unstuck": {
     "from": "headers/glue-unstuck.webp",
-    "sha256": "533efec2cdbb2d71ffb7584848ba6830e92617c8e6d382f8d71a5049d38ac4ba",
-    "colour": "#f8c8a8"
+    "sha256": "aa154c7586e0d1ee78c17338adfef9b8721ac55daf25ec8a89d8d5b12836738a",
+    "colour": "#684808"
   },
   "glue-unstuck-dark": {
     "from": "headers/glue-unstuck-dark.webp",
-    "sha256": "4621047d6faafbdc4907296f753b8759b29904bc1d91642d132f5c9b367426a2",
+    "sha256": "60e7ce589c1cff7f8288c73da9c7dba1b139d466f8cd1c6569ca27ddf0512a6b",
     "colour": "#082868"
   },
   "housesitter": {
