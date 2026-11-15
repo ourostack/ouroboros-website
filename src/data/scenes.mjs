@@ -17,7 +17,7 @@ export const scenes = {
   'desk-dark': 'A wooden desk on a hilltop meadow at night under a starry sky, its lamp glowing over a tidy stack of folders and a potted plant. Ouro sits beside it, and the glowing trail winds off to more lamplit desks in the distance.',
   'ouro-md': 'A reading lectern holding a fresh page, a lamp and a cup of tea on a stool, and loose pages drifting in the breeze. Ouro peeks over the lectern to read along.',
   'ouro-md-dark': 'A reading lectern holding a fresh page at night, a glowing lamp and a cup of tea on a stool, and loose pages drifting in the breeze, with village lights in the misty hills below. Ouro peeks over the lectern to read along.',
-  'ouro-hx': 'A woman and a little robot fit chunky green controls into a big panel on a workbench in the meadow, while Ouro watches from the trail.',
+  'ouro-hx': 'A faceless glass person in a moss scarf and Loop, a small jade-and-brass glass robot, work an oak-and-brass console on a dawn hilltop, while Ouro, a smiling emerald glass snake curled into an O, watches beside them.',
   butler: 'A stone cottage with a server cabinet blinking green in its doorway, a watering can and a flower path. Ouro waits by the step holding a silver cloche, ready to serve.',
   'butler-dark': 'A stone cottage at night with a server cabinet blinking green in its doorway, its lanterns lit, a watering can and a flower path. Ouro waits by the step holding a silver cloche, ready to serve.',
   housesitter: 'A round-doored cottage at sunrise, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
@@ -208,7 +208,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 432], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 349], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
