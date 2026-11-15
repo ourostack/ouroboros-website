@@ -1,0 +1,48 @@
+---
+config:
+  theme: base
+  htmlLabels: false
+  themeVariables:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "15px"
+    primaryColor: "#152A1C"
+    primaryTextColor: "#EDF2EE"
+    primaryBorderColor: "#36A452"
+    secondaryColor: "#0D1F13"
+    tertiaryColor: "#0D1F13"
+    lineColor: "#9AAE9F"
+    textColor: "#EDF2EE"
+    clusterBkg: "#0D1F13"
+    clusterBorder: "#1E3D28"
+    edgeLabelBackground: "#1b1b26"
+  flowchart:
+    curve: basis
+    htmlLabels: false
+---
+%% Source of public/images/workshop/housesitter-how-the-kvm-fits.svg, drawn on the housesitter page.
+%% Rebuild: npx @mermaid-js/mermaid-cli -i docs/housesitter-how-the-kvm-fits.mmd -o public/images/workshop/housesitter-how-the-kvm-fits.svg
+flowchart LR
+  subgraph mini["Mac mini"]
+    direction TB
+    ouro["Ouroboros<br/>does the work"]
+    watch["Peer watch and watch-kvm<br/>two small LaunchAgents"]
+    screen["Its screen<br/>and a USB port"]
+  end
+  subgraph kvm["The KVM beside it"]
+    direction TB
+    sitter["Sitter<br/>fixed rules: read the screen,<br/>type the password once"]
+    house["Housesitter<br/>an Ouro agent for judgment"]
+  end
+  plug["Smart plug, optional<br/>cuts a frozen Mac's power"]
+  you["You<br/>one message when it needs you"]
+
+  screen <-- "HDMI is its eyes<br/>USB-C is its hands" --> sitter
+  watch -- "asks every minute" --> sitter
+  ouro <-- "buddies: each is the other's way back" --> house
+  watch <-- "Ouroboros quiet: ouro up" --> house
+  sitter --> plug
+  sitter -- "stuck at FileVault" --> you
+  watch -- "KVM quiet for 5 minutes" --> you
+
+  classDef you fill:#0D1F13,stroke:#E2B44D,color:#EDF2EE
+  class you you

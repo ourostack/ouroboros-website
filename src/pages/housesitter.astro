@@ -39,6 +39,9 @@ const does = [
   ['Power-cycles a frozen Mac', 'Built, not yet tried on a real plug. With a smart plug on its cord, only a desktop frozen for 5 minutes that nothing answers for, confirmed by three more looks. Never at a boot or a login.'],
   ['Tells you only when it needs you', 'One message when it’s stuck, saying what to fix, a reminder every six hours at most, and “back” when the Mac is.'],
   ['The Mac watches its KVM', 'A dead KVM can’t message you, so the Mac does. Every minute it checks on the sitter; after 5 quiet minutes (about 8 after the KVM’s last look) it tells you once, and again when the KVM is back. No outside service.'],
+  ['Brings Ouroboros back', 'The Mac’s peer watch tells Housesitter when Ouroboros’s daemon stops answering, and Housesitter can ask for it back: the peer watch runs ouro up and reports what happened. Run so far against fakes, not a real outage.'],
+  ['Restarts the app and resumes every session', 'housesitter restart-copilot restarts the GitHub Copilot app from outside it, after each working session has reached a safe point, then sends every session that was working one message and checks it took a turn. It also resumes the sessions after a crash, an update or a login.'],
+  ['Keeps plugins current', 'The app keeps a plugin’s skills as they were when it started. When a plugin has a newer release than the app loaded, housesitter runs that same restart, unless someone is at the Mac or one ran in the last 6 hours.'],
 ]
 
 const whyNot = [
@@ -105,6 +108,17 @@ const verified = [
       <figure class="min-w-0 restart-clip">
         <WorkshopVideo src="/images/workshop/housesitter-restart.mp4" poster="/images/workshop/housesitter-restart-poster.webp" width={960} height={604} alt="The KVM's own picture of our Mac mini during a restart, with a caption under each frame: logging out 3 seconds after Restart, which our agent pressed, the only touch; shutting down; boot seen, the Mac found the KVM's keyboard again; FileVault, the screen it was taught, steady, now it may type, the prompt zoomed twice; typed once, by itself, the field blurred; logging in; then a card: 70 s from Restart to desktop, nobody at the Mac, housesitter 0.2 on the KVM beside it." />
         <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Unlocked by housesitter 0.2 at 22:56 on 8 November. Only the shutdown, boot and FileVault frames are shown, and the typed field is blurred, because its dots would give away the password’s length.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="fits-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="fits-heading" class="heading-section">How the KVM <span class="text-scale">fits</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">housesitter is the buddy that brings the Mac mini and Ouroboros back. The KVM sits beside the mini: its HDMI cable is its eyes, its USB-C cable is its hands, and its Ethernet cable is how it reaches you. Two things live on the KVM, the sitter, fixed rules that read the screen and type, and Housesitter, an Ouro agent for judgment. Two small LaunchAgents live on the mini, its peer watch and <code class="model-code">watch-kvm</code>. Ouroboros and Housesitter are each other’s way back from silence.</p>
+      <figure class="mt-8">
+        <div class="product-media media-shot shot-dark-only fits-shot" tabindex="0" role="region" aria-label="How the KVM fits: a diagram, which scrolls sideways on a phone"><img src="/images/workshop/housesitter-how-the-kvm-fits.svg" width="1217" height="403" loading="lazy" decoding="async" alt="A diagram. On the left, the Mac mini holds Ouroboros, which does the work; the peer watch and watch-kvm, two small LaunchAgents; and its screen and a USB port. In the middle, the KVM beside it holds the sitter, fixed rules that read the screen and type the password once, and Housesitter, an Ouro agent for judgment. The screen and the sitter are joined both ways: HDMI is the KVM’s eyes and USB-C is its hands. The peer watch asks the sitter every minute. Ouroboros and Housesitter are buddies, each the other’s way back. The peer watch and Housesitter are joined both ways: when Ouroboros goes quiet the peer watch tells Housesitter, and Housesitter asks for it back with ouro up. The sitter reaches an optional smart plug that cuts a frozen Mac’s power. On the right, you get one message when the sitter is stuck at FileVault, and one when the KVM has been quiet for 5 minutes." /></div>
+        <figcaption class="night-caption"><span class="caption-note">Diagram</span> <span>Who talks to whom on our mini. The smart plug is built but not tried on a real freeze yet. <a href={`${repo}#how-it-all-fits`} class={link}>The cables, and who brings whom back &#8599;</a></span></figcaption>
       </figure>
     </div>
   </section>
@@ -200,7 +214,18 @@ const verified = [
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="does-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="app-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="app-heading" class="heading-section">Restart the app <span class="text-scale">without losing a session</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">A restart of the GitHub Copilot app stops every session in it, and the app can’t restart itself and still bring them back. <code class="model-code">housesitter restart-copilot</code> does it from outside. It asks each working session to reach a safe point (commit and push, or save notes) and say it is ready, then quits the app through <a href="https://github.com/ourostack/hackamore" class={link}>hackamore</a>, which refuses while a person is using the Mac. It reopens the app, sends every session that was working one message, and checks that each took a turn. A restart for a plugin update is the same run, started by <code class="model-code">--plugin-updates</code>, which holds while someone is at the Mac or the last restart was under 6 hours ago.</p>
+      <figure class="mt-8">
+        <div class="product-media media-shot shot-dark-only"><img src="/images/workshop/housesitter-restart-copilot.webp" width="2080" height="1220" loading="lazy" decoding="async" alt="A terminal. housesitter restart-copilot --status prints: restart-copilot DONE, started 2026-11-15T17:13:54Z, with the steps in order: snapshot, asked to reach a safe point, settle ended, quit sent, the app did not quit within 61 s of the Quit item so its own process was stopped with SIGTERM to exact pids, the app exited, relaunched, socket answering, every session resumed. Four of 21 sessions are listed, each resumed, with their titles cut, and the path of the run’s log. Then housesitter restart-copilot --resume --dry-run prints DRY RUN: nothing is changed, that the app is running with 417 processes, that 20 of 40 sessions are working, and the five steps it would take: ask 20 working sessions to reach a safe point, quit with hackamore, wait for every process to exit, relaunch, and resume 20 sessions then verify each took a turn." /></div>
+        <figcaption class="night-caption"><span class="caption-note">Real run</span> <span>Our mini, 15 November: the last restart of the app, read back by <code class="model-code">--status</code>, and what <code class="model-code">--dry-run</code> says it would do now, which changes nothing. Session titles are cut and 17 of the 21 session lines are folded into one; the rest is the program’s own output. <a href={`${repo}#restart-the-copilot-app-without-losing-a-session`} class={link}>The steps, and what it holds for &#8599;</a></span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="does-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="does-heading" class="heading-section">What it <span class="text-scale">does</span></h2>
       <ul class="does">
@@ -212,7 +237,7 @@ const verified = [
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="why-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="why-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="why-heading" class="heading-section">Why not <span class="text-scale">just…</span></h2>
       <ul class="does">
@@ -223,7 +248,7 @@ const verified = [
     </div>
   </section>
 
-  <section id="setup" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 scroll-mt-16" aria-labelledby="setup-heading">
+  <section id="setup" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40 scroll-mt-16" aria-labelledby="setup-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="setup-heading" class="heading-section">Three cables, <span class="text-scale">then one restart</span></h2>
       <ol class="cables">
@@ -243,7 +268,7 @@ housesitter watch-kvm studio --install</code></pre>
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="safe-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="safe-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="safe-heading" class="heading-section">Careful with <span class="text-scale">the password</span></h2>
       <ul class="safe">
@@ -253,7 +278,7 @@ housesitter watch-kvm studio --install</code></pre>
     </div>
   </section>
 
-  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20" aria-labelledby="verified-heading">
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20 bg-deep/40" aria-labelledby="verified-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="verified-heading" class="heading-section">What’s <span class="text-scale">verified</span></h2>
       <ul class="does">
@@ -309,6 +334,9 @@ housesitter watch-kvm studio --install</code></pre>
   @media (min-width: 768px) { .heading-code { font-size: inherit; } }
   .replay { display: grid; gap: 2rem; align-items: start; }
   @media (min-width: 1024px) { .replay { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; } }
+  /* The diagram's words stay readable on a phone by scrolling it sideways inside its own block, not by shrinking it. */
+  .fits-shot { overflow-x: auto; }
+  .fits-shot img { min-width: 860px; }
   .replay-shot img, .media-shot img { width: 100%; height: auto; display: block; border-radius: 0.75rem; }
   .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
   @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
