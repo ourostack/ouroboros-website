@@ -155,6 +155,21 @@ test('scenes further down wait for the arrival, and no page shows one scene twic
   }
 });
 
+test('a scene down the page with a night version shows it in the dark theme', () => {
+  for (const [page, kind] of [['apps/index.html', 'inline'], ['blog/index.html', 'vignette'], ['index.html', 'inline']]) {
+    const html = readDist(page);
+    const blocks = [...html.matchAll(new RegExp(`<div class="story-scene story-${kind}[^"]*" data-brand-scene="([^"]+)"([^>]*)>[\\s\\S]*?</picture>`, 'g'))];
+    assert.ok(blocks.length, `${page} has ${kind} scenes`);
+    for (const [block, scene, attrs] of blocks) {
+      const night = darkScenes[scene];
+      if (!night) continue;
+      assert.match(attrs, new RegExp(`data-night-scene="${night}"`), `${page}: ${scene}`);
+      assert.match(block, new RegExp(`data-theme-art="dark"[^>]*data-srcset="[^"]*/${night}-`), `${page}: ${scene} has no night sources`);
+      assert.match(block, new RegExp(`data-theme-art="light"[^>]*data-srcset="[^"]*/${scene}-`), `${page}: ${scene} has no day sources`);
+    }
+  }
+});
+
 test('the products show their own scenes on the shelf and on the homepage', () => {
   const apps = readDist('apps/index.html');
   for (const id of ['ouroboros', 'shepherd', 'ouro-hx', 'desk', 'butler']) {
