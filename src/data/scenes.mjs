@@ -458,20 +458,19 @@ export const HERO_FLOOR = 0.82
 // A product page's hero (sceneFor().product) may show as little as 76% of its
 // art, where its cast fits (heroFrame()'s `need`): the room it gives back
 // goes under the hero's edge, so the product's mark and name never sit
-// against the trail while its primary action stays in the first view
+// against it while its primary action stays in the first view
 // (scripts/primary-action.mjs). The cast stays whole; only sky and meadow go.
 export const PRODUCT_FLOOR = 0.76
 
 // Every hero ends on a hard edge: the picture runs to the box's foot and
-// stops there, with no fade, and the site's gold trail closes it (global.css).
+// stops there, with no fade, and the site's hairline closes it (global.css).
 // The cast stays whole: its lowest point (castFoot) sits FOOT_ROOM clear of
 // the box's foot at every desktop width, or, where the cast stands on the
 // art's very foot, the box shows the art's own foot (y = 100%), so nothing is
-// cut but the art's own edge. The trail sits centred on the edge, and its
-// glow and fireflies reach about 11px above it: FOOT_ROOM keeps the feet
-// above that in the shortest desktop hero (about 315px at 1024). Where the
-// art's own foot leaves less room than that, the trail hangs below the edge
-// instead (`trailBelow`), never across the feet. Ari's rulings: no hero box
+// cut but the art's own edge. FOOT_ROOM keeps the feet clear of the edge in
+// the shortest desktop hero (about 315px at 1024). Where the art's own foot
+// leaves less room than that, the box shows that foot (`trailBelow`), and the
+// words below get a little more room. Ari's rulings: no hero box
 // ever runs past its art (taste review r15, 2026-11-07), and no picture fades
 // into the page (2026-11-08).
 export const FOOT_ROOM = 0.045
@@ -503,7 +502,7 @@ const shares = (floor) => Array.from({ length: 41 }, (_, i) => floor + ((1 - flo
  * FOCUS_MARGIN / 2 clear of the top and its foot FOOT_ROOM clear of the
  * bottom; where no crop can, it is 100% (the art's own foot) and the box is
  * tall enough for the heads. `trailBelow` is set where that foot leaves the
- * feet less than FOOT_ROOM, so the trail hangs below the edge.
+ * feet less than FOOT_ROOM, so the words below get a little more room.
  */
 export function heroFrame(scene, { product = false } = {}) {
   const [top, bottom] = heroFocus[scene] ?? [0.2, 0.88]

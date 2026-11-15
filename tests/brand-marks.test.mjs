@@ -24,6 +24,8 @@ test('normal logo placements use the approved rich renders, not the old vector m
     if (/http-equiv="refresh"/.test(html)) continue;
     assert.match(html, /rel="icon"[^>]*href="\/brand\/ouro\.svg"/);
   }
+  // The retired flat marks (a closed ring, off canon) are gone from the site, not just unlinked.
+  for (const mark of ['ouro-badge', 'ouro-silhouette', 'ouro-character']) assert.ok(!distExists(`brand/${mark}.svg`), `brand/${mark}.svg still ships`);
 });
 
 test('HD logo exports ship responsive lossless images and one small-use SVG per mark', () => {
