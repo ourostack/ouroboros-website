@@ -8,6 +8,8 @@
                    at its own size (4:3, or wider where the cast stands apart).
   variant="inline" a scene further down the page, sized by `sizes`, deferred.
   variant="meadow" the short band above the footer, deferred.
+                   Every variant with a night version (darkScenes) shows it
+                   in the dark theme and follows the theme toggle.
   variant="vignette" a small 4:3 portrait of a product's character beside its
                    name (the phone crop, which frames Ouro and the product), deferred.
   contained        with variant="hero": the art as Ouro HX's Hero media (PageHero),
@@ -61,8 +63,9 @@ const phoneAspect = hero && !contained
 // blank box or alt text (taste review r10).
 // A hero with a night version (darkScenes) carries both colours, and global.css
 // picks the one for the theme in use.
-// The footer meadow follows the theme too, so a night page never ends on the dawn band.
-const night = hero || variant === 'meadow' ? darkScenes[scene] : undefined
+// The footer meadow and the scenes down the page follow the theme too, so a
+// night page never shows, or ends on, a dawn scene.
+const night = darkScenes[scene]
 const paintOf = (s: string) => {
   if (!paints[s]) throw new Error(`StoryScene: no paint for ${s}; run node scripts/scene-paint.mjs`)
   return paints[s].colour
@@ -70,7 +73,11 @@ const paintOf = (s: string) => {
 const paintVars = night
   ? `--paint-day: ${paintOf(scene)}; --paint-night: ${paintOf(night)}`
   : `--paint: ${paintOf(scene)}`
-const style = `${phoneAspect}; ${paintVars}${variant === 'vignette' ? `; --thumb-pos: ${thumbPosition(scene)}` : ''}`
+// A vignette's thumbnail framing, by day and by night (global.css picks one per theme).
+const thumbVars = variant !== 'vignette' ? ''
+  : night ? `; --thumb-pos-day: ${thumbPosition(scene)}; --thumb-pos-night: ${thumbPosition(night)}`
+  : `; --thumb-pos: ${thumbPosition(scene)}`
+const style = `${phoneAspect}; ${paintVars}${thumbVars}`
 const wideSizes = sizes ?? (variant === 'inline' ? '(min-width: 1024px) 50vw, 100vw' : '100vw')
 const phoneSizes = variant === 'inline' ? 'calc(100vw - 2.5rem)' : contained ? (sizes ?? '100vw') : '100vw'
 // The meadow spans the phone's full width, so it also carries the 1152 crop
@@ -96,6 +103,9 @@ const day = night ? sources(scene) : undefined
 const dark = night ? sources(night) : undefined
 const nightAlt = night ? (alt ?? scenes[night]) : undefined
 const vignette = variant === 'vignette'
+// A vignette shows the phone crop at every width; its fallback is the small one.
+const deferredFallback = (s: string) => (vignette ? `${base}/phone/${s}-384.webp` : sources(s).fallback)
+const vignetteSizes = sizes ?? '8rem'
 // A column hero (columnHeroes) has its own 2:1 art from 1600px, listed ahead of the
 // full-bleed art so it wins there and nowhere else.
 const column = hero && night && !contained ? columnHeroes[scene] : undefined
@@ -158,22 +168,33 @@ const column = hero && night && !contained ? columnHeroes[scene] : undefined
       <source type="image/webp" srcset={wideWebp} sizes={wideSizes} width={w} height={h} />
       <img src={fallback} width={w} height={h} alt={altText} fetchpriority="high" />
     </picture>
-  ) : variant === 'meadow' && day && dark ? (
+  ) : !hero && day && dark ? (
     <>
       {/* Deferred like any scene below the arrival, with the day and night art the hero's way: the day sources ask for
           a light scheme, the night art takes the rest, and the script after it follows the site's own theme toggle. */}
-      <picture data-defer="far">
-        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/avif" data-srcset={day.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
-        <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/webp" data-srcset={day.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
-        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/avif" data-srcset={dark.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
-        <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/webp" data-srcset={dark.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
-        <source media={lightScheme} data-media="" data-theme-art="light" type="image/avif" data-srcset={day.wideAvif} sizes={wideSizes} width={w} height={h} />
-        <source media={lightScheme} data-media="" data-theme-art="light" type="image/webp" data-srcset={day.wideWebp} sizes={wideSizes} width={w} height={h} />
-        <source data-media="" data-theme-art="dark" type="image/avif" data-srcset={dark.wideAvif} sizes={wideSizes} width={w} height={h} />
-        <source data-media="" data-theme-art="dark" type="image/webp" data-srcset={dark.wideWebp} sizes={wideSizes} width={w} height={h} />
-        <img data-src={dark.fallback} data-light-src={day.fallback} data-dark-src={dark.fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" />
+      <picture data-defer={variant === 'meadow' ? 'far' : ''}>
+        {vignette ? (
+          <>
+            <source media={lightScheme} data-media="" data-theme-art="light" type="image/avif" data-srcset={day.phoneAvif} sizes={vignetteSizes} width={pw} height={ph} />
+            <source media={lightScheme} data-media="" data-theme-art="light" type="image/webp" data-srcset={day.phoneWebp} sizes={vignetteSizes} width={pw} height={ph} />
+            <source data-media="" data-theme-art="dark" type="image/avif" data-srcset={dark.phoneAvif} sizes={vignetteSizes} width={pw} height={ph} />
+            <source data-media="" data-theme-art="dark" type="image/webp" data-srcset={dark.phoneWebp} sizes={vignetteSizes} width={pw} height={ph} />
+          </>
+        ) : (
+          <>
+            <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/avif" data-srcset={day.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+            <source media={`(max-width: 640px) and ${lightScheme}`} data-media="(max-width: 640px)" data-theme-art="light" type="image/webp" data-srcset={day.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+            <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/avif" data-srcset={dark.phoneAvif} sizes={phoneSizes} width={pw} height={ph} />
+            <source media="(max-width: 640px)" data-media="(max-width: 640px)" data-theme-art="dark" type="image/webp" data-srcset={dark.phoneWebp} sizes={phoneSizes} width={pw} height={ph} />
+            <source media={lightScheme} data-media="" data-theme-art="light" type="image/avif" data-srcset={day.wideAvif} sizes={wideSizes} width={w} height={h} />
+            <source media={lightScheme} data-media="" data-theme-art="light" type="image/webp" data-srcset={day.wideWebp} sizes={wideSizes} width={w} height={h} />
+            <source data-media="" data-theme-art="dark" type="image/avif" data-srcset={dark.wideAvif} sizes={wideSizes} width={w} height={h} />
+            <source data-media="" data-theme-art="dark" type="image/webp" data-srcset={dark.wideWebp} sizes={wideSizes} width={w} height={h} />
+          </>
+        )}
+        <img data-src={deferredFallback(night)} data-light-src={deferredFallback(scene)} data-dark-src={deferredFallback(night)} width={vignette ? pw / 2 : w} height={vignette ? ph / 2 : h} alt={nightAlt} data-light-alt={altText} data-dark-alt={nightAlt} loading="lazy" decoding="async" />
       </picture>
-      <noscript><img src={dark.fallback} width={w} height={h} alt={altText} loading="lazy" decoding="async" /></noscript>
+      <noscript><img src={deferredFallback(night)} width={vignette ? pw / 2 : w} height={vignette ? ph / 2 : h} alt={nightAlt} loading="lazy" decoding="async" /></noscript>
       <script is:inline>
         (function () {
           var pic = document.currentScript.parentElement.querySelector('picture'), img = pic.querySelector('img'), root = document.documentElement;
@@ -184,13 +205,16 @@ const column = hero && night && !contained ? columnHeroes[scene] : undefined
           };
           var sync = function () {
             var chosen = root.dataset.theme === 'light' || root.dataset.theme === 'dark' ? root.dataset.theme : '';
+            var shown = chosen || (light.matches ? 'light' : 'dark');
             pic.querySelectorAll('source').forEach(function (s) {
               var base = s.getAttribute('data-media'), art = s.getAttribute('data-theme-art');
               set(s, 'media', chosen ? (art === chosen ? base : 'not all')
                 : art === 'light' ? (base ? base + ' and ' : '') + '(prefers-color-scheme: light)' : base);
             });
-            // Until the meadow comes within reach its image waits in data-src (Layout.astro); after that, src.
+            // Until the scene comes within reach its image waits in data-src (Layout.astro); after that, src.
             set(img, img.hasAttribute('src') ? 'src' : 'data-src', img.getAttribute('data-' + (chosen || 'dark') + '-src'));
+            // The alt follows what is shown; a decorative scene keeps its empty alt.
+            if (img.getAttribute('alt')) set(img, 'alt', img.getAttribute('data-' + shown + '-alt'));
           };
           sync();
           new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
