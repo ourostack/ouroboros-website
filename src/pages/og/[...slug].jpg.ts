@@ -91,7 +91,8 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   'homebrew-tap': [16, 30, 1194, 172],
   // On its title plate, like the butler's.
   'housesitter': [16, 30, 1194, 172],
-  'm365crawl': [820, 6, 1194, 196],
+  // On its title plate, like the butler's.
+  'm365crawl': [16, 30, 1194, 172],
   'ouro-apps-site': [560, 4, 1196, 166],
   'ouro-hx': [640, 6, 1194, 316],
   'ouro-md': [390, 6, 1194, 190],
@@ -102,7 +103,8 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   // On its title plate, like the butler's.
   'ouro-workbench': [16, 30, 1194, 172],
   'ouroboros': [680, 6, 1194, 180],
-  'ouroboros-skills': [830, 6, 1194, 240],
+  // On its title plate, like the butler's.
+  'ouroboros-skills': [16, 30, 1194, 172],
   'ouroboros-website': [770, 6, 1194, 196],
   'playwright-focus-proof': [16, 30, 1194, 172],
   'shepherd': [240, 6, 800, 250],
@@ -149,6 +151,11 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   // The housesitter's chimney meets the top of its art too, and its only open sky sits
   // beside Ouro's lantern, too narrow for a title: the same plate.
   housesitter: { file: 'headers/housesitter.webp', plate: true },
+  // The card catalogue and the scroll stacks were redrawn with Ouro standing
+  // tall in their skies, so their old title zones set the words over his head
+  // and tail (render QA, 2026-11-14): the same plate.
+  m365crawl: { file: 'headers/m365crawl.webp', plate: true },
+  'ouroboros-skills': { file: 'headers/ouroboros-skills.webp', plate: true },
   // The workshop's roof beams run across the top of its art, and its cast
   // spans the whole width, from Ouro's flower pot to the parcel robots: the
   // same plate, so Ouro is still there to find on the home card.
