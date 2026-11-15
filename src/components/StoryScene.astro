@@ -14,7 +14,7 @@
                    name (the phone crop, which frames Ouro and the product), deferred.
   contained        with variant="hero": the art as Ouro HX's Hero media (PageHero),
                    shown whole at its own aspect inside the page's column, loaded
-                   first, with no crop, drift or trail.
+                   first, with no crop, drift or hairline.
 
   The art is never re-encoded or cropped in a build step; CSS crops the
   meadow band with object-fit. Behind it sits the scene's own paint (the art's
@@ -51,9 +51,9 @@ const hero = variant === 'hero'
 // page, for the room under its edge), and
 // object-position `y` keeps the whole cast inside whatever it shows, or shows
 // the art's own foot where the cast stands on it. Every hero ends on a hard
-// edge, closed by the gold trail (global.css): no fade, and no box ever runs
-// past its art. Where the feet stand too near that edge for the trail's glow,
-// the trail hangs below it (data-trail-below).
+// edge, closed by the site's hairline (global.css): no fade, and no box ever
+// runs past its art. A cast standing on the art's own foot is marked
+// data-trail-below, which gives the words under it a little more room.
 const frame = heroFrame(scene, { product })
 const phoneAspect = hero && !contained
   ? `--phone-ar: ${pw} / ${ph}; --hero-floor: ${frame.floor}; --hero-arh: ${(h / w).toFixed(4)}; --hero-y: ${frame.y}%`

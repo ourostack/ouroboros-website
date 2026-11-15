@@ -15,13 +15,13 @@
 // page's own ground at both side edges, 12px wide, away from any words, with
 // the header hidden, and fails on a jump of more than MAX_JUMP (the sum of the
 // R, G and B steps) between the three rows above a line and the three below. Rows inside a scene image
-// are skipped: the art is meant to have detail. The trail of light the site
-// draws on a section change (any block whose ::before paints the trail on its
-// top edge, read from the computed style, so a plain hairline never passes as
-// one, or whose ::after draws it on its foot, as a hero's does) is
-// hidden while reading, so it never counts as a seam;
-// where a section change carries that trail, the change itself may step in
-// colour on its exact row (the trail marks it, as on the home page), but the
+// are skipped: the art is meant to have detail. The hairline the site draws on
+// a section change (any block whose ::before paints a 1px line on its top
+// edge, read from the computed style, so a border never passes as one, or
+// whose ::after draws it on its foot, as a hero's does) is hidden while
+// reading, so it never counts as a seam;
+// where a section change carries that hairline, the change itself may step in
+// colour on its exact row (the hairline marks it, as on the home page), but the
 // ground either side of it must still run smooth. Reveal animations are off
 // (reduced motion), so the page is read as it settles.
 //
@@ -150,18 +150,17 @@ async function read({ page, width, height, scheme }) {
   await ctx.addInitScript((t) => { try { localStorage.setItem('theme', t); } catch {} }, scheme);
   const p = await ctx.newPage();
   await p.goto(base + page, { waitUntil: 'load' });
-  // Mark every block that really draws the trail on its top edge (its
-  // ::before is shown and paints the trail's image), before hiding it.
+  // Mark every block that really draws the hairline on its top edge (its
+  // ::before is shown, 1px tall, on the edge, in a colour), before hiding it.
   await p.evaluate(() => {
+    const line = (s) => s.display !== 'none' && s.content !== 'none' && s.position === 'absolute' && parseFloat(s.height) <= 1.5 && !/rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor);
     for (const el of document.querySelectorAll('main *, .story-meadow, footer')) {
       const b = getComputedStyle(el, '::before');
-      if (b.display !== 'none' && b.content !== 'none' && /data:image\/svg/.test(b.backgroundImage) && Math.abs(parseFloat(b.top) + parseFloat(b.height) / 2) < 2) el.setAttribute('data-seam-trail', '');
-      // A hero draws the trail on its foot instead (its ::after is
-      // centred on the art's bottom edge, or hangs from it where the cast
-      // stands on the edge): the change below it is trailed.
+      if (line(b) && Math.abs(parseFloat(b.top)) < 2) el.setAttribute('data-seam-trail', '');
+      // A hero draws the hairline on its foot instead (its ::after sits just
+      // under the art's bottom edge): the change below it is marked.
       const a = getComputedStyle(el, '::after');
-      const footAt = parseFloat(a.top) - el.getBoundingClientRect().height;
-      if (a.display !== 'none' && a.content !== 'none' && /data:image\/svg/.test(a.backgroundImage) && (Math.abs(footAt + parseFloat(a.height) / 2) < 2 || Math.abs(footAt + 6) < 2)) el.setAttribute('data-seam-trail-foot', '');
+      if (line(a) && Math.abs(parseFloat(a.top) - el.getBoundingClientRect().height) < 2) el.setAttribute('data-seam-trail-foot', '');
     }
   });
   await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
@@ -203,7 +202,7 @@ async function read({ page, width, height, scheme }) {
     seen.add(where);
     out.checked++;
     out.worst = Math.max(out.worst, worst);
-    const line = `${width}${scheme[0]} ${page} y=${where}${trail ? ' (trail)' : ''}: ${worst.toFixed(1)}`;
+    const line = `${width}${scheme[0]} ${page} y=${where}${trail ? ' (hairline)' : ''}: ${worst.toFixed(1)}`;
     out.all.push(line);
     if (worst > MAX_JUMP) out.failures.push(`${line} (a seam: the ground steps ${worst.toFixed(1)} in one row)`);
   }
