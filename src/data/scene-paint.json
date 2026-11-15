@@ -1,12 +1,12 @@
 {
   "agent-workbench": {
     "from": "headers/agent-workbench.webp",
-    "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82",
-    "colour": "#f8b898"
+    "sha256": "22a84e4d31e9889e1337e8f064ed183f8ec5033b5967376ecafaa8806e890e7a",
+    "colour": "#f8c898"
   },
   "agent-workbench-dark": {
     "from": "headers/agent-workbench-dark.webp",
-    "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3",
+    "sha256": "da2ff3682293d034b08f56f9776b7038e4234cb5996bcc6d5e45237fe26fd705",
     "colour": "#1848a8"
   },
   "airship": {
@@ -81,13 +81,13 @@
   },
   "friends": {
     "from": "headers/friends.webp",
-    "sha256": "ba2642f6494d64bfc42a36754a175a858efa5bf49015e1e1dacc6133af21b082",
+    "sha256": "cd1040a91d852a303ae9b0705fd8937089e4c26b1ade0428cb9e78eb6fc0ddfa",
     "colour": "#f8b898"
   },
   "friends-dark": {
     "from": "headers/friends-dark.webp",
-    "sha256": "1f408b5d0f6f40116d9684fecd3efb2d2411691e2d386d7d59643e59e7f5be28",
-    "colour": "#082878"
+    "sha256": "e8e183b81b5a489aad77195c9c517ef87d67f5a7139b9860b08c6455d2550e76",
+    "colour": "#082858"
   },
   "friends-relay": {
     "from": "headers/friends-relay.webp",
