@@ -149,9 +149,10 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   // The housesitter's chimney meets the top of its art too, and its only open sky sits
   // beside Ouro's lantern, too narrow for a title: the same plate.
   housesitter: { file: 'headers/housesitter.webp', plate: true },
-  // The workshop's roof beams run across the top of its art, and its cast
-  // spans the whole width, from Ouro's flower pot to the parcel robots: the
-  // same plate, so Ouro is still there to find on the home card.
+  // The workshop's cast stands tall in the middle of its art: the glass
+  // figure's head and Loop's antenna reach its very top, so the only sky for
+  // a title sits beside them, too narrow: the same plate, so all three, Ouro
+  // too, stay whole on the home card.
   workshop: { file: 'headers/workshop.webp', plate: true },
 }
 
