@@ -41,12 +41,12 @@
   },
   "desk": {
     "from": "headers/desk.webp",
-    "sha256": "82ec9e59e2e8dc0bfbf118b240de865441bf00e3964161625ac82a21043c5b09",
+    "sha256": "c87f6844be8abdc4289b352149bdc48de95141aae92d5aaa84b78956354c1a70",
     "colour": "#f8b898"
   },
   "desk-dark": {
     "from": "headers/desk-dark.webp",
-    "sha256": "fe082edcfda807ebb031d4329a33e16442e835b455d879e00d57bb1711b6cc8b",
+    "sha256": "8b6d2ca73366eb2e8158d780795ccffed8372bae7fabb6fa95a117278dc40a80",
     "colour": "#082878"
   },
   "factory": {
@@ -111,12 +111,12 @@
   },
   "housesitter": {
     "from": "headers/housesitter.webp",
-    "sha256": "4378e32293fb8f3950fe1c03815f70a8a4c1dfab5af1d319d27f64017da0e827",
+    "sha256": "8cfd814078a4ced3a1a1fdab4b7ba92670bb6306f6ed56b1d1bd1e41e7c8efd0",
     "colour": "#f8b8a8"
   },
   "housesitter-dark": {
     "from": "headers/housesitter-dark.webp",
-    "sha256": "715d3a46106b7f40e64ecc8d4e3c8861062b5723ef1fc94a1c00bc980cbaf1b9",
+    "sha256": "9fd08785373be945e6bd1586baa7c6a77343b4024287fcb12c9782638c7b9d1a",
     "colour": "#2858a8"
   },
   "m365crawl": {
