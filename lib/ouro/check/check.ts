@@ -1,4 +1,4 @@
-export { blank, BUDGETS, caption, check, dprAt, EXIT, group, HINTS, imagesReport, LABELS, main, merge, parseArgs, placeOf, RULES, SIZES, summary, transportIssues };
+export { blank, BUDGETS, goTo, caption, check, dprAt, EXIT, group, HINTS, imagesReport, LABELS, main, merge, parseArgs, placeOf, RULES, SIZES, summary, transportIssues };
 export type { Budgets, CheckOptions, CheckResult, Finding, Gate, ImageEntry, MergeOptions, Report };
 
 import { createHash } from "node:crypto";
@@ -10,7 +10,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import type { Browser, BrowserType, Page, Request } from "playwright";
 import { findDesignIssues, listCornerMedia, mediaDrawn, readCorners, shownCorners, type CornerReading } from "./design-check.ts";
 import { findImageFades } from "./fade-check.ts";
-import { ALIASES, boxOf, decodeImages, isReady, listAllowances, listenForReady, outline, runAxe, type Allowance, type Box } from "./in-page.ts";
+import { ALIASES, behindModal, boxOf, decodeImages, isReady, listAllowances, listenForReady, outline, runAxe, type Allowance, type Box } from "./in-page.ts";
 import { findLoadingIssues, interactionSince, listenForMeasures, markPressables, NEVER_PRESS, pressPoint } from "./measure.ts";
 import { findRepaints, listenForMotion, markWalkables, readMotion, resetMotion, type MotionReading } from "./motion-check.ts";
 import { findOverlaps } from "./overlap-check.ts";
@@ -208,6 +208,7 @@ const LABELS: Record<string, string> = {
   "not-ready": "page not ready",
   "layout-shift": "layout shift while loading",
   "first-content": "slow first content",
+  "first-paint-swap": "swap after first paint",
   inp: "slow press",
   "giant-picture": "giant picture",
   "cramped-heading": "cramped heading",
@@ -264,6 +265,7 @@ const HINTS: Record<string, string> = {
   "off-screen": "keep it inside the screen: let it wrap or shrink, or let its row scroll",
   "duplicate-control": "show one; if both are needed, name each for what it does",
   "stray-scrollbar": "find what spills over by a few pixels (a margin, a border, a rounding) and fit it, or don't let the region scroll",
+  "first-paint-swap": "draw the final controls in the first frame, a list that fits with More already in it, rather than replacing one a frame later",
   "focus-ring": "give it a :focus-visible outline in a colour that stands out from what is behind it",
   "dark-miss": "fill it from a theme token that has a dark value, not a fixed light colour",
   "hero-dark-art": "pass picture={{ light, dark }}, the same scene by day and at night",
@@ -419,18 +421,43 @@ async function targetsOf(targets: string[], glob: string | undefined): Promise<{
 
 // Opens about:blank. A navigation the page started itself (a press that left it, its address still the old one until the
 // answer comes) can win over this one, which Playwright reports as interrupted: the page's navigation is let finish, and
-// the blank page opened again, a few times at most.
-async function blank(page: Pick<Page, "goto" | "waitForLoadState">): Promise<void> {
+// the blank page opened again, a few times at most. A navigation to about:blank that wins leaves the page where this
+// wants it, so once it has loaded there that is done (main run 43711248976).
+async function blank(page: Pick<Page, "goto" | "waitForLoadState" | "url">): Promise<void> {
+  // Lets the navigation that won finish, and says whether it left the page on about:blank; any other failure is thrown.
+  const onBlank = async (problem: unknown): Promise<boolean> => {
+    if (!/is interrupted by another navigation/.test((problem as Error).message)) throw problem;
+    await page.waitForLoadState("load");
+    return page.url() === "about:blank";
+  };
   for (let attempt = 1; attempt < 3; attempt++) {
     try {
       await page.goto("about:blank");
       return;
     } catch (problem) {
-      if (!/is interrupted by another navigation/.test((problem as Error).message)) throw problem;
+      if (await onBlank(problem)) return;
+    }
+  }
+  try {
+    await page.goto("about:blank");
+  } catch (problem) {
+    if (!(await onBlank(problem))) throw problem;
+  }
+}
+
+// Goes to a page from the blank one. An about:blank navigation still landing after blank() returned can win over this
+// one, which Playwright reports as interrupted (#1521): that navigation is let finish, and the page asked for again, a
+// few times at most.
+async function goTo(page: Pick<Page, "goto" | "waitForLoadState">, url: string): Promise<Awaited<ReturnType<Page["goto"]>>> {
+  for (let attempt = 1; attempt < 3; attempt++) {
+    try {
+      return await page.goto(url, { waitUntil: "load" });
+    } catch (problem) {
+      if (!/is interrupted by another navigation to "about:blank"/.test((problem as Error).message)) throw problem;
       await page.waitForLoadState("load");
     }
   }
-  await page.goto("about:blank");
+  return page.goto(url, { waitUntil: "load" });
 }
 
 // Opens a page and waits for it to draw. Returns why it did not load (a status other than 2xx, or no answer at all),
@@ -449,7 +476,7 @@ async function open(page: Page, url: string, readyTimeout: number): Promise<{ fa
   // From a blank page, so each page loads afresh: goto answers null for a same-document move, as from an app's page to
   // one of its routes (the same address but its hash), and the app would keep what it held.
   await blank(page);
-  const response = (await page.goto(url, { waitUntil: "load" }))!;
+  const response = (await goTo(page, url))!;
   if (!response.ok()) return { failed: `answered ${response.status()}`, ready: true };
   await page.waitForLoadState("networkidle", { timeout: 5000 }).catch(() => undefined);
   const ready = await page.waitForFunction(isReady, null, { timeout: readyTimeout }).then(
@@ -789,23 +816,30 @@ async function check(options: CheckOptions): Promise<CheckResult> {
         await page.evaluate(axe);
         issues.push(...(await page.evaluate(runAxe)));
       }
-      issues.push(...(await page.evaluate(findOverlaps, {})));
+      // The layout, text and design rules read what a person sees. While a modal is open, the page behind it is out of
+      // reach and laid out for the modal (its scroll locked), so its findings are left to the page's own run.
+      const shown: typeof issues = [];
+      shown.push(...(await page.evaluate(findOverlaps, {})));
       await page.evaluate(decodeImages);
-      issues.push(...(await page.evaluate(findSizeIssues, { measures: measuresFor(config, target.page) })));
-      issues.push(...(await page.evaluate(findImageFades)));
-      issues.push(...(await page.evaluate(findDesignIssues, {})));
-      issues.push(...(await page.evaluate(findTextIssues)));
-      issues.push(...(await page.evaluate(findLayoutIssues, {})));
-      issues.push(...(await page.evaluate(findThemeIssues, {})));
-      issues.push(...(await page.evaluate(findInteractionIssues)));
-      issues.push(...(await page.evaluate(findWrapIssues, {})));
+      shown.push(...(await page.evaluate(findSizeIssues, { measures: measuresFor(config, target.page) })));
+      shown.push(...(await page.evaluate(findImageFades)));
+      shown.push(...(await page.evaluate(findDesignIssues, {})));
+      shown.push(...(await page.evaluate(findTextIssues)));
+      shown.push(...(await page.evaluate(findLayoutIssues, {})));
+      shown.push(...(await page.evaluate(findThemeIssues, {})));
+      shown.push(...(await page.evaluate(findInteractionIssues)));
+      shown.push(...(await page.evaluate(findWrapIssues, {})));
+      const behind = new Set(await page.evaluate(behindModal, [...new Set(shown.map((issue) => issue.ref))]));
+      issues.push(...shown.filter((issue) => !behind.has(issue.ref)));
       // dark-art: light runs before dark at each size, so the dark run compares with the light run's hero art.
       const art = await page.evaluate(readHeroArt, {});
       const artKey = `${target.site}\u0000${target.page}\u0000${width}x${height}`;
       if (theme === "light") lightArt.set(artKey, art);
       else if (theme === "dark" && art?.darkPage && lightArt.get(artKey)?.src === art.src)
         issues.push({ ref: art.ref, rule: "dark-art", element: art.element, detail: `the dark theme shows the light theme's picture, ${art.src.split("/").pop()}` });
-      issues.push(...(await page.evaluate(readCorners, await cornerShots(page, height))));
+      const corners = await page.evaluate(readCorners, await cornerShots(page, height));
+      const cornersBehind = new Set(await page.evaluate(behindModal, [...new Set(corners.map((issue) => issue.ref))]));
+      issues.push(...corners.filter((issue) => !cornersBehind.has(issue.ref)));
       issues.push(...runtime());
       for (const a of await page.evaluate(listAllowances, ALIASES)) {
         const key = JSON.stringify([target.site, target.page, a.rules, a.element, a.reason]);
@@ -1119,7 +1153,7 @@ interface Args {
 
 const ABOUT = [
   "ouro-check: checks every page at every screen size, light and dark, for overlap, sideways scroll, clipped text, broken, blurry and stretched pictures and videos, pictures that fade into the page, pages that fail to load or draw, serious accessibility problems, and design problems: a banner where content belongs, a cramped heading, a frame inside a frame, a recording's own corner inside its frame, too many text sizes, weights or shadows, grey text on colour and a heading larger than the one above it; text that leaks a value (undefined, NaN, [object Object], an id, a translation key, TODO) or shows a time no one should read (Invalid Date, 1 January 1970, a raw timestamp); errors and warnings in the console and requests to the page's own server that fail; content the screen cuts off, the same control twice in view and a region that scrolls by a few pixels; a control that shows no keyboard focus and a light surface left on a dark page; a disabled control with no reason given; text that wraps by accident (a lone last word, a tall h1, a one-word line in big text, a heading broken by hand or held narrow) and hero art with no night twin; and long lines only where ouro-check.json declares a measure.",
-  "A site on the web must move http:// to https:// and ask for HSTS. It measures layout shift, first content, the presses the app lists and jank as it walks each page (hovering cards, opening popups, scrolling and panning) against their budgets, and writes report.json, summary.md, a contact sheet per page and a captioned close-up per finding. merge joins the out folders of a sharded run into one.",
+  "A site on the web must move http:// to https:// and ask for HSTS. It measures layout shift, first content, the presses the app lists and jank as it walks each page (hovering cards, opening popups, scrolling and panning) against their budgets, and finds a control the first frames draw that a later frame swaps for another, with no input. It writes report.json, summary.md, a contact sheet per page and a captioned close-up per finding. merge joins the out folders of a sharded run into one.",
 ];
 
 const REPORT_FLAGS: Readonly<Record<string, FlagSpec>> = Object.freeze({
