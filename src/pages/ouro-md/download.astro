@@ -5,6 +5,7 @@ import WorkshopVideo from '../../components/WorkshopVideo.astro'
 import { ogPathFor } from '../../data/og'
 import { ouroMdInstall } from '../../data/principles.mjs'
 import { ouroMdDownload } from '../../data/ouro-md-release.mjs'
+import { Button } from '../../components/ouro/button/button'
 
 // Ouro MD's download page. It moved here from ouro.bot/apps/ouro-md/ (Ari,
 // 2026-11-07: "move every surface to ouroboros.bot and have ouro.bot forward");
@@ -129,7 +130,7 @@ const app = {
       <div class="grid gap-2 content-start min-w-0 split-body">
         <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
         <div class="flex flex-wrap items-center gap-3">
-          <button type="button" data-copy-target="ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <Button variant="outline" data-copy-target="ouro-md-install" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button>
           <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> shell alias.</span>
         </div>
       </div>
