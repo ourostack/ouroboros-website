@@ -81,13 +81,13 @@
   },
   "desk": {
     "from": "headers/desk.webp",
-    "sha256": "f0ac584b5eedc8dc0e6beff260a37d2e2612fa63c6f95f52f9bd617e8e6a336c",
-    "colour": "#f8b898"
+    "sha256": "2d44fd380e90561b69ad24a664dcc5f85d7b10c243fa723959995a60b3094491",
+    "colour": "#381808"
   },
   "desk-dark": {
     "from": "headers/desk-dark.webp",
-    "sha256": "0412411534ff535a8c27993fdb40cbf2c783eae1ffcfb29088b93ea67148e046",
-    "colour": "#082878"
+    "sha256": "29a5e3e44d925bdd622381c4ab23937161e828dac80f8c84b43b8ccd41d5800b",
+    "colour": "#180808"
   },
   "factory": {
     "from": "headers/factory.webp",
@@ -181,18 +181,18 @@
   },
   "ouro-hx": {
     "from": "headers/ouro-hx.webp",
-    "sha256": "e367e8c8831b77694d72995b346b1bb9c7fd3f0a5403dc27c2870bf85f265eea",
-    "colour": "#f8c8a8"
+    "sha256": "d8ce2873694b8501843b5aa5c0343feafb360c071524f9b0218798c843169d5c",
+    "colour": "#783818"
   },
   "ouro-md": {
     "from": "headers/ouro-md.webp",
-    "sha256": "0e3a1ab34edc82a6a721d1277f4c57e960d2fe6d08c1226cbc7ad4c8ec5175bb",
-    "colour": "#f8b898"
+    "sha256": "9bd8db60a52f9c2cc4803765ca71a0a5f44cfc0a5778292e73337f52b62fe63a",
+    "colour": "#784828"
   },
   "ouro-md-dark": {
     "from": "headers/ouro-md-dark.webp",
-    "sha256": "36d12c553ec828cf5f0e987eeb531b260cf6363755636a13ea261bd8ce80b67a",
-    "colour": "#083888"
+    "sha256": "7f4a24e7c8a35a1a1fe33cb3ba114a27e58e7f08cf46a92f4a956f31c718eab9",
+    "colour": "#481808"
   },
   "ouro-native-apple-app-shell": {
     "from": "headers/ouro-native-apple-app-shell.webp",
@@ -246,13 +246,13 @@
   },
   "ouroboros": {
     "from": "headers/ouroboros.webp",
-    "sha256": "bfeb93a3998e2a174e96b315ad99dcb3e9c03d46eb7113186cccf3a5e293b73b",
-    "colour": "#f8b8a8"
+    "sha256": "8080d69e76555443e7e26153bff8f79aa5b39517697accad5dfe141427243194",
+    "colour": "#383808"
   },
   "ouroboros-dark": {
     "from": "headers/ouroboros-dark.webp",
-    "sha256": "ba53632b11a36cd79f9f844327f97c95237b3281ca4d8010557d6baeb8854add",
-    "colour": "#184888"
+    "sha256": "b8cdc1f8a9a7c84d2d02c7dd8bdce196b980cc83846d360fd9f1e308ff1d6e6b",
+    "colour": "#080808"
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
