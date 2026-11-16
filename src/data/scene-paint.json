@@ -81,13 +81,13 @@
   },
   "desk": {
     "from": "headers/desk.webp",
-    "sha256": "6b515b86a134aecb5921fc0776f0e34a736c89c9d8da408e8e3eaa28241d3ba2",
-    "colour": "#f8d8b8"
+    "sha256": "a238eb34bbc465ad497780d46d1b1014ceb1d13f171e4a01449a21cd6ccc9fe0",
+    "colour": "#e8c8a8"
   },
   "desk-dark": {
     "from": "headers/desk-dark.webp",
-    "sha256": "86c6ca146f0457e602c800dde2907cbc3ec5c6bdab9ccb893cbde0d0da6b5171",
-    "colour": "#686878"
+    "sha256": "47689b1ec31f521c013e5b5c629be2aaa69aea112c7cffa63e69af5f57ea547d",
+    "colour": "#484868"
   },
   "factory": {
     "from": "headers/factory.webp",
