@@ -69,6 +69,16 @@
     "sha256": "221661cf43b047575defac72b661e3b13995c84f5655fbc59a5982b498a8fbc6",
     "colour": "#282808"
   },
+  "butler-steady": {
+    "from": "headers/butler-steady.webp",
+    "sha256": "a0a6be8e26cb18b314f120b34b5ef220834f97a110a3315b82e05ff9fbba819c",
+    "colour": "#c8a898"
+  },
+  "butler-steady-dark": {
+    "from": "headers/butler-steady-dark.webp",
+    "sha256": "85a9abf9ed73cfd2e575456837d8a796f2abbffd3983f949f8d424229df0cee3",
+    "colour": "#382818"
+  },
   "chart-room": {
     "from": "headers/chart-room.webp",
     "sha256": "5e46f2801eb3c8cb35a0ad4784a1ad7d9765e68c93039179541eb81d288411fc",
@@ -128,6 +138,16 @@
     "from": "headers/friends-relay-dark.webp",
     "sha256": "e01883f68b3b7ed03a0c5a39a3c4435e55f8fc80295d39f7114c4afc3cc1cce8",
     "colour": "#082868"
+  },
+  "garden-line": {
+    "from": "headers/garden-line.webp",
+    "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5",
+    "colour": "#c8a878"
+  },
+  "garden-line-dark": {
+    "from": "headers/garden-line-dark.webp",
+    "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014",
+    "colour": "#081828"
   },
   "gatefold": {
     "from": "headers/gatefold.webp",

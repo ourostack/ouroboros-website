@@ -152,6 +152,11 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Agent Experience, persistent agents, and software designed for the agents working inside it.',
     tag: 'Blog',
   },
+  '/blog/tell-the-agent': {
+    title: 'Tell the agent, not the human.',
+    subtitle: 'When a request breaks, an Ouroboros agent now hears why and gets another try in the same turn.',
+    tag: 'Ouroboros',
+  },
   '/blog/trust-the-agent': {
     title: 'Trust the Fucking Agent.',
     subtitle: "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",

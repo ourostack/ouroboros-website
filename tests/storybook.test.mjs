@@ -113,7 +113,7 @@ test('a hero with a night version fetches only the art for the theme in use', ()
     // It must run: a bare object after a statement parses as a block and throws.
     assert.doesNotThrow(() => new vm.Script(preload.slice('<script>'.length, -'</script>'.length)), `${page}: the theme-aware preload does not parse`);
   }
-  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'airship', 'airship-line', 'airship-moored', 'apple-distribution-kit', 'ax-trail-map', 'butler', 'chart-room', 'desk', 'factory', 'flow-review', 'friends', 'friends-relay', 'gatefold', 'glue-unstuck', 'housesitter', 'm365crawl', 'ouro-apps-site', 'ouro-md', 'ouro-native-apple-app-shell', 'ouro-ui-apple', 'ouro-ui-core', 'ouro-work', 'ouro-workbench', 'ouroboros', 'ouroboros-skills', 'ouroboros-website', 'ourostack', 'playwright-focus-proof', 'shepherd', 'slugger-balloon', 'workshop'], 'every night hero is listed');
+  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'airship', 'airship-line', 'airship-moored', 'apple-distribution-kit', 'ax-trail-map', 'butler', 'butler-steady', 'chart-room', 'desk', 'factory', 'flow-review', 'friends', 'friends-relay', 'garden-line', 'gatefold', 'glue-unstuck', 'housesitter', 'm365crawl', 'ouro-apps-site', 'ouro-md', 'ouro-native-apple-app-shell', 'ouro-ui-apple', 'ouro-ui-core', 'ouro-work', 'ouro-workbench', 'ouroboros', 'ouroboros-skills', 'ouroboros-website', 'ourostack', 'playwright-focus-proof', 'shepherd', 'slugger-balloon', 'workshop'], 'every night hero is listed');
 });
 
 test('a column hero\'s art is the guide\'s own master, upscaled and cropped, and is at least as wide as the column is drawn at 2x', () => {

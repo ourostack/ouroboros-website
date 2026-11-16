@@ -70,6 +70,10 @@ export const scenes = {
   'chart-room-dark': 'The same chart room at night by the oil lamp, a deep blue night sky in the round window: the glass person and Loop lean over the map together, and Ouro, glowing green, sits curled beside Loop.',
   'airship-line': 'The airship’s workshop at dawn. Three small glass agents build little airships along one long oak bench, an amber one in a red knit cap fitting a propeller, a sea-blue one in a leather apron tying ropes and Loop in goggles steadying a finished ship, while a faceless glass person in a moss-green scarf and canvas apron stands in front and times the line with a brass pocket watch. Ouro, an emerald-glass snake, watches from the far end of the bench.',
   'airship-line-dark': 'The same workshop at night by oil-lantern light, stars and a crescent moon over the clouds in the doorway: the three agents work along the bench while the glass person times them with a pocket watch, and Ouro, glowing green, watches from the bench’s far end.',
+  'butler-steady': 'A calm, sunlit living room. Ouro Butler, a small green snake curled into an open ring, holds a silver tray up on the tip of his tail and nudges its slipping cloche back into place with his nose, while his person naps undisturbed on the cream sofa behind him under a sage-green throw.',
+  'butler-steady-dark': 'The same living room at night, lit by the floor lamp: Ouro Butler steadies the slipping cloche on his tray with his nose while his person sleeps on, undisturbed, on the sofa behind him.',
+  'garden-line': 'A sunny back garden with a little railway. A small apricot-glass agent in a navy conductor’s cap lifts a fallen oak branch off the rails, while its green steam engine and cream mail wagon wait just behind it and Ouro, a small green snake in a red scarf, watches from the wagon’s roof.',
+  'garden-line-dark': 'The same garden railway at night under the stars: the small conductor agent lifts the fallen branch off the rails while the little train waits behind it, and Ouro, glowing green, watches from the wagon’s roof.',
   'slugger-balloon': 'Slugger, a small glass raccoon in a moss-green scarf, lifts off from a dawn meadow in a little patchwork hot-air balloon, his long to-do list streaming over the basket’s rim in the breeze, with Ouro, an emerald-glass snake, riding on the rim beside him.',
   'slugger-balloon-dark': 'The same little patchwork balloon rising from a moonlit meadow under the stars, its burner flame lighting the envelope from inside, Slugger in his scarf holding his to-do list over the rim and Ouro glowing green beside him.',
   'airship-moored': 'The glass-and-brass airship rests moored at its mast on a hilltop meadow in the golden evening, its gangplank down. Loop, a small jade-glass agent in goggles and a green scarf, waves from the gondola’s open door, and Ouro, an emerald-glass snake, keeps watch from the lantern post at the foot of the gangplank.',
@@ -114,6 +118,8 @@ const pages = {
   '/housesitter': { hero: 'housesitter', content: true, product: true },
   '/shepherd': { hero: 'shepherd', content: true, product: true },
   '/blog': { hero: 'gatefold' },
+  // The conductor lifts a fallen branch off its own line: an agent fixing its own course, nobody called.
+  '/blog/tell-the-agent': { hero: 'garden-line' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
   '/blog/take-the-agents-seat': { hero: 'ouro-ui-apple' },
   // The shell that grew into a home: the post about giving an agent one.
@@ -178,7 +184,7 @@ export function sceneFor(pathname) {
 export const ogSceneFor = (route) => sceneFor(route).og
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'airship-moored': 'airship-moored-dark', 'slugger-balloon': 'slugger-balloon-dark', 'airship-line': 'airship-line-dark', 'chart-room': 'chart-room-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'airship-moored': 'airship-moored-dark', 'slugger-balloon': 'slugger-balloon-dark', 'airship-line': 'airship-line-dark', 'butler-steady': 'butler-steady-dark', 'garden-line': 'garden-line-dark', 'chart-room': 'chart-room-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -210,7 +216,8 @@ export const wideSrcset = (scene, ext) => (ext === 'avif'
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
   // The homepage's inline scenes: the chart room (how I work), the line (the factory), Slugger's balloon (where it started) and the moored airship (start with what you need).
-  const used = new Set([meadowScene, 'chart-room', 'airship-line', 'slugger-balloon', 'airship-moored', 'ouroboros'])
+  // /butler's inline scene: the Butler steadying the slipping cloche (it catches its own slips).
+  const used = new Set([meadowScene, 'chart-room', 'airship-line', 'slugger-balloon', 'airship-moored', 'ouroboros', 'butler-steady'])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
@@ -223,7 +230,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1, 7:5 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'playwright-focus-proof': [768, 384], 'playwright-focus-proof-dark': [768, 384], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'butler-steady': [768, 320], 'butler-steady-dark': [768, 320], 'garden-line': [768, 320], 'garden-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'playwright-focus-proof': [768, 384], 'playwright-focus-proof-dark': [768, 384], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -385,6 +392,12 @@ export const castFoot = {
 // and scripts/hero-joins.mjs.
 export const PHONE_EDGE = 16
 export const phoneCastX = {
+  // The sleeper's socks at the left to his head at the right; the Butler in front (12:5 crop).
+  'butler-steady': [0.11, 0.89],
+  'butler-steady-dark': [0.11, 0.89],
+  // Ouro on the wagon at the left to the conductor's far mitten; the branch is a prop.
+  'garden-line': [0.08, 0.73],
+  'garden-line-dark': [0.08, 0.73],
   // The mast's guy ropes are props; Ouro on his post at the left, Loop at the door (12:5 crop).
   'airship-moored': [0.46, 0.64],
   'airship-moored-dark': [0.46, 0.64],
