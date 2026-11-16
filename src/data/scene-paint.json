@@ -206,22 +206,22 @@
   },
   "ouro-ui-apple": {
     "from": "headers/ouro-ui-apple.webp",
-    "sha256": "de6e1f53e48b17d839c08379168d887c666476d2f78900562409f98122429d2a",
+    "sha256": "9a96d72e04ac84529823d0dfaa74c66f681d2108e4432b8079cc8268c6431af7",
     "colour": "#e8e8f8"
   },
   "ouro-ui-apple-dark": {
     "from": "headers/ouro-ui-apple-dark.webp",
-    "sha256": "5517699af4def45a47debabe73f0e3844434179811520bc822fadd51b8d0c223",
+    "sha256": "0dc64593b5f62c6f8756e34f20a9fdae32f50ef8e7300e31b2711107c893552d",
     "colour": "#484858"
   },
   "ouro-ui-core": {
     "from": "headers/ouro-ui-core.webp",
-    "sha256": "d5fc99c21c95e8d2ce58e7b10499e4bb8be5aa9a0ee4dcde5a065fd37987c90f",
+    "sha256": "62ed09625d0a9dffd7dbad842b78b9ede2ea1d1af3f6c656bd0053851c650941",
     "colour": "#d8c8c8"
   },
   "ouro-ui-core-dark": {
     "from": "headers/ouro-ui-core-dark.webp",
-    "sha256": "98e974abffe4cfa28b32fe1f3d9b17311cce39ab1276575d2a4052cabe416441",
+    "sha256": "83989350c795f890d99a7f6b555cb6a3fc8a3c3d662a384c45066587ceea2d42",
     "colour": "#282838"
   },
   "ouro-work": {
