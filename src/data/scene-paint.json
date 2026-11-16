@@ -121,12 +121,12 @@
   },
   "friends-relay": {
     "from": "headers/friends-relay.webp",
-    "sha256": "13e9d4e59edb3c44060d6d9944233f0487c4cd0cbbdb3b4f90ad336217283a51",
+    "sha256": "3126c41e43a908e76b8fe024a5e3c7253262e94f952ab9525101d67f50c26169",
     "colour": "#f8e8d8"
   },
   "friends-relay-dark": {
     "from": "headers/friends-relay-dark.webp",
-    "sha256": "49a5cba21a3c35a765fc3d0b7ed414278389abd74f8823e5c8f29d9fa1b3bf54",
+    "sha256": "e01883f68b3b7ed03a0c5a39a3c4435e55f8fc80295d39f7114c4afc3cc1cce8",
     "colour": "#082868"
   },
   "gatefold": {
