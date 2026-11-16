@@ -140,7 +140,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
     assert.doesNotMatch(video[0], /\bautoplay\b/);
   }
   assert.doesNotMatch(html, /ouro-md-typing-(light|dark)\.mp4/, 'The homepage shows only the agent-edit clip');
-  assert.match(html, /<button type="button" class="clip-toggle hit"[^>]*data-clip-toggle[^>]*>Pause<\/button>/);
+  assert.match(html, /<button\b(?=[^>]*data-clip-toggle)(?=[^>]*class="[^"]*\bclip-toggle\b)[^>]*>[\s\S]*?Pause[\s\S]*?<\/button>/);
 });
 
 test('no page ships a "Recording in progress" placeholder or a poster with no clip', () => {
@@ -218,8 +218,8 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   // root misses ruling 8.5: a phone shows a shorter host, so the boot line never wraps.
   assert.match(scenes[0][4], /<span class="dp-line[^"]*" data-opening data-narrow[^>]*>Desk boot: ok \| host laptop\/ari<\/span>/);
   assert.match(playback[0], /<button\b[^>]*data-replay[^>]*hidden/, 'Replay appears only once the script runs');
-  assert.match(html, /Replay<\/button>/);
-  assert.match(playback[0], /<button\b[^>]*data-skip[^>]*hidden[^>]*>Skip<\/button>/, 'Skip shows only while it plays');
+  assert.match(playback[0], /<button\b[^>]*data-skip[^>]*hidden[^>]*>[\s\S]*?Skip[\s\S]*?<\/button>/, 'Skip shows only while it plays');
+  assert.match(html, /Replay[\s\S]*?<\/button>/);
   assert.match(html, /prefers-reduced-motion: reduce/);
   // Armed only by the module, so a failed load leaves the final frame; a click, Skip, or Enter, Space or Escape skips to the end.
   assert.doesNotMatch(html, /Arm the playback before first paint/);

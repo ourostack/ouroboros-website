@@ -1,6 +1,7 @@
 ---
 import fs from 'node:fs'
 import path from 'node:path'
+import { Button } from './ouro/button/button'
 
 /**
  * A short clip with its poster. It loads nothing but the poster until it is on
@@ -30,7 +31,7 @@ const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
       <source src={src} type="video/mp4" />
     </video>
     <noscript><img class="workshop-video clip-noscript" src={poster} width={width} height={height} alt="" /></noscript>
-    <button type="button" class="clip-toggle hit" data-clip-toggle hidden>Pause</button>
+    <Button variant="plain" className="clip-toggle hit" data-clip-toggle hidden>Pause</Button>
   </div>
 ) : (
   <img class="workshop-video" src={poster} width={width} height={height} loading="lazy" decoding="async" alt={alt} data-clip-pending={src} />
