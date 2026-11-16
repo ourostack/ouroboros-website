@@ -21,3 +21,13 @@ export function labStatusFor(pathname) {
   const piece = labPieces.find(({ route }) => path === route || path.startsWith(`${route}/`))
   return piece ? { status: piece.status, tone: labStatusTones[piece.status] } : null
 }
+
+/** The harness docs under /lab/docs/, in the order the docs index shows them. */
+export const labDocs = [
+  '/lab/docs/getting-started',
+  '/lab/docs/bundles-and-psyche',
+  '/lab/docs/continuity-and-memory',
+  '/lab/docs/architecture',
+  '/lab/docs/tasks-and-work',
+  '/lab/docs/skills-and-prompts',
+]

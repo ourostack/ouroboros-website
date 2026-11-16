@@ -4,9 +4,16 @@ const base = (process.argv[2] || 'https://ouroboros.bot').replace(/\/$/, '')
 const failures = []
 const check = (ok, message) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${message}`); if (!ok) failures.push(message) }
 
-for (const [path, type] of [['/brief.md', 'text/markdown'], ['/llms.txt', 'text/plain']]) {
+for (const [path, type] of [['/brief.md', 'text/markdown'], ['/llms.txt', 'text/plain'], ['/llms-full.txt', 'text/plain'], ['/blog/trust-the-agent/index.md', 'text/markdown']]) {
   const res = await fetch(base + path)
   check(res.status === 200 && (res.headers.get('content-type') || '').startsWith(type), `${path} is ${type} (${res.status} ${res.headers.get('content-type')})`)
+}
+// A page names its Markdown twin and llms.txt in its headers; a missing .md is the 404 page, not Markdown.
+{
+  const link = (await fetch(base + '/blog/trust-the-agent/')).headers.get('link') || ''
+  check(link.includes('</blog/trust-the-agent/index.md>; rel="alternate"; type="text/markdown"') && link.includes('</llms.txt>; rel="describedby"'), `/blog/trust-the-agent/ names its twin and llms.txt (${link})`)
+  const missing = await fetch(base + '/no-such-page/index.md')
+  check(missing.status === 404 && !(missing.headers.get('content-type') || '').startsWith('text/markdown'), `a missing .md is a 404 page (${missing.status} ${missing.headers.get('content-type')})`)
 }
 for (const [from, to] of [
   ['/essays/stop-being-the-glue', '/blog/stop-being-the-glue/'],

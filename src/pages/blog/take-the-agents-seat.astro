@@ -2,10 +2,10 @@
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor } from '../../data/og'
 
-const title = "Take the agent's seat"
-const description = "Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send."
+const { title, description } = post('/blog/take-the-agents-seat/')
 const datePublished = "2026-05-12"
 ---
 

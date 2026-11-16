@@ -6,6 +6,7 @@ import { FamilyBar } from '../components/ouro/family-bar/family-bar'
 import { SkipLink } from '../components/ouro/skip-link/skip-link'
 import { familyLinks, familyCurrent, localHref } from '../data/site.mjs'
 import { labStatusFor } from '../data/lab.mjs'
+import { twinFor } from '../data/agent-map.mjs'
 import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
 import StoryScene from '../components/StoryScene.astro'
@@ -31,6 +32,8 @@ const {
   crumbs = [],
 } = Astro.props
 const lab = labStatusFor(Astro.url.pathname)
+// A page /llms.txt lists names its Markdown twin, and llms.txt, for an agent that reads the head.
+const twin = twinFor(Astro.url.pathname)
 // The card's alt text says what the generated card shows: its title, set in its scene.
 const ogSlug = ogImage.match(/\/og\/(og-[^/]+)\.jpg$/)?.[1]
 const ogEntry = ogSlug ? pageOg[routePathForSlug(ogSlug) ?? ''] : undefined
@@ -193,6 +196,12 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={ogAlt} />
     <link rel="canonical" href={canonical} />
+    {twin && (
+      <>
+        <link rel="alternate" type="text/markdown" href={twin} title="This page as Markdown, for agents" />
+        <link rel="describedby" href="/llms.txt" />
+      </>
+    )}
     <slot name="head" />
 
     <script type="application/ld+json" set:html={JSON.stringify({

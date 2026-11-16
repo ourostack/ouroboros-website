@@ -8,8 +8,10 @@
 // pictures (alt=""), the night twin of a day picture, anything hidden or
 // aria-hidden, buttons, scripts and styles.
 //
+// Every page /llms.txt lists has one (src/data/agent-map.mjs); src/lib/llms.mjs
+// then writes /llms.txt, /llms-full.txt and their headers from the same build.
 // The home page's "Agent view" switch (src/components/AgentView.astro) shows
-// this file, fetched from its real URL.
+// its twin, fetched from its real URL.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,11 +19,15 @@ import { fromHtml } from 'hast-util-from-html';
 import { select } from 'hast-util-select';
 import { toMdast } from 'hast-util-to-mdast';
 import { toMarkdown } from 'mdast-util-to-markdown';
+// Tables only: the rest of GFM escapes ":" in URLs, "@" and "~" in plain text.
+import { gfmTableToMarkdown } from 'mdast-util-gfm-table';
+import { SITE, twinRoutes } from '../data/agent-map.mjs';
+import { writeAgentFiles } from './llms.mjs';
 
-export const SITE = 'https://ouroboros.bot';
+export { SITE };
 
-/** Route → its Markdown twin's path in dist/ (and on the site). */
-export const MARKDOWN_PAGES = { '/': 'index.md' };
+/** Route → its Markdown twin's path in dist/ (and on the site). The brief's twin, brief.md, is written by hand. */
+export const MARKDOWN_PAGES = Object.fromEntries(twinRoutes.filter((route) => route !== '/brief/').map((route) => [route, `${route.slice(1)}index.md`]));
 
 const DROP = new Set(['script', 'style', 'noscript', 'template', 'button', 'source', 'svg', 'wbr', 'link', 'meta']);
 
@@ -31,6 +37,7 @@ const absolute = (url, route) => {
 };
 
 function dropped(node) {
+  if (node.type === 'comment') return true;
   if (node.type !== 'element') return false;
   const p = node.properties ?? {};
   if (DROP.has(node.tagName)) return true;
@@ -141,7 +148,7 @@ export function pageMarkdown(html, route) {
   const url = select('link[rel="canonical"]', tree)?.properties?.href ?? SITE + route;
   const mdast = toMdast(main);
   trimLinks(mdast);
-  const body = toMarkdown(mdast, { bullet: '-', emphasis: '_', strong: '*', rule: '-', fences: true, listItemIndent: 'one' })
+  const body = toMarkdown(mdast, { extensions: [gfmTableToMarkdown()], bullet: '-', emphasis: '_', strong: '*', rule: '-', fences: true, listItemIndent: 'one' })
     .replace(/\u00A0/g, ' ')
     // A link's address is read and copied as it is: no Markdown escapes ("\&type=") in it.
     .replace(/\]\((https?:\/\/[^)\s]+)\)/g, (_, url) => `](${url.replace(/\\([!-/:-@[-`{-~])/g, '$1')})`)
@@ -150,7 +157,7 @@ export function pageMarkdown(html, route) {
   return `---\ntitle: ${quote(title)}\ndescription: ${quote(description)}\nurl: ${url}\n---\n\n${body}\n`;
 }
 
-/** Astro integration: writes each twin beside its page after the build. */
+/** Astro integration: writes each twin beside its page after the build, then the files that list them. */
 export default function pageMarkdownIntegration() {
   return {
     name: 'page-markdown',
@@ -161,6 +168,7 @@ export default function pageMarkdownIntegration() {
           const html = fs.readFileSync(path.join(dist, route, 'index.html'), 'utf8');
           fs.writeFileSync(path.join(dist, file), pageMarkdown(html, route));
         }
+        writeAgentFiles(dist);
       },
     },
   };

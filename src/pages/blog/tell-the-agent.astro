@@ -2,13 +2,13 @@
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor } from '../../data/og'
 
 // A short post on ourostack/ouroboros #1292 (0.1.0-alpha.1133) and #1296 (0.1.0-alpha.1135):
 // an Ouroboros agent's own errors, and a provider's refusals, go back to the agent, not the person.
 // Every claim here is from those two pull requests.
-const title = 'Tell the agent, not the human'
-const description = "When a request breaks, an Ouroboros agent now hears why and gets another try in the same turn. You stop getting notes about your agent's plumbing."
+const { title, description } = post('/blog/tell-the-agent/')
 const datePublished = '2026-11-16'
 const link = 'text-scale underline underline-offset-2 hover:text-glow transition-colors'
 const pr1292 = 'https://github.com/ourostack/ouroboros/pull/1292'

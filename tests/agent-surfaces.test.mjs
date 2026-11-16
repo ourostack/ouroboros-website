@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import test from 'node:test';
 import { readDist, distExists, textOf } from './support/dist.mjs';
+import { redirectFor } from '../src/worker/redirects.mjs';
 
 // Ari's original titles (copy deck, 2026-10-11).
 const principles = [
@@ -30,13 +31,14 @@ test('brief.md is plain text an agent can read, under 6,000 characters', () => {
 
 test('llms.txt points agents at the method pages', () => {
   const llms = readDist('llms.txt');
-  for (const route of ['/approach/', '/brief.md', '/desk/', '/ouro-md/', '/blog/', '/lab/story/']) {
-    assert.ok(llms.includes(`https://ouroboros.bot${route}`), `llms.txt is missing ${route}`);
+  for (const twin of ['/approach/index.md', '/brief.md', '/desk/index.md', '/ouro-md/index.md', '/blog/index.md', '/lab/story/index.md']) {
+    assert.ok(llms.includes(`(https://ouroboros.bot${twin})`), `llms.txt is missing ${twin}`);
   }
   assert.doesNotMatch(llms, /<[a-z][^>]*>/i);
   assert.doesNotMatch(llms, /Every page is written for people and for the agents/);
   assert.doesNotMatch(llms, /a real prompt and an agent note for each principle/, 'Principle 3 has an exhibit, not a prompt');
-  assert.doesNotMatch(llms, /give your agent/i, 'llms.txt speaks to the agent, not about it');
+  // The essay "Give your agent a home" is quoted by its real title.
+  assert.doesNotMatch(llms.replaceAll('[Give your agent a home]', ''), /give your agent/i, 'llms.txt speaks to the agent, not about it');
 });
 
 test('brief page shows the same text as brief.md, wraps long lines and has a copy button', () => {
@@ -68,39 +70,29 @@ test('copy buttons fall back to selecting the text without the Clipboard API', (
   }
 });
 
-// root final ruling F5 (2026-10-11): the workshop section comes first, the old
-// block's purpose line names the harness as one project in this workshop, and
-// its links point at their /lab/ paths. Each published line that changed, with
-// the line that replaced it.
-const llmsChanges = new Map([
-  ['# This site is the public entrypoint for Ouroboros, an open-source agent harness.', '# Ouroboros, the open-source agent harness, is one project in this workshop. Its docs live under /lab/.'],
-  ['# Built by agents, for agents. No human-written code.', '# No human-written code.'],
-  ['Purpose: https://ouroboros.bot/why', 'Purpose: https://ouroboros.bot/lab/why'],
-  ['Read: https://ouroboros.bot/what-is-an-agent-harness', 'Read: https://ouroboros.bot/lab/what-is-an-agent-harness'],
-  ['Read: https://ouroboros.bot/story', 'Read: https://ouroboros.bot/lab/story'],
-  ['Read: https://ouroboros.bot/why', 'Read: https://ouroboros.bot/lab/why'],
-  ['Docs: https://ouroboros.bot/docs', 'Docs: https://ouroboros.bot/lab/docs'],
-]);
-
-test('llms.txt keeps every line it was first published with, unless the root final ruling F5 replaced it', () => {
-  const llms = readDist('llms.txt');
-  const lines = llms.split('\n');
+// Root final ruling F5 (2026-10-11) kept every line llms.txt was first published
+// with: a block of non-spec lines (User-Agent:, Purpose:, Read:, Docs:,
+// Skills-Manifest:) under "#" comments, which Markdown reads as headings. Ari,
+// 2026-11-16, asked that llms.txt be made optimal, so it now follows
+// llmstxt.org v2 (tests/llms.test.mjs) and that block is gone. What agents may
+// rely on is the addresses it named: every one of them still answers.
+test('every address the first published llms.txt named still answers, directly or by redirect', () => {
   const published = fs.readFileSync(new URL('./fixtures/llms-published.txt', import.meta.url), 'utf8');
-  for (const line of published.split('\n').filter((l) => l.trim())) {
-    const now = llmsChanges.get(line) ?? line;
-    assert.ok(lines.includes(now), `llms.txt lost "${line}"`);
-    if (llmsChanges.has(line)) assert.ok(!lines.includes(line), `llms.txt still has "${line}"`);
+  const urls = [...published.matchAll(/https:\/\/ouroboros\.bot(\/[^\s]*)/g)].map((m) => m[1]);
+  assert.ok(urls.length >= 8);
+  for (const url of urls) {
+    const file = url.replace(/\/?$/, url.includes('.') ? '' : '/index.html').slice(1);
+    assert.ok(distExists(file) || redirectFor(url), `${url} no longer answers`);
   }
 });
 
-test('llms.txt opens with the workshop, names /approach "How I work", and links the harness pages at /lab/', () => {
+test('llms.txt opens with the workshop, names /approach by its title, and links the harness pages at /lab/', () => {
   const llms = readDist('llms.txt');
   assert.ok(llms.startsWith('# ouroboros.bot\n'), 'The workshop section comes first');
-  assert.ok(llms.indexOf('# ouroboros.bot\n') < llms.indexOf('# llms.txt for ouroboros.bot'));
-  assert.ok(llms.includes('- [How I work](https://ouroboros.bot/approach/)'));
+  assert.ok(llms.includes('- [How I work with agents](https://ouroboros.bot/approach/index.md): '));
   assert.doesNotMatch(llms, /\[The approach\]/);
   assert.doesNotMatch(llms, /public entrypoint/);
-  assert.doesNotMatch(llms, /https:\/\/ouroboros\.bot\/(why|story|docs|what-is-an-agent-harness)\b/, 'Old-block links use their /lab/ paths');
+  assert.doesNotMatch(llms, /https:\/\/ouroboros\.bot\/(why|story|docs|what-is-an-agent-harness)\b/, 'Harness pages use their /lab/ paths');
 });
 
 // Federighi review (2026-11-09): an agent reads the family by the bar's names.
@@ -108,9 +100,11 @@ test('llms.txt opens with the workshop, names /approach "How I work", and links 
 test('llms.txt lists the Ouro family from family.json, by the names the family bar uses', () => {
   const llms = readDist('llms.txt');
   const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
-  const section = llms.slice(llms.indexOf('## The Ouro family'), llms.indexOf('## Tools'));
+  const at = llms.indexOf('## The Ouro family');
+  const section = llms.slice(at, llms.indexOf('\n## ', at + 1));
   assert.deepEqual([...section.matchAll(/^- \[([^\]]+)\]\(([^)]+)\)$/gm)].map((m) => [m[1], m[2]]), family.map((l) => [l.label, l.href]));
   assert.ok(!llms.includes('{{family}}'));
-  assert.equal(llms.match(/^- \[Ouro UI\]\(https:\/\/ui\.ouroboros\.bot\/\)/gm).length, 2, 'Ouro UI once in the family, once in the tools');
+  assert.equal(llms.match(/^- \[Ouro UI\]\(https:\/\/ui\.ouroboros\.bot\/\)$/gm).length, 1, 'Ouro UI once in the family');
+  assert.equal(llms.match(/^- \[Ouro UI\]\(https:\/\/ui\.ouroboros\.bot\/llms\.txt\): /gm).length, 1, 'and once in the tools, by its own llms.txt');
   assert.doesNotMatch(llms, /\[Ouro HX\]|Ouro UI \/ Ouro HX/);
 });
