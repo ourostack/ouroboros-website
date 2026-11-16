@@ -256,12 +256,12 @@
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
-    "sha256": "47dc9d74fcb8bf5746b57f12c6299e765623972eea245aafbe882121849829b0",
+    "sha256": "1219e7385c611b0586371ffe6c82198b58c1f40153593bb585d686f5b9139617",
     "colour": "#b88858"
   },
   "ouroboros-skills-dark": {
     "from": "headers/ouroboros-skills-dark.webp",
-    "sha256": "8ace5771407c057e36cc36793b3e1b7cf6edb40abdf8e55c2823f4436b388637",
+    "sha256": "fd9cbf4918aa2d91b170de3473e378c262f24fc58ac9057c189280b8d1eaacf2",
     "colour": "#985838"
   },
   "ouroboros-website": {
