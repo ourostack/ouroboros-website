@@ -66,6 +66,8 @@ export const scenes = {
   'ax-trail-map': 'A low wooden trail map stands in a dawn meadow, built at Ouro’s height, the trail it shows winding off through the meadow behind it. Ouro leans over the corner of the board and peers at the map with a pleased smile, finding his way.',
   'ax-trail-map-dark': 'The same trail map at night under a starry sky and a crescent moon, the trail it shows glowing as it winds off through the meadow, lighting Ouro’s face as he leans over the board and finds his way.',
   'glue-unstuck': 'Three little storybook places stand open in the meadow, a post office, a meeting hall and a workshop, with Ouro curled among them. On the right, a faceless glass person in a scarf leans back against a mossy rock with a mug of tea, done for the day.',
+  'chart-room': 'A lamplit chart room in the airship before the voyage. A faceless glass person in a moss-green scarf leans over a big map spread on an oak plan chest, while Loop, a small jade-glass agent in goggles with a leather satchel, stands on the chest across from them studying the same route, and Ouro, an emerald-glass snake, sits curled beside him. Dawn clouds glow through the round window behind them.',
+  'chart-room-dark': 'The same chart room at night by the oil lamp, stars and a crescent moon over the clouds in the round window: the glass person and Loop lean over the map together, and Ouro, glowing green, sits curled beside Loop.',
   'glue-unstuck-dark': 'The same meadow at night under a starry sky: the post office, the meeting hall and the workshop glow through their open doors, Ouro curls among them, and the glowing glass person rests against their rock with a steaming mug.',
 }
 
@@ -167,7 +169,7 @@ export function sceneFor(pathname) {
 export const ogSceneFor = (route) => sceneFor(route).og
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'chart-room': 'chart-room-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -198,8 +200,8 @@ export const wideSrcset = (scene, ext) => (ext === 'avif'
 
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
-  // The homepage's inline scene: the factory.
-  const used = new Set([meadowScene, 'factory', 'ouroboros'])
+  // The homepage's inline scenes: the chart room (how I work) and the factory.
+  const used = new Set([meadowScene, 'chart-room', 'factory', 'ouroboros'])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
@@ -212,7 +214,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1, 7:5 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 352], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'ouro-ui-core': [768, 549], 'ouro-ui-core-dark': [768, 549], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 352], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'ouro-ui-core': [768, 549], 'ouro-ui-core-dark': [768, 549], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -374,6 +376,9 @@ export const castFoot = {
 // and scripts/hero-joins.mjs.
 export const PHONE_EDGE = 16
 export const phoneCastX = {
+  // The person's near mitten at the left, Ouro's tail tip at the right (12:5 crop).
+  'chart-room': [0.09, 0.905],
+  'chart-room-dark': [0.09, 0.905],
   'ax-trail-map': [0.52, 0.935],
   'ax-trail-map-dark': [0.52, 0.935],
   // People and Ouro only: Ouro's coil at the left, the man's hair at the right; the places are props.

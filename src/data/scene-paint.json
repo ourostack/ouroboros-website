@@ -49,6 +49,16 @@
     "sha256": "221661cf43b047575defac72b661e3b13995c84f5655fbc59a5982b498a8fbc6",
     "colour": "#282808"
   },
+  "chart-room": {
+    "from": "headers/chart-room.webp",
+    "sha256": "b0429ed9e40368a1d7c85fb4f5aa74e6333ed5daa1503aa1c14e1316392d1853",
+    "colour": "#381808"
+  },
+  "chart-room-dark": {
+    "from": "headers/chart-room-dark.webp",
+    "sha256": "10cca977d97d6c9cec477b3a2ce7ade34cc611fe9c1884c0c3382e83a2de9c3e",
+    "colour": "#180808"
+  },
   "desk": {
     "from": "headers/desk.webp",
     "sha256": "f0ac584b5eedc8dc0e6beff260a37d2e2612fa63c6f95f52f9bd617e8e6a336c",
