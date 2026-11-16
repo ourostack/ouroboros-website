@@ -8,6 +8,10 @@ This file is the contract. The design system header at the top of `src/styles/gl
 
 Follow ourostack's shared rule, [every PR merges fast](https://github.com/ourostack/.github/blob/main/agents/prs-merge-within-30-minutes.md). Finish, review and validate on your branch first, then publish with `gh ouro-pr`, which turns auto-merge on so green means merged. 30 minutes is the outer alarm, not the goal: merge and run CI as fast as possible. When a PR here shows on the [PR clock](https://github.com/ourostack/.github/issues?q=is%3Aissue+is%3Aopen+label%3Apr-clock), act on it now: merge it if green, fix the cause if red (file an issue before any rerun), rebase it if conflicted, or close it with a reason if it isn't going anywhere.
 
+## Interfaces follow Ouro UI
+
+**[Interfaces follow Ouro UI](https://github.com/ourostack/.github/blob/main/agents/interfaces-follow-ouro-ui.md).** Every screen a person uses is built from Ouro HX, every door an agent uses is declared once with `ouro-actions` and checked by the Ouro AX X-ray in CI, Ouro is taken from its release tags (never copied by hand) and kept within a day of them, and what Ouro lacks is fixed in Ouro first.
+
 ## What this site is
 
 `ouroboros.bot` — Ari's method-first site: how to collaborate with agents (the approach, the brief for agents), the tools that support it (Desk, Ouro MD, the factory), the blog, and the Lab: the Ouroboros harness, Slugger's story, docs and model reviews. The harness and Slugger are where the method came from, so the Lab is a first-class section, not an archive. Astro 5 + Tailwind v4, served as static assets by a Cloudflare Worker (`src/worker/index.ts`).
