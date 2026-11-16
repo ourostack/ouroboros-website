@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import DeskMedia from '../components/DeskMedia.astro'
 import PageHero from '../components/PageHero.astro'
 import { ogPathFor } from '../data/og'
+import { Button } from '../components/ouro/button/button'
 import { deskHosts, labelFor, allowedLabels, entry } from '../data/readiness.mjs'
 import { deskSetupUrl, factoryUrl, rfcUrl } from '../data/principles.mjs'
 
@@ -33,7 +34,7 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
         <div class="grid gap-2 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-3">
           <pre id="desk-setup" class="agent-text">{deskSetupUrl.split('/').map((part, i, all) => <>{part}{i < all.length - 1 && <>/<wbr /></>}</>)}{`\nset this up`}</pre>
           <div class="flex flex-wrap items-center gap-3">
-            <button type="button" data-copy-target="desk-setup" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+            <Button variant="outline" data-copy-target="desk-setup" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button>
             <span class="sr-only">In words: give your agent {deskSetupUrl} and say "set this up".</span>
           </div>
         </div>
@@ -86,7 +87,7 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
         <h2 class="heading-sub">Support goes through your agent</h2>
         <p class="text-lg text-mist">Give your agent this:</p>
         <pre id="desk-support" class="agent-text">{supportPrompt}</pre>
-        <button type="button" data-copy-target="desk-support" class="btn-ghost !py-2 text-sm justify-self-start"><span data-copy-label>Copy</span></button>
+        <Button variant="outline" data-copy-target="desk-support" className="btn-ghost !h-auto !py-2 text-sm justify-self-start"><span data-copy-label>Copy</span></Button>
       </div>
     </div>
   </section>

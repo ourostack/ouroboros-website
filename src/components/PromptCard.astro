@@ -1,5 +1,8 @@
 ---
+import { Button } from './ouro/button/button'
+
 // A prompt or command to copy. Only the copyable text wears a frame; the label
+
 // sits above it in the page's own type, not in a header strip (taste review r2).
 interface Props {
   label?: string
@@ -16,7 +19,7 @@ const { label = 'Ask your agent', prompt, footnote } = Astro.props
     {/* The site's one Copy button: bordered, in the page's own type, the same
         as on every install block (Ari's ruling on taste review r15, which
         retired the borderless mono "COPY"). */}
-    <button type="button" class="prompt-copy-btn btn-ghost !py-2 text-sm flex-none" data-prompt={prompt}><span class="prompt-copy-label">Copy</span></button>
+    <Button variant="outline" className="btn-ghost prompt-copy-btn !h-auto !py-2 text-sm flex-none" data-prompt={prompt}><span class="prompt-copy-label">Copy</span></Button>
   </div>
   <pre class="prompt-frame font-mono text-sm text-bone leading-relaxed whitespace-pre-wrap">{prompt}</pre>
   {footnote && (
