@@ -81,13 +81,13 @@
   },
   "desk": {
     "from": "headers/desk.webp",
-    "sha256": "2d44fd380e90561b69ad24a664dcc5f85d7b10c243fa723959995a60b3094491",
-    "colour": "#381808"
+    "sha256": "6b515b86a134aecb5921fc0776f0e34a736c89c9d8da408e8e3eaa28241d3ba2",
+    "colour": "#f8d8b8"
   },
   "desk-dark": {
     "from": "headers/desk-dark.webp",
-    "sha256": "29a5e3e44d925bdd622381c4ab23937161e828dac80f8c84b43b8ccd41d5800b",
-    "colour": "#180808"
+    "sha256": "86c6ca146f0457e602c800dde2907cbc3ec5c6bdab9ccb893cbde0d0da6b5171",
+    "colour": "#686878"
   },
   "factory": {
     "from": "headers/factory.webp",
@@ -246,13 +246,13 @@
   },
   "ouroboros": {
     "from": "headers/ouroboros.webp",
-    "sha256": "8080d69e76555443e7e26153bff8f79aa5b39517697accad5dfe141427243194",
-    "colour": "#383808"
+    "sha256": "d2d610e9da89d87a8398b0b60a3c4083aa06a8a77dd9905dc3720a84f5c25374",
+    "colour": "#f8e8d8"
   },
   "ouroboros-dark": {
     "from": "headers/ouroboros-dark.webp",
-    "sha256": "b8cdc1f8a9a7c84d2d02c7dd8bdce196b980cc83846d360fd9f1e308ff1d6e6b",
-    "colour": "#080808"
+    "sha256": "711b1f5a1ea6700151fb9f04c622763b391c99a5d4d7ca24779abec6a80a1a1c",
+    "colour": "#082868"
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
