@@ -408,6 +408,9 @@ const wastes = [
   @media (min-width: 768px) { .molt-line { width: 8rem; } }
   .origin-body { display: grid; gap: 1.25rem; font-size: 1.125rem; line-height: 1.7; color: var(--color-mist); }
   .origin-split { margin-top: 2.5rem; }
+  /* The story runs longer than its picture, so on a wide screen Slugger's balloon
+     rides along beside it, just under the sticky nav, instead of leaving an empty column. */
+  @media (min-width: 1024px) { .origin-split > :global(.split-body) { position: sticky; top: 6rem; } }
   .starts { display: grid; }
   .start { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; padding: 1.1rem 0; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); transition: color 0.2s; }
   .starts li:last-child .start { border-bottom: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
