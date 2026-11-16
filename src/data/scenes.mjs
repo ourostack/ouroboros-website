@@ -39,8 +39,8 @@ export const scenes = {
   'flow-review-dark': 'The same white gallery at night under warm spotlights: a small white robot with a clipboard reviews five framed prints of the same garden path at different sizes, while a faceless glass curator steps back to judge and Ouro, a small green snake on a plinth, sits by a brass magnifying glass.',
   gatefold: 'A giant open storybook on a picnic blanket in a dawn meadow, with stacked books, a mug of coffee and a phone. Ouro rests beside it, mid-chapter.',
   'gatefold-dark': 'A giant open storybook on a picnic blanket at night under a starry sky and a crescent moon, with stacked books, a mug of coffee and a glowing phone. Ouro rests beside it, mid-chapter.',
-  'playwright-focus-proof': 'A faceless glass person relaxes in an armchair with a cup of tea, their laptop closed on the table beside them, while two little robots work at their own laptops beside a tall clock, and Ouro keeps an eye on things.',
-  'playwright-focus-proof-dark': 'The same garden at night under a starry sky: a glowing glass person relaxes in an armchair with a cup of tea, their laptop closed beside them, while two little robots work at their own glowing laptops beside a tall clock, and Ouro keeps an eye on things.',
+  'playwright-focus-proof': 'Inside a sleek high-speed train in low golden morning sun, two small robots type at their laptops across a window table while a faceless glass person in a sage hoodie leans back across the aisle, hands in pocket, with Ouro the green snake curled on the seat beside them, under a station clock on the end wall.',
+  'playwright-focus-proof-dark': 'Inside a sleek high-speed train late at night under warm ceiling lights, two small robots type at their laptops across a window table while a faceless glass person in a sage hoodie leans back across the aisle, hands in pocket, with Ouro the green snake curled on the seat beside them, under a station clock on the end wall.',
   'ouro-ui-apple': 'In a calm, bright studio by a window onto a city park, a small white robot in a blue apron checks the same settings card on a phone, a tablet and a laptop lined up on a long pale table, while Ouro, a small green snake, watches from a folded cloth.',
   'ouro-ui-apple-dark': 'The same studio at night under a deep blue sky over the park: a small white robot in a blue apron checks the same settings card on the glowing phone, tablet and laptop, while Ouro, a small green snake, watches from a folded cloth.',
   'ouro-ui-core': 'In a bright colour library under a skylight, a small lilac robot lays a row of colour chips on a glowing white table while a faceless glass designer holds a green chip up to the light, and Ouro, a small green snake, rests on a felt pad at the table’s end.',
@@ -223,7 +223,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1, 7:5 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'playwright-focus-proof': [768, 384], 'playwright-focus-proof-dark': [768, 384], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -286,8 +286,8 @@ export const heroFocus = {
   'ouroboros-dark': [0.1, 0.86],
   ourostack: [0.15, 0.85],
   'ourostack-dark': [0.15, 0.85],
-  'playwright-focus-proof': [0.13, 0.97],
-  'playwright-focus-proof-dark': [0.05, 0.985],
+  'playwright-focus-proof': [0.24, 0.95],
+  'playwright-focus-proof-dark': [0.24, 0.95],
   shepherd: [0.12, 0.96],
   'shepherd-dark': [0.12, 0.96],
   // The rigger's knit cap, down to the kneeling engineer's foot.
@@ -362,8 +362,8 @@ export const castFoot = {
   ourostack: 0.83,
   'ourostack-dark': 0.83,
   // The person's sneakers under the armchair.
-  'playwright-focus-proof': 0.97,
-  'playwright-focus-proof-dark': 0.985,
+  'playwright-focus-proof': 0.95,
+  'playwright-focus-proof-dark': 0.95,
   // The big sheep's hooves at the right.
   shepherd: 0.935,
   'shepherd-dark': 0.935,
@@ -459,8 +459,8 @@ export const phoneCastX = {
   ourostack: [0.069, 0.94],
   'ourostack-dark': [0.069, 0.94],
   // The person in the armchair at the left, Ouro at the right.
-  'playwright-focus-proof': [0.09, 0.923],
-  'playwright-focus-proof-dark': [0.054, 0.94],
+  'playwright-focus-proof': [0.17, 0.83],
+  'playwright-focus-proof-dark': [0.17, 0.83],
   // The sheep by the gate at the left, the big sheep at the right.
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],
