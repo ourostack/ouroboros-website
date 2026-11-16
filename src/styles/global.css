@@ -1294,6 +1294,9 @@ main:has(+ .story-meadow) > :last-child:not([class~="bg-deep/40"]) { padding-bot
 /* A tinted section that ends the page meets the meadow directly, so no strip
    of page colour sits between the tint and the art (taste review r9). */
 main:has(> [class~="bg-deep/40"]:last-child) + .story-meadow { margin-top: 0; }
+/* With no meadow (a page that ends on its own picture), that tint meets the
+   footer's hairline directly, for the same reason. */
+main:has(> [class~="bg-deep/40"]:last-child) + .site-footer { margin-top: 0; }
 /* A scene still on its way, or one whose image failed, shows its own colour:
    StoryScene paints the art's main colour behind it (--paint;
    scripts/scene-paint.mjs), as Ouro HX's Hero does with its picture's
