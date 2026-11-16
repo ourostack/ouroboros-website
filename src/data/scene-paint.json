@@ -121,12 +121,12 @@
   },
   "friends-relay": {
     "from": "headers/friends-relay.webp",
-    "sha256": "448e6c6fcace004a08050b792fde05721c70b89297673a5a853762c0b20a5122",
-    "colour": "#f8b8a8"
+    "sha256": "13e9d4e59edb3c44060d6d9944233f0487c4cd0cbbdb3b4f90ad336217283a51",
+    "colour": "#f8e8d8"
   },
   "friends-relay-dark": {
     "from": "headers/friends-relay-dark.webp",
-    "sha256": "0989695f437d69a97453d8cb30cf27ea36a0a2c551f087460a5fc70953e52059",
+    "sha256": "49a5cba21a3c35a765fc3d0b7ed414278389abd74f8823e5c8f29d9fa1b3bf54",
     "colour": "#082868"
   },
   "gatefold": {
@@ -246,23 +246,23 @@
   },
   "ouroboros": {
     "from": "headers/ouroboros.webp",
-    "sha256": "d2d610e9da89d87a8398b0b60a3c4083aa06a8a77dd9905dc3720a84f5c25374",
+    "sha256": "17a86097be88b39a30aa9b0293f60b0b4940abefcb51a18959c393980d6be032",
     "colour": "#f8e8d8"
   },
   "ouroboros-dark": {
     "from": "headers/ouroboros-dark.webp",
-    "sha256": "711b1f5a1ea6700151fb9f04c622763b391c99a5d4d7ca24779abec6a80a1a1c",
-    "colour": "#082868"
+    "sha256": "75a971c57af7dae79773ea15fb7ff93ba91888db37c49eb4d27201fc4b11c565",
+    "colour": "#082858"
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
-    "sha256": "300ffe7223ae6d2cfba7d1f48c70182c759458b071ba6a8252a98e8adaebafd2",
-    "colour": "#381808"
+    "sha256": "47dc9d74fcb8bf5746b57f12c6299e765623972eea245aafbe882121849829b0",
+    "colour": "#b88858"
   },
   "ouroboros-skills-dark": {
     "from": "headers/ouroboros-skills-dark.webp",
-    "sha256": "6c395331761f03626d0ffca8f6463441c4f44ebc6318aa130e26d1dc4b6e85e7",
-    "colour": "#080808"
+    "sha256": "8ace5771407c057e36cc36793b3e1b7cf6edb40abdf8e55c2823f4436b388637",
+    "colour": "#985838"
   },
   "ouroboros-website": {
     "from": "headers/ouroboros-website.webp",
