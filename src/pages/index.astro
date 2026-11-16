@@ -82,9 +82,12 @@ const wastes = [
   <!-- The hero's own foot (pb-12 md:pb-14) is half the gap, so this section adds the other half. -->
   <section id="how-i-work" class="relative px-6 md:px-12 lg:px-16 pt-12 pb-14 md:pt-10 md:pb-24 border-t border-canopy/20 reveal scroll-mt-16" aria-labelledby="method-heading">
     <div class="max-w-6xl mx-auto">
-      <div class="section-head">
-        <h2 id="method-heading" class="heading-section">When an agent gets it wrong, look at what you gave it.</h2>
-        <p class="dek">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+      <div class="split split-media method-split">
+        <div class="section-head split-head">
+          <h2 id="method-heading" class="heading-section">When an agent gets it wrong, look at what you gave it.</h2>
+          <p class="dek">How I work keeps changing as agents improve and as I learn. Here's what holds so far.</p>
+        </div>
+        <StoryScene scene="chart-room" class="split-body" sizes="(min-width: 2000px) 47rem, (min-width: 1024px) 40rem, 100vw" />
       </div>
 
       <p class="block-label">I see this agentic era in three acts</p>
@@ -349,6 +352,7 @@ const wastes = [
   .grown-body { display: grid; gap: 0.5rem; align-content: start; }
   .grown-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
   .ouroboros-intro, .factory-split { margin-top: 1.5rem; }
+  @media (min-width: 1024px) { .method-split { align-items: center; } }
   .factory-split .factory-body { margin-top: 0; }
   @media (min-width: 1024px) { .ouroboros-intro, .factory-split { align-items: center; } }
   .grown-name { text-wrap: pretty; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.1; color: var(--color-bone); }
