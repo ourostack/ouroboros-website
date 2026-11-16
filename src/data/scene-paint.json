@@ -81,12 +81,12 @@
   },
   "friends": {
     "from": "headers/friends.webp",
-    "sha256": "cd1040a91d852a303ae9b0705fd8937089e4c26b1ade0428cb9e78eb6fc0ddfa",
+    "sha256": "1bbc6bb0f9a55787c23ce451cb7be277b37f00149ee2981e57a5dc431df0bbde",
     "colour": "#f8b898"
   },
   "friends-dark": {
     "from": "headers/friends-dark.webp",
-    "sha256": "e8e183b81b5a489aad77195c9c517ef87d67f5a7139b9860b08c6455d2550e76",
+    "sha256": "b0a478d119bd098a7a609f02690acf491a0c81a4bd5f36dffd868953ec899b82",
     "colour": "#082858"
   },
   "friends-relay": {
@@ -111,12 +111,12 @@
   },
   "glue-unstuck": {
     "from": "headers/glue-unstuck.webp",
-    "sha256": "aa154c7586e0d1ee78c17338adfef9b8721ac55daf25ec8a89d8d5b12836738a",
-    "colour": "#684808"
+    "sha256": "7fb8326e5e4abcd833c79bed15ea37690cbd6e8cf61647f76275cc047074967e",
+    "colour": "#f8d8a8"
   },
   "glue-unstuck-dark": {
     "from": "headers/glue-unstuck-dark.webp",
-    "sha256": "60e7ce589c1cff7f8288c73da9c7dba1b139d466f8cd1c6569ca27ddf0512a6b",
+    "sha256": "9553d652876762fca80a8e0b516cde816520e9a04a2107b58960a95abdfd0930",
     "colour": "#082868"
   },
   "housesitter": {
@@ -186,12 +186,12 @@
   },
   "ouro-ui-core": {
     "from": "headers/ouro-ui-core.webp",
-    "sha256": "ed1c94ec17d8d1c23ca6648bf5459408145c198de524e5e26e226c2acc5fc9c1",
+    "sha256": "73bf31d3bba656c54ee77d5d0c8691b98c06b2cf4ee4490b59f4c4fe07141fc8",
     "colour": "#f8c898"
   },
   "ouro-ui-core-dark": {
     "from": "headers/ouro-ui-core-dark.webp",
-    "sha256": "ee6564b6e35c57d2dbee5a1473853d24fd304b4484e80886c1507ee80744979c",
+    "sha256": "045cc49f915fadb12310d57d619de304b18abc645d3aa1cf6dd636006452402a",
     "colour": "#082858"
   },
   "ouro-work": {
@@ -246,22 +246,22 @@
   },
   "playwright-focus-proof": {
     "from": "headers/playwright-focus-proof.webp",
-    "sha256": "e5c0b4ef9e2310937ef0bb4852a865074c81526823fe8bd677a3e25930abe82d",
+    "sha256": "7ff59bab71a510ecc252dba82d0ca483e9b23fe72bd39bf00de8127dbf44345a",
     "colour": "#f8b898"
   },
   "playwright-focus-proof-dark": {
     "from": "headers/playwright-focus-proof-dark.webp",
-    "sha256": "e12457ae377476a6b1aba95255a71256a97226801d69586ed5af104f7d681c25",
+    "sha256": "16e5c5a7728aafe5e0d889cb561ae3d0cd4393173a054c2807df39c58d7ca11d",
     "colour": "#082888"
   },
   "shepherd": {
     "from": "headers/shepherd.webp",
-    "sha256": "e75d01f5a4f98ee6d07b53f8b5e886398db692f4419d89d10be2feb22c3f807b",
+    "sha256": "ee84a107d50ef38829cb67ac5cad1de3f3276c15d88fde4a3c406492b5481e67",
     "colour": "#f8c898"
   },
   "shepherd-dark": {
     "from": "headers/shepherd-dark.webp",
-    "sha256": "a861c7c9d8f74b990fb6ed38193a439587fe8f2ad82c59a37d1eb13f5dcbc360",
+    "sha256": "f4511883147d0cd1b759f904cbf74b6b312f8c79f34a9ffdef932a10406c6696",
     "colour": "#183888"
   }
 }
