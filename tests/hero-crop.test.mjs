@@ -154,7 +154,7 @@ test('the cast\'s foot counts every character, not only Ouro', () => {
   // reach 97% of the art, and so does the sneaker under the armchair.
   assert.ok(castFoot.friends >= 0.97, `friends castFoot ${castFoot.friends}`);
   assert.ok(castFoot['playwright-focus-proof'] >= 0.97);
-  assert.ok(castFoot['ouroboros-skills'] >= 0.84, 'the reading robot\'s feet');
+  assert.ok(castFoot['ouroboros-skills'] >= 0.7, 'the kitchen robots\' feet');
   assert.ok(castFoot.shepherd >= 0.935, 'the big sheep\'s hooves');
 });
 

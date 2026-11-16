@@ -28,13 +28,13 @@ export const scenes = {
   'shepherd-dark': 'At night under a starry sky, Ouro stands tall by a shepherd’s crook and a wooden gate lit by a lantern, while a line of robot-eyed sheep, their eyes glowing blue, trots along the glowing trail.',
   friends: 'Two faceless glass friends in scarves and two little robots wave from a picnic blanket, with Ouro curled up in the middle of them, while another little group picnics on a far hill and waves back.',
   'friends-dark': 'Two glowing glass friends in scarves and two little robots wave from a lantern-lit picnic blanket at night, with Ouro curled up in the middle of them, while another little group picnics by lantern light on a far hill and waves back.',
-  'friends-relay': 'A stone dovecote tower where white doves carry letters across the hills, a robot waving at each end, and Ouro in a postman’s cap at the foot of the tower.',
+  'friends-relay': 'Two small robots meet in the middle of a modern timber footbridge over a calm city canal in the morning and hand a sealed envelope from one to the other, one tipping its cap in hello, while Ouro, a small green snake in a postman’s cap, watches from the deck.',
   factory: 'A cream-coloured factory with glowing windows and a conveyor of parcels, a big gauge and a bar chart on an easel. Ouro sits by the chart, checking the numbers.',
   'factory-dark': 'A cream-coloured factory at night under a starry sky, its windows glowing over a conveyor of parcels, with a big gauge and a bar chart on an easel. Ouro sits by the chart, checking the numbers.',
   'ouro-work': 'A stone cottage with a row of wooden mailboxes and a round vault door. Ouro, wearing a lanyard and a blank name badge, waits on the trail.',
   'ouro-work-dark': 'A stone cottage at night with glowing windows, a row of wooden mailboxes and a round vault door. Ouro, wearing a lanyard and a blank name badge, waits on the path.',
-  'ouroboros-skills': 'A bookcase of rolled scrolls under a vine. One robot reads a scroll on a stool by a little table while another holds up a fresh scroll tied with a green ribbon, and Ouro smiles on.',
-  'ouroboros-skills-dark': 'A bookcase of rolled scrolls under a vine at night, a lantern glowing beside it and village lights across the misty lake. One robot reads a scroll on a stool by a little table while another holds up a fresh scroll tied with a green ribbon, and Ouro smiles on.',
+  'ouroboros-skills': 'In a bright home kitchen on a sunny morning, a small blue robot in an apron reads a blank recipe card while a small apricot robot in a chef’s cap whisks batter, and Ouro, a small green snake, watches from a folded tea towel.',
+  'ouroboros-skills-dark': 'In a home kitchen in the evening, under warm kitchen lights with a deep blue night sky in the windows, a small blue robot in an apron reads a blank recipe card while a small apricot robot in a chef’s cap whisks batter, and Ouro, a small green snake, watches from a folded tea towel.',
   'flow-review': 'In a bright white gallery, a small white robot with a clipboard reviews five framed prints of the same garden path at different sizes, while a faceless glass curator steps back to judge and Ouro, a small green snake on a plinth, sits by a brass magnifying glass.',
   'flow-review-dark': 'The same white gallery at night under warm spotlights: a small white robot with a clipboard reviews five framed prints of the same garden path at different sizes, while a faceless glass curator steps back to judge and Ouro, a small green snake on a plinth, sits by a brass magnifying glass.',
   gatefold: 'A giant open storybook on a picnic blanket in a dawn meadow, with stacked books, a mug of coffee and a phone. Ouro rests beside it, mid-chapter.',
@@ -47,7 +47,7 @@ export const scenes = {
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'ouro-workbench-dark': 'A covered workbench at night under a starry sky, with a pegboard of tools, a glowing lantern and a row of little monitors lit amber. Ouro curls up on a cushion beside it, off the clock.',
   'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest sits ready. Ouro curls up beside it, smiling at the new helper.',
-  'friends-relay-dark': 'A stone dovecote tower at night under a starry sky and a crescent moon, its windows glowing, where white doves carry letters across the misty hills, a robot waving at each end, and Ouro in a postman’s cap at the foot of the tower.',
+  'friends-relay-dark': 'Two small robots meet in the middle of a modern timber footbridge over a calm city canal at night under street lamps and a deep blue sky and hand a sealed envelope from one to the other, one tipping its cap in hello, while Ouro, a small green snake in a postman’s cap, watches from the deck.',
   'ouro-ui-core-dark': 'The same colour library at night under a starry skylight: a small lilac robot lays a row of colour chips on a glowing white table while a faceless glass designer holds a green chip up to the lamplight, and Ouro, a small green snake, rests on a felt pad at the table’s end.',
   'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest sits ready. Ouro curls up beside it, smiling.',
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a full mug under its closed tap, and crates of green bottles. Ouro waits by the barrel for the first cup.',
@@ -222,7 +222,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1, 7:5 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -249,13 +249,13 @@ export const heroFocus = {
   'flow-review-dark': [0.2, 0.77],
   friends: [0.2, 0.97],
   'friends-dark': [0.2, 0.97],
-  'friends-relay': [0.04, 0.95],
+  'friends-relay': [0.18, 0.74],
   // Ouro's head down to the phone on the blanket.
   gatefold: [0.04, 0.93],
   'gatefold-dark': [0.04, 0.93],
   'agent-workbench': [0.056, 0.911],
   'agent-workbench-dark': [0.056, 0.911],
-  'friends-relay-dark': [0.04, 0.95],
+  'friends-relay-dark': [0.18, 0.74],
   'homebrew-tap': [0.06, 0.88],
   // The roof's arch over the door, down to Ouro's lowest coil.
   housesitter: [0.3, 0.99],
@@ -277,12 +277,12 @@ export const heroFocus = {
   'ouro-work-dark': [0.2, 0.88],
   'ouro-workbench': [0.28, 0.86],
   'ouro-workbench-dark': [0.2, 0.88],
-  'ouroboros-skills': [0.06, 0.955],
-  'ouroboros-skills-dark': [0.06, 0.955],
+  'ouroboros-skills': [0.13, 0.71],
+  'ouroboros-skills-dark': [0.13, 0.71],
   'ouroboros-website': [0.24, 0.92],
   'ouroboros-website-dark': [0.24, 0.92],
   ouroboros: [0.1, 0.86],
-  'ouroboros-dark': [0.12, 0.95],
+  'ouroboros-dark': [0.1, 0.86],
   ourostack: [0.15, 0.85],
   'ourostack-dark': [0.15, 0.85],
   'playwright-focus-proof': [0.13, 0.97],
@@ -324,12 +324,12 @@ export const castFoot = {
   // The robots' shoes rest on the blanket's front edge.
   friends: 0.97,
   'friends-dark': 0.97,
-  'friends-relay': 0.95,
+  'friends-relay': 0.74,
   gatefold: 0.81,
   'gatefold-dark': 0.81,
   'agent-workbench': 0.911,
   'agent-workbench-dark': 0.911,
-  'friends-relay-dark': 0.95,
+  'friends-relay-dark': 0.74,
   'homebrew-tap': 0.87,
   // Ouro's coil rests on the art's foot.
   housesitter: 0.985,
@@ -352,12 +352,12 @@ export const castFoot = {
   'ouro-workbench': 0.76,
   'ouro-workbench-dark': 0.77,
   // The robot's feet, not Ouro's coil.
-  'ouroboros-skills': 0.955,
-  'ouroboros-skills-dark': 0.955,
+  'ouroboros-skills': 0.71,
+  'ouroboros-skills-dark': 0.71,
   'ouroboros-website': 0.89,
   'ouroboros-website-dark': 0.89,
   ouroboros: 0.84,
-  'ouroboros-dark': 0.945,
+  'ouroboros-dark': 0.84,
   ourostack: 0.83,
   'ourostack-dark': 0.83,
   // The person's sneakers under the armchair.
@@ -417,12 +417,12 @@ export const phoneCastX = {
   friends: [0.098, 0.906],
   'friends-dark': [0.098, 0.906],
   // The big dove at the left, Ouro's coil at the right (v4 master).
-  'friends-relay': [0.06, 0.86],
+  'friends-relay': [0.23, 0.77],
   gatefold: [0.378, 0.918],
   'gatefold-dark': [0.378, 0.918],
   'agent-workbench': [0.068, 0.934],
   'agent-workbench-dark': [0.068, 0.934],
-  'friends-relay-dark': [0.06, 0.86],
+  'friends-relay-dark': [0.23, 0.77],
   'homebrew-tap': [0.38, 0.88],
   // The robots in the window at the left, Ouro's body at the right.
   housesitter: [0.19, 0.905],
@@ -447,11 +447,11 @@ export const phoneCastX = {
   'ouro-workbench': [0.55, 0.86],
   'ouro-workbench-dark': [0.51, 0.875],
   ouroboros: [0.18, 0.82],
-  'ouroboros-dark': [0.49, 0.88],
+  'ouroboros-dark': [0.18, 0.82],
   // The reading robot at the left, the robot taking the scroll at the right.
   // Phone crop box [120, 0, 1502, 576] of the 1536 header.
-  'ouroboros-skills': [0.067, 0.933],
-  'ouroboros-skills-dark': [0.067, 0.933],
+  'ouroboros-skills': [0.16, 0.84],
+  'ouroboros-skills-dark': [0.16, 0.84],
   'ouroboros-website': [0.43, 0.88],
   'ouroboros-website-dark': [0.43, 0.88],
   // Ouro at the left, the waving robot's hand at the right.
