@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import PageHero from '../components/PageHero.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor, entry } from '../data/readiness.mjs'
+import { Button } from '../components/ouro/button/button'
 
 // Ouro Butler: an Ouroboros agent that looks after a home server. Every claim here is
 // sourced from ourostack/ouroboros (deploy/unraid, its README and template) and the
@@ -107,7 +108,7 @@ const chat = [
       <pre id="butler-install" class="install"><code>curl -fsSLo /tmp/ouro-butler-install.sh {installer}
 bash /tmp/ouro-butler-install.sh</code></pre>
       {/* Every command block carries the shared Copy button (taste review r16). */}
-      <div class="mt-3"><button type="button" data-copy-target="butler-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
+      <div class="mt-3"><Button variant="outline" data-copy-target="butler-install" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button></div>
       <p class="mt-6 product-links"><a href={guide} class={link}>The full install guide &#8599;</a> <a href={repo} class={link}>The Butler's deployment files &#8599;</a> <a href="/lab/" class={link}>The Ouroboros harness &rarr;</a></p>
     </div>
   </section>
