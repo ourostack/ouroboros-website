@@ -49,6 +49,16 @@
     "sha256": "221661cf43b047575defac72b661e3b13995c84f5655fbc59a5982b498a8fbc6",
     "colour": "#282808"
   },
+  "chart-room": {
+    "from": "headers/chart-room.webp",
+    "sha256": "b0429ed9e40368a1d7c85fb4f5aa74e6333ed5daa1503aa1c14e1316392d1853",
+    "colour": "#381808"
+  },
+  "chart-room-dark": {
+    "from": "headers/chart-room-dark.webp",
+    "sha256": "10cca977d97d6c9cec477b3a2ce7ade34cc611fe9c1884c0c3382e83a2de9c3e",
+    "colour": "#180808"
+  },
   "desk": {
     "from": "headers/desk.webp",
     "sha256": "f0ac584b5eedc8dc0e6beff260a37d2e2612fa63c6f95f52f9bd617e8e6a336c",
@@ -226,12 +236,12 @@
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
-    "sha256": "07ee142eae3d46d306d7016c39dad23316637a07c1234ffc123bd1cf554ed43b",
+    "sha256": "300ffe7223ae6d2cfba7d1f48c70182c759458b071ba6a8252a98e8adaebafd2",
     "colour": "#381808"
   },
   "ouroboros-skills-dark": {
     "from": "headers/ouroboros-skills-dark.webp",
-    "sha256": "13d5493da9e6e7174c7d42c2a5558ae0fe6b254393745e7826b11773cdbcbc98",
+    "sha256": "6c395331761f03626d0ffca8f6463441c4f44ebc6318aa130e26d1dc4b6e85e7",
     "colour": "#080808"
   },
   "ouroboros-website": {

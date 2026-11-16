@@ -376,6 +376,9 @@ export const castFoot = {
 // and scripts/hero-joins.mjs.
 export const PHONE_EDGE = 16
 export const phoneCastX = {
+  // The person's near mitten at the left, Ouro's tail tip at the right (12:5 crop).
+  'chart-room': [0.09, 0.905],
+  'chart-room-dark': [0.09, 0.905],
   'ax-trail-map': [0.52, 0.935],
   'ax-trail-map-dark': [0.52, 0.935],
   // People and Ouro only: Ouro's coil at the left, the man's hair at the right; the places are props.
