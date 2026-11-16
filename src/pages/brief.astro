@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import Layout from '../layouts/Layout.astro'
 import PageHero from '../components/PageHero.astro'
+import { Button } from '../components/ouro/button/button'
 import { ogPathFor } from '../data/og'
 
 // The page shows public/brief.md itself, read at build time, so the page and
@@ -20,9 +21,9 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
     <Fragment slot="description">
       <p class="m-0">The five principles, written for your agent to read. Paste it into any agent.</p>
       <div class="flex flex-wrap items-center gap-3 mt-6">
-        <button type="button" data-copy-target="brief-text" class="inline-flex items-center gap-2 rounded-xl bg-bone text-void px-5 py-3 font-medium hover:bg-scale transition-colors">
+        <Button tone="primary" size="lg" data-copy-target="brief-text" className="hit rounded-xl px-5">
           <span data-copy-label="Copy the brief">Copy the brief</span>
-        </button>
+        </Button>
         <a href="/brief.md" class={`hit ${link} text-sm`}>Or give your agent the link: ouroboros.bot/brief.md</a>
       </div>
     </Fragment>

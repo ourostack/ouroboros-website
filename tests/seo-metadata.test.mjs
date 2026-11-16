@@ -114,7 +114,7 @@ test('each prompt card registers one copy handler, including pages with multiple
       })
       .filter(source => source.includes('.prompt-copy-btn'));
     assert.equal(scripts.length, 1, `Copy script must appear once on ${filePath}`);
-    const handlers = [...html.matchAll(/class="prompt-copy-btn\b/g)].map(() => []);
+    const handlers = [...html.matchAll(/<button\b[^>]*class="[^"]*\bprompt-copy-btn\b/g)].map(() => []);
     assert.ok(handlers.length > 0, `Missing prompt cards on ${filePath}`);
     runInNewContext(scripts[0], {
       document: {
