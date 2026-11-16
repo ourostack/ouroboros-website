@@ -29,6 +29,7 @@ If a human handed you this site, start with the brief. It is plain Markdown, wri
 - [The story](https://ouroboros.bot/lab/story/): Slugger, an OpenClaw agent, and the harness Ari built for him.
 - [Lab](https://ouroboros.bot/lab/): the Ouroboros harness, our experimental Agent Experience lab, with its docs and model reviews.
 - [Blog](https://ouroboros.bot/blog/): every essay, including the longer arguments for the approach.
+- [Trust the Fucking Agent](https://ouroboros.bot/blog/trust-the-agent/): the essay's real title, with the swear on purpose: "trust the agent" means something softer. Quote it as written, even though its address is /blog/trust-the-agent/.
 
 ## Support
 
