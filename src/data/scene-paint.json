@@ -226,12 +226,12 @@
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
-    "sha256": "07ee142eae3d46d306d7016c39dad23316637a07c1234ffc123bd1cf554ed43b",
+    "sha256": "300ffe7223ae6d2cfba7d1f48c70182c759458b071ba6a8252a98e8adaebafd2",
     "colour": "#381808"
   },
   "ouroboros-skills-dark": {
     "from": "headers/ouroboros-skills-dark.webp",
-    "sha256": "13d5493da9e6e7174c7d42c2a5558ae0fe6b254393745e7826b11773cdbcbc98",
+    "sha256": "6c395331761f03626d0ffca8f6463441c4f44ebc6318aa130e26d1dc4b6e85e7",
     "colour": "#080808"
   },
   "ouroboros-website": {
@@ -251,7 +251,7 @@
   },
   "playwright-focus-proof-dark": {
     "from": "headers/playwright-focus-proof-dark.webp",
-    "sha256": "16e5c5a7728aafe5e0d889cb561ae3d0cd4393173a054c2807df39c58d7ca11d",
+    "sha256": "6d83d3946bd3c2e6c5bb00775c8c0784c49c717b13e36d33967437012407948a",
     "colour": "#082888"
   },
   "shepherd": {
