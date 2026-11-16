@@ -5,6 +5,7 @@ import OuroMdMedia from '../components/OuroMdMedia.astro'
 import { ogPathFor } from '../data/og'
 import { ouroMdInstall } from '../data/principles.mjs'
 import { ouroMdDownload } from '../data/ouro-md-release.mjs'
+import { Button } from '../components/ouro/button/button'
 
 const title = 'Ouro MD: Markdown that renders as you type | Ouro'
 const description = 'A native macOS Markdown editor. Your agent’s plans and notes show as a document, update live when the agent edits them, and mark what changed.'
@@ -38,7 +39,7 @@ const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:
         <h2 class="heading-sub">Or install in Terminal</h2>
         <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
         <div class="flex flex-wrap items-center gap-3">
-          <button type="button" data-copy-target="ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <Button variant="outline" data-copy-target="ouro-md-install" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button>
           <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> shell alias.</span>
         </div>
       </div>

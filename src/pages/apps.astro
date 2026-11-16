@@ -7,6 +7,7 @@ import { labelFor, entry } from '../data/readiness.mjs'
 import { ouroMdInstall } from '../data/principles.mjs'
 import { ouroMdDownload } from '../data/ouro-md-release.mjs'
 import StoryScene from '../components/StoryScene.astro'
+import { Button } from '../components/ouro/button/button'
 
 // The apps shelf. It moved here from the ouro.bot homepage (ourostack/ouro-apps-site#15)
 // when ouro.bot forwarded to ouroboros.bot (Ari, 2026-11-06: "we need a unified domain").
@@ -77,7 +78,7 @@ const shelf = [
           <p class="caption-mono">Or install in Terminal</p>
           <pre id="apps-ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
           <div class="flex flex-wrap items-center gap-3">
-            <button type="button" data-copy-target="apps-ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+            <Button variant="outline" data-copy-target="apps-ouro-md-install" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button>
             <span class="text-sm text-mist">Signed &amp; notarized. Local files stay local.</span>
           </div>
         </div>
