@@ -80,7 +80,7 @@ export const scenes = {
 // Each product's own scene. Every page of a product (the product page, its
 // download page, any /<product>/* page) opens on it and sets its share card in
 // it (Ari's ruling on taste review r19); tests/storybook.test.mjs checks.
-export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler': 'butler', '/housesitter': 'housesitter' }
+export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler': 'butler', '/housesitter': 'housesitter', '/shepherd': 'shepherd' }
 
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
@@ -112,6 +112,7 @@ const pages = {
   '/ouro-md/download': { hero: 'ouro-md', content: true, product: true },
   '/butler': { hero: 'butler', content: true, product: true },
   '/housesitter': { hero: 'housesitter', content: true, product: true },
+  '/shepherd': { hero: 'shepherd', content: true, product: true },
   '/blog': { hero: 'gatefold' },
   '/blog/trust-the-agent': { hero: 'playwright-focus-proof' },
   '/blog/take-the-agents-seat': { hero: 'ouro-ui-apple' },
@@ -149,7 +150,7 @@ const pages = {
   // (`content`), under which the "Draft for review" badge stays (taste review
   // r3). A short band cut Ouro in half on a desktop (taste review r8).
   '/privacy': { hero: 'apple-distribution-kit', content: true },
-  '/terms': { hero: 'shepherd', content: true },
+  '/terms': { hero: 'ouroboros-website', content: true },
   // Ouro has wandered off the trail; the footer meadow stays off so the gate shows once.
   '/404': { hero: 'ouroboros-website', meadow: false },
 }

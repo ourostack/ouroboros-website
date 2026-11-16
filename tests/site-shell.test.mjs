@@ -81,7 +81,7 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
     'Grown inside it',
     // Ari, 2026-10-20: accurate statuses, and every entry has a link that looks like one.
     'Friends Experimental On npm, and used by Ouroboros every day Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it. Friends on GitHub ↗',
-    'Ouro Shepherd Use today Ships in Ouroboros, for cmux and Herdr; reply from any chat Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
+    'Ouro Shepherd Experimental Reads and messages the Copilot app’s sessions; terminals through Ouroboros Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
     'Ouro Butler Alpha Installs on Unraid 7.2 or newer with one script An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest. Ouro Butler →',
   ]);
   // Each model's own verdict, from the published data, linked to its transcript.

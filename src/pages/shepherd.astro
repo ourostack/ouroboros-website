@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro'
+import PageHero from '../components/PageHero.astro'
+import { ogPathFor } from '../data/og'
+import { labelFor, entry } from '../data/readiness.mjs'
+import { Button } from '../components/ouro/button/button'
+
+// Ouro Shepherd: keeps the GitHub Copilot app's sessions as work. Every claim here is sourced from
+// ourostack/shepherd (its README, llms.txt and the library's documented behaviour), and the terminal
+// paragraph from ourostack/ouroboros docs/shepherd-sense.md. Only what v0.1.0 does is listed as "here now".
+const title = 'Ouro Shepherd: your Copilot app’s sessions, kept as work | Ouro'
+const description = 'Ouro Shepherd keeps the GitHub Copilot app’s sessions as work: which are busy and why, how big each history has grown, and how to message or archive them. Experimental, and its CLI only reads.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const status = labelFor('shepherd')
+const statusDetail = entry('shepherd').detail
+const repo = 'https://github.com/ourostack/shepherd'
+const tryIt = 'npx github:ourostack/shepherd#v0.1.0 status'
+
+const here = [
+  ['Says which sessions are busy, and why', 'One line per local session: busy or idle, and the reason. A session over 500 MB, or idle for over a day, is idle, and says so.'],
+  ['Sizes each history', 'How big each session’s history has grown, so a huge one is easy to spot.'],
+  ['Sends a session a message', 'Writes one prompt into a session and waits for the reply, or says why it could not. For now that is a library call; the CLI only reads.'],
+  ['Archives a session or its workspace', 'Archives the session, or its workspace with the session in it. It deletes a worktree only when the worktree is one and you did not ask to keep it.'],
+]
+
+const moving = [
+  'A safe point before a restart',
+  'Resume after a restart or crash',
+  'The 500 MB resume cap',
+  'Size watch and hand-off retirement',
+  'Stuck resume',
+  'Billing account and quota',
+  'Sidebar tidy',
+  'Waiting-prompt notices',
+  'Delivering Desk’s wakes',
+]
+
+const neighbours = [
+  ['Housesitter keeps the house', 'The Mac, and the GitHub Copilot app as a running process: awake, unlocked, restarted when it freezes, and Ouroboros brought back when it stops. Shepherd never quits or relaunches the app.'],
+  ['Shepherd keeps the flock', 'The app’s sessions, as work: which are busy, how big, messages and archives. Its CLI reads them and changes nothing.'],
+  ['Ouroboros is an agent, not their home', 'It uses Shepherd’s library, hears its notices, and decides what reaches its person. Housesitter brings it back when it stops.'],
+  ['Butler minds a different house', 'An Ouroboros agent that looks after a home server, on Unraid and Telegram. It never touches the Mac or the app.'],
+]
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/shepherd')} canonical="https://ouroboros.bot/shepherd/">
+  {/* The words sit above Shepherd's scene, never over it (Ouro HX Hero); the readiness tag and its detail are the eyebrow.
+      The primary action follows the lede inside the description, so on a phone it is the lede's next sibling. */}
+  <PageHero>
+    <span slot="eyebrow" class="flex flex-wrap items-center gap-x-3 gap-y-1"><span class={`tag ${status.tone}`}>{status.label}</span><span>{statusDetail}.</span></span>
+    <span slot="title" class="hero-mark-title"><img src="/brand/shepherd-render.webp" srcset="/brand/shepherd-render-128.webp 128w, /brand/shepherd-render-256.webp 256w" sizes="(min-width: 768px) 64px, 56px" width="64" height="64" alt="" class="mark-render" />Ouro Shepherd</span>
+    <Fragment slot="description">
+      <p class="product-lede" data-hero-lede>Shepherd keeps the flock: your GitHub Copilot app’s sessions, as work. It knows which ones are busy and why, how big each history has grown, and how to message or archive them.</p>
+      <div class="mt-6 btn-row" data-primary-action>
+        <a href="#try" class="btn-primary">Try it</a>
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="here-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="here-heading" class="heading-section">What it does <span class="text-scale">today</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Four duties are here now, in v0.1.0. Its CLI is read-only: <code class="model-code">status</code> changes nothing.</p>
+      <ul class="does">
+        {here.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="moving-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="moving-heading" class="heading-section">What’s <span class="text-scale">moving in</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Nine more duties are on their way from other tools. They are not in v0.1.0 yet.</p>
+      <ul class="safe">
+        {moving.map((line) => <li>{line} <span class="soon">coming</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="neighbours-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="neighbours-heading" class="heading-section">Its <span class="text-scale">neighbours</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Each one keeps a small, separate job. <a href="/housesitter/" class={link}>Housesitter</a> and <a href="/butler/" class={link}>Butler</a> have their own pages.</p>
+      <ul class="does">
+        {neighbours.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="terminal-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="terminal-heading" class="heading-section">The terminal part, <span class="text-scale">in Ouroboros</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Shepherd began inside the Ouroboros harness, for coding agents in terminals (cmux and Herdr). When one hands control back too early, a cheap judge decides it should have gone on, and Shepherd answers it in the terminal. That part still ships in Ouroboros today, as an alpha. <a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={link}>How Shepherd decides &#8599;</a></p>
+    </div>
+  </section>
+
+  <section id="try" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20 scroll-mt-16" aria-labelledby="try-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="try-heading" class="heading-section">Try <span class="text-scale">it</span></h2>
+      <p class="mt-4 text-lg text-mist leading-relaxed">Needs Node 22.18 or newer. It prints one line per local session and changes nothing.</p>
+      <pre id="shepherd-try" class="install"><code>{tryIt}</code></pre>
+      {/* Every command block carries the shared Copy button (taste review r16). */}
+      <div class="mt-3"><Button variant="outline" data-copy-target="shepherd-try" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button></div>
+      <h3 class="does-name mt-10">For agents</h3>
+      <p class="mt-4 text-lg text-mist leading-relaxed">Plain ESM, no build step and no runtime dependencies. The library’s own guide for agents is its <a href={`${repo}/blob/main/llms.txt`} class={link}>llms.txt</a>, and the full picture is in its <a href={repo} class={link}>README &#8599;</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
+  @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .does li { display: grid; align-content: start; gap: 0.4rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1rem; }
+  .does-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
+  .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
+  .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1rem; line-height: 1.6; }
+  .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
+  .soon { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); margin-left: 0.5rem; }
+  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
+  @media (max-width: 479.98px) { .install { font-size: 0.75rem; } }
+</style>
