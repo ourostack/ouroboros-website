@@ -9,64 +9,64 @@
 
 // What each scene shows, for alt text. Concrete, and a touch whimsical.
 export const scenes = {
-  ourostack: 'Dawn over misty hills. Ouro, a round green snake, sits on a glowing trail that loops past the whole crew: a little factory puffing smoke, a desk under a blossom tree, a lectern, a control panel, a silver cloche, a flock of sheep, and two people and their robots waving from a picnic blanket.',
-  'ourostack-dark': 'Night over misty hills under a starry sky, with village lights in the valleys. Ouro, a round green snake, sits on a glowing trail that loops past the whole crew: a little factory with lit windows puffing smoke, a desk under a blossom tree with its lamp on, a lectern, a control panel, a silver cloche, a flock of sheep, and two people and their robots waving from a picnic blanket.',
+  ourostack: 'Dawn over misty hills. Ouro, a round green snake, sits by a worn footpath that loops past the whole crew: a little factory puffing smoke, a desk under a blossom tree, a lectern, a control panel, a silver cloche, a flock of sheep, and two faceless glass friends and their robots waving from a picnic blanket.',
+  'ourostack-dark': 'Night over misty hills under a starry sky, with village lights in the valleys. Ouro, a round green snake, sits by a moonlit footpath that loops past the whole crew: a little factory with lit windows puffing smoke, a desk under a blossom tree with its lamp on, a lectern, a control panel, a silver cloche, a flock of sheep, and two glowing glass friends and their robots waving from a picnic blanket.',
   'ouro-apps-site': 'A market stall with a green-striped awning, stacked with wrapped gifts, one box open and glowing. Ouro leans in beside it like a shopkeeper who has been up since dawn.',
   'ouro-apps-site-dark': 'A market stall at night with a green-striped awning, stacked with wrapped gifts, one box open and glowing, and a lit village in the valley below. Ouro leans in beside it like a shopkeeper keeping late hours.',
-  desk: 'A wooden desk on a hilltop meadow at sunrise, with a lamp, a tidy stack of folders and a potted plant. Ouro sits beside it, and the glowing trail winds off to more desks in the distance.',
-  'desk-dark': 'A wooden desk on a hilltop meadow at night under a starry sky, its lamp glowing over a tidy stack of folders and a potted plant. Ouro sits beside it, and the glowing trail winds off to more lamplit desks in the distance.',
-  'ouro-md': 'A reading lectern holding a fresh page, a lamp and a cup of tea on a stool, and loose pages drifting in the breeze. Ouro peeks over the lectern to read along.',
-  'ouro-md-dark': 'A reading lectern holding a fresh page at night, a glowing lamp and a cup of tea on a stool, and loose pages drifting in the breeze, with village lights in the misty hills below. Ouro peeks over the lectern to read along.',
+  desk: 'A wooden desk on a hilltop meadow at sunrise, with a lamp, a tidy stack of folders and a potted plant. Ouro sits beside it, and more desks dot the hills in the distance.',
+  'desk-dark': 'A wooden desk on a hilltop meadow at night under a starry sky, its lamp glowing over a tidy stack of folders and a potted plant. Ouro sits beside it, and more lamplit desks dot the hills in the distance.',
+  'ouro-md': 'A reading lectern holding a fresh page, and a lamp and a cup of tea on a stool. Ouro peeks over the lectern to read along.',
+  'ouro-md-dark': 'A reading lectern holding a fresh page at night, and a glowing lamp and a cup of tea on a stool, with village lights in the misty hills below. Ouro peeks over the lectern to read along.',
   'ouro-hx': 'A faceless glass person in a moss scarf and Loop, a small jade-and-brass glass robot, work an oak-and-brass console on a dawn hilltop, while Ouro, a smiling emerald glass snake curled into an O, watches beside them.',
   butler: 'A stone cottage with a server cabinet blinking green in its doorway, a watering can and a flower path. Ouro waits on the path beside a little table set with a silver cloche, ready to serve.',
   'butler-dark': 'A stone cottage at night with a server cabinet blinking green in its doorway, its lanterns lit, a watering can and a flower path. Ouro waits on the path beside a little table set with a silver cloche, ready to serve.',
   housesitter: 'A round-doored cottage at sunrise, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
   'housesitter-dark': 'A round-doored cottage at night under a starry sky, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
-  ouroboros: 'A round-doored burrow in a grassy hill, with a mailbox, an old telephone and letters and speech bubbles fluttering home. Ouro sits out front, the glowing trail looping past the door.',
-  'ouroboros-dark': 'A round-doored burrow in a grassy hill at night, its windows and lanterns glowing, with a mailbox, an old telephone and glowing letters and speech bubbles fluttering home under the stars. Ouro sits out front, the glowing trail looping past the door.',
-  shepherd: 'Ouro stands tall by a shepherd’s crook and a wooden gate while a line of robot-eyed sheep trots along the glowing trail.',
+  ouroboros: 'A round-doored burrow in a grassy hill, with a mailbox, an old telephone and a lantern. Ouro sits out front, where a sunlit path leads up to the door.',
+  'ouroboros-dark': 'A round-doored burrow in a grassy hill at night, its windows and lantern glowing, with a mailbox and an old telephone. Ouro sits out front, where a lit path leads up to the door.',
+  shepherd: 'Ouro stands tall by a shepherd’s crook and a wooden gate while a line of robot-eyed sheep trots along their glowing track.',
   'shepherd-dark': 'At night under a starry sky, Ouro stands tall by a shepherd’s crook and a wooden gate lit by a lantern, while a line of robot-eyed sheep, their eyes glowing blue, trots along the glowing trail.',
-  friends: 'Two people and two robots wave from a picnic blanket, with Ouro curled up in the middle of them and paper notes floating between far-off picnics.',
-  'friends-dark': 'Two people and two robots wave from a picnic blanket at night, with Ouro curled up in the middle of them, glowing paper notes floating between far-off picnics and village lights twinkling in the misty hills.',
+  friends: 'Two faceless glass friends in scarves and two little robots wave from a picnic blanket, with Ouro curled up in the middle of them, while another little group picnics on a far hill and waves back.',
+  'friends-dark': 'Two glowing glass friends in scarves and two little robots wave from a lantern-lit picnic blanket at night, with Ouro curled up in the middle of them, while another little group picnics by lantern light on a far hill and waves back.',
   'friends-relay': 'A stone dovecote tower where white doves carry letters across the hills, a robot waving at each end, and Ouro in a postman’s cap at the foot of the tower.',
   factory: 'A cream-coloured factory with glowing windows and a conveyor of parcels, a big gauge and a bar chart on an easel. Ouro sits by the chart, checking the numbers.',
   'factory-dark': 'A cream-coloured factory at night under a starry sky, its windows glowing over a conveyor of parcels, with a big gauge and a bar chart on an easel. Ouro sits by the chart, checking the numbers.',
   'ouro-work': 'A stone cottage with a row of wooden mailboxes and a round vault door. Ouro, wearing a lanyard and a blank name badge, waits on the trail.',
-  'ouro-work-dark': 'A stone cottage at night with glowing windows, a row of wooden mailboxes and a round vault door. Ouro, wearing a lanyard and a blank name badge, waits on the glowing trail.',
+  'ouro-work-dark': 'A stone cottage at night with glowing windows, a row of wooden mailboxes and a round vault door. Ouro, wearing a lanyard and a blank name badge, waits on the path.',
   'ouroboros-skills': 'A bookcase of rolled scrolls under a vine. One robot reads a scroll on a stool by a little table while another holds up a fresh scroll tied with a green ribbon, and Ouro smiles on.',
   'ouroboros-skills-dark': 'A bookcase of rolled scrolls under a vine at night, a lantern glowing beside it and village lights across the misty lake. One robot reads a scroll on a stool by a little table while another holds up a fresh scroll tied with a green ribbon, and Ouro smiles on.',
-  'flow-review': 'A row of little paintings on easels along the trail. A robot with a clipboard takes notes while Ouro peers at one through a big magnifying glass on a stand.',
-  'flow-review-dark': 'A row of little paintings on easels along the glowing trail at night, with village lights in the misty hills. A robot with a clipboard takes notes while Ouro peers at one through a big magnifying glass on a stand.',
+  'flow-review': 'A row of little paintings on easels in the meadow. A robot with a clipboard takes notes while Ouro peers at one through a big magnifying glass on a stand.',
+  'flow-review-dark': 'A row of little paintings on easels at night, with village lights in the misty hills. A robot with a clipboard takes notes while Ouro peers at one through a big magnifying glass on a stand.',
   gatefold: 'A giant open storybook on a picnic blanket in a dawn meadow, with stacked books, a mug of coffee and a phone. Ouro rests beside it, mid-chapter.',
   'gatefold-dark': 'A giant open storybook on a picnic blanket at night under a starry sky and a crescent moon, with stacked books, a mug of coffee and a glowing phone. Ouro rests beside it, mid-chapter.',
-  'playwright-focus-proof': 'A person relaxes in an armchair sipping a cup of tea, her laptop closed on the table beside her, while two little robots work at their own laptops beside a tall clock, and Ouro keeps an eye on the trail.',
-  'playwright-focus-proof-dark': 'The same garden at night under a starry sky: a person relaxes in an armchair sipping a cup of tea, her laptop closed beside her, while two little robots work at their own glowing laptops beside a tall clock, and Ouro keeps an eye on the trail as it glows through the dark.',
+  'playwright-focus-proof': 'A faceless glass person relaxes in an armchair with a cup of tea, their laptop closed on the table beside them, while two little robots work at their own laptops beside a tall clock, and Ouro keeps an eye on things.',
+  'playwright-focus-proof-dark': 'The same garden at night under a starry sky: a glowing glass person relaxes in an armchair with a cup of tea, their laptop closed beside them, while two little robots work at their own glowing laptops beside a tall clock, and Ouro keeps an eye on things.',
   'ouro-ui-apple': 'A robot peeks over a laptop on a wooden bench, beside a phone and a tablet, each showing a green toggle. Ouro watches from the meadow.',
   'ouro-ui-apple-dark': 'At night under a starry sky, a robot peeks over a laptop on a wooden bench, beside a phone and a tablet, each screen glowing with an amber toggle. Ouro watches from the moonlit meadow.',
-  'ouro-ui-core': 'Paint pots on a bench pour ribbons of green and cream into a phone, a laptop and a tablet below. Ouro looks on, pleased with the colours.',
+  'ouro-ui-core': 'A little glass robot paints six colours onto a palette at an easel while a faceless glass person with a mug looks on. On the bench beside them a phone, a laptop and a tablet already show the same six colours, and Ouro lies at their feet.',
   'ouro-workbench': 'A covered workbench with a pegboard of tools and a row of little monitors. Ouro curls up on a cushion underneath, off the clock.',
   'ouro-workbench-dark': 'A covered workbench at night under a starry sky, with a pegboard of tools, a glowing lantern and a row of little monitors lit amber. Ouro curls up on a cushion beside it, off the clock.',
-  'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest is wired to a glowing loop. Ouro curls up beside it, smiling at the new helper.',
+  'agent-workbench': 'A wooden workbench in the meadow, spread with blueprints, gears, a spool and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest sits ready. Ouro curls up beside it, smiling at the new helper.',
   'friends-relay-dark': 'A stone dovecote tower at night under a starry sky and a crescent moon, its windows glowing, where white doves carry letters across the misty hills, a robot waving at each end, and Ouro in a postman’s cap at the foot of the tower.',
-  'ouro-ui-core-dark': 'Paint pots on a bench at night pour glowing ribbons of green and cream into a phone, a laptop and a tablet below, with misty hills and village lights behind. Ouro looks on, pleased with the colours.',
-  'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest is wired to a loop that glows in the dark. Ouro curls up beside it, smiling.',
-  'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a tap pouring into a mug, and crates of green bottles. Ouro waits by the barrel for the first cup.',
+  'ouro-ui-core-dark': 'The same meadow at night under a starry sky and a crescent moon: by lantern light a little glass robot paints six colours onto a palette while a glowing glass person with a mug looks on, the phone, laptop and tablet on the bench glow with the same colours, and Ouro lies at their feet.',
+  'agent-workbench-dark': 'A wooden workbench at night under a starry sky, spread with blueprints, gears and an oil can, where a little brass robot with a glass-dome head and a keyboard on their chest sits ready. Ouro curls up beside it, smiling.',
+  'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a full mug under its closed tap, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'A library nook of crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need.',
   'm365crawl-dark': 'A library nook at night, crammed bookshelves and a rolling ladder beside a tall card-catalogue cabinet, one drawer pulled out and glowing with filed letters. Ouro peeks round the cabinet, ready to fetch the one you need, while the misty hills outside sit dark.',
   'ouro-native-apple-app-shell': 'A pearly snail shell on a mossy rock by a pond, opened up like a dollhouse: bookshelves, a reading chair and a warm lamp curled up inside. Ouro rests against it, as if he grew the house himself.',
-  'ouro-native-apple-app-shell-dark': 'A glowing snail-shell house at night under a starry sky, its little rooms lit by lamps and lined with books, on a rock by a pond with trails of light winding through the meadow. Ouro curls up beside it, smiling.',
+  'ouro-native-apple-app-shell-dark': 'A glowing snail-shell house at night under a starry sky, its little rooms lit by lamps and lined with books, on a rock by a pond. Ouro curls up beside it, smiling.',
   'apple-distribution-kit': 'A market workbench of wrapped green parcels, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
   'apple-distribution-kit-dark': 'A market workbench of wrapped green parcels at night, lit by hanging lanterns, a little conveyor carrying them off and a red wagon piled high, ready for the road. Ouro peers over a parcel, checking the bow.',
-  'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and the glowing trail winding off to a cottage on the far hill. Ouro sits by the gate.',
-  airship: 'A glass-and-brass airship sails at sunrise above a sea of clouds and snowy peaks. At the bow, a faceless glass figure in a green scarf holds a spyglass at the hip and opens a mitten toward the horizon, Ouro, an emerald-glass snake, sitting on the rail beside them like a pet; Loop, a small jade-glass agent in goggles and a flying scarf, steers at the wheel, an amber agent in a red knit cap climbs the rigging, and a sea-blue agent in a leather apron kneels to turn a valve, tongue out in concentration.',
-  'airship-dark': 'The same glass-and-brass airship at night, under a sky full of stars and a crescent moon, its envelope and lanterns glowing above the moonlit clouds: the glass figure at the bow with a spyglass at the hip opens a mitten toward the horizon, Ouro sits on the rail beside them, Loop steers at the wheel, an amber agent in a red knit cap climbs the rigging, and a sea-blue agent in a leather apron turns a valve.',
+  'ouroboros-website': 'A rose-covered gateway with its wooden doors thrown open, a signpost pointing every which way, and a sunlit path winding off to a cottage on the far hill. Ouro sits by the gate.',
+  airship: 'A glass-and-brass airship sails at sunrise above a sea of clouds and snowy peaks. At the bow, a faceless glass figure in a leather flight jacket and a green scarf rests one mitten on the rail and holds a spyglass lowered at the hip, looking out at the horizon, with Ouro, a small emerald-glass snake, sitting on the rail beside them like a pet; Loop, a small jade-glass agent in goggles and a flying scarf, steers at the wheel, an amber agent in a red knit cap climbs a rope ladder, and a sea-blue agent in a leather apron kneels to turn a valve.',
+  'airship-dark': 'The same glass-and-brass airship at night, under a sky full of stars and a full moon, its lanterns glowing above the moonlit clouds: the glass figure at the bow rests a mitten on the rail with a spyglass at the hip, Ouro sits on the rail beside them, Loop steers at the wheel, an amber agent in a red knit cap climbs a rope ladder, and a sea-blue agent in a leather apron turns a valve.',
   workshop: 'On a wooden deck at dawn above a misty forest valley, a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
   'workshop-dark': 'The same wooden deck at night, under stars and a crescent moon above the misty forest valley, a lantern glowing on its post: a faceless glass figure with a green scarf and a mug presses a green button on a crate, as a small jade-glass agent, Loop, hands them a finished checklist tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside him.',
-  'ouroboros-website-dark': 'A rose-covered gateway at night with its wooden doors thrown open, a lantern atop a signpost pointing every which way, and the glowing trail winding off to a lit cottage on the far hill. Ouro sits by the gate.',
-  'ax-trail-map': 'A low wooden trail map stands in a dawn meadow, built at Ouro’s height, its painted trail ending at a little green ring-shaped pin. Ouro leans over the corner of the board and peers at the pin with a pleased smile: that’s me, right there.',
-  'ax-trail-map-dark': 'The same trail map at night under a starry sky and a crescent moon. Its painted trail and the little green ring-shaped pin glow, lighting Ouro’s face as he leans over the board and finds himself on the map.',
-  'glue-unstuck': 'Three little storybook places stand open along the glowing trail, a post office, a meeting hall and a workshop, and the work streams in and out of their doors through Ouro’s coil as he carries it from place to place. On the right, a man leans back against a mossy rock with a mug of tea, one foot in a striped sock, and in front of him his other shoe is still stuck in a puddle of spilled glue.',
-  'glue-unstuck-dark': 'The same meadow at night under a starry sky: the post office, the meeting hall and the workshop glow through their open doors, the work streams along the glowing trail through Ouro’s coil, and the man rests against his rock with a steaming mug, his shoe still stuck in the glue.',
+  'ouroboros-website-dark': 'A rose-covered gateway at night with its wooden doors thrown open, a lantern atop a signpost pointing every which way, and a lit path winding off to a cottage on the far hill. Ouro sits by the gate.',
+  'ax-trail-map': 'A low wooden trail map stands in a dawn meadow, built at Ouro’s height, the trail it shows winding off through the meadow behind it. Ouro leans over the corner of the board and peers at the map with a pleased smile, finding his way.',
+  'ax-trail-map-dark': 'The same trail map at night under a starry sky and a crescent moon, the trail it shows glowing as it winds off through the meadow, lighting Ouro’s face as he leans over the board and finds his way.',
+  'glue-unstuck': 'Three little storybook places stand open in the meadow, a post office, a meeting hall and a workshop, with Ouro curled among them. On the right, a faceless glass person in a scarf leans back against a mossy rock with a mug of tea, done for the day.',
+  'glue-unstuck-dark': 'The same meadow at night under a starry sky: the post office, the meeting hall and the workshop glow through their open doors, Ouro curls among them, and the glowing glass person rests against their rock with a steaming mug.',
 }
 
 // Each product's own scene. Every page of a product (the product page, its
@@ -77,7 +77,7 @@ export const productScenes = { '/desk': 'desk', '/ouro-md': 'ouro-md', '/butler'
 // Route (no trailing slash; '/' for home) → scenes. `hero: null` means the page
 // opens on its words, with the scene only on its share card.
 const pages = {
-  // The airship (.github#115): the person at the bow looks toward where
+  // The airship (.github#115, redrawn in #152): the person at the bow looks toward where
   // they're going while the agents crew the ship, and Ouro only once, as the
   // person's pet on the rail (Ari, 2026-11-15: "we need diversity of photos!!";
   // the workshop read too close to ui.ouroboros.bot's hero).
@@ -198,7 +198,7 @@ export const wideSrcset = (scene, ext) => (ext === 'avif'
 
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
-  // The homepage's two inline scenes: the harness and the factory.
+  // The homepage's inline scene: the factory.
   const used = new Set([meadowScene, 'factory', 'ouroboros'])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
@@ -210,9 +210,9 @@ export function usedScenes() {
 }
 
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
-// 4:3 by default; 16:9, 2:1 or 12:5 where the characters stand too far apart for 4:3.
+// 4:3 by default; 16:9, 2:1, 7:5 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 352], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 352], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'ouro-ui-core': [768, 549], 'ouro-ui-core-dark': [768, 549], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -224,9 +224,9 @@ export const heroFocus = {
   // Ouro's head down to the map board's posts.
   'ax-trail-map': [0.07, 0.88],
   'ax-trail-map-dark': [0.07, 0.88],
-  // The post office's chimney down to the shoe stuck in the glue, the picture's punchline.
-  'glue-unstuck': [0.0, 0.96],
-  'glue-unstuck-dark': [0.0, 0.96],
+  // The post office's chimney down to the glass person's feet as they lean back with their tea.
+  'glue-unstuck': [0.0, 0.88],
+  'glue-unstuck-dark': [0.0, 0.88],
   'apple-distribution-kit': [0.13, 0.82],
   'apple-distribution-kit-dark': [0.13, 0.82],
   butler: [0.18, 0.84],
@@ -442,10 +442,10 @@ export const phoneCastX = {
   // .github#16: 12:5 at centre 845, against the art's right edge.
   shepherd: [0.06, 0.91],
   'shepherd-dark': [0.06, 0.91],
-  // The kneeling engineer at the left, the person's open mitten at the right.
-  // .github#115: 4:3 at centre 680, box [338, 0, 1021, 512].
-  airship: [0.075, 0.87],
-  'airship-dark': [0.075, 0.87],
+  // The kneeling engineer's boot at the left, Ouro on the rail at the right.
+  // .github#152: 4:3 at centre 680, box [338, 0, 1021, 512].
+  airship: [0.06, 0.87],
+  'airship-dark': [0.06, 0.87],
   // The glass figure's elbow at the left, the tip of Ouro's tail at the right.
   // .github#92: 5:3 at centre 768, box [341, 0, 1195, 512].
   workshop: [0.14, 0.855],

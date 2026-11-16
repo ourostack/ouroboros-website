@@ -177,9 +177,11 @@ test('the products show their own scenes on the shelf and on the homepage', () =
   }
   assert.match(apps, /data-brand-scene="ouro-md"/);
   const home = readDist('index.html');
-  for (const scene of ['airship', 'ouroboros', 'factory', meadowScene]) {
+  for (const scene of ['airship', 'factory', meadowScene]) {
     assert.ok(new RegExp(`data-brand-scene="${scene}"`).test(home) || heroPictures(home)?.light.body.includes(`/headers/${scene}.webp"`), `the homepage shows ${scene}`);
   }
+  // The harness's scene is /lab's hero; the home page doesn't repeat it (docs/home-catch-up.md).
+  assert.doesNotMatch(home, /data-brand-scene="ouroboros"/);
 });
 
 test('the 404 finds Ouro off the trail, by the gate, with signposts home', () => {

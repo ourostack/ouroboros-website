@@ -119,7 +119,7 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
 // so the words get the wide sunset sky instead of a sliver.
 // Taste review r5 found three scenes whose cast is wider than any card-height
 // window: the canonical card crop cut the robot's head (Ouro UI for Apple), Ouro's
-// coil (the paint pots) and the person at her laptop (the focus proof). Those,
+// coil (the paint pots, since redrawn as the painter at the easel) and the person in the armchair (the focus proof). Those,
 // and the three below, stand on a title plate: the whole header, scaled to the
 // card's width, stands at the foot of the card at full strength, and above it
 // is a solid cream plate with a thin gold rule (src/og/frames.mjs, plateFrame),
