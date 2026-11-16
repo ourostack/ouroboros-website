@@ -81,7 +81,7 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
     'Grown inside it',
     // Ari, 2026-10-20: accurate statuses, and every entry has a link that looks like one.
     'Friends Experimental On npm, and used by Ouroboros every day Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it. Friends on GitHub ↗',
-    'Ouro Shepherd Experimental Reads and messages the Copilot app’s sessions; terminals through Ouroboros Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
+    'Ouro Shepherd Experimental Reads and messages the Copilot app’s sessions; terminals through Ouroboros Keeps the flock: the Copilot app’s sessions, as work. It knows which are busy and why, sends them a word, and tucks a finished one’s history away small. Next door, housesitter keeps the house. Ouro Shepherd →',
     'Ouro Butler Alpha Installs on Unraid 7.2 or newer with one script An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest. Ouro Butler →',
   ]);
   // Each model's own verdict, from the published data, linked to its transcript.
@@ -92,9 +92,9 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
   assert.doesNotMatch(text, /four frontier models|four models/i);
   // Ari, 2026-10-20: the product is Ouro Butler; Mendelow Cloud Butler is only our install of it.
   assert.doesNotMatch(text, /Mendelow Cloud Butler/);
-  // Shepherd, Friends and the butler live inside Ouroboros, not as their own product cards.
+  // Shepherd, Friends and the butler grew inside Ouroboros; here they are its offspring, not product cards.
   for (const id of ['friends', 'shepherd', 'butler']) assert.match(section, new RegExp(`<li id="${id}"`));
-  for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', '/butler/']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
+  for (const href of ['/lab/', 'https://github.com/ourostack/friends', '/shepherd/', '/butler/']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
   // The Butler became an installable alpha on 2026-10-29; the other entries keep their corrected labels.
   const butlerItem = section.match(/<li id="butler"[\s\S]*?<\/li>/)[0];
   assert.match(textOf(butlerItem), /Alpha Installs on Unraid 7\.2 or newer with one script/);
