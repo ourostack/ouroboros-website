@@ -279,7 +279,7 @@ html, body { overflow-x: clip; }
 }
 :root[data-theme="light"] { --destructive: #c8001e; }
 @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --destructive: #c8001e; } }
-/* ouro-base (ouro-ui v1.3.194): the corner shape, the motion, layer and sheet
+/* ouro-base (ouro-ui v1.3.204): the corner shape, the motion, layer and sheet
    tokens, and the status and avatar colours, set for this site's dark theme
    here and its light theme below (Ouro's own values for each). They follow
    data-theme and the system setting as the palette does. */
@@ -428,6 +428,65 @@ html, body { overflow-x: clip; }
     outline-style: solid;
     outline-width: 2px;
   }
+  /* The same ring on an element whose control inside has keyboard focus, as TextField rings its box: a label around a visually hidden radio or checkbox, or the box around an input. */
+  .ouro-focus-ring-within {
+    outline-color: var(--ring);
+    outline-offset: 2px;
+  }
+  .ouro-focus-ring-within:has(:focus-visible) {
+    outline-style: solid;
+    outline-width: 2px;
+  }
+  /* An element that takes focus only from a script or a skip link (tabindex="-1"), such as <main>, draws no outline around itself, as Ouro's layouts' main does. */
+  .ouro-focus-target[tabindex="-1"]:focus {
+    outline: none;
+  }
+  /* A link that skips to the main content, drawn as SkipLink draws it: clipped to a 1px box, still read by screen readers, until it has focus. Point it at an element with tabindex="-1" and .ouro-focus-target. */
+  .ouro-skip-link {
+    position: fixed;
+    top: 0.5rem;
+    inset-inline-start: 0.5rem;
+    z-index: var(--ouro-layer);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    padding-inline: 1rem;
+    border-radius: var(--radius-md);
+    --corner-shape: var(--ouro-corner-shape);
+    corner-shape: var(--ouro-corner-shape);
+    background-color: var(--background);
+    color: var(--foreground);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    text-decoration-line: underline;
+    text-underline-offset: 4px;
+    border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    box-shadow: var(--shadow-lg);
+    outline-color: var(--ring);
+    outline-offset: 2px;
+  }
+  .ouro-skip-link:focus-visible {
+    outline-style: solid;
+    outline-width: 2px;
+  }
+  .ouro-skip-link:not(:focus) {
+    margin: 0;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+    border-width: 0;
+    box-shadow: none;
+    clip-path: inset(50%);
+  }
+  /* What a mouse user sees only while the pointer rests on it, or on its .ouro-reveal-host, or while focus is in either, as SegmentedControl's revealOnHover: row actions, or a card beside the one in use. It keeps its room, and shows from the start on a touch screen. */
+  .ouro-reveal {
+    transition: opacity var(--ouro-duration-fast) ease;
+  }
   /* A row that opens something when pressed, as a linked Item or Table row: tinted toward the text colour while a mouse rests on it, and more while it is pressed. */
   .ouro-row {
     cursor: pointer;
@@ -439,6 +498,106 @@ html, body { overflow-x: clip; }
   @media (hover: hover) and (pointer: fine) {
     .ouro-row:hover:not(:active) {
       background-color: color-mix(in oklab, var(--foreground) 3%, transparent);
+    }
+    .ouro-disclosure-summary:hover {
+      text-decoration-line: underline;
+    }
+    .ouro-reveal:not(:hover, :focus-within) {
+      opacity: 0;
+    }
+    .ouro-reveal-host:is(:hover, :focus-within) .ouro-reveal {
+      opacity: 1;
+    }
+  }
+  @media (pointer: coarse) {
+    .ouro-skip-link {
+      min-height: 2.75rem;
+    }
+  }
+  @media print {
+    .ouro-skip-link {
+      display: none;
+    }
+  }
+  /* A disclosure with no script, drawn as Collapsible draws its title: <details class="ouro-disclosure"> with <summary class="ouro-disclosure-summary"> and the content in .ouro-disclosure-panel. The chevron is drawn with borders (no image), turns over while open, and snaps under reduced motion. */
+  .ouro-disclosure {
+    box-sizing: border-box;
+    min-width: 0;
+    color: var(--foreground);
+  }
+  .ouro-disclosure-summary {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding-block: 0.5rem;
+    border-radius: var(--radius-md);
+    --corner-shape: var(--ouro-corner-shape);
+    corner-shape: var(--ouro-corner-shape);
+    list-style: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--foreground);
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    text-underline-offset: 4px;
+    outline-color: var(--ring);
+    outline-offset: 2px;
+    transition: opacity var(--ouro-duration-fast) ease;
+  }
+  .ouro-disclosure-summary::-webkit-details-marker {
+    display: none;
+  }
+  .ouro-disclosure-summary::after {
+    content: "";
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 0.375rem;
+    height: 0.375rem;
+    margin-inline: 0.25rem;
+    border-style: solid;
+    border-color: var(--muted-foreground);
+    border-width: 0 1.5px 1.5px 0;
+    translate: 0 -20%;
+    rotate: 45deg;
+  }
+  .ouro-disclosure[open] > .ouro-disclosure-summary::after {
+    translate: 0 20%;
+    rotate: 225deg;
+  }
+  .ouro-disclosure-summary:focus-visible {
+    outline-style: solid;
+    outline-width: 2px;
+  }
+  .ouro-disclosure-summary:active {
+    opacity: 0.7;
+  }
+  .ouro-disclosure-panel {
+    box-sizing: border-box;
+    min-width: 0;
+    padding-block: 0.25rem 0.5rem;
+  }
+  @media (min-width: 640px) and (pointer: fine) {
+    .ouro-disclosure-summary {
+      min-height: 2.25rem;
+      font-size: 0.875rem;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ouro-disclosure-summary::after {
+      transition: rotate var(--ouro-duration-base) var(--ouro-ease-out), translate var(--ouro-duration-base) var(--ouro-ease-out);
+    }
+  }
+  @media (forced-colors: active) {
+    .ouro-disclosure-summary {
+      border: 1px solid;
+    }
+    .ouro-skip-link:focus {
+      border: 1px solid;
     }
   }
 }
