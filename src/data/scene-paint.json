@@ -276,13 +276,13 @@
   },
   "playwright-focus-proof": {
     "from": "headers/playwright-focus-proof.webp",
-    "sha256": "7ff59bab71a510ecc252dba82d0ca483e9b23fe72bd39bf00de8127dbf44345a",
-    "colour": "#f8b898"
+    "sha256": "8336b71a01d55e829d4c334bb85058206bd91850c4cd454a923195c15d0dbae9",
+    "colour": "#785848"
   },
   "playwright-focus-proof-dark": {
     "from": "headers/playwright-focus-proof-dark.webp",
-    "sha256": "6d83d3946bd3c2e6c5bb00775c8c0784c49c717b13e36d33967437012407948a",
-    "colour": "#082888"
+    "sha256": "ab81732d92e6fe7b3acd47f30b54f84c294447d326bdc12e7a8cf8bad6ab6d75",
+    "colour": "#082858"
   },
   "shepherd": {
     "from": "headers/shepherd.webp",
