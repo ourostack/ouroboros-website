@@ -91,12 +91,12 @@
   },
   "friends": {
     "from": "headers/friends.webp",
-    "sha256": "1bbc6bb0f9a55787c23ce451cb7be277b37f00149ee2981e57a5dc431df0bbde",
+    "sha256": "9443422041a1be094422d53144137b1ed9af21d01d84261c384c162b8d1400e1",
     "colour": "#f8b898"
   },
   "friends-dark": {
     "from": "headers/friends-dark.webp",
-    "sha256": "b0a478d119bd098a7a609f02690acf491a0c81a4bd5f36dffd868953ec899b82",
+    "sha256": "d1449c405f9b2459f52e9d7411ec6f8ba0208f8f294a71bef170acf826c90fc0",
     "colour": "#082858"
   },
   "friends-relay": {
