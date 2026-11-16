@@ -1,12 +1,12 @@
 {
   "agent-workbench": {
     "from": "headers/agent-workbench.webp",
-    "sha256": "22a84e4d31e9889e1337e8f064ed183f8ec5033b5967376ecafaa8806e890e7a",
+    "sha256": "4e47a78d276298d9967d2aa016a0aed9c5eedf75e979a26223534e1ba81645b2",
     "colour": "#f8c898"
   },
   "agent-workbench-dark": {
     "from": "headers/agent-workbench-dark.webp",
-    "sha256": "da2ff3682293d034b08f56f9776b7038e4234cb5996bcc6d5e45237fe26fd705",
+    "sha256": "0f25b1c9512ad71c20dd3fbc7384f5cfde9df95998bf9fec5bad074d4706f873",
     "colour": "#1848a8"
   },
   "airship": {
@@ -81,12 +81,12 @@
   },
   "friends": {
     "from": "headers/friends.webp",
-    "sha256": "cd1040a91d852a303ae9b0705fd8937089e4c26b1ade0428cb9e78eb6fc0ddfa",
+    "sha256": "1bbc6bb0f9a55787c23ce451cb7be277b37f00149ee2981e57a5dc431df0bbde",
     "colour": "#f8b898"
   },
   "friends-dark": {
     "from": "headers/friends-dark.webp",
-    "sha256": "e8e183b81b5a489aad77195c9c517ef87d67f5a7139b9860b08c6455d2550e76",
+    "sha256": "b0a478d119bd098a7a609f02690acf491a0c81a4bd5f36dffd868953ec899b82",
     "colour": "#082858"
   },
   "friends-relay": {
@@ -111,12 +111,12 @@
   },
   "glue-unstuck": {
     "from": "headers/glue-unstuck.webp",
-    "sha256": "aa154c7586e0d1ee78c17338adfef9b8721ac55daf25ec8a89d8d5b12836738a",
-    "colour": "#684808"
+    "sha256": "7fb8326e5e4abcd833c79bed15ea37690cbd6e8cf61647f76275cc047074967e",
+    "colour": "#f8d8a8"
   },
   "glue-unstuck-dark": {
     "from": "headers/glue-unstuck-dark.webp",
-    "sha256": "60e7ce589c1cff7f8288c73da9c7dba1b139d466f8cd1c6569ca27ddf0512a6b",
+    "sha256": "9553d652876762fca80a8e0b516cde816520e9a04a2107b58960a95abdfd0930",
     "colour": "#082868"
   },
   "housesitter": {
@@ -176,22 +176,22 @@
   },
   "ouro-ui-apple": {
     "from": "headers/ouro-ui-apple.webp",
-    "sha256": "d95da240ee6a20b67b1fbe3a886a994b90483846c196bbe5c937f0025120cf59",
+    "sha256": "41add52e666a35823f36283f61e424540677c736340833ae1dbb57838c171cd8",
     "colour": "#f8b898"
   },
   "ouro-ui-apple-dark": {
     "from": "headers/ouro-ui-apple-dark.webp",
-    "sha256": "682ef7a91b2bd86d8a7cde0063c3c61d376343a2627522c309b358921ef23062",
+    "sha256": "78437fea309300943f56aa93ec2510a6591dae0193695af1ba3b5ae0d7bb08e3",
     "colour": "#082868"
   },
   "ouro-ui-core": {
     "from": "headers/ouro-ui-core.webp",
-    "sha256": "ed1c94ec17d8d1c23ca6648bf5459408145c198de524e5e26e226c2acc5fc9c1",
+    "sha256": "73bf31d3bba656c54ee77d5d0c8691b98c06b2cf4ee4490b59f4c4fe07141fc8",
     "colour": "#f8c898"
   },
   "ouro-ui-core-dark": {
     "from": "headers/ouro-ui-core-dark.webp",
-    "sha256": "ee6564b6e35c57d2dbee5a1473853d24fd304b4484e80886c1507ee80744979c",
+    "sha256": "045cc49f915fadb12310d57d619de304b18abc645d3aa1cf6dd636006452402a",
     "colour": "#082858"
   },
   "ouro-work": {
@@ -226,12 +226,12 @@
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
-    "sha256": "07ee142eae3d46d306d7016c39dad23316637a07c1234ffc123bd1cf554ed43b",
+    "sha256": "300ffe7223ae6d2cfba7d1f48c70182c759458b071ba6a8252a98e8adaebafd2",
     "colour": "#381808"
   },
   "ouroboros-skills-dark": {
     "from": "headers/ouroboros-skills-dark.webp",
-    "sha256": "13d5493da9e6e7174c7d42c2a5558ae0fe6b254393745e7826b11773cdbcbc98",
+    "sha256": "6c395331761f03626d0ffca8f6463441c4f44ebc6318aa130e26d1dc4b6e85e7",
     "colour": "#080808"
   },
   "ouroboros-website": {
@@ -246,22 +246,22 @@
   },
   "playwright-focus-proof": {
     "from": "headers/playwright-focus-proof.webp",
-    "sha256": "e5c0b4ef9e2310937ef0bb4852a865074c81526823fe8bd677a3e25930abe82d",
+    "sha256": "7ff59bab71a510ecc252dba82d0ca483e9b23fe72bd39bf00de8127dbf44345a",
     "colour": "#f8b898"
   },
   "playwright-focus-proof-dark": {
     "from": "headers/playwright-focus-proof-dark.webp",
-    "sha256": "904de3f25da204a527db7f77d5f4d434070dca2e550c9be1336d52c31bb82cee",
+    "sha256": "6d83d3946bd3c2e6c5bb00775c8c0784c49c717b13e36d33967437012407948a",
     "colour": "#082888"
   },
   "shepherd": {
     "from": "headers/shepherd.webp",
-    "sha256": "e75d01f5a4f98ee6d07b53f8b5e886398db692f4419d89d10be2feb22c3f807b",
+    "sha256": "ee84a107d50ef38829cb67ac5cad1de3f3276c15d88fde4a3c406492b5481e67",
     "colour": "#f8c898"
   },
   "shepherd-dark": {
     "from": "headers/shepherd-dark.webp",
-    "sha256": "a861c7c9d8f74b990fb6ed38193a439587fe8f2ad82c59a37d1eb13f5dcbc360",
+    "sha256": "f4511883147d0cd1b759f904cbf74b6b312f8c79f34a9ffdef932a10406c6696",
     "colour": "#183888"
   }
 }
