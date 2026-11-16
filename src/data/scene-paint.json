@@ -296,12 +296,12 @@
   },
   "playwright-focus-proof": {
     "from": "headers/playwright-focus-proof.webp",
-    "sha256": "8336b71a01d55e829d4c334bb85058206bd91850c4cd454a923195c15d0dbae9",
+    "sha256": "76da9377e8f5ae36a7a3efc549af846e1aafa7a12b5eabc9b61c0d7884a2761e",
     "colour": "#785848"
   },
   "playwright-focus-proof-dark": {
     "from": "headers/playwright-focus-proof-dark.webp",
-    "sha256": "ab81732d92e6fe7b3acd47f30b54f84c294447d326bdc12e7a8cf8bad6ab6d75",
+    "sha256": "7951b902f59e1bef221d946b790274538b83f2912af18003af56a97245c3a9ea",
     "colour": "#082858"
   },
   "shepherd": {
