@@ -1,4 +1,5 @@
 ---
+import { Button } from './ouro/button/button'
 /**
  * Desk playback: a dramatization in the shapes of Desk's real output.
  *
@@ -94,8 +95,8 @@ const last = scenes.length - 1
     </span>
     <span class="dp-actions">
       <span class="dp-replay dp-sizer" aria-hidden="true">Replay</span>
-      <button type="button" class="dp-replay hit" data-skip hidden>Skip</button>
-      <button type="button" class="dp-replay hit" data-replay hidden>Replay</button>
+      <Button variant="plain" className="dp-replay hit" data-skip hidden>Skip</Button>
+      <Button variant="plain" className="dp-replay hit" data-replay hidden>Replay</Button>
     </span>
   </div>
   <div class="dp-screen">
