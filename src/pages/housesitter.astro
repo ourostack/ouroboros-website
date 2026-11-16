@@ -4,6 +4,7 @@ import WorkshopVideo from '../components/WorkshopVideo.astro'
 import PageHero from '../components/PageHero.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor } from '../data/readiness.mjs'
+import { Button } from '../components/ouro/button/button'
 
 // housesitter keeps an always-on agent Mac alive through a small IP-KVM. Every claim here is sourced from
 // ourostack/housesitter: its README (the story, what's verified, the password rules), its real `housesitter doctor`
@@ -91,7 +92,7 @@ const verified = [
       <div class="mt-6 grid gap-2" data-primary-action>
         <div class="flex flex-wrap items-center gap-3">
           <pre id="housesitter-demo" class="command">{demo}</pre>
-          <button type="button" data-copy-target="housesitter-demo" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <Button variant="outline" data-copy-target="housesitter-demo" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button>
         </div>
         <span class="caption-mono">Real frames from that day. No hardware needed.</span>
       </div>
@@ -181,7 +182,7 @@ const verified = [
         <p class="text-lg text-mist leading-relaxed"><code class="model-code">housesitter demo</code> replays that Sunday in your terminal: real frames from our KVM, read again just now by the rules the sitter runs, then that day’s two restarts. In the morning’s frame there’s no password field, so it refuses and tells you. In the evening our watchdog, on the same rules, needs teaching once; that night housesitter 0.2 unlocks a restart hands-off, in 70 seconds.</p>
         <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
           <pre id="housesitter-demo-2" class="command">{demo}</pre>
-          <button type="button" data-copy-target="housesitter-demo-2" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <Button variant="outline" data-copy-target="housesitter-demo-2" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button>
         </div>
 
       </div>
@@ -261,7 +262,7 @@ const verified = [
 housesitter secret studio mac-password
 housesitter adopt studio --address 192.168.1.50 --this-mac --notify ntfy
 housesitter watch-kvm studio --install</code></pre>
-      <div class="mt-3"><button type="button" data-copy-target="housesitter-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
+      <div class="mt-3"><Button variant="outline" data-copy-target="housesitter-install" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button></div>
       <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">adopt</code> sets the KVM’s admin password, turns its API on, checks the picture and the keyboard, installs the sitter, seals the Mac’s password on the KVM, and makes a private ntfy topic for your phone, where the sitter says hello before it finishes (add <code class="model-code">--email</code> and an ntfy.sh account token to get each message as an email too); <code class="model-code">watch-kvm --install</code> has the Mac check on the KVM every minute, so you hear if the KVM itself goes quiet. Then, once, while you watch: arm one try with <code class="model-code">housesitter unlock --trial</code> and restart. At the FileVault screen it waits, because it hasn’t seen that screen before; teach it with <code class="model-code">housesitter learn-prompt --filevault</code> and it types its one try within seconds. If that try reaches the desktop, it may type by itself from then on.</p>
       <p class="mt-4 text-lg text-mist leading-relaxed">On the Mac, once: <code class="model-code">sudo pmset -a autorestart 1 displaysleep 0 sleep 0</code>, and start your agents at login, so they come back when the Mac does. Built against the GL.iNet Comet PoE, about $100; a Shelly plug for a frozen Mac is about $25 more. At home the KVM’s SSH and HTTPS are unfiltered, so keep it behind your router; elsewhere, <code class="model-code">--location away</code> lets in only your tailnet.</p>
       <p class="mt-6 product-links"><a href={`${repo}#three-cables-then-one-restart`} class={link}>The full setup &#8599;</a> <a href={`${repo}/blob/main/docs/hardware.md`} class={link}>What to buy &#8599;</a> <a href={repo} class={link}>housesitter on GitHub &#8599;</a></p>

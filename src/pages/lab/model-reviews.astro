@@ -5,6 +5,7 @@ import modelReviews from '../../data/model-reviews.json'
 import { ogPathFor } from '../../data/og'
 import { holdLastWords, parseInlineMd } from '../../lib/md.mjs'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
+import { Button } from '../../components/ouro/button/button'
 
 const reviews = modelReviews.reviews
 const { claimSentence, shortClaim, totalReviews } = getModelReviewClaims(modelReviews)
@@ -217,7 +218,7 @@ npm run reviews -- --inference direct-api
 npm run reviews -- --inference copilot-first</code></pre>
       </div>
       {/* Every command block carries the shared Copy button (taste review r16). */}
-      <div class="mb-6"><button type="button" data-copy-target="reviews-run" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
+      <div class="mb-6"><Button variant="outline" data-copy-target="reviews-run" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button></div>
 
       <p class="text-shadow text-sm leading-relaxed">
         Use Node 22. Direct API mode is the default and needs no Copilot account or subscription. For the selected panel, set <code class="font-mono text-scale text-xs">ANTHROPIC_API_KEY</code>, <code class="font-mono text-scale text-xs">OPENAI_API_KEY</code>, <code class="font-mono text-scale text-xs">GEMINI_API_KEY</code> (or <code class="font-mono text-scale text-xs">GOOGLE_API_KEY</code>), and <code class="font-mono text-scale text-xs">MINIMAX_API_KEY</code>. Both modes require <code class="font-mono text-scale text-xs">PERPLEXITY_API_KEY</code> for search and share the bundled SDK research runtime.
