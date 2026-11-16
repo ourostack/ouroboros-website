@@ -70,6 +70,8 @@ export const scenes = {
   'chart-room-dark': 'The same chart room at night by the oil lamp, stars and a crescent moon over the clouds in the round window: the glass person and Loop lean over the map together, and Ouro, glowing green, sits curled beside Loop.',
   'airship-line': 'The airship’s workshop at dawn. Three small glass agents build little airships along one long oak bench, an amber one in a red knit cap fitting a propeller, a sea-blue one in a leather apron tying ropes and Loop in goggles steadying a finished ship, while a faceless glass person in a moss-green scarf and canvas apron stands in front and times the line with a brass pocket watch. Ouro, an emerald-glass snake, watches from the far end of the bench.',
   'airship-line-dark': 'The same workshop at night by oil-lantern light, stars and a crescent moon over the clouds in the doorway: the three agents work along the bench while the glass person times them with a pocket watch, and Ouro, glowing green, watches from the bench’s far end.',
+  'slugger-balloon': 'Slugger, a small glass raccoon in a moss-green scarf, lifts off from a dawn meadow in a little patchwork hot-air balloon, his long to-do list streaming over the basket’s rim in the breeze, with Ouro, an emerald-glass snake, riding on the rim beside him.',
+  'slugger-balloon-dark': 'The same little patchwork balloon rising from a moonlit meadow under the stars, its burner flame lighting the envelope from inside, Slugger in his scarf holding his to-do list over the rim and Ouro glowing green beside him.',
   'glue-unstuck-dark': 'The same meadow at night under a starry sky: the post office, the meeting hall and the workshop glow through their open doors, Ouro curls among them, and the glowing glass person rests against their rock with a steaming mug.',
 }
 
@@ -171,7 +173,7 @@ export function sceneFor(pathname) {
 export const ogSceneFor = (route) => sceneFor(route).og
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'airship-line': 'airship-line-dark', 'chart-room': 'chart-room-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'slugger-balloon': 'slugger-balloon-dark', 'airship-line': 'airship-line-dark', 'chart-room': 'chart-room-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -202,8 +204,8 @@ export const wideSrcset = (scene, ext) => (ext === 'avif'
 
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
-  // The homepage's inline scenes: the chart room (how I work) and the line (the factory).
-  const used = new Set([meadowScene, 'chart-room', 'airship-line', 'ouroboros'])
+  // The homepage's inline scenes: the chart room (how I work), the line (the factory) and Slugger's balloon (where it started).
+  const used = new Set([meadowScene, 'chart-room', 'airship-line', 'slugger-balloon', 'ouroboros'])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
@@ -378,6 +380,9 @@ export const castFoot = {
 // and scripts/hero-joins.mjs.
 export const PHONE_EDGE = 16
 export const phoneCastX = {
+  // The balloon's envelope and Slugger's list, the widest of the cast (4:3 crop).
+  'slugger-balloon': [0.29, 0.71],
+  'slugger-balloon-dark': [0.31, 0.71],
   // Ouro on the bench's far left end, Loop's airship tail at the right (12:5 crop).
   'airship-line': [0.145, 0.81],
   'airship-line-dark': [0.145, 0.81],

@@ -283,5 +283,15 @@
     "from": "headers/shepherd-dark.webp",
     "sha256": "f4511883147d0cd1b759f904cbf74b6b312f8c79f34a9ffdef932a10406c6696",
     "colour": "#183888"
+  },
+  "slugger-balloon": {
+    "from": "headers/slugger-balloon.webp",
+    "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55",
+    "colour": "#88b8e8"
+  },
+  "slugger-balloon-dark": {
+    "from": "headers/slugger-balloon-dark.webp",
+    "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea",
+    "colour": "#081838"
   }
 }
