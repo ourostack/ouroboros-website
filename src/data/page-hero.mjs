@@ -14,6 +14,7 @@ export const pageHeroRoutes = [
   /^\/butler\/?$/,
   /^\/ouro-md(\/download)?\/?$/,
   /^\/housesitter\/?$/,
+  /^\/shepherd\/?$/,
   /^\/404(\.html)?\/?$/,
 ]
 

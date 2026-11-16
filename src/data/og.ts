@@ -89,6 +89,12 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'A small KVM beside the Mac unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you.',
     tag: 'housesitter',
   },
+  '/shepherd': {
+    title: 'Ouro Shepherd: your Copilot app’s sessions, kept as work.',
+    subtitle: 'It knows which sessions are busy and why, how big each history has grown, and can message or archive them.',
+    tag: 'Ouro Shepherd',
+    mark: 'shepherd',
+  },
   '/ouro-md': {
     title: 'Ouro MD: Markdown that renders as you type.',
     subtitle: 'A native Markdown editor for macOS 15 or later. Live updates, quiet marks where your agent changed things.',

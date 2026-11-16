@@ -24,7 +24,7 @@ export const readiness = [
   { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'Sign-in by invitation' },
   { id: 'ouro-md', name: 'Ouro MD', label: 'Use today', detail: 'macOS 15 or later' },
   { id: 'ouro-hx', name: 'Ouro HX', label: 'Use today', detail: 'React component library' },
-  { id: 'shepherd', name: 'Ouro Shepherd', label: 'Use today', detail: 'Ships in Ouroboros, for cmux and Herdr; reply from any chat' },
+  { id: 'shepherd', name: 'Ouro Shepherd', label: 'Experimental', detail: 'Reads and messages the Copilot app’s sessions; terminals through Ouroboros' },
   { id: 'friends', name: 'Friends', label: 'Experimental', detail: 'On npm, and used by Ouroboros every day' },
   { id: 'butler', name: 'Ouro Butler', label: 'Alpha', detail: 'Installs on Unraid 7.2 or newer with one script' },
   { id: 'housesitter', name: 'housesitter', label: 'Experimental', detail: 'Unlocked FileVault on a real Mac mini, hands-off' },
