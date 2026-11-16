@@ -290,7 +290,13 @@ const wastes = [
   <!-- 7. Where to start -->
   <section id="try" class={`${section} bg-deep/40 scroll-mt-16`} aria-labelledby="try-heading">
     <div class="max-w-6xl mx-auto">
-      <h2 id="try-heading" class="heading-section">Start with what you need.</h2>
+      <div class="split split-media try-split">
+        <div class="section-head split-head">
+          <h2 id="try-heading" class="heading-section">Start with what you need.</h2>
+          <p class="dek">Pick whatever fits where you are. If you're building something with agents and want a hand, or a second pair of eyes, <a href="https://www.linkedin.com/in/arimendelow" class={link}>come say hello</a>. I'd love to build with you.</p>
+        </div>
+        <StoryScene scene="airship-moored" class="split-body" sizes="(min-width: 2000px) 47rem, (min-width: 1024px) 40rem, 100vw" />
+      </div>
 
       <div class="start-groups">
       <div>
@@ -355,6 +361,8 @@ const wastes = [
   .grown-body { display: grid; gap: 0.5rem; align-content: start; }
   .grown-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.875rem; color: var(--color-mist); }
   .ouroboros-intro, .factory-split { margin-top: 1.5rem; }
+  .try-split + .start-groups { margin-top: 1rem; }
+  @media (min-width: 1024px) { .try-split { align-items: center; } }
   @media (min-width: 1024px) { .method-split { align-items: center; } }
   .factory-split .factory-body { margin-top: 0; }
   @media (min-width: 1024px) { .ouroboros-intro, .factory-split { align-items: center; } }

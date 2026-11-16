@@ -72,6 +72,8 @@ export const scenes = {
   'airship-line-dark': 'The same workshop at night by oil-lantern light, stars and a crescent moon over the clouds in the doorway: the three agents work along the bench while the glass person times them with a pocket watch, and Ouro, glowing green, watches from the bench’s far end.',
   'slugger-balloon': 'Slugger, a small glass raccoon in a moss-green scarf, lifts off from a dawn meadow in a little patchwork hot-air balloon, his long to-do list streaming over the basket’s rim in the breeze, with Ouro, an emerald-glass snake, riding on the rim beside him.',
   'slugger-balloon-dark': 'The same little patchwork balloon rising from a moonlit meadow under the stars, its burner flame lighting the envelope from inside, Slugger in his scarf holding his to-do list over the rim and Ouro glowing green beside him.',
+  'airship-moored': 'The glass-and-brass airship rests moored at its mast on a hilltop meadow in the golden evening, its gangplank down. Loop, a small jade-glass agent in goggles and a green scarf, waves from the gondola’s open door, and Ouro, an emerald-glass snake, keeps watch from the lantern post at the foot of the gangplank.',
+  'airship-moored-dark': 'The same moored airship at night under the stars and a crescent moon, the gondola’s windows and the post’s lantern glowing warm: Loop waves from the open door at the top of the gangplank, and Ouro, glowing green, keeps watch from the lantern post.',
   'glue-unstuck-dark': 'The same meadow at night under a starry sky: the post office, the meeting hall and the workshop glow through their open doors, Ouro curls among them, and the glowing glass person rests against their rock with a steaming mug.',
 }
 
@@ -87,7 +89,9 @@ const pages = {
   // they're going while the agents crew the ship, and Ouro only once, as the
   // person's pet on the rail (Ari, 2026-11-15: "we need diversity of photos!!";
   // the workshop read too close to ui.ouroboros.bot's hero).
-  '/': { hero: 'airship' },
+  // The page closes on its own picture, the airship moored with the gangplank
+  // down (docs/home-catch-up.md), so the site-wide meadow stays off here.
+  '/': { hero: 'airship', meadow: false },
   // Product pages (and /apps/) open on the content pages' shorter scene, so
   // the primary action (Download or Install) sits in the first view at
   // 1024x768 and up (Ari's ruling on taste review r20). The cast stays whole:
@@ -173,7 +177,7 @@ export function sceneFor(pathname) {
 export const ogSceneFor = (route) => sceneFor(route).og
 
 // A scene with a night version: StoryScene shows it in the dark theme.
-export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'slugger-balloon': 'slugger-balloon-dark', 'airship-line': 'airship-line-dark', 'chart-room': 'chart-room-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
+export const darkScenes = { 'agent-workbench': 'agent-workbench-dark', 'airship-moored': 'airship-moored-dark', 'slugger-balloon': 'slugger-balloon-dark', 'airship-line': 'airship-line-dark', 'chart-room': 'chart-room-dark', airship: 'airship-dark', 'ax-trail-map': 'ax-trail-map-dark', 'glue-unstuck': 'glue-unstuck-dark', 'apple-distribution-kit': 'apple-distribution-kit-dark', butler: 'butler-dark', desk: 'desk-dark', factory: 'factory-dark', 'flow-review': 'flow-review-dark', friends: 'friends-dark', 'friends-relay': 'friends-relay-dark', gatefold: 'gatefold-dark', housesitter: 'housesitter-dark', m365crawl: 'm365crawl-dark', 'ouro-apps-site': 'ouro-apps-site-dark', 'ouro-md': 'ouro-md-dark', 'ouro-native-apple-app-shell': 'ouro-native-apple-app-shell-dark', 'ouro-ui-apple': 'ouro-ui-apple-dark', 'ouro-ui-core': 'ouro-ui-core-dark', 'ouro-work': 'ouro-work-dark', 'ouro-workbench': 'ouro-workbench-dark', ouroboros: 'ouroboros-dark', 'ouroboros-skills': 'ouroboros-skills-dark', 'ouroboros-website': 'ouroboros-website-dark', ourostack: 'ourostack-dark', 'playwright-focus-proof': 'playwright-focus-proof-dark', shepherd: 'shepherd-dark', workshop: 'workshop-dark' }
 
 // A hero that, from 1600px, sits in the content column below the page's words
 // instead of full bleed (global.css, [data-hero-column]; Ari chose option A,
@@ -204,8 +208,8 @@ export const wideSrcset = (scene, ext) => (ext === 'avif'
 
 /** Every scene the site serves, for scripts/sync-storybook.mjs. */
 export function usedScenes() {
-  // The homepage's inline scenes: the chart room (how I work), the line (the factory) and Slugger's balloon (where it started).
-  const used = new Set([meadowScene, 'chart-room', 'airship-line', 'slugger-balloon', 'ouroboros'])
+  // The homepage's inline scenes: the chart room (how I work), the line (the factory), Slugger's balloon (where it started) and the moored airship (start with what you need).
+  const used = new Set([meadowScene, 'chart-room', 'airship-line', 'slugger-balloon', 'airship-moored', 'ouroboros'])
   for (const page of Object.values(pages)) {
     if (page.hero) used.add(page.hero)
     if (page.og) used.add(page.og)
@@ -218,7 +222,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1, 7:5 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 352], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'ouro-ui-core': [768, 549], 'ouro-ui-core-dark': [768, 549], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 352], 'ouroboros-skills': [768, 320], 'ouroboros-skills-dark': [768, 320], 'playwright-focus-proof': [768, 320], 'playwright-focus-proof-dark': [768, 300], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'ouro-ui-apple': [768, 432], 'ouro-ui-apple-dark': [768, 432], 'ouro-ui-core': [768, 549], 'ouro-ui-core-dark': [768, 549], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -380,6 +384,9 @@ export const castFoot = {
 // and scripts/hero-joins.mjs.
 export const PHONE_EDGE = 16
 export const phoneCastX = {
+  // The mast's guy ropes are props; Ouro on his post at the left, Loop at the door (12:5 crop).
+  'airship-moored': [0.46, 0.64],
+  'airship-moored-dark': [0.46, 0.64],
   // The balloon's envelope and Slugger's list, the widest of the cast (4:3 crop).
   'slugger-balloon': [0.29, 0.71],
   'slugger-balloon-dark': [0.31, 0.71],

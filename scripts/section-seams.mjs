@@ -99,7 +99,9 @@ function changes() {
   }
   for (const sel of ['.story-meadow', 'footer']) {
     const el = document.querySelector(sel);
-    if (el && !out.has(y(el.getBoundingClientRect().top))) out.set(y(el.getBoundingClientRect().top), false);
+    // The footer's own hairline marks its top, also where the last section of
+    // a page with no meadow ends right on it.
+    if (el) out.set(y(el.getBoundingClientRect().top), out.get(y(el.getBoundingClientRect().top)) || trailed(el));
   }
   const scenes = [...document.querySelectorAll('.story-scene img, .story-scene, [data-ouro="hero"] [data-slot="media"]')].map((el) => {
     const r = el.getBoundingClientRect();
