@@ -33,6 +33,13 @@ const featured = [
 // Each post's title comes from src/data/blog.mjs, the same title its page and
 // /llms.txt carry, so the index never names a post differently. The line under
 // it is the post's index dek where the copy deck gave it one.
+// A title's closing abbreviation stays on the line with the term it names, so
+// a phone never shows "(AX)?" alone (check:headings).
+const phrased = (title: string) => {
+  const m = title.match(/^(.*?\s)(\S+\s\S+\s\([^)]*\)\S*)$/)
+  return m ? { head: m[1], tail: m[2] } : { head: title, tail: '' }
+}
+
 const essays = posts.filter((p) => p.kind !== 'Tutorial').map((p) => ({ ...p, href: p.route, description: p.dek ?? p.description }))
 
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
@@ -109,7 +116,7 @@ const tutorial = { ...tutorialPost, href: tutorialPost.route, description: tutor
           <li class="post-with-scene">
             <a href={essay.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(essay.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, 5.5rem" /></a>
             <div>
-              <h3 class="post-title"><a href={essay.href} class={postLink}>{essay.title}</a></h3>
+              <h3 class="post-title"><a href={essay.href} class={postLink}>{phrased(essay.title).head}{phrased(essay.title).tail && <span class="t-ph">{phrased(essay.title).tail}</span>}</a></h3>
               <p class="post-dek">{essay.description}</p>
               <span class="post-byline">{essay.author}</span>
             </div>
