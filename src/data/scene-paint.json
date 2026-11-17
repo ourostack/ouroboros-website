@@ -216,13 +216,13 @@
   },
   "ouro-native-apple-app-shell": {
     "from": "headers/ouro-native-apple-app-shell.webp",
-    "sha256": "5815ad0bcda6c5aa57ba788132e54801d9ea452956d10770b1584106d3fb679a",
+    "sha256": "ed4bcf4faf5ef68ed7ab654b85c0224618c07de40190d6a58180be3b2d8f711b",
     "colour": "#f8b898"
   },
   "ouro-native-apple-app-shell-dark": {
     "from": "headers/ouro-native-apple-app-shell-dark.webp",
-    "sha256": "a3e4ba2704155b0f00a9629e4c1dd08b20921d836f49515145d511ec36fdd83a",
-    "colour": "#183898"
+    "sha256": "fe14a2f133be001a53fb56b32ecb7a8e5bbd82c2f505435f1f88acd551465562",
+    "colour": "#082858"
   },
   "ouro-ui-apple": {
     "from": "headers/ouro-ui-apple.webp",
