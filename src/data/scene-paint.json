@@ -131,13 +131,13 @@
   },
   "friends-relay": {
     "from": "headers/friends-relay.webp",
-    "sha256": "3126c41e43a908e76b8fe024a5e3c7253262e94f952ab9525101d67f50c26169",
+    "sha256": "316fa20893f0d1ef6557a72feb5c2b78b293297f623d9dba2290695d4b50a46b",
     "colour": "#f8e8d8"
   },
   "friends-relay-dark": {
     "from": "headers/friends-relay-dark.webp",
-    "sha256": "e01883f68b3b7ed03a0c5a39a3c4435e55f8fc80295d39f7114c4afc3cc1cce8",
-    "colour": "#082868"
+    "sha256": "64f35abeb36852477e2878121bd17d75c0b37cf8b52901c6e0ced669855ce3a2",
+    "colour": "#080808"
   },
   "garden-line": {
     "from": "headers/garden-line.webp",
