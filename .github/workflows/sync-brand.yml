@@ -52,6 +52,14 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      # New art needs its scene paint redone (tests/storybook.test.mjs fails a stale one),
+      # and scripts/scene-paint.mjs reads the art with sharp.
+      - name: Repaint the scenes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npm ci
+          node scripts/scene-paint.mjs
+
       - name: Open the pull request
         id: pr
         if: steps.changes.outputs.changed == 'true'
@@ -61,7 +69,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git add public/brand/storybook
+          git add public/brand/storybook src/data/scene-paint.json
           git commit -m "Sync the storybook art with ourostack/.github@$brand"
           git push --force origin "$branch"
           if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
