@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro'
 import { ogPathFor } from '../../data/og'
 import StoryScene from '../../components/StoryScene.astro'
 import { sceneFor } from '../../data/scenes.mjs'
+import { posts, post } from '../../data/blog.mjs'
 
 // Each post opens on its own scene; the index shows a small vignette of it
 // beside the title (taste review r5), so the list reads as a walk through the world.
@@ -29,60 +30,23 @@ const featured = [
   },
 ]
 
-const essays = [
-  {
-    title: 'Tell the agent, not the human',
-    description: "When a request breaks, an Ouroboros agent now hears why and gets another try in the same turn. You stop getting notes about your agent's plumbing.",
-    href: '/blog/tell-the-agent/',
-    author: 'Ari Mendelow',
-  },
-  {
-    title: 'Trust the Fucking Agent',
-    description: "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
-    href: '/blog/trust-the-agent/',
-    author: 'Ari Mendelow',
-  },
-  {
-    title: "Take the agent's seat",
-    description: 'Half of every prompt we send lives in our head. Read what you wrote the way the agent will, before you hit send.',
-    href: '/blog/take-the-agents-seat/',
-    author: 'Ari Mendelow',
-  },
-  {
-    title: 'The work spoke back',
-    description: 'The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.',
-    href: '/blog/designing-with-your-agent/',
-    author: 'Ari Mendelow & Slugger',
-  },
-  {
-    title: 'Give your agent a home',
-    description: 'Most agents live as scattered files across your filesystem. A bundle changes that. One folder, one identity, one place to back up and carry.',
-    href: '/blog/give-your-agent-a-home/',
-    author: 'Ari Mendelow & Slugger',
-  },
-  {
-    title: 'What is Agent Experience?',
-    description: 'Why long-lived agents become users too: Agent Experience beside HX under UX, reorientation overhead, and shared momentum.',
-    href: '/blog/what-is-agent-experience/',
-    author: 'Ari Mendelow',
-  },
-  {
-    title: 'Stop being the glue',
-    description: 'We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. How I stopped copy-pasting between my agents and started collaborating.',
-    href: '/blog/stop-being-the-glue/',
-    author: 'Ari Mendelow',
-  },
-]
+// Each post's title comes from src/data/blog.mjs, the same title its page and
+// /llms.txt carry, so the index never names a post differently. The line under
+// it is the post's index dek where the copy deck gave it one.
+// A title's closing abbreviation stays on the line with the term it names, so
+// a phone never shows "(AX)?" alone (check:headings).
+const phrased = (title: string) => {
+  const m = title.match(/^(.*?\s)(\S+\s\S+\s\([^)]*\)\S*)$/)
+  return m ? { head: m[1], tail: m[2] } : { head: title, tail: '' }
+}
+
+const essays = posts.filter((p) => p.kind !== 'Tutorial').map((p) => ({ ...p, href: p.route, description: p.dek ?? p.description }))
 
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const postLink = 'hit text-bone underline underline-offset-[6px] decoration-scale/40 decoration-1 hover:text-scale hover:decoration-current hover:decoration-2 transition-colors'
 
-const tutorial = {
-  title: 'Just give the model a keyboard',
-  description: 'A one-hour, hands-on walk: you prompt GitHub Copilot CLI to build your own agent loop in TypeScript, a model that can think, remember, read, write, and run commands. Then you hand off to it, and it names itself, writes its own system message, and grows its own skills. No API keys: your GitHub Copilot sign-in is enough.',
-  href: '/blog/build-ai-agent-from-scratch/',
-  author: 'Ari Mendelow',
-}
+const tutorialPost = post('/blog/build-ai-agent-from-scratch/')
+const tutorial = { ...tutorialPost, href: tutorialPost.route, description: tutorialPost.dek ?? tutorialPost.description }
 ---
 
 <Layout
@@ -132,7 +96,7 @@ const tutorial = {
       <h2 class="heading-sub mb-4">Tutorial</h2>
       <ul class="post-list">
         <li class="post-with-scene">
-          <a href={tutorial.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(tutorial.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, 5.5rem" /></a>
+          <a href={tutorial.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(tutorial.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, (min-width: 360px) 5.5rem, 4rem" /></a>
           <div>
             <h3 class="post-title"><a href={tutorial.href} class={postLink}>{tutorial.title}</a></h3>
             <p class="post-dek">{tutorial.description}</p>
@@ -150,9 +114,9 @@ const tutorial = {
       <ul class="post-list">
         {essays.map(essay => (
           <li class="post-with-scene">
-            <a href={essay.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(essay.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, 5.5rem" /></a>
+            <a href={essay.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(essay.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, (min-width: 360px) 5.5rem, 4rem" /></a>
             <div>
-              <h3 class="post-title"><a href={essay.href} class={postLink}>{essay.title}</a></h3>
+              <h3 class="post-title"><a href={essay.href} class={postLink}>{phrased(essay.title).head}{phrased(essay.title).tail && <span class="t-ph">{phrased(essay.title).tail}</span>}</a></h3>
               <p class="post-dek">{essay.description}</p>
               <span class="post-byline">{essay.author}</span>
             </div>

@@ -164,18 +164,21 @@ src/
     og.ts                ← OG metadata manifest (single source of truth)
     scenes.mjs           ← which storybook scene each page opens on and shares with
     site.mjs             ← nav links, footer extras, family links and which one is current
-    llms.txt             ← /llms.txt's text; src/pages/llms.txt.ts fills in its family section from family.json
+    llms.txt             ← /llms.txt's only hand-written words (summary and guidance); src/lib/llms.mjs adds every list line
+    agent-map.mjs        ← which pages /llms.txt lists, in what order, and so which pages get a Markdown twin; its tools
+    blog.mjs             ← each post's title, description and index dek, read by the post, the blog index and /llms.txt
     family.json          ← the family list, a byte copy of ourostack/.github brand/family.json (tests/family.test.mjs)
     principles.mjs       ← the five principles, the smells, shared setup and install lines
     readiness.mjs        ← the only source of readiness labels
-    lab.mjs              ← the only source of Lab status labels
+    lab.mjs              ← the only source of Lab status labels, and the harness docs' order
     model-reviews.json   ← script output (DO NOT hand-edit)
     model-reviews-transcripts/*.json ← per-provider transcripts (DO NOT hand-edit)
   layouts/
     Layout.astro         ← root <html><head><body>, family bar, nav, footer, Lab status bar, copy-button script
   lib/
     model-review-claims.mjs ← getModelReviewClaims()
-    page-markdown.mjs    ← writes /index.md, the home page's Markdown twin, from its built HTML; the nav's Agent view switch (components/AgentView.astro) shows it
+    page-markdown.mjs    ← after the build, writes each listed page's Markdown twin (<route>index.md) from its built HTML; the nav's Agent view switch (components/AgentView.astro) shows the home page's
+    llms.mjs             ← then writes /llms.txt (llmstxt.org v2) and /llms-full.txt from the built pages' own titles and descriptions, and adds each twin's Link and Content-Type rules to dist/_headers (tests/llms.test.mjs)
     ouro/                ← helpers the Ouro HX components import (installed with them)
   pages/
     index.astro          ← /
@@ -203,7 +206,7 @@ scripts/
   model-reviews.cjs      ← private review runs and separate guarded promotion into src/data/
 tests/                   ← node:test suites that read dist/
 public/
-  brief.md               ← plain-text surface for agents (llms.txt is built: src/pages/llms.txt.ts from src/data/llms.txt)
+  brief.md               ← plain-text surface for agents, and the brief page's Markdown twin (llms.txt is built after the build: src/lib/llms.mjs)
   brand/                 ← logos and app icons (copied, never redrawn)
   fonts/                 ← woff2 fonts loaded by global.css
   images/

@@ -820,7 +820,7 @@
    "llms.txt"
   ],
   "was": "# tool lists, runtime behavior, or current internals, inspect the latest local install or repo instead of relying on static prose.",
-  "now": "# tool lists, runtime behavior, or current internals, inspect the latest local install or repo instead of relying on static prose.",
-  "ruling": "keep"
+  "now": "If you need exact commands, tool lists, runtime behavior, or current internals, inspect the latest local install or repo instead of relying on static prose.",
+  "ruling": "keep, as prose: llms.txt follows llmstxt.org v2, where a '#' line is a heading (Ari, 2026-11-16)"
  }
 ]

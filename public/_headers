@@ -2,11 +2,3 @@
 # because Cloudflare applies this file only to what the asset layer serves directly.
 /*
   Strict-Transport-Security: max-age=31536000
-
-# Markdown carries curly quotes and arrows, so it says it is UTF-8 and a browser shows it as written.
-/*.md
-  Content-Type: text/markdown; charset=utf-8
-
-# The home page names its Markdown twin (src/lib/page-markdown.mjs) for an agent that reads headers first.
-/
-  Link: </index.md>; rel="alternate"; type="text/markdown"

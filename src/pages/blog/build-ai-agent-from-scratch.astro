@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor } from '../../data/og'
 import PromptCard from '../../components/PromptCard.astro'
 import PostByline from '../../components/PostByline.astro'
@@ -11,8 +12,8 @@ import { Kbd } from '../../components/ouro/kbd/kbd'
 
 // One title everywhere (taste review r2, 2026-11-06): the post's own headline.
 // "Grow an agent" is the workshop's name; it lives in the eyebrow.
-const title = "Just give the model a keyboard | Ouro"
-const description = "Build an AI agent from scratch, one small step at a time. Learn what an agent loop is and how agents really work, then hand your agent the keyboard and watch it grow itself."
+const { title: headline, description } = post('/blog/build-ai-agent-from-scratch/')
+const title = `${headline} | Ouro`
 const canonicalUrl = "https://ouroboros.bot/blog/build-ai-agent-from-scratch/"
 const datePublished = "2026-03-01"
 const dateModified = "2026-11-12"

@@ -2,10 +2,10 @@
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor } from '../../data/og'
 
-const title = 'Give your agent a home'
-const description = 'Most AI agents live as scattered files across your filesystem: impermanent, fragile, and forgettable. A bundle changes that. One folder. One identity. One place to back up, move, and grow.'
+const { title, description } = post('/blog/give-your-agent-a-home/')
 const datePublished = "2026-03-25"
 ---
 

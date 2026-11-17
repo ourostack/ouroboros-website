@@ -62,5 +62,5 @@ test('the home page offers its twin to agents and a switch to people', () => {
   assert.match(nav, /role="status"[^>]*data-agent-view-status/);
   assert.match(html, /<section id="agent-view"[^>]*data-src="\/index\.md"[^>]*hidden/);
   assert.ok(readDist('llms.txt').includes('(https://ouroboros.bot/index.md)'));
-  assert.match(readDist('_headers'), /\/\*\.md\n\s+Content-Type: text\/markdown; charset=utf-8/);
+  assert.match(readDist('_headers'), /\n\/index\.md\n\s+Content-Type: text\/markdown; charset=utf-8/);
 });
