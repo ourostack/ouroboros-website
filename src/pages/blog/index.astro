@@ -96,7 +96,7 @@ const tutorial = { ...tutorialPost, href: tutorialPost.route, description: tutor
       <h2 class="heading-sub mb-4">Tutorial</h2>
       <ul class="post-list">
         <li class="post-with-scene">
-          <a href={tutorial.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(tutorial.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, 5.5rem" /></a>
+          <a href={tutorial.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(tutorial.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, (min-width: 360px) 5.5rem, 4rem" /></a>
           <div>
             <h3 class="post-title"><a href={tutorial.href} class={postLink}>{tutorial.title}</a></h3>
             <p class="post-dek">{tutorial.description}</p>
@@ -114,7 +114,7 @@ const tutorial = { ...tutorialPost, href: tutorialPost.route, description: tutor
       <ul class="post-list">
         {essays.map(essay => (
           <li class="post-with-scene">
-            <a href={essay.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(essay.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, 5.5rem" /></a>
+            <a href={essay.href} class="post-scene" tabindex="-1" aria-hidden="true"><StoryScene scene={sceneOf(essay.href)} variant="vignette" alt="" sizes="(min-width: 768px) 8rem, (min-width: 360px) 5.5rem, 4rem" /></a>
             <div>
               <h3 class="post-title"><a href={essay.href} class={postLink}>{phrased(essay.title).head}{phrased(essay.title).tail && <span class="t-ph">{phrased(essay.title).tail}</span>}</a></h3>
               <p class="post-dek">{essay.description}</p>
