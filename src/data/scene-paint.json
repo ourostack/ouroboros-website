@@ -236,13 +236,13 @@
   },
   "ouro-ui-core": {
     "from": "headers/ouro-ui-core.webp",
-    "sha256": "62ed09625d0a9dffd7dbad842b78b9ede2ea1d1af3f6c656bd0053851c650941",
+    "sha256": "b6d9b0d05a4452e27f66e6044a9efe574d93510a879c54e7b14a4f7ea7cceebb",
     "colour": "#d8c8c8"
   },
   "ouro-ui-core-dark": {
     "from": "headers/ouro-ui-core-dark.webp",
-    "sha256": "83989350c795f890d99a7f6b555cb6a3fc8a3c3d662a384c45066587ceea2d42",
-    "colour": "#282838"
+    "sha256": "750b504295706c6598d0ff4594edef47ffa1ff73474b581590480b2d94cfafa9",
+    "colour": "#281818"
   },
   "ouro-work": {
     "from": "headers/ouro-work.webp",
