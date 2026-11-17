@@ -31,13 +31,13 @@
   },
   "airship-moored": {
     "from": "headers/airship-moored.webp",
-    "sha256": "3e04e964f32323ee9065fd25345dbc418bee0fca83766515ff7aa24bbdcb76ae",
+    "sha256": "90b43d6f594cb2d36eb22d105c00f7b9f03d83e33bf41f19898fb5ef94211983",
     "colour": "#a8b8d8"
   },
   "airship-moored-dark": {
     "from": "headers/airship-moored-dark.webp",
-    "sha256": "38af1f620b96b0c68e585e457471abc424f7c4221da06fb51575d12f1aa4f94c",
-    "colour": "#082858"
+    "sha256": "968239fd0a3ecdb5b3d481e7fcf6bab86fface6aeaa98e585f5c338ed2747233",
+    "colour": "#183868"
   },
   "apple-distribution-kit": {
     "from": "headers/apple-distribution-kit.webp",
