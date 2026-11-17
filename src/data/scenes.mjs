@@ -66,8 +66,8 @@ export const scenes = {
   'ax-trail-map': 'A low wooden trail map stands in a dawn meadow, built at Ouro’s height, the trail it shows winding off through the meadow behind it. Ouro leans over the corner of the board and peers at the map with a pleased smile, finding his way.',
   'ax-trail-map-dark': 'The same trail map at night under a small crescent moon, the trail it shows glowing softly as it winds off through the dark meadow, while Ouro leans over the corner of the board in the moonlight and finds his way.',
   'glue-unstuck': 'Three little storybook places stand open in the meadow, a post office, a meeting hall and a workshop, with Ouro curled among them. On the right, a faceless glass person in a scarf leans back against a mossy rock with a mug of tea, done for the day.',
-  'chart-room': 'A lamplit chart room in the airship before the voyage. A faceless glass person in a moss-green scarf leans over a big map spread on an oak plan chest, while Loop, a small jade-glass agent in goggles with a leather satchel, stands on the chest across from them studying the same route, and Ouro, an emerald-glass snake, sits curled beside him. Dawn clouds glow through the round window behind them.',
-  'chart-room-dark': 'The same chart room at night by the oil lamp, a deep blue night sky in the round window: the glass person and Loop lean over the map together, and Ouro, glowing green, sits curled beside Loop.',
+  'chart-room': 'In a lamplit airship chart room at dawn, a faceless glass person in a moss-green scarf and Loop, a small jade-glass agent in goggles holding a leather satchel, study a big map on an oak plan chest, with Ouro curled beside them and dawn clouds through the round porthole.',
+  'chart-room-dark': 'In a lamplit airship chart room at night, a faceless glass person in a moss-green scarf and Loop, a small jade-glass agent in goggles holding a leather satchel, study a big map on an oak plan chest by the oil lamp, with Ouro curled beside them and the full moon in the round porthole.',
   'airship-line': 'The airship’s workshop at dawn. Three small glass agents build little airships along one long oak bench, an amber one in a red knit cap fitting a propeller, a sea-blue one in a leather apron tying ropes and Loop in goggles steadying a finished ship, while a faceless glass person in a moss-green scarf and canvas apron stands in front and times the line with a brass pocket watch. Ouro, an emerald-glass snake, watches from the far end of the bench.',
   'airship-line-dark': 'The same workshop at night by oil-lantern light, stars and a crescent moon over the clouds in the doorway: the three agents work along the bench while the glass person times them with a pocket watch, and Ouro, glowing green, watches from the bench’s far end.',
   'butler-steady': 'A calm, sunlit living room. Ouro Butler, a small green snake curled into an open ring, holds a silver tray up on the tip of his tail and nudges its slipping cloche back into place with his nose, while his person naps undisturbed on the cream sofa behind him under a sage-green throw.',
@@ -407,9 +407,9 @@ export const phoneCastX = {
   // Ouro on the bench's far left end, Loop's airship tail at the right (12:5 crop).
   'airship-line': [0.145, 0.81],
   'airship-line-dark': [0.145, 0.81],
-  // The person's near mitten at the left, Ouro's tail tip at the right (12:5 crop).
-  'chart-room': [0.09, 0.905],
-  'chart-room-dark': [0.09, 0.905],
+  // The re-set (2026-11-17): the person's left side to Ouro at the right, header x 536-1022 in the 12:5 crop (x 74-1456).
+  'chart-room': [0.33, 0.69],
+  'chart-room-dark': [0.33, 0.69],
   'ax-trail-map': [0.52, 0.935],
   'ax-trail-map-dark': [0.52, 0.935],
   // People and Ouro only: Ouro's coil at the left, the man's hair at the right; the places are props.
