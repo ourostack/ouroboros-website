@@ -11,13 +11,13 @@
   },
   "airship": {
     "from": "headers/airship.webp",
-    "sha256": "759a5e8c91db921d452cc81656c5a73428069898846ce810a13c65f99b82497a",
-    "colour": "#f8d8c8"
+    "sha256": "35087062f17e4a464cd89e7cd16a7bc5fcf62b590da2f1937edd4d77a78369fd",
+    "colour": "#f8e8e8"
   },
   "airship-dark": {
     "from": "headers/airship-dark.webp",
-    "sha256": "74ce54c74641f5dea2376f06fe9160acfe766ca3f9b75fc96b182be350a04c01",
-    "colour": "#082868"
+    "sha256": "8f89ff963ef4a8e58bc54fb228db86961fd94b61537b96d0dbb981e30772360e",
+    "colour": "#182858"
   },
   "airship-line": {
     "from": "headers/airship-line.webp",
