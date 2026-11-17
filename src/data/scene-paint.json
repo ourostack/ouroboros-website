@@ -226,12 +226,12 @@
   },
   "ouro-ui-apple": {
     "from": "headers/ouro-ui-apple.webp",
-    "sha256": "cd8b97f04c4c5d2dc2d1e589f753c9c04e127a164d1272fe41780a0bca83ce64",
+    "sha256": "3aacf419714196de8b27e8938f78057ede6d2fec99ef7ac677137772657b24f3",
     "colour": "#e8e8f8"
   },
   "ouro-ui-apple-dark": {
     "from": "headers/ouro-ui-apple-dark.webp",
-    "sha256": "0491250a92f0c84325f695da5d4b261d895490724f44fe2265b43d8330cbac04",
+    "sha256": "29cc5504d03606c48abdd12a325d47ef4a08506aafe8921487711dc67120ccc3",
     "colour": "#081848"
   },
   "ouro-ui-core": {
