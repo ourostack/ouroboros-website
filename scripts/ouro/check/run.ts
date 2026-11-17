@@ -1,6 +1,7 @@
 export { blank, BUDGETS, goTo, caption, check, dprAt, EXIT, group, HINTS, imagesReport, LABELS, main, merge, parseArgs, placeOf, RULES, runScript, SIZES, summary, transportIssues };
 export type { Budgets, CheckOptions, CheckResult, Finding, Gate, ImageEntry, MergeOptions, Report };
 
+import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { appendFile, copyFile, mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
@@ -18,6 +19,7 @@ import { findSizeIssues, type ImageMeasure, type Measure, type PageIssue } from 
 import { findTextIssues } from "./text-check.ts";
 import { findLayoutIssues } from "./layout-check.ts";
 import { findThemeIssues } from "./theme-check.ts";
+import { findOffThemeIssues } from "./token-check.ts";
 import { findInteractionIssues } from "./interaction-check.ts";
 import { quietPipes, runCli, defineCli, defineCommand, parse, toArgv, type Cli, type CommandDef, type FlagSpec, type Input, BASE_EXIT_CODES, defineExitCodes, FINDINGS_EXIT_CODE, DEFAULT_OUTCOME_EXITS, outcome, type Outcome, AxError, commandLine, didYouMean, isAxError } from "./run.kit.mts";
 import { findWrapIssues, readHeroArt, type HeroArt } from "./wrap-check.ts";
@@ -127,6 +129,9 @@ interface Budgets {
 
 interface Gate {
   waive?: Record<string, Record<string, string>>;
+  // Findings an update recorded when it brought in their rule, by rule: each as knownKey writes it. They are reported
+  // and don't fail; any other finding of that rule does, so the rule still stops new ones (Ouro Current seeds this).
+  known?: Record<string, string[]>;
   budgets?: Partial<Budgets>;
   // The controls inp may press, as CSS selectors, besides those marked data-ouro-check-press; and how often it presses
   // each.
@@ -158,6 +163,8 @@ interface CheckOptions {
   readyEvents?: string[];
   chromium: BrowserType;
   executablePath?: string;
+  /** Downloads Chromium when Playwright lacks it; without it, a missing browser stops the check. */
+  install?: () => Promise<void>;
   readyTimeout?: number;
   log?: (line: string) => void;
   /** How the https rule asks a site: fetch, unless a test gives another. */
@@ -170,6 +177,7 @@ interface MergeOptions {
   config?: Gate;
   chromium: BrowserType;
   executablePath?: string;
+  install?: () => Promise<void>;
 }
 
 interface Target extends PageRef {
@@ -224,6 +232,8 @@ const LABELS: Record<string, string> = {
   "stray-scrollbar": "stray scrollbar",
   "focus-ring": "no focus ring",
   "dark-miss": "missed dark mode",
+  "off-theme": "off the theme",
+  "off-scale": "spacing off the scale",
   "hero-dark-art": "hero without night art",
   "disabled-no-reason": "disabled, no reason",
   "lone-word": "lone last word",
@@ -263,6 +273,8 @@ const HINTS: Record<string, string> = {
   "first-paint-swap": "draw the final controls in the first frame, a list that fits with More already in it, rather than replacing one a frame later",
   "focus-ring": "give it a :focus-visible outline in a colour that stands out from what is behind it",
   "dark-miss": "fill it from a theme token that has a dark value, not a fixed light colour",
+  "off-theme": "take the value from the token the finding names (its var() or its Tailwind class), so a theme change reaches it",
+  "off-scale": "take the spacing from the step the finding names (its Tailwind class, or a layout component's gap)",
   "hero-dark-art": "pass picture={{ light, dark }}, the same scene by day and at night",
   "disabled-no-reason": "say why beside it and tie the words to it with aria-describedby, or give it a title",
   "lone-word": "wrap it with text-wrap: pretty (balance for a heading or centred text), or keep a short phrase together",
@@ -358,9 +370,12 @@ const measuresFor = (config: Gate, page: string): Measure[] =>
 // Whether a finding fails the check: every one does unless the config waives its rule ("*" for every rule) on a page
 // glob it matches. blurry-image is never waived: a picture too small for where it is drawn always fails.
 const UNWAIVABLE = ["blurry-image"];
-const isGated = (config: Gate, page: string, rule: string) =>
+// A finding as "known" records it: what it says up to the token to use, which a change to the theme's values can move.
+export const knownKey = (detail: string) => detail.split("; use ")[0]!;
+const isGated = (config: Gate, page: string, rule: string, detail = "") =>
   UNWAIVABLE.includes(rule) ||
-  !Object.entries(config.waive ?? {}).some(([glob, rules]) => Boolean(rules[rule] ?? rules["*"]) && globToRegExp(glob.startsWith("/") ? glob : `/${glob}`).test(page));
+  (!(config.known?.[rule] ?? []).includes(knownKey(detail)) &&
+    !Object.entries(config.waive ?? {}).some(([glob, rules]) => Boolean(rules[rule] ?? rules["*"]) && globToRegExp(glob.startsWith("/") ? glob : `/${glob}`).test(page)));
 
 // The https rule, for a site on the web: http:// answers with a permanent redirect (301 or 308) to https://, and
 // https:// answers with Strict-Transport-Security of a year or more. A bare name's www. twin (or the bare name, for a
@@ -535,7 +550,7 @@ async function settle(page: Page): Promise<void> {
 }
 
 async function check(options: CheckOptions): Promise<CheckResult> {
-  const { out, chromium, executablePath, sizes = SIZES, themes = ["light", "dark"], shard = [1, 1], before = [], config = {}, axe = false, measured = true, readyEvents = [], readyTimeout = 15000, log = console.log, fetch: ask = fetch } = options;
+  const { out, chromium, executablePath, install, sizes = SIZES, themes = ["light", "dark"], shard = [1, 1], before = [], config = {}, axe = false, measured = true, readyEvents = [], readyTimeout = 15000, log = console.log, fetch: ask = fetch } = options;
   const budgets: Budgets = { ...BUDGETS, ...config.budgets };
   const repeats = config.pressRepeat ?? PRESS_REPEAT;
   const { list: opened, close } = await targetsOf(options.targets, options.pages);
@@ -555,7 +570,7 @@ async function check(options: CheckOptions): Promise<CheckResult> {
     return { ...report, gated: [] };
   }
   // A browser that does not start leaves no server running behind it.
-  const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) }).catch(async (problem: unknown) => {
+  const browser = await launch(chromium, executablePath, install).catch(async (problem: unknown) => {
     await close();
     throw problem;
   });
@@ -617,7 +632,7 @@ async function check(options: CheckOptions): Promise<CheckResult> {
   const record = async (page: Page, target: Target, issue: PageIssue, width: number, height: number, theme: string) => {
     const { ref, rule, element, detail, value, budget, unit, samples, image } = issue;
     const measured = value === undefined ? {} : { value, budget: budget!, unit: unit!, ...(samples ? { samples } : {}) };
-    const f: Finding = { site: target.site, page: target.page, width, height, theme, rule, element, detail, ...measured, gated: isGated(config, target.page, rule), dpr: dprAt(width), ...(image ? { image: { ...image, ...placeOf(target, image.src) } } : {}) };
+    const f: Finding = { site: target.site, page: target.page, width, height, theme, rule, element, detail, ...measured, gated: isGated(config, target.page, rule, detail), dpr: dprAt(width), ...(image ? { image: { ...image, ...placeOf(target, image.src) } } : {}) };
     findings.push(f);
     const key = keyOf(f);
     if (pictured.has(key) || closeUps.get(target)! >= MAX_CLOSE_UPS) return;
@@ -828,6 +843,10 @@ async function check(options: CheckOptions): Promise<CheckResult> {
       shown.push(...(await page.evaluate(findTextIssues)));
       shown.push(...(await page.evaluate(findLayoutIssues, {})));
       shown.push(...(await page.evaluate(findThemeIssues, {})));
+      // off-theme and off-scale read the page's style rules, the same at every size and theme: at one, inp's. Every one
+      // is reported, not the first 40 (close-ups have their own limit), so the findings an update records as known are
+      // all of them, and fixing one never brings an unrecorded one into view.
+      if (inpAt === `${width}x${height} ${theme}`) shown.push(...(await page.evaluate(findOffThemeIssues, { maxIssues: 100000 })));
       shown.push(...(await page.evaluate(findInteractionIssues)));
       shown.push(...(await page.evaluate(findWrapIssues, {})));
       const behind = new Set(await page.evaluate(behindModal, [...new Set(shown.map((issue) => issue.ref))]));
@@ -882,7 +901,7 @@ async function check(options: CheckOptions): Promise<CheckResult> {
     if (k === 1) {
       for (const host of new Set(list.map((t) => new URL(t.url).host))) {
         for (const { element, detail } of await transportIssues(host, ask)) {
-          findings.push({ site: host, page: "/", width: sizes[0]![0], height: sizes[0]![1], theme: themes[0]!, rule: "https", element, detail, gated: isGated(config, "/", "https"), dpr: dprAt(sizes[0]![0]) });
+          findings.push({ site: host, page: "/", width: sizes[0]![0], height: sizes[0]![1], theme: themes[0]!, rule: "https", element, detail, gated: isGated(config, "/", "https", detail), dpr: dprAt(sizes[0]![0]) });
         }
       }
     }
@@ -1032,7 +1051,7 @@ async function write(out: string, report: Report) {
 
 // Merges the out folders of a sharded run into one: every finding, the first close-up of each (at most 40 a page), the
 // before and afters, and a contact sheet per page with every size the shards swept. A config gates the findings again.
-async function merge({ dirs, out, config, chromium, executablePath }: MergeOptions): Promise<CheckResult> {
+async function merge({ dirs, out, config, chromium, executablePath, install }: MergeOptions): Promise<CheckResult> {
   const reports: (Report & { dir: string })[] = [];
   for (const dir of dirs) reports.push({ ...(JSON.parse(await readFile(join(dir, "report.json"), "utf8")) as Report), dir });
   const first = reports[0]!;
@@ -1054,7 +1073,7 @@ async function merge({ dirs, out, config, chromium, executablePath }: MergeOptio
     const [x, y] = [rank(a), rank(b)];
     return x[0]! - y[0]! || x[1]! - y[1]! || x[2]! - y[2]!;
   };
-  const all = reports.flatMap((r) => r.findings.map((f) => ({ f: { ...f, gated: config ? isGated(config, f.page, f.rule) : f.gated }, dir: r.dir })));
+  const all = reports.flatMap((r) => r.findings.map((f) => ({ f: { ...f, gated: config ? isGated(config, f.page, f.rule, f.detail) : f.gated }, dir: r.dir })));
   all.sort((a, b) => byRank(a.f, b.f));
   const pictured = new Set<string>();
   const counts = new Map<string, number>();
@@ -1084,7 +1103,7 @@ async function merge({ dirs, out, config, chromium, executablePath }: MergeOptio
     }
   }
   merged.shots.sort((a, b) => byRank(a as unknown as Finding, b as unknown as Finding));
-  const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
+  const browser = await launch(chromium, executablePath, install);
   try {
     merged.fixed = await compose(browser, out, merged);
   } finally {
@@ -1121,7 +1140,7 @@ function summary({ findings, fixed, pages, sizes, themes, shard, allowances }: R
     const count = (rule: string) => mine.filter((r) => r.rule === rule).length || "";
     lines.push(`| ${!mine.length ? "✓" : mine.some((r) => r.gated) ? "✗" : "·"} | \`${pageOf(ref)}\` | ${RULES.map(count).join(" | ")} |`);
   }
-  lines.push("", "✗ fails; · is waived in ouro-check.json. Each finding has a captioned close-up in `findings/`, and each page a contact sheet in `sheets/`.", "");
+  lines.push("", "✗ fails; · is waived, or known, in ouro-check.json. Each finding has a captioned close-up in `findings/`, and each page a contact sheet in `sheets/`.", "");
   if (fixed.length) lines.push(`Fixed since the earlier report: ${fixed.length}, each with a before and after in \`pairs/\`.`, "");
   if (allowances.length) lines.push(`Opted out on purpose: ${allowances.length}, each with its reason in \`report.json\` (\`allowances\`).`, "");
   if (rows.length) {
@@ -1260,6 +1279,44 @@ interface Env {
   from?: string[];
 }
 
+// Playwright's words for a browser it has not downloaded yet.
+const NOT_DOWNLOADED = /Executable doesn't exist/;
+
+// Chromium for the sweep. On a first run Playwright has none yet, so it is downloaded once and the check goes on,
+// rather than stopping and costing the person (or agent) a turn to run the download themselves.
+async function launch(chromium: BrowserType, executablePath: string | undefined, install: (() => Promise<void>) | undefined): Promise<Browser> {
+  const options = { headless: true, ...(executablePath ? { executablePath } : {}) };
+  try {
+    return await chromium.launch(options);
+  } catch (problem) {
+    if (!install || !NOT_DOWNLOADED.test((problem as Error).message)) throw problem;
+    await install();
+    return chromium.launch(options);
+  }
+}
+
+// Downloads Chromium with the Playwright the check runs on, as `npx playwright install chromium` would, so the browser
+// matches that Playwright's version. Its output stays quiet unless the download fails.
+function installer(module: string, cwd: string, log: (line: string) => void): () => Promise<void> {
+  return async () => {
+    log("Chromium isn't downloaded yet: downloading it once (npx playwright install chromium).");
+    const cli = join(dirname(createRequire(import.meta.url).resolve(module)), "cli.js");
+    const output: string[] = [];
+    const { code, signal } = await new Promise<{ code: number | null; signal: NodeJS.Signals | null }>((done) => {
+      const child = spawn(process.execPath, [cli, "install", "chromium"], { cwd, stdio: ["ignore", "pipe", "pipe"] });
+      child.stdout.on("data", (chunk: Buffer) => output.push(String(chunk)));
+      child.stderr.on("data", (chunk: Buffer) => output.push(String(chunk)));
+      child.on("close", (code, signal) => done({ code, signal }));
+    });
+    if (code !== 0) {
+      // The first error line says why (Playwright ends with a stack); else the last line it printed; else its exit.
+      const lines = output.join("").split("\n").map((line) => line.trim()).filter((line) => line && !line.startsWith("at "));
+      const reason = [...lines.filter((line) => line.startsWith("Error: ")), ...lines.reverse(), signal ? `it was stopped by ${signal}` : `it exited with ${code}`][0];
+      throw refusal("no-browser", "check", `needs Chromium, and downloading it stopped: ${reason}`, "npx playwright install chromium");
+    }
+  };
+}
+
 // A module the app has (resolved from its folder) or this kit's own; null when neither has it.
 function load(name: string, from: string[]): string | null {
   for (const base of from) {
@@ -1307,7 +1364,8 @@ async function runCheck(context: Env, cli: Cli, cmd: CommandDef, input: Input, j
   const playwright = env.PLAYWRIGHT_MODULE ?? ["playwright", "playwright-core"].map((name) => load(name, from)).find(Boolean);
   if (!playwright) throw refusal("no-playwright", "check", "needs Playwright", "install playwright (npm i -D playwright), or set PLAYWRIGHT_MODULE to it");
   const chromium = (createRequire(import.meta.url)(playwright) as { chromium: BrowserType }).chromium;
-  const executable = env.BROWSER_EXECUTABLE ? { executablePath: env.BROWSER_EXECUTABLE } : {};
+  // A browser the app names is used as it is; otherwise a missing Chromium is downloaded on first run.
+  const executable = env.BROWSER_EXECUTABLE ? { executablePath: env.BROWSER_EXECUTABLE } : { install: installer(playwright, cwd, log) };
   const configFile = resolve(cwd, args.config ?? "ouro-check.json");
   const hasConfig = args.config !== undefined || (await readFile(configFile).then(() => true, () => false));
   const config: Gate = hasConfig ? await readJson<Gate>(configFile) : {};
