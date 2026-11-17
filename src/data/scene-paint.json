@@ -71,13 +71,13 @@
   },
   "butler-steady": {
     "from": "headers/butler-steady.webp",
-    "sha256": "a0a6be8e26cb18b314f120b34b5ef220834f97a110a3315b82e05ff9fbba819c",
+    "sha256": "cb678942139e602d6911dc380e5552d4812ca3ffbae69558b16f0c5bfb59d8bc",
     "colour": "#c8a898"
   },
   "butler-steady-dark": {
     "from": "headers/butler-steady-dark.webp",
-    "sha256": "85a9abf9ed73cfd2e575456837d8a796f2abbffd3983f949f8d424229df0cee3",
-    "colour": "#382818"
+    "sha256": "b9456185cc71cf3a8733dc840b6493dc057e6d8480693f356f8ba7d43410f3b8",
+    "colour": "#282838"
   },
   "chart-room": {
     "from": "headers/chart-room.webp",
