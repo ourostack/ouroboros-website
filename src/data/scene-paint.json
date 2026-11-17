@@ -141,13 +141,13 @@
   },
   "garden-line": {
     "from": "headers/garden-line.webp",
-    "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5",
+    "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489",
     "colour": "#c8a878"
   },
   "garden-line-dark": {
     "from": "headers/garden-line-dark.webp",
-    "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014",
-    "colour": "#081828"
+    "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1",
+    "colour": "#081818"
   },
   "gatefold": {
     "from": "headers/gatefold.webp",
@@ -316,12 +316,12 @@
   },
   "slugger-balloon": {
     "from": "headers/slugger-balloon.webp",
-    "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55",
+    "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333",
     "colour": "#88b8e8"
   },
   "slugger-balloon-dark": {
     "from": "headers/slugger-balloon-dark.webp",
-    "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea",
-    "colour": "#081838"
+    "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc",
+    "colour": "#081828"
   }
 }

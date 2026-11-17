@@ -167,8 +167,8 @@ test('the cast\'s foot counts every character, not only Ouro', () => {
 // cast's place across the crop (phoneCastX) is its place on the screen.
 test('every scene keeps its cast at least 16px clear of both sides on a phone', async () => {
   const { phoneCastX, PHONE_EDGE, usedScenes, phoneArtEdge } = await import('../src/data/scenes.mjs');
-  // The one named exemption: the art itself cuts the home scene's fence sheep.
-  assert.deepEqual(Object.keys(phoneArtEdge), ['ourostack']);
+  // No named exemptions since the ourostack re-set (2026-11-17), which no longer cuts a character at the art's edge.
+  assert.deepEqual(Object.keys(phoneArtEdge), []);
   const close = [];
   for (const scene of usedScenes()) {
     const cast = phoneCastX[scene];
