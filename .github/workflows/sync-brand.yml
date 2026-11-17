@@ -6,9 +6,10 @@ name: Sync brand art
 # that passes, and runs site-checks on main, which deploys. The brand audit in
 # ourostack/.github treats site:ouroboros.bot as pending, not stale, for a short
 # window after a brand merge, so main stays green while this runs.
-# It follows refresh-ouromd-release.yml: main requires site-checks, and a pull
-# request or push made with the workflow's own token starts no run, so it
-# dispatches site-checks itself.
+# It pushes, opens the pull request and merges as Ari's account (the BRAND_SYNC_TOKEN
+# secret, a token limited to this repository), not as github-actions[bot]: the bot's pull
+# request runs wait for a person's approval (action_required), which stalled every art merge.
+# A push made with that token starts site-checks on the pull request and on main by itself.
 
 on:
   schedule:
@@ -18,25 +19,23 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: write
 
 concurrency:
   group: sync-brand
   cancel-in-progress: false
 
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.BRAND_SYNC_TOKEN }}
 
 jobs:
   propose:
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    outputs:
-      merged: ${{ steps.merge.outputs.merged }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
+          token: ${{ secrets.BRAND_SYNC_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
@@ -81,25 +80,22 @@ jobs:
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Run site-checks on it
+      - name: Wait for site-checks on it
         if: steps.changes.outputs.changed == 'true'
         env:
-          BRANCH: ${{ steps.pr.outputs.branch }}
           SHA: ${{ steps.pr.outputs.sha }}
         run: |
-          gh workflow run site-checks.yml --ref "$BRANCH"
           run=
           for _ in $(seq 30); do
-            run=$(gh run list --workflow site-checks.yml --event workflow_dispatch --commit "$SHA" --json databaseId --jq '.[0].databaseId')
+            run=$(gh run list --workflow site-checks.yml --event pull_request --commit "$SHA" --json databaseId --jq '.[0].databaseId')
             [ -n "$run" ] && break
             sleep 10
           done
-          [ -n "$run" ] || { echo "::error::site-checks didn't start on $BRANCH ($SHA)."; exit 1; }
+          [ -n "$run" ] || { echo "::error::site-checks didn't start on $SHA."; exit 1; }
           echo "site-checks run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$run" >> "$GITHUB_STEP_SUMMARY"
           gh run watch "$run" --interval 30 --exit-status > /dev/null
 
       - name: Merge it
-        id: merge
         if: steps.changes.outputs.changed == 'true'
         env:
           BRANCH: ${{ steps.pr.outputs.branch }}
@@ -109,14 +105,3 @@ jobs:
           subject=$(gh pr view "$BRANCH" --json title,number --jq '"\(.title) (#\(.number))"')
           body=$(gh pr view "$BRANCH" --json body --jq .body | tr -d '\r' | grep -v -i -E '^[[:space:]]*[A-Za-z-]+-by[[:space:]]*:.*(\[bot\]|(^|[^A-Za-z0-9])(copilot|claude|anthropic|openai|chatgpt|gpt|codex|gemini|cursor|devin|aider)([^A-Za-z]|$))' || true)
           gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA" --subject "$subject" --body "$body"
-          echo "merged=true" >> "$GITHUB_OUTPUT"
-
-  deploy:
-    needs: propose
-    if: needs.propose.outputs.merged == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    steps:
-      # The merge commit starts no push run, so dispatch site-checks on main:
-      # it gives main its verdict and deploys production when that passes.
-      - run: gh workflow run site-checks.yml --repo "$GITHUB_REPOSITORY" --ref main
