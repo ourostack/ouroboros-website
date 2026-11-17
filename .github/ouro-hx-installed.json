@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.244",
-  "tagCommit": "a36eb47dc30ece4e003b896744ac98adf55eaec5",
+  "tag": "v1.3.246",
+  "tagCommit": "d9920656db0ec36400c8432a81a3d3c00f959ef6",
   "files": {
     "lib/ouro/ax/checks.ts": "10d083a6f4f6b2149880b0fec7bfcead76e77de9a21dea578dafe1e1699ca3a3",
     "lib/ouro/ax/cli.ts": "4c9ca264c12890003fa9eb103d0a5bdd61f99b9306f6c541b9c4f288fc180f41",
@@ -62,7 +62,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "083897395c56504e1f7862f396d0323298a8e8d49ac0e30761bac58f772309b4",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "de1bf8e8ecec8fa0ce2a4e08efb130879085987760bf82e1a2be6e13ccef2241",
+    "src/lib/ouro/dev.ts": "f2ecfca60078afee14ad65cd737be45a3e230b64b5e94e1971ac3210049d830b",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
     "src/lib/ouro/ouro-provider.tsx": "c71d040406b5b382ceb3d44f11cafa661db6534ca6cff5e02ae2bd2c5c3beafc",
