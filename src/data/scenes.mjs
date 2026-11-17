@@ -9,8 +9,8 @@
 
 // What each scene shows, for alt text. Concrete, and a touch whimsical.
 export const scenes = {
-  ourostack: 'Dawn over misty hills. Ouro, a round green snake, sits by a worn footpath that loops past the whole crew: a little factory puffing smoke, a desk under a blossom tree, a lectern, a control panel, a silver cloche, a flock of sheep, and two faceless glass friends and their robots waving from a picnic blanket.',
-  'ourostack-dark': 'Night over misty hills under a starry sky, with village lights in the valleys. Ouro, a round green snake, sits by a moonlit footpath that loops past the whole crew: a little factory with lit windows puffing smoke, a desk under a blossom tree with its lamp on, a lectern, a control panel, a silver cloche, a flock of sheep, and two glowing glass friends and their robots waving from a picnic blanket.',
+  ourostack: 'At dawn on a meadow hillside, two faceless glass friends wrapped in plaid throws, each holding it closed with a mustard mitten, sit on a picnic blanket while a small jade agent pours tea into a mug on the blanket and an amber agent lifts a loaf from the hamper; Ouro, cat-sized, dozes on a folded quilt.',
+  'ourostack-dark': 'The same picnic at night on the meadow hillside: two faceless glass friends wrapped in plaid throws sit on the blanket while a small jade agent pours tea and an amber agent lifts a loaf from the hamper, and Ouro, cat-sized, dozes on a folded quilt.',
   'ouro-apps-site': 'A market stall with a green-striped awning, stacked with wrapped gifts, one box open and glowing. Ouro leans in beside it like a shopkeeper who has been up since dawn.',
   'ouro-apps-site-dark': 'A market stall at night with a green-striped awning, stacked with wrapped gifts, one box open and glowing, and a lit village in the valley below. Ouro leans in beside it like a shopkeeper keeping late hours.',
   desk: 'A small periwinkle glass robot in a slate apron rests its mittens on an open box of blank index cards at a low oak desk in a bright studio of oak drawers, while Ouro, a small green snake, naps on a stack of grey folders under a white desk lamp beside a window over a calm harbour.',
@@ -73,7 +73,7 @@ export const scenes = {
   'butler-steady': 'A calm, sunlit living room. Ouro Butler, a small green snake curled into an open ring, holds a silver tray up on the tip of his tail and nudges its slipping cloche back into place with his nose, while his person naps undisturbed on the cream sofa behind him under a sage-green throw.',
   'butler-steady-dark': 'The same living room at night, lit by the floor lamp: Ouro Butler steadies the slipping cloche on his tray with his nose while his person sleeps on, undisturbed, on the sofa behind him.',
   'garden-line': 'A sunny back garden with a little railway. A small apricot-glass agent in a navy conductor’s cap lifts a fallen oak branch off the rails, while its green steam engine and cream mail wagon wait just behind it and Ouro, a small green snake in a red scarf, watches from the wagon’s roof.',
-  'garden-line-dark': 'The same garden railway at night under the stars: the small conductor agent lifts the fallen branch off the rails while the little train waits behind it, and Ouro, glowing green, watches from the wagon’s roof.',
+  'garden-line-dark': 'The same garden railway at night under a full moon: the small conductor agent lifts the fallen branch off the rails while the little train waits behind it with its headlamp lit, and Ouro watches from the wagon’s roof.',
   'slugger-balloon': 'Slugger, a small glass raccoon in a moss-green scarf, lifts off from a dawn meadow in a little patchwork hot-air balloon, his long to-do list streaming over the basket’s rim in the breeze, with Ouro, an emerald-glass snake, riding on the rim beside him.',
   'slugger-balloon-dark': 'The same little patchwork balloon rising from a moonlit meadow under the stars, its burner flame lighting the envelope from inside, Slugger in his scarf holding his to-do list over the rim and Ouro glowing green beside him.',
   'airship-moored': 'The glass-and-brass airship rests moored at its mast on a hilltop meadow in the low morning light, its gangplank down. Loop, a small jade-glass agent in goggles and a green scarf, stands in the gondola’s open door, one mitten raised in a thumbs-up and the other on his hip, and Ouro, an emerald-glass snake, keeps watch from the lantern post at the foot of the gangplank.',
@@ -291,8 +291,8 @@ export const heroFocus = {
   'ouroboros-website-dark': [0.24, 0.92],
   ouroboros: [0.1, 0.86],
   'ouroboros-dark': [0.1, 0.86],
-  ourostack: [0.15, 0.85],
-  'ourostack-dark': [0.15, 0.85],
+  ourostack: [0.17, 0.79],
+  'ourostack-dark': [0.17, 0.79],
   'playwright-focus-proof': [0.24, 0.95],
   'playwright-focus-proof-dark': [0.24, 0.95],
   shepherd: [0.12, 0.96],
@@ -366,8 +366,8 @@ export const castFoot = {
   'ouroboros-website-dark': 0.89,
   ouroboros: 0.84,
   'ouroboros-dark': 0.84,
-  ourostack: 0.83,
-  'ourostack-dark': 0.83,
+  ourostack: 0.785,
+  'ourostack-dark': 0.785,
   // The person's sneakers under the armchair.
   'playwright-focus-proof': 0.95,
   'playwright-focus-proof-dark': 0.95,
@@ -468,9 +468,9 @@ export const phoneCastX = {
   'ouroboros-skills-dark': [0.16, 0.84],
   'ouroboros-website': [0.43, 0.88],
   'ouroboros-website-dark': [0.43, 0.88],
-  // Ouro at the left, the waving robot's hand at the right.
-  ourostack: [0.069, 0.94],
-  'ourostack-dark': [0.069, 0.94],
+  // The left friend's sweater at the left, the jade agent's ankle at the right (re-set, 2026-11-17).
+  ourostack: [0.175, 0.825],
+  'ourostack-dark': [0.175, 0.825],
   // The person in the armchair at the left, Ouro at the right.
   'playwright-focus-proof': [0.17, 0.83],
   'playwright-focus-proof-dark': [0.17, 0.83],
@@ -492,7 +492,6 @@ export const phoneCastX = {
 // can show more (accepted by the brand coordinator, r14). These are reported,
 // not failed, and only for the side named.
 export const phoneArtEdge = {
-  ourostack: { side: 'right', reason: 'the sheep by the fence: the phone crop is clamped to the art\'s own right edge, where the art cuts it' },
 }
 
 // Breathing room kept above and below the cast, so the slow drift (a 2% zoom)
