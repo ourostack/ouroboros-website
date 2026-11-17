@@ -276,13 +276,13 @@
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
-    "sha256": "1219e7385c611b0586371ffe6c82198b58c1f40153593bb585d686f5b9139617",
+    "sha256": "bd44d40f49e6c6ea86cb41e36ef09d89d092cc24059245cde3dbf3843b1652f1",
     "colour": "#b88858"
   },
   "ouroboros-skills-dark": {
     "from": "headers/ouroboros-skills-dark.webp",
-    "sha256": "fd9cbf4918aa2d91b170de3473e378c262f24fc58ac9057c189280b8d1eaacf2",
-    "colour": "#985838"
+    "sha256": "613ae99bb2a9c1ab60bbda29e57f780f08ae0c8224e5b742390cee6893a83aca",
+    "colour": "#080808"
   },
   "ouroboros-website": {
     "from": "headers/ouroboros-website.webp",
