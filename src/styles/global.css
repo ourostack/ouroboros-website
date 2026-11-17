@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
-/* Ouro check (lib/ouro/check/) is a command, not the site: its words are no class names. */
-@source not "../../lib/ouro/check";
+/* Ouro check (scripts/ouro/check/) is a command, not the site: its words are no class names. */
+@source not "../../scripts/ouro/check";
 
 /* ═══════════════════════════════════════════════════════════════════════
    DESIGN SYSTEM RULES — OUROBOROS WEBSITE

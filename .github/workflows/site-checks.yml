@@ -7,10 +7,10 @@ name: site-checks
 #     brand audit (ourostack/.github brand/tools/audit.mjs --origin --dist).
 #   - pages: every page check (npm run check:all) against the same build,
 #     split into four shards by measured time (scripts/check-shards.mjs).
-#   - ouro-check: Ouro check (lib/ouro/check, from Ouro UI) walks every page at
+#   - ouro-check: Ouro check (scripts/ouro/check, from Ouro UI) walks every page at
 #     390x844, 1440x900 and 3840x2160 in light and dark, in six shards;
 #     ouro-check.json holds its waivers and budgets. Each shard first proves
-#     lib/ouro/check, and each file of the AX kit it runs on in lib/ouro/ax,
+#     scripts/ouro/check, and each file of the AX kit it runs on in lib/ouro/ax,
 #     is byte for byte Ouro UI's release named by the tag in
 #     .github/ouro-hx-installed.json. Time to the largest content (LCP) is
 #     gated at a budget wide enough for the runners' noise; taste reviewers
@@ -280,16 +280,16 @@ jobs:
             registry/ouro/ax
           persist-credentials: false
 
-      - name: lib/ouro/check and its AX kit are Ouro UI ${{ env.OURO_UI_TAG }}'s
+      - name: scripts/ouro/check and its AX kit are Ouro UI ${{ env.OURO_UI_TAG }}'s
         run: |
-          diff -r .ouro-ui/registry/ouro/check lib/ouro/check
+          diff -r .ouro-ui/registry/ouro/check scripts/ouro/check
           for f in lib/ouro/ax/*.ts; do cmp ".ouro-ui/registry/ouro/ax/$(basename "$f")" "$f"; done
 
       - run: npm run build
 
       # Exits 0 when clean and 3 on findings; each finding has a captioned close-up in findings/.
       - name: Ouro check, shard ${{ matrix.shard }} of 6
-        run: node lib/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check --shard "${{ matrix.shard }}/$SHARDS"
+        run: node scripts/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check --shard "${{ matrix.shard }}/$SHARDS"
 
       - name: Summary
         if: ${{ !cancelled() }}

@@ -67,6 +67,6 @@
     "undici": "^7.18.2"
   },
   "imports": {
-    "#ouro-ax/*": "./src/lib/ouro/ax/*"
+    "#ouro-ax/*": "./lib/ouro/ax/*"
   }
 }
