@@ -11,13 +11,13 @@
   },
   "airship": {
     "from": "headers/airship.webp",
-    "sha256": "de27f1c2bfdfe5dcff2e36d29120836e38c2b34108a4d36ac0fb9e4e657261d7",
+    "sha256": "ab0be9a37785aa6adac06a610dc35ecada45d45832b8585308924d27492f4d69",
     "colour": "#f8e8e8"
   },
   "airship-dark": {
     "from": "headers/airship-dark.webp",
-    "sha256": "5a6934ca01c06d30a8f5be69554e9606069d85d13083a0d23326003d752d7553",
-    "colour": "#182858"
+    "sha256": "865e7f0536ff603c8d93b5c5c2318a5fbfa5ad27950d31de0769ed29a45ac4a6",
+    "colour": "#082848"
   },
   "airship-line": {
     "from": "headers/airship-line.webp",
@@ -256,12 +256,12 @@
   },
   "ouro-workbench": {
     "from": "headers/ouro-workbench.webp",
-    "sha256": "e67f9249efded36223895262ef24177903b54a3b6647d80a1aa0cfa928f412a8",
+    "sha256": "9503f776e152978be2f6ab43d35f84c63eb2e7127f40816301b5c27d54fa187c",
     "colour": "#180808"
   },
   "ouro-workbench-dark": {
     "from": "headers/ouro-workbench-dark.webp",
-    "sha256": "b4c1e343b3a238513b311f6085239e47b4b28696917901d40de6a4d26348884b",
+    "sha256": "befbe46b2ab02b9030891ed87001c66d0bff034aaa2ea8cae223cd04b3287edf",
     "colour": "#080808"
   },
   "ouroboros": {
