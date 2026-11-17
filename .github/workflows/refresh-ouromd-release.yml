@@ -97,7 +97,10 @@ jobs:
           BRANCH: ${{ steps.pr.outputs.branch }}
           SHA: ${{ steps.pr.outputs.sha }}
         run: |
-          gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA"
+          # An explicit message: the org ruleset rejects the default one when a commit carries an AI co-author line.
+          subject=$(gh pr view "$BRANCH" --json title,number --jq '"\(.title) (#\(.number))"')
+          body=$(gh pr view "$BRANCH" --json body --jq .body | tr -d '\r' | grep -v -i -E '^[[:space:]]*[A-Za-z-]+-by[[:space:]]*:.*(\[bot\]|(^|[^A-Za-z0-9])(copilot|claude|anthropic|openai|chatgpt|gpt|codex|gemini|cursor|devin|aider)([^A-Za-z]|$))' || true)
+          gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA" --subject "$subject" --body "$body"
           echo "merged=true" >> "$GITHUB_OUTPUT"
 
   deploy:
