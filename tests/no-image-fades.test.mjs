@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
-import { findFades, scan, SCANNED } from '../lib/ouro/check/fades.ts';
+import { findFades, scan, SCANNED } from '../scripts/ouro/check/fades.ts';
 
 // No picture on the site fades into the page or into nothing, at any edge
-// (Ari, 2026-11-08). Ouro check's fade scan (lib/ouro/check/fades.ts, from
+// (Ari, 2026-11-08). Ouro check's fade scan (scripts/ouro/check/fades.ts, from
 // ouro-ui's ouro-check item) reads every source file in src/ and public/ and
 // fails on a gradient mask unless its line, or a comment on the line before,
 // says `fade-ok: <reason>`: a tint, a drawn grid or a scrolling row of words
