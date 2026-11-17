@@ -59,3 +59,12 @@ test('a re-drawn file and its new provenance entry are copied over, and the serv
 test('a file whose bytes differ from provenance.json fails the sync instead of shipping', async () => {
   await assert.rejects(sync({ 'headers/airship.webp': Buffer.from('not the art') }), /does not match provenance/);
 });
+
+test('sync-brand.yml repaints the scenes when the art changes and commits the paint with it', () => {
+  const wf = fs.readFileSync(path.join(root, '.github/workflows/sync-brand.yml'), 'utf8');
+  const sync = wf.indexOf('node scripts/sync-storybook.mjs --from-github');
+  const paint = wf.indexOf('node scripts/scene-paint.mjs');
+  const open = wf.indexOf('name: Open the pull request');
+  assert.ok(sync > 0 && sync < paint && paint < open, 'scene-paint runs after the sync and before the pull request opens');
+  assert.match(wf, /git add public\/brand\/storybook src\/data\/scene-paint\.json/);
+});
