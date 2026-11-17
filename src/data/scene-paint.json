@@ -306,13 +306,13 @@
   },
   "shepherd": {
     "from": "headers/shepherd.webp",
-    "sha256": "ee84a107d50ef38829cb67ac5cad1de3f3276c15d88fde4a3c406492b5481e67",
+    "sha256": "fda0ea1f029d4c099c848d833546c01f882ab3b71c77b9e05cf4356fdc19d323",
     "colour": "#f8c898"
   },
   "shepherd-dark": {
     "from": "headers/shepherd-dark.webp",
-    "sha256": "f4511883147d0cd1b759f904cbf74b6b312f8c79f34a9ffdef932a10406c6696",
-    "colour": "#183888"
+    "sha256": "08929da14ea99dbab47f74848afd8d9dcd9e998b8d1d0f2bafde7627b902b1e2",
+    "colour": "#082858"
   },
   "slugger-balloon": {
     "from": "headers/slugger-balloon.webp",
