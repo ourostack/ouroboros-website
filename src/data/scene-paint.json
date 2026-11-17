@@ -51,13 +51,13 @@
   },
   "ax-trail-map": {
     "from": "headers/ax-trail-map.webp",
-    "sha256": "d319645c1b2f83a18f44451686c041e0f8aeccecb2ae029ec96f2a406cbc7214",
+    "sha256": "a0a49754391e4ac5aeb21079e2bda5c10f337ed57e152c660c766cb27b222981",
     "colour": "#f8b898"
   },
   "ax-trail-map-dark": {
     "from": "headers/ax-trail-map-dark.webp",
-    "sha256": "57b6cd4ade323ab5d873621c5e7627cd90740d647b4ce9b58617188e95ac123d",
-    "colour": "#082878"
+    "sha256": "9b1d1a563057dbda29422cfa14939b31b6ce7c67647e8c981e8cd714cf24f2f8",
+    "colour": "#081848"
   },
   "butler": {
     "from": "headers/butler.webp",
