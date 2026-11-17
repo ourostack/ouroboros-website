@@ -86,7 +86,7 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     // Both twins render lazy so the hidden one never loads; the Hero's inline script
     // makes the shown one eager before the parser reaches the next tag, and marks the
     // media data-loaded once it lands.
-    assert.match(html, /<\/picture><script>\(function\(s,u\)\{[\s\S]{0,300}g\.loading="eager"[\s\S]{0,120}setAttribute\("data-loaded",""\)[\s\S]{0,120}<\/script>/, `${page}: the shown twin is not made eager`);
+    assert.match(html, /<\/picture><script>\(function\(s,u(?:,d)?\)\{[\s\S]{0,700}g\.loading="eager"[\s\S]{0,120}setAttribute\("data-loaded",""\)[\s\S]{0,120}<\/script>/, `${page}: the shown twin is not made eager`);
   }
 });
 
