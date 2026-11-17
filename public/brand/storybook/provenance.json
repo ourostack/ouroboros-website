@@ -10304,7 +10304,7 @@
     "generated": "2026-11-16, for the post \"Tell the agent, not the human\": in a sunny back garden, a small apricot-glass agent in a navy conductor's cap lifts a fallen oak branch off the rails of its little garden railway, while its green steam engine and cream mail wagon wait behind it and Ouro, in a red scarf, watches from the wagon's roof. Ouro is \"he\"",
     "approval": "Ari asked for the Butler's self-correcting replies to reach every public surface, 2026-11-16: \"published etc also means on the marketing sites!!! alllll surfaces go go goooo (and note new art style)\", with the principle \"it really should be impossible for an ouro agent, butler or not, to be unable to respond. hit an error? tell the agent and let it correct course! never make human do this for agent\". This change is ourostack/ouroboros #1292 (0.1.0-alpha.1133) and #1296 (0.1.0-alpha.1135). Made with the one-shot loop in agents/art-prompting.md; every candidate, fix and hunt is logged in generation; the final fresh blind hunts of the day and night together found no blockers, and the last coordinator blind briefs' disputed flags were ruled not real by a fresh adjudicator.",
     "crop": "1536x576 of the 1536x1024 master (rows 196-772)",
-    "checked": "blind defect hunts 2026-11-16 by fresh reviewers given only the frames and 4x tiles, the day and night together in the last round: no blockers. One agent: one head, a visor with two eyes only, two arms, two mittens each with one thumb gripping the branch, two feet on the ground; Ouro one continuous open ring; one straight unbroken track; no text, emblems or dated devices.",
+    "checked": "re-hunt with the fixed blind step: rgg5 and rgg6 (Opus 5.5 with 4-10x crops, plus the structure hunter) on the shipped-path 3072 scenes, the same files: BLIND and STRUCT no blocking defects, day and night, in both; the night reads as night (a full moon, the locomotive's headlamp, the lit cab window).",
     "generation": [
       {
         "master": "garden-line-master",
@@ -10713,14 +10713,36 @@
     ],
     "width": 1536,
     "height": 576,
-    "bytes": 190248,
-    "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+    "bytes": 185938,
+    "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489",
+    "master_sha256": "3235d5a3576451c50cae3e6d4f73b1a5234393e134ba9a6e48e80e17049f3068",
+    "edits": [
+      {
+        "date": "2026-11-17",
+        "what": "re-hunt fixes: the conductor's cap redrawn as seen from below (the figure stands above eye level); the smokebox boss made a small flush headlamp.",
+        "steps": [
+          {
+            "step": "cap (variant a): crop 692,0,948,256, mask --ell 722,40,922,160 feather 3, redrawn as seen from below",
+            "sha256": "865fc0ca338301fcb5d1bc1f5d4ebaf268d7a03a5fca4d5b390f7a59c0e0e13b"
+          },
+          {
+            "step": "lamp (variant b): crop 580,280,708,408, mask --ell 626,312,666,372 feather 2, the smokebox boss made a flush headlamp",
+            "sha256": "f988d1e85211020c83b7cefbd5f169ae4796b0a4ffb68b26539a0c830c430d59"
+          },
+          {
+            "step": "cap2 (variant c): crop 692,0,948,256, mask --ell 722,40,922,165 feather 3, the cap clearly from below, band arching upward",
+            "sha256": "e479f3a34686c53751e0498799a0ce970abe4b93732c93c49f84665d0c38633f"
+          }
+        ],
+        "previous_sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      }
+    ]
   },
   {
     "file": "scenes/garden-line-640.webp",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -10728,14 +10750,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 44538,
-    "sha256": "9cefdd8038e83b5984afad2bb0324bde33eb90cae9db0f377e814ba4475e0bed"
+    "bytes": 44334,
+    "sha256": "191bc55c94ced6ac380d983a52a905c4f27f3e3627a5c338fa8d7e3774098579"
   },
   {
     "file": "scenes/garden-line-640.avif",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -10743,14 +10765,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 36157,
-    "sha256": "1a9b7a8e30572060e56210a4210a470b6d38d9fc2eaf6631a60897365c092d94"
+    "bytes": 35908,
+    "sha256": "e344249973630bce7156f73e71d6c92958ebce7937ae1982eaec4e121c957532"
   },
   {
     "file": "scenes/garden-line-960.webp",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -10758,14 +10780,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 83686,
-    "sha256": "bd43835e422333d43e22f4b161a7c64d624805eff93d65fc0d6dc6234785c82d"
+    "bytes": 82712,
+    "sha256": "9ca34321507861fbd1c55e10fcce28362090f5345caa030676210c0149d7fb4a"
   },
   {
     "file": "scenes/garden-line-960.avif",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -10773,14 +10795,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 63865,
-    "sha256": "b3b3860568b1b497c330b7cd6acaee3cb0fb3e9b96476df39f25d78cbe0b4770"
+    "bytes": 63149,
+    "sha256": "e40739370a78ce22ede9d8b8164859eecb3cbab37613be383620753a8f87356b"
   },
   {
     "file": "scenes/garden-line-1536.avif",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene",
@@ -10788,14 +10810,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1536,
     "height": 576,
-    "bytes": 121442,
-    "sha256": "158847d5ddc818deb1345a79b54ac9a87617f43822ee36287c44cadfa9d7df0b"
+    "bytes": 119880,
+    "sha256": "b413c18ba37f61ed5998376e5e9d497474dbb614261afd41eb095ea43c56be24"
   },
   {
     "file": "scenes/garden-line-2304.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line.webp",
-      "sha256": "5c98a4d63472cb465898beef0f63fb3c2d7aa67345ee69890f079caee33283b3"
+      "sha256": "ad15c78981364b6e831e767808622e47717cf22f829456f664869d009cdd3a8b"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 2304x864 (Lanczos)",
@@ -10803,14 +10825,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 2304,
     "height": 864,
-    "bytes": 189161,
-    "sha256": "1ef07b5ad2782deb1b0003655977c05b62e8fc3d80db30e6839110ed1d914fc4"
+    "bytes": 180283,
+    "sha256": "d4c6998c2dbb66e200e8509e4b7efb347140141f747163faffa9049cceea66a2"
   },
   {
     "file": "scenes/garden-line-3072.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line.webp",
-      "sha256": "5c98a4d63472cb465898beef0f63fb3c2d7aa67345ee69890f079caee33283b3"
+      "sha256": "ad15c78981364b6e831e767808622e47717cf22f829456f664869d009cdd3a8b"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -10818,14 +10840,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 248141,
-    "sha256": "52b01f8c994448d1ee97916f92ffd47774a8736d078885b31ec38052c587e0ee"
+    "bytes": 236460,
+    "sha256": "6ef12c3a9f058fecbcf91d8ca83814e6818f320a1ac9917625463c3356721ba5"
   },
   {
     "file": "scenes/garden-line-3840.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line.webp",
-      "sha256": "5c98a4d63472cb465898beef0f63fb3c2d7aa67345ee69890f079caee33283b3"
+      "sha256": "ad15c78981364b6e831e767808622e47717cf22f829456f664869d009cdd3a8b"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3840x1440 (Lanczos)",
@@ -10833,14 +10855,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3840,
     "height": 1440,
-    "bytes": 302862,
-    "sha256": "d84d9f38a0e47ad5066264b5c06d89b9b04d1835726e92001bcef4e7ba1920c8"
+    "bytes": 291464,
+    "sha256": "8b3969fdb571c408d6b7895b9c909d4d75a4b5688538a570964f4ef7718bb312"
   },
   {
     "file": "scenes/garden-line-5120.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line.webp",
-      "sha256": "5c98a4d63472cb465898beef0f63fb3c2d7aa67345ee69890f079caee33283b3"
+      "sha256": "ad15c78981364b6e831e767808622e47717cf22f829456f664869d009cdd3a8b"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 5120x1920 (Lanczos)",
@@ -10848,14 +10870,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 5120,
     "height": 1920,
-    "bytes": 387929,
-    "sha256": "7aba62b660fcf02680a44870be378a67c2f2af7b692b788542b3bcace1b884ce"
+    "bytes": 377175,
+    "sha256": "ae377f86a28740856c1ac9c4857912c566fa423896a0be3aaf195fd5325f3a5d"
   },
   {
     "file": "scenes/garden-line-7680.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line.webp",
-      "sha256": "5c98a4d63472cb465898beef0f63fb3c2d7aa67345ee69890f079caee33283b3"
+      "sha256": "ad15c78981364b6e831e767808622e47717cf22f829456f664869d009cdd3a8b"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
@@ -10863,14 +10885,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 7680,
     "height": 2880,
-    "bytes": 551204,
-    "sha256": "a62ff297d6baf70f64567a6551a20d2d17668f690f3aa6e23614c81c4d35d6b5"
+    "bytes": 538090,
+    "sha256": "71a08b2fc2c6d86e43fa3313f0366e49e793310a94775363ef9b5f7f8fc49c78"
   },
   {
     "file": "scenes/garden-line-3072.webp",
     "derivedFrom": {
       "file": "upscaled/garden-line.webp",
-      "sha256": "5c98a4d63472cb465898beef0f63fb3c2d7aa67345ee69890f079caee33283b3"
+      "sha256": "ad15c78981364b6e831e767808622e47717cf22f829456f664869d009cdd3a8b"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -10878,14 +10900,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 370080,
-    "sha256": "1fc8baa7e516067ff65b8132f9f3eb24d7e6b268e9bd50cad29c9f1197892694"
+    "bytes": 349798,
+    "sha256": "7152b2455583714ecda20603b7ecbdda612d58f39b9d921e2c695608e2857a58"
   },
   {
     "file": "phone/garden-line-384.webp",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 384x160 (Lanczos)",
@@ -10893,14 +10915,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 160,
-    "bytes": 20712,
-    "sha256": "a65a89eb34f75b55a23f5a1ddebc66902833b34db7e5b3adb2809cab7d412315"
+    "bytes": 20674,
+    "sha256": "9c9ea15a7e56950fc996c885c230234f73408678e7ceb06023c23d37632f4450"
   },
   {
     "file": "phone/garden-line-384.avif",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 384x160 (Lanczos)",
@@ -10908,14 +10930,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 160,
-    "bytes": 17570,
-    "sha256": "6d15a17a63435e29225795b5729a90c099dc8394e4ad34715066c5a04ef47930"
+    "bytes": 17388,
+    "sha256": "03513b6c4b7f8c0a936681b3ed889dfa08afa7bead8557716a242dcd1e6dbed4"
   },
   {
     "file": "phone/garden-line-768.webp",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 768x320 (Lanczos)",
@@ -10923,14 +10945,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 320,
-    "bytes": 60112,
-    "sha256": "d7c5f811ba0a9d8c9bbea1525177aa440a1cd2129807e72a9a7a524ed5c8f705"
+    "bytes": 59642,
+    "sha256": "4a4311bc968bd1a777f36ec53ffaab2acb68da4146bb9743271521aafaa42d72"
   },
   {
     "file": "phone/garden-line-768.avif",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 768x320 (Lanczos)",
@@ -10938,14 +10960,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 320,
-    "bytes": 47296,
-    "sha256": "0c1c01b6871a83c859726a3d0b4968f08dffd0dbb5daf6000addd056f64da354"
+    "bytes": 46855,
+    "sha256": "9fa6135925541700daf263d0dc90f05f605341413e689293a76e91f952e67ca4"
   },
   {
     "file": "og/garden-line.jpg",
     "derivedFrom": {
       "file": "headers/garden-line.webp",
-      "sha256": "31a414606d3bea535168524ecec5e9413519a432886d63089197a43b193243b5"
+      "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489"
     },
     "use": "Open Graph and Twitter card (1200x630)",
     "operation": "crop box [102, 0, 1199, 576] then resize to 1200x630 (Lanczos)",
@@ -10953,8 +10975,8 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 241205,
-    "sha256": "bda19ab2f0982988c01d0936d1dc27633799dd123609a49fb5fc1acf0a486045"
+    "bytes": 238165,
+    "sha256": "7c9b518e9ea9d8597e69b35e7186b6af47b4ead583a80523804bbb042b6530b9"
   },
   {
     "file": "headers/garden-line-dark.webp",
@@ -10963,7 +10985,7 @@
     "generated": "2026-11-16, night twin: the same garden railway at night under the stars. Ouro is \"he\"",
     "approval": "Ari asked for the Butler's self-correcting replies to reach every public surface, 2026-11-16: \"published etc also means on the marketing sites!!! alllll surfaces go go goooo (and note new art style)\", with the principle \"it really should be impossible for an ouro agent, butler or not, to be unable to respond. hit an error? tell the agent and let it correct course! never make human do this for agent\". This change is ourostack/ouroboros #1292 (0.1.0-alpha.1133) and #1296 (0.1.0-alpha.1135). Made with the one-shot loop in agents/art-prompting.md; every candidate, fix and hunt is logged in generation; the final fresh blind hunts of the day and night together found no blockers, and the last coordinator blind briefs' disputed flags were ruled not real by a fresh adjudicator.",
     "crop": "1536x576 of the 1536x1024 master (rows 196-772)",
-    "checked": "blind defect hunts 2026-11-16 by fresh reviewers given only the frames and 4x tiles, the day and night together in the last round: no blockers. One agent: one head, a visor with two eyes only, two arms, two mittens each with one thumb gripping the branch, two feet on the ground; Ouro one continuous open ring; one straight unbroken track; no text, emblems or dated devices.",
+    "checked": "re-hunt with the fixed blind step: rgg5 and rgg6 (Opus 5.5 with 4-10x crops, plus the structure hunter) on the shipped-path 3072 scenes, the same files: BLIND and STRUCT no blocking defects, day and night, in both; the night reads as night (a full moon, the locomotive's headlamp, the lit cab window).",
     "generation": [
       {
         "master": "garden-line-master",
@@ -11381,14 +11403,22 @@
     ],
     "width": 1536,
     "height": 576,
-    "bytes": 156758,
-    "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+    "bytes": 132626,
+    "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1",
+    "master_sha256": "802649662d64796659befd56bd371a6bf15dc16390138b9ef69bf3a740e242ae",
+    "edits": [
+      {
+        "date": "2026-11-17",
+        "what": "night rebuilt as light only, replacing the night that read as a blue-tinted day: nightFromFlatDay (flat3 53c8113ba15286dba408b315528553921bfb9513ce1acf00b07b9ed93a10bdbf) and nightLights (ae27fc78ea51100e7107bd78f97b663d7f48821fa5879fa70177a88673f88bf6: the moon, the cab window, the headlamp lens).",
+        "previous_sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      }
+    ]
   },
   {
     "file": "scenes/garden-line-dark-640.webp",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -11396,14 +11426,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 35976,
-    "sha256": "e42d50fa5ee4f4b7839fdb239c35388ce8df68cea7bc2f3e1ea2a778db9bd6b1"
+    "bytes": 30384,
+    "sha256": "df4a618ec5b575250f9be0a2e27402dce2a4cf2a8130963d5b19ed861442ffce"
   },
   {
     "file": "scenes/garden-line-dark-640.avif",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -11411,14 +11441,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 29313,
-    "sha256": "99759dd28807e4c9fdc4c7fde0a35959b1fea81208224a1e65e1ed38a49ac1db"
+    "bytes": 24080,
+    "sha256": "64d4b3d5d8820be0da8a37d5939a17eebd502ba70af8fe3875798364208b6c61"
   },
   {
     "file": "scenes/garden-line-dark-960.webp",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -11426,14 +11456,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 67592,
-    "sha256": "f621bfbea9a82a5712415dbde6ac9fd83db804b36bd02ead13d9078a69c4ac90"
+    "bytes": 55288,
+    "sha256": "a4884cd34562ac0b8f9495c82264985b09664abcf018b9753956a6f0fd9e8815"
   },
   {
     "file": "scenes/garden-line-dark-960.avif",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -11441,14 +11471,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 50603,
-    "sha256": "aa60deaba981f4983a0b637b5eac4de159db04572831f68f45255038cb2f9468"
+    "bytes": 41280,
+    "sha256": "855b19efd4bfb0cf5f119567d71ef7b9aa423bce22cc7d6e4cbe7a4aa53a6c75"
   },
   {
     "file": "scenes/garden-line-dark-1536.avif",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene",
@@ -11456,14 +11486,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1536,
     "height": 576,
-    "bytes": 94854,
-    "sha256": "88a4e897e671a0e77abd3167c9974fa7567881ac21633d4231a9c7f1ac63638d"
+    "bytes": 77722,
+    "sha256": "e536df47e77827b1205264175cca9560d14b9cd5ec72230da8727aa369f8a474"
   },
   {
     "file": "scenes/garden-line-dark-2304.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line-dark.webp",
-      "sha256": "589e193930462b50fb72733c2201909be49460187a5721f570fd16e2e019c0d1"
+      "sha256": "99d385524fafa994a2081bf219853f7d397370114440c3341339575cee478cd2"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 2304x864 (Lanczos)",
@@ -11471,14 +11501,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 2304,
     "height": 864,
-    "bytes": 144122,
-    "sha256": "2cd1e7a7bbfdcc6577558fc9b2c5c6a89c316caa4f109d17b08c8cb8cd42597d"
+    "bytes": 117079,
+    "sha256": "72897486f6cc37b7d58ba54da35cfede521fb0a657a3f910bcfcf2d4a2eb1ebc"
   },
   {
     "file": "scenes/garden-line-dark-3072.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line-dark.webp",
-      "sha256": "589e193930462b50fb72733c2201909be49460187a5721f570fd16e2e019c0d1"
+      "sha256": "99d385524fafa994a2081bf219853f7d397370114440c3341339575cee478cd2"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -11486,14 +11516,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 189460,
-    "sha256": "bfd28f10bcaa15c8db26dbb4ce3641d1164e640edc96b19ac1745bcca69dd32b"
+    "bytes": 154737,
+    "sha256": "ae5ca388a94b57af2701c57ef86edaaf1e21be0a945635124742bde4079b850f"
   },
   {
     "file": "scenes/garden-line-dark-3840.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line-dark.webp",
-      "sha256": "589e193930462b50fb72733c2201909be49460187a5721f570fd16e2e019c0d1"
+      "sha256": "99d385524fafa994a2081bf219853f7d397370114440c3341339575cee478cd2"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3840x1440 (Lanczos)",
@@ -11501,14 +11531,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3840,
     "height": 1440,
-    "bytes": 232256,
-    "sha256": "853e3008769aae8a031f9e659f4b0b454c8df3254be4d45cb08909707f65dbc9"
+    "bytes": 190622,
+    "sha256": "0dafc2370dabee1a85110f8142bfbaf32de34aa3c583be6257d69df0ca4d0c16"
   },
   {
     "file": "scenes/garden-line-dark-5120.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line-dark.webp",
-      "sha256": "589e193930462b50fb72733c2201909be49460187a5721f570fd16e2e019c0d1"
+      "sha256": "99d385524fafa994a2081bf219853f7d397370114440c3341339575cee478cd2"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 5120x1920 (Lanczos)",
@@ -11516,14 +11546,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 5120,
     "height": 1920,
-    "bytes": 300193,
-    "sha256": "6dfb627fbeddd8acbb6eedcf2aa0ae8e447b2cc884cacee7d3c975c8602996dc"
+    "bytes": 247062,
+    "sha256": "771b844a0854ac46777a0d85eb40810c94c8e416f788b1a5365183aba12d0b96"
   },
   {
     "file": "scenes/garden-line-dark-7680.avif",
     "derivedFrom": {
       "file": "upscaled/garden-line-dark.webp",
-      "sha256": "589e193930462b50fb72733c2201909be49460187a5721f570fd16e2e019c0d1"
+      "sha256": "99d385524fafa994a2081bf219853f7d397370114440c3341339575cee478cd2"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
@@ -11531,14 +11561,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 7680,
     "height": 2880,
-    "bytes": 431051,
-    "sha256": "20367c8b61ee93d49ce7e6605fea1f65d9ef0c4d98dd41106e9b0250955596d7"
+    "bytes": 354789,
+    "sha256": "3ecd3c84973843d24c549ca44da6b65b0fddff624d02ff8e74bdadff7781f05b"
   },
   {
     "file": "scenes/garden-line-dark-3072.webp",
     "derivedFrom": {
       "file": "upscaled/garden-line-dark.webp",
-      "sha256": "589e193930462b50fb72733c2201909be49460187a5721f570fd16e2e019c0d1"
+      "sha256": "99d385524fafa994a2081bf219853f7d397370114440c3341339575cee478cd2"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -11546,14 +11576,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 289900,
-    "sha256": "52640779fe6055faa6e2a10ddb4bad2634162535ab1592fa6616f98a596ae407"
+    "bytes": 238482,
+    "sha256": "e31fbeaff3a27ed4c6b0a991c8328be08815f431741577591a3c4c1ef873e7cf"
   },
   {
     "file": "phone/garden-line-dark-384.webp",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 384x160 (Lanczos)",
@@ -11561,14 +11591,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 160,
-    "bytes": 16842,
-    "sha256": "0084ebb1a2896736914cd45a853831cf3fd64be319885ba86c7ad803c44549e6"
+    "bytes": 14506,
+    "sha256": "84700786ba7a157f4a0b4a6505e22ee3d462ace7327e324f4997e1568aad21cc"
   },
   {
     "file": "phone/garden-line-dark-384.avif",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 384x160 (Lanczos)",
@@ -11576,14 +11606,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 160,
-    "bytes": 14218,
-    "sha256": "72d362750cce331cec363863eab05a047a6624c935c7d230ad2f47984e1cdd91"
+    "bytes": 12098,
+    "sha256": "9729c876401e05e36724148bac46d6bfc9550c26783404e63ed9fcbca0ad0303"
   },
   {
     "file": "phone/garden-line-dark-768.webp",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 768x320 (Lanczos)",
@@ -11591,14 +11621,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 320,
-    "bytes": 49656,
-    "sha256": "217157d4857f579e212b50dad2b86c6c374b777ef32669247e032d339e4a27bb"
+    "bytes": 40248,
+    "sha256": "bfbce7f9e8a788ed5a132e169f32583f24b696647dadb1de5fd0a7ce0c198bb1"
   },
   {
     "file": "phone/garden-line-dark-768.avif",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "phone hero (12:5)",
     "operation": "crop box [0, 0, 1382, 576] then resize to 768x320 (Lanczos)",
@@ -11606,14 +11636,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 320,
-    "bytes": 38297,
-    "sha256": "bdca120533add189846612629ae4f429a48f44fe78343c4b2aca0939a02691a0"
+    "bytes": 31569,
+    "sha256": "3bdee2ed53f9d66bb7c1b9d23e0469edb8a8bd280ffba486d34d4c190fc72418"
   },
   {
     "file": "og/garden-line-dark.jpg",
     "derivedFrom": {
       "file": "headers/garden-line-dark.webp",
-      "sha256": "02315ad7fdfbe7806c62e50ccab08bcd583047f8f8d22fc91f3bb25091627014"
+      "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1"
     },
     "use": "Open Graph and Twitter card (1200x630)",
     "operation": "crop box [102, 0, 1199, 576] then resize to 1200x630 (Lanczos)",
@@ -11621,8 +11651,8 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 216539,
-    "sha256": "5b5e8ac3d366479b697c466d050adf778c2b01065b2d586af525b8274392eec4"
+    "bytes": 193418,
+    "sha256": "8a3a0b21ae54e0621165dd29a7f614cf3d7411e118f136e1e90fddb2f2c954f2"
   },
   {
     "file": "headers/gatefold.webp",
@@ -22745,7 +22775,7 @@
     "generated": "2026-11-15, by the ouroboros.bot home lane: Slugger lifts off. A small glass raccoon in a moss-green scarf stands in the basket of a little patchwork hot-air balloon rising from a dawn meadow, his long to-do list streaming over the rim in the breeze, with Ouro riding on the basket's rim beside him. Slugger and Ouro are \"he\"",
     "approval": "Ari asked for the rest of the ouroboros.bot home page to catch up with the airship hero, 2026-11-15: \"yay good airship!!! but what about literally everything else? :) the rest of the ouroboros.bot homepage needs to catch up. you may change literally everything!\" The plan (ourostack/ouroboros-website docs/home-catch-up.md) gives each home section its own picture; this is \"It started with Slugger\": Slugger, a small raccoon, lifts off in a little patchwork balloon with his to-do list. Made with the one-shot loop in agents/art-prompting.md: candidate C of three came back with zero blockers from a fresh blind hunt (the one-shot rate for this prompt: 1 of 3); it was framed by outpaints only, and the shipped day and night frames each passed a fresh blind hunt with no blockers.",
     "crop": "1536x576 from the 1536x1024 master (rows 124-700), WebP q86 (Pillow 11.3)",
-    "checked": "blind defect hunts 2026-11-15, day and night separately, by fresh reviewers given only the frames and 5x crops: no blockers. Slugger: one head, two ears, two arms to round paws (one on the rim, one on the list), one tail; Ouro: one continuous animal with an open curl on the rim; four ropes attached at both ends; the burner mounted with its flame inside the mouth; no text or dated devices.",
+    "checked": "blind 33 and 34 (hunt/slugger-balloon-blind33, -blind34, Opus 5.5 with 4-10x crops, plus the structure hunter, the shipped 3072 scenes): BLIND and STRUCT no blocking defects, day and night, in both; the night reads as night (a full moon and the burner flame); every hand 0.95 or less; a parity hunter on the night found no prop changed.",
     "generation": [
       {
         "master": "slugger-balloon-master",
@@ -22837,14 +22867,56 @@
     ],
     "width": 1536,
     "height": 576,
-    "bytes": 163314,
-    "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+    "bytes": 151490,
+    "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333",
+    "master_sha256": "3e7f65a78aabd4c080fe897074946915ea021a4b8bb38e33fedb9313e59e0659",
+    "edits": [
+      {
+        "date": "2026-11-17",
+        "what": "family-lane fixes: the sun disc painted out of the day (the light still from the left); knitted moss-green mittens with one thumb each and the forearms drawn from under the scarf; the burner seen from below; a stray second snout removed; the sky pocket between the rope and the raccoon closed with fur (stop rule).",
+        "steps": [
+          {
+            "step": "sun1 (sun disc, bloom and beams painted out of the DAY; the light still comes from the left): crop 293,192,677,576, prompt sun1-prompt.txt, out , --ell 415,345,565,480 feather 8.",
+            "sha256": "02dfb7075d4d6bd5cc0e0bf13f84d3e7d905c9d55e7e0f26a928f66272fc3ef5"
+          },
+          {
+            "step": "fix8b: crop 700,320,956,576 of header-r1, prompt fix8-prompt.txt, out , --ell 782,402,824,438 --ell 832,414,876,450 -> c8b.",
+            "sha256": "13711a8c8c1c459fee71162fe90f18619a82bdd7b1f14140e90545be53a1dcda"
+          },
+          {
+            "step": "p3a (paper mitten slimmer): crop 739,356,867,484 of c8b, prompt p3-prompt.txt, out , --ell 782,402,824,438 -> c9a.",
+            "sha256": "dba6d30a651cb6458f945f6f4d235e4f6393e0a725688ed02aad14214e2caa38"
+          },
+          {
+            "step": "rail mitten from fix8a () --ell 832,414,876,450 -> c10; then p5b (slimmer rail mitten, forearm visible): crop 790,380,918,508, prompt p5-prompt.txt, out , --ell 830,404,880,454.",
+            "sha256": "b85768136367aec5a7ea6aed5073e5f522f78ad695ca787370d7f091cdf98b62"
+          },
+          {
+            "step": "arms-a (blind6: mittens stuck on the torso; both forearms drawn from under the scarf to the cuffs): crop 700,320,956,576, prompt arms-prompt.txt, out , --ell 778,390,886,458, then the paper mitten restored from the previous day through --ell 790,408,818,434 -> carm-a2.",
+            "sha256": "1ee3519bd092106e25b99a5a89ca4b260dd8b3fb253d4d4f69e5c8b78fff3f88"
+          },
+          {
+            "step": "burner2-a (STRUCT8: the burner plate showed its top face above eye level; redrawn as a cylinder seen from below; round 1 \"burner\" failed): crop 762,224,954,416, prompt burner2-prompt.txt, out , --box 830,296,888,336 feather 3.",
+            "sha256": "910a6e88499fcecc7c24433d24c973a7a7a8c172013fe42b53fc663f93313841"
+          },
+          {
+            "step": "snout-b (blind9: a pointed wedge past the nose read as a second snout): crop 752,321,848,417, prompt snout-prompt.txt, out , --ell 784,356,816,382 feather 2.",
+            "sha256": "4bc6b852fbb11da208ba5d82fc8835bd0c977076cd575e5fe44920ee62ed20f3"
+          },
+          {
+            "step": "ring-b (STRUCT12: the outer basket ropes frayed against the load ring; now eye-spliced around it): crop 776,236,936,396 (ring-in.png), prompt ring-prompt.txt, out , --ell 784,286,810,316 --ell 898,285,924,315 feather 2 -> header.png.",
+            "sha256": "5ac8a2e4ca25a9f5dc890a63a80927bf4f38199dc1da4e99ba921a7ede02091d"
+          }
+        ],
+        "previous_sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      }
+    ]
   },
   {
     "file": "scenes/slugger-balloon-640.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -22852,14 +22924,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 29682,
-    "sha256": "6145e7241b7d13b75f7322076caac6610510eb6c56c62997b69c38936c12bd76"
+    "bytes": 29070,
+    "sha256": "5e9563e72fbf930a200c3d7bdbc848414072c3e74ae7adb068f14a04a6c5d719"
   },
   {
     "file": "scenes/slugger-balloon-640.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -22867,14 +22939,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 22062,
-    "sha256": "18148d01afcf192f3ba464310fd54d16e5e13cfaa1d96213424ef6b9cfcc4f78"
+    "bytes": 21809,
+    "sha256": "54fce8f98acff1c2df8f7f9f113fc716b416a4f93ba33655ac05629ae281bf2c"
   },
   {
     "file": "scenes/slugger-balloon-960.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -22882,14 +22954,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 59410,
-    "sha256": "a520b7175b1b73be6f9fc2f9bdc4642412f2006869ab48c62a67724e48dd33f2"
+    "bytes": 58282,
+    "sha256": "4bc444d9b785c37ca4866ea13f44f7c95346cb9f267c2368915f2b7e3b1cecee"
   },
   {
     "file": "scenes/slugger-balloon-960.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -22897,14 +22969,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 43554,
-    "sha256": "61f28bb2b24b90a2934bbd2f71114f335cfb8d89d2b38a399fe95115e915f7a2"
+    "bytes": 43255,
+    "sha256": "b4324a0dc4596c1dc2b9e224195d01ae931e8d789b9c868001c2a88d4b3bb2aa"
   },
   {
     "file": "scenes/slugger-balloon-1536.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene",
@@ -22912,14 +22984,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1536,
     "height": 576,
-    "bytes": 92793,
-    "sha256": "84ecf95ad17d4811781e30350a7448fc480a0edd7c8fa7e44bf100f140da99ad"
+    "bytes": 94107,
+    "sha256": "5417bf713ce9be32f41c61fbf8507c0eb40103fe7be2ed93a6c877199d3b0b01"
   },
   {
     "file": "scenes/slugger-balloon-2304.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon.webp",
-      "sha256": "397eccd84aa0904bfe45972b0e7f6f65c62fe140f0e4a6e8a8ff5132ac9abb96"
+      "sha256": "29baf33ae16d2a95025114f6be4997d671b15adda19066a7b9285bf85c831891"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 2304x864 (Lanczos)",
@@ -22927,14 +22999,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 2304,
     "height": 864,
-    "bytes": 162879,
-    "sha256": "de354a248367b29b05642ae7d9794458ce573b5ae697b61b2125c9dc1bef1fe1"
+    "bytes": 152979,
+    "sha256": "ad84cefcd2e6f49ec97d17ea37ffb3c32b0198e4408c9b17f67f74492d3d1c4d"
   },
   {
     "file": "scenes/slugger-balloon-3072.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon.webp",
-      "sha256": "397eccd84aa0904bfe45972b0e7f6f65c62fe140f0e4a6e8a8ff5132ac9abb96"
+      "sha256": "29baf33ae16d2a95025114f6be4997d671b15adda19066a7b9285bf85c831891"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -22942,14 +23014,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 231579,
-    "sha256": "0adaf2ab636212b9485e01d60c4837c5914bd712c2e9c87f0940aa521dd6f3af"
+    "bytes": 220601,
+    "sha256": "447f2ee171b4496d8294743866947ea9f05aed094d843d04176524c477ba700f"
   },
   {
     "file": "scenes/slugger-balloon-3840.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon.webp",
-      "sha256": "397eccd84aa0904bfe45972b0e7f6f65c62fe140f0e4a6e8a8ff5132ac9abb96"
+      "sha256": "29baf33ae16d2a95025114f6be4997d671b15adda19066a7b9285bf85c831891"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3840x1440 (Lanczos)",
@@ -22957,14 +23029,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3840,
     "height": 1440,
-    "bytes": 298493,
-    "sha256": "c8469ea024a60ddc7bd464ca6c4993d4599828ff33b4c8a0e248ec469ce43d04"
+    "bytes": 289620,
+    "sha256": "a63953d1ba51f75e45d7645eb232182d9f26752e3f7cde8404b872078266d537"
   },
   {
     "file": "scenes/slugger-balloon-5120.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon.webp",
-      "sha256": "397eccd84aa0904bfe45972b0e7f6f65c62fe140f0e4a6e8a8ff5132ac9abb96"
+      "sha256": "29baf33ae16d2a95025114f6be4997d671b15adda19066a7b9285bf85c831891"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 5120x1920 (Lanczos)",
@@ -22972,14 +23044,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 5120,
     "height": 1920,
-    "bytes": 404899,
-    "sha256": "ca6da3375638fa0bfc3f98920ab00986cc65d260ca6cb1308ae31fc974f8ce44"
+    "bytes": 403471,
+    "sha256": "524241013e62ccfc09da4aa1ed09014c9fe06ddb316e705e0942834428bbcfd7"
   },
   {
     "file": "scenes/slugger-balloon-7680.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon.webp",
-      "sha256": "397eccd84aa0904bfe45972b0e7f6f65c62fe140f0e4a6e8a8ff5132ac9abb96"
+      "sha256": "29baf33ae16d2a95025114f6be4997d671b15adda19066a7b9285bf85c831891"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
@@ -22987,14 +23059,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 7680,
     "height": 2880,
-    "bytes": 602794,
-    "sha256": "1d9e94a1d0b020ef25920a16eb602feb11f1c2e1b5ad39ead208d0feada0527e"
+    "bytes": 603534,
+    "sha256": "09055ed5091269a6e13eee5c00b4ade1fc06e74d717d80a7812e9222d3a5633c"
   },
   {
     "file": "scenes/slugger-balloon-3072.webp",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon.webp",
-      "sha256": "397eccd84aa0904bfe45972b0e7f6f65c62fe140f0e4a6e8a8ff5132ac9abb96"
+      "sha256": "29baf33ae16d2a95025114f6be4997d671b15adda19066a7b9285bf85c831891"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -23002,14 +23074,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 339848,
-    "sha256": "3ff44d75b35cf0057230a455283093a0b14457c2f582fb30fd6ae7042f28fb42"
+    "bytes": 310612,
+    "sha256": "a6a7a7aa39fd344376a4a3733410f18e04e6dad0337c025f54fae026036039e5"
   },
   {
     "file": "phone/slugger-balloon-384.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 384x288 (Lanczos)",
@@ -23017,14 +23089,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 288,
-    "bytes": 19328,
-    "sha256": "364d4240e1c8f84b05bb3c5d4e8705ba104d34bb4a9d1a84390e9300fad5d130"
+    "bytes": 19252,
+    "sha256": "17d4f58004b997dab510d6f1219849ef22dbfd197dd1c30d1e2c8f204aa0f72d"
   },
   {
     "file": "phone/slugger-balloon-384.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 384x288 (Lanczos)",
@@ -23032,14 +23104,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 288,
-    "bytes": 15069,
-    "sha256": "6e9a17a09104ef8f77d0aa0bdd2936b1083dc4e3fae4c4b94b5dbb729db4edb8"
+    "bytes": 15076,
+    "sha256": "1c20a1f641468dde7d0307df50a78ce4dd41745c94b8b2308a6ec5460543e964"
   },
   {
     "file": "phone/slugger-balloon-768.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 768x576 (Lanczos)",
@@ -23047,14 +23119,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 576,
-    "bytes": 64058,
-    "sha256": "d25c6a5907afdeb38891d12b2a4764876e70459286fed7792fe601a5433cc153"
+    "bytes": 64534,
+    "sha256": "adcf18cf9990873734d04f06db53112d24c982df20bb917035b217581e5f2d5f"
   },
   {
     "file": "phone/slugger-balloon-768.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 768x576 (Lanczos)",
@@ -23062,14 +23134,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 576,
-    "bytes": 46794,
-    "sha256": "5f175b8ef13f65d834be89dbacf57d9da5d3dc21b71d3d74a1867d5be0811580"
+    "bytes": 47287,
+    "sha256": "1cd6111df313d6650ed1d8e99c65f9620d0ae695ed7e22f7b76963f897e439b6"
   },
   {
     "file": "og/slugger-balloon.jpg",
     "derivedFrom": {
       "file": "headers/slugger-balloon.webp",
-      "sha256": "7eaa5ee244a31b4a201fe0cd3c1971f6ff02b9e5ec16623c7e884ca002ae4f55"
+      "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333"
     },
     "use": "Open Graph and Twitter card (1200x630)",
     "operation": "crop box [292, 0, 1389, 576] then resize to 1200x630 (Lanczos)",
@@ -23077,8 +23149,8 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 206604,
-    "sha256": "47d2fe26188887fe76e80a6a6a1e1123146138eec724bff67c6518b9d8a1d3b4"
+    "bytes": 204072,
+    "sha256": "bfc118e59cb208fda6f05eb9255e31e94d96ad1b69fcfce50a16003e38959855"
   },
   {
     "file": "headers/slugger-balloon-dark.webp",
@@ -23087,7 +23159,7 @@
     "generated": "2026-11-15, by the ouroboros.bot home lane: night twin: the same balloon rising from a moonlit meadow under the stars, its burner flame lighting the envelope from inside. Slugger and Ouro are \"he\"",
     "approval": "Ari asked for the rest of the ouroboros.bot home page to catch up with the airship hero, 2026-11-15: \"yay good airship!!! but what about literally everything else? :) the rest of the ouroboros.bot homepage needs to catch up. you may change literally everything!\" The plan (ourostack/ouroboros-website docs/home-catch-up.md) gives each home section its own picture; this is \"It started with Slugger\": Slugger, a small raccoon, lifts off in a little patchwork balloon with his to-do list. Made with the one-shot loop in agents/art-prompting.md: candidate C of three came back with zero blockers from a fresh blind hunt (the one-shot rate for this prompt: 1 of 3); it was framed by outpaints only, and the shipped day and night frames each passed a fresh blind hunt with no blockers.",
     "crop": "1536x576 from the 1536x1024 master (rows 124-700), WebP q86 (Pillow 11.3)",
-    "checked": "blind defect hunts 2026-11-15, day and night separately, by fresh reviewers given only the frames and 5x crops: no blockers. Slugger: one head, two ears, two arms to round paws (one on the rim, one on the list), one tail; Ouro: one continuous animal with an open curl on the rim; four ropes attached at both ends; the burner mounted with its flame inside the mouth; no text or dated devices.",
+    "checked": "blind 33 and 34 (hunt/slugger-balloon-blind33, -blind34, Opus 5.5 with 4-10x crops, plus the structure hunter, the shipped 3072 scenes): BLIND and STRUCT no blocking defects, day and night, in both; the night reads as night (a full moon and the burner flame); every hand 0.95 or less; a parity hunter on the night found no prop changed.",
     "generation": [
       {
         "master": "slugger-balloon-dark-master",
@@ -23229,14 +23301,22 @@
     ],
     "width": 1536,
     "height": 576,
-    "bytes": 108266,
-    "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+    "bytes": 34080,
+    "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc",
+    "master_sha256": "2a497e791c4d730cbf6a4b0cd3a219e87671989be62181d9ffc744960cb08b7e",
+    "edits": [
+      {
+        "date": "2026-11-17",
+        "what": "night rebuilt as light only: nightFromFlatDay (flat ff5ea783e86e93b1da146bd9fe53a34ab0d9d65d4da3bd04ecaa65330007ba05, sky-only flattening) and nightLights (facfc4de5121ae250ab48f851f10cf0bfdbf985d9e94dc77dbee6512f8705d9c: the burner flame and the moon); build_flat_night5.sh.",
+        "previous_sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      }
+    ]
   },
   {
     "file": "scenes/slugger-balloon-dark-640.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -23244,14 +23324,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 19436,
-    "sha256": "664a92803eeb7602b0f8b741a7629538addf8c26cc793a9714483a88632776ee"
+    "bytes": 4874,
+    "sha256": "06675d2161c51a756a9fab35f2704fb030b032b7f5cbc1c5c8d2a49b7c64121a"
   },
   {
     "file": "scenes/slugger-balloon-dark-640.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 640x240 (Lanczos)",
@@ -23259,14 +23339,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 640,
     "height": 240,
-    "bytes": 15280,
-    "sha256": "ce8646e7014a2dd9cd108e34547150745c9a7c29d055b1f352e024d60649b392"
+    "bytes": 3027,
+    "sha256": "4cdf481e28616b7076091585a710df325a9f4682e4b98be5c58b6832a051b989"
   },
   {
     "file": "scenes/slugger-balloon-dark-960.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -23274,14 +23354,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 40692,
-    "sha256": "4a1aa56e9e04e3c4716154ded6cb5a422feadb7e92983e3b5488d412913f0ce8"
+    "bytes": 10478,
+    "sha256": "24c3aeefcd42db8cf6f4becae3e383b80b055d91cbeba7f19b62f42cf987dd16"
   },
   {
     "file": "scenes/slugger-balloon-dark-960.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene resized to 960x360 (Lanczos)",
@@ -23289,14 +23369,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 960,
     "height": 360,
-    "bytes": 31615,
-    "sha256": "c23a97b279f95e54cec841e99f474a0992ed0935aafdab178446bf236db09d8b"
+    "bytes": 5912,
+    "sha256": "cb4cb716fc6c0bdcd1e8788ca5f442e81c1d5eac7daee9bd88772eb57f6aa58e"
   },
   {
     "file": "scenes/slugger-balloon-dark-1536.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "site hero, responsive width",
     "operation": "whole scene",
@@ -23304,14 +23384,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1536,
     "height": 576,
-    "bytes": 66927,
-    "sha256": "0ba358624fc188c4c7b68da23ddc49d9ea6973396a54b48abe9574751feca93e"
+    "bytes": 15050,
+    "sha256": "61e3661b0d7d55b073860a70bec8f2000c7b15f7236cf7b04310a82623ffd26c"
   },
   {
     "file": "scenes/slugger-balloon-dark-2304.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon-dark.webp",
-      "sha256": "97ee1a9ae98039b94ca192addfc66fd69d5ba2fe6a5c124a005bef5d5b2d95ca"
+      "sha256": "c0e3a44c4c139a281c8f7b1987065d8e58137a4a0b68e2644d8126e848c5432c"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 2304x864 (Lanczos)",
@@ -23319,14 +23399,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 2304,
     "height": 864,
-    "bytes": 108915,
-    "sha256": "27334e467c535b143167bc1be6ce949b70c4065d430516cf223fbeb689b587db"
+    "bytes": 23880,
+    "sha256": "ca2f5ddadadb958c65b00a238b8e13c00ca0fbcabfde63e3ec0a13c18d6e216d"
   },
   {
     "file": "scenes/slugger-balloon-dark-3072.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon-dark.webp",
-      "sha256": "97ee1a9ae98039b94ca192addfc66fd69d5ba2fe6a5c124a005bef5d5b2d95ca"
+      "sha256": "c0e3a44c4c139a281c8f7b1987065d8e58137a4a0b68e2644d8126e848c5432c"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -23334,14 +23414,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 150017,
-    "sha256": "1353b09d97addce45666a0ae843c83dd407ae5f9f9f422fef11ef29998e1cf17"
+    "bytes": 35920,
+    "sha256": "bf3cbd89e91c53fe8a3c71fb80a5fb846e5ef65fbe5b1749aa090c921e85b0d1"
   },
   {
     "file": "scenes/slugger-balloon-dark-3840.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon-dark.webp",
-      "sha256": "97ee1a9ae98039b94ca192addfc66fd69d5ba2fe6a5c124a005bef5d5b2d95ca"
+      "sha256": "c0e3a44c4c139a281c8f7b1987065d8e58137a4a0b68e2644d8126e848c5432c"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3840x1440 (Lanczos)",
@@ -23349,14 +23429,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3840,
     "height": 1440,
-    "bytes": 188872,
-    "sha256": "699b9299c7eb3e597995a22b613356a840baae53065584d1425b38e79220da53"
+    "bytes": 47628,
+    "sha256": "e525b269cf92425569bf8d93975850d7fd6939b8e42022160511fd2dc8e58bd0"
   },
   {
     "file": "scenes/slugger-balloon-dark-5120.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon-dark.webp",
-      "sha256": "97ee1a9ae98039b94ca192addfc66fd69d5ba2fe6a5c124a005bef5d5b2d95ca"
+      "sha256": "c0e3a44c4c139a281c8f7b1987065d8e58137a4a0b68e2644d8126e848c5432c"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 5120x1920 (Lanczos)",
@@ -23364,14 +23444,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 5120,
     "height": 1920,
-    "bytes": 245423,
-    "sha256": "e31372f29f0b3bc5959dadcd814c8d1d70694bc58e0ba56334f519de49bea682"
+    "bytes": 66541,
+    "sha256": "f7f9a54a81e1fd98281003d22b271a27384a731b71a0f0a4219bbde600811916"
   },
   {
     "file": "scenes/slugger-balloon-dark-7680.avif",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon-dark.webp",
-      "sha256": "97ee1a9ae98039b94ca192addfc66fd69d5ba2fe6a5c124a005bef5d5b2d95ca"
+      "sha256": "c0e3a44c4c139a281c8f7b1987065d8e58137a4a0b68e2644d8126e848c5432c"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 7680x2880 (Lanczos), 1.25x up from the 6144 px master; no new detail is drawn",
@@ -23379,14 +23459,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 7680,
     "height": 2880,
-    "bytes": 356480,
-    "sha256": "60b570fc4627f83574bbd51cfe6469ffad97e654177bed54a8656af9b1427e6b"
+    "bytes": 104915,
+    "sha256": "912c931ac0e180c3ae780e38725f49262c2adf2aaa47642fbf2ad0ae84e0b28b"
   },
   {
     "file": "scenes/slugger-balloon-dark-3072.webp",
     "derivedFrom": {
       "file": "upscaled/slugger-balloon-dark.webp",
-      "sha256": "97ee1a9ae98039b94ca192addfc66fd69d5ba2fe6a5c124a005bef5d5b2d95ca"
+      "sha256": "c0e3a44c4c139a281c8f7b1987065d8e58137a4a0b68e2644d8126e848c5432c"
     },
     "use": "site hero, responsive width",
     "operation": "4x master resized to 3072x1152 (Lanczos)",
@@ -23394,14 +23474,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn. Ari asked for every undersized piece of art to be AI-upscaled, 2026-11-12: \"upscale all the art, and make it impossible to use too-small imagery\". Cut from the scene's 4x Real-ESRGAN master.",
     "width": 3072,
     "height": 1152,
-    "bytes": 206662,
-    "sha256": "f635b8a01f078330176c0b37ed3578cdf2262cc343e1337dabc81bac7cfd2232"
+    "bytes": 60524,
+    "sha256": "f0b694aff8b997dfe78e9812aab712efdb299bf3c9517467609fa8c09e7bf222"
   },
   {
     "file": "phone/slugger-balloon-dark-384.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 384x288 (Lanczos)",
@@ -23409,14 +23489,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 288,
-    "bytes": 16338,
-    "sha256": "b759aa106fc94a93113ffffdfde608e4466a5441e14cc42c632c5d38c964ee3f"
+    "bytes": 4514,
+    "sha256": "f8d9c4d1036f3c4d037ab37d6bd73cf2d548553ddf626ef49d726f591544a078"
   },
   {
     "file": "phone/slugger-balloon-dark-384.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 384x288 (Lanczos)",
@@ -23424,14 +23504,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 384,
     "height": 288,
-    "bytes": 13081,
-    "sha256": "75747d517110abb30efcd93d665b3cc4bbf71299c8a52e08cff9bd5a27c9e200"
+    "bytes": 2960,
+    "sha256": "619b9afac39abb6a1da01db79c48822d766bd67145448ac3345dba59f805e0c4"
   },
   {
     "file": "phone/slugger-balloon-dark-768.webp",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 768x576 (Lanczos)",
@@ -23439,14 +23519,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 576,
-    "bytes": 51638,
-    "sha256": "3c8306c8cf89f395c0cc46abb9953dccfd86510b18194ad670d9664c63f93b02"
+    "bytes": 15492,
+    "sha256": "6e36c82fab87d90d6248a836e20d9cf101ab23679a8c28867a2a15a73b477895"
   },
   {
     "file": "phone/slugger-balloon-dark-768.avif",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "phone hero (4:3)",
     "operation": "crop box [456, 0, 1224, 576] then resize to 768x576 (Lanczos)",
@@ -23454,14 +23534,14 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 768,
     "height": 576,
-    "bytes": 39763,
-    "sha256": "92ab224cb13b63518a65b99d894184ebbafb3ca71da52552732c9634282bb321"
+    "bytes": 10089,
+    "sha256": "dca70d95252ed5a8af54c5e1e67cdc243e6dcb3cf12a22c32dd9154f7e7d8418"
   },
   {
     "file": "og/slugger-balloon-dark.jpg",
     "derivedFrom": {
       "file": "headers/slugger-balloon-dark.webp",
-      "sha256": "e183c560bebaf0a861e3d42d2ebf265c54e7b1637ab4af00d837141b662b0aea"
+      "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc"
     },
     "use": "Open Graph and Twitter card (1200x630)",
     "operation": "crop box [292, 0, 1389, 576] then resize to 1200x630 (Lanczos)",
@@ -23469,7 +23549,7 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 163570,
-    "sha256": "499572674c3b49a703ac42a9e4770ee3bd1c2e0a4b1b4b19c6cbeb36fafa9323"
+    "bytes": 69569,
+    "sha256": "decba59f86eebf8c943cf69830b9456ab0665018b2f151f1632ca2956f7f9461"
   }
 ]
