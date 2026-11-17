@@ -45,7 +45,7 @@ test('--shard takes k/n and nothing else', () => {
 });
 
 // A matrix that lists fewer shards than its --shard count would drop checks.
-for (const [job, flag] of [['pages', 'check:all -- --shard'], ['ouro-check', 'check.ts dist']]) {
+for (const [job, flag] of [['pages', 'check:all -- --shard'], ['ouro-check', 'node "$OURO_CHECK" dist']]) {
   test(`site-checks runs every ${job} shard`, () => {
     const body = workflow.split(/\n  (?=[a-z-]+:\n)/).find((b) => b.startsWith(`${job}:`));
     assert.ok(body, `no ${job} job in site-checks.yml`);
