@@ -1,0 +1,111 @@
+name: Sync brand art
+
+# Keeps public/brand/storybook/ the same bytes as ourostack/.github's brand/ art
+# (scripts/sync-storybook.mjs --from-github). When a brand merge changes a file
+# this site serves, it opens a pull request, runs site-checks on it, merges it when
+# that passes, and runs site-checks on main, which deploys. The brand audit in
+# ourostack/.github treats site:ouroboros.bot as pending, not stale, for a short
+# window after a brand merge, so main stays green while this runs.
+# It follows refresh-ouromd-release.yml: main requires site-checks, and a pull
+# request or push made with the workflow's own token starts no run, so it
+# dispatches site-checks itself.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: sync-brand
+  cancel-in-progress: false
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    outputs:
+      merged: ${{ steps.merge.outputs.merged }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: node scripts/sync-storybook.mjs --from-github main
+
+      - id: changes
+        run: |
+          if [ -z "$(git status --porcelain -- public/brand/storybook)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open the pull request
+        id: pr
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          brand=$(gh api repos/ourostack/.github/commits/main --jq '.sha[0:7]')
+          branch="brand-sync"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add public/brand/storybook
+          git commit -m "Sync the storybook art with ourostack/.github@$brand"
+          git push --force origin "$branch"
+          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
+            gh pr create --base main --head "$branch" --title "Sync the storybook art with ourostack/.github@$brand" \
+              --body "A brand merge changed art this site serves. $GITHUB_WORKFLOW (run $GITHUB_RUN_ID) copied it byte for byte with scripts/sync-storybook.mjs, runs site-checks on this pull request, and merges and deploys it when site-checks passes."
+          else
+            gh pr edit "$branch" --title "Sync the storybook art with ourostack/.github@$brand"
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Run site-checks on it
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
+          SHA: ${{ steps.pr.outputs.sha }}
+        run: |
+          gh workflow run site-checks.yml --ref "$BRANCH"
+          run=
+          for _ in $(seq 30); do
+            run=$(gh run list --workflow site-checks.yml --event workflow_dispatch --commit "$SHA" --json databaseId --jq '.[0].databaseId')
+            [ -n "$run" ] && break
+            sleep 10
+          done
+          [ -n "$run" ] || { echo "::error::site-checks didn't start on $BRANCH ($SHA)."; exit 1; }
+          echo "site-checks run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$run" >> "$GITHUB_STEP_SUMMARY"
+          gh run watch "$run" --interval 30 --exit-status > /dev/null
+
+      - name: Merge it
+        id: merge
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
+          SHA: ${{ steps.pr.outputs.sha }}
+        run: |
+          gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA"
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: propose
+    if: needs.propose.outputs.merged == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      # The merge commit starts no push run, so dispatch site-checks on main:
+      # it gives main its verdict and deploys production when that passes.
+      - run: gh workflow run site-checks.yml --repo "$GITHUB_REPOSITORY" --ref main
