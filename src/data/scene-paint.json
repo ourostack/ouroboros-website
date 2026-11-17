@@ -91,13 +91,13 @@
   },
   "desk": {
     "from": "headers/desk.webp",
-    "sha256": "a238eb34bbc465ad497780d46d1b1014ceb1d13f171e4a01449a21cd6ccc9fe0",
-    "colour": "#e8c8a8"
+    "sha256": "171315ddd4d59f89cf8fe142d6d12b13c3e66f8432c75b9f601fb9b6b745cadf",
+    "colour": "#986848"
   },
   "desk-dark": {
     "from": "headers/desk-dark.webp",
-    "sha256": "47689b1ec31f521c013e5b5c629be2aaa69aea112c7cffa63e69af5f57ea547d",
-    "colour": "#484868"
+    "sha256": "4b2b7cdebd7481bb5760a1e759928eea40225c6e09acc16e2cc380eb721d5d5b",
+    "colour": "#181818"
   },
   "factory": {
     "from": "headers/factory.webp",
@@ -226,13 +226,13 @@
   },
   "ouro-ui-apple": {
     "from": "headers/ouro-ui-apple.webp",
-    "sha256": "9a96d72e04ac84529823d0dfaa74c66f681d2108e4432b8079cc8268c6431af7",
+    "sha256": "cd8b97f04c4c5d2dc2d1e589f753c9c04e127a164d1272fe41780a0bca83ce64",
     "colour": "#e8e8f8"
   },
   "ouro-ui-apple-dark": {
     "from": "headers/ouro-ui-apple-dark.webp",
-    "sha256": "0dc64593b5f62c6f8756e34f20a9fdae32f50ef8e7300e31b2711107c893552d",
-    "colour": "#484858"
+    "sha256": "0491250a92f0c84325f695da5d4b261d895490724f44fe2265b43d8330cbac04",
+    "colour": "#081848"
   },
   "ouro-ui-core": {
     "from": "headers/ouro-ui-core.webp",
