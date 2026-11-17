@@ -391,6 +391,15 @@ html, body { overflow-x: clip; }
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
   --radius-4xl: 2rem;
+  /* Ouro UI v1.3.245 rounds its components with the --radius-ouro-* steps;
+     they follow the site's scale above, so corners stay as they were. */
+  --radius-ouro-sm: var(--radius-sm);
+  --radius-ouro-md: var(--radius-md);
+  --radius-ouro-lg: var(--radius-lg);
+  --radius-ouro-xl: var(--radius-xl);
+  --radius-ouro-2xl: var(--radius-2xl);
+  --radius-ouro-3xl: var(--radius-3xl);
+  --radius-ouro-4xl: var(--radius-4xl);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
