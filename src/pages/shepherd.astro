@@ -7,37 +7,39 @@ import { Button } from '../components/ouro/button/button'
 
 // Ouro Shepherd: keeps the GitHub Copilot app's sessions as work. Every claim here is sourced from
 // ourostack/shepherd (its README, llms.txt and the library's documented behaviour), and the terminal
-// paragraph from ourostack/ouroboros docs/shepherd-sense.md. Only what v0.1.0 does is listed as "here now".
+// paragraph from ourostack/ouroboros docs/shepherd-sense.md. Only what its README marks "here now" is listed as today.
 const title = 'Ouro Shepherd: your Copilot app’s sessions, kept as work | Ouro'
-const description = 'Ouro Shepherd keeps the GitHub Copilot app’s sessions as work: which are busy and why, how big each history has grown, and how to message or archive them. Experimental, and its CLI only reads.'
+const description = 'Ouro Shepherd keeps the GitHub Copilot app’s sessions as work: which are busy and why, how big each history has grown, messages, archives, resumes after a restart, quota and the sidebar. Experimental, and it runs always on a Mac.'
 const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
 const status = labelFor('shepherd')
 const statusDetail = entry('shepherd').detail
 const repo = 'https://github.com/ourostack/shepherd'
-const tryIt = 'npx github:ourostack/shepherd#v0.1.0 status'
+const tryIt = 'npx github:ourostack/shepherd#v0.8.1 status'
 
 const here = [
-  ['Says which sessions are busy, and why', 'One line per local session: busy or idle, and the reason. A session over 500 MB, or idle for over a day, is idle, and says so.'],
-  ['Sizes each history', 'How big each session’s history has grown, so a huge one is easy to spot.'],
-  ['Sends a session a message', 'Writes one prompt into a session and waits for the reply, or says why it could not. For now that is a library call; the CLI only reads.'],
-  ['Archives a session or its workspace', 'Archives the session, or its workspace with the session in it. It deletes a worktree only when the worktree is one and you did not ask to keep it.'],
+  ['Which sessions are busy, and why', 'Every local session on one line: busy or idle, and the reason.'],
+  ['How big each history is', 'How much each session’s history has grown, so the huge ones are easy to spot.'],
+  ['Sending a message', 'Sends a session a message, and says whether it was accepted, queued or failed.'],
+  ['Archiving', 'Archives a session, or its workspace with it. A worktree goes too unless you ask to keep it.'],
+  ['Compressing old history', 'Compresses an archived session’s history, never a live one. Restoring brings it back.'],
+  ['Resuming after a restart or crash', 'After a restart or crash, sends each session that was running one message to carry on.'],
+  ['The 500 MB cap', 'A history over 500 MB is held back and never sent, because the app loads all of it on resume.'],
+  ['Size watch and hand-off retirement', 'Archives sessions that were handed off or finished, and flags oversize histories so their sessions can hand off. Off until retire.json enables it.'],
+  ['Stuck resume', 'A session whose loop stopped with no next turn gets one message to carry on, at most three times a day. Off until stuck-resume.json enables it.'],
+  ['The six-hour health watch', 'Follows each session it resumed for six hours, asks a silent or stuck one again, and tells its agent by name only about one that stays broken.'],
+  ['Billing account and quota', 'Moves a project off a spent Copilot account, and messages the sessions that stopped mid-work. Off until quota.json enables it.'],
+  ['Sidebar tidy', 'Hides projects nobody is working in, and always shows the homes you list. Off until sidebar.json enables it.'],
+  ['Desk’s wakes', 'Delivers a wake from Desk to a session, the message sent because something outside the app is due. Off until wakes.json enables it.'],
 ]
 
 const moving = [
   'A safe point before a restart',
-  'Resume after a restart or crash',
-  'The 500 MB resume cap',
-  'Size watch and hand-off retirement',
-  'Stuck resume',
-  'Billing account and quota',
-  'Sidebar tidy',
   'Waiting-prompt notices',
-  'Delivering Desk’s wakes',
 ]
 
 const neighbours = [
   ['Housesitter keeps the house', 'The Mac, and the GitHub Copilot app as a running process: awake, unlocked, restarted when it freezes, and Ouroboros brought back when it stops. Shepherd never quits or relaunches the app.'],
-  ['Shepherd keeps the flock', 'The app’s sessions, as work: which are busy, how big, messages and archives. Its CLI reads them and changes nothing.'],
+  ['Shepherd keeps the flock', 'The app’s sessions, as work: which are busy, how big, messages, archives, resumes and quota. Its CLI does the same for agents.'],
   ['Ouroboros is an agent, not their home', 'It uses Shepherd’s library, hears its notices, and decides what reaches its person. Housesitter brings it back when it stops.'],
   ['Butler minds a different house', 'An Ouroboros agent that looks after a home server, on Unraid and Telegram. It never touches the Mac or the app.'],
 ]
@@ -50,7 +52,7 @@ const neighbours = [
     <span slot="eyebrow" class="flex flex-wrap items-center gap-x-3 gap-y-1"><span class={`tag ${status.tone}`}>{status.label}</span><span>{statusDetail}.</span></span>
     <span slot="title" class="hero-mark-title"><img src="/brand/shepherd-render.webp" srcset="/brand/shepherd-render-128.webp 128w, /brand/shepherd-render-256.webp 256w" sizes="(min-width: 768px) 64px, 56px" width="64" height="64" alt="" class="mark-render" />Ouro Shepherd</span>
     <Fragment slot="description">
-      <p class="product-lede" data-hero-lede>Shepherd keeps the flock: your GitHub Copilot app’s sessions, as work. It knows which ones are busy and why, how big each history has grown, and how to message or archive them.</p>
+      <p class="product-lede" data-hero-lede>Shepherd keeps the flock: your GitHub Copilot app’s sessions, as work. It knows which ones are busy and why, sizes their histories, messages and archives them, and runs on the Mac all the time.</p>
       <div class="mt-6 btn-row" data-primary-action>
         <a href="#try" class="btn-primary">Try it</a>
       </div>
@@ -60,7 +62,7 @@ const neighbours = [
   <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="here-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="here-heading" class="heading-section">What it does <span class="text-scale">today</span></h2>
-      <p class="mt-6 text-lg text-mist leading-relaxed">Four duties are here now, in v0.1.0. Its CLI is read-only: <code class="model-code">status</code> changes nothing.</p>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Thirteen duties are here now, in v0.8.1. Five wait for a config file before they act, and each card says which.</p>
       <ul class="does">
         {here.map(([name, body]) => (
           <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
@@ -72,10 +74,17 @@ const neighbours = [
   <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="moving-heading">
     <div class="max-w-6xl mx-auto">
       <h2 id="moving-heading" class="heading-section">What’s <span class="text-scale">moving in</span></h2>
-      <p class="mt-6 text-lg text-mist leading-relaxed">Nine more duties are on their way from other tools. They are not in v0.1.0 yet.</p>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Two duties are moving here from other tools. They are not in v0.8.1 yet.</p>
       <ul class="safe">
         {moving.map((line) => <li>{line} <span class="soon">coming</span></li>)}
       </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="always-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="always-heading" class="heading-section">Run it <span class="text-scale">always</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">shepherd install</code> writes one launch agent, <code class="model-code">bot.ouro.shepherd</code>, loads it and keeps it alive. Every 60 seconds it runs <code class="model-code">shepherd watch</code>: one pass of the health watch, the quota balancer and the sidebar tidy, with no one at a terminal. <code class="model-code">shepherd install --dry-run</code> prints the launch agent and changes nothing.</p>
     </div>
   </section>
 
@@ -106,7 +115,7 @@ const neighbours = [
       {/* Every command block carries the shared Copy button (taste review r16). */}
       <div class="mt-3"><Button variant="outline" data-copy-target="shepherd-try" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button></div>
       <h3 class="does-name mt-10">For agents</h3>
-      <p class="mt-4 text-lg text-mist leading-relaxed">Plain ESM, no build step and no runtime dependencies. The library’s own guide for agents is its <a href={`${repo}/blob/main/llms.txt`} class={link}>llms.txt</a>, and the full picture is in its <a href={repo} class={link}>README &#8599;</a></p>
+      <p class="mt-4 text-lg text-mist leading-relaxed">Plain ESM, no build step and no runtime dependencies. Every verb takes flags, or one JSON object on stdin with <code class="model-code">--input -</code>, and <code class="model-code">--json</code> prints one line of JSON. The contract is in the <a href={`${repo}#for-agents-the-cli-contract`} class={link}>README &#8599;</a>, and the library’s guide for agents is its <a href={`${repo}/blob/main/llms.txt`} class={link}>llms.txt</a>.</p>
     </div>
   </section>
 </Layout>
