@@ -427,6 +427,21 @@
       "[data-ouro=\"family-bar\"], [data-ouro=\"family-footer\"] sets font-family: var(--font-body), a fixed font",
       "a.product-media:hover, a.product-media:focus-visible sets box-shadow: 0 22px 48px -30px #e2b44d99,0 0 0 2px var(--color-scale), a fixed shadow",
       "a.product-media:hover, a.product-media:focus-visible sets box-shadow: 0 22px 48px -30px color-mix(in srgb,var(--color-amber) 60%,transparent),0 0 0 2px var(--color-scale), a fixed shadow"
+    ],
+    "linked-card-dead-zone": [
+      "a click on 10 of 10 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 12 of 15 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 16 of 18 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 16 of 19 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 16 of 20 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 17 of 18 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 17 of 19 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 17 of 20 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 18 of 19 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 18 of 20 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 19 of 20 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 20 of 20 spots on it opens nothing: its link's layer stops at a part the page positions",
+      "a click on 5 of 5 spots on it opens nothing: its link's layer stops at a part the page positions"
     ]
   }
 }
