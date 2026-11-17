@@ -1,6 +1,6 @@
 <!-- ourostack:brand:start -->
 <p align="center">
-  <a href="https://github.com/ourostack"><img src="https://raw.githubusercontent.com/ourostack/.github/main/brand/headers/ouroboros-website.webp" alt="Ouro inside an open rose-arch garden gate beside a signpost, the trail leading to a desk, a lectern and a factory in the valley" width="100%"></a>
+  <a href="https://github.com/ourostack"><img src="https://raw.githubusercontent.com/ourostack/.github/main/brand/headers/ouroboros-website.webp" alt="Ouro inside an open rose arch beside a signpost, the trail leading to a desk, a lectern and a factory in the valley" width="100%"></a>
 </p>
 <!-- ourostack:brand:end -->
 
