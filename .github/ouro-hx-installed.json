@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.241",
-  "tagCommit": "10aa00b9874575a413befd4128f7c5bf92e491d0",
+  "tag": "v1.3.242",
+  "tagCommit": "27c122deaefe7ebeb25e96a41be2079e82b8ba7d",
   "files": {
     "lib/ouro/ax/checks.ts": "10d083a6f4f6b2149880b0fec7bfcead76e77de9a21dea578dafe1e1699ca3a3",
     "lib/ouro/ax/cli.ts": "4c9ca264c12890003fa9eb103d0a5bdd61f99b9306f6c541b9c4f288fc180f41",
@@ -31,8 +31,8 @@
     "lib/ouro/check/theme-check.ts": "286349d9802d6a6f852af452746d2db763bbcb95b593c5ca75a1227365788226",
     "lib/ouro/check/wrap-check.ts": "474c9b7a08be766c7479931b3f0f0cb6678efcd10918d0047270f3e6fccda918",
     "src/components/ouro/alert/alert.tsx": "1d0a641322a40a54423fbba69c876fcdc285fd505bc2625920a90a308c56bc17",
-    "src/components/ouro/button/button.tsx": "9e6194492ef8b0a3657aeddc52eba47b1d83495fdc58579e3d1b57d9f2221fe5",
-    "src/components/ouro/card/card.tsx": "77814282396610a5670b7338ffd2b9666607beba531cd1002595e52d5abad33a",
+    "src/components/ouro/button/button.tsx": "986d3c1458b37357c417a305049a116df8dac0dc243659bb2953ef79c500958e",
+    "src/components/ouro/card/card.tsx": "a2e7b934351f89369caad950142e268a390a0667bea719eb4d9375e836b2d61a",
     "src/components/ouro/code-block/code-block.tsx": "19427e04947c402cce715a828f3da47a45f4327e0a6b65f2d2ab0139548871fd",
     "src/components/ouro/copy-button/copy-button.tsx": "1b2682f6f0f9d46cbf04c19f8938c30d04c3ede4d130f498d766f4ffc43c003e",
     "src/components/ouro/emoji/emoji-styles.ts": "589993d7c402cffe80c7e36f36474387fa882bf1b015801073ae2413ebc7be04",
@@ -58,7 +58,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "083897395c56504e1f7862f396d0323298a8e8d49ac0e30761bac58f772309b4",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "ca6f3fd26c55141c0407fc2b08f1e1c7f66b5ec288eb9c43d1d39fdd19919367",
+    "src/lib/ouro/dev.ts": "3dd3cdf2fe6af43cab7db9867f75fd869491d71c760abaa289e16f9489a7c404",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
     "src/lib/ouro/ouro-provider.tsx": "c71d040406b5b382ceb3d44f11cafa661db6534ca6cff5e02ae2bd2c5c3beafc",
