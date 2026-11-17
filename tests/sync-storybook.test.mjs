@@ -68,3 +68,8 @@ test('sync-brand.yml repaints the scenes when the art changes and commits the pa
   assert.ok(sync > 0 && sync < paint && paint < open, 'scene-paint runs after the sync and before the pull request opens');
   assert.match(wf, /git add public\/brand\/storybook src\/data\/scene-paint\.json/);
 });
+
+test('sync-brand.yml reads ourostack/.github with the run\'s own token, not the token limited to this repository', () => {
+  const wf = fs.readFileSync(path.join(root, '.github/workflows/sync-brand.yml'), 'utf8');
+  assert.match(wf, /- run: node scripts\/sync-storybook\.mjs --from-github main\n\s+env:\n\s+GH_TOKEN: \$\{\{ github\.token \}\}/);
+});
