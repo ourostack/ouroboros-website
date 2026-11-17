@@ -11,9 +11,10 @@ name: site-checks
 #     390x844, 1440x900 and 3840x2160 in light and dark, in six shards;
 #     ouro-check.json holds its waivers and budgets. Each shard first proves
 #     lib/ouro/check, and each file of the AX kit it runs on in lib/ouro/ax,
-#     is byte for byte Ouro UI's release at OURO_UI_TAG. Time to
-#     the largest content (LCP) is gated at a budget wide enough for the
-#     runners' noise; taste reviewers then judge only what a tool can't measure.
+#     is byte for byte Ouro UI's release named by the tag in
+#     .github/ouro-hx-installed.json. Time to the largest content (LCP) is
+#     gated at a budget wide enough for the runners' noise; taste reviewers
+#     then judge only what a tool can't measure.
 # tests/check-shards.test.mjs fails when a matrix drops a shard.
 #
 # The last job is named site-checks so it stays the one required check on
@@ -49,11 +50,6 @@ concurrency:
 
 permissions:
   contents: read
-
-# The Ouro UI release this site's Ouro items come from. Reinstall them from a new
-# tag before changing it here.
-env:
-  OURO_UI_TAG: v1.3.204
 
 jobs:
   tests:
@@ -267,6 +263,11 @@ jobs:
       - name: Install Chromium's OS dependencies (browser cached)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps chromium
+
+      # The Ouro UI release this site's Ouro items come from is the tag in their install record, which Ouro Current
+      # moves with the items. It is read here rather than written in this file, because an app may not write a workflow.
+      - name: Read the Ouro UI release from the install record
+        run: echo "OURO_UI_TAG=$(jq -er .tag .github/ouro-hx-installed.json)" >> "$GITHUB_ENV"
 
       - name: Check out Ouro check from Ouro UI ${{ env.OURO_UI_TAG }}
         uses: actions/checkout@v4
