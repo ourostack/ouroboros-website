@@ -184,11 +184,11 @@ test('the products show their own scenes on the shelf and on the homepage', () =
   assert.doesNotMatch(home, /data-brand-scene="ouroboros"/);
 });
 
-test('the 404 finds Ouro off the trail, by the gate, with signposts home', () => {
+test('the 404 finds Ouro off the trail, by the rose arch, with signposts home', () => {
   const html = readDist('404.html');
   assert.match(html, /data-ouro="hero"[\s\S]*?<picture data-scheme="light"[\s\S]*?\/headers\/ouroboros-website\.webp"[\s\S]*?<picture data-scheme="dark"[\s\S]*?\/headers\/ouroboros-website-dark\.webp"/);
   assert.doesNotMatch(html, /story-meadow/);
-  assert.match(html, /garden gate/);
+  assert.match(html, /rose arch/);
   assert.match(html, /class="signpost/);
 });
 

@@ -11,12 +11,12 @@
   },
   "airship": {
     "from": "headers/airship.webp",
-    "sha256": "35087062f17e4a464cd89e7cd16a7bc5fcf62b590da2f1937edd4d77a78369fd",
+    "sha256": "de27f1c2bfdfe5dcff2e36d29120836e38c2b34108a4d36ac0fb9e4e657261d7",
     "colour": "#f8e8e8"
   },
   "airship-dark": {
     "from": "headers/airship-dark.webp",
-    "sha256": "8f89ff963ef4a8e58bc54fb228db86961fd94b61537b96d0dbb981e30772360e",
+    "sha256": "5a6934ca01c06d30a8f5be69554e9606069d85d13083a0d23326003d752d7553",
     "colour": "#182858"
   },
   "airship-line": {
@@ -286,12 +286,12 @@
   },
   "ouroboros-website": {
     "from": "headers/ouroboros-website.webp",
-    "sha256": "76eeecf7fb61fc7e7e562bd64e49247b3671cc37c683972dc5618ce14dca826c",
+    "sha256": "d2234bc9733ea800fe9496368641a02cc7ff5f236928546c42bbed0fe5fe972a",
     "colour": "#f8b8a8"
   },
   "ouroboros-website-dark": {
     "from": "headers/ouroboros-website-dark.webp",
-    "sha256": "4b3906272384303d745dbbfcb14d628d4500da92ab35a89e246817d2f59ad499",
+    "sha256": "4a861a92d13bd8e204e9566b787cb09ce0e4a908ea5989b622cf877fb04d0213",
     "colour": "#080808"
   },
   "playwright-focus-proof": {
