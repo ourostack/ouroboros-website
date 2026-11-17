@@ -43,7 +43,7 @@ async function download(sha, rel, to) {
 async function commitOf(r) {
   if (/^[0-9a-f]{40}$/.test(r)) return r
   const res = await fetch(`https://api.github.com/repos/ourostack/.github/commits/${r}`, { headers: { accept: 'application/vnd.github.sha', ...(process.env.GH_TOKEN ? { authorization: `Bearer ${process.env.GH_TOKEN}` } : {}) } })
-  if (!res.ok) throw new Error(`${r} did not resolve (${res.status})`)
+  if (!res.ok) throw new Error(`${r} did not resolve (${res.status}): ${(await res.text()).slice(0, 300)}`)
   return (await res.text()).trim()
 }
 

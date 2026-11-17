@@ -41,7 +41,12 @@ jobs:
         with:
           node-version: 22
 
+      # Reading ourostack/.github uses this run's own token, not BRAND_SYNC_TOKEN: that token is
+      # limited to this repository, and from 21:22Z on 2026-11-17 GitHub answered it 403 for
+      # ourostack/.github's main, so every sync failed before it read any art.
       - run: node scripts/sync-storybook.mjs --from-github main
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - id: changes
         run: |
