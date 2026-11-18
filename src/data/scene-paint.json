@@ -181,12 +181,12 @@
   },
   "m365crawl": {
     "from": "headers/m365crawl.webp",
-    "sha256": "00c9bbbe3949efac7f9c1c801d11de3624ef3059a0edb9b5ec868df9a1f10221",
+    "sha256": "db997c4ad7240a393130ae8754133627c223fd858341b15df1bc5eee0f87fa67",
     "colour": "#180808"
   },
   "m365crawl-dark": {
     "from": "headers/m365crawl-dark.webp",
-    "sha256": "2abe077cd7c7941f066010554bbaf316fc872ed5deffd05cd389006266a98d1c",
+    "sha256": "368f68f0e378edcd8aa31b9b63fb43d9f1047b1f027702c67f8b6c9afa2c8604",
     "colour": "#080808"
   },
   "ouro-apps-site": {
