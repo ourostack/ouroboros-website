@@ -6,7 +6,7 @@
   },
   "agent-workbench-dark": {
     "from": "headers/agent-workbench-dark.webp",
-    "sha256": "7b4d3a3da727be7de1822762388679cc0638dcba21fda5237cdff11366aa0323",
+    "sha256": "4193ba4807881bd9b094cea9c16c82d7c4e39b94d7fab0ccbad80cc3463e9b29",
     "colour": "#183878"
   },
   "airship": {
@@ -251,7 +251,7 @@
   },
   "ouro-work-dark": {
     "from": "headers/ouro-work-dark.webp",
-    "sha256": "34134951a7a5fc3199e89f451b323b987d20eba31d6020d4e2cb3d6178cc7b5b",
+    "sha256": "dc56986a54db90445f7b7f4bf5dbad2f7558c3223bda9338426e99453fe78ad2",
     "colour": "#082858"
   },
   "ouro-workbench": {
