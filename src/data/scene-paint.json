@@ -171,12 +171,12 @@
   },
   "housesitter": {
     "from": "headers/housesitter.webp",
-    "sha256": "2d1113b4780614e92dd0944116d35004bb40af94a1a4db60b3265b9f18954fd4",
+    "sha256": "68f2887533eb4f831403bae7f9883903bfb872f4163164e36da41a831c92125a",
     "colour": "#f8b8a8"
   },
   "housesitter-dark": {
     "from": "headers/housesitter-dark.webp",
-    "sha256": "29c6ec4673f500bb3f44d47acdb8202f138785cd76a9ad0dbb3ebd78a3c06354",
+    "sha256": "415683a7800304c9fbd8e1e7a1ecdcb47b115c323387d65cda84f1d0c3c0b0f4",
     "colour": "#082858"
   },
   "m365crawl": {
