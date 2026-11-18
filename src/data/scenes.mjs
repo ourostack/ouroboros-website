@@ -50,7 +50,7 @@ export const scenes = {
   'agent-workbench': "A small brass-domed robot sits on its wooden box on a long wooden workbench in a golden meadow, with a keyboard, a blueprint, a folded canvas cloth and a few tools beside it, while Ouro the green snake rests behind the bench.",
   'friends-relay-dark': 'The same footbridge at night under street lamps, lit windows and a crescent moon: two small robots pass a sealed envelope from one to the other while Ouro, a small green snake in a postman’s cap, watches from the deck.',
   'ouro-ui-core-dark': 'The same skylit design studio at night: a small robot and Ouro, the green snake, rest on a towel at a long worktable with fabric swatches, under warm pendant lamps and a crescent moon through the skylights.',
-  'agent-workbench-dark': "The same workbench under a full moon, the robot's dome glowing like a lamp over the keyboard and blueprint, while Ouro the green snake rests behind the bench.",
+  'agent-workbench-dark': "The same workbench under a full moon, the robot’s dome glowing like a lamp over the keyboard and blueprint, while Ouro the green snake rests behind the bench.",
   'homebrew-tap': 'A copper still and a wooden barrel on a stone hearth, a full mug under its closed tap, and crates of green bottles. Ouro waits by the barrel for the first cup.',
   m365crawl: 'Ouro, a small green snake, curls beside a wooden card-catalogue cabinet in a library nook with a tall bookcase, a rolling ladder and a basket of notebooks, open to a meadow with the sun just rising over low hills.',
   'm365crawl-dark': 'The same library nook at night, a crescent moon low over the hills and the meadow in cool moonlight, with Ouro curled beside the card-catalogue cabinet.',
