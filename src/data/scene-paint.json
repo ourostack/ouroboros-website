@@ -161,23 +161,23 @@
   },
   "glue-unstuck": {
     "from": "headers/glue-unstuck.webp",
-    "sha256": "7fb8326e5e4abcd833c79bed15ea37690cbd6e8cf61647f76275cc047074967e",
-    "colour": "#f8d8a8"
+    "sha256": "8dbbf3945db6e5199265a1d3451cc0cb760877995f54aa3a25cfbe9a7b9342c9",
+    "colour": "#d8c8b8"
   },
   "glue-unstuck-dark": {
     "from": "headers/glue-unstuck-dark.webp",
-    "sha256": "9553d652876762fca80a8e0b516cde816520e9a04a2107b58960a95abdfd0930",
-    "colour": "#082868"
+    "sha256": "8e3b50e6be7ab9a1bcce906b840307e8fdd9536d134837f2e21a1c815ad9b68d",
+    "colour": "#384878"
   },
   "housesitter": {
     "from": "headers/housesitter.webp",
-    "sha256": "ec9f4ac1510642dd81d5a05779d1be41ccba3a47174b4dd4008bf3e21bb46af0",
+    "sha256": "2d1113b4780614e92dd0944116d35004bb40af94a1a4db60b3265b9f18954fd4",
     "colour": "#f8b8a8"
   },
   "housesitter-dark": {
     "from": "headers/housesitter-dark.webp",
-    "sha256": "dbb1af30ab442e635114ebbf6cd40fc1e83f01da9f8bd120ee60cf57350f7b4e",
-    "colour": "#2858a8"
+    "sha256": "29c6ec4673f500bb3f44d47acdb8202f138785cd76a9ad0dbb3ebd78a3c06354",
+    "colour": "#082858"
   },
   "m365crawl": {
     "from": "headers/m365crawl.webp",
