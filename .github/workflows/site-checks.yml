@@ -27,6 +27,11 @@ name: site-checks
 # On a pull request a failed shard cancels its siblings; main always runs whole.
 # refresh-ouromd-release.yml dispatches it on the pull requests it opens, since
 # a pull request opened with a workflow's own token starts no pull_request run.
+# Ouro Current sends an ouro-current-full-run repository_dispatch event, with the
+# commit as client_payload.sha, when a failing shard cancelled the others on its
+# update pull request: only the Ouro check shards run, all of them, on that
+# commit, and their artifacts end in -full-<sha> so Ouro Current can find them
+# (the run itself is on main). No other job runs, so main's checks are untouched.
 #
 # It is also the only way production deploys (deploy.yml), on main only. On a
 # push, deploy-early goes at once when the proof job shows this exact tree
@@ -41,6 +46,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [ouro-current-full-run]
 
 # A newer push to a pull request cancels its older run. Runs not triggered by a pull request each
 # get their own group, so they are never cancelled.
@@ -54,6 +61,7 @@ permissions:
 jobs:
   tests:
     name: tests and brand audit
+    if: github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
     # About twice the usual 1.5 minutes, with room for a slow apt mirror.
     timeout-minutes: 5
@@ -162,6 +170,7 @@ jobs:
 
   pages:
     name: page checks ${{ matrix.shard }}/4
+    if: github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
     # About twice the usual 2.5 minutes. A hung check is killed after
     # CHECK_TIMEOUT (240 seconds) and named before this.
@@ -241,6 +250,8 @@ jobs:
       SHARDS: 6
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.client_payload.sha || '' }}
 
       - uses: actions/setup-node@v4
         with:
@@ -299,7 +310,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: ouro-check-${{ matrix.shard }}-of-6
+          name: ouro-check-${{ matrix.shard }}-of-6${{ github.event.client_payload.sha && format('-full-{0}', github.event.client_payload.sha) || '' }}
           path: |
             ouro-check/report.json
             ouro-check/summary.md
@@ -309,7 +320,7 @@ jobs:
   site-checks:
     name: site-checks
     needs: [tests, pages, ouro-check]
-    if: always()
+    if: always() && github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions:
