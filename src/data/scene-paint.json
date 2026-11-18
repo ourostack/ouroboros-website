@@ -1,13 +1,13 @@
 {
   "agent-workbench": {
     "from": "headers/agent-workbench.webp",
-    "sha256": "4e47a78d276298d9967d2aa016a0aed9c5eedf75e979a26223534e1ba81645b2",
-    "colour": "#f8c898"
+    "sha256": "31952a86f9907f4bab2e85dd3702da1e531801cf82d3d924e317d5283dc23e55",
+    "colour": "#a85828"
   },
   "agent-workbench-dark": {
     "from": "headers/agent-workbench-dark.webp",
-    "sha256": "0f25b1c9512ad71c20dd3fbc7384f5cfde9df95998bf9fec5bad074d4706f873",
-    "colour": "#1848a8"
+    "sha256": "7b4d3a3da727be7de1822762388679cc0638dcba21fda5237cdff11366aa0323",
+    "colour": "#183878"
   },
   "airship": {
     "from": "headers/airship.webp",
