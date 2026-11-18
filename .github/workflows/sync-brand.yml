@@ -68,7 +68,8 @@ jobs:
         id: pr
         if: steps.changes.outputs.changed == 'true'
         run: |
-          brand=$(gh api repos/ourostack/.github/commits/main --jq '.sha[0:7]')
+          source scripts/gh-retry.sh
+          brand=$(gh_retry gh api repos/ourostack/.github/commits/main --jq '.sha[0:7]')
           branch="brand-sync"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -76,11 +77,11 @@ jobs:
           git add public/brand/storybook src/data/scene-paint.json
           git commit -m "Sync the storybook art with ourostack/.github@$brand"
           git push --force origin "$branch"
-          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
-            gh pr create --base main --head "$branch" --title "Sync the storybook art with ourostack/.github@$brand" \
+          if [ -z "$(gh_retry gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
+            gh_retry gh pr create --base main --head "$branch" --title "Sync the storybook art with ourostack/.github@$brand" \
               --body "A brand merge changed art this site serves. $GITHUB_WORKFLOW (run $GITHUB_RUN_ID) copied it byte for byte with scripts/sync-storybook.mjs, runs site-checks on this pull request, and merges and deploys it when site-checks passes."
           else
-            gh pr edit "$branch" --title "Sync the storybook art with ourostack/.github@$brand"
+            gh_retry gh pr edit "$branch" --title "Sync the storybook art with ourostack/.github@$brand"
           fi
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -89,16 +90,38 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         env:
           SHA: ${{ steps.pr.outputs.sha }}
+          BRANCH: ${{ steps.pr.outputs.branch }}
         run: |
+          source scripts/gh-retry.sh
+          find_run() { gh_retry gh run list --workflow site-checks.yml --commit "$SHA" --json databaseId --jq '.[0].databaseId'; }
           run=
           for _ in $(seq 30); do
-            run=$(gh run list --workflow site-checks.yml --event pull_request --commit "$SHA" --json databaseId --jq '.[0].databaseId')
+            run=$(find_run)
             [ -n "$run" ] && break
             sleep 10
           done
+          # A push with this token normally starts site-checks by itself. When it did not, start it by hand
+          # rather than failing and leaving the pull request unchecked until a person looks.
+          if [ -z "$run" ]; then
+            echo "::warning::site-checks didn't start on $SHA; starting it."
+            gh_retry gh workflow run site-checks.yml --ref "$BRANCH"
+            for _ in $(seq 30); do
+              run=$(find_run)
+              [ -n "$run" ] && break
+              sleep 10
+            done
+          fi
           [ -n "$run" ] || { echo "::error::site-checks didn't start on $SHA."; exit 1; }
           echo "site-checks run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$run" >> "$GITHUB_STEP_SUMMARY"
-          gh run watch "$run" --interval 30 --exit-status > /dev/null
+          # Poll with retries instead of gh run watch, which dies on the first rate-limit answer.
+          while :; do
+            state=$(gh_retry gh run view "$run" --json status,conclusion --jq '.status + " " + (.conclusion // "")')
+            case "$state" in
+              "completed success") break ;;
+              completed*) echo "::error::site-checks on the pull request ended: $state"; exit 1 ;;
+            esac
+            sleep 30
+          done
 
       - name: Merge it
         if: steps.changes.outputs.changed == 'true'
@@ -106,7 +129,8 @@ jobs:
           BRANCH: ${{ steps.pr.outputs.branch }}
           SHA: ${{ steps.pr.outputs.sha }}
         run: |
+          source scripts/gh-retry.sh
           # An explicit message: the org ruleset rejects the default one when a commit carries an AI co-author line.
-          subject=$(gh pr view "$BRANCH" --json title,number --jq '"\(.title) (#\(.number))"')
-          body=$(gh pr view "$BRANCH" --json body --jq .body | tr -d '\r' | grep -v -i -E '^[[:space:]]*[A-Za-z-]+-by[[:space:]]*:.*(\[bot\]|(^|[^A-Za-z0-9])(copilot|claude|anthropic|openai|chatgpt|gpt|codex|gemini|cursor|devin|aider)([^A-Za-z]|$))' || true)
-          gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA" --subject "$subject" --body "$body"
+          subject=$(gh_retry gh pr view "$BRANCH" --json title,number --jq '"\(.title) (#\(.number))"')
+          body=$(gh_retry gh pr view "$BRANCH" --json body --jq .body | tr -d '\r' | grep -v -i -E '^[[:space:]]*[A-Za-z-]+-by[[:space:]]*:.*(\[bot\]|(^|[^A-Za-z0-9])(copilot|claude|anthropic|openai|chatgpt|gpt|codex|gemini|cursor|devin|aider)([^A-Za-z]|$))' || true)
+          gh_retry gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA" --subject "$subject" --body "$body"
