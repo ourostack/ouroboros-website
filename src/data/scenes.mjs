@@ -69,8 +69,8 @@ export const scenes = {
   'glue-unstuck': "In a sunny modern office courtyard, a faceless frosted-glass person in a sage scarf sits back on a low oak bench with their hands in their sweater pocket and a cup of tea steaming beside them, while Ouro the green snake rests on a tray of sorted envelopes on a cart by an open glass door.",
   'chart-room': 'In a lamplit airship chart room at dawn, a faceless glass person in a moss-green scarf and Loop, a small jade-glass agent in goggles holding a leather satchel, study a big map on an oak plan chest, with Ouro curled beside them and dawn clouds through the round porthole.',
   'chart-room-dark': 'In a lamplit airship chart room at night, a faceless glass person in a moss-green scarf and Loop, a small jade-glass agent in goggles holding a leather satchel, study a big map on an oak plan chest by the oil lamp, with Ouro curled beside them and the full moon in the round porthole.',
-  'airship-line': 'The airship’s workshop at dawn. Three small glass agents build little airships along one long oak bench, an amber one in a red knit cap fitting a propeller, a sea-blue one in a leather apron tying ropes and Loop in goggles steadying a finished ship, while a faceless glass person in a moss-green scarf and canvas apron stands in front and times the line with a brass pocket watch. Ouro, an emerald-glass snake, watches from the far end of the bench.',
-  'airship-line-dark': 'The same workshop at night by oil-lantern light, stars and a crescent moon over the clouds in the doorway: the three agents work along the bench while the glass person times them with a pocket watch, and Ouro, glowing green, watches from the bench’s far end.',
+  'airship-line': 'In an airship’s sunlit workshop, three small glass robots (amber in a red knit cap, sea-blue in a leather apron, and pale-jade Loop in goggles) each steady a little cream airship in its cradle along one long oak bench, while a faceless frosted-glass person in a moss-green scarf and canvas apron watches the line with hands in the apron pockets, and Ouro, a small green snake, watches from a folded cloth at the bench’s end; a tall arched window above them shows clear sky.',
+  'airship-line-dark': 'The same airship workshop at night by two brass wall lamps: the three small glass robots still steady their little airships along the oak bench, the faceless person in the moss-green scarf watches with hands in the apron pockets, Ouro rests on his cloth, and the tall arched window shows a starry navy sky.',
   'butler-steady': 'A calm, sunlit living room. Ouro Butler, a small green snake curled into an open ring, holds a silver tray up on the tip of his tail and nudges its slipping cloche back into place with his nose, while his person naps undisturbed on the cream sofa behind him under a sage-green throw.',
   'butler-steady-dark': 'The same living room at night, lit by the floor lamp: Ouro Butler steadies the slipping cloche on his tray with his nose while his person sleeps on, undisturbed, on the sofa behind him.',
   'garden-line': 'A sunny back garden with a little railway. A small apricot-glass agent in a navy conductor’s cap lifts a fallen oak branch off the rails, while its green steam engine and cream mail wagon wait just behind it and Ouro, a small green snake in a red scarf, watches from the wagon’s roof.',
@@ -406,8 +406,8 @@ export const phoneCastX = {
   'slugger-balloon': [0.29, 0.71],
   'slugger-balloon-dark': [0.31, 0.71],
   // Ouro on the bench's far left end, Loop's airship tail at the right (12:5 crop).
-  'airship-line': [0.145, 0.81],
-  'airship-line-dark': [0.145, 0.81],
+  'airship-line': [0.205, 0.79],
+  'airship-line-dark': [0.205, 0.79],
   // The re-set (2026-11-17): the person's left side to Ouro at the right, header x 536-1022 in the 12:5 crop (x 74-1456).
   'chart-room': [0.33, 0.69],
   'chart-room-dark': [0.33, 0.69],
