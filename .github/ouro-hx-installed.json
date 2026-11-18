@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.296",
-  "tagCommit": "392c5aaabd0b83ad2e34565d0a79ae42796d0867",
+  "tag": "v1.3.297",
+  "tagCommit": "86c871940b33ffab942eb0053b16f124ff59c7c6",
   "files": {
     "lib/ouro/ax/checks.ts": "21f7f2dd63a86ce58447c7af3b02dc00069df43620bee53c71b0faa3697a0ff4",
     "lib/ouro/ax/cli.ts": "1cbaf0a683321b6343c3f45a77934c138d8ea25eac36526d34d688b8ede36234",
@@ -18,7 +18,7 @@
     "lib/ouro/ax/wait.ts": "fed4890771d0ce5d1a43d93e73c7d621818bbcb44b30e88c88be274972a133c7",
     "scripts/ouro/check/ax-hooks.ts": "5e83546160a532c0477e759212c79fdae07b98d7b519cfcb38dd309f3cd10d81",
     "scripts/ouro/check/check.ts": "ad67f5da8e910f1abe47a03575b08fc1ebcc0c170279e5a5334662caa0902811",
-    "scripts/ouro/check/design-check.ts": "1107d20db9ce9ced8d6210322a8484d9cd4984da2f4d070ed35e2916aadf9975",
+    "scripts/ouro/check/design-check.ts": "74748bf9d23756d2c4dc084f8883ad6e6d7a07ebe308d326df8b00bced8bcd82",
     "scripts/ouro/check/fade-check.ts": "915e4643d68eaac8dd331bed03e2af5cb5e6ba7e9df3f591b042ece4bd13ad6f",
     "scripts/ouro/check/fades.ts": "a3f0f241c46f7a3e507e55ba5c229e130846ce246261568ff5e204e685091500",
     "scripts/ouro/check/first-run-ax-tree.swift": "39a97d6549a9fdae2595f4d06f0706a391f913e2dbefdaed24483b24f08569ed",
@@ -78,7 +78,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "df32c7d3dc69c7d70cf39bd63b63583397a2868134dc16bc3e55ab774bd6401b",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "a2e4f1340c6f313b6041b5bf5453fe4c545bbd5829fa3477c05120e945a3dbc6",
+    "src/lib/ouro/dev.ts": "3c665bac9b8ff036b6aec33120e1eb886ff79e2a0e08878b5f17981e79abdd30",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
     "src/lib/ouro/ouro-provider.tsx": "c71d040406b5b382ceb3d44f11cafa661db6534ca6cff5e02ae2bd2c5c3beafc",
