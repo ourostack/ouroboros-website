@@ -191,13 +191,13 @@
   },
   "ouro-apps-site": {
     "from": "headers/ouro-apps-site.webp",
-    "sha256": "64aa4b016e32ba8996d84147d41daca5f377464e56bb448d09840db69e5950e9",
+    "sha256": "cd7abadc06d467963641330c10dc84797aa8a1382dfeb1674039b9e0a594f1a8",
     "colour": "#f8b8a8"
   },
   "ouro-apps-site-dark": {
     "from": "headers/ouro-apps-site-dark.webp",
-    "sha256": "c42e7be91cfc92c5334efb6545d28aa4dcd6a2a2ff441f94456c070f3cd0bfd8",
-    "colour": "#183888"
+    "sha256": "83255edce1a1a0c9df80d5ce3a480f0be556c161f5cff73a4185ed3dc9f626d3",
+    "colour": "#082858"
   },
   "ouro-hx": {
     "from": "headers/ouro-hx.webp",
