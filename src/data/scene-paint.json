@@ -41,13 +41,13 @@
   },
   "apple-distribution-kit": {
     "from": "headers/apple-distribution-kit.webp",
-    "sha256": "219d13a39b8b6c014cb233ff6dcdba6ba958180f8db720b7851b77c514604cb2",
+    "sha256": "b2b1e35114863152d17f7dfb9405cec2e8994844e850c185dbf5245323af21a6",
     "colour": "#f8b898"
   },
   "apple-distribution-kit-dark": {
     "from": "headers/apple-distribution-kit-dark.webp",
-    "sha256": "e522816ef58a0431dbc436ed6cb246fcf3c21b0c99b687aef2d64e808f1cf69f",
-    "colour": "#183888"
+    "sha256": "1c6b75d72407ffa1b5d2acacfe5f40cbf8f64c41cf2869a8d7809ece6f021292",
+    "colour": "#182848"
   },
   "ax-trail-map": {
     "from": "headers/ax-trail-map.webp",
