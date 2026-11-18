@@ -3,9 +3,14 @@
 // folder's provenance.json. Never re-encode these files: the brand audit compares
 // the served bytes with provenance.json.
 //
-//   node scripts/sync-storybook.mjs /path/to/ourostack-.github/brand
+//   node scripts/sync-storybook.mjs /path/to/ourostack-.github/brand --commit <sha>
 //   node scripts/sync-storybook.mjs --from-github [ref]   # downloads only the files this site uses (default: main)
 //   ... --out <dir>                                       # write there instead of public/brand/storybook
+//   ... --pin <file>                                      # where the pin goes (default brand-pin.json)
+//
+// Every sync records the ourostack/.github commit the copies came from in brand-pin.json (scripts/brand-pin.mjs),
+// which the brand audit reads. A local folder needs --commit, the commit it is. With --out the copies go elsewhere,
+// so the pin is written only when --pin is given too.
 //
 // --from-github is what .github/workflows/sync-brand.yml runs. BRAND_RAW_BASE
 // replaces https://raw.githubusercontent.com/ourostack/.github (tests/sync-storybook.test.mjs).
@@ -15,13 +20,17 @@ import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync, exis
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { usedScenes, largeAvifWidths, largeWebpWidths, meadowScene, darkScenes } from '../src/data/scenes.mjs'
+import { PIN_FILE, writeBrandPin } from './brand-pin.mjs'
 
 const argv = process.argv.slice(2)
 const flag = (name) => { const i = argv.indexOf(name); return i < 0 ? undefined : argv[i + 1] }
 const outFlag = flag('--out')
+const pinFlag = flag('--pin')
+const commitFlag = flag('--commit')
 const github = argv.includes('--from-github')
 const ref = github && argv[argv.indexOf('--from-github') + 1] && !argv[argv.indexOf('--from-github') + 1].startsWith('--') ? argv[argv.indexOf('--from-github') + 1] : 'main'
-const positional = argv.filter((a, i) => !a.startsWith('--') && argv[i - 1] !== '--out' && argv[i - 1] !== '--from-github')[0]
+const valueFlags = ['--out', '--pin', '--commit', '--from-github']
+const positional = argv.filter((a, i) => !a.startsWith('--') && !valueFlags.includes(argv[i - 1]))[0]
 const rawBase = process.env.BRAND_RAW_BASE ?? 'https://raw.githubusercontent.com/ourostack/.github'
 
 async function download(sha, rel, to) {
@@ -55,8 +64,15 @@ if (github) {
   await download(commit, 'provenance.json', join(brand, 'provenance.json'))
 }
 if (!brand || !existsSync(join(brand, 'provenance.json'))) {
-  console.error('usage: node scripts/sync-storybook.mjs <ourostack/.github brand folder> | --from-github [ref]  [--out <dir>]')
+  console.error('usage: node scripts/sync-storybook.mjs <ourostack/.github brand folder> --commit <sha> | --from-github [ref]  [--out <dir>] [--pin <file>]')
   process.exit(1)
+}
+if (!github) {
+  if (!commitFlag || !/^[0-9a-f]{40}$/.test(commitFlag)) {
+    console.error(`node scripts/sync-storybook.mjs: a local brand folder needs --commit <40-character ourostack/.github sha>, the commit it was copied from, so brand-pin.json can record it. Fix: rerun with --commit, or use --from-github main.`)
+    process.exit(1)
+  }
+  commit = commitFlag
 }
 const out = outFlag ?? join(import.meta.dirname, '..', 'public', 'brand', 'storybook')
 const provenance = JSON.parse(readFileSync(join(brand, 'provenance.json'), 'utf8'))
@@ -97,4 +113,8 @@ for (const file of files) {
 }
 // The served provenance lists exactly the files served here, so anyone can check them.
 writeFileSync(join(out, 'provenance.json'), JSON.stringify(shipped, null, 2) + '\n')
-console.log(`copied ${files.length} files into ${out}${commit ? ` from ourostack/.github@${commit}` : ''}`)
+// The pin follows the served copies. With --out nothing served changed, so the pin moves only when --pin asks for it.
+const pinFile = pinFlag ?? (outFlag === undefined ? PIN_FILE : undefined)
+if (pinFile) writeBrandPin(pinFile, commit)
+const pinNote = pinFile ? `, pinned in ${pinFile}` : ' (brand-pin.json not written: --out copies nothing served)'
+console.log(`copied ${files.length} files into ${out} from ourostack/.github@${commit}${pinNote}`)

@@ -1,11 +1,12 @@
 name: Sync brand art
 
 # Keeps public/brand/storybook/ the same bytes as ourostack/.github's brand/ art
-# (scripts/sync-storybook.mjs --from-github). When a brand merge changes a file
-# this site serves, it opens a pull request, runs site-checks on it, merges it when
-# that passes, and runs site-checks on main, which deploys. The brand audit in
-# ourostack/.github treats site:ouroboros.bot as pending, not stale, for a short
-# window after a brand merge, so main stays green while this runs.
+# (scripts/sync-storybook.mjs --from-github), and brand-pin.json the commit they came from.
+# The brand audit checks the copies against that pinned commit, not against main, so a brand
+# merge on main does not turn site-checks red. When a brand merge changes a file this site
+# serves, this workflow opens a pull request with the new art and the new pin, runs site-checks
+# on it (which audits against the new pin), merges it when that passes, and runs site-checks
+# on main, which deploys.
 # It pushes, opens the pull request and merges as Ari's account (the BRAND_SYNC_TOKEN
 # secret, a token limited to this repository), not as github-actions[bot]: the bot's pull
 # request runs wait for a person's approval (action_required), which stalled every art merge.
@@ -69,17 +70,18 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         run: |
           source scripts/gh-retry.sh
-          brand=$(gh_retry gh api repos/ourostack/.github/commits/main --jq '.sha[0:7]')
+          # The commit the sync just copied from, recorded in brand-pin.json; the audit checks against it.
+          brand=$(node scripts/brand-pin.mjs commit | cut -c1-7)
           branch="brand-sync"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git add public/brand/storybook src/data/scene-paint.json
+          git add public/brand/storybook src/data/scene-paint.json brand-pin.json
           git commit -m "Sync the storybook art with ourostack/.github@$brand"
           git push --force origin "$branch"
           if [ -z "$(gh_retry gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
             gh_retry gh pr create --base main --head "$branch" --title "Sync the storybook art with ourostack/.github@$brand" \
-              --body "A brand merge changed art this site serves. $GITHUB_WORKFLOW (run $GITHUB_RUN_ID) copied it byte for byte with scripts/sync-storybook.mjs, runs site-checks on this pull request, and merges and deploys it when site-checks passes."
+              --body "A brand merge changed art this site serves. $GITHUB_WORKFLOW (run $GITHUB_RUN_ID) copied it byte for byte with scripts/sync-storybook.mjs, moved brand-pin.json to that commit, runs site-checks on this pull request (which audits the copies against the new pin), and merges and deploys it when site-checks passes."
           else
             gh_retry gh pr edit "$branch" --title "Sync the storybook art with ourostack/.github@$brand"
           fi
