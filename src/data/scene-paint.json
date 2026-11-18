@@ -121,13 +121,13 @@
   },
   "friends": {
     "from": "headers/friends.webp",
-    "sha256": "9443422041a1be094422d53144137b1ed9af21d01d84261c384c162b8d1400e1",
+    "sha256": "126e64b58e635a6f2821dd0c066ea83c260899753fda2a1259aa9e82105cfab4",
     "colour": "#f8b898"
   },
   "friends-dark": {
     "from": "headers/friends-dark.webp",
-    "sha256": "d1449c405f9b2459f52e9d7411ec6f8ba0208f8f294a71bef170acf826c90fc0",
-    "colour": "#082858"
+    "sha256": "15100601bd9329a5caaf5d3ff2fdf94e4a2ecc4327880e72c78e7723f2191217",
+    "colour": "#082868"
   },
   "friends-relay": {
     "from": "headers/friends-relay.webp",
