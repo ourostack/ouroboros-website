@@ -11,12 +11,12 @@
   },
   "airship": {
     "from": "headers/airship.webp",
-    "sha256": "ab0be9a37785aa6adac06a610dc35ecada45d45832b8585308924d27492f4d69",
+    "sha256": "21c85b4a45ad71e362efce58443b065e7edc569c97f59b3786deb93f277db0e3",
     "colour": "#f8e8e8"
   },
   "airship-dark": {
     "from": "headers/airship-dark.webp",
-    "sha256": "865e7f0536ff603c8d93b5c5c2318a5fbfa5ad27950d31de0769ed29a45ac4a6",
+    "sha256": "af7cc0a908d8a3580042ab613f4aab4cba5bf55fca335d0b6ec4af8e0972974c",
     "colour": "#082848"
   },
   "airship-line": {
@@ -101,13 +101,13 @@
   },
   "factory": {
     "from": "headers/factory.webp",
-    "sha256": "47c7229d6ab0305017f4a6327a8dfd3526dfc9f2b4b74130d6497e4f084209f9",
+    "sha256": "33c4ae685f426d0197fa644f9e824dc12f2a3a870301b1a0f99c0984e010393c",
     "colour": "#f8b8a8"
   },
   "factory-dark": {
     "from": "headers/factory-dark.webp",
-    "sha256": "667ce90c52a05947446c771c1bf1db1836bbf298fff180c4277948582aefa206",
-    "colour": "#1848a8"
+    "sha256": "425a90b69be4362850ca7d6b735fefd23ceedc3c8825819567fd610aa56a5b3f",
+    "colour": "#081848"
   },
   "flow-review": {
     "from": "headers/flow-review.webp",
