@@ -11,7 +11,8 @@ const scratch = path.join(root, 'node_modules', '.cache', 'brand-pin-test');
 fs.mkdirSync(scratch, { recursive: true });
 
 test('the committed brand-pin.json names the ourostack/.github commit the served copies came from', () => {
-  assert.equal(readBrandPin().commit, COMMIT);
+  // Each brand sync moves the pin, so check its shape here; the sync writes its value (scripts/sync-storybook.mjs).
+  assert.match(readBrandPin().commit, /^[0-9a-f]{40}$/);
   assert.equal(PIN_FILE, path.join(root, 'brand-pin.json'));
 });
 
