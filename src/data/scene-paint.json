@@ -61,13 +61,13 @@
   },
   "butler": {
     "from": "headers/butler.webp",
-    "sha256": "36c414ec3942eb42b25654cf3c285c2513be1b19315f1457463849ee77046024",
+    "sha256": "46c4727249e154c861e0950bc28551d3c284e552ec5559e7ef07b923326232c8",
     "colour": "#f8c888"
   },
   "butler-dark": {
     "from": "headers/butler-dark.webp",
-    "sha256": "221661cf43b047575defac72b661e3b13995c84f5655fbc59a5982b498a8fbc6",
-    "colour": "#282808"
+    "sha256": "59ad6a949be29f40cba7bf798ae1f67a28d2ac12f035cb3738fd585e9b468f4b",
+    "colour": "#080808"
   },
   "butler-steady": {
     "from": "headers/butler-steady.webp",
@@ -151,13 +151,13 @@
   },
   "gatefold": {
     "from": "headers/gatefold.webp",
-    "sha256": "1275e3dba70bb285c3206597c880c06f5692df1c1a34c0fe76b8bf309dae49de",
+    "sha256": "13ac4bd2539dad9466a5fc71f644e47023e00dbfcc63d949701bb39f12010ff3",
     "colour": "#f8e8b8"
   },
   "gatefold-dark": {
     "from": "headers/gatefold-dark.webp",
-    "sha256": "db13ea199103785fc00e8c8b5b6314705f81c00ee8d99349510996e8e552d317",
-    "colour": "#c8b8b8"
+    "sha256": "92c10341b4f64db7a472a9dc277f661406a1f3d5c5848cabc7ede4c9dd5ab1f3",
+    "colour": "#080808"
   },
   "glue-unstuck": {
     "from": "headers/glue-unstuck.webp",
@@ -201,8 +201,8 @@
   },
   "ouro-hx": {
     "from": "headers/ouro-hx.webp",
-    "sha256": "cec815cd8d1b40fca67882a46fb0fe434720e8acee829f9a9eb52b0353ee07c8",
-    "colour": "#783818"
+    "sha256": "7dfb26ee86da3c666e6a5fb2bb99988ed853e6bba9c482803620f88c9df735e7",
+    "colour": "#a86838"
   },
   "ouro-md": {
     "from": "headers/ouro-md.webp",
