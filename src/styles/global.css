@@ -1562,9 +1562,9 @@ main > section.border-t::before, .divider-top::before {
 /* The line sits in the same centred column as the heading below it (taste
    review r5: a bare margin here overrode mx-auto and left it 80px to the left).
    Clipped at the column's edge, with a sliver of room for focus rings. */
-.lab-line { overflow: hidden; overflow: clip; overflow-clip-margin: 0.25rem; padding-block: 0.25rem; margin-block: -0.25rem; }
-.lab-line .lab-items { display: flex; flex-wrap: wrap; align-items: center; row-gap: 0.4rem; margin: 0 0 0 -1.25rem; }
-.lab-line .lab-item { position: relative; display: inline-flex; align-items: center; padding-left: 1.25rem; }
+.lab-line { overflow: hidden; overflow: clip; overflow-clip-margin: 0.25rem; padding-block: calc(var(--spacing) * 1); margin-block: calc(var(--spacing) * -1); }
+.lab-line .lab-items { display: flex; flex-wrap: wrap; align-items: center; row-gap: 0.4rem; margin: 0 0 0 calc(var(--spacing) * -5); }
+.lab-line .lab-item { position: relative; display: inline-flex; align-items: center; padding-left: calc(var(--spacing) * 5); }
 .lab-line .lab-item::before { content: "\00B7"; position: absolute; left: 0.5rem; color: var(--color-shadow); }
 .lab-line .lab-crumb { color: var(--color-mist); }
 /* The way back ("<- Lab", "All reviews") stands a finger tall, 44px (taste
