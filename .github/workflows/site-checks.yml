@@ -4,7 +4,9 @@ name: site-checks
 # parallel jobs so the run is only as long as its longest share:
 #   - tests: npm test (the build and the node tests), then serves the build on
 #     127.0.0.1 the way the Worker does (scripts/serve-dist.mjs) and runs the
-#     brand audit (ourostack/.github brand/tools/audit.mjs --origin --dist).
+#     brand audit (ourostack/.github brand/tools/audit.mjs --origin --dist) from a
+#     checkout of the commit brand-pin.json records, so main's brand moving never
+#     turns this run red; the sync-brand workflow moves the pin with the art.
 #   - pages: every page check (npm run check:all) against the same build,
 #     split into four shards by measured time (scripts/check-shards.mjs).
 #   - ouro-check: Ouro check (scripts/ouro/check, from Ouro UI) walks every page at
@@ -68,6 +70,8 @@ jobs:
     env:
       SITE_BASE: http://127.0.0.1:4321
       CHECK_LOGS: ${{ github.workspace }}/check-logs
+      # tests/brand-audit.test.mjs runs the audit from this checkout, at the pinned commit.
+      BRAND_DOTGITHUB: ${{ github.workspace }}/.brand-dotgithub
     steps:
       - uses: actions/checkout@v4
 
@@ -94,6 +98,21 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # The brand audit judges the site's copies against the ourostack/.github commit brand-pin.json
+      # records, not against main, so a brand merge on main cannot turn this job red. A missing or
+      # malformed pin fails here with the fix (scripts/brand-pin.mjs).
+      - name: Read the brand pin
+        id: pin
+        run: echo "commit=$(node scripts/brand-pin.mjs commit)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out ourostack/.github at the brand pin
+        uses: actions/checkout@v4
+        with:
+          repository: ourostack/.github
+          ref: ${{ steps.pin.outputs.commit }}
+          path: .brand-dotgithub
+          persist-credentials: false
 
       - run: npm ci
 
@@ -128,14 +147,6 @@ jobs:
           nohup node scripts/serve-dist.mjs --port 4321 > "$CHECK_LOGS/serve-dist.log" 2>&1 &
           for _ in $(seq 1 50); do curl -fsS -o /dev/null "$SITE_BASE/" && exit 0; sleep 0.2; done
           echo "dist/ did not come up on $SITE_BASE" && exit 1
-
-      - name: Check out ourostack/.github main for the brand audit
-        uses: actions/checkout@v4
-        with:
-          repository: ourostack/.github
-          ref: main
-          path: .brand-dotgithub
-          persist-credentials: false
 
       - name: Brand audit against this build
         id: audit

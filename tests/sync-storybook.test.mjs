@@ -21,7 +21,7 @@ const COMMIT = 'a'.repeat(40);
 const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? walk(path.join(dir, d.name)) : [path.join(dir, d.name)]));
 const tree = (dir) => Object.fromEntries(walk(dir).map((f) => [path.relative(dir, f), sha(fs.readFileSync(f))]));
 
-async function sync(overrides = {}) {
+async function sync(overrides = {}, extra = []) {
   const server = http.createServer((req, res) => {
     const rel = decodeURIComponent(req.url).replace(`/${COMMIT}/brand/`, '');
     const body = overrides[rel] ?? (fs.existsSync(path.join(copy, rel)) ? fs.readFileSync(path.join(copy, rel)) : null);
@@ -30,7 +30,7 @@ async function sync(overrides = {}) {
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const out = fs.mkdtempSync(path.join(os.tmpdir(), 'sync-out-'));
   try {
-    const { stdout } = await run('node', ['scripts/sync-storybook.mjs', '--from-github', COMMIT, '--out', out], {
+    const { stdout } = await run('node', ['scripts/sync-storybook.mjs', '--from-github', COMMIT, '--out', out, ...extra], {
       cwd: root,
       env: { ...process.env, BRAND_RAW_BASE: `http://127.0.0.1:${server.address().port}` },
     });
@@ -66,7 +66,30 @@ test('sync-brand.yml repaints the scenes when the art changes and commits the pa
   const paint = wf.indexOf('node scripts/scene-paint.mjs');
   const open = wf.indexOf('name: Open the pull request');
   assert.ok(sync > 0 && sync < paint && paint < open, 'scene-paint runs after the sync and before the pull request opens');
-  assert.match(wf, /git add public\/brand\/storybook src\/data\/scene-paint\.json/);
+  assert.match(wf, /git add public\/brand\/storybook src\/data\/scene-paint\.json brand-pin\.json/);
+});
+
+test('sync-brand.yml moves the pin with the art: its pull request names the pinned commit, not main', () => {
+  const wf = fs.readFileSync(path.join(root, '.github/workflows/sync-brand.yml'), 'utf8');
+  assert.match(wf, /brand=\$\(node scripts\/brand-pin\.mjs commit \| cut -c1-7\)/);
+  assert.doesNotMatch(wf, /commits\/main/);
+});
+
+test('--from-github with --pin records the commit the copies came from in the pin', async () => {
+  const pin = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pin-')), 'brand-pin.json');
+  const { out } = await sync({}, ['--pin', pin]);
+  assert.deepEqual(JSON.parse(fs.readFileSync(pin, 'utf8')), { repository: 'ourostack/.github', commit: COMMIT });
+  assert.ok(fs.existsSync(path.join(out, 'provenance.json')));
+});
+
+test('a local brand folder needs --commit, and without it the sync stops before it writes a pin', async () => {
+  const pin = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pin-')), 'brand-pin.json');
+  const out = fs.mkdtempSync(path.join(os.tmpdir(), 'sync-out-'));
+  await assert.rejects(
+    run('node', ['scripts/sync-storybook.mjs', copy, '--out', out, '--pin', pin], { cwd: root }),
+    (err) => /needs --commit <40-character ourostack\/.github sha>/.test(err.stderr) && /Fix: rerun with --commit/.test(err.stderr),
+  );
+  assert.equal(fs.existsSync(pin), false);
 });
 
 test('sync-brand.yml reads ourostack/.github with the run\'s own token, not the token limited to this repository', () => {
