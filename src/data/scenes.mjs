@@ -21,8 +21,8 @@ export const scenes = {
   'ouro-hx-dark': 'The same cabin deck at night under a full moon: the faceless figure and the coral robot, its eyes glowing, look down at a softly glowing glass push button, slider and dial on the table, while Ouro, the green snake, coils on a folded towel above a moonlit lake and misty hills.',
   butler: 'A stone cottage with a server cabinet blinking green in its doorway, a watering can and a flower path. Ouro waits on the path beside a little table set with a silver cloche, ready to serve.',
   'butler-dark': 'A stone cottage at night with a server cabinet blinking green in its doorway, its lanterns lit, a watering can and a flower path. Ouro waits on the path beside a little table set with a silver cloche, ready to serve.',
-  housesitter: 'A round-doored cottage at sunrise, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
-  'housesitter-dark': 'A round-doored cottage at night under a starry sky, two little robots working at a laptop in its lit window. By the door a small grey box with an amber eye keeps watch, the house key hanging from it on a red ribbon, and Ouro curls on the doorstep, wide awake.',
+  housesitter: "A cosy house with a leafy roof: through its round window two small robots sit at a table with a laptop, a teacup and a row of books, a key on a red strap hangs from a little grey device on the bench, and Ouro the green snake curls by the door.",
+  'housesitter-dark': "The same house at night under a full moon: the wall lantern, the window lamp and the door’s porthole glow warm while the robots keep house and Ouro rests by the door.",
   ouroboros: 'On a bright early morning outside a modern beach house on the dunes, a small sea-blue robot with a canvas bag and a coral scarf sets off down the boardwalk toward the sea, while a faceless glass person watches from the open glass door, one hand raised in a wave and the other tucked in a cardigan pocket, and Ouro, a small green snake, suns himself on the front step.',
   'ouroboros-dark': 'Late on a moonlit evening outside a modern beach house on the dunes, a small sea-blue robot with a canvas bag and a coral scarf sets off down the boardwalk toward the sea, while a faceless glass person watches from the lit open glass door, one hand raised in a wave and the other tucked in a cardigan pocket, and Ouro, a small green snake, rests on the front step.',
   shepherd: 'Ouro stands tall by a shepherd’s crook and a wooden gate while a line of robot-eyed sheep trots along their glowing track.',
@@ -66,7 +66,7 @@ export const scenes = {
   'ouroboros-website-dark': 'A rose-covered archway at night under a full moon, a lit path winding off to a cottage on the far hill, beside a signpost pointing every which way. Ouro sits by the arch.',
   'ax-trail-map': 'A low wooden trail map stands in a dawn meadow, built at Ouro’s height, the trail it shows winding off through the meadow behind it. Ouro leans over the corner of the board and peers at the map with a pleased smile, finding his way.',
   'ax-trail-map-dark': 'The same trail map at night under a small crescent moon, the trail it shows glowing softly as it winds off through the dark meadow, while Ouro leans over the corner of the board in the moonlight and finds his way.',
-  'glue-unstuck': 'Three little storybook places stand open in the meadow, a post office, a meeting hall and a workshop, with Ouro curled among them. On the right, a faceless glass person in a scarf leans back against a mossy rock with a mug of tea, done for the day.',
+  'glue-unstuck': "In a sunny modern office courtyard, a faceless frosted-glass person in a sage scarf sits back on a low oak bench with their hands in their sweater pocket and a cup of tea steaming beside them, while Ouro the green snake rests on a tray of sorted envelopes on a cart by an open glass door.",
   'chart-room': 'In a lamplit airship chart room at dawn, a faceless glass person in a moss-green scarf and Loop, a small jade-glass agent in goggles holding a leather satchel, study a big map on an oak plan chest, with Ouro curled beside them and dawn clouds through the round porthole.',
   'chart-room-dark': 'In a lamplit airship chart room at night, a faceless glass person in a moss-green scarf and Loop, a small jade-glass agent in goggles holding a leather satchel, study a big map on an oak plan chest by the oil lamp, with Ouro curled beside them and the full moon in the round porthole.',
   'airship-line': 'The airship’s workshop at dawn. Three small glass agents build little airships along one long oak bench, an amber one in a red knit cap fitting a propeller, a sea-blue one in a leather apron tying ropes and Loop in goggles steadying a finished ship, while a faceless glass person in a moss-green scarf and canvas apron stands in front and times the line with a brass pocket watch. Ouro, an emerald-glass snake, watches from the far end of the bench.',
@@ -79,7 +79,7 @@ export const scenes = {
   'slugger-balloon-dark': 'The same little patchwork balloon rising from a moonlit meadow under the stars, its burner flame lighting the envelope from inside, Slugger in his scarf holding his to-do list over the rim and Ouro glowing green beside him.',
   'airship-moored': 'The glass-and-brass airship rests moored at its mast on a hilltop meadow in the low morning light, its gangplank down. Loop, a small jade-glass agent in goggles and a green scarf, stands in the gondola’s open door, one mitten raised in a thumbs-up and the other on his hip, and Ouro, an emerald-glass snake, keeps watch from the lantern post at the foot of the gangplank.',
   'airship-moored-dark': 'The same moored airship at night, the gondola’s windows, its doorway and the post’s lantern glowing warm: Loop stands in the open door at the top of the gangplank, one mitten raised in a thumbs-up, and Ouro, glowing green, keeps watch from the lantern post.',
-  'glue-unstuck-dark': 'The same meadow at night under a starry sky: the post office, the meeting hall and the workshop glow through their open doors, Ouro curls among them, and the glowing glass person rests against their rock with a steaming mug.',
+  'glue-unstuck-dark': "The same courtyard at night: the wall lantern and a pendant lamp inside the open door glow warm as the person rests on the bench and Ouro keeps watch over the sorted envelopes.",
 }
 
 // Each product's own scene. Every page of a product (the product page, its
@@ -231,7 +231,7 @@ export function usedScenes() {
 // The phone crop's size (ourostack/.github brand/tools/crops.json phoneAspect):
 // 4:3 by default; 16:9, 2:1, 7:5 or 12:5 where the characters stand too far apart for 4:3.
 // The phone hero box takes the file's own aspect, so nothing is cropped again.
-const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'butler-steady': [768, 320], 'butler-steady-dark': [768, 320], 'garden-line': [768, 320], 'garden-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], 'glue-unstuck': [768, 288], 'glue-unstuck-dark': [768, 288], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'playwright-focus-proof': [768, 384], 'playwright-focus-proof-dark': [768, 384], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
+const phoneSizes = { 'airship-moored': [768, 320], 'airship-moored-dark': [768, 320], 'airship-line': [768, 320], 'airship-line-dark': [768, 320], 'butler-steady': [768, 320], 'butler-steady-dark': [768, 320], 'garden-line': [768, 320], 'garden-line-dark': [768, 320], 'chart-room': [768, 320], 'chart-room-dark': [768, 320], ourostack: [768, 384], 'ourostack-dark': [768, 384], 'ouro-hx': [768, 384], 'playwright-focus-proof': [768, 384], 'playwright-focus-proof-dark': [768, 384], shepherd: [768, 320], 'shepherd-dark': [768, 320], 'flow-review': [768, 384], 'flow-review-dark': [768, 384], factory: [768, 384], 'factory-dark': [768, 384], friends: [768, 432], 'friends-dark': [768, 432], housesitter: [768, 432], 'housesitter-dark': [768, 432], workshop: [768, 461], 'workshop-dark': [768, 461] }
 export const phoneSize = (scene) => phoneSizes[scene] ?? [768, 576]
 
 // Where the characters stand in each scene's wide art, as [top, bottom]
@@ -244,8 +244,8 @@ export const heroFocus = {
   'ax-trail-map': [0.07, 0.88],
   'ax-trail-map-dark': [0.07, 0.88],
   // The post office's chimney down to the glass person's feet as they lean back with their tea.
-  'glue-unstuck': [0.0, 0.88],
-  'glue-unstuck-dark': [0.0, 0.88],
+  'glue-unstuck': [0.2, 0.84],
+  'glue-unstuck-dark': [0.2, 0.84],
   'apple-distribution-kit': [0.13, 0.82],
   'apple-distribution-kit-dark': [0.13, 0.82],
   butler: [0.18, 0.84],
@@ -318,8 +318,8 @@ export const castFoot = {
   'ax-trail-map': 0.86,
   'ax-trail-map-dark': 0.86,
   // The man's striped sock; the stuck shoe sits lower, inside heroFocus.
-  'glue-unstuck': 0.83,
-  'glue-unstuck-dark': 0.83,
+  'glue-unstuck': 0.825,
+  'glue-unstuck-dark': 0.825,
   'apple-distribution-kit': 0.64,
   'apple-distribution-kit-dark': 0.64,
   butler: 0.82,
@@ -414,8 +414,8 @@ export const phoneCastX = {
   'ax-trail-map': [0.52, 0.935],
   'ax-trail-map-dark': [0.52, 0.935],
   // People and Ouro only: Ouro's coil at the left, the man's hair at the right; the places are props.
-  'glue-unstuck': [0.47, 0.896],
-  'glue-unstuck-dark': [0.47, 0.896],
+  'glue-unstuck': [0.28, 0.725],
+  'glue-unstuck-dark': [0.28, 0.725],
   'apple-distribution-kit': [0.40, 0.82],
   'apple-distribution-kit-dark': [0.40, 0.82],
   // Ouro's body; the cloche he holds out reaches 0.955.
