@@ -1,19 +1,31 @@
 % node agent.ts
-You: what's the secret word in secret.txt?
-[2mI'm reconsidering my earlier answer. I do have a `read_file` tool that can read text files on the local filesystem, so my claim that I couldn't access the user's files was wrong. I need to correct that and try reading secret.txt.
+You: give me a short summary of AGENTS.md
+Agent: [2mI'm going to try reading AGENTS.md with the read_file tool, since I had it available all along and my earlier "I don't see the file" answer may have been premature. The user asking again suggests they want the actual contents.
 
-I'm going to call read_file on secret.txt now.
+I'm going to call read_file on "AGENTS.md" as a relative path, and if that misses I'll try "./AGENTS.md". I should have checked the file the first time instead of saying I couldn't see it, so once I have the contents I'll summarize them.
 
-[0mI need to correct myself: earlier I said I couldn't access your files, but that was wrong. I do have a tool that can read files from the local filesystem. I'll check secret.txt now.
-Tool request: {
-  "id": "toolu_01LZzRTSotPd5CuKqGZrCGvt",
+[0mTool call: {
+  "id": "toolu_01MNkYRzuaRDPMVypVMYJUie",
   "type": "function",
   "function": {
     "name": "read_file",
-    "arguments": "{\"path\": \"secret.txt\"}"
+    "arguments": "{\"path\": \"AGENTS.md\"}"
   }
 }
 Tool result:
-pineapple
+# AGENTS.md
 
-Paused: the model is waiting. The tool result has NOT been sent.[0m
+This folder holds agent.ts, a tiny agent built from scratch so a person can learn how agents work. They will read every line, so write it for them.
+
+- Keep agent.ts short and plain, like a script: the fewest lines that do the job. No clever tricks, no extra layers, no checks for things that won't happen.
+- Put the loop first, near the top, so a reader meets it before the plumbing it uses, and keep it as plain as the conversation it runs.
+- Skip TypeScript types unless Node needs them; `any` is fine.
+- When the same shape would appear three times, write one small helper instead.
+- Add a short comment wherever something important happens, saying what it does and why.
+- Build only what was asked for: no extra files, tests or packages. The only package is openai.
+- It runs with plain `node agent.ts`, on macOS, Linux and Windows.
+- Before you say something works, run it and check. If you're the agent in agent.ts and you've changed yourself, don't run a copy of yourself to test it: check the file still parses, then say when to restart you so we can try it together.
+- Commit each step that works, with a short message.
+
+Waiting for a tool result. Nothing has been sent back. Ctrl+C to exit.
+hello?[0m

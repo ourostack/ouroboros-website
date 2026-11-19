@@ -1,22 +1,32 @@
 % node agent.ts
 You: my name is Ari
-[2mAri's name is a simple greeting moment, so I'll just welcome them and ask how I can help, keeping it short and natural. Bringing up the name's origins might feel forced, so I'll leave that out.
-
-I'm thinking about whether it's worth noting that I'll only remember this within the current conversation, though it doesn't need much explanation. A short, warm greeting asking what I can help with seems right, kept concise.
+Agent: [2mI'm keeping this short: the user just gave their name, so I'll greet Ari warmly and ask what I can help with. I don't need to bring up memory across conversations.
 
 [0mNice to meet you, Ari! What can I help you with today?
 You: what's my name?
-[2mThe user wants to know their name, and they've already told me it's Ari, so I can just confirm that directly.
+Agent: [2mThe user wants to know their name, and I already have it from earlier: Ari. This is a quick recall, so I can just tell them.
 
-[0mYour name is Ari.
-You: what's the secret word in secret.txt?
-[2mI'm checking whether I have any access to a file called "secret.txt," and I don't—nothing has been shared here and I can't read the file system. I'll tell them that plainly and offer to help if they paste the contents or upload it, keeping the reply short and friendly without inventing anything.
+[0mYour name is Ari!
+You: give me a short summary of AGENTS.md
+Agent: [2mI'm weighing what AGENTS.md could refer to here: either a file in the user's repository, which I can't see since nothing was shared, or the open AGENTS.md convention introduced in 2025 by OpenAI and collaborators as a README-style file for coding agents.
 
-[0mI don't have access to a file called secret.txt. No file has been shared in our conversation, and I can't access your computer's files. If you paste the contents here or upload the file, I can take a look.
+[0m…
+I'm checking whether there's an AGENTS.md file in this conversation, and there isn't one, so I'll treat it as the open convention instead and offer to summarize a specific file if the user pastes it.
+
+[0m…
+[0mI don't see an AGENTS.md file in our chat. If you mean one from your own project, paste it here and I'll summarize it. If you mean the AGENTS.md format in general, here's the gist:
+
+**AGENTS.md** is an open, simple convention for guiding AI coding agents, basically a "README for agents."
+
+- **What it is:** A plain Markdown file at the root of a repository with instructions for AI coding tools. It has no required fields or schema.
+- **Why it exists:** It keeps agent-specific details (exact commands, conventions, gotchas) out of the human-focused README and gives all tools one predictable place to look instead of separate config files for each.
+- **Typical contents:** Setup, build, and test commands, code style rules, testing instructions, commit/PR guidelines, and security notes.
+- **Nesting:** Monorepos can include AGENTS.md files in subfolders. The one closest to the file being edited takes precedence, and explicit user instructions override it.
+- **Adoption:** It's supported by many tools, including OpenAI Codex, Cursor, Google's Jules, Amp, and Factory.
 You:
 % node agent.ts
 You: what's my name?
-[2mThe user is asking for their name again, and it's Ari, so I can answer directly. They may be checking that I stay consistent, so I'll give the same clear answer: "Your name is Ari."
+Agent: [2mAri is the name they gave me, so I can answer that directly.
 
-[0mYour name is Ari.
-You:[0m
+[0mYour name is Ari!
+You:[0m[0m

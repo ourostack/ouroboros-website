@@ -177,7 +177,7 @@ test('troubleshooting covers the real errors', () => {
   const section = html().match(/<[^>]*\bid="troubleshooting"[\s\S]*?<\/table>/);
   assert.ok(section, 'no #troubleshooting table');
   const text = textOf(section[0]);
-  for (const needle of ['401', '403', '404', 'quota exceeded', 'secrets.txt', 'content filter', 'gh auth login', 'gh auth switch', '22.18', 'copilot', 'PowerShell']) {
+  for (const needle of ['401', '403', '404', 'quota exceeded', 'content filter', 'gh auth login', 'gh auth switch', '22.18', 'copilot', 'PowerShell']) {
     assert.ok(text.includes(needle), `troubleshooting lacks ${needle}`);
   }
   assert.ok(!html().includes('quota-fix'), 'a link to the removed quota fix');

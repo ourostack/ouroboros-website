@@ -1,47 +1,54 @@
 % node agent.ts
-[tool] read_file
-[2mI've found "pineapple" in the file, so that's the secret word. The correction was already handled earlier, so I can just give the answer.
+Tool: read_file {"path": "AGENTS.md"}
+Agent: [2mI checked the file this time and it's there. I should have looked last time instead of saying I couldn't see it, since I had a tool for reading files and didn't use it.
 
-[0mThe secret word in secret.txt is **pineapple**.
+[0m…
+[0mSorry, last time I should have read the file instead of saying I couldn't see it. Here's what your AGENTS.md says:
 
-I'm sorry about my earlier answer. I should have checked my tools before saying I couldn't read your files.
-You: what's the secret word in secret.txt?
-[2mI'm wondering whether to re-read the file in case it changed, since the user is asking the secret word again. The question seems to be a check on consistency, like the earlier name question, so I'm weighing whether a fresh read is worth it.
+**Purpose:** This folder holds `agent.ts`, a tiny agent built from scratch to teach someone how agents work. That person will read every line, so the code should be written for them.
 
-I'm weighing whether re-reading the file is worth it, since the user asked again and the file could have changed. A fresh read costs little and would catch any edits, so I'm leaning toward checking it rather than relying on the earlier answer.
+**Code style:**
+- Keep it short and plain, like a script. Use as few lines as possible, with no clever tricks, extra layers or unneeded checks.
+- Put the main loop near the top so readers see it before the code that supports it.
+- Skip TypeScript types unless Node needs them (`any` is fine).
+- When the same pattern would appear three times, write one small helper instead.
+- Add short comments wherever something important happens, saying what it does and why.
 
-[0mI'll check the file again in case it has changed.
-[tool] read_file
-The secret word in secret.txt is still **pineapple**. I just checked again, and the file hasn't changed.
+**Scope:**
+- Build only what's asked for: no extra files, tests or packages. The only dependency is `openai`.
+- It must run with plain `node agent.ts` on macOS, Linux and Windows.
+
+**Workflow:**
+- Run it and check before saying something works.
+- If the agent changes its own code, it shouldn't run a copy of itself to test. It should check that the file still parses, then say when to restart it so you can try it together.
+- Commit each step that works, with a short message.
+You: give me a short summary of AGENTS.md
+Agent: [2mI'm being asked for the AGENTS.md summary again, even though I just gave one. Maybe they want it shorter, since mine ran a bit long, or they're checking whether I re-read the file, or the file itself has changed since I last looked.
+
+[0m…
+[0mTool: read_file {"path": "AGENTS.md"}
+[0m…
+[0mI re-read it and it hasn't changed since last time, so here's a shorter version:
+
+AGENTS.md is the guide for `agent.ts`, a tiny agent built from scratch to teach someone how agents work. It says:
+
+- Keep the code short, plain and well commented, with the main loop near the top.
+- Use as few TypeScript types as possible (`any` is fine), and only add a helper when the same pattern would appear three times.
+- Build only what's asked for, with `openai` as the only package. It must run with `node agent.ts` on macOS, Linux and Windows.
+- Test before saying something works, and commit each step that works. If the agent changes its own code, it should only check that the file still parses, then say when to restart it.
 You: write a haiku to hello.txt
-[2mI'm weighing whether to check if hello.txt already exists before overwriting it with a haiku, since write_file replaces whatever is there.
+[0m…
+[0mTool: write_file {"path": "hello.txt", "content": "Hello there, Ari\na tiny loop learns to speak\none line at a time\n"}
+[0m…
+[0mTool: read_file {"path": "hello.txt"}
+[0m…
+[0mI wrote this haiku to `hello.txt` and read the file back to check it saved correctly:
 
-I'm considering whether a quick read to see if hello.txt already has content is worth it, since overwriting would be irreversible. Writing directly is the simpler route given the explicit request, but the check is cheap enough to weigh.
+```
+Hello there, Ari
+a tiny loop learns to speak
+one line at a time
+```
 
-I'm going to compose a haiku and write it to hello.txt, but first I'll check whether that file already has content, since overwriting would be irreversible. I'm drafting a greeting-themed haiku as I go.
-
-I'm checking the haiku's syllable counts line by line, and the line "Morning light spills in" comes out to five. I'm also sketching a second option with a pineapple nod and confirming its counts too.
-
-I'm weighing whether to put a playful pineapple line into hello.txt, since the word comes from secret.txt and spreading it into another file might not be wanted. It's probably harmless, but a "secret" shouldn't end up in other files without the user asking, so I'm leaning toward a plain greeting haiku instead.
-
-I'm settling on a hello-themed haiku about morning light and a greeting, and I'm keeping the secret word out of hello.txt. Next I want to check whether the file already exists before I overwrite it, since that can't be undone.
-
-Now I'm going ahead with the read to check whether hello.txt already has content before I overwrite it.
-
-[0mI'll check whether hello.txt already exists first, so I don't overwrite anything by accident.
-[tool] read_file
-Error: ENOENT: no such file or directory, open 'hello.txt'
-[2mChecking that the file isn't already there means it's safe to write the haiku now.
-
-[0mThe file doesn't exist yet, so I'll create it.
-[tool] write_file
-[2mI'm weighing whether to read the file back to confirm it was written, but the tool already reported success, so a separate check isn't needed. I'll go ahead and report back with the haiku.
-
-[0mI created hello.txt with this haiku:
-
-> Morning light spills in,
-> a quiet word on the page:
-> hello, world, hello.
-
-There was no hello.txt before, so nothing was overwritten.
-You:[0m
+I didn't commit it because it looks like a quick test rather than a step in building `agent.ts`. Let me know if you want it committed.
+You:[0m[0m
