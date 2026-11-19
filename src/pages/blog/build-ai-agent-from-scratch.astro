@@ -456,7 +456,7 @@ const outputExempt = "program output, shown as evidence"
               </tr>
               <tr>
                 <td>It can't find <code>secret.txt</code>, or keeps trying</td>
-                <td>Check the file's name and folder: <code>secret.txt</code>, not <code>secrets.txt</code>, in the same folder as <code>{file}</code>.</td>
+                <td>Check the file's name and folder: <code>secret.txt</code>, not <code>secrets.txt</code>, in the same folder as <code set:text={file} />.</td>
               </tr>
               <tr>
                 <td>A reply stops partway, or says it was filtered</td>
@@ -464,7 +464,7 @@ const outputExempt = "program output, shown as evidence"
               </tr>
               <tr>
                 <td>Your agent won't start after it changed itself</td>
-                <td>It can't fix itself if it can't run. Ask Copilot, in the other window, to fix <code>{file}</code>.</td>
+                <td>It can't fix itself if it can't run. Ask Copilot, in the other window, to fix <code set:text={file} />.</td>
               </tr>
               <tr>
                 <td>PowerShell rejects <code>&amp;&amp;</code></td>
