@@ -1,0 +1,9 @@
+% node agent.ts
+You: what's the secret word in secret.txt?
+[2mI need to find the secret word, so I'll read secret.txt to get it.
+
+[0m[tool] read_file
+[2mThe file holds the word "pineapple," which must be the secret word I'm looking for.
+
+[0mThe secret word in `secret.txt` is **pineapple**.
+You:[0m

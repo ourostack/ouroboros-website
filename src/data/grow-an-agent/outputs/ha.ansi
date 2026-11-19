@@ -1,0 +1,52 @@
+% node agent.ts
+You: Read AGENTS.md. It's a note for any agent working in this folder, and most agents read it at the start of every conversation without being told. You don't yet. Make it so you read it every time you start, and follow it. Commit, and tell me when to restart.
+[2mI'm going to have the harness load AGENTS.md automatically at startup, so its contents reach the model in every conversation, probably as a system message. After that I'll commit and let the user know when to restart. I also want to re-read AGENTS.md first in case it has changed since I last looked.
+[0m…
+[0mOtto: Done. Every time I start, I now read AGENTS.md and put it first in the conversation as the **system message**. That's the standing instructions a model follows for the whole conversation.
+
+- **Only ever one copy:** on start, it removes the copy saved by the last run before adding the current one. Your edits to AGENTS.md take effect the next time I restart.
+- **You can see it:** it's saved to `what-the-model-sees.json` with the rest of the conversation, so you can check exactly what I'm sent.
+- **A fix the change needed:** at startup I used to treat any last message that wasn't my answer as unfinished work. With AGENTS.md always first, a brand-new conversation would have sent it to the model before you typed anything. Now I only resume after an unanswered user message or tool result, or tool calls that haven't run yet.
+
+I followed AGENTS.md while making this: 4 new lines and 1 changed one, each with a comment, and no new files.
+
+**Checked:** `node --check agent.ts` passes. Instead of running a copy of myself, I ran the two startup steps on sample conversations in a throwaway script:
+- A fresh start and a finished conversation both wait for you.
+- Unfinished work resumes.
+- Restarting twice still leaves exactly one copy, at the front.
+
+That only tested a copy of the logic, so restarting me is the real test.
+
+**Committed:** `db4f34b Read AGENTS.md as the system message on every start`. `main` is 2 commits ahead of origin and not pushed.
+
+**Restart me now:** once the `You:` prompt comes back, press Ctrl+C and run `node agent.ts`. We'll pick up where we left off. To check it worked, ask me to quote my system message, which I can only do if it was sent. Asking about AGENTS.md's rules wouldn't prove anything, because I already read the file with tools in this conversation. After your next message, `what-the-model-sees.json` should also start with AGENTS.md.
+You:
+% node agent.ts
+You: what does AGENTS.md ask of you?
+[2mI'm checking whether AGENTS.md is actually in my system message after the restart, and it looks like it is, since the system prompt at the top includes its content. I want to verify that carefully before answering.
+
+I can see AGENTS.md at the very start of my context as the system message, so the restart did pick up the change. I still need to be careful here, since I'd read that file through tools earlier, so the real evidence is that it's in the system message now. I'll answer from that message without calling any tools.
+
+I'm summarizing what AGENTS.md asks for: keep agent.ts short and plain, skip TypeScript types unless Node needs them, use a small helper when a shape repeats three times, and add brief comments explaining the important steps.
+
+I'm going back over AGENTS.md's rules for agent.ts: keep it short and plain for a learner reading every line, skip TypeScript types unless Node needs them, and pull out a small helper when the same shape would appear three times. I also want a short comment at each important step, with only what was asked built and openai as the sole package. It has to run with plain `node agent.ts` on macOS, Linux, and Windows, and I should run things and check them before claiming they work.
+
+I'm weighing whether to add a self-check on my own code, like the `message.content === delta.content` line, which might count as a clever trick. The user only asked what AGENTS.md requires, though, so a brief note at most would fit here.
+
+I'm weighing whether to flag one spot where I may have bent the "no clever tricks" rule: the Otto label checks `message.content === delta.content` to catch the first piece, which makes a reader pause, when a plain flag would be easier to follow. Since AGENTS.md says they'll read every line, that's worth raising briefly, though it's an offer rather than a change I'd make unasked.
+
+I'm double-checking the self-audit idea: the `message.content === delta.content` check might count as a clever trick, so I'll mention it briefly at the end rather than change anything unasked. The restart clearly worked, since AGENTS.md sits in the system message, so I can answer from that directly.
+
+[0mOtto: The restart worked. AGENTS.md is now the first thing in what I'm sent, as the system message, so I'm answering from that without opening the file. It asks me to:
+
+- **Write agent.ts for someone learning from it.** They'll read every line, so keep it short and plain like a script: the fewest lines that do the job, no clever tricks, no extra layers, and no checks for things that won't happen.
+- **Skip TypeScript types** unless Node needs them; `any` is fine.
+- **Write a small helper** when the same shape would otherwise appear three times.
+- **Add a short comment** wherever something important happens, saying what it does and why.
+- **Build only what was asked for.** No extra files, tests or packages; openai is the only package.
+- **Keep it running with plain `node agent.ts`** on macOS, Linux and Windows.
+- **Run it and check before saying it works.** When I change myself, I don't run a copy of myself to test it. I check that the file still parses, then tell you when to restart me so we can try it together.
+- **Commit each step that works** with a short message.
+
+Checking my own work against that list, the "Otto:" label may break the "no clever tricks" rule. It spots the first piece of an answer by comparing `message.content === delta.content`, and a plain on/off variable would be easier to follow. I can change it if you'd like.
+You:[0m[0m
