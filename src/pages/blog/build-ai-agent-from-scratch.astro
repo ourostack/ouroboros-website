@@ -5,7 +5,6 @@ import { ogPathFor } from '../../data/og'
 import PromptCard from '../../components/PromptCard.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
-import ShellCommands from '../../components/ShellCommands'
 import { CodeBlock } from '../../components/ouro/code-block/code-block'
 import { Card } from '../../components/ouro/card/card'
 import { Kbd } from '../../components/ouro/kbd/kbd'
@@ -33,7 +32,7 @@ const { title: headline, description } = post('/blog/build-ai-agent-from-scratch
 const title = `${headline} | Ouro`
 const canonicalUrl = "https://ouroboros.bot/blog/build-ai-agent-from-scratch/"
 const datePublished = "2026-03-01"
-const dateModified = "2026-11-18"
+const dateModified = "2026-11-19"
 
 const yt = "https://youtube.com/watch?v=YFjfBk8HI5o&t=9298"
 const transcript = "https://lexfridman.com/peter-steinberger-transcript#how-openclaw-works"
@@ -51,10 +50,7 @@ const makeFolder = "mkdir my-agent\ncd my-agent\ngit init"
 
 // The note every agent working in my-agent reads first, served from public/ so the page shows exactly what readers download.
 const agentsMd = agentsMdText.trimEnd()
-const getAgentsMd = {
-  mac: "curl -fsSO https://ouroboros.bot/grow-an-agent/AGENTS.md",
-  powershell: "Invoke-WebRequest https://ouroboros.bot/grow-an-agent/AGENTS.md -OutFile AGENTS.md",
-}
+const getAgentsMd = "curl -fsSO https://ouroboros.bot/grow-an-agent/AGENTS.md"
 const starterCode = starterCodeText.trimEnd()
 // Color agent.ts at build time with Shiki's TypeScript grammar, written as terminal colors so Ouro HX's
 // CodeBlock (language="ansi") draws it in the theme's own palette, light and dark.
@@ -79,7 +75,10 @@ const starterCodeColored = await colorTs(starterCode)
 
 // Captures keep their escape codes, so the model's thinking shows dimmed; trailing
 // blank lines and resets go.
+// A short punctuation run such as "?**" is held whole with word joiners, so a phone never wraps inside it.
+const glue = (text: string) => text.replace(/[^A-Za-z0-9\s\x1b]{2,6}/g, (run) => [...run].join('\u2060'))
 const shown = (raw: string) => raw.replace(/(?:\s|\x1b\[[0-9;:]*m)+$/, '')
+  .split(/(\x1b\[[0-9;:]*m)/).map((part) => part.startsWith('\x1b') ? part : glue(part)).join('')
 const outM1 = shown(outM1Raw)
 const outM2 = shown(outM2Raw)
 const outM3 = shown(outM3Raw)
@@ -92,6 +91,8 @@ const outSystemMessage = shown(outSystemMessageRaw)
 const outSkill = shown(outSkillRaw)
 const outDateTool = shown(outDateToolRaw)
 const getStarter = "git clone https://github.com/ourostack/my-agent\ncd my-agent\nnpm install"
+// The same repo at the end of chapter 2: the agent from my run of that chapter.
+const getChapter3 = "git clone -b chapter-3 https://github.com/ourostack/my-agent\ncd my-agent\nnpm install"
 const gitIdentity = 'git config --global user.name "Your Name"\ngit config --global user.email "you@example.com"'
 const versions = "git --version\nnode --version\ngh --version\ncopilot --version"
 
@@ -103,8 +104,8 @@ const p = (...paragraphs: string[]) => paragraphs.join("\n\n")
 
 const promptHello = p(
   "We're building a tiny agent together, from scratch, in one file called agent.ts. Build the agent part by hand: the only add-on should be the openai package, for talking to the model, with no ready-made agent kits.",
-  "For the model, use my GitHub Copilot access through the gh CLI I'm signed in with: `gh auth token` gives the key, and `gh api /copilot_internal/user --jq .endpoints.api` gives the address. Use claude-opus-5.5 with reasoning effort set to max, and let it write up to 128,000 tokens, the most it allows.",
-  "To start, send it one message, \"say hi in exactly five words\". Stream the reply so I can watch it think: print its thinking dimmed as it arrives, then what it says.",
+  "For the model, use my GitHub Copilot access through the gh CLI I'm signed in with: `gh auth token` gives the key, and `gh api /copilot_internal/user --jq .endpoints.api` gives the address. Use claude-opus-5.5 with reasoning effort set to low, and let it write up to 128,000 tokens, the most it allows.",
+  "To start, send it one message, \"say hi in exactly five words, without using the letter e\". Stream the reply so I can watch it think: print its thinking dimmed as it arrives, then what it says.",
   "Set up the folder however it needs, and tell me how to run it.",
 )
 
@@ -113,11 +114,11 @@ const promptChat = p(
   "Every time you call the model, save the exact request you send to what-the-model-sees.json. When agent.ts starts, pick the conversation back up from that file, so it survives a restart.",
 )
 
-const promptTool = "Give the model one tool, read_file, for reading a text file. When the model asks to use it, show me exactly what it asked for, then actually read the file and show me what we got, but don't hand the result back to the model yet. I want to see it ask and then get stuck waiting."
+const promptTool = "Give the model one tool, read_file, for reading a text file. When the model asks to use it, show me exactly what it asked for, then actually read the file and show me what we got, but don't hand the result back to the model yet. I want to see it ask and then get stuck waiting. One thing Copilot's API does: the pieces of a streamed tool request may not be numbered from 0, so don't assume the first one is number 0."
 
 const promptLoop = p(
   "Now close the loop. Run whatever tools the model asks for, hand back the results, and keep going until it answers without asking for anything. If the saved conversation is still waiting on a tool when agent.ts starts, run that tool first.",
-  "Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now, and in PowerShell 7 (pwsh) on Windows. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, stop slow commands after 30 seconds, and cut very long tool output short. If a reply stops before it's finished, say why, so I know to ask it to carry on.",
+  "Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, stop slow commands after 30 seconds, and cut very long tool output short. If a reply stops before it's finished, say why, so I know to ask it to carry on.",
 )
 
 const promptTidy = p(
@@ -222,16 +223,6 @@ const outputExempt = "program output, shown as evidence"
         "acceptedAnswer": { "@type": "Answer", "text": a }
       }))
     })} />
-    <!-- The reader's shell, before anything paints: saved choice, else a guess from the platform.
-         Without JavaScript nothing is set, so every variant shows under its own caption. -->
-    <script is:inline>
-      try {
-        var saved = localStorage.getItem('ouroboros-agent-loop-shell');
-        document.documentElement.dataset.shellActive = saved === 'powershell' || saved === 'mac'
-          ? saved
-          : navigator.userAgent.indexOf('Windows') >= 0 ? 'powershell' : 'mac';
-      } catch (e) {}
-    </script>
   </Fragment>
 
   <PageHero eyebrow="Grow an agent" title="Just give the model a keyboard">
@@ -311,7 +302,8 @@ const outputExempt = "program output, shown as evidence"
         </p>
 
         <h2>The shape of what's coming</h2>
-        <p><strong>Phase 1: The bootstrap.</strong> You'll direct a coding agent to build the smallest agent that works, one piece at a time:</p>
+        <p>Three chapters, each one sitting:</p>
+        <p><strong>Chapter 1: Build the loop.</strong> You'll direct a coding agent to build the smallest agent that works, one piece at a time:</p>
         <ol>
           <li>A first hello, with the model's thinking on show</li>
           <li>A conversation it remembers</li>
@@ -319,24 +311,24 @@ const outputExempt = "program output, shown as evidence"
           <li>The loop (it keeps going until it decides it's done)</li>
         </ol>
         <p>That's it. That's the bootstrap.</p>
-        <p><strong>Phase 2: The handoff.</strong> You run your agent. You start talking to <em>it</em>. It names itself, learns to read the note you left for agents, and writes its own instructions.</p>
+        <p><strong>Chapter 2: Hand it the keyboard.</strong> You run your agent. You start talking to <em>it</em>. It names itself, learns to read the note you left for agents, and writes its own instructions.</p>
         <p>
-          <strong>Phase 3: Growing together.</strong> You and your agent build it out together. It builds itself a skills
+          <strong>Chapter 3: Grow it together.</strong> You and your agent build it out together. It builds itself a skills
           system, then uses a skill to give itself a new tool. Watch capability compound.
         </p>
-        <p>On your own, the main path takes about an hour. In a group, with everyone reading along and asking questions, plan on two. By the end, you'll have something substantive, and you'll have built it the new way.</p>
-        <p>Short on time? Milestone 4, the loop, is the finish line. Everything after it is the fun bit you can finish at home.</p>
+        <p>On your own, all three take about an hour. In a group, with everyone reading along and asking questions, plan on a session for each. By the end, you'll have something substantive, and you'll have built it the new way.</p>
         <aside id="start-here-signpost" class="post-note my-8">
           <p class="!mb-0 !text-base">
-            <strong class="text-bone">Here for the second half?</strong> Do the setup below, then
-            <a href="#start-from-the-loop">start from the loop</a>: a copy of the agent the first half builds, ready to run.
+            <strong class="text-bone">Starting at chapter 2 or 3?</strong> Do the setup below, then jump to
+            <a href="#start-from-the-loop">chapter 2</a> or <a href="#start-chapter-3">chapter 3</a>. Each starts from a
+            ready copy of the agent so far.
           </p>
         </aside>
 
         <h2 id="before-you-start">Before we start</h2>
         <p>
           You'll need a GitHub account with Copilot, and about ten minutes to set up. If you've never used a command line,
-          you're in exactly the right place. If you're joining a workshop, do this part beforehand.
+          you're in exactly the right place. If you're joining a workshop, do this part beforehand. On Windows, start a day early: installing WSL needs a restart.
         </p>
         <p>
           Have more than one GitHub account? Sign in to the one you'll use and check that
@@ -350,14 +342,19 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <ul>
           <li><strong>macOS:</strong> open Spotlight with Command-Space, type <code>Terminal</code>, and press Return.</li>
-          <li><strong>Windows:</strong> click Start, type <code>PowerShell</code>, and open it. Copilot CLI needs PowerShell 7 or later: run <code>$PSVersionTable.PSVersion</code>, and the first number should be 7. If it isn't, run <code>winget install Microsoft.PowerShell</code> once (winget is Windows' built-in app installer), then open PowerShell 7 instead.</li>
-          <li><strong>WSL</strong> (Windows Subsystem for Linux)<strong>:</strong> if you already use Linux on Windows, open your WSL terminal and install everything below inside it.</li>
+          <li><strong>Linux:</strong> open your terminal.</li>
+          <li>
+            <strong>Windows:</strong> you'll work in WSL, the Linux that comes with Windows, so your commands match
+            everyone else's. Install it once: click Start, type <code>PowerShell</code>, right-click it, choose Run as
+            administrator, and run <code>wsl --install</code>. Restart when it asks. Then open <strong>Ubuntu</strong> from
+            Start, pick a username and password, and do everything on this page in that window. If your computer won't let
+            you install it, tell your workshop host before the session.
+          </li>
         </ul>
         <p>
           To run a command, paste it into the terminal with <Kbd client:visible keys={["mod", "v"]} /> and press
-          <Kbd client:visible keys={["enter"]} />. In PowerShell, right-click also pastes; in some WSL terminals it's
-          <Kbd client:visible keys={["ctrl", "shift", "v"]} />. When a box shows a few lines, run them one at a time. Where your shell
-          needs something different, pick it once and the whole page follows.
+          <Kbd client:visible keys={["enter"]} />. In Ubuntu on Windows, paste with
+          <Kbd client:visible keys={["ctrl", "shift", "v"]} /> or a right-click. When a box shows a few lines, run them one at a time.
         </p>
 
         <h3 id="command-line-or-chat-box">Command line or chat box?</h3>
@@ -368,7 +365,7 @@ const outputExempt = "program output, shown as evidence"
         <ul>
           <li>
             <strong>A command line runs commands.</strong> It's what a new terminal shows: a short prompt, such as
-            <code>%</code> on a Mac or <code>PS C:\Users\you&gt;</code> in PowerShell, waiting for a command. Type
+            <code>%</code> on a Mac or <code>you@laptop:~$</code> in Ubuntu, waiting for a command. Type
             <code>node agent.ts</code> here and your agent runs.
           </li>
           <li>
@@ -384,16 +381,16 @@ const outputExempt = "program output, shown as evidence"
           <Kbd client:visible keys={["ctrl", "c"]} />; Copilot may need it twice. Your own agent will have a chat box too:
           its <code>You:</code> line.
         </p>
-        <p>On Windows, use PowerShell, not Command Prompt (<code>cmd</code>). They look alike, but this page's commands are for PowerShell.</p>
+        <p>On Windows, every command on this page goes in your Ubuntu window, not PowerShell or Command Prompt.</p>
 
         <h3>Install four things</h3>
         <ul>
-          <li><strong>Node.js</strong>, version 22.18 or later, from <a href="https://nodejs.org">nodejs.org</a>. It runs the agent you're about to build. On WSL, use the site's Linux instructions (its download page offers nvm), which need no <code>sudo</code>.</li>
-          <li><strong>Git</strong>, from <a href="https://git-scm.com">git-scm.com</a>. On a Mac, run <code>git --version</code> once and accept the offer to install the developer tools. On Windows, run <code>winget install Git.Git</code>. WSL usually has it already.</li>
-          <li><strong>The GitHub CLI</strong>, from <a href="https://cli.github.com">cli.github.com</a>. Your agent uses it to reach a model with your Copilot access.</li>
+          <li><strong>Node.js</strong>, version 22.18 or later, from <a href="https://nodejs.org">nodejs.org</a>. It runs the agent you're about to build. In Ubuntu on Windows, use the site's Linux instructions (its download page offers nvm), which need no <code>sudo</code>.</li>
+          <li><strong>Git</strong>, from <a href="https://git-scm.com">git-scm.com</a>. On a Mac, run <code>git --version</code> once and accept the offer to install the developer tools. Ubuntu has it already.</li>
+          <li><strong>The GitHub CLI</strong>, from <a href="https://cli.github.com">cli.github.com</a>. Your agent uses it to reach a model with your Copilot access. In Ubuntu, follow its Linux instructions.</li>
           <li><strong>GitHub Copilot CLI</strong>, the coding agent that builds the first version with you:</li>
         </ul>
-        <ShellCommands client:load mac="npm install -g @github/copilot" powershell="winget install GitHub.Copilot" />
+        <CodeBlock client:load code="npm install -g @github/copilot" language="shell" title="terminal" />
         <p>
           Copilot CLI's <a href={copilotDocs}>install guide</a> has every other way to get it. When you're done, close the
           terminal and open a new one, so it can find what you just installed.
@@ -425,7 +422,7 @@ const outputExempt = "program output, shown as evidence"
           dense code; this note asks for code short and plain enough for you to read every line. Soon you'll ask your own agent what it says, and it won't have a clue. Download it into your
           folder:
         </p>
-        <ShellCommands client:load mac={getAgentsMd.mac} powershell={getAgentsMd.powershell} />
+        <CodeBlock client:load code={getAgentsMd} language="shell" title="terminal" wrap />
         <CodeBlock client:load code={agentsMd} language="markdown" title="AGENTS.md" copy={false} data-copy-exempt="the file the command above downloads" wrap />
         <p>Start your coding agent:</p>
         <CodeBlock client:load code="copilot" language="shell" title="terminal" />
@@ -460,7 +457,7 @@ const outputExempt = "program output, shown as evidence"
               </tr>
               <tr>
                 <td><code>copilot</code>, <code>gh</code> or <code>git</code> not found</td>
-                <td>Close the terminal and open a new one. Still missing? Install it again; WSL needs its own copy.</td>
+                <td>Close the terminal and open a new one. Still missing? Install it again; on Windows, Ubuntu needs its own copy.</td>
               </tr>
               <tr>
                 <td>Node can't run a <code>.ts</code> file</td>
@@ -469,7 +466,7 @@ const outputExempt = "program output, shown as evidence"
               <tr>
                 <td><code>EACCES</code> while installing</td>
                 <td>
-                  Don't use <code>sudo</code>. On macOS or WSL, install Copilot CLI without npm:
+                  Don't use <code>sudo</code>. Install Copilot CLI without npm:
                   <code>curl -fsSL https://gh.io/copilot-install | bash</code> (answer <code>y</code> if it offers to add
                   itself to your PATH), or <code>brew install --cask copilot-cli</code> if you use Homebrew. Then open a new
                   terminal. Or fix npm's folder permissions with its own guide:
@@ -489,8 +486,8 @@ const outputExempt = "program output, shown as evidence"
                 <td>It can't fix itself if it can't run. Ask Copilot, in the other window, to fix <code set:text={file} />.</td>
               </tr>
               <tr>
-                <td>PowerShell rejects <code>&amp;&amp;</code></td>
-                <td>Older Windows PowerShell has no <code>&amp;&amp;</code>. Run the commands one line at a time, or open PowerShell 7.</td>
+                <td>A command fails on Windows, or the prompt starts with <code>PS</code></td>
+                <td>You're in PowerShell or Command Prompt. Open Ubuntu from Start and run it there.</td>
               </tr>
             </tbody>
           </table>
@@ -503,7 +500,10 @@ const outputExempt = "program output, shown as evidence"
           </p>
         </aside>
 
-        <h2 id="m1">Milestone 1: first contact</h2>
+        <h2 id="chapter-1">Chapter 1: Build the loop</h2>
+        <p>Four milestones, one prompt to Copilot each. By the end, your agent can read files, write them and run commands.</p>
+
+        <h3 id="m1">Milestone 1: first contact</h3>
         <p>
           A model is a program that lives somewhere else, so your agent needs its address and a key. You could ask an agent
           to work out how to use your Copilot access to call models from code, and it would get there. I did that homework
@@ -511,9 +511,10 @@ const outputExempt = "program output, shown as evidence"
           will run on your Copilot plan.
         </p>
         <p>
-          We'll use Claude Opus with its reasoning turned all the way up, so you can watch it think before it speaks. And
-          the first thing we'll ask is for a hello in exactly five words. Counting is harder for a model than you'd think,
-          and you're about to watch it work that out. Paste this into Copilot…
+          We'll use Claude Opus with its reasoning set to low, so you can watch it think before it speaks. All the way up
+          isn't better, just slower: it can think itself into a corner. And the first thing we'll ask is for a hello in
+          exactly five words, without the letter e. A model reads in chunks, not letters, so that takes a moment's thought,
+          and you're about to watch it. Paste this into Copilot…
         </p>
         <div class="my-6"><PromptCard label={toCoder} prompt={promptHello} /></div>
         <p>
@@ -534,7 +535,7 @@ const outputExempt = "program output, shown as evidence"
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock code={outM1} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
-          The dimmed part is the model thinking: counting words, checking, counting again. Then it answers. Your words will
+          The dimmed part is the model thinking: picking words, checking each one for an e. Then it answers. Your words will
           be different, but read the thinking. It's the best part.
         </p>
         <p>Got an error instead? <a href="#troubleshooting">The “If something goes wrong” table</a> covers the usual ones.</p>
@@ -554,7 +555,7 @@ const outputExempt = "program output, shown as evidence"
           </p>
         </aside>
 
-        <h2 id="m2">Milestone 2: conversation</h2>
+        <h3 id="m2">Milestone 2: conversation</h3>
         <p>
           Here's something that surprises most people: a model remembers nothing between calls. Every call starts fresh.
           So a conversation is really a list your program keeps and sends in full, every single time. The model's thinking
@@ -578,7 +579,7 @@ const outputExempt = "program output, shown as evidence"
           Now open <code>what-the-model-sees.json</code> in your editor, next to the terminal. If you installed Zed,
           <code>zed .</code> opens the whole folder in it. No editor handy? Stop your agent with <Kbd client:visible keys={["ctrl", "c"]} /> and print the file instead:
         </p>
-        <ShellCommands client:load mac="cat what-the-model-sees.json" powershell="Get-Content what-the-model-sees.json" />
+        <CodeBlock client:load code="cat what-the-model-sees.json" language="shell" title="terminal" />
         <CodeBlock client:load code={outMessagesExcerpt} language="json" title="what-the-model-sees.json" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           This is a context window: your words, its thinking, its replies, exactly as the model received them. There's no
@@ -627,7 +628,7 @@ const outputExempt = "program output, shown as evidence"
           still knows. It read that file back in when it started.
         </p>
 
-        <h2 id="m3">Milestone 3: one tool</h2>
+        <h3 id="m3">Milestone 3: one tool</h3>
         <p>
           Time to give the model its first key. To a model, a tool is just a name, a description and its parameters:
           <code>read_file</code>, "reads a text file", and the path of the file to read. Every major model understands
@@ -649,7 +650,7 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p><strong class="text-bone">It asked, and nobody answered.</strong></p>
 
-        <h2 id="m4">Milestone 4: the loop</h2>
+        <h3 id="m4">Milestone 4: the loop</h3>
         <p>
           So answer it. Run the tool, add the result to the conversation, and call the model again. If it asks for another
           tool, do that too. When it answers without asking for anything, it's done. Here's the whole shape of it:
@@ -670,7 +671,7 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p>
           It starts by finishing the read it asked for last time, and owns up to its earlier mistake. Ask again and it
-          reaches for <code>read_file</code>, reads the note and sums it up. Then it writes a poem nobody planned for. Open <code>hello.txt</code> in your editor: your agent made that.
+          gives a shorter summary from what it already read. Then it writes a poem nobody planned for. Open <code>hello.txt</code> in your editor: your agent made that.
         </p>
         <p><strong class="text-bone">That's it. That's the agent.</strong></p>
         <p>
@@ -680,10 +681,13 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <div class="my-6"><PromptCard label={toCoder} prompt={promptTidy} /></div>
 
-        <h2 id="start-from-the-loop">Starting here? Start from the loop</h2>
-        <p>Worked through the first half? <a href="#handoff">Skip to handing it the keyboard</a>.</p>
+        <h2 id="chapter-2">Chapter 2: Hand it the keyboard</h2>
+        <p>So far, an agent someone else built has done the building. Now your agent takes over: it names itself, reads the note you left, and writes its own instructions.</p>
+
+        <h3 id="start-from-the-loop">Starting here? Start from the loop</h3>
+        <p>Finished chapter 1? <a href="#handoff">Skip ahead</a>.</p>
         <p>
-          Skipped the first half, or yours came out long? Start from mine. It does what the four prompts above built,
+          Skipped chapter 1, or yours came out long? Start from mine. It does what chapter 1's four prompts built,
           rewritten by hand so you can read it top to bottom.
         </p>
         <p>
@@ -694,14 +698,13 @@ const outputExempt = "program output, shown as evidence"
         <p>Now read it, top to bottom. The loop comes first, under <code>THE AGENT</code>: you say something, the model answers, and any tool it asks for gets used and handed back until it's your turn again. Everything below the loop is the plumbing it uses.</p>
         <CodeBlock code={starterCodeColored} language="ansi" title={file} copy={false} data-copy-exempt="the starter's own file; clone it to get a copy" wrap />
         <p>
-          That's an agent: a conversation, three tools and a loop. Run it, ask it what's in its folder, and keep Copilot
+          That's an agent: a conversation, three tools and a loop. Run it, ask for a short summary of <code>AGENTS.md</code>, and keep Copilot
           open in another window in case your agent ever needs a hand.
         </p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock code={outStart} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
 
-        <h2 id="handoff">Hand it the keyboard</h2>
-        <p>So far we bootstrapped using an agent someone else built. Now let's hand our new agent the keyboard.</p>
+        <h3 id="handoff">Let it name itself</h3>
         <p>
           Your agent can read files, write files and run commands. Its own code is a file, <code>{file}</code>, so it can
           read itself, and change itself. Not long ago it couldn't find a word in a file.
@@ -721,7 +724,7 @@ const outputExempt = "program output, shown as evidence"
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <div class="my-6"><PromptCard label={toAgent} prompt={promptName} /></div>
         <CodeBlock code={outName} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
-        <p>Restart it and say hello. It has a name now, and it chose it. You'll see its name, <code>Otto:</code> in my case, in front of its replies only after the restart.</p>
+        <p>Restart it and say hello. It has a name now, and it chose it. You'll see its name, <code>Pip:</code> in my case, in front of its replies only after the restart.</p>
         <p>
           Notice how it checked its work: it made sure the file still parses, then asked me to restart it, rather than
           running a copy of itself. That's one line in <code>AGENTS.md</code>, just for your agent. In my tests, without it,
@@ -756,9 +759,14 @@ const outputExempt = "program output, shown as evidence"
           Why first person? Think about how your own thoughts sound. When you think to yourself, you say "I", not "you". A
           thought that shows up as "you should…" reads like someone else's instruction, not your own idea. A system message
           is the closest thing your agent has to its own mind, so let it sound like its own. It's a nudge, not an order:
-          if your agent disagrees, hear it out. Otto agreed, and improved on it twice: it names me instead of saying "you",
-          because in a note written as "I" a "you" could mean either of us, and it writes down the reason for each habit,
-          because a later conversation won't remember writing it.
+          if your agent disagrees, hear it out. Pip agreed: a note in its own voice reads like its own settled view, not
+          orders from someone else.
+        </p>
+        <p>
+          Then I asked who it was, and it noticed something odd: <code>AGENTS.md</code> three times in what it could see.
+          Every restart loaded the saved conversation, instructions and all, then added a fresh copy on top. It found the
+          bug in its own context window, fixed it and asked for a restart. That's what <code>what-the-model-sees.json</code>
+          is for, and yours may well find the same one.
         </p>
         <p>Restart it. Then open the system message it wrote in your editor: its words, about you.</p>
         <p><strong class="text-bone">From this moment on, you're talking to your agent.</strong></p>
@@ -770,7 +778,23 @@ const outputExempt = "program output, shown as evidence"
         </ul>
         <p>Most of a production agent is answers to those. The loop stays the same.</p>
 
-        <h2 id="keep-growing">Growing together</h2>
+        <h2 id="keep-growing">Chapter 3: Grow it together</h2>
+        <p>Your agent builds itself a skills system, then uses a skill to give itself a new tool.</p>
+
+        <h3 id="start-chapter-3">Starting here? Start from chapter 3</h3>
+        <p>Finished chapter 2? <a href="#growing">Skip ahead</a>.</p>
+        <p>
+          Otherwise, do the <a href="#before-you-start">setup</a> first, but skip making a folder and downloading
+          <code>AGENTS.md</code>. This copy is my agent at the end of chapter 2: it has a name, reads <code>AGENTS.md</code>
+          and has a system message it wrote itself. In a command line, one line at a time:
+        </p>
+        <CodeBlock client:load code={getChapter3} language="shell" title="terminal" wrap />
+        <p>
+          Run it with <code>node agent.ts</code> and say hello. Its system message is about me, so your first ask can be
+          to rewrite it for you.
+        </p>
+
+        <h3 id="growing">Every change is a conversation</h3>
         <p>From here, every change is a conversation with your agent. After each one, restart it so it runs as its new self.</p>
         <p>
           The transcripts below are long; skim them, because your agent's words will differ. If something breaks,
@@ -796,9 +820,8 @@ const outputExempt = "program output, shown as evidence"
         <div class="my-6"><PromptCard label={toAgent} prompt={promptDate} /></div>
         <CodeBlock code={outDateTool} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
-          Restart and ask what time it is. Mine tripped over its own code the first time: the new tool sent no arguments,
-          and the code it had written couldn't read that. It worked out why, answered from the shell instead, fixed itself
-          and asked for another restart. The second time, it just worked.
+          Restart and ask what time it is. Mine read its skill first, tested the new line on its own, and the tool worked on
+          the first try.
         </p>
         <p>A skill that teaches it to make tools, used to make a tool. Tools and skills building each other.</p>
         <p><strong class="text-bone">This is the shape of compounding capability.</strong></p>
@@ -916,15 +939,6 @@ const outputExempt = "program output, shown as evidence"
 </Layout>
 
 <style is:global>
-  /* The shell switcher (ShellCommands): hidden until JavaScript picks a shell, then only that shell shows. */
-  html:not([data-shell-active]) [data-shell-control] { display: none; }
-  [data-shell-control]:not([data-hydrated]) { visibility: hidden; }
-  html[data-shell-active="mac"] [data-shell-variant]:not([data-shell-variant="mac"]),
-  html[data-shell-active="powershell"] [data-shell-variant]:not([data-shell-variant="powershell"]) { display: none; }
-  .shell-commands { margin: 1.5rem 0; }
-  .shell-control { margin-bottom: 0.75rem; }
-  .shell-variant + .shell-variant { margin-top: 0.75rem; }
-  html[data-shell-active] .shell-variant + .shell-variant { margin-top: 0; }
   [data-side-quest] { scroll-margin-top: 6rem; }
 </style>
 
