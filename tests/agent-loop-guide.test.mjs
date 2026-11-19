@@ -101,6 +101,34 @@ test('every output is a real one from the dry run', () => {
   assert.match(joined, /node agent\.ts You: \S/, 'no output shows the agent\'s real "You:" prompt');
 });
 
+test('the model\'s thinking shows dimmed and its reply does not', () => {
+  const source = article();
+  assert.ok(!source.includes('\x1b') && !source.includes('&#x1b;') && !source.includes('&#27;'), 'raw escape codes show on the page');
+  const outputs = [...source.matchAll(/<figure\b([^>]*)>(?:(?!<\/figure>)[\s\S])*?<pre\b[^>]*>([\s\S]*?)<\/pre>/g)]
+    .filter(([, attrs]) => /data-expected-output/.test(attrs) && /data-language="ansi"/.test(attrs));
+  assert.ok(outputs.length >= 10, `expected at least 10 terminal outputs, found ${outputs.length}`);
+  const first = outputs[0][2];
+  // Split the first run into its dim spans and the rest, past the spans code-wrap nests inside them.
+  const dim = [];
+  let rest = '';
+  let at = 0;
+  for (const m of first.matchAll(/<span\b[^>]*data-ouro-ansi[^>]*class="[^"]*muted-foreground[^"]*"[^>]*>/g)) {
+    if (m.index < at) continue;
+    const tags = /<(\/?)span\b[^>]*>/g;
+    tags.lastIndex = m.index + m[0].length;
+    let depth = 1;
+    let t;
+    while (depth && (t = tags.exec(first))) depth += t[1] ? -1 : 1;
+    rest += first.slice(at, m.index);
+    dim.push(textOf(first.slice(m.index + m[0].length, t.index)));
+    at = t.index + t[0].length;
+  }
+  rest = textOf(rest + first.slice(at));
+  assert.ok(dim.some((t) => t.includes('five-word greeting')), 'the first run\'s thinking is not dimmed');
+  assert.ok(rest.includes('Hi there, how are you?'), 'the first run\'s reply is dimmed or missing');
+  assert.ok(!rest.includes('five-word greeting'), 'the first run\'s thinking is not dimmed');
+});
+
 test('one disclosure, up top, that every output is real', () => {
   const text = textOf(article());
   const count = text.split('Every output on this page is real').length - 1;

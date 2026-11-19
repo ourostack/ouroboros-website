@@ -55,8 +55,9 @@ const getAgentsMd = {
   powershell: "Invoke-WebRequest https://ouroboros.bot/grow-an-agent/AGENTS.md -OutFile AGENTS.md",
 }
 const starterCode = starterCodeText.trimEnd()
-// Until the code blocks render terminal styling, show captures as plain text.
-const shown = (raw: string) => raw.replace(/\x1b\[[0-9;:]*m/g, '').trimEnd()
+// Captures keep their escape codes, so the model's thinking shows dimmed; trailing
+// blank lines and resets go.
+const shown = (raw: string) => raw.replace(/(?:\s|\x1b\[[0-9;:]*m)+$/, '')
 const outM1 = shown(outM1Raw)
 const outM2 = shown(outM2Raw)
 const outM3 = shown(outM3Raw)
@@ -515,7 +516,7 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p id="m1-try">Now run your agent:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
-        <CodeBlock client:load code={outM1} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outM1} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           The dimmed part is the model thinking: counting words, checking, counting again. Then it answers. Your words will
           be different, but read the thinking. It's the best part.
@@ -553,7 +554,7 @@ const outputExempt = "program output, shown as evidence"
           for the secret word in <code>secret.txt</code>:
         </p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
-        <CodeBlock client:load code={outM2} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outM2} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           It knows your name, because your name is in the list. It can't know the word: it has never seen your folder.
         </p>
@@ -620,7 +621,7 @@ const outputExempt = "program output, shown as evidence"
         <div class="my-6"><PromptCard label={toCoder} prompt={promptTool} /></div>
         <p>Run your agent and ask for the secret word:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
-        <CodeBlock client:load code={outM3} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outM3} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           It stops there on purpose, waiting for a result nobody sends. Depending on how Copilot built yours, it either
           sits and waits (press <Kbd client:visible keys={["ctrl", "c"]} /> to leave) or, like mine, drops you back at the
@@ -646,7 +647,7 @@ const outputExempt = "program output, shown as evidence"
         <div class="my-6"><PromptCard label={toCoder} prompt={promptLoop} /></div>
         <p>Run your agent, ask for the secret word, then ask it to write a haiku to <code>hello.txt</code>:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
-        <CodeBlock client:load code={outM4} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outM4} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           Copilot takes a few minutes over this one; mine took about three. When you run your agent, watch the dimmed
           thinking and the <code>[tool]</code> lines scroll by: that's the loop. It's done when <code>You:</code> comes back.
@@ -682,7 +683,7 @@ const outputExempt = "program output, shown as evidence"
           open in another window in case your agent ever needs a hand.
         </p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
-        <CodeBlock client:load code={outStart} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outStart} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
 
         <h2 id="handoff">Hand it the keyboard</h2>
         <p>So far we bootstrapped using an agent someone else built. Now let's hand our new agent the keyboard.</p>
@@ -704,7 +705,7 @@ const outputExempt = "program output, shown as evidence"
         <p>Start your agent if it isn't running, and let it name itself…</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <div class="my-6"><PromptCard label={toAgent} prompt={promptName} /></div>
-        <CodeBlock client:load code={outName} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outName} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>Restart it and say hello. It has a name now, and it chose it. You'll see its name, <code>Otto:</code> in my case, in front of its replies only after the restart.</p>
         <p>
           Notice how it checked its work: it made sure the file still parses, then asked me to restart it, rather than
@@ -720,7 +721,7 @@ const outputExempt = "program output, shown as evidence"
           Copilot does is exactly this: put the right words in front of the model at the right moment. Teach yours…
         </p>
         <div class="my-6"><PromptCard label={toAgent} prompt={promptAgentsMd} /></div>
-        <CodeBlock client:load code={outAgentsMd} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outAgentsMd} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>From now on, every change your agent makes to itself follows the same note Copilot did.</p>
 
         <h3 id="system-message">Its own instructions</h3>
@@ -735,7 +736,7 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <div class="my-6"><PromptCard label={toAgent} prompt={promptSystem} /></div>
         <p>Answer its questions. They're about you, so there are no wrong answers. Tell it how you'd like to be referred to, such as your pronouns, and it will remember.</p>
-        <CodeBlock client:load code={outSystemMessage} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outSystemMessage} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           Why first person? Think about how your own thoughts sound. When you think to yourself, you say "I", not "you". A
           thought that shows up as "you should…" reads like someone else's instruction, not your own idea. A system message
@@ -768,7 +769,7 @@ const outputExempt = "program output, shown as evidence"
           them…
         </p>
         <div class="my-6"><PromptCard label={toAgent} prompt={promptSkills} /></div>
-        <CodeBlock client:load code={outSkill} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outSkill} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           Notice what a skill is: a folder with a page of instructions in it. Your agent could already read one with
           <code>read_file</code>. The new part is the habit. And because a skill is just a folder, you can
@@ -778,7 +779,7 @@ const outputExempt = "program output, shown as evidence"
         <h3 id="first-tool">A skill that builds tools</h3>
         <p>Your agent's first skill is how to add a tool to itself. Put it to work…</p>
         <div class="my-6"><PromptCard label={toAgent} prompt={promptDate} /></div>
-        <CodeBlock client:load code={outDateTool} language="text" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
+        <CodeBlock code={outDateTool} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
           Restart and ask what time it is. Mine tripped over its own code the first time: the new tool sent no arguments,
           and the code it had written couldn't read that. It worked out why, answered from the shell instead, fixed itself
