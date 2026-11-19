@@ -236,12 +236,12 @@
   },
   "ouro-ui-core": {
     "from": "headers/ouro-ui-core.webp",
-    "sha256": "b6d9b0d05a4452e27f66e6044a9efe574d93510a879c54e7b14a4f7ea7cceebb",
+    "sha256": "df90f19da9da34986186ae7c89e3bab216090406521f6abab5373326c6a279a1",
     "colour": "#d8c8c8"
   },
   "ouro-ui-core-dark": {
     "from": "headers/ouro-ui-core-dark.webp",
-    "sha256": "750b504295706c6598d0ff4594edef47ffa1ff73474b581590480b2d94cfafa9",
+    "sha256": "f01edc5dad84a97397c9fc19c3ab6e1dd0e9cd7565430963a1040f1d407c048d",
     "colour": "#281818"
   },
   "ouro-work": {
@@ -266,12 +266,12 @@
   },
   "ouroboros": {
     "from": "headers/ouroboros.webp",
-    "sha256": "812473a636981d6b6f5d6feb72d8e1ca452ad6338d6b261e40bf7ba6f7c654a6",
+    "sha256": "b809679c1e11611ac09d59f4d8e5b610b6b8650ea397a2dfa987799f87962fdb",
     "colour": "#98c8f8"
   },
   "ouroboros-dark": {
     "from": "headers/ouroboros-dark.webp",
-    "sha256": "093a26107a319fbcde2f7d6dfa22230c92c955a0f0f475980b9f2057102f4546",
+    "sha256": "7665974c674dcdb11bf3f125ce257e061f352131125e8f5f20ec18bc356b872c",
     "colour": "#082858"
   },
   "ouroboros-skills": {
@@ -296,12 +296,12 @@
   },
   "playwright-focus-proof": {
     "from": "headers/playwright-focus-proof.webp",
-    "sha256": "1c6ae2161f1a20b2b94ebe10e9a7cf5d3d3d7be9c919fb4dffb7b0fe7fe6087b",
+    "sha256": "bd0f60a28dbc5dc487b428136bc1e634af53188279e835e03ab2a385dff36e82",
     "colour": "#785848"
   },
   "playwright-focus-proof-dark": {
     "from": "headers/playwright-focus-proof-dark.webp",
-    "sha256": "175d7bcbe763ef1d73bc6a7d33c51a12a8efd9c77e1e1f079cf2daf74ec087c0",
+    "sha256": "0b0a25ba45d73e2691ed6faed4bd851585ae751c63e17492f5e38ea805b33442",
     "colour": "#082858"
   },
   "shepherd": {
