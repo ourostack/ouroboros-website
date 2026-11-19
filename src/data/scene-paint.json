@@ -81,12 +81,12 @@
   },
   "chart-room": {
     "from": "headers/chart-room.webp",
-    "sha256": "cd766039c7b125f80e4813d2ba16b39cfc10e6bc25a5a1aa810a748b760e8093",
+    "sha256": "c3004d9aa48d268cbe7e3cdab732f3ecc42d3dc816fadd2daa3ec94675a18e19",
     "colour": "#682808"
   },
   "chart-room-dark": {
     "from": "headers/chart-room-dark.webp",
-    "sha256": "2f0f4a24aac1a2634d702ca54af885f01e77706799d0d235a4ef7f702265b149",
+    "sha256": "d5089e5bf89f1fb751b0900876fa49c4f043734f999ad4ff686f92712f2d7d4a",
     "colour": "#180808"
   },
   "desk": {
