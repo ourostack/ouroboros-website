@@ -65,7 +65,7 @@ jobs:
     name: tests and brand audit
     if: github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
-    # About twice the usual 1.5 minutes, with room for a slow apt mirror.
+    # About twice the usual 1.5 minutes. Chromium's Ubuntu packages come from a cache (.github/actions/chromium).
     timeout-minutes: 5
     env:
       SITE_BASE: http://127.0.0.1:4321
@@ -116,20 +116,8 @@ jobs:
 
       - run: npm ci
 
-      - name: Cache Playwright's Chromium
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install Chromium and its OS dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-
-      - name: Install Chromium's OS dependencies (browser cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+      - name: Chromium and its Ubuntu packages
+        uses: ./.github/actions/chromium
 
       - name: Build and node tests (npm test)
         id: test
@@ -205,20 +193,8 @@ jobs:
 
       - run: npm ci
 
-      - name: Cache Playwright's Chromium
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install Chromium and its OS dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-
-      - name: Install Chromium's OS dependencies (browser cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+      - name: Chromium and its Ubuntu packages
+        uses: ./.github/actions/chromium
 
       - run: npm run build
 
@@ -271,20 +247,8 @@ jobs:
 
       - run: npm ci
 
-      - name: Cache Playwright's Chromium
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install Chromium and its OS dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-
-      - name: Install Chromium's OS dependencies (browser cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+      - name: Chromium and its Ubuntu packages
+        uses: ./.github/actions/chromium
 
       # The Ouro UI release this site's Ouro items come from is the tag in their install record, which Ouro Current
       # moves with the items. It is read here rather than written in this file, because an app may not write a workflow.
