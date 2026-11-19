@@ -1,0 +1,34 @@
+% node agent.ts
+You: Give yourself skills: instructions you pick up when a task needs them. Each skill gets its own folder inside a skills folder, holding a SKILL.md file that starts with the skill's name and one line on when to use it, then the instructions. When you start, read only those names and lines, so you know what you have; read a skill's full instructions only when a task calls for it. Write your first skill: how to add a new tool to yourself. Commit, and tell me when to restart.
+[2mI'm working out how Ari's skills system should be laid out: a `skills/` folder with one subfolder per skill, each holding a SKILL.md whose header gives the name and a one-line note on when to use it. At startup the agent would load only those names and descriptions into the system message, then pull in a full SKILL.md through read_file only when a task calls for it.
+[0m…
+[0mOtto: I'll make the skills folder first so I can write the skill into it.
+[tool] shell
+
+[tool] write_file
+[0m…
+[0mOtto: Now I'll add a paragraph to my own note so I know how to use skills.
+[tool] write_file
+[0m…
+[0mOtto: Done. Each skill gets its own folder, skills/<name>/SKILL.md. The file starts with a "---" block holding the skill's name and one line on when to use it, which is the same layout Anthropic's Agent Skills use. When I start, agent.ts reads only those lines and adds one line per skill to the end of my system message, after otto.md and AGENTS.md. The full instructions stay in the file until a task needs them, and then I read them with read_file, so I didn't need a new tool. I also added a paragraph to otto.md telling me to work that way and how to lay out new skills.
+
+My first skill is add-a-tool. It covers the two parts of a tool: its description in request.tools and its code in runTool. It also explains why the description matters (the PowerShell mix-up is in there) and lists the AGENTS.md steps for changing myself.
+
+What I checked: agent.ts parses. I also ran agent.ts's own skill-listing code on a copy of this folder, with a stray .DS_Store file added to skills/. The system message came out as otto.md, then AGENTS.md, then "# Skills" with the add-a-tool line, and the stray file was skipped. What I didn't check: whether I actually open the skill when a task needs it. Only a live test will show that.
+
+It's committed as cc504d4. main is 4 commits ahead of origin and not pushed.
+
+Restart me now: press Ctrl+C, then run node agent.ts. To try it, ask me to add a small tool, like list_files. You should see me read skills/add-a-tool/SKILL.md before I touch agent.ts.
+
+One interesting consequence: that one description line is all I see of a skill until I open it, so it alone decides whether I ever use it. It matters as much as the instructions do.
+You:
+% node agent.ts
+You: what skills do you have?
+[2mI'm checking which skills I have, and the system prompt lists one: add-a-tool, for giving myself a new tool in agent.ts when a task needs one or Ari asks. So the restart came through and I can see the skills list.
+
+I'm going to answer that I have one skill, add-a-tool, which covers giving myself a new tool in agent.ts, and keep it short in plain text. I'll mention that I only see its name and when-to-use line from the system listing, not the full SKILL.md, and maybe offer to try it.
+
+[0mOtto: Just one so far: add-a-tool, for giving myself a new tool in agent.ts. I use it when a task needs a tool I don't have, or when you ask me to add one.
+
+That's coming from the skills list at the end of my system message, which shows the restart picked it up. I haven't opened the full SKILL.md; I only will when a task calls for it. Want to try it? Ask me for a tool and you should see me read the skill first.
+You:[0m[0m

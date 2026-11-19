@@ -199,7 +199,9 @@ const HEADING = /^h[1-6]$/i;
 // keeps the font's own hyphen. (A real non-breaking hyphen, U+2011, is not in
 // the self-hosted Cormorant, Outfit or JetBrains Mono, so it would render in
 // a fallback face.)
-const HYPHENATED = /[\p{L}\p{N}][-\u2010][\p{L}\p{N}]/u;
+// An en or em dash between letters ("don't—nothing" in a captured terminal
+// output) holds the same way: browsers break after one.
+const HYPHENATED = /[\p{L}\p{N}][-\u2010\u2013\u2014][\p{L}\p{N}]/u;
 // Outside headings, a short hyphenated word stays whole too (taste review
 // r18, 2026-11-07: "Turn on X- / ray yourself" at 390 on /ouro-hx/). Up to
 // HYPHEN_WHOLE_MAX characters it never breaks at its hyphen; a longer one may
@@ -214,6 +216,11 @@ export const HYPHEN_WHOLE_MAX = 16;
 // held in a .nobr span. scripts/heading-lines.mjs checks the same list.
 export const TERMS = ['agent harness', 'agent experience', 'Ouro MD', 'Ouro HX', 'Ouro UI', 'Ouro AX', 'Ouro Feel', 'Ouro Butler', 'Ouro Shepherd', 'Claude Code', 'GitHub Copilot', 'Copilot CLI', 'model reviews'];
 const TERM_RE = new RegExp(`\\b(${TERMS.map((t) => t.replace(/ /g, '(?: |&nbsp;)')).join('|')})\\b`, 'gi');
+// A word that opens with a quote, backtick or bracket, then a flag's dashes or
+// another opening mark ('"-Command"]', '"(PowerShell'): Chromium breaks between
+// those marks, so a short one is held whole.
+const OPEN = "(?:[\"'`(\\[{]|&quot;|&#x27;|&#39;)";
+const OPENED = new RegExp(`^${OPEN}+(?:-{1,2}|${OPEN})[\\p{L}\\p{N}]`, 'u');
 const TAG = /(<!--[\s\S]*?-->|<(?:[^>"']|"[^"]*"|'[^']*')*>)/;
 const VOID = /^(?:area|base|br|col|embed|hr|img|input|link|meta|source|track|wbr)$/i;
 
@@ -253,6 +260,8 @@ function wrapText(html) {
                 ? `<span class="nobr">${word}</span>` // "-->" in a transcript never splits as "--" / ">"
                 : /^-{1,2}[\p{L}\p{N}]/u.test(word) && entityLength(word) <= NOWRAP_MAX
                   ? `<span class="nobr">${word}</span>` // a flag ("-p") never splits as "-" / "p" (Linux Chromium breaks there; site-checks, round 21)
+                  : OPENED.test(word) && entityLength(word) <= NOWRAP_MAX
+                    ? `<span class="nobr">${word}</span>` // a quoted flag or bracketed word ('"--jq",', '`--check`', '"(PowerShell') never splits inside its opening marks
                   : /\[[^\]\s]*-[^\]\s]*\]/.test(word) && entityLength(word) <= NOWRAP_MAX
                     ? `<span class="nobr">${word}</span>` // a character class in a quoted pattern ("'^[+-][^+-]'") never splits after its hyphen
                     : word,

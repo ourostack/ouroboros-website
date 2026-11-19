@@ -95,8 +95,8 @@ test('every output is a real one from the dry run', () => {
   assert.ok(outputs.length >= 10, `expected at least 10 output blocks, found ${outputs.length}`);
   for (const text of outputs) assert.ok(text.length >= 40, `an output block is too short to be real: ${text}`);
   const joined = outputs.join('\n');
-  assert.match(joined, /Press Ctrl\+C to exit/, 'the messages output no longer shows how the agent says to exit');
-  assert.match(joined, /\[shell\]/, 'no output shows a shell tool call');
+  assert.match(joined, /\[tool\] (read_file|write_file|shell)/, 'no output shows a tool running');
+  assert.match(joined, /Tool result:/, 'no output shows the model stuck waiting on a tool');
   assert.match(joined, /reasoning_opaque/, 'no output shows the saved conversation');
   assert.match(joined, /node agent\.ts You: \S/, 'no output shows the agent\'s real "You:" prompt');
 });
@@ -149,15 +149,32 @@ test('troubleshooting covers the real errors', () => {
   const section = html().match(/<[^>]*\bid="troubleshooting"[\s\S]*?<\/table>/);
   assert.ok(section, 'no #troubleshooting table');
   const text = textOf(section[0]);
-  for (const needle of ['401', '403', '404', 'gh auth login', 'gh auth switch', '22.18', 'copilot', 'PowerShell']) {
+  for (const needle of ['401', '403', '404', 'quota exceeded', 'secrets.txt', 'content filter', 'gh auth login', 'gh auth switch', '22.18', 'copilot', 'PowerShell']) {
     assert.ok(text.includes(needle), `troubleshooting lacks ${needle}`);
   }
   assert.ok(!html().includes('quota-fix'), 'a link to the removed quota fix');
 });
 
-test('offers no half-built agent to download', () => {
-  const hrefs = hrefsOf(html());
-  assert.ok(!hrefs.some((h) => h.startsWith('/agent-loop/')), 'a link into the removed /agent-loop/ bundle');
+// The starter is the first half's own output (ourostack/my-agent), shown in full so readers can just read it.
+test('the starter is the loop the first half builds, shown in full', () => {
+  const text = textOf(article());
+  assert.ok(text.includes('git clone https://github.com/ourostack/my-agent'), 'no clone command for the starter');
+  const starter = fs.readFileSync('src/data/grow-an-agent/agent.ts.txt', 'utf8');
+  for (const line of starter.split('\n').filter((l) => l.trim().startsWith('//'))) {
+    assert.ok(text.includes(textOf(line.trim())), `the page's starter lacks: ${line.trim()}`);
+  }
+  assert.ok(html().includes('href="#start-from-the-loop"'), 'nothing points second-half readers to the starter');
+});
+
+test('AGENTS.md is the note the page shows and the reader downloads', () => {
+  const note = fs.readFileSync('public/grow-an-agent/AGENTS.md', 'utf8');
+  const text = textOf(article());
+  for (const line of note.split('\n').filter((l) => l.startsWith('- '))) {
+    assert.ok(text.includes(textOf(line.slice(2))), `the page's AGENTS.md lacks: ${line}`);
+  }
+  assert.match(note, /Commit each step/, 'AGENTS.md no longer asks for commits');
+  assert.ok(text.includes('https://ouroboros.bot/grow-an-agent/AGENTS.md'), 'no download command for AGENTS.md');
+  assert.ok(hrefsOf(html()).includes('https://agents.md/'), 'no link explaining AGENTS.md');
 });
 
 test('cites the sources it leans on', () => {
@@ -173,7 +190,8 @@ test('the ending names what the loop became', () => {
   }
 });
 
-test('every prompt says who it is for, and every main-path prompt commits', () => {
+// Coding-agent prompts lean on AGENTS.md for commits; prompts to your own agent ask for them.
+test('every prompt says who it is for, and every main-path prompt to your agent commits', () => {
   const source = html();
   const text = textOf(source);
   for (const label of ['Prompt the coding agent', 'Prompt your agent']) {
@@ -185,7 +203,10 @@ test('every prompt says who it is for, and every main-path prompt commits', () =
   for (const label of labels) assert.ok(['Prompt the coding agent', 'Prompt your agent'].includes(label), `unexpected prompt label: ${label}`);
   const sideQuests = [...source.matchAll(/<section\b[^>]*\bdata-side-quest\b[\s\S]*?<\/section>/g)].map(([whole]) => whole).join('');
   const sideQuestPrompts = new Set(prompts(sideQuests));
-  for (const prompt of all) {
+  const toAgent = [...source.matchAll(/<p class="prompt-label"[^>]*>([\s\S]*?)<\/p>[\s\S]*?<pre\b[^>]*class="prompt-frame[^"]*"[^>]*>([\s\S]*?)<\/pre>/g)]
+    .filter(([, label]) => textOf(label) === 'Prompt your agent').map(([, , inner]) => textOf(inner));
+  assert.ok(toAgent.length >= 4, `expected at least 4 prompts to your agent, found ${toAgent.length}`);
+  for (const prompt of toAgent) {
     if (sideQuestPrompts.has(prompt)) continue;
     assert.match(prompt, /[Cc]ommit/, `a prompt doesn't commit: ${prompt.slice(0, 80)}`);
   }
@@ -202,55 +223,11 @@ test('the byline keeps the publication date and notes the update', () => {
   const source = html();
   assert.match(source, /Ari Mendelow &middot; March 2026 &middot; Updated November 2026/, 'byline');
   assert.ok(source.includes('"datePublished":"2026-03-01"'), 'datePublished');
-  assert.ok(source.includes('"dateModified":"2026-11-12"'), 'dateModified');
+  assert.ok(source.includes('"dateModified":"2026-11-18"'), 'dateModified');
 });
 
-test('the three dry-run screenshots are real figures with alt text and files', () => {
-  const figures = [...article().matchAll(/<figure\b[^>]*class="shot"[^>]*>([\s\S]*?)<\/figure>/g)].map(([, inner]) => inner);
-  assert.equal(figures.length, 3, 'three screenshot figures');
-  assert.ok(!/SCREENSHOT:/.test(html()), 'a screenshot marker survived');
-  const expected = {
-    'first-reply.webp': [1600, 424],
-    'what-the-model-sees.webp': [1600, 1446],
-    'wren-after-restart.webp': [1600, 838],
-  };
-  const seen = [];
-  for (const inner of figures) {
-    const img = inner.match(/<img\b[^>]*>/)[0];
-    const src = img.match(/\ssrc="([^"]+)"/)[1];
-    const alt = img.match(/\salt="([^"]+)"/)?.[1] ?? '';
-    const file = src.split('/').pop();
-    assert.ok(alt.length > 60 && !/^screenshot/i.test(alt), `${file}: alt text must describe the image`);
-    assert.ok(fs.existsSync(`public${src}`), `${src} is missing from public/`);
-    assert.ok(expected[file], `unexpected image ${file}`);
-    assert.match(img, new RegExp(`width="${expected[file][0]}"\\s+height="${expected[file][1]}"`), `${file}: intrinsic size`);
-    assert.match(img, /loading="lazy"/, `${file}: lazy`);
-    assert.match(img, /decoding="async"/, `${file}: async decode`);
-    const caption = textOf(inner.match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)[1]);
-    assert.ok(caption.length > 20, `${file}: caption`);
-    assert.doesNotMatch(caption, /\bAri['’]s run\b|\bwho Ari is\b|\bfrom my run\b/i, `${file}: caption voice and provenance`);
-    const wrapper = inner.match(/<a\b[^>]*class="shot-link"[^>]*>([\s\S]*?)<\/a>/);
-    assert.ok(wrapper && wrapper[1].includes(img), `${file}: the image sits inside its full-size link`);
-    assert.equal(wrapper[0].match(/\shref="([^"]+)"/)[1], src, `${file}: the image link points at its own file`);
-    assert.match(wrapper[0], /tabindex="-1"/, `${file}: image link leaves the tab order to the cue`);
-    const cue = inner.match(/<figcaption\b[^>]*>[\s\S]*?(<a\b[^>]*class="shot-cue"[^>]*>([\s\S]*?)<\/a>)[\s\S]*?<\/figcaption>/);
-    assert.ok(cue, `${file}: caption carries an "Open full size" cue`);
-    assert.equal(cue[1].match(/\shref="([^"]+)"/)[1], src, `${file}: cue points at the full-size file`);
-    assert.ok(!/\starget=/.test(cue[1]) && !/\starget=/.test(wrapper[0]), `${file}: links open in place`);
-    assert.ok(!/tabindex=/.test(cue[1]), `${file}: the cue stays keyboard-focusable`);
-    assert.match(textOf(cue[2]), /^Open full size/, `${file}: cue text`);
-    assert.match(cue[2], /class="sr-only"/, `${file}: cue names its picture for screen readers`);
-    seen.push(file);
-  }
-  assert.deepEqual(seen.sort(), Object.keys(expected).sort());
-  assert.match(html(), /Right after the restart, I asked “who are you, who am I, and how should you work with me\?”/, 'handoff caption says what was asked');
-  assert.match(html(), /who it’s working with/, 'handoff caption reads for any reader');
-});
-
-test('the restart screenshot follows the restart paragraph, not the one before it', () => {
+test('no screenshots: each output shows once, as the text the terminal printed', () => {
   const source = article();
-  const at = (needle) => source.indexOf(needle);
-  assert.ok(at('Restart it. Then open the system message') > -1);
-  assert.ok(at('wren-after-restart.webp') > at('Restart it. Then open the system message'), 'figure comes after the restart step');
-  assert.ok(at('wren-after-restart.webp') < at('From this moment on'), 'figure comes before the handoff line');
+  assert.ok(!/<figure\b[^>]*class="shot"/.test(source), 'a screenshot figure came back');
+  assert.ok(!/\/blog\/build-ai-agent-from-scratch\/[^"]+\.webp/.test(source), 'a guide screenshot is still linked');
 });

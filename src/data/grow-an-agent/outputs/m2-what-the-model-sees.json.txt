@@ -1,0 +1,28 @@
+{
+  "model": "claude-opus-5.5",
+  "reasoning_effort": "max",
+  "max_tokens": 128000,
+  "messages": [
+    {
+      "role": "user",
+      "content": "my name is Ari"
+    },
+    {
+      "role": "assistant",
+      "content": "Nice to meet you, Ari! What can I help you with today?",
+      "reasoning_text": "Ari's name is a simple greeting moment, so I'll just welcome them and ask how I can help, keeping it short and natural. Bringing up the name's origins might feel forced, so I'll leave that out.\n\nI'm thinking about whether it's worth noting that I'll only remember this within the current conversation, though it doesn't need much explanation. A short, warm greeting asking what I can help with seems right, kept concise.\n\n",
+      "reasoning_opaque": "tplx/I7A44nW9euoCNL56s6UJwObl2cIdY+RFUxN…"
+    },
+    {
+      "role": "user",
+      "content": "what's my name?"
+    },
+    {
+      "role": "assistant",
+      "content": "Your name is Ari.",
+      "reasoning_text": "The user wants to know their name, and they've already told me it's Ari, so I can just confirm that directly.\n\n",
+      "reasoning_opaque": "19vhCnAjEC8pTLfnTWmPEkd+td53bH/xibKucqaf…"
+    },
+    …
+  ]
+}
