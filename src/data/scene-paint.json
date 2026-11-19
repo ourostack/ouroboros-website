@@ -266,12 +266,12 @@
   },
   "ouroboros": {
     "from": "headers/ouroboros.webp",
-    "sha256": "fd5d1005b012796d79337702660f465fdfada43db2920e94f5aae8155a1197d6",
-    "colour": "#f8e8d8"
+    "sha256": "812473a636981d6b6f5d6feb72d8e1ca452ad6338d6b261e40bf7ba6f7c654a6",
+    "colour": "#98c8f8"
   },
   "ouroboros-dark": {
     "from": "headers/ouroboros-dark.webp",
-    "sha256": "cafe11de644aaff2e62fb8d096ac7025b9c1128890210e378b3db16f95f49d74",
+    "sha256": "093a26107a319fbcde2f7d6dfa22230c92c955a0f0f475980b9f2057102f4546",
     "colour": "#082858"
   },
   "ouroboros-skills": {
