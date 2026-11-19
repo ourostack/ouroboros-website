@@ -71,7 +71,9 @@ const tsColor = (scopes: string[]) => {
 const colorTs = async (code: string) => (await codeToTokens(code, { lang: 'ts', theme: 'github-dark', includeExplanation: true })).tokens
   .map((line) => line.map((token) => {
     const color = tsColor((token.explanation ?? []).flatMap((part) => part.scopes.map((scope) => scope.scopeName)))
-    return color ? `\x1b[${color}m${token.content}\x1b[0m` : token.content
+    // A short punctuation token such as "{}" is held whole with word joiners, so a phone never wraps inside it.
+    const content = /^[^A-Za-z0-9 ]{2,6}$/.test(token.content) ? [...token.content].join('\u2060') : token.content
+    return color ? `\x1b[${color}m${content}\x1b[0m` : content
   }).join('')).join('\n')
 const starterCodeColored = await colorTs(starterCode)
 
