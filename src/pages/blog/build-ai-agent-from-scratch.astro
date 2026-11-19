@@ -75,7 +75,10 @@ const starterCodeColored = await colorTs(starterCode)
 
 // Captures keep their escape codes, so the model's thinking shows dimmed; trailing
 // blank lines and resets go.
+// A short punctuation run such as "?**" is held whole with word joiners, so a phone never wraps inside it.
+const glue = (text: string) => text.replace(/[^A-Za-z0-9\s\x1b]{2,6}/g, (run) => [...run].join('\u2060'))
 const shown = (raw: string) => raw.replace(/(?:\s|\x1b\[[0-9;:]*m)+$/, '')
+  .split(/(\x1b\[[0-9;:]*m)/).map((part) => part.startsWith('\x1b') ? part : glue(part)).join('')
 const outM1 = shown(outM1Raw)
 const outM2 = shown(outM2Raw)
 const outM3 = shown(outM3Raw)
