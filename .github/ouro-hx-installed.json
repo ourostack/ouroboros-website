@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.313",
-  "tagCommit": "2a074c502da2b712a0ee840ff9441728785255bc",
+  "tag": "v1.3.314",
+  "tagCommit": "9c40a19136ad184aeca989f8833b3c0b86111dd2",
   "files": {
     "lib/ouro/ax/checks.ts": "21f7f2dd63a86ce58447c7af3b02dc00069df43620bee53c71b0faa3697a0ff4",
     "lib/ouro/ax/cli.ts": "1cbaf0a683321b6343c3f45a77934c138d8ea25eac36526d34d688b8ede36234",
@@ -80,7 +80,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "df32c7d3dc69c7d70cf39bd63b63583397a2868134dc16bc3e55ab774bd6401b",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "93fdf03893e3f629af7903412cb6e6272661465331abd0a7601dbf33c3a70a41",
+    "src/lib/ouro/dev.ts": "18136f70d863a16189c3004857ecbdd7c49be7b8144d4d14ef1f57dc16082361",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
     "src/lib/ouro/ouro-provider.tsx": "c71d040406b5b382ceb3d44f11cafa661db6534ca6cff5e02ae2bd2c5c3beafc",
@@ -90,7 +90,7 @@
     "src/lib/ouro/refs.ts": "7e31ecde6b3b78404391e1c5fe04e35e1a790cf86bc38c2184cf77be5f4e16a1",
     "src/lib/ouro/router-link.ts": "b4ebc9021f70fff0bbab81f1caaba542aa8ae4b89bc6395950c8fcbd7cbef966",
     "src/lib/ouro/scroll-fade.ts": "1b77029489ae63a330154d6adb0ee1a96928ceb7256c4b93dbd10a1bb34b0718",
-    "src/lib/ouro/stretched-link.ts": "8fb0607d3c79093e42cb02e89d925c51e5f577a547becb0f533b2b0401c8ad01",
+    "src/lib/ouro/stretched-link.ts": "95ea3e7d08ff728ca3b3f266ade21e2e9e662380e345880aa2568c41e852fb47",
     "src/lib/ouro/tones.ts": "22ef28371ff315f7ed8975d330036c073885e226856f7059e47c80d9fd06f72b",
     "src/lib/ouro/touch-target.tsx": "fd70ffb45a1627849eef2652c3513a35963dfd15b5a9896a010054f8352447fb",
     "src/lib/ouro/use-dev-messages.ts": "c4ee9471b23df236296d3ebe5ec802e75ee509602d0e40e60224ef9781ff09d4",
