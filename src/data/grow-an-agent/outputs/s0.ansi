@@ -1,9 +1,19 @@
 % node agent.ts
-You: what's the secret word in secret.txt?
-[2mI need to find the secret word, so I'll read secret.txt to get it.
+You: what's in this folder? one short paragraph.
+[2mI'm going to check what's in the current folder, so I'll run a shell command to list its contents.
+
+[0m[tool] shell
+[2mI'm going to check the files so I can give a useful summary.
 
 [0m[tool] read_file
-[2mThe file holds the word "pineapple," which must be the secret word I'm looking for.
+[tool] read_file
+[tool] read_file
+[tool] read_file
+[tool] read_file
+[tool] shell
+[2mI have what I need now. It's a small learning project: a terminal chat agent in `agent.ts`, built from scratch so someone can see how agents work, using the OpenAI SDK pointed at GitHub Copilot's API with model claude-opus-5.5, and giving the model three tools, starting with read_file.
 
-[0mThe secret word in `secret.txt` is **pineapple**.
-You:[0m
+[0m…
+
+[0mThis folder holds a small learning project: a tiny AI agent built from scratch, and it's the one you're talking to right now. `agent.ts` is about 150 lines of Node. It signs in with your `gh` login, talks to a Claude model through GitHub Copilot's API, and gives the model three tools: `read_file`, `write_file` and `shell`. It keeps running the tools the model asks for until the model answers. `what-the-model-sees.json` saves the whole conversation, including this one, so a session can pick up where it left off. Git ignores this file. `AGENTS.md` sets the rules for changing the agent: keep it short and plain, use only the `openai` package, run it with `node agent.ts`, and commit each step that works. The rest is just `package.json`, its lockfile, `node_modules` and the git repo.
+You:[0m[0m
