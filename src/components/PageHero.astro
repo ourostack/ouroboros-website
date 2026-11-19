@@ -31,7 +31,7 @@ import { createElement } from 'react'
 import { Hero } from './ouro/hero/hero'
 import type { HeroPicture } from './ouro/hero/hero'
 import { scenes, darkScenes, sceneFor, sceneRatio, phoneSize, wideSrcset } from '../data/scenes.mjs'
-import { PAGE_HERO_SIZES } from '../data/page-hero.mjs'
+import { heroSizesFor, usesWideHero } from '../data/page-hero.mjs'
 import paints from '../data/scene-paint.json'
 
 interface Props {
@@ -48,6 +48,8 @@ const scene = sceneProp ?? route.hero
 if (scene && !(scene in scenes)) throw new Error(`PageHero: unknown scene ${scene}`)
 
 const base = '/brand/storybook'
+const PAGE_HERO_SIZES = heroSizesFor(Astro.url.pathname)
+const wide = usesWideHero(Astro.url.pathname)
 const art = (s: string): HeroPicture => {
   const [w, h] = sceneRatio(s)
   const [pw, ph] = phoneSize(s)
@@ -86,7 +88,7 @@ const actions = asNode(await filled('actions'))
 const eyebrowHtml = await filled('eyebrow')
 const eyebrowText = eyebrowHtml !== undefined ? asNode(eyebrowHtml) : eyebrow?.trim() || undefined
 ---
-<div class:list={['page-hero px-6 md:px-12 lg:px-16 pt-(--nav-h) pb-12 md:pb-14', className]}>
+<div class:list={['page-hero', wide && 'page-hero--wide', 'px-6 md:px-12 lg:px-16 pt-(--nav-h) pb-12 md:pb-14', className]}>
   <div class="max-w-6xl mx-auto">
     <Hero data-brand-scene={scene} layout="column" fullWidth headingLevel={1} eyebrow={eyebrowText} title={heroTitle} description={description} actions={actions} picture={picture} />
   </div>
