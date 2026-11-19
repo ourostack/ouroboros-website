@@ -442,9 +442,6 @@
       "a click on 19 of 20 spots on it opens nothing: its link's layer stops at a part the page positions",
       "a click on 20 of 20 spots on it opens nothing: its link's layer stops at a part the page positions",
       "a click on 5 of 5 spots on it opens nothing: its link's layer stops at a part the page positions"
-    ],
-    "fragment-focus": [
-      "Safari takes focus as stylesheets load, on this page opened at a place on it, without fragmentFocusScript"
     ]
   }
 }

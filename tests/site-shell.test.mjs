@@ -433,7 +433,8 @@ test('every page opens on a skip link to #main, names its navs Sites, Primary an
   const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
   for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['apps/index.html', 'apps']]) {
     const html = readDist(file);
-    const body = html.slice(html.indexOf('<body'));
+    // Inline scripts left out: fragmentFocusScript, first in the body, has `<a` in its code (a loop over `a.length`).
+    const body = html.slice(html.indexOf('<body')).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
     const firstLink = body.match(/<a\b[^>]*>/)[0];
     assert.match(firstLink, /data-ouro="skip-link"/, `${file}: the skip link is the first link`);
     assert.match(firstLink, /href="#main"/);
