@@ -98,7 +98,10 @@ const promptLoop = p(
   "Give it three tools: read_file, write_file, and shell, which runs a command in the same kind of shell I'm using right now, and in PowerShell 7 (pwsh) on Windows. Show me a short line each time a tool runs. Keep it from running away: cap the rounds, stop slow commands after 30 seconds, and cut very long tool output short. If a reply stops before it's finished, say why, so I know to ask it to carry on.",
 )
 
-const promptTidy = "Reread agent.ts as if you'd never seen it. Make it shorter and easier to follow without changing what it does: remove anything I didn't ask for, merge anything repeated, and make sure every important part has a short comment saying what it does and why. Run it to check it still works, then commit."
+const promptTidy = p(
+  "Reread agent.ts as if you'd never seen it. Make it shorter and easier to follow without changing what it does: remove anything I didn't ask for, merge anything repeated, and make sure every important part has a short comment saying what it does and why. Run it to check it still works, then commit.",
+  "The loop is the heart of it: someone reading agent.ts for the first time should be able to find it and follow it without help. Keep every tool description true on every platform, because the description is all the model knows.",
+)
 
 const promptName = "Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of \"agent\". Commit, and tell me when to restart you."
 
@@ -666,8 +669,8 @@ const outputExempt = "program output, shown as evidence"
 
         <h2 id="start-from-the-loop">Starting here? Start from the loop</h2>
         <p>
-          Skipped the first half, or yours came out long? Start from mine. It's exactly what the four prompts above built
-          when I last ran them, one commit per milestone, so <code>git log</code> shows each step.
+          Skipped the first half, or yours came out long? Start from mine. It's exactly what the prompts above built
+          when I last ran them, the tidy-up included, one commit per step, so <code>git log</code> shows each one.
         </p>
         <p>
           Do the <a href="#before-you-start">setup</a> first, but skip making a folder and downloading
