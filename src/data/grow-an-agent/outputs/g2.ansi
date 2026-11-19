@@ -1,34 +1,33 @@
 % node agent.ts
 You: Give yourself skills: instructions you pick up when a task needs them. Each skill gets its own folder inside a skills folder, holding a SKILL.md file that starts with the skill's name and one line on when to use it, then the instructions. When you start, read only those names and lines, so you know what you have; read a skill's full instructions only when a task calls for it. Write your first skill: how to add a new tool to yourself. Commit, and tell me when to restart.
-[2mI'm working out how Ari's skills system should be laid out: a `skills/` folder with one subfolder per skill, each holding a SKILL.md whose header gives the name and a one-line note on when to use it. At startup the agent would load only those names and descriptions into the system message, then pull in a full SKILL.md through read_file only when a task calls for it.
-[0m…
-[0mOtto: I'll make the skills folder first so I can write the skill into it.
-[tool] shell
+Pip: [2mI'm setting the skill files up with frontmatter for name and description, then having the startup step list each skill's SKILL.md and read its frontmatter so the path gets added to the instructions for read_file.
 
-[tool] write_file
-[0m…
-[0mOtto: Now I'll add a paragraph to my own note so I know how to use skills.
-[tool] write_file
-[0m…
-[0mOtto: Done. Each skill gets its own folder, skills/<name>/SKILL.md. The file starts with a "---" block holding the skill's name and one line on when to use it, which is the same layout Anthropic's Agent Skills use. When I start, agent.ts reads only those lines and adds one line per skill to the end of my system message, after otto.md and AGENTS.md. The full instructions stay in the file until a task needs them, and then I read them with read_file, so I didn't need a new tool. I also added a paragraph to otto.md telling me to work that way and how to lay out new skills.
+I'm finishing the skill-file plan: the startup step reads each skill's frontmatter and adds the path to the instructions so the agent can call read_file on it. Then I'll write out the steps for adding a tool to agent.ts.
 
-My first skill is add-a-tool. It covers the two parts of a tool: its description in request.tools and its code in runTool. It also explains why the description matters (the PowerShell mix-up is in there) and lists the AGENTS.md steps for changing myself.
+[0m[shell]
+Pip: [2mThe comment about placement looks awkward now, since the instructions note sits above the skills block. I'll move the skills block up so it comes before that comment. I also want to check the skill-index logic on its own with a small standalone snippet, without running the full thing myself.
 
-What I checked: agent.ts parses. I also ran agent.ts's own skill-listing code on a copy of this folder, with a stray .DS_Store file added to skills/. The system message came out as otto.md, then AGENTS.md, then "# Skills" with the add-a-tool line, and the stray file was skipped. What I didn't check: whether I actually open the skill when a task needs it. Only a live test will show that.
+[0mThe comments are in the wrong order, so I'll move the skills block above the instructions comment and test that the index builds correctly.
+[shell]
+Pip: [2mI spotted that the loop variable `name` inside the map shadows the outer `name`, which holds Pip. That could confuse readers, so I'll rename the inner one to `skillName`.
 
-It's committed as cc504d4. main is 4 commits ahead of origin and not pushed.
+[0m[shell]
+Pip: I have skills now, Ari.
 
-Restart me now: press Ctrl+C, then run node agent.ts. To try it, ask me to add a small tool, like list_files. You should see me read skills/add-a-tool/SKILL.md before I touch agent.ts.
+- **How they work:** each skill lives in `skills/<name>/SKILL.md`. The file starts with a short header holding its `name` and a `description` line saying when to use it, followed by the instructions. When I start, `agent.ts` reads only those two lines from each skill and adds them as a list at the end of my instructions. When a task calls for a skill, I open its full SKILL.md with `read_file`.
+- **First skill, `add-a-tool`:** how to give myself a new tool. I describe it with one line in `tools()`, then handle it with a branch in `useTool()` that always returns text. After that I check that the file parses, commit, and ask you to restart me.
+- **Checked:** `agent.ts` parses, and the skill-list code produces the right line for `add-a-tool` when run on its own. I haven't run myself with the change, so we'll see it work after the restart.
+- **Committed:** `f6b8bd3` "Add skills, and a first skill for adding a tool". Then `a546d1c` fixes a small readability problem: inside the skills list, a variable called `name` was hiding the `name` that holds "Pip".
 
-One interesting consequence: that one description line is all I see of a skill until I open it, so it alone decides whether I ever use it. It matters as much as the instructions do.
+**Restart me now:** press Ctrl+C, then run `node agent.ts`. To try it, ask me to add a tool and watch whether I read the skill first.
 You:
 % node agent.ts
 You: what skills do you have?
-[2mI'm checking which skills I have, and the system prompt lists one: add-a-tool, for giving myself a new tool in agent.ts when a task needs one or Ari asks. So the restart came through and I can see the skills list.
+Pip: [2mThe system prompt now lists the skills, so the restart seems to have worked.
 
-I'm going to answer that I have one skill, add-a-tool, which covers giving myself a new tool in agent.ts, and keep it short in plain text. I'll mention that I only see its name and when-to-use line from the system listing, not the full SKILL.md, and maybe offer to try it.
+[0mI have one skill so far:
 
-[0mOtto: Just one so far: add-a-tool, for giving myself a new tool in agent.ts. I use it when a task needs a tool I don't have, or when you ask me to add one.
+- **add-a-tool:** use it when you want me to be able to do something new, by giving myself a new tool in `agent.ts`. The full instructions are in `skills/add-a-tool/SKILL.md`.
 
-That's coming from the skills list at the end of my system message, which shows the restart picked it up. I haven't opened the full SKILL.md; I only will when a task calls for it. Want to try it? Ask me for a tool and you should see me read the skill first.
-You:[0m[0m
+It's listed in my instructions this time, so the restart worked. I only see the name and when to use it. I'll read the full instructions when a task calls for them.
+You:[0m

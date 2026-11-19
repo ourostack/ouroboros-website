@@ -1,7 +1,7 @@
 // The agent loop guide (/blog/build-ai-agent-from-scratch/) as a workshop
 // story: one program grown in one file by prompting a coding agent, then by
-// prompting the agent itself; shell variants that work without JavaScript,
-// Ouro HX code blocks and cards, and the facts a learner needs when
+// prompting the agent itself, in three chapters; one shell for everyone (WSL on
+// Windows), Ouro HX code blocks and cards, and the facts a learner needs when
 // something goes wrong.
 //   npm run build && node --test tests/agent-loop-guide.test.mjs
 import { test } from 'node:test';
@@ -13,43 +13,14 @@ const PAGE = 'blog/build-ai-agent-from-scratch/index.html';
 const html = () => readDist(PAGE);
 const article = () => html().match(/<article\b[\s\S]*<\/article>/)[0];
 
-function variantBlocks(source, shell) {
-  const pattern = new RegExp(`<div\\b[^>]*\\bdata-shell-variant="${shell}"[^>]*>[\\s\\S]*?<pre\\b[^>]*>([\\s\\S]*?)</pre>`, 'g');
-  return [...source.matchAll(pattern)].map(([, inner]) => textOf(inner));
-}
-
 const prompts = (source) =>
   [...source.matchAll(/<pre\b[^>]*class="prompt-frame[^"]*"[^>]*>([\s\S]*?)<\/pre>/g)].map(([, inner]) => textOf(inner));
 
-test('all shell variants render without JS, under their own captions', () => {
-  const source = html();
-  for (const shell of ['mac', 'powershell']) {
-    assert.ok(variantBlocks(source, shell).length > 0, `no data-shell-variant="${shell}" block`);
-  }
-  for (const [tag] of source.matchAll(/<div\b[^>]*\bdata-shell-variant="[^"]*"[^>]*>/g)) {
-    assert.doesNotMatch(tag, /\shidden(?:[\s=>])/, `hidden in server HTML: ${tag}`);
-    assert.doesNotMatch(tag, /display:\s*none/, `display:none in server HTML: ${tag}`);
-  }
-  const text = textOf(source);
-  for (const label of ['macOS, Linux or WSL terminal', 'Windows PowerShell']) {
-    assert.ok(text.includes(label), `no visible "${label}" caption`);
-  }
-});
-
-test('the shell switcher is Ouro HX, hidden until a shell is picked', () => {
-  const source = html();
-  const control = source.match(/<div\b[^>]*\bdata-shell-control\b[^>]*>([\s\S]*?)<\/div>\s*<div\b[^>]*data-shell-variant/);
-  assert.ok(control, 'no shell control');
-  assert.match(control[1], /data-ouro="segmented-control"/, 'the shell control is not HX SegmentedControl');
-  assert.match(source, /html:not\(\[data-shell-active\]\) \[data-shell-control\]\s*{\s*display:\s*none/, 'the control shows without JavaScript');
-  assert.ok(source.includes("localStorage.getItem('ouroboros-agent-loop-shell')"), 'the saved shell is not read before paint');
-});
-
-test('PowerShell variants never use && or export', () => {
-  const blocks = variantBlocks(html(), 'powershell');
-  for (const block of blocks) {
-    assert.ok(!block.includes('&&'), `&& in PowerShell: ${block}`);
-    assert.ok(!block.includes('export '), `export in PowerShell: ${block}`);
+test('Windows readers work in WSL, so every command is one shell', () => {
+  const text = textOf(article());
+  assert.ok(text.includes('wsl --install'), 'no WSL install step');
+  for (const banned of ['Invoke-WebRequest', 'Get-Content', 'winget install GitHub.Copilot', '$PSVersionTable', 'pwsh']) {
+    assert.ok(!text.includes(banned), `the guide still has PowerShell's ${banned}`);
   }
 });
 
@@ -95,7 +66,7 @@ test('every output is a real one from the dry run', () => {
   assert.ok(outputs.length >= 10, `expected at least 10 output blocks, found ${outputs.length}`);
   for (const text of outputs) assert.ok(text.length >= 40, `an output block is too short to be real: ${text}`);
   const joined = outputs.join('\n');
-  assert.match(joined, /\[tool\] (read_file|write_file|shell)/, 'no output shows a tool running');
+  assert.match(joined, /\[(tool\] )?(read_file|write_file|shell)\]?/, 'no output shows a tool running');
   assert.match(joined, /Tool result:/, 'no output shows the model stuck waiting on a tool');
   assert.match(joined, /reasoning_opaque/, 'no output shows the saved conversation');
   assert.match(joined, /node agent\.ts You: \S/, 'no output shows the agent\'s real "You:" prompt');
@@ -124,9 +95,9 @@ test('the model\'s thinking shows dimmed and its reply does not', () => {
     at = t.index + t[0].length;
   }
   rest = textOf(rest + first.slice(at));
-  assert.ok(dim.some((t) => t.includes('five-word greeting')), 'the first run\'s thinking is not dimmed');
-  assert.ok(rest.includes('Hi there, how are you?'), 'the first run\'s reply is dimmed or missing');
-  assert.ok(!rest.includes('five-word greeting'), 'the first run\'s thinking is not dimmed');
+  assert.ok(dim.some((t) => t.includes('five words with no letter')), 'the first run\'s thinking is not dimmed');
+  assert.ok(rest.includes('your day going?'), 'the first run\'s reply is dimmed or missing');
+  assert.ok(!rest.includes('five words with no letter'), 'the first run\'s thinking is not dimmed');
 });
 
 test('one disclosure, up top, that every output is real', () => {
@@ -191,7 +162,9 @@ test('the starter is the loop the first half builds, shown in full', () => {
   for (const line of starter.split('\n').filter((l) => l.trim().startsWith('//'))) {
     assert.ok(text.includes(textOf(line.trim())), `the page's starter lacks: ${line.trim()}`);
   }
-  assert.ok(html().includes('href="#start-from-the-loop"'), 'nothing points second-half readers to the starter');
+  assert.ok(html().includes('href="#start-from-the-loop"'), 'nothing points chapter 2 readers to the starter');
+  assert.ok(text.includes('git clone -b chapter-3 https://github.com/ourostack/my-agent'), 'no clone command for chapter 3');
+  assert.ok(html().includes('href="#start-chapter-3"'), 'nothing points chapter 3 readers to their copy');
 });
 
 test('AGENTS.md is the note the page shows and the reader downloads', () => {
@@ -251,7 +224,7 @@ test('the byline keeps the publication date and notes the update', () => {
   const source = html();
   assert.match(source, /Ari Mendelow &middot; March 2026 &middot; Updated November 2026/, 'byline');
   assert.ok(source.includes('"datePublished":"2026-03-01"'), 'datePublished');
-  assert.ok(source.includes('"dateModified":"2026-11-18"'), 'dateModified');
+  assert.ok(source.includes('"dateModified":"2026-11-19"'), 'dateModified');
 });
 
 test('no screenshots: each output shows once, as the text the terminal printed', () => {

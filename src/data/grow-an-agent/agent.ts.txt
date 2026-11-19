@@ -46,7 +46,7 @@ function tools() {
   return [
     tool("read_file", "Read a text file.", ["path"]),
     tool("write_file", "Write a text file, replacing what's in it.", ["path", "content"]),
-    tool("shell", `Run a command in ${process.platform === "win32" ? "PowerShell" : "the terminal"}.`, ["command"]),
+    tool("shell", "Run a command in the terminal.", ["command"]),
   ];
 }
 
@@ -62,8 +62,7 @@ function useTool(name, argumentsText) {
     }
     if (name === "shell") {
       // Stop a command after 30 seconds, and keep its output to a sensible size.
-      const shell = process.platform === "win32" ? ["pwsh", "-Command"] : [process.env.SHELL || "sh", "-c"];
-      const done = spawnSync(shell[0], [shell[1], input.command], { encoding: "utf8", timeout: 30_000 });
+      const done = spawnSync("bash", ["-c", input.command], { encoding: "utf8", timeout: 30_000 });
       if (done.error) return `Error: ${done.error.message}`;
       return (done.stdout + done.stderr).slice(0, 20_000) || "(no output)";
     }
@@ -77,7 +76,7 @@ function useTool(name, argumentsText) {
 async function askTheModel() {
   const stream = await model.chat.completions.create({
     model: "claude-opus-5.5",
-    reasoning_effort: "max", // think as hard as it can, so there's plenty to watch
+    reasoning_effort: "low", // a little thinking is plenty: more is slower, not smarter
     max_tokens: 128_000,
     stream: true,
     tools: tools(),

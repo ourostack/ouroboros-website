@@ -1,54 +1,38 @@
 % node agent.ts
-Tool: read_file {"path": "AGENTS.md"}
-Agent: [2mI checked the file this time and it's there. I should have looked last time instead of saying I couldn't see it, since I had a tool for reading files and didn't use it.
+[read_file] {"path": "AGENTS.md"}
+[2mI'm noting that I previously claimed I couldn't read files, but I actually can, so I should briefly correct that.
 
-[0m…
-[0mSorry, last time I should have read the file instead of saying I couldn't see it. Here's what your AGENTS.md says:
+[0mI was wrong earlier when I said I couldn't read your files. I do have file access, and I've now read AGENTS.md.
 
-**Purpose:** This folder holds `agent.ts`, a tiny agent built from scratch to teach someone how agents work. That person will read every line, so the code should be written for them.
+**Summary:** This folder holds `agent.ts`, a tiny agent built from scratch to teach how agents work. Since a person will read every line, the rules are:
 
-**Code style:**
-- Keep it short and plain, like a script. Use as few lines as possible, with no clever tricks, extra layers or unneeded checks.
-- Put the main loop near the top so readers see it before the code that supports it.
-- Skip TypeScript types unless Node needs them (`any` is fine).
-- When the same pattern would appear three times, write one small helper instead.
-- Add short comments wherever something important happens, saying what it does and why.
-
-**Scope:**
-- Build only what's asked for: no extra files, tests or packages. The only dependency is `openai`.
-- It must run with plain `node agent.ts` on macOS, Linux and Windows.
-
-**Workflow:**
-- Run it and check before saying something works.
-- If the agent changes its own code, it shouldn't run a copy of itself to test. It should check that the file still parses, then say when to restart it so you can try it together.
-- Commit each step that works, with a short message.
+- **Keep it simple:** short, plain, script-like code with no clever tricks, extra layers or needless checks.
+- **Loop first:** put the main loop near the top so readers see it before the helper code.
+- **Minimal types:** use TypeScript types only where Node needs them; `any` is fine.
+- **Helpers:** write a small helper only when the same pattern would appear three times.
+- **Comments:** add short comments wherever something important happens, saying what it does and why.
+- **No extras:** don't add files, tests or packages unless asked. The only package is `openai`.
+- **Runs with** `node agent.ts` on macOS, Linux and Windows inside WSL.
+- **Test before claiming it works.** If the agent edits its own code, it should only check that the file still parses, then say when to restart it.
+- **Commit** each working step with a short message.
 You: give me a short summary of AGENTS.md
-Agent: [2mI'm being asked for the AGENTS.md summary again, even though I just gave one. Maybe they want it shorter, since mine ran a bit long, or they're checking whether I re-read the file, or the file itself has changed since I last looked.
+[2mThe user wants a shorter summary rather than a reread, so I'll keep this brief and work from what I already have.
 
-[0m…
-[0mTool: read_file {"path": "AGENTS.md"}
-[0m…
-[0mI re-read it and it hasn't changed since last time, so here's a shorter version:
+[0mAGENTS.md describes `agent.ts`, a small teaching agent that someone will read line by line. The rules for working on it:
 
-AGENTS.md is the guide for `agent.ts`, a tiny agent built from scratch to teach someone how agents work. It says:
-
-- Keep the code short, plain and well commented, with the main loop near the top.
-- Use as few TypeScript types as possible (`any` is fine), and only add a helper when the same pattern would appear three times.
-- Build only what's asked for, with `openai` as the only package. It must run with `node agent.ts` on macOS, Linux and Windows.
-- Test before saying something works, and commit each step that works. If the agent changes its own code, it should only check that the file still parses, then say when to restart it.
+- Keep the code short and plain, with the main loop near the top.
+- Use few types, add a helper only when the same pattern appears three times, and comment the important parts.
+- Don't add extra files, tests or packages. `openai` is the only dependency.
+- It runs with `node agent.ts` on macOS, Linux and Windows inside WSL.
+- Test before saying it works. If the agent changes its own code, it should only check the file still parses, then ask for a restart.
+- Commit each working step with a short message.
 You: write a haiku to hello.txt
-[0m…
-[0mTool: write_file {"path": "hello.txt", "content": "Hello there, Ari\na tiny loop learns to speak\none line at a time\n"}
-[0m…
-[0mTool: read_file {"path": "hello.txt"}
-[0m…
-[0mI wrote this haiku to `hello.txt` and read the file back to check it saved correctly:
 
-```
-Hello there, Ari
-a tiny loop learns to speak
-one line at a time
-```
+[write_file] {"path": "hello.txt", "content": "A small loop wakes up,\nreads the words, calls on its tools,\nthen answers: hello.\n"}
 
-I didn't commit it because it looks like a quick test rather than a step in building `agent.ts`. Let me know if you want it committed.
-You:[0m[0m
+I wrote this haiku to `hello.txt`:
+
+> A small loop wakes up,
+> reads the words, calls on its tools,
+> then answers: hello.
+You:[0m

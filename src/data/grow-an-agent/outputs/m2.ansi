@@ -1,32 +1,28 @@
 % node agent.ts
 You: my name is Ari
-Agent: [2mI'm keeping this short: the user just gave their name, so I'll greet Ari warmly and ask what I can help with. I don't need to bring up memory across conversations.
 
-[0mNice to meet you, Ari! What can I help you with today?
+Nice to meet you, Ari! What can I help you with today?
 You: what's my name?
-Agent: [2mThe user wants to know their name, and I already have it from earlier: Ari. This is a quick recall, so I can just tell them.
+[2mKeeping it simple.
 
-[0mYour name is Ari!
+[0mYour name is Ari, as you told me just a moment ago.
 You: give me a short summary of AGENTS.md
-Agent: [2mI'm weighing what AGENTS.md could refer to here: either a file in the user's repository, which I can't see since nothing was shared, or the open AGENTS.md convention introduced in 2025 by OpenAI and collaborators as a README-style file for coding agents.
+[2mSince no file came through, I can't read the AGENTS.md itself, but I can still explain what one generally is.
 
-[0m…
-I'm checking whether there's an AGENTS.md file in this conversation, and there isn't one, so I'll treat it as the open convention instead and offer to summarize a specific file if the user pastes it.
+[0mI don't see an AGENTS.md file in our conversation, and I can't read files from your computer or repository. If you paste its contents here, I can summarize it.
 
-[0m…
-[0mI don't see an AGENTS.md file in our chat. If you mean one from your own project, paste it here and I'll summarize it. If you mean the AGENTS.md format in general, here's the gist:
+If you mean the convention in general: **AGENTS.md** is a Markdown file placed in a code repository to give AI coding agents instructions about the project. It's like a README written for AI assistants rather than humans. It typically includes:
 
-**AGENTS.md** is an open, simple convention for guiding AI coding agents, basically a "README for agents."
+- **Setup and build commands**, such as how to install dependencies and run the project
+- **Testing instructions**, such as how to run tests and what must pass before committing
+- **Code style and conventions**, such as formatting rules, naming patterns, and preferred libraries
+- **Project structure**, meaning where key code lives and how it's organized
+- **Workflow rules**, such as PR guidelines, commit message format, and things to avoid
 
-- **What it is:** A plain Markdown file at the root of a repository with instructions for AI coding tools. It has no required fields or schema.
-- **Why it exists:** It keeps agent-specific details (exact commands, conventions, gotchas) out of the human-focused README and gives all tools one predictable place to look instead of separate config files for each.
-- **Typical contents:** Setup, build, and test commands, code style rules, testing instructions, commit/PR guidelines, and security notes.
-- **Nesting:** Monorepos can include AGENTS.md files in subfolders. The one closest to the file being edited takes precedence, and explicit user instructions override it.
-- **Adoption:** It's supported by many tools, including OpenAI Codex, Cursor, Google's Jules, Amp, and Factory.
+Several AI coding tools support it, so a project can keep one set of agent instructions instead of separate config files for each tool.
 You:
 % node agent.ts
 You: what's my name?
-Agent: [2mAri is the name they gave me, so I can answer that directly.
 
-[0mYour name is Ari!
-You:[0m[0m
+Your name is Ari.
+You:[0m

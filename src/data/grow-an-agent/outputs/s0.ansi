@@ -1,19 +1,16 @@
 % node agent.ts
-You: what's in this folder? one short paragraph.
-[2mI'm going to check what's in the current folder, so I'll run a shell command to list its contents.
+You: give me a short summary of AGENTS.md
 
-[0m[tool] shell
-[2mI'm going to check the files so I can give a useful summary.
+[read_file]
+AGENTS.md describes agent.ts, a tiny agent written from scratch so someone can learn how agents work by reading every line. Its rules:
 
-[0m[tool] read_file
-[tool] read_file
-[tool] read_file
-[tool] read_file
-[tool] read_file
-[tool] shell
-[2mI have what I need now. It's a small learning project: a terminal chat agent in `agent.ts`, built from scratch so someone can see how agents work, using the OpenAI SDK pointed at GitHub Copilot's API with model claude-opus-5.5, and giving the model three tools, starting with read_file.
-
-[0m…
-
-[0mThis folder holds a small learning project: a tiny AI agent built from scratch, and it's the one you're talking to right now. `agent.ts` is about 150 lines of Node. It signs in with your `gh` login, talks to a Claude model through GitHub Copilot's API, and gives the model three tools: `read_file`, `write_file` and `shell`. It keeps running the tools the model asks for until the model answers. `what-the-model-sees.json` saves the whole conversation, including this one, so a session can pick up where it left off. Git ignores this file. `AGENTS.md` sets the rules for changing the agent: keep it short and plain, use only the `openai` package, run it with `node agent.ts`, and commit each step that works. The rest is just `package.json`, its lockfile, `node_modules` and the git repo.
-You:[0m[0m
+- **Keep it simple:** short, plain, script-style code with no clever tricks, extra layers or checks for things that won't happen.
+- **Layout:** put the main loop near the top, so readers see it before the code it relies on.
+- **TypeScript:** skip types unless Node needs them; `any` is fine.
+- **Helpers:** write one small helper only when the same pattern would appear three times.
+- **Comments:** add short comments where important things happen, saying what they do and why.
+- **Scope:** build only what's asked, with no extra files, tests or packages. The only dependency is `openai`.
+- **Running it:** `node agent.ts` should work on macOS, Linux and Windows (via WSL).
+- **Testing:** run code to check it works before saying it does. If the agent edits its own file, it shouldn't run a copy of itself. Instead it checks that the file still parses and says when to restart it.
+- **Commits:** commit each working step with a short message.
+You:[0m
