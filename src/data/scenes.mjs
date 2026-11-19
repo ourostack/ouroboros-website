@@ -61,8 +61,8 @@ export const scenes = {
   'ouroboros-website': 'A rose-covered archway opens onto a sunlit path winding off to a cottage on the far hill, beside a signpost pointing every which way. Ouro sits by the arch.',
   airship: 'A glass-and-brass airship sails at sunrise above a sea of clouds and snowy peaks. At the bow, a faceless glass figure in a leather flight jacket and a green scarf rests one mitten on the rail and holds a spyglass lowered at the hip, looking out at the horizon, with Ouro, a small emerald-glass snake, sitting on the rail beside them like a pet; Loop, a small jade-glass agent in goggles and a flying scarf, steers at the wheel, an amber agent in a red knit cap hauls in a mooring line on the deck, and a sea-blue agent in a leather apron kneels to turn a valve.',
   'airship-dark': 'The same glass-and-brass airship at night, under a sky full of stars and a full moon, its lanterns glowing above the moonlit clouds: the glass figure at the bow rests a mitten on the rail with a spyglass at the hip, Ouro sits on the rail beside them, Loop steers at the wheel, an amber agent in a red knit cap hauls in a mooring line on the deck, and a sea-blue agent in a leather apron turns a valve.',
-  workshop: 'On a wooden deck at sunset above a misty forest valley, a faceless glass person with a green scarf rests one hand on a green dome button on a wooden chest, a takeaway cup standing beside it, as a small mint agent, Loop, holds up a card tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside them.',
-  'workshop-dark': 'The same wooden deck at night under a full moon above the misty forest valley, a lantern glowing on its post: a faceless glass person with a green scarf rests one hand on a green dome button on a wooden chest, a takeaway cup beside it, as Loop holds up a card tied with a green ribbon, and Ouro, an emerald-glass snake, sits coiled beside them.',
+  workshop: 'On a sunlit glass-railed deck at evening, a faceless frosted-glass figure in a cardigan stands with its hands in its pockets beside a small robot holding a card in both hands, and Ouro, a small green snake, rests coiled on a plinth under a glass dome, with a floor lamp and a fern pot nearby.',
+  'workshop-dark': 'The same deck at night under a bright full moon: the floor lamp glows warm, moonlit clouds cross a deep blue sky, and the glass figure, the card-holding robot and Ouro coiled under its dome rest in the cool light.',
   'ouroboros-website-dark': 'A rose-covered archway at night under a full moon, a lit path winding off to a cottage on the far hill, beside a signpost pointing every which way. Ouro sits by the arch.',
   'ax-trail-map': 'A low wooden trail map stands in a dawn meadow, built at Ouro’s height, the trail it shows winding off through the meadow behind it. Ouro leans over the corner of the board and peers at the map with a pleased smile, finding his way.',
   'ax-trail-map-dark': 'The same trail map at night under a small crescent moon, the trail it shows glowing softly as it winds off through the dark meadow, while Ouro leans over the corner of the board in the moonlight and finds his way.',
@@ -302,8 +302,8 @@ export const heroFocus = {
   airship: [0.06, 0.9],
   'airship-dark': [0.06, 0.9],
   // Loop's antenna, down to the glass figure's feet.
-  workshop: [0.012, 0.955],
-  'workshop-dark': [0.012, 0.955],
+  workshop: [0.05, 0.92],
+  'workshop-dark': [0.05, 0.92],
 }
 
 // The lowest point of any character's body in each scene's wide art (Ouro's
@@ -379,8 +379,8 @@ export const castFoot = {
   airship: 0.9,
   'airship-dark': 0.9,
   // The glass figure's feet; Loop and Ouro stand higher, on the crate.
-  workshop: 0.955,
-  'workshop-dark': 0.955,
+  workshop: 0.91,
+  'workshop-dark': 0.91,
 }
 
 // Where the cast stands across each scene's phone crop (brand/phone/<scene>-768),
@@ -485,8 +485,8 @@ export const phoneCastX = {
   'airship-dark': [0.06, 0.87],
   // The glass figure's elbow at the left, the tip of Ouro's tail at the right.
   // .github#92: 5:3 at centre 768, box [341, 0, 1195, 512].
-  workshop: [0.14, 0.855],
-  'workshop-dark': [0.14, 0.855],
+  workshop: [0.21, 0.71],
+  'workshop-dark': [0.21, 0.71],
 }
 // Named exemptions: a character the canonical art itself cuts at its own edge.
 // The crop already stands against the header's edge there, so no crop centre
@@ -576,8 +576,8 @@ export function heroFrame(scene, { product = false } = {}) {
   return { need: +need.toFixed(3), floor: +floor.toFixed(3), y: +(y * 100).toFixed(1), foot, trailBelow: y === 1 && 1 - foot < FOOT_ROOM }
 }
 
-/** The width:height of a scene's wide art. The whole-world panorama, the workshop and the airship are 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
-export const sceneRatio = (scene) => (['ourostack', 'ourostack-dark', 'workshop', 'workshop-dark', 'airship', 'airship-dark'].includes(scene) ? [1536, 512] : scene === 'friends-relay' || scene === 'friends-relay-dark' ? [1536, 614] : [1536, 576])
+/** The width:height of a scene's wide art. The whole-world panorama and the airship are 3:1, the dovecote is a touch taller (1536x614), the rest are 8:3. */
+export const sceneRatio = (scene) => (['ourostack', 'ourostack-dark', 'airship', 'airship-dark'].includes(scene) ? [1536, 512] : scene === 'friends-relay' || scene === 'friends-relay-dark' ? [1536, 614] : [1536, 576])
 
 // A thumbnail in a list shows every scene at one aspect, THUMB_ASPECT (Ari's
 // ruling on taste review r18, 2026-11-07: the blog index's vignettes came in
