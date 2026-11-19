@@ -11,7 +11,7 @@ import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
 import StoryScene from '../components/StoryScene.astro'
 import { sceneFor, meadowScene, scenes, darkScenes, columnHeroes, columnHeroSrcset, COLUMN_HERO_MEDIA, wideSrcset } from '../data/scenes.mjs'
-import { usesPageHero, PAGE_HERO_SIZES } from '../data/page-hero.mjs'
+import { usesPageHero, heroSizesFor } from '../data/page-hero.mjs'
 
 interface Props {
   title: string
@@ -57,7 +57,7 @@ const heroNight = scene.hero ? darkScenes[scene.hero] : undefined
 // A page on Ouro HX's Hero (PageHero.astro, page-hero.mjs) draws its scene inside
 // the page's column, not full bleed, so its preloads take the column's sizes.
 const pageHero = Boolean(scene.hero) && usesPageHero(Astro.url.pathname)
-const heroSizes = pageHero ? PAGE_HERO_SIZES : '100vw'
+const heroSizes = pageHero ? heroSizesFor(Astro.url.pathname) : '100vw'
 // A column hero (columnHeroes) is drawn from its own 2:1 art from 1600px, so the
 // full-bleed preload stops at 1599px and the column art's takes over.
 const columnHero = !pageHero && scene.hero && columnHeroes[scene.hero]
