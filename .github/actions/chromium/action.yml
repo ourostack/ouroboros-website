@@ -8,10 +8,14 @@ description: >-
 runs:
   using: composite
   steps:
-    - name: Read the Playwright version
-      id: pw
+    # ImageOS and ImageVersion are the runner's own variables, which expressions can't read; chromium-os-debs.yml
+    # builds the same key.
+    - name: Read the cache key
+      id: key
       shell: bash
-      run: echo "version=$(node -p "require('playwright-core/package.json').version")" >> "$GITHUB_OUTPUT"
+      run: |
+        echo "prefix=chromium-os-debs-$ImageOS-" >> "$GITHUB_OUTPUT"
+        echo "key=chromium-os-debs-$ImageOS-$ImageVersion-$(node -p "require('playwright-core/package.json').version")" >> "$GITHUB_OUTPUT"
 
     - name: Cache Playwright's Chromium
       id: browser
@@ -30,8 +34,8 @@ runs:
       uses: actions/cache/restore@v4
       with:
         path: ~/.cache/chromium-os-debs
-        key: chromium-os-debs-${{ env.ImageOS }}-${{ env.ImageVersion }}-${{ steps.pw.outputs.version }}
-        restore-keys: chromium-os-debs-${{ env.ImageOS }}-
+        key: ${{ steps.key.outputs.key }}
+        restore-keys: ${{ steps.key.outputs.prefix }}
 
     # An exact hit holds every package this image lacks for this Playwright, so nothing is fetched.
     - name: Install Chromium's Ubuntu packages from the cache
