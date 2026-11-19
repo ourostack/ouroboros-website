@@ -247,8 +247,19 @@ jobs:
 
       - run: npm ci
 
+      # A full run checks out an Ouro Current branch's commit, which may predate the action, so the action comes from
+      # this workflow's own commit.
+      - name: Check out this workflow's actions
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: .ci
+          sparse-checkout: .github/actions/
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
       - name: Chromium and its Ubuntu packages
-        uses: ./.github/actions/chromium
+        uses: ./.ci/.github/actions/chromium
 
       # The Ouro UI release this site's Ouro items come from is the tag in their install record, which Ouro Current
       # moves with the items. It is read here rather than written in this file, because an app may not write a workflow.
