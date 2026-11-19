@@ -211,8 +211,8 @@
   },
   "ouro-md-dark": {
     "from": "headers/ouro-md-dark.webp",
-    "sha256": "57a218e2850db22da9381530cec413ce3c94c866123665d8406206df304ddd11",
-    "colour": "#182838"
+    "sha256": "b8c21d11cbc74aec2ed9af51ebc86ccac5dab38eadb35bb67a512ed5e5ca73b4",
+    "colour": "#181828"
   },
   "ouro-native-apple-app-shell": {
     "from": "headers/ouro-native-apple-app-shell.webp",
