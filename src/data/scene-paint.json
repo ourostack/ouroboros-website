@@ -86,7 +86,7 @@
   },
   "chart-room-dark": {
     "from": "headers/chart-room-dark.webp",
-    "sha256": "00162aff37d348f3b30fa75c691537ed8123eabf1295fdf4d631289360c3fc6e",
+    "sha256": "98d03d239b6d4a44088b9b5fa0fbc0c4296c6199eed57b12172bc98677825e63",
     "colour": "#180808"
   },
   "desk": {
