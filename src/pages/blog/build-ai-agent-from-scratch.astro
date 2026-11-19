@@ -25,6 +25,7 @@ import outDateToolRaw from '../../data/grow-an-agent/outputs/g3.ansi?raw'
 import outMessagesExcerptText from '../../data/grow-an-agent/outputs/m2-what-the-model-sees.json.txt?raw'
 // The starter's agent.ts, byte for byte as published in ourostack/my-agent (.txt so the site doesn't type-check it).
 import starterCodeText from '../../data/grow-an-agent/agent.ts.txt?raw'
+import { codeToTokens } from 'shiki'
 
 // One title everywhere (taste review r2, 2026-11-06): the post's own headline.
 // "Grow an agent" is the workshop's name; it lives in the eyebrow.
@@ -55,6 +56,28 @@ const getAgentsMd = {
   powershell: "Invoke-WebRequest https://ouroboros.bot/grow-an-agent/AGENTS.md -OutFile AGENTS.md",
 }
 const starterCode = starterCodeText.trimEnd()
+// Color agent.ts at build time with Shiki's TypeScript grammar, written as terminal colors so Ouro HX's
+// CodeBlock (language="ansi") draws it in the theme's own palette, light and dark.
+const tsColor = (scopes: string[]) => {
+  const has = (prefix: string) => scopes.some((scope) => scope.startsWith(prefix))
+  if (has('comment')) return '2'
+  if (has('string')) return '32'
+  if (has('keyword') || has('storage')) return '35'
+  if (has('constant.numeric') || has('constant.language')) return '36'
+  if (has('entity.name.function') || has('support.function')) return '34'
+  if (has('entity.name.type') || has('support.class') || has('entity.name.class')) return '33'
+  return null
+}
+const colorTs = async (code: string) => (await codeToTokens(code, { lang: 'ts', theme: 'github-dark', includeExplanation: true })).tokens
+  .map((line) => line.map((token) => {
+    const color = tsColor((token.explanation ?? []).flatMap((part) => part.scopes.map((scope) => scope.scopeName)))
+    return color ? `\x1b[${color}m${token.content}\x1b[0m` : token.content
+  }).join('')).join('\n')
+const starterCodeColored = await colorTs(starterCode)
+// The loop, cut from the same file, so the page can show it first.
+const loopStart = starterCode.indexOf('// The agent loop')
+const starterLoop = starterCode.slice(loopStart, starterCode.indexOf('\n}\n', loopStart) + 2)
+const starterLoopColored = await colorTs(starterLoop)
 // Captures keep their escape codes, so the model's thinking shows dimmed; trailing
 // blank lines and resets go.
 const shown = (raw: string) => raw.replace(/(?:\s|\x1b\[[0-9;:]*m)+$/, '')
@@ -668,6 +691,7 @@ const outputExempt = "program output, shown as evidence"
         <div class="my-6"><PromptCard label={toCoder} prompt={promptTidy} /></div>
 
         <h2 id="start-from-the-loop">Starting here? Start from the loop</h2>
+        <p>Worked through the first half? <a href="#handoff">Skip to handing it the keyboard</a>.</p>
         <p>
           Skipped the first half, or yours came out long? Start from mine. It's exactly what the prompts above built
           when I last ran them, the tidy-up included, one commit per step, so <code>git log</code> shows each one.
@@ -677,12 +701,12 @@ const outputExempt = "program output, shown as evidence"
           <code>AGENTS.md</code>: the starter has both. Then, in a command line, one line at a time:
         </p>
         <CodeBlock client:load code={getStarter} language="shell" title="terminal" wrap />
-        <p>Plant your secret, so your agent has something to find:</p>
-        <ShellCommands client:load mac="echo pineapple > secret.txt" powershell="Set-Content secret.txt pineapple" />
-        <p>Now read it. This is the whole agent, top to bottom:</p>
-        <CodeBlock client:load code={starterCode} language="ts" title={file} wrap />
+        <p>Now read it, starting with the loop. This is the whole idea: run the tools the model asked for, ask the model again, and stop when it answers without asking for anything.</p>
+        <CodeBlock code={starterLoopColored} language="ansi" title={`the loop in ${file}`} copy={false} data-copy-exempt="an excerpt of the starter's own file" wrap />
+        <p>Everything else in the file serves that loop: reaching the model, describing the three tools, running a tool and streaming the reply. Here's all of it, top to bottom:</p>
+        <CodeBlock code={starterCodeColored} language="ansi" title={file} copy={false} data-copy-exempt="the starter's own file; clone it to get a copy" wrap />
         <p>
-          That's an agent: a conversation, three tools and a loop. Run it, ask it for the secret word, and keep Copilot
+          That's an agent: a conversation, three tools and a loop. Run it, ask it what's in its folder, and keep Copilot
           open in another window in case your agent ever needs a hand.
         </p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
@@ -918,6 +942,8 @@ const outputExempt = "program output, shown as evidence"
 
 <style>
   .prose-ouro :global([data-ouro="code-block"]) { margin: 1.5rem 0; }
+  /* Readers type => and === themselves; the font must not draw them as arrows and bars. */
+  .prose-ouro :global([data-ouro="code-block"] pre), .prose-ouro :global([data-ouro="code-block"] code) { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
   .prose-ouro :global([data-expected-output]) { margin-bottom: 0.5rem; }
   .prose-ouro :global(.side-quest) { margin: 1.5rem 0; }
   .output-note { font-size: 0.875rem; color: var(--color-shadow); margin-top: 0; }
