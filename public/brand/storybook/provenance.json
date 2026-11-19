@@ -23127,7 +23127,7 @@
     },
     "alsoFrom": {
       "file": "skies/playwright-focus-proof.webp",
-      "sha256": "6be264fb11ba9e7b63bc027d054d13752a4bdf2bc919c968145ddc8b21ff04c7"
+      "sha256": "65e003a54d7493fb52d8a7d69f72f950e955dbd5d1803e98fecd40982355c49e"
     },
     "use": "Open Graph and Twitter card (1200x630)",
     "operation": "the header with skies/playwright-focus-proof.webp above it, its last 32 rows cross-faded into the header's top (1536x876), crop box [0, 70, 1535, 876] then resize to 1200x630 (Lanczos)",
@@ -23135,8 +23135,8 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 167694,
-    "sha256": "3e5ee2326bb246f58fc28e862f0348fd173a1925e57eb458dccc4de85c8cbb1f"
+    "bytes": 167606,
+    "sha256": "338d16622179cc2ea4ba43edbce1ed95af33db88668ab89449046882b285d3b1"
   },
   {
     "file": "headers/playwright-focus-proof-dark.webp",
@@ -23440,7 +23440,7 @@
     },
     "alsoFrom": {
       "file": "skies/playwright-focus-proof-dark.webp",
-      "sha256": "79c9b1cba3c11bc70755a5a9d3e15a56de149652adedf9a638fc002c1a8ddc12"
+      "sha256": "2fe2ccb7e0cddb90b6a176fb1d0ca9fa0ed54db5688641c96ae0da9aaa6e8eed"
     },
     "use": "Open Graph and Twitter card (1200x630)",
     "operation": "the header with skies/playwright-focus-proof-dark.webp above it, its last 32 rows cross-faded into the header's top (1536x876), crop box [0, 70, 1535, 876] then resize to 1200x630 (Lanczos)",
@@ -23448,8 +23448,8 @@
     "approval": "Ari made the storybook headers and asked us to build on them, 2026-11-06: \"you'll also see i made new brand assets for the github surfaces - let's build on those further and bring em to the site etc :)\" Derived by crop, resize or recomposition only; nothing new is drawn.",
     "width": 1200,
     "height": 630,
-    "bytes": 132286,
-    "sha256": "2f92594505bee6d81861e1c1e8d4784babfbcf51b610e442f27570d7653ae333"
+    "bytes": 132126,
+    "sha256": "dc9e70bd11f6b6c0f11cc00f9dc9c15636b3e396b808586e3335bfd847a010ae"
   },
   {
     "file": "headers/shepherd.webp",
