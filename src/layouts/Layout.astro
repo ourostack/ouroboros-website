@@ -4,6 +4,7 @@ import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import { FamilyBar } from '../components/ouro/family-bar/family-bar'
 import { SkipLink } from '../components/ouro/skip-link/skip-link'
+import { fragmentFocusScript } from '../lib/ouro/fragment-focus-script'
 import { familyLinks, familyCurrent, localHref } from '../data/site.mjs'
 import { labStatusFor } from '../data/lab.mjs'
 import { twinFor } from '../data/agent-map.mjs'
@@ -214,6 +215,9 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     })} />
   </head>
   <body class="bg-void text-bone font-body antialiased">
+    {/* First in body, after every stylesheet: Safari keeps a person's focus on a page opened at a place on it
+        (/lab#install) as later stylesheets load (Ouro UI's fragmentFocusScript; Ouro check's fragment-focus rule). */}
+    <script is:inline set:html={fragmentFocusScript()}></script>
     {/* The ground is the body's own colour. No full-page gradient wash under
         it (taste review r16, 2026-11-07); ground bands tint sections. */}
     {/* Grain */}

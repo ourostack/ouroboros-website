@@ -84,6 +84,7 @@
     "src/lib/ouro/dev.ts": "e10c32dbb566a711f6969fd229e37686c2a72ef0ed4956ab2dac87e584ab5ae6",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
+    "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
     "src/lib/ouro/ouro-provider.tsx": "c71d040406b5b382ceb3d44f11cafa661db6534ca6cff5e02ae2bd2c5c3beafc",
     "src/lib/ouro/page-scroll-hold.ts": "3a2c731be3c3c4a18a2ffab969d14fbab2564d85e5058e89ad35e33916f05f88",
     "src/lib/ouro/platform.ts": "72db9fb10bdc9ac9fdd5cd59208c1fefefd7c470c494bb1b29e5ba9722183be8",
