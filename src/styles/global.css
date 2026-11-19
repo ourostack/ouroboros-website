@@ -198,6 +198,16 @@ html, body { overflow-x: clip; }
    sets its own landing. */
 @layer base {
   :where(main, footer) :is([id], a[href], button, summary, input, select, textarea, [tabindex]) { scroll-margin-top: calc(var(--nav-h) + 0.5rem); }
+  @media (width >= 200rem) {
+    html {
+      font-size: 125%;
+    }
+  }
+  @media (width >= 150rem) {
+    html {
+      font-size: 112.5%;
+    }
+  }
 }
 
 /* Type stays at 16px on every screen. Growing the root on a 4K display made the
