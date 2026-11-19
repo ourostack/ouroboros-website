@@ -422,7 +422,7 @@ const outputExempt = "program output, shown as evidence"
           Last, leave a note for the agents that will work here. <code>AGENTS.md</code> is a file of instructions for any
           agent working in a folder, and most general-purpose agents, Copilot included, read it on their own at the start of
           every conversation. (<a href="https://agents.md/">agents.md</a> has the details.) Agents left alone write long,
-          dense code; this note asks for code short and plain enough for you to read every line. Download it into your
+          dense code; this note asks for code short and plain enough for you to read every line. Soon you'll ask your own agent what it says, and it won't have a clue. Download it into your
           folder:
         </p>
         <ShellCommands client:load mac={getAgentsMd.mac} powershell={getAgentsMd.powershell} />
@@ -481,10 +481,6 @@ const outputExempt = "program output, shown as evidence"
                 <td>This GitHub account has used up its Copilot allowance for now. If another of yours has Copilot, switch to it with <code>gh auth switch</code>, then run your agent again.</td>
               </tr>
               <tr>
-                <td>It can't find <code>secret.txt</code>, or keeps trying</td>
-                <td>Check the file's name and folder: <code>secret.txt</code>, not <code>secrets.txt</code>, in the same folder as <code set:text={file} />.</td>
-              </tr>
-              <tr>
                 <td>A reply stops partway, or says it was filtered</td>
                 <td>Copilot's content filter sometimes stops a long reply early. Your conversation is saved; say "keep going" and it picks up where it left off.</td>
               </tr>
@@ -506,11 +502,6 @@ const outputExempt = "program output, shown as evidence"
             another provider? <a href="#bring-your-own-key">Here's how to switch it over.</a>
           </p>
         </aside>
-
-        <h2>Plant a secret</h2>
-        <p>Your agent needs something to find. Hide a word in a file. Pick your shell, and any word you like:</p>
-        <ShellCommands client:load mac="echo pineapple > secret.txt" powershell="Set-Content secret.txt pineapple" />
-        <p>Remember it. Soon you'll ask the model for it, and it won't have a clue.</p>
 
         <h2 id="m1">Milestone 1: first contact</h2>
         <p>
@@ -576,12 +567,12 @@ const outputExempt = "program output, shown as evidence"
         <div class="my-6"><PromptCard label={toCoder} prompt={promptChat} /></div>
         <p>
           When it's done, run your agent again in your agent's window. Tell it your name, ask what your name is, then ask
-          for the secret word in <code>secret.txt</code>:
+          for a short summary of <code>AGENTS.md</code>:
         </p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock code={outM2} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
-          It knows your name, because your name is in the list. It can't know the word: it has never seen your folder.
+          It knows your name, because your name is in the list. It even knows what an <code>AGENTS.md</code> is, from its training. But it can't know what yours says: it has never seen your folder.
         </p>
         <p>
           Now open <code>what-the-model-sees.json</code> in your editor, next to the terminal. If you installed Zed,
@@ -644,17 +635,17 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p>The model can't run anything itself. It can only ask. Let's watch it ask…</p>
         <div class="my-6"><PromptCard label={toCoder} prompt={promptTool} /></div>
-        <p>Run your agent and ask for the secret word:</p>
+        <p>Run your agent and ask for that summary again:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock code={outM3} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
-          It stops there on purpose, waiting for a result nobody sends. Depending on how Copilot built yours, it either
-          sits and waits (press <Kbd client:visible keys={["ctrl", "c"]} /> to leave) or, like mine, drops you back at the
-          command line.
+          It stops there on purpose, waiting for a result nobody sends, so typing anything (like my <code>hello?</code>)
+          changes nothing. Press <Kbd client:visible keys={["ctrl", "c"]} /> to leave. Depending on how Copilot built
+          yours, it may drop you back at the command line instead.
         </p>
         <p>
           Look at that. The model knew it needed the file, named it, and asked for it in a neat little note your program can read. Your program read it,
-          and the word is right there on your screen. The model will never see it, because nobody handed it back.
+          and the note is right there on your screen. The model will never see it, because nobody handed it back.
         </p>
         <p><strong class="text-bone">It asked, and nobody answered.</strong></p>
 
@@ -670,7 +661,7 @@ const outputExempt = "program output, shown as evidence"
         <p><strong class="text-bone">Read file + Write file + Run shell = all it needs.</strong></p>
         <p>With these three tools, a model can do almost anything a developer can do at a terminal. Including modify its own code…</p>
         <div class="my-6"><PromptCard label={toCoder} prompt={promptLoop} /></div>
-        <p>Run your agent, ask for the secret word, then ask it to write a haiku to <code>hello.txt</code>:</p>
+        <p>Run your agent, ask for the summary once more, then ask it to write a haiku to <code>hello.txt</code>:</p>
         <CodeBlock client:load code={run} language="shell" title="terminal" />
         <CodeBlock code={outM4} language="ansi" title="What I saw" copy={false} data-copy-exempt={outputExempt} data-expected-output="" wrap />
         <p>
@@ -679,7 +670,7 @@ const outputExempt = "program output, shown as evidence"
         </p>
         <p>
           It starts by finishing the read it asked for last time, and owns up to its earlier mistake. Ask again and it
-          reaches for <code>read_file</code>, gets the word back and tells you. Then it writes a poem nobody planned for. Open <code>hello.txt</code> in your editor: your agent made that.
+          reaches for <code>read_file</code>, reads the note and sums it up. Then it writes a poem nobody planned for. Open <code>hello.txt</code> in your editor: your agent made that.
         </p>
         <p><strong class="text-bone">That's it. That's the agent.</strong></p>
         <p>
@@ -740,7 +731,7 @@ const outputExempt = "program output, shown as evidence"
         <h3 id="agents-md">Read the note</h3>
         <p>
           Remember <code>AGENTS.md</code>, the note for agents in your folder? Copilot read it without being told; that's
-          how your code stayed short. Your agent has never seen it. Nothing reaches the model unless the program around it
+          how your code stayed short. Your agent reads it only when you ask. Nothing reaches the model unless the program around it
           puts it in the conversation, and in your agent, that program is <code>{file}</code>. Most of what a harness like
           Copilot does is exactly this: put the right words in front of the model at the right moment. Teach yours…
         </p>
@@ -869,7 +860,7 @@ const outputExempt = "program output, shown as evidence"
           <a href="/lab/docs/getting-started/">getting started</a>.
         </p>
         <p>
-          You opened this page with a secret word. You're leaving with something that can change itself. Mine became a
+          You opened this page with a note your agent couldn't read. You're leaving with something that can change itself. Mine became a
           harness. Yours can become anything.
         </p>
 

@@ -3,6 +3,7 @@
 This folder holds agent.ts, a tiny agent built from scratch so a person can learn how agents work. They will read every line, so write it for them.
 
 - Keep agent.ts short and plain, like a script: the fewest lines that do the job. No clever tricks, no extra layers, no checks for things that won't happen.
+- Put the loop first, near the top, so a reader meets it before the plumbing it uses, and keep it as plain as the conversation it runs.
 - Skip TypeScript types unless Node needs them; `any` is fine.
 - When the same shape would appear three times, write one small helper instead.
 - Add a short comment wherever something important happens, saying what it does and why.
