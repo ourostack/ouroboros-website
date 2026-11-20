@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.379",
-  "tagCommit": "171743e6a2c57b0007d868d079ede22e8c658b42",
+  "tag": "v1.3.381",
+  "tagCommit": "de3a6dde79c32b42aa783a58480b85d417f8f0c0",
   "files": {
     "lib/ouro/ax/checks.ts": "21f7f2dd63a86ce58447c7af3b02dc00069df43620bee53c71b0faa3697a0ff4",
     "lib/ouro/ax/cli.ts": "1cbaf0a683321b6343c3f45a77934c138d8ea25eac36526d34d688b8ede36234",
@@ -54,7 +54,7 @@
     "scripts/ouro/check/token-check.ts": "cd634298586268d3377ae17ec0b803677ea1a7b8e1638a88ef270b07394f6694",
     "scripts/ouro/check/wrap-check.ts": "474c9b7a08be766c7479931b3f0f0cb6678efcd10918d0047270f3e6fccda918",
     "src/components/ouro/alert/alert.tsx": "1719b3fc8e356a8d14e3e9cedbd77cb0ff7060c90f1be8dded3f4b182aeeb1d2",
-    "src/components/ouro/button/button.tsx": "2b69bbeabc919b874e842e190f3f2732477f2404d7ad0f73b226b0f064c1d335",
+    "src/components/ouro/button/button.tsx": "150907f0605301bd8ee067144a2016a14a1da47e73445ff2c6bdd08e6ba0fe2e",
     "src/components/ouro/card/card.tsx": "e26a97688736136c261b7417910121c1f4f1863878af23deef46234d2ebe3ad9",
     "src/components/ouro/code-block/code-block-styles.ts": "a9b2d6407234804d0fe16c6741f9a88a51f8c1dfc0d1da9c6949a1735daf39c9",
     "src/components/ouro/code-block/code-block.tsx": "036cc52ebf1677e0a8d61d516b4695000bf0cf1430e00be2a91cbe7b6b55b490",
@@ -82,7 +82,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "df32c7d3dc69c7d70cf39bd63b63583397a2868134dc16bc3e55ab774bd6401b",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "c36cb6b443558666598680cc83290fe0fc71c4ab9af36eb7760bb93fb8b31654",
+    "src/lib/ouro/dev.ts": "5bdb4f02a97eddd351f0ba480351a92999c2ce60ae328d19d9f2e223337e7b6a",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
     "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
