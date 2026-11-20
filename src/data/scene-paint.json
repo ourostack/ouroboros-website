@@ -266,7 +266,7 @@
   },
   "ouroboros": {
     "from": "headers/ouroboros.webp",
-    "sha256": "b809679c1e11611ac09d59f4d8e5b610b6b8650ea397a2dfa987799f87962fdb",
+    "sha256": "f79f6622b65a973bab1921bafc8129a7b42e5ae4491591aa47ebd1be58215108",
     "colour": "#98c8f8"
   },
   "ouroboros-dark": {
