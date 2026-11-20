@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.368",
-  "tagCommit": "3aa1506c87e22ea2497e2f643a6144eec7e3f2eb",
+  "tag": "v1.3.369",
+  "tagCommit": "5fdc3d3cd0841117915321064812f84595d1909c",
   "files": {
     "lib/ouro/ax/checks.ts": "21f7f2dd63a86ce58447c7af3b02dc00069df43620bee53c71b0faa3697a0ff4",
     "lib/ouro/ax/cli.ts": "1cbaf0a683321b6343c3f45a77934c138d8ea25eac36526d34d688b8ede36234",
@@ -45,7 +45,7 @@
     "scripts/ouro/check/reach-check.ts": "dfc1188dab0b2aab9e9f1123ec7d113418a2c89fd0309d8cc2ce73e428a307a1",
     "scripts/ouro/check/register.ts": "b400a00a53aab44d51c4eaa605e41bba6f5aa5d4b4b6345ba03b240494e25a34",
     "scripts/ouro/check/run.kit.mts": "38baae3a9c8c3df52c9d1be9e3c99e11f5ec77701f0717300064c6384ddd2344",
-    "scripts/ouro/check/run.ts": "bf732f6c750aa23a7ee25e9b65b78ce30c7dc70d134bdc2fd764d666410c17ac",
+    "scripts/ouro/check/run.ts": "771ba2af8c276870e4af4c558462ede2906c0365a3e475800e4614c440d0ed9a",
     "scripts/ouro/check/serve.ts": "eaf5b495eb10615a73d5e3f7f2cc3caa52ed3f527a6124c510d704c8855eceb3",
     "scripts/ouro/check/size-check.ts": "a2ed6e07d3c8faf34dc4e816e2aa1ef929a1355a7f1469e2f4f4676abbc3e275",
     "scripts/ouro/check/text-check.ts": "6bfeddf9f3669a6d741f10baf62d94c0be80db620a4d55163187312c57df8934",
@@ -81,7 +81,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "df32c7d3dc69c7d70cf39bd63b63583397a2868134dc16bc3e55ab774bd6401b",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "885c6f59f730842724168cc23e8c09d69a1a61a663a02fb5eb3a3f2107073609",
+    "src/lib/ouro/dev.ts": "7d8c82f3f1fa8b6cf676b786d5238380d2e953aa1bcfd762975669c981c881c9",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
     "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
