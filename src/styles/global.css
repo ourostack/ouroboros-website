@@ -688,6 +688,11 @@ html, body { overflow-x: clip; }
     border: var(--ouro-sq-w, 0px) solid var(--ouro-bd, transparent);
     border-radius: calc(var(--ouro-sq-m) * 0.57 + var(--ouro-sq-w, 0px));
   }
+  [data-card-backdrop] {
+    inset: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
 }
 
 /* Where the engine draws shape(), the squircle's corners are Bézier curves, within 0.03% of the curve, in place of the polygon: an exact edge that is quicker to draw. The surfaces show only where corner-shape is missing. */
