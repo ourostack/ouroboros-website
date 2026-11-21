@@ -25,6 +25,12 @@
 // ground either side of it must still run smooth. Reveal animations are off
 // (reduced motion), so the page is read as it settles.
 //
+// Rows are read only once every picture on the page has arrived and decoded
+// (settle): every <img>, lazy and deferred ones brought into view, and every CSS
+// background image (#442: a picture still on its way over a section change
+// left a one-off seam). A seam's line names the pictures it skipped near it and
+// any picture that had not arrived, so the log says why it was read there.
+//
 // Uses Playwright's chromium; override with CHROME_PATH. --json <file> saves
 // the full result.
 
@@ -82,6 +88,55 @@ if (!base) {
   pages ??= [...new Set(distPages())];
 }
 
+// Runs in the page: waits until every picture on it has arrived and decoded, so no
+// row is read while a picture over a section change is still on its way (#442).
+// Pictures held back for a scroll (loading="lazy", or the site's data-src
+// pictures, which Layout.astro sets once the hero lands or an observer sees
+// them) are brought in by a scroll to the foot and back; every <img> is then
+// waited for (complete, then decode()), and so is every CSS background image,
+// on any element or its ::before or ::after. Returns what did not arrive in
+// SETTLE_MS, for the log.
+async function settle(limit) {
+  const until = Date.now() + limit;
+  const frame = () => new Promise((resolve) => requestAnimationFrame(() => resolve()));
+  for (const img of document.images) if (img.loading === 'lazy') img.loading = 'eager';
+  for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight) { scrollTo(0, y); await frame(); }
+  scrollTo(0, 0);
+  await frame();
+  const left = () => Math.max(0, until - Date.now());
+  const within = (promise) => Promise.race([promise, new Promise((resolve) => setTimeout(resolve, left()))]);
+  // A picture whose src the page sets later (data-src, once an observer sees it) is brought into view until it has one.
+  const pending = () => [...document.querySelectorAll('img[data-src]:not([src])')].filter((img) => img.getClientRects().length);
+  while (pending().length && left() > 0) {
+    for (const img of pending()) { img.scrollIntoView({ block: 'center' }); await frame(); }
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
+  scrollTo(0, 0);
+  await frame();
+  const arrived = (img) => img.complete && (!img.currentSrc || img.naturalWidth > 0);
+  await within(Promise.all([...document.images].map(async (img) => {
+    if (!arrived(img)) await new Promise((resolve) => { img.addEventListener('load', resolve, { once: true }); img.addEventListener('error', resolve, { once: true }); });
+    if (img.currentSrc) await img.decode().catch(() => {});
+  })));
+  const urls = new Set();
+  for (const el of document.querySelectorAll('*')) {
+    for (const pseudo of [null, '::before', '::after']) {
+      const bg = getComputedStyle(el, pseudo).backgroundImage;
+      if (bg && bg !== 'none') for (const [, url] of bg.matchAll(/url\("?([^")]+)"?\)/g)) urls.add(url);
+    }
+  }
+  const late = [];
+  await within(Promise.all([...urls].map(async (url) => {
+    const img = new Image();
+    img.src = url;
+    try { await img.decode(); } catch { late.push(`background ${url}`); }
+  })));
+  await frame();
+  await frame();
+  for (const img of document.images) if (img.getClientRects().length && ((img.dataset.src && !img.getAttribute('src')) || !arrived(img))) late.push(`img ${img.currentSrc || img.dataset.src || img.getAttribute('src')}`);
+  return late;
+}
+
 // Runs in the page: every section change, and the scene images to skip.
 function changes() {
   const y = (v) => Math.round(v + scrollY);
@@ -105,13 +160,15 @@ function changes() {
   }
   const scenes = [...document.querySelectorAll('.story-scene img, .story-scene, [data-ouro="hero"] [data-slot="media"]')].map((el) => {
     const r = el.getBoundingClientRect();
-    return [y(r.top), y(r.bottom)];
+    return [y(r.top), y(r.bottom), el.tagName === 'IMG' ? el.currentSrc.replace(location.origin, '') : el.className];
   });
   const height = document.documentElement.scrollHeight;
   return { at: [...out].filter(([v]) => v > WINDOW_ && v < height - 2).sort((a, b) => a[0] - b[0]), scenes, height };
 }
 
 const SLICE = 8000;
+// How long a page's pictures have to arrive and decode before its rows are read anyway (the log then names them).
+const SETTLE_MS = 20_000;
 // Playwright turns on Chromium's CDPScreenshotNewSurface, which copies the
 // page for a screenshot before the browser has drawn a frame for it and
 // sometimes gets nothing back ("Unable to capture screenshot"). Without it,
@@ -142,16 +199,17 @@ async function strip(png) {
     return { rows: out, height: h };
   }, 'data:image/png;base64,' + png.toString('base64'));
 }
-const result = { base, pages: pages.length, checked: 0, worst: 0, failures: [], all: [] };
+const result = { base, pages: pages.length, checked: 0, worst: 0, failures: [], all: [], late: [], scenes: [] };
 // Each page, viewport and scheme is read in its own context, SEAMS_JOBS at a
 // time (default 4); results are gathered in the same order as a serial run.
 const tasks = pages.flatMap((page) => VIEWPORTS.flatMap(([width, height]) => ['light', 'dark'].map((scheme) => ({ page, width, height, scheme }))));
 async function read({ page, width, height, scheme }) {
-  const out = { checked: 0, worst: 0, failures: [], all: [] };
+  const out = { checked: 0, worst: 0, failures: [], all: [], late: [], scenes: [] };
   const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: scheme, reducedMotion: 'reduce', deviceScaleFactor: 1 });
   await ctx.addInitScript((t) => { try { localStorage.setItem('theme', t); } catch {} }, scheme);
   const p = await ctx.newPage();
   await p.goto(base + page, { waitUntil: 'load' });
+  const late = await p.evaluate(`(${settle.toString()})(${SETTLE_MS})`);
   // Mark every block that really draws the hairline on its top edge (its
   // ::before is shown, 1px tall, on the edge, in a colour), before hiding it.
   await p.evaluate(() => {
@@ -180,6 +238,9 @@ async function read({ page, width, height, scheme }) {
     edges.height += left.height;
   }
   await ctx.close();
+  const tag = `${width}${scheme[0]} ${page}`;
+  out.late.push(...late.map((what) => `${tag}: ${what} had not arrived after ${SETTLE_MS / 1000} s`));
+  out.scenes.push(...m.scenes.map(([a, b, what]) => `${tag} y=${a}-${b}: ${what}`));
   const inScene = (r) => m.scenes.some(([a, b]) => r >= a - 1 && r <= b + 1);
   const row = (r, side) => edges[side].slice(r * 3, r * 3 + 3);
   const band = (r0, side) => { const s = [0, 0, 0]; for (let r = r0; r < r0 + 3; r++) { const v = row(r, side); for (let c = 0; c < 3; c++) s[c] += v[c] / 3; } return s; };
@@ -206,7 +267,12 @@ async function read({ page, width, height, scheme }) {
     out.worst = Math.max(out.worst, worst);
     const line = `${width}${scheme[0]} ${page} y=${where}${trail ? ' (hairline)' : ''}: ${worst.toFixed(1)}`;
     out.all.push(line);
-    if (worst > MAX_JUMP) out.failures.push(`${line} (a seam: the ground steps ${worst.toFixed(1)} in one row)`);
+    if (worst > MAX_JUMP) {
+      // Why the rows there were read: the pictures it skipped near the change, and any that never arrived.
+      const near = m.scenes.filter(([a, b]) => b >= at - WINDOW && a <= at + WINDOW).map(([a, b, what]) => `y=${a}-${b} ${what}`);
+      const why = [near.length ? `pictures skipped near it: ${near.join('; ')}` : 'no picture skipped near it', ...(late.length ? [`not arrived: ${late.join('; ')}`] : [])];
+      out.failures.push(`${line} (a seam: the ground steps ${worst.toFixed(1)} in one row; ${why.join('; ')})`);
+    }
   }
   return out;
 }
@@ -220,6 +286,8 @@ for (const out of outs) {
   result.worst = Math.max(result.worst, out.worst);
   result.all.push(...out.all);
   result.failures.push(...out.failures);
+  result.late.push(...out.late);
+  result.scenes.push(...out.scenes);
 }
 await browser.close();
 server?.close();
@@ -227,4 +295,5 @@ server?.close();
 if (opt('--json')) await writeFile(opt('--json'), JSON.stringify(result, null, 2));
 console.log(`${pages.length} pages at 1440 and 390, light and dark: ${result.checked} section changes, worst row step ${result.worst.toFixed(1)}, ${result.failures.length} seams over ${MAX_JUMP}`);
 for (const f of result.failures) console.log(`  ${f}`);
+for (const l of result.late) console.log(`  warning: ${l}`);
 process.exit(result.failures.length ? 1 : 0);
