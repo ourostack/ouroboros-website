@@ -712,7 +712,8 @@ html, body { overflow-x: clip; }
    ouro-plain.css). It sits in the base layer, so rounded-full and Ouro's own round
    controls (switch, radio, slider thumb), which set their corner in a later layer,
    stay round. Capsules (999px) are squircles too: the browser clamps the radius to
-   half the height. */
+   half the height. Where corner-shape is missing, the site's own radii scale by
+   --site-corner-fallback (below). */
 @layer base {
   *, ::before, ::after {
     corner-shape: var(--ouro-corner-shape);
@@ -730,9 +731,9 @@ html, body { overflow-x: clip; }
     --site-corner-fallback: 0.7;
   }
 }
-/* ouro-base's 0.7 corner fallback where corner-shape is missing is left out: this
-   site keeps Tailwind's fixed radii above, so --ouro-corner-fallback stays 1 and a
-   control's squircle surface matches its own corner. */
+/* Ouro's own controls don't take that fallback: --ouro-corner-fallback stays 1,
+   because their surface slot draws the squircle itself where corner-shape is missing
+   (below), and it must match the control's own corner. */
 /* The squircle where corner-shape is missing: a control's surface slot (data-ouro-surface) paints the fill, the ring and the state layer through squircle clip paths, so the element keeps its box, its outline and its shadow. */
 @supports not (corner-shape: squircle) {
   [data-ouro-squircle][class*="bg-(--ouro-bg)"] {
@@ -799,6 +800,26 @@ html, body { overflow-x: clip; }
 @utility rounded-full {
   --corner-shape: round;
   corner-shape: round;
+}
+/* The site's own markup uses these, not rounded, rounded-md and the like: they are
+   the same --radius-* steps, scaled by --site-corner-fallback (0.7 where
+   corner-shape is missing), so they are never plain round corners in Safari. Scaling
+   --radius-* itself would also shrink Ouro's controls, which read the same tokens.
+   rounded-site-dot is a circle's 50%, a squircle or, in Safari, 35%. */
+@utility rounded-site-sm {
+  border-radius: calc(var(--radius-sm) * var(--site-corner-fallback, 1));
+}
+@utility rounded-site-md {
+  border-radius: calc(var(--radius-md) * var(--site-corner-fallback, 1));
+}
+@utility rounded-site-lg {
+  border-radius: calc(var(--radius-lg) * var(--site-corner-fallback, 1));
+}
+@utility rounded-site-xl {
+  border-radius: calc(var(--radius-xl) * var(--site-corner-fallback, 1));
+}
+@utility rounded-site-dot {
+  border-radius: calc(50% * var(--site-corner-fallback, 1));
 }
 /* ouro-base's keyframes, at the top level as ouro-base.css has them: in
    @theme, Tailwind would keep only those an --animate-* token names. */
@@ -947,10 +968,16 @@ html, body { overflow-x: clip; }
   border-radius: 999px;
   white-space: nowrap;
 }
+/* A capsule where corner-shape is missing: 0.7 of half its height (ouro-base's corner fallback), so it is not a stadium. */
+@supports not (corner-shape: squircle) {
+  .tag { border-radius: calc(0.35 * (1lh + 0.8rem)); }
+}
 /* The label text is always bone so it passes WCAG AA on every tint; the
    tone shows in the dot and the tinted background. */
 .tag { color: var(--color-bone); background: color-mix(in srgb, var(--tag-tone) 14%, transparent); }
-/* The readiness dot is a status dot, one of Ouro's round exceptions (presence dots). */
+/* The readiness dot stays round in every browser: it is a status dot, the same class
+   of thing as a presence dot, which is one of Ouro's round exceptions (ruling on
+   this branch's review, 2026-11-21). */
 .tag::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; corner-shape: round; background: var(--tag-tone); }
 .tag-today  { --tag-tone: var(--color-scale); }
 .tag-alpha  { --tag-tone: var(--color-amber); }
@@ -974,7 +1001,7 @@ html, body { overflow-x: clip; }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
 /* The Ouro MD recordings are the app's whole window, 840x630 captured at 1x,
-   with the window's own rounded corners (about 33px) baked into every frame:
+   with the window's own rounded corners (35px) baked into every frame:
    transparent in the poster, black in the video, which has no alpha. The frame
    takes the window's own corner, scaled with it (35/840 across, 35/630 down,
    just inside the window's curve), so its one ring is the window's edge and
@@ -1681,7 +1708,7 @@ main > section.border-t::before, .divider-top::before {
 
 /* A note beside the essay: open on the page, set off by a quiet rule, no box. */
 .post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
-.post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: calc(3px * var(--site-corner-fallback, 1)); background: var(--color-amber); }
+.post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: calc(1.5px * var(--site-corner-fallback, 1)); /* half the 3px width, what a 3px radius clamps to anyway; at 0.7 the ends are not round caps */ background: var(--color-amber); }
 
 /* An open definition list (the agent bundle's folders): a name and what it
    holds, on hairlines, never a box (taste review r3, 2026-11-06). */

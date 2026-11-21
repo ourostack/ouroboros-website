@@ -353,11 +353,11 @@ housesitter watch-kvm studio --install</code></pre>
   .cables { display: grid; gap: 1rem; margin-top: 2rem; }
   @media (min-width: 768px) { .cables { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
   .cables li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem; align-items: start; color: var(--color-mist); font-size: 1rem; line-height: 1.6; }
-  .cable-n { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: color-mix(in srgb, var(--color-scale) 18%, transparent); color: var(--color-scale); font-family: var(--font-display); font-size: 1.25rem; }
+  .cable-n { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: calc(50% * var(--site-corner-fallback, 1)); background: color-mix(in srgb, var(--color-scale) 18%, transparent); color: var(--color-scale); font-family: var(--font-display); font-size: 1.25rem; }
   .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: break-word; border-radius: calc(0.75rem * var(--site-corner-fallback, 1)); background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
   .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
   .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1rem; line-height: 1.6; }
-  .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
+  .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: calc(50% * var(--site-corner-fallback, 1)); background: var(--color-scale); }
   .note-card { padding: 0.9rem 1.1rem; border-radius: calc(1.1rem * var(--site-corner-fallback, 1)); background: color-mix(in srgb, var(--color-deep) 85%, var(--color-bone) 6%); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); box-shadow: 0 10px 30px rgb(0 0 0 / 0.25); }
   .note-card p { margin: 0; }
   .note-app { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--color-mist); }

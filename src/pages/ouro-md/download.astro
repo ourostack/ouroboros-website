@@ -173,13 +173,13 @@ const app = {
   @media (min-width: 768px) { .dl-h2 { font-size: 3.25rem; line-height: 1; } }
   .dl-trust { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
   .dl-trust span { display: inline-flex; align-items: center; gap: 0.45rem; }
-  .dl-trust span::before { content: ""; width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--color-scale); }
+  .dl-trust span::before { content: ""; width: 0.35rem; height: 0.35rem; border-radius: calc(50% * var(--site-corner-fallback, 1)); background: var(--color-scale); }
   .dl-shot img { width: 100%; height: auto; }
   .dl-prose { color: var(--color-mist); }
   .dl-prose > p:not(.eyebrow) { font-size: 1.125rem; line-height: 1.7; }
   .dl-list { display: grid; gap: 0.5rem; margin-top: 0.5rem; font-size: 1rem; }
   .dl-list li { position: relative; padding-left: 1.25rem; }
-  .dl-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-scale); }
+  .dl-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 0.4rem; border-radius: calc(50% * var(--site-corner-fallback, 1)); background: var(--color-scale); }
   .dl-list code, .dl-features :global(code) { font-family: var(--font-mono); font-size: 0.875rem; white-space: nowrap; color: var(--color-bone); background: var(--color-undergrowth); padding: 0.1em 0.4em; border-radius: calc(0.25rem * var(--site-corner-fallback, 1)); }
   .dl-head { margin-bottom: 2.5rem; }
   .dl-features { display: grid; gap: 2rem 3rem; }
