@@ -195,5 +195,5 @@ const hasVerdict = transcript.rounds?.some?.((round: any) => round.actions?.some
   .fetch-url { grid-area: url; min-width: 0; }
   .transcript-summary:hover .text-bone { color: var(--color-scale); }
   .verdict-block { scroll-margin-top: 5rem; }
-  .transcript-summary:focus-visible { outline: 2px solid var(--color-scale); outline-offset: 4px; border-radius: 2px; }
+  .transcript-summary:focus-visible { outline: 2px solid var(--color-scale); outline-offset: 4px; border-radius: calc(2px * var(--site-corner-fallback, 1)); }
 </style>
