@@ -259,8 +259,13 @@ const last = scenes.length - 1
   .dp-body { grid-area: 1 / 1; }
   .dp-body[data-off], .dp-line[data-off] { visibility: hidden; }
   .dp-replay { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-bone); padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid var(--color-canopy); background: transparent; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
-  /* A capsule where corner-shape is missing: 0.7 of half its height (ouro-base's corner fallback), so it is not a stadium. */
-  @supports not (corner-shape: squircle) { .dp-replay { border-radius: calc(0.35 * (1lh + 0.5rem + 2px)); } }
+  /* A capsule where corner-shape is missing: 0.7 of half its height (ouro-base's corner fallback), so it is not a stadium.
+     Skip and Replay are Ouro Buttons, whose height is the kit's max(--ouro-button-h, --ouro-size-6) (button.tsx), not
+     padding plus a line: 44px, and 36px from sm. The invisible sizer shares their cell, so it takes the md button's
+     --ouro-button-h steps and the same radius. */
+  .dp-sizer { --ouro-button-h: calc(var(--spacing) * 11); }
+  @media (width >= 40rem) { .dp-sizer { --ouro-button-h: calc(var(--spacing) * 9); } }
+  @supports not (corner-shape: squircle) { .dp-replay { border-radius: calc(0.35 * max(var(--ouro-button-h), var(--ouro-size-6))); } }
   .dp-replay:hover { border-color: var(--color-scale); color: var(--color-scale); }
   .dp-body { margin: 0; padding: 0.9rem 1rem; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--color-bone); }
   @media (min-width: 640px) { .dp-body { font-size: 0.75rem; } .dp-line[data-narrow] { display: none; } }
