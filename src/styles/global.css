@@ -707,6 +707,29 @@ html, body { overflow-x: clip; }
     }
   }
 }
+/* Ouro corners are squircles only, on the site's own markup too: every rounded
+   corner takes the theme's corner shape (Ouro UI's plain-markup pattern, as in
+   ouro-plain.css). It sits in the base layer, so rounded-full and Ouro's own round
+   controls (switch, radio, slider thumb), which set their corner in a later layer,
+   stay round. Capsules (999px) are squircles too: the browser clamps the radius to
+   half the height. */
+@layer base {
+  *, ::before, ::after {
+    corner-shape: var(--ouro-corner-shape);
+  }
+}
+/* Where corner-shape is missing (Safari, WKWebView), the site's own fixed radii
+   take ouro-base's 0.7 corner fallback: a circular corner at 0.7 of the squircle's
+   radius stays within 6% of it. It is its own variable because this site keeps
+   --ouro-corner-fallback at 1 for Ouro's controls (below). */
+:root {
+  --site-corner-fallback: 1;
+}
+@supports not (corner-shape: squircle) {
+  :root {
+    --site-corner-fallback: 0.7;
+  }
+}
 /* ouro-base's 0.7 corner fallback where corner-shape is missing is left out: this
    site keeps Tailwind's fixed radii above, so --ouro-corner-fallback stays 1 and a
    control's squircle surface matches its own corner. */
@@ -905,7 +928,7 @@ html, body { overflow-x: clip; }
   mask: url('/brand/spoonjoy.svg') center / contain no-repeat;
 }
 .mark-tile {
-  border-radius: 22%;
+  border-radius: calc(22% * var(--site-corner-fallback, 1));
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-bone) 22%, transparent);
 }
 
@@ -927,7 +950,8 @@ html, body { overflow-x: clip; }
 /* The label text is always bone so it passes WCAG AA on every tint; the
    tone shows in the dot and the tinted background. */
 .tag { color: var(--color-bone); background: color-mix(in srgb, var(--tag-tone) 14%, transparent); }
-.tag::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--tag-tone); }
+/* The readiness dot is a status dot, one of Ouro's round exceptions (presence dots). */
+.tag::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; corner-shape: round; background: var(--tag-tone); }
 .tag-today  { --tag-tone: var(--color-scale); }
 .tag-alpha  { --tag-tone: var(--color-amber); }
 .tag-exp    { --tag-tone: var(--color-shadow); }
@@ -946,7 +970,7 @@ html, body { overflow-x: clip; }
    column's space-y-16 and left the getting-started caption 4px above the next
    h2 (taste review r19). */
 .product-figure { margin-top: 0; margin-inline: 0; display: flex; flex-direction: column; gap: var(--caption-gap); }
-.product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); border-radius: 0.9rem; box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-canopy) 45%, transparent); }
+.product-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--color-undergrowth); border-radius: calc(0.9rem * var(--site-corner-fallback, 1)); box-shadow: 0 22px 48px -30px color-mix(in srgb, var(--color-amber) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--color-canopy) 45%, transparent); }
 .product-media.media-terminal { background: var(--color-deep); aspect-ratio: auto; flex: 1 1 auto; }
 .product-media.media-shot { aspect-ratio: auto; background: #1b1b26; }
 /* The Ouro MD recordings are the app's whole window, 840x630 captured at 1x,
@@ -977,6 +1001,14 @@ html, body { overflow-x: clip; }
 @media (min-resolution: 3.501dppx) { :root { --clip-w: 210px; } }
 @media (min-resolution: 4.001dppx) { :root { --clip-w: 168px; } }
 .product-media.media-clip { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4.1667% / 5.5556%; }
+/* The recording bakes in the window's round 35px corner. A squircle sits nearer its
+   corner than a circle of the same radius, so the squircle frame takes 1.85 times the
+   window's radius, just over the smallest that stays inside the round corner all the way along
+   (1.841 for corner-shape: squircle, a superellipse of exponent 4): no black corner
+   shows through. Where corner-shape is missing, the frame keeps the window's own corner. */
+@supports (corner-shape: squircle) {
+  .product-media.media-clip { border-radius: 7.7083% / 10.2778%; }
+}
 .clip:has(> .media-clip), .product-figure:has(> .media-clip) { width: 100%; max-width: var(--clip-w); margin-inline: auto; }
 /* Copy beside the recording: its column is the recording's width, at most
    the 7/12 a .split-media gives its media, and the copy takes the rest. */
@@ -1023,7 +1055,7 @@ a.product-media:hover, a.product-media:focus-visible { outline: none; box-shadow
   word-break: normal;
   color: var(--color-bone);
   background: var(--color-undergrowth);
-  border-radius: 0.75rem;
+  border-radius: calc(0.75rem * var(--site-corner-fallback, 1));
   padding: 1.1rem 1.25rem;
   margin: 0;
 }
@@ -1189,7 +1221,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   background: var(--color-undergrowth);
   color: var(--color-glow);
   padding: 0.15em 0.4em;
-  border-radius: 0.25rem;
+  border-radius: calc(0.25rem * var(--site-corner-fallback, 1));
   font-size: 0.875rem;
 }
 .prose-ouro a {
@@ -1331,7 +1363,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
   background: var(--color-undergrowth);
   color: var(--color-glow);
   padding: 0.15em 0.4em;
-  border-radius: 0.25rem;
+  border-radius: calc(0.25rem * var(--site-corner-fallback, 1));
   font-size: 0.875rem;
 }
 
@@ -1392,9 +1424,9 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 }
 
 /* ── Buttons ── */
-.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; background: var(--color-scale); color: var(--color-void); padding: 0.75rem 1.25rem; font-weight: 500; transition: background 0.2s, box-shadow 0.3s; }
+.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: calc(0.75rem * var(--site-corner-fallback, 1)); background: var(--color-scale); color: var(--color-void); padding: 0.75rem 1.25rem; font-weight: 500; transition: background 0.2s, box-shadow 0.3s; }
 .btn-primary:hover { background: var(--color-glow); box-shadow: 0 0 30px color-mix(in srgb, var(--color-scale) 35%, transparent); }
-.btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 0.75rem; border: 1px solid var(--color-canopy); color: var(--color-bone); padding: 0.75rem 1.25rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: calc(0.75rem * var(--site-corner-fallback, 1)); border: 1px solid var(--color-canopy); color: var(--color-bone); padding: 0.75rem 1.25rem; font-weight: 500; transition: border-color 0.2s, color 0.2s; }
 .btn-ghost:hover { border-color: var(--color-scale); color: var(--color-scale); }
 /* A button's label never wraps (Ari's ruling on taste review r17: "Read the
    docs" wrapped inside its button at 320). Two buttons in a .btn-row sit side
@@ -1534,7 +1566,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
    the cast. */
 @keyframes story-drift { from { transform: scale(1); } to { transform: scale(1.02) translateX(-0.4%); } }
 /* Scenes further down: soft rounded corners, no border, a whisper of glow. */
-.story-inline { border-radius: 1rem; }
+.story-inline { border-radius: calc(1rem * var(--site-corner-fallback, 1)); }
 .story-inline img { aspect-ratio: 1536 / 576; object-fit: cover; }
 @media (max-width: 640px) { .story-inline img { aspect-ratio: var(--phone-ar, 4 / 3); } }
 .story-inline { box-shadow: 0 20px 50px -30px color-mix(in srgb, var(--color-amber) 55%, transparent); }
@@ -1616,11 +1648,11 @@ main:has(> [class~="bg-deep/40"]:last-child) + .site-footer { margin-top: 0; }
   main:has(> .story-hero[data-hero-column]) > article > header h1 { font-size: clamp(2.25rem, 1.25rem + 1vw, 3rem); line-height: 1.1; letter-spacing: -0.01em; margin-top: 0.75rem; }
   main:has(> .story-hero[data-hero-column]) > article > div { order: 3; width: var(--hero-width); margin: 0 auto; padding-bottom: 5rem; }
   main:has(> .story-hero[data-hero-column]) > :not(article, .story-hero) { order: 4; }
-  main > .story-hero[data-hero-column] { order: 2; width: var(--hero-width); max-width: none; margin: var(--hero-gap-above) auto var(--hero-gap-below); border-radius: 4px; overflow: hidden; background: #e9e1cf; }
+  main > .story-hero[data-hero-column] { order: 2; width: var(--hero-width); max-width: none; margin: var(--hero-gap-above) auto var(--hero-gap-below); border-radius: calc(4px * var(--site-corner-fallback, 1)); overflow: hidden; background: #e9e1cf; }
   :root:not([data-theme="light"]) main > .story-hero[data-hero-column] { background: #1a2118; }
   @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) main > .story-hero[data-hero-column] { background: #e9e1cf; } }
   main > .story-hero[data-hero-column]::after { content: none; }
-  main > .story-hero[data-hero-column] picture { border-radius: 4px; }
+  main > .story-hero[data-hero-column] picture { border-radius: calc(4px * var(--site-corner-fallback, 1)); }
   main > .story-hero[data-hero-column] img { width: 100%; height: auto; aspect-ratio: 2 / 1; max-height: none; object-fit: cover; object-position: center; animation: none; transform: none; }
 }
 
@@ -1649,7 +1681,7 @@ main > section.border-t::before, .divider-top::before {
 
 /* A note beside the essay: open on the page, set off by a quiet rule, no box. */
 .post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
-.post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: 3px; background: var(--color-amber); }
+.post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: calc(3px * var(--site-corner-fallback, 1)); background: var(--color-amber); }
 
 /* An open definition list (the agent bundle's folders): a name and what it
    holds, on hairlines, never a box (taste review r3, 2026-11-06). */
@@ -1711,7 +1743,7 @@ main > section.border-t::before, .divider-top::before {
    shown whole at its own aspect (taste review r5). */
 .post-with-scene { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0 1.25rem; align-items: start; }
 .post-scene { display: block; padding-top: 0.3rem; }
-.post-scene .story-vignette { border-radius: 0.75rem; }
+.post-scene .story-vignette { border-radius: calc(0.75rem * var(--site-corner-fallback, 1)); }
 /* Every thumbnail in the list has one aspect (taste review r18: three
    aspects made the column ragged); the crop keeps the cast in frame
    (thumbPosition in src/data/scenes.mjs). */

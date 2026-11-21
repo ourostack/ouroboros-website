@@ -180,7 +180,7 @@ const app = {
   .dl-list { display: grid; gap: 0.5rem; margin-top: 0.5rem; font-size: 1rem; }
   .dl-list li { position: relative; padding-left: 1.25rem; }
   .dl-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-scale); }
-  .dl-list code, .dl-features :global(code) { font-family: var(--font-mono); font-size: 0.875rem; white-space: nowrap; color: var(--color-bone); background: var(--color-undergrowth); padding: 0.1em 0.4em; border-radius: 0.25rem; }
+  .dl-list code, .dl-features :global(code) { font-family: var(--font-mono); font-size: 0.875rem; white-space: nowrap; color: var(--color-bone); background: var(--color-undergrowth); padding: 0.1em 0.4em; border-radius: calc(0.25rem * var(--site-corner-fallback, 1)); }
   .dl-head { margin-bottom: 2.5rem; }
   .dl-features { display: grid; gap: 2rem 3rem; }
   @media (min-width: 640px) { .dl-features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

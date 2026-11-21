@@ -143,14 +143,14 @@ bash /tmp/ouro-butler-install.sh</code></pre>
   .chat { margin: 2rem 0 0; }
   .chat-lines { display: grid; gap: 0.75rem; }
   /* Chat bubbles size to their words, like a phone, up to most of the row. */
-  .chat-line { display: grid; gap: 0.25rem; width: fit-content; max-width: 85%; padding: 0.75rem 1rem; border-radius: 1rem; line-height: 1.5; }
+  .chat-line { display: grid; gap: 0.25rem; width: fit-content; max-width: 85%; padding: 0.75rem 1rem; border-radius: calc(1rem * var(--site-corner-fallback, 1)); line-height: 1.5; }
   .chat-you { justify-self: end; background: color-mix(in srgb, var(--color-scale) 16%, transparent); color: var(--color-bone); }
   .chat-butler { background: var(--color-deep); color: var(--color-bone); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
   .chat-who { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); }
   /* Blocks, never a flex row: the Dramatization note sits on a line of its own
      at every width (Ari's ruling on taste review r20). */
   .chat-caption { display: block; margin-top: var(--caption-gap); font-size: 0.875rem; color: var(--color-mist); }
-  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
+  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: calc(0.75rem * var(--site-corner-fallback, 1)); background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
   .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
   .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1rem; line-height: 1.6; }
   .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }

@@ -59,7 +59,7 @@ const pieces = [
     <div class="relative max-w-6xl mx-auto w-full flex-1 flex flex-col justify-center">
       <!-- Eyebrow -->
       <div class="mb-8 md:mb-10 animate-fade-up">
-        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-fang/30 bg-fang/[0.04]">
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-[999px] border border-fang/30 bg-fang/[0.04]">
           <span class="font-mono text-xs text-fang uppercase tracking-[0.25em]">&#10022; Reviews</span>
         </div>
       </div>
@@ -230,7 +230,7 @@ const pieces = [
 
 <style>
   .heartbeat { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem 2.25rem; }
-  .heartbeat :global(.heartbeat-scene) { flex: none; width: 9rem; border-radius: 1.1rem; overflow: hidden; box-shadow: 0 18px 36px -20px color-mix(in srgb, var(--color-amber) 70%, transparent); }
+  .heartbeat :global(.heartbeat-scene) { flex: none; width: 9rem; border-radius: calc(1.1rem * var(--site-corner-fallback, 1)); overflow: hidden; box-shadow: 0 18px 36px -20px color-mix(in srgb, var(--color-amber) 70%, transparent); }
   .heartbeat :global(.heartbeat-scene img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
   @media (min-width: 768px) { .heartbeat :global(.heartbeat-scene) { width: 14rem; } }
   .heartbeat > div { flex: 1 1 18rem; }

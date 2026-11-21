@@ -331,7 +331,7 @@ const wastes = [
      a round crop around the face, since the Hero has one picture and the scene is it. */
   .portrait { display: inline-flex; align-items: center; gap: 1rem; }
   .portrait picture { width: 4rem; flex: none; }
-  .portrait-img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 22%; border-radius: 9999px; border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
+  .portrait-img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% 22%; border-radius: calc(50% * var(--site-corner-fallback, 1)); border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); transition: border-color 0.3s; }
   .portrait:hover .portrait-img, .portrait:focus-visible .portrait-img { border-color: var(--color-scale); }
   .portrait-link { color: var(--color-scale); font-size: 1.125rem; white-space: nowrap; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--color-scale) 40%, transparent); text-underline-offset: 4px; }
   .portrait:hover .portrait-link, .portrait:focus-visible .portrait-link { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
