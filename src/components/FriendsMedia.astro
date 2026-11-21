@@ -50,7 +50,7 @@ const peers: [string, string][] = [
   .fr-ladder { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
   .fr-rung { padding: 0.15rem 0.55rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--color-canopy) 70%, transparent); color: var(--color-mist); }
   /* A capsule where corner-shape is missing: 0.7 of half its height (ouro-base's corner fallback), so it is not a stadium. */
-  @supports not (corner-shape: squircle) { .fr-rung { border-radius: calc(0.35 * (1lh + 0.3rem + 2px)); } }
+  @supports not (corner-shape: squircle) { .fr-rung { border-radius: calc(var(--site-corner-fallback, 0.7) * 0.5 * (1lh + 0.3rem + 2px)); } }
   .fr-current { border-color: var(--color-scale); color: var(--color-scale); }
   .fr-fields { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1rem; margin: 0; }
   .fr-fields dt { color: var(--color-shadow); }

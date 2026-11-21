@@ -88,7 +88,7 @@ const hasClip = fs.existsSync(path.join(process.cwd(), 'public', src))
      while staying inside the frame. scripts/hit-areas.mjs probes it. */
   .clip-toggle { position: absolute; right: 0.6rem; bottom: 0.6rem; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 4.25rem; height: 2rem; padding: 0 0.85rem; border-radius: 999px; font: 500 0.8125rem/1 var(--font-body); color: var(--color-bone); background: color-mix(in srgb, var(--color-void) 85%, transparent); border: 1px solid color-mix(in srgb, var(--color-canopy) 80%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); cursor: pointer; }
   /* A capsule where corner-shape is missing: 0.7 of half its height (ouro-base's corner fallback), so it is not a stadium. */
-  @supports not (corner-shape: squircle) { .clip-toggle { border-radius: calc(0.35 * 2rem); } }
+  @supports not (corner-shape: squircle) { .clip-toggle { border-radius: calc(var(--site-corner-fallback, 0.7) * 0.5 * 2rem); } }
   .clip-toggle:hover { color: var(--color-scale); }
   .clip-toggle[hidden] { display: none; }
   .clip-noscript { position: absolute; inset: 0; }

@@ -968,9 +968,9 @@ html, body { overflow-x: clip; }
   border-radius: 999px;
   white-space: nowrap;
 }
-/* A capsule where corner-shape is missing: 0.7 of half its height (ouro-base's corner fallback), so it is not a stadium. */
+/* A capsule where corner-shape is missing: --site-corner-fallback (0.7) of half its height, so it is not a stadium. */
 @supports not (corner-shape: squircle) {
-  .tag { border-radius: calc(0.35 * (1lh + 0.8rem)); }
+  .tag { border-radius: calc(var(--site-corner-fallback, 0.7) * 0.5 * (1lh + 0.8rem)); }
 }
 /* The label text is always bone so it passes WCAG AA on every tint; the
    tone shows in the dot and the tinted background. */

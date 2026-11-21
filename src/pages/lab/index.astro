@@ -230,7 +230,7 @@ const pieces = [
 
 <style>
   /* A capsule where corner-shape is missing: 0.7 of half its height (ouro-base's corner fallback), so it is not a stadium. */
-  @supports not (corner-shape: squircle) { .lab-eyebrow { border-radius: calc(0.35 * (1rem + 1rem + 2px)); } }
+  @supports not (corner-shape: squircle) { .lab-eyebrow { border-radius: calc(var(--site-corner-fallback, 0.7) * 0.5 * (1rem + 1rem + 2px)); } }
   .heartbeat { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem 2.25rem; }
   .heartbeat :global(.heartbeat-scene) { flex: none; width: 9rem; border-radius: calc(1.1rem * var(--site-corner-fallback, 1)); overflow: hidden; box-shadow: 0 18px 36px -20px color-mix(in srgb, var(--color-amber) 70%, transparent); }
   .heartbeat :global(.heartbeat-scene img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
