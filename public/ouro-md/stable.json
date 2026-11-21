@@ -2,10 +2,10 @@
   "appName": "Ouro MD",
   "subtitle": "The Markdown App",
   "channel": "stable",
-  "version": "0.9.121",
-  "releaseTag": "v0.9.121",
-  "releaseURL": "https://github.com/ourostack/ouro-md/releases/tag/v0.9.121",
-  "publishedAt": "2026-11-16T20:17:37Z",
+  "version": "0.9.131",
+  "releaseTag": "v0.9.131",
+  "releaseURL": "https://github.com/ourostack/ouro-md/releases/tag/v0.9.131",
+  "publishedAt": "2026-11-21T02:22:38Z",
   "bundleIdentifier": "bot.ouro.md",
   "minimumMacOS": "15.0",
   "signingMode": "developer-id",
@@ -15,24 +15,24 @@
       "url": "https://ouroboros.bot/ouro-md-install.sh"
     },
     "zip": {
-      "name": "Ouro-MD-0.9.121.zip",
-      "url": "https://github.com/ourostack/ouro-md/releases/download/v0.9.121/Ouro-MD-0.9.121.zip",
-      "bytes": 9670756,
-      "sha256": "a938b5ea26b2d3d99aa6ba57d86643009d8ebf047b22191a7f384cf91c2872b1",
+      "name": "Ouro-MD-0.9.131.zip",
+      "url": "https://github.com/ourostack/ouro-md/releases/download/v0.9.131/Ouro-MD-0.9.131.zip",
+      "bytes": 9690383,
+      "sha256": "9672cfd73f867adabad7970721544cd7e65b8c8118af95f90a9bc7191be9445e",
       "role": "auto-update"
     },
     "dmg": {
-      "name": "Ouro-MD-0.9.121.dmg",
-      "url": "https://github.com/ourostack/ouro-md/releases/download/v0.9.121/Ouro-MD-0.9.121.dmg",
-      "bytes": 11622884,
-      "sha256": "a4d05bcd0bbc01a1a7ee596ccfbe80ce09987d97f2b0799c665b7375a6c97a20",
+      "name": "Ouro-MD-0.9.131.dmg",
+      "url": "https://github.com/ourostack/ouro-md/releases/download/v0.9.131/Ouro-MD-0.9.131.dmg",
+      "bytes": 11631052,
+      "sha256": "40af04594bd3728fda55d3886839c389e4c94a51cc51e7d0604e6ca984ac95c3",
       "role": "interactive-install"
     },
     "manifest": {
-      "name": "Ouro-MD-0.9.121.manifest.json",
-      "url": "https://github.com/ourostack/ouro-md/releases/download/v0.9.121/Ouro-MD-0.9.121.manifest.json",
+      "name": "Ouro-MD-0.9.131.manifest.json",
+      "url": "https://github.com/ourostack/ouro-md/releases/download/v0.9.131/Ouro-MD-0.9.131.manifest.json",
       "bytes": 811,
-      "sha256": "27cceefeda3d320876ca444bc56614560320d2304acfbb7c439d0321d17bcdb9",
+      "sha256": "136ddf49fe7d3fec60e1c0d5ad1205357ed1e36d51f0f21f5112541e3293a3ea",
       "role": "metadata"
     }
   }
