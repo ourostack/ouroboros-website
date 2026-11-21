@@ -441,7 +441,8 @@
       "a click on 5 of 5 spots on it opens nothing: its link's layer stops at a part the page positions"
     ],
     "narrow-text": [
-      "This paragraph wraps at 1512px in a 3696px column, leaving the rest empty. Let it use the width it has: remove `.max-w-6xl { max-width: var(--container-6xl) }`. If the design sets a measure on purpose, declare it at 40ch or wider: read the max-width from a --measure-* token, add data-ouro-measure to the text, or set \"measure\" in ouro-check.json."
+      "This paragraph wraps at 1512px in a 3696px column, leaving the rest empty. Let it use the width it has: remove `.max-w-6xl { max-width: var(--container-6xl) }`. If the design sets a measure on purpose, declare it at 40ch or wider: read the max-width from a --measure-* token, add data-ouro-measure to the text, or set \"measure\" in ouro-check.json.",
+      "This paragraph wraps at 1680px in a 3680px column, leaving the rest empty. Let it use the width it has: remove `.max-w-6xl { max-width: var(--container-6xl) }`. If the design sets a measure on purpose, declare it at 40ch or wider: read the max-width from a --measure-* token, add data-ouro-measure to the text, or set \"measure\" in ouro-check.json."
     ]
   }
 }
