@@ -141,12 +141,12 @@
   },
   "garden-line": {
     "from": "headers/garden-line.webp",
-    "sha256": "e3daa3bf399289e83868d961d0101d6be5c388b814eb7d384041308a260dc489",
+    "sha256": "54ea6f1bcb73503c7b21318855e669c11f65c95001662528ed3674e6d6f6e06d",
     "colour": "#c8a878"
   },
   "garden-line-dark": {
     "from": "headers/garden-line-dark.webp",
-    "sha256": "54ce7e63e516060a3598098246a75c0e26f99834f81d3031897ddead2a66bce1",
+    "sha256": "ccea0814446af4f9946c21d8c2d621d30ac759c9e47d0bdf9846969f0150c8ad",
     "colour": "#081818"
   },
   "gatefold": {
