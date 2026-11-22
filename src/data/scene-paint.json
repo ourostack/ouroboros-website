@@ -206,12 +206,12 @@
   },
   "ouro-md": {
     "from": "headers/ouro-md.webp",
-    "sha256": "425cbb57a642fccf2d16bf2a572543515ce3e8d398c627e8e852e44dc9137581",
+    "sha256": "1535408cc6e9024430d995432313568a2bc655ef62543b5599a0967c0f38c91a",
     "colour": "#f8f8e8"
   },
   "ouro-md-dark": {
     "from": "headers/ouro-md-dark.webp",
-    "sha256": "1095dd45a81a6b57bacb9c52e6dfb6f9687e178dd9f75dc525333613cf6ab213",
+    "sha256": "ba1de127b52702e20ad7fe48602b011c943b1ef25a02ec56f02bc55d275a7dbf",
     "colour": "#181828"
   },
   "ouro-native-apple-app-shell": {
