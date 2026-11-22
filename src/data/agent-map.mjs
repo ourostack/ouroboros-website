@@ -35,7 +35,7 @@ export const tools = [
   { name: 'Apps', route: '/apps/' },
   {
     name: 'Ouro UI', href: 'https://ui.ouroboros.bot/llms.txt', readiness: 'ouro-hx',
-    note: 'The home of Ouro HX, a React component library for the humans using an interface and the agents building it, with its showcase (https://ui.ouroboros.bot/voyage/) and how to install it. Ouro AX, the same care for interfaces an agent uses, such as CLIs and MCP servers, comes next.',
+    note: 'The home of Ouro HX, a React component library for the humans using an interface and the agents building it, with its showcase (https://ui.ouroboros.bot/voyage/) and how to install it. Ouro AX gives the doors an agent walks through, such as CLIs and MCP servers, the same care: each gets a sign, and CI counts any still bare (https://ui.ouroboros.bot/ax/).',
   },
   { name: 'The factory', href: 'https://ourostack.github.io/factory/llms.txt', readiness: 'factory', note: 'Our public record of how agent work actually goes.' },
   { name: 'm365crawl', href: 'https://github.com/ourostack/m365crawl', note: 'A local, searchable archive of Teams chats, Outlook mail, and meetings for an agent.' },
