@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.477",
-  "tagCommit": "34b4d2d32562037999efc233e4d07d23119c149c",
+  "tag": "v1.3.478",
+  "tagCommit": "8accfc0ffe11b6c361cfe4d68f0cbaedd7ac3c32",
   "files": {
     "lib/ouro/ax/ax-command.ts": "c96277de9e73a9633e166dfd6b5990b47dda32d08fe132b90e7de2933ca3f21f",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -46,7 +46,7 @@
     "scripts/ouro/check/motion-check.ts": "3edb03043c6b449a3eaa23788f32a641bc8e17556d16e05e37df934d0f1647b5",
     "scripts/ouro/check/new-rules.json": "bfe03d7c53d84394e84cc8abb732d7554faf9b9c3cbb4eb807928d0846e72c02",
     "scripts/ouro/check/overlap-check.ts": "b66f44b2a9e11cb51f41d0e21980931aa3a9864bd0da71623249c3f2d3e4a1ee",
-    "scripts/ouro/check/popup-check.ts": "4fc596b70e08001ea523e3948349fe599e218d4c44520d0498302892999be804",
+    "scripts/ouro/check/popup-check.ts": "bcea26ad9a5e36e63e2da3288459dc7cc401cc76d1060e8414dc347ce58dd844",
     "scripts/ouro/check/reach-check.ts": "dfc1188dab0b2aab9e9f1123ec7d113418a2c89fd0309d8cc2ce73e428a307a1",
     "scripts/ouro/check/run.kit.mts": "4487637511d50a710ff37d6ce6592be452a63a05b40f514b76ca6968c2b2b533",
     "scripts/ouro/check/run.ts": "e2cd8be4fe58f31a1bea7317bbce43164b17f3d1c8d52abf37749710f89fc1e8",
@@ -86,7 +86,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "e59b67f2555dfb2f56d3e652aee8e4790892e83b6222aa6679e1275f5fcdf748",
+    "src/lib/ouro/dev.ts": "0558f2b54f8b5a50846db1d446f297ca6a053a926b402ff614485b93dfd93f3b",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "1fefd8a8ab7cf0a69f8a63607e36cdac2fa294f087f981960c5c93853d5c18ee",
