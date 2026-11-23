@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.481",
-  "tagCommit": "283411bb1fec22b4fcac4bd7fe433bee6020bcec",
+  "tag": "v1.3.482",
+  "tagCommit": "a132375bea390370ba091737bd8578971eb9ec85",
   "files": {
     "lib/ouro/ax/ax-command.ts": "c96277de9e73a9633e166dfd6b5990b47dda32d08fe132b90e7de2933ca3f21f",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -58,7 +58,7 @@
     "scripts/ouro/check/wrap-check.ts": "474c9b7a08be766c7479931b3f0f0cb6678efcd10918d0047270f3e6fccda918",
     "src/components/ouro/alert/alert.tsx": "1a5912d20848b5d2835c89450923b7722e8373e76898450ab4799c2176517ab8",
     "src/components/ouro/button/button.tsx": "759ad72ca43631fa0aa403cd868100a270441a038693193897f72829d21bdcae",
-    "src/components/ouro/card/card.tsx": "f25397105bf0f8b7432835b6de5acb7accaf75c40049d084a2b39eb100b7eff0",
+    "src/components/ouro/card/card.tsx": "f99f8c6690bc80a189d8fc8f7e90cbe12f05aa135b55edf95df56b8ff307e478",
     "src/components/ouro/code-block/code-block-styles.ts": "a9b2d6407234804d0fe16c6741f9a88a51f8c1dfc0d1da9c6949a1735daf39c9",
     "src/components/ouro/code-block/code-block.tsx": "036cc52ebf1677e0a8d61d516b4695000bf0cf1430e00be2a91cbe7b6b55b490",
     "src/components/ouro/copy-button/copy-button.tsx": "1b2682f6f0f9d46cbf04c19f8938c30d04c3ede4d130f498d766f4ffc43c003e",
@@ -86,10 +86,10 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "c6d8462847e7c58b2a471c8b891d1cbbd8643aa37f5e4248a7ef0533d3b05b9e",
+    "src/lib/ouro/dev.ts": "1447583216b88e669c82f31ed1a426964bf9dad6ed3d52be28a653722d506d11",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
-    "src/lib/ouro/floating.ts": "1fefd8a8ab7cf0a69f8a63607e36cdac2fa294f087f981960c5c93853d5c18ee",
+    "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
     "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
     "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
     "src/lib/ouro/last-input.ts": "ccec4ba056e7319ba335c837e6207842f3de6934c1fa9568fb4b0c2eafc70e8e",
@@ -110,6 +110,6 @@
     "src/lib/ouro/use-ouro.ts": "d49e64712c98e849dd9089444b3a2eba18bdeacd59120cc5123c9b9fb78c5331",
     "src/lib/ouro/use-platform.ts": "7c86d4891f0727fe2fe30f2250f6d697d5f41428307ce400e44d8d09fabe12a5",
     "src/lib/ouro/use-reduced-motion.ts": "be3cf24c0576eaa57410d194b12c303de88269df2260409a6eda7b2c1760af4d",
-    "src/styles/ouro/ouro-base.css": "33a57fdbd717e933c5befd9d7d20d31d201819df785656f15ddfb07d7243d615"
+    "src/styles/ouro/ouro-base.css": "c0506d84158a56389f04bc5d202d7122a71acae9f62bb96c00125566d7ad6e23"
   }
 }
