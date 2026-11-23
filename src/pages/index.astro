@@ -24,7 +24,6 @@ const description = "Ari Mendelow's workshop: the tools he's built for working w
 const { winner: reviewWinner, allChose, winnerCount, totalReviews } = getModelReviewClaims(modelReviews)
 const reviewHeading = allChose ? 'Every frontier model we asked picked' : `${winnerCount} of ${totalReviews} frontier models we asked picked`
 const deskLabel = labelFor('desk-claude-code-macos')
-const hxLabel = labelFor('ouro-hx')
 const mdLabel = labelFor('ouro-md')
 const shepherdLabel = labelFor('shepherd')
 const friendsLabel = labelFor('friends')
@@ -122,6 +121,21 @@ const wastes = [
       </div>
 
       <div class="tools">
+        <article class="tool" id="ouro-ui">
+          <figure class="product-figure">
+            <a href="https://ui.ouroboros.bot/voyage/" class="product-media media-shot hx-voyage">
+              <picture class="theme-light-only"><img src="/images/workshop/hx-voyage-light.webp" width="1164" height="1051" loading="lazy" decoding="async" alt="The Ouro HX showcase: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+              <picture class="theme-dark-only"><img src="/images/workshop/hx-voyage-dark.webp" width="1164" height="1051" loading="lazy" decoding="async" alt="The Ouro HX showcase in its dark theme: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
+            </a>
+            <figcaption class="product-caption">The Ouro HX showcase, 180 fathoms down with the floodlights on.</figcaption>
+          </figure>
+          <div class="tool-copy">
+            <h3 class="tool-name">Ouro UI</h3>
+            <p>Ouro UI is how a lesson in one of my apps reaches all of them. When I learn a better way to build an interface, or a better way for my agents to test one, it goes into the kit, and every product picks it up in its next pull request: screens for people and doors for agents, on the web, Apple, Windows and Android. A public board checks all of them hourly, and paying or deleting still waits for me.</p>
+            <p class="product-links"><a href="https://ui.ouroboros.bot/" class={link}>Meet Ouro UI &#8599;</a> <a href="https://ui.ouroboros.bot/voyage/" class={link}>Try the showcase &#8599;</a> <a href="https://github.com/ourostack/ouro-ui" class={link}>Source &#8599;</a></p>
+          </div>
+        </article>
+
         <article class="tool" id="desk">
           <DeskMedia />
           <div class="tool-copy">
@@ -139,22 +153,6 @@ const wastes = [
             <p class="grown-status"><span class={`tag ${mdLabel.tone}`}>{mdLabel.label}</span></p>
             <p>My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.</p>
             <p class="product-links"><a href="/ouro-md/" class={link}>Ouro MD &rarr;</a></p>
-          </div>
-        </article>
-
-        <article class="tool" id="ouro-ui">
-          <figure class="product-figure">
-            <a href="https://ui.ouroboros.bot/voyage/" class="product-media media-shot hx-voyage">
-              <picture class="theme-light-only"><img src="/images/workshop/hx-voyage-light.webp" width="1164" height="1051" loading="lazy" decoding="async" alt="The Ouro HX showcase: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
-              <picture class="theme-dark-only"><img src="/images/workshop/hx-voyage-dark.webp" width="1164" height="1051" loading="lazy" decoding="async" alt="The Ouro HX showcase in its dark theme: a submarine porthole at 180 fathoms with the floodlights on, above a depth slider set to 180 fathoms and speed buttons." /></picture>
-            </a>
-            <figcaption class="product-caption">The Ouro HX showcase, 180 fathoms down with the floodlights on.</figcaption>
-          </figure>
-          <div class="tool-copy">
-            <h3 class="tool-name">Ouro UI</h3>
-            <p class="grown-status"><span class={`tag ${hxLabel.tone}`}>{hxLabel.label}</span></p>
-            <p>Ouro UI is the home of Ouro HX and Ouro AX. Ouro HX is a React component library that feels right to the people using it and is obvious to the agents building with it. Ouro AX gives the doors an agent walks through, such as CLIs and MCP servers, the same care: each gets a sign, and CI counts any still bare.</p>
-            <p class="product-links"><a href="https://ui.ouroboros.bot/" class={link}>Ouro UI &#8599;</a> <a href="https://ui.ouroboros.bot/voyage/" class={link}>Try the showcase &#8599;</a> <a href="https://github.com/ourostack/ouro-ui" class={link}>Source &#8599;</a></p>
           </div>
         </article>
 

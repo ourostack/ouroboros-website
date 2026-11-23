@@ -23,7 +23,7 @@ export const readiness = [
   { id: 'desk-codex', name: 'Codex', label: 'Experimental', detail: "Runs, and hasn't been proven in daily use yet" },
   { id: 'desk-hosted', name: 'Hosted Desk on claude.ai', label: 'Not open yet', detail: 'Sign-in by invitation' },
   { id: 'ouro-md', name: 'Ouro MD', label: 'Use today', detail: 'macOS 15 or later' },
-  { id: 'ouro-hx', name: 'Ouro HX', label: 'Use today', detail: 'React component library' },
+  { id: 'ouro-hx', name: 'Ouro UI', label: 'Use today', detail: 'For every interface you build' },
   { id: 'shepherd', name: 'Ouro Shepherd', label: 'Experimental', detail: 'Watches, messages and archives the Copilot app’s sessions; terminals through Ouroboros' },
   { id: 'friends', name: 'Friends', label: 'Experimental', detail: 'On npm, and used by Ouroboros every day' },
   { id: 'butler', name: 'Ouro Butler', label: 'Alpha', detail: 'Installs on Unraid 7.2 or newer with one script' },

@@ -124,7 +124,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
   ]);
   assert.doesNotMatch(text, /Aronnax|Things I've built|tested in real browsers/);
   const tools = [...html.matchAll(/<article class="tool"[^>]*id="([^"]+)"/g)].map(([, id]) => id);
-  assert.deepEqual(tools, ['desk', 'ouro-md', 'ouro-ui', 'm365crawl', 'spoonjoy']);
+  assert.deepEqual(tools, ['ouro-ui', 'desk', 'ouro-md', 'm365crawl', 'spoonjoy']);
   for (const href of ['/ouro-md/', '/desk/', '/blog/what-is-agent-experience/', 'https://mendelow.me/#spoonjoy-story', 'https://spoonjoy.app', 'https://github.com/ourostack/m365crawl']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
   const outside = html.replace(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/, '');
   assert.doesNotMatch(outside, /Microsoft 365/, 'Microsoft 365 is named only in the m365crawl entry');
@@ -366,9 +366,9 @@ test('homepage sections appear in reading order', () => {
     'Failure modes I watch for',
     "What's been working",
     'Built by watching agents work',
+    'Ouro UI is how a lesson in one of my apps reaches all of them.',
     "Desk keeps my agents' work in a Git repository",
     'My agents write their plans and reports in Markdown.',
-    'Ouro HX is a React component library',
     'm365crawl gives my agent one searchable archive',
     "Spoonjoy is my recipe app, and where I work out",
     'Software factories can learn from real ones.',
