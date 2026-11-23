@@ -203,13 +203,37 @@ const result = { base, pages: pages.length, checked: 0, worst: 0, failures: [], 
 // Each page, viewport and scheme is read in its own context, SEAMS_JOBS at a
 // time (default 4); results are gathered in the same order as a serial run.
 const tasks = pages.flatMap((page) => VIEWPORTS.flatMap(([width, height]) => ['light', 'dark'].map((scheme) => ({ page, width, height, scheme }))));
-async function read({ page, width, height, scheme }) {
+// One view takes a few seconds; a view that takes this long has hung, and the
+// error names it and the step it was on instead of leaving the run to be killed silently.
+const VIEW_TIMEOUT_MS = 60_000;
+async function read(task) {
+  const { page, width, height, scheme } = task;
+  const tag = `${width}${scheme[0]} ${page}`;
+  const state = { step: 'starting' };
+  const started = Date.now();
+  console.log(`start  ${tag}`);
+  let timer;
+  const hung = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`${tag} did not finish in ${VIEW_TIMEOUT_MS / 1000} s; last step: ${state.step}`)), VIEW_TIMEOUT_MS);
+  });
+  try {
+    const out = await Promise.race([readView(task, state), hung]);
+    console.log(`done   ${tag} (${((Date.now() - started) / 1000).toFixed(1)} s)`);
+    return out;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+async function readView({ page, width, height, scheme }, state) {
   const out = { checked: 0, worst: 0, failures: [], all: [], late: [], scenes: [] };
   const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: scheme, reducedMotion: 'reduce', deviceScaleFactor: 1 });
+  state.step = 'opening the page';
   await ctx.addInitScript((t) => { try { localStorage.setItem('theme', t); } catch {} }, scheme);
   const p = await ctx.newPage();
   await p.goto(base + page, { waitUntil: 'load' });
+  state.step = 'waiting for pictures to settle';
   const late = await p.evaluate(`(${settle.toString()})(${SETTLE_MS})`);
+  state.step = 'marking hairlines';
   // Mark every block that really draws the hairline on its top edge (its
   // ::before is shown, 1px tall, on the edge, in a colour), before hiding it.
   await p.evaluate(() => {
@@ -225,18 +249,21 @@ async function read({ page, width, height, scheme }) {
   });
   await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
   await p.evaluate(() => document.fonts.ready);
+  state.step = 'finding section changes';
   const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
   // In slices: a full-page PNG taller than about 32k px (the model-review
   // transcripts at 1440) is past what the browser can decode in one image.
   const edges = { left: [], right: [], height: 0 };
   for (let top = 0; top < m.height; top += SLICE) {
     const h = Math.min(SLICE, m.height - top);
+    state.step = `capturing slice at y=${top}`;
     const left = await strip(await p.screenshot({ fullPage: true, clip: { x: 2, y: top, width: 12, height: h } }));
     const right = await strip(await p.screenshot({ fullPage: true, clip: { x: width - 14, y: top, width: 12, height: h } }));
     edges.left.push(...left.rows);
     edges.right.push(...right.rows);
     edges.height += left.height;
   }
+  state.step = 'closing the context';
   await ctx.close();
   const tag = `${width}${scheme[0]} ${page}`;
   out.late.push(...late.map((what) => `${tag}: ${what} had not arrived after ${SETTLE_MS / 1000} s`));
