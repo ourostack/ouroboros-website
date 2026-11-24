@@ -29,6 +29,13 @@ const pages = {
     '<div class="cover"></div>',
     '.cover{position:absolute;left:0;top:1100px;width:100%;height:200px} .lit .cover{background:url(/slow-gradient.svg) 0 0/100% 100% no-repeat}',
   ).replace('</body>', '<script>addEventListener("load",()=>document.body.classList.add("lit"))</script></body>'),
+  // No seam at its own size, with a deferred, slow picture sized from the viewport height over
+  // the change (as the site sizes its hero and scenes from vh and svh). A full-page capture
+  // stretches the viewport while it runs, which moves everything below and, on a busy runner,
+  // reads the page at another size (website#562: the meadow drawn 12 rows below where it was
+  // measured). The page marks a change of viewport with a seam, so a check that resizes it fails
+  // every time, not only on a slow machine.
+  '/viewport/': `<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:rgb(16,16,16)} main{position:relative} main>section{height:120vh;background:rgb(16,16,16)} .moved main>.b{background:rgb(56,56,56)} .cover{position:absolute;left:0;top:calc(120vh - 15vh);width:100%;height:30vh;display:block} footer{height:300px;background:rgb(16,16,16)}</style></head><body><main><section class="a"></section><section class="b"></section><div class="story-scene cover"><img alt="" data-src="/slow-gradient.svg" style="display:block;width:100%;height:100%"></div></main><footer></footer><script>addEventListener("resize",()=>document.body.classList.add("moved"));addEventListener("load",()=>{for(const i of document.querySelectorAll("img[data-src]"))i.src=i.dataset.src})</script></body></html>`,
 };
 
 async function serve() {
@@ -85,5 +92,14 @@ test('section seams: a slow CSS background over a section change is loaded befor
     const { code, out } = await check(`http://localhost:${server.address().port}`, '/background/');
     assert.equal(code, 0, out);
     assert.match(out, /0 seams over 6/);
+  } finally { server.close(); }
+});
+
+test('section seams: the page is read at its own viewport, never stretched for a full-page capture, with a deferred picture sized from the viewport over the change', async () => {
+  const server = await serve();
+  try {
+    const { code, out } = await check(`http://localhost:${server.address().port}`, '/viewport/');
+    assert.equal(code, 0, out);
+    assert.match(out, / 0 seams over 6/);
   } finally { server.close(); }
 });

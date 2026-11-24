@@ -166,7 +166,6 @@ function changes() {
   return { at: [...out].filter(([v]) => v > WINDOW_ && v < height - 2).sort((a, b) => a[0] - b[0]), scenes, height };
 }
 
-const SLICE = 8000;
 // How long a page's pictures have to arrive and decode before its rows are read anyway (the log then names them).
 const SETTLE_MS = 20_000;
 // Playwright turns on Chromium's CDPScreenshotNewSurface, which copies the
@@ -251,14 +250,24 @@ async function readView({ page, width, height, scheme }, state) {
   await p.evaluate(() => document.fonts.ready);
   state.step = 'finding section changes';
   const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
-  // In slices: a full-page PNG taller than about 32k px (the model-review
-  // transcripts at 1440) is past what the browser can decode in one image.
+  // A screen at a time, scrolled into view, at the page's own viewport. A
+  // full-page capture stretches the viewport while it runs, and the site sizes
+  // its hero and scenes from vh and svh, so everything below them moved during
+  // the capture and, on a busy runner, was read at another place than it was
+  // measured (website#562: the meadow drawn 12 rows below its measured foot).
+  // Fixed and sticky elements are hidden first, so none repeats in every screen.
+  await p.evaluate(() => {
+    for (const el of document.querySelectorAll('body *')) if (/^(fixed|sticky)$/.test(getComputedStyle(el).position)) el.style.setProperty('visibility', 'hidden', 'important');
+  });
   const edges = { left: [], right: [], height: 0 };
-  for (let top = 0; top < m.height; top += SLICE) {
-    const h = Math.min(SLICE, m.height - top);
-    state.step = `capturing slice at y=${top}`;
-    const left = await strip(await p.screenshot({ fullPage: true, clip: { x: 2, y: top, width: 12, height: h } }));
-    const right = await strip(await p.screenshot({ fullPage: true, clip: { x: width - 14, y: top, width: 12, height: h } }));
+  for (let top = 0; top < m.height; top += height) {
+    const h = Math.min(height, m.height - top);
+    state.step = `capturing the screen at y=${top}`;
+    // At the foot the page scrolls only as far as it goes; the rows from top to
+    // top + h are still in view, lower down it. A clip is in viewport coordinates.
+    const at = await p.evaluate(async (y) => { scrollTo(0, y); await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))); return y - scrollY; }, top);
+    const left = await strip(await p.screenshot({ clip: { x: 2, y: at, width: 12, height: h } }));
+    const right = await strip(await p.screenshot({ clip: { x: width - 14, y: at, width: 12, height: h } }));
     edges.left.push(...left.rows);
     edges.right.push(...right.rows);
     edges.height += left.height;
