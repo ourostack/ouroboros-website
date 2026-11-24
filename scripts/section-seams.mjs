@@ -96,9 +96,10 @@ if (!base) {
 // waited for (complete, then decode()), and so is every CSS background image,
 // on any element or its ::before or ::after. Returns what did not arrive in
 // SETTLE_MS, for the log.
-async function settle(limit) {
+async function settle(limit, FRAME_MS) {
   const until = Date.now() + limit;
-  const frame = () => new Promise((resolve) => requestAnimationFrame(() => resolve()));
+  // A page Chromium holds back as hidden never runs requestAnimationFrame, so a frame is never waited for longer than FRAME_MS.
+  const frame = () => new Promise((resolve) => { const t = setTimeout(resolve, FRAME_MS); requestAnimationFrame(() => { clearTimeout(t); resolve(); }); });
   for (const img of document.images) if (img.loading === 'lazy') img.loading = 'eager';
   for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight) { scrollTo(0, y); await frame(); }
   scrollTo(0, 0);
@@ -168,6 +169,8 @@ function changes() {
 
 // How long a page's pictures have to arrive and decode before its rows are read anyway (the log then names them).
 const SETTLE_MS = 20_000;
+// The longest a page's frame is waited for before reading goes on without it.
+const FRAME_MS = 1_000;
 // Playwright turns on Chromium's CDPScreenshotNewSurface, which copies the
 // page for a screenshot before the browser has drawn a frame for it and
 // sometimes gets nothing back ("Unable to capture screenshot"). Without it,
@@ -231,7 +234,7 @@ async function readView({ page, width, height, scheme }, state) {
   const p = await ctx.newPage();
   await p.goto(base + page, { waitUntil: 'load' });
   state.step = 'waiting for pictures to settle';
-  const late = await p.evaluate(`(${settle.toString()})(${SETTLE_MS})`);
+  const late = await p.evaluate(`(${settle.toString()})(${SETTLE_MS}, ${FRAME_MS})`);
   state.step = 'marking hairlines';
   // Mark every block that really draws the hairline on its top edge (its
   // ::before is shown, 1px tall, on the edge, in a colour), before hiding it.
@@ -265,7 +268,13 @@ async function readView({ page, width, height, scheme }, state) {
     state.step = `capturing the screen at y=${top}`;
     // At the foot the page scrolls only as far as it goes; the rows from top to
     // top + h are still in view, lower down it. A clip is in viewport coordinates.
-    const at = await p.evaluate(async (y) => { scrollTo(0, y); await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))); return y - scrollY; }, top);
+    const at = await p.evaluate(async ([y, frameMs]) => {
+      scrollTo(0, y);
+      const frame = () => new Promise((resolve) => { const t = setTimeout(resolve, frameMs); requestAnimationFrame(() => { clearTimeout(t); resolve(); }); });
+      await frame();
+      await frame();
+      return y - scrollY;
+    }, [top, FRAME_MS]);
     const left = await strip(await p.screenshot({ clip: { x: 2, y: at, width: 12, height: h } }));
     const right = await strip(await p.screenshot({ clip: { x: width - 14, y: at, width: 12, height: h } }));
     edges.left.push(...left.rows);
