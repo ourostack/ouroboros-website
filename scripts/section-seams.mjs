@@ -95,10 +95,12 @@ if (!base) {
 // them) are brought in by a scroll to the foot and back; every <img> is then
 // waited for (complete, then decode()), and so is every CSS background image,
 // on any element or its ::before or ::after. Returns what did not arrive in
-// SETTLE_MS, for the log.
-async function settle(limit) {
+// SETTLE_MS and how many frame waits timed out, for the log.
+async function settle(limit, FRAME_MS) {
   const until = Date.now() + limit;
-  const frame = () => new Promise((resolve) => requestAnimationFrame(() => resolve()));
+  // A page Chromium holds back as hidden never runs requestAnimationFrame, so a frame is never waited for longer than FRAME_MS.
+  let timedOut = 0;
+  const frame = () => new Promise((resolve) => { const t = setTimeout(() => { timedOut++; resolve(); }, FRAME_MS); requestAnimationFrame(() => { clearTimeout(t); resolve(); }); });
   for (const img of document.images) if (img.loading === 'lazy') img.loading = 'eager';
   for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight) { scrollTo(0, y); await frame(); }
   scrollTo(0, 0);
@@ -134,7 +136,7 @@ async function settle(limit) {
   await frame();
   await frame();
   for (const img of document.images) if (img.getClientRects().length && ((img.dataset.src && !img.getAttribute('src')) || !arrived(img))) late.push(`img ${img.currentSrc || img.dataset.src || img.getAttribute('src')}`);
-  return late;
+  return { late, timedOut };
 }
 
 // Runs in the page: every section change, and the scene images to skip.
@@ -168,6 +170,8 @@ function changes() {
 
 // How long a page's pictures have to arrive and decode before its rows are read anyway (the log then names them).
 const SETTLE_MS = 20_000;
+// The longest a page's frame is waited for before reading goes on without it.
+const FRAME_MS = 1_000;
 // Playwright turns on Chromium's CDPScreenshotNewSurface, which copies the
 // page for a screenshot before the browser has drawn a frame for it and
 // sometimes gets nothing back ("Unable to capture screenshot"). Without it,
@@ -198,7 +202,7 @@ async function strip(png) {
     return { rows: out, height: h };
   }, 'data:image/png;base64,' + png.toString('base64'));
 }
-const result = { base, pages: pages.length, checked: 0, worst: 0, failures: [], all: [], late: [], scenes: [] };
+const result = { base, pages: pages.length, checked: 0, worst: 0, failures: [], all: [], late: [], scenes: [], frameTimeouts: [] };
 // Each page, viewport and scheme is read in its own context, SEAMS_JOBS at a
 // time (default 4); results are gathered in the same order as a serial run.
 const tasks = pages.flatMap((page) => VIEWPORTS.flatMap(([width, height]) => ['light', 'dark'].map((scheme) => ({ page, width, height, scheme }))));
@@ -217,21 +221,24 @@ async function read(task) {
   });
   try {
     const out = await Promise.race([readView(task, state), hung]);
-    console.log(`done   ${tag} (${((Date.now() - started) / 1000).toFixed(1)} s)`);
+    console.log(`done   ${tag} (${((Date.now() - started) / 1000).toFixed(1)} s)${out.frameTimeouts ? ` frame wait timed out ${out.frameTimeouts}x` : ''}`);
     return out;
   } finally {
     clearTimeout(timer);
   }
 }
 async function readView({ page, width, height, scheme }, state) {
-  const out = { checked: 0, worst: 0, failures: [], all: [], late: [], scenes: [] };
+  const out = { checked: 0, worst: 0, failures: [], all: [], late: [], scenes: [], frameTimeouts: 0 };
   const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: scheme, reducedMotion: 'reduce', deviceScaleFactor: 1 });
   state.step = 'opening the page';
   await ctx.addInitScript((t) => { try { localStorage.setItem('theme', t); } catch {} }, scheme);
   const p = await ctx.newPage();
   await p.goto(base + page, { waitUntil: 'load' });
   state.step = 'waiting for pictures to settle';
-  const late = await p.evaluate(`(${settle.toString()})(${SETTLE_MS})`);
+  // A view is read in a page that is in front, so Chromium never throttles its frames as a hidden one's.
+  await p.bringToFront();
+  const { late, timedOut } = await p.evaluate(`(${settle.toString()})(${SETTLE_MS}, ${FRAME_MS})`);
+  out.frameTimeouts = timedOut;
   state.step = 'marking hairlines';
   // Mark every block that really draws the hairline on its top edge (its
   // ::before is shown, 1px tall, on the edge, in a colour), before hiding it.
@@ -265,7 +272,15 @@ async function readView({ page, width, height, scheme }, state) {
     state.step = `capturing the screen at y=${top}`;
     // At the foot the page scrolls only as far as it goes; the rows from top to
     // top + h are still in view, lower down it. A clip is in viewport coordinates.
-    const at = await p.evaluate(async (y) => { scrollTo(0, y); await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))); return y - scrollY; }, top);
+    const { at, timedOut: scrollTimedOut } = await p.evaluate(async ([y, frameMs]) => {
+      scrollTo(0, y);
+      let timedOut = 0;
+      const frame = () => new Promise((resolve) => { const t = setTimeout(() => { timedOut++; resolve(); }, frameMs); requestAnimationFrame(() => { clearTimeout(t); resolve(); }); });
+      await frame();
+      await frame();
+      return { at: y - scrollY, timedOut };
+    }, [top, FRAME_MS]);
+    out.frameTimeouts += scrollTimedOut;
     const left = await strip(await p.screenshot({ clip: { x: 2, y: at, width: 12, height: h } }));
     const right = await strip(await p.screenshot({ clip: { x: width - 14, y: at, width: 12, height: h } }));
     edges.left.push(...left.rows);
@@ -275,6 +290,7 @@ async function readView({ page, width, height, scheme }, state) {
   state.step = 'closing the context';
   await ctx.close();
   const tag = `${width}${scheme[0]} ${page}`;
+  out.tag = tag;
   out.late.push(...late.map((what) => `${tag}: ${what} had not arrived after ${SETTLE_MS / 1000} s`));
   out.scenes.push(...m.scenes.map(([a, b, what]) => `${tag} y=${a}-${b}: ${what}`));
   const inScene = (r) => m.scenes.some(([a, b]) => r >= a - 1 && r <= b + 1);
@@ -323,6 +339,7 @@ for (const out of outs) {
   result.all.push(...out.all);
   result.failures.push(...out.failures);
   result.late.push(...out.late);
+  if (out.frameTimeouts) result.frameTimeouts.push(`${out.tag}: ${out.frameTimeouts}`);
   result.scenes.push(...out.scenes);
 }
 await browser.close();
@@ -331,5 +348,6 @@ server?.close();
 if (opt('--json')) await writeFile(opt('--json'), JSON.stringify(result, null, 2));
 console.log(`${pages.length} pages at 1440 and 390, light and dark: ${result.checked} section changes, worst row step ${result.worst.toFixed(1)}, ${result.failures.length} seams over ${MAX_JUMP}`);
 for (const f of result.failures) console.log(`  ${f}`);
+if (result.frameTimeouts.length) console.log(`  warning: frame wait timed out in ${result.frameTimeouts.length} views, so they were read without waiting for a frame: ${result.frameTimeouts.join('; ')}`);
 for (const l of result.late) console.log(`  warning: ${l}`);
 process.exit(result.failures.length ? 1 : 0);
