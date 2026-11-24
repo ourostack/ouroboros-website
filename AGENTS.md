@@ -12,6 +12,8 @@ Follow ourostack's shared rule, [every PR merges fast](https://github.com/ourost
 
 **[Interfaces follow Ouro UI](https://github.com/ourostack/.github/blob/main/agents/interfaces-follow-ouro-ui.md).** Every screen a person uses is built from Ouro HX, every door an agent uses is declared once with `ouro-actions` and checked by the Ouro AX X-ray in CI, Ouro is taken from its release tags (never copied by hand) and kept within a day of them, and what Ouro lacks is fixed in Ouro first.
 
+**[Images must load on the recipient's phone](https://github.com/ourostack/.github/blob/main/agents/images-load-on-mobile.md).** Attach images with the platform's own attachment (never a blob/ or raw.githubusercontent.com link, never a copy to a public place), and say only what was observed: a served upload is not a rendered page, and native Mobile and Teams rendering is unverified.
+
 ## What this site is
 
 `ouroboros.bot` — Ari's method-first site: how to collaborate with agents (the approach, the brief for agents), the tools that support it (Desk, Ouro MD, the factory), the blog, and the Lab: the Ouroboros harness, Slugger's story, docs and model reviews. The harness and Slugger are where the method came from, so the Lab is a first-class section, not an archive. Astro 5 + Tailwind v4, served as static assets by a Cloudflare Worker (`src/worker/index.ts`).
