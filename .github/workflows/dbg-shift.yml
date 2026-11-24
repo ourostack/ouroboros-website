@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        n: [1, 2, 3, 4]
+        n: [1, 2, 3, 4, 5, 6, 7, 8]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,14 +15,9 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run build
-      - name: check approach repeatedly, with and without load
+      - name: the real shard 4/6
         run: |
-          for i in 1 2 3 4 5 6; do
-            if [ "${{ matrix.n }}" -gt 2 ]; then (for c in 1 2; do timeout 40 sh -c 'while :; do :; done' & done) ; fi
-            echo "RUN $i load=${{ matrix.n }}"
-            node scripts/ouro/check/check.ts dist --pages /approach/ --sizes 1440x900 --themes light --no-axe --out oc$i > oc$i.log 2>&1 || true
-            grep -h "layout-shift\|layout shift" oc$i.log | head -3
-            python3 -c "
-          import json;d=json.load(open('oc$i/report.json'))
-          print([ (f['rule'],f.get('value')) for f in d['findings'] if f['rule']=='layout-shift'])"
-          done
+          node scripts/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out oc --shard 4/6 > oc.log 2>&1 || true
+          python3 -c "
+          import json;d=json.load(open('oc/report.json'))
+          print('SHIFTS',[ (f['page'],f['width'],f['theme'],f.get('value'),f['element'][:60]) for f in d['findings'] if f['rule']=='layout-shift'])"
