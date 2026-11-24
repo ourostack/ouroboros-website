@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.523",
-  "tagCommit": "53399aaeaf8806aee924523b34f23977ca579d8d",
+  "tag": "v1.3.524",
+  "tagCommit": "d75a38e7ba6ad55ac4358cd8b45726517fc068e4",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -89,7 +89,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "a15c75b1573ace73c1d1abe5d155cbaecaf206c0119c3a308f52620cb1294d6b",
+    "src/lib/ouro/dev.ts": "19215b450256ad6caff74317198e23b51583b0ecac3babbcf5afed875e37bf77",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
@@ -113,6 +113,6 @@
     "src/lib/ouro/use-ouro.ts": "d49e64712c98e849dd9089444b3a2eba18bdeacd59120cc5123c9b9fb78c5331",
     "src/lib/ouro/use-platform.ts": "7c86d4891f0727fe2fe30f2250f6d697d5f41428307ce400e44d8d09fabe12a5",
     "src/lib/ouro/use-reduced-motion.ts": "be3cf24c0576eaa57410d194b12c303de88269df2260409a6eda7b2c1760af4d",
-    "src/styles/ouro/ouro-base.css": "9786a0d2df8096fe4d606e136482e7c8db0ebb364741f9cf5fd51dd44522673d"
+    "src/styles/ouro/ouro-base.css": "f227da8bded769470eed15e13be5e35930cc6fefdb0ae964701d211010b3ee35"
   }
 }
