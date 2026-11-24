@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import codeWrap from './src/lib/code-wrap.mjs';
 import pageMarkdown from './src/lib/page-markdown.mjs';
+import { squircleCorners } from './src/lib/ouro/squircle-corners';
 
 export default defineConfig({
   site: 'https://ouroboros.bot',
@@ -19,6 +20,7 @@ export default defineConfig({
     '/origin': '/blog/build-ai-agent-from-scratch/',
   },
   vite: {
+    css: { postcss: { plugins: [squircleCorners()] } },
     plugins: [tailwindcss()]
   },
 });
