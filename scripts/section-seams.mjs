@@ -251,6 +251,17 @@ async function readView({ page, width, height, scheme }, state) {
   await p.evaluate(() => document.fonts.ready);
   state.step = 'finding section changes';
   const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
+  if (page.includes('build-ai-agent') && width === 1440 && scheme === 'light') {
+    const dbg = await p.evaluate(() => {
+      const out = [`h=${document.documentElement.scrollHeight} bodyh=${document.body.getBoundingClientRect().height}`];
+      for (const sel of ['main', '.story-meadow', 'footer', '.site-footer']) { const e = document.querySelector(sel); if (e) { const r = e.getBoundingClientRect(); out.push(`${sel} top=${r.top + scrollY} bottom=${r.bottom + scrollY}`); } }
+      const ft = document.querySelector('footer').getBoundingClientRect().top + scrollY;
+      for (let dy = -4; dy <= 20; dy += 2) { window.scrollTo(0, ft + dy - 100); const els = document.elementsFromPoint(8, 100).slice(0, 4).map((e) => `${e.tagName}.${String(e.className).slice(0, 40)}:${getComputedStyle(e).backgroundColor}`); out.push(`dy=${dy}: ${els.join(' | ')}`); }
+      window.scrollTo(0, 0);
+      return out;
+    });
+    console.log('DBG ' + dbg.join('\nDBG '));
+  }
   // In slices: a full-page PNG taller than about 32k px (the model-review
   // transcripts at 1440) is past what the browser can decode in one image.
   const edges = { left: [], right: [], height: 0 };
