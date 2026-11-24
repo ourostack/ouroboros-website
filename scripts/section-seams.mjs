@@ -249,19 +249,32 @@ async function readView({ page, width, height, scheme }, state) {
   });
   await p.addStyleTag({ content: 'header, .site-header, nav, .skip-link { visibility: hidden !important; } .reveal { opacity: 1 !important; transform: none !important; } [data-seam-trail]::before, [data-seam-trail-foot]::after { display: none !important; }' });
   await p.evaluate(() => document.fonts.ready);
-  state.step = 'finding section changes';
-  const m = await p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
-  // In slices: a full-page PNG taller than about 32k px (the model-review
-  // transcripts at 1440) is past what the browser can decode in one image.
-  const edges = { left: [], right: [], height: 0 };
-  for (let top = 0; top < m.height; top += SLICE) {
-    const h = Math.min(SLICE, m.height - top);
-    state.step = `capturing slice at y=${top}`;
-    const left = await strip(await p.screenshot({ fullPage: true, clip: { x: 2, y: top, width: 12, height: h } }));
-    const right = await strip(await p.screenshot({ fullPage: true, clip: { x: width - 14, y: top, width: 12, height: h } }));
-    edges.left.push(...left.rows);
-    edges.right.push(...right.rows);
-    edges.height += left.height;
+  const measure = () => p.evaluate(`(${changes.toString().replace('WINDOW_', String(WINDOW))})()`);
+  // Where the section changes and pictures sit is read before the rows are
+  // captured, so a layout that moves in between (a late font or picture) would
+  // put a picture's edge on a row that was not skipped: the rows are read again
+  // until the layout holds still through a whole capture.
+  let m;
+  let edges;
+  for (let attempt = 1; ; attempt++) {
+    state.step = 'finding section changes';
+    m = await measure();
+    // In slices: a full-page PNG taller than about 32k px (the model-review
+    // transcripts at 1440) is past what the browser can decode in one image.
+    edges = { left: [], right: [], height: 0 };
+    for (let top = 0; top < m.height; top += SLICE) {
+      const h = Math.min(SLICE, m.height - top);
+      state.step = `capturing slice at y=${top}`;
+      const left = await strip(await p.screenshot({ fullPage: true, clip: { x: 2, y: top, width: 12, height: h } }));
+      const right = await strip(await p.screenshot({ fullPage: true, clip: { x: width - 14, y: top, width: 12, height: h } }));
+      edges.left.push(...left.rows);
+      edges.right.push(...right.rows);
+      edges.height += left.height;
+    }
+    state.step = 'checking the layout held still';
+    if (JSON.stringify(await measure()) === JSON.stringify(m)) break;
+    if (attempt === 3) throw new Error(`${width}${scheme[0]} ${page}: the layout kept moving while its rows were read (3 attempts)`);
+    console.log(`retry  ${width}${scheme[0]} ${page}: the layout moved during the capture (attempt ${attempt})`);
   }
   state.step = 'closing the context';
   await ctx.close();
