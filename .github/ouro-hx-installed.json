@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.518",
-  "tagCommit": "69676dc7046cfe29f049b88f6aa868f4885f244e",
+  "tag": "v1.3.519",
+  "tagCommit": "c6a1c878f9764bdca6d12d8c2347bcf684f9f11c",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -23,7 +23,7 @@
     "scripts/ouro/check/check-register.ts": "b400a00a53aab44d51c4eaa605e41bba6f5aa5d4b4b6345ba03b240494e25a34",
     "scripts/ouro/check/check.ts": "e9b1a5a2126ff2ffc37346a3bab16d32fab5947ef2c85033921a615d91dd0cf7",
     "scripts/ouro/check/decision-check.ts": "b076156e74229b97d6e3d89926fabef086159c54f6685652ff585935147e939a",
-    "scripts/ouro/check/design-check.ts": "c6ed249664ecfc0bc8bbf88fc1efe83757a04c12324a0a796ced354aa7d2451c",
+    "scripts/ouro/check/design-check.ts": "719b9fb9937f9325ced1fab169c5836b3b195cdc2283d27167319b44368c7816",
     "scripts/ouro/check/fade-check.ts": "915e4643d68eaac8dd331bed03e2af5cb5e6ba7e9df3f591b042ece4bd13ad6f",
     "scripts/ouro/check/fades.ts": "a3f0f241c46f7a3e507e55ba5c229e130846ce246261568ff5e204e685091500",
     "scripts/ouro/check/first-run-ax-tree.swift": "39a97d6549a9fdae2595f4d06f0706a391f913e2dbefdaed24483b24f08569ed",
@@ -45,12 +45,12 @@
     "scripts/ouro/check/layout-check.ts": "ab97109689eb596ae1164834b523a53aa73835d3c47f1c637314084b16aabc2d",
     "scripts/ouro/check/measure.ts": "236fa1b3bbb3ebb172861ef185adb8cf45dba86da46891818f68690a6db0a650",
     "scripts/ouro/check/motion-check.ts": "3edb03043c6b449a3eaa23788f32a641bc8e17556d16e05e37df934d0f1647b5",
-    "scripts/ouro/check/new-rules.json": "349c22f49b0c953ac2f458911d1140435d7e0b54adefa652ba87aa8dadd74c71",
+    "scripts/ouro/check/new-rules.json": "63698773b645e552e1101d704d52940c959eb81481899f2fe428a6258b3bf3f0",
     "scripts/ouro/check/overlap-check.ts": "b66f44b2a9e11cb51f41d0e21980931aa3a9864bd0da71623249c3f2d3e4a1ee",
     "scripts/ouro/check/popup-check.ts": "bcea26ad9a5e36e63e2da3288459dc7cc401cc76d1060e8414dc347ce58dd844",
     "scripts/ouro/check/reach-check.ts": "dfc1188dab0b2aab9e9f1123ec7d113418a2c89fd0309d8cc2ce73e428a307a1",
     "scripts/ouro/check/run.kit.mts": "4487637511d50a710ff37d6ce6592be452a63a05b40f514b76ca6968c2b2b533",
-    "scripts/ouro/check/run.ts": "256c59dfc70444fc6b1074674c87517a60f038df5e45d1ec7ea729dce69277f2",
+    "scripts/ouro/check/run.ts": "af508cb2a6b570240ba561233f5b401c746f92fb3f463066d4e0402bd2d6c4d5",
     "scripts/ouro/check/serve.ts": "eaf5b495eb10615a73d5e3f7f2cc3caa52ed3f527a6124c510d704c8855eceb3",
     "scripts/ouro/check/size-check.ts": "a2ed6e07d3c8faf34dc4e816e2aa1ef929a1355a7f1469e2f4f4676abbc3e275",
     "scripts/ouro/check/text-check.ts": "6bfeddf9f3669a6d741f10baf62d94c0be80db620a4d55163187312c57df8934",
@@ -89,7 +89,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "d319de509fa88aa9cd49e2112451476ed5ebb5efe211ad7b6d69abf2236667c9",
+    "src/lib/ouro/dev.ts": "e759b25ae57d30422128a14c42eca5b36cc1da3df2faf3a907a3dd7e76d32fcd",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
@@ -103,7 +103,7 @@
     "src/lib/ouro/refs.ts": "7e31ecde6b3b78404391e1c5fe04e35e1a790cf86bc38c2184cf77be5f4e16a1",
     "src/lib/ouro/router-link.ts": "b4ebc9021f70fff0bbab81f1caaba542aa8ae4b89bc6395950c8fcbd7cbef966",
     "src/lib/ouro/server-element.ts": "0d183afd9030b7fcead16078c7363ccef84af13fda8a4becfe1a201bd1b14eb9",
-    "src/lib/ouro/squircle-corners.ts": "e054bd52cf6e789dea1f2a193264363142f6da57afd3638ee89031db0d956c42",
+    "src/lib/ouro/squircle-corners.ts": "afb0b83a10ab8075cd064c84949a85405cdcc1bf354052a636e1504cfde8b511",
     "src/lib/ouro/stretched-link.ts": "c4346428583921ffb6671d3e1451c2c0f2309329b4b31ff398e9abf653a510a2",
     "src/lib/ouro/tones.ts": "22ef28371ff315f7ed8975d330036c073885e226856f7059e47c80d9fd06f72b",
     "src/lib/ouro/touch-target.tsx": "fd70ffb45a1627849eef2652c3513a35963dfd15b5a9896a010054f8352447fb",
@@ -113,6 +113,6 @@
     "src/lib/ouro/use-ouro.ts": "d49e64712c98e849dd9089444b3a2eba18bdeacd59120cc5123c9b9fb78c5331",
     "src/lib/ouro/use-platform.ts": "7c86d4891f0727fe2fe30f2250f6d697d5f41428307ce400e44d8d09fabe12a5",
     "src/lib/ouro/use-reduced-motion.ts": "be3cf24c0576eaa57410d194b12c303de88269df2260409a6eda7b2c1760af4d",
-    "src/styles/ouro/ouro-base.css": "98deadabf58396aec92351aa3c4fa589b79935b9b4588c8f0d2a9efe4d55bfb6"
+    "src/styles/ouro/ouro-base.css": "9786a0d2df8096fe4d606e136482e7c8db0ebb364741f9cf5fd51dd44522673d"
   }
 }
