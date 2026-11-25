@@ -417,8 +417,10 @@ test('every page carries the family bar above the nav, this site marked', () => 
     const bar = html.match(/<nav\b[^>]*data-ouro="family-bar"[\s\S]*?<\/nav>/)?.[0];
     assert.ok(bar, `${file}: no family bar`);
     assert.ok(html.indexOf(bar) < html.indexOf('id="main-nav"'), `${file}: the family bar sits above the nav`);
-    assert.deepEqual([...bar.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]), family.map((l) => l.label));
-    const marked = [...bar.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
+    // Each link opens on its TouchTarget span (Ouro UI v1.3.540), so a link's text is read without its tags.
+    const linkText = (m) => m[1].replace(/<[^>]*>/g, '');
+    assert.deepEqual([...bar.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)].map(linkText), family.map((l) => l.label));
+    const marked = [...bar.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([\s\S]*?)<\/a>/g)].map(linkText);
     assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the bar marks ${current}`);
     // The home page hydrates its Agent view switch; the bar is never inside an island.
     for (const [island] of html.matchAll(/<astro-island\b[\s\S]*?<\/astro-island>/g)) assert.ok(!island.includes('data-ouro="family-bar"'), `${file}: the family bar ships no client script`);
@@ -428,8 +430,9 @@ test('every page carries the family bar above the nav, this site marked', () => 
 // The critics' pass (2026-11-09): one Tab and Enter skip the chrome; the
 // three navs carry the family's shared names; below 40rem the bar gives way
 // to the phone menu, whose family list sits under a heading, not a second
-// "Sites" landmark, with this site marked.
-test('every page opens on a skip link to #main, names its navs Sites, Primary and All sites, and hides the bar on a phone', () => {
+// family landmark, with this site marked. Since Ouro UI v1.3.540 the bar's nav
+// takes its name from its visible heading, "Ouro family", as the menu's does.
+test('every page opens on a skip link to #main, names its navs Ouro family, Primary and All sites, and hides the bar on a phone', () => {
   const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
   for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['apps/index.html', 'apps']]) {
     const html = readDist(file);
@@ -440,7 +443,7 @@ test('every page opens on a skip link to #main, names its navs Sites, Primary an
     assert.match(firstLink, /href="#main"/);
     assert.match(html, /<main id="main"/, `${file}: main carries the skip link's target`);
     const labels = [...html.matchAll(/<nav\b[^>]*aria-label="([^"]*)"/g)].map((m) => m[1]);
-    assert.deepEqual(labels, ['Sites', 'Primary', 'All sites'], `${file}: nav names`);
+    assert.deepEqual(labels, ['Ouro family', 'Primary', 'All sites'], `${file}: nav names`);
     assert.match(html, /<div class="family-bar-wrap max-sm:hidden"[^>]*>\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar hides below 40rem`);
     const menu = html.match(/<div class="menu-family-group"[^>]*>[\s\S]*?<\/ul>/)?.[0];
     assert.ok(menu, `${file}: no family list in the phone menu`);
@@ -470,8 +473,10 @@ test('the nav repeats no family link on a wide screen, and is glass from the top
   assert.match(nav, /id="nav-bg" class="nav-glass"/);
   const navSrc = fs.readFileSync(new URL('../src/components/Nav.astro', import.meta.url), 'utf8');
   assert.match(navSrc, /\.nav-glass\s*\{[^}]*background:\s*color-mix\(in srgb, var\(--color-deep\) 9\d%/);
-  // The Agent view switch's empty track is transparent by design; the header is not.
-  assert.doesNotMatch(html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, ''), /bg-transparent/);
+  // The Agent view switch's empty track is transparent by design, and so is the family bar, which sits on the
+  // nav's glass (Ouro UI v1.3.540); the header is not.
+  const chrome = html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, '').replace(/<nav\b[^>]*data-ouro="family-bar"[\s\S]*?<\/nav>/g, '');
+  assert.doesNotMatch(chrome, /bg-transparent/);
 });
 
 test('no built page or agent file contains a deny-listed string', (t) => {
