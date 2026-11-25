@@ -156,7 +156,7 @@ test('every section in the phone menu is set in the same size', () => {
   const html = readDist('index.html');
   const panel = html.match(/<div id="mobile-menu"[\s\S]*?<\/div>\s*<\/div>/)[0];
   const sizes = [...panel.matchAll(/<a\b[^>]*class="([^"]*)"/g)].map(([, c]) => (c.match(/\btext-(xl|2xl|3xl|4xl)\b/) || [])[1]);
-  assert.equal(sizes.length, 4, 'found the four sections');
+  assert.equal(sizes.length, 5, 'found the five sections');
   assert.deepEqual([...new Set(sizes)], ['3xl']);
 });
 

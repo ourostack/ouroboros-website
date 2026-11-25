@@ -13,11 +13,15 @@ export const familyLinks = family.links
 /** A family link on this site as a path, so it stays on a preview or a local build. */
 export const localHref = (href) => href.replace(/^https:\/\/ouroboros\.bot(?=\/)/, '')
 
-/** The family item this page belongs to: Ouro MD, Desk or Apps under their own paths, Ouro everywhere else. */
-export function familyCurrent(pathname) {
-  for (const id of ['ouro-md', 'desk', 'apps']) if (pathname === `/${id}` || pathname.startsWith(`/${id}/`)) return id
+/** The family item this page belongs to: every page here is Ouro's. Its products live in the Tools menu. */
+export function familyCurrent() {
   return 'ouro'
 }
+
+/** Ouro's own products (family.json `products` with `parent: ouro`), for the Tools menu. */
+export const toolLinks = family.products
+  .filter((p) => p.parent === 'ouro')
+  .map((p) => ({ label: p.label, href: localHref(p.href) }))
 
 // The site's own sections, under the family bar.
 export const navLinks = [

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import test from 'node:test';
-import { readDist, textOf } from './support/dist.mjs';
+import { readDist, textOf, withoutNavs } from './support/dist.mjs';
 import { attributeTextsOf, shareCardTextsOf } from './support/surfaces.mjs';
 import { pageOg } from '../src/data/og.ts';
 
@@ -20,7 +20,7 @@ const surfaceText = (key) => {
   if (key === 'brief.md' || key === 'llms.txt') return readDist(key);
   if (key.startsWith('share card ')) return (shareCards[key.slice('share card '.length)] ?? []).join('\n');
   if (key.endsWith(' attributes')) return attributeTextsOf(readDist(fileFor(key.slice(0, -' attributes'.length)))).join('\n');
-  return textOf(readDist(fileFor(key)).replace(/<nav\b[\s\S]*?<\/nav>/g, '').replace(/<a\b[^>]*data-ouro="skip-link"[\s\S]*?<\/a>/, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
+  return textOf(withoutNavs(readDist(fileFor(key))).replace(/<a\b[^>]*data-ouro="skip-link"[\s\S]*?<\/a>/, '').replace(/<footer\b[\s\S]*?<\/footer>/, ''));
 };
 const cache = new Map();
 const current = (key) => {

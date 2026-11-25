@@ -75,3 +75,23 @@ export function loadDenyList() {
   const entries = raw.split(/[\n,]/).map((s) => s.trim()).filter((s) => s && !s.startsWith('#'));
   return entries.length ? entries : null;
 }
+
+/** The page without its navs, however deeply they nest (the header's Sections menu is a nav inside the Primary one). */
+export function withoutNavs(html) {
+  let out = '';
+  let at = 0;
+  for (;;) {
+    const open = html.indexOf('<nav', at);
+    if (open < 0) return out + html.slice(at);
+    out += html.slice(at, open);
+    let depth = 0;
+    const tag = /<(\/?)nav\b/g;
+    tag.lastIndex = open;
+    let m;
+    while ((m = tag.exec(html))) {
+      depth += m[1] ? -1 : 1;
+      if (depth === 0) break;
+    }
+    at = m ? html.indexOf('>', m.index) + 1 : html.length;
+  }
+}
