@@ -15,9 +15,10 @@ const navLinks = [
 ];
 
 function navOf(html) {
-  const match = html.match(/<nav\b[^>]*id="main-nav"[\s\S]*?<\/nav>/);
-  assert.ok(match, 'Missing main nav');
-  return match[0];
+  // The Sections menu is a nav inside this one, so the end is the first </nav> after the phone menu.
+  const start = html.search(/<nav\b[^>]*id="main-nav"/);
+  assert.ok(start >= 0, 'Missing main nav');
+  return html.slice(start, html.indexOf('</nav>', html.indexOf('id="mobile-menu"', start)) + 6);
 }
 
 function footerOf(html) {
@@ -393,7 +394,7 @@ test('homepage sections appear in reading order', () => {
 test('the footer is the line, then the family links with this site marked, then LinkedIn, Privacy, Terms and the copyright', () => {
   const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
   const local = (href) => href.replace(/^https:\/\/ouroboros\.bot(?=\/)/, '');
-  for (const [file, current] of [['index.html', 'ouro'], ['approach/index.html', 'ouro'], ['lab/story/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['desk/index.html', 'desk'], ['apps/index.html', 'apps']]) {
+  for (const [file, current] of [['index.html', 'ouro'], ['approach/index.html', 'ouro'], ['lab/story/index.html', 'ouro'], ['ouro-md/index.html', 'ouro'], ['desk/index.html', 'ouro'], ['apps/index.html', 'ouro']]) {
     const footer = footerOf(readDist(file));
     const text = plain(footer);
     assert.ok(text.includes('You bring judgment. Your agents bring the rest.'), `${file} footer line`);
@@ -412,7 +413,7 @@ test('the footer is the line, then the family links with this site marked, then 
 // no script of its own.
 test('every page carries the family bar above the nav, this site marked', () => {
   const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
-  for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['ouro-md/download/index.html', 'ouro-md'], ['desk/index.html', 'desk'], ['apps/index.html', 'apps']]) {
+  for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro'], ['ouro-md/download/index.html', 'ouro'], ['desk/index.html', 'ouro'], ['apps/index.html', 'ouro']]) {
     const html = readDist(file);
     const bar = html.match(/<nav\b[^>]*data-ouro="family-bar"[\s\S]*?<\/nav>/)?.[0];
     assert.ok(bar, `${file}: no family bar`);
@@ -431,7 +432,7 @@ test('every page carries the family bar above the nav, this site marked', () => 
 // three navs carry the family's shared names; the bar shows at every width and the phone menu
 // repeats none of its links. Since Ouro UI v1.3.540 the bar's nav
 // takes its name from its visible heading, "Ouro family", as the menu's does.
-test('every page opens on a skip link to #main, names its navs Ouro family, Primary and All sites, and shows the bar on a phone', () => {
+test('every page opens on a skip link to #main, names its navs Ouro family, Primary, Sections and All sites, and shows the bar on a phone', () => {
   for (const file of ['index.html', 'lab/why/index.html', 'ouro-md/index.html', 'apps/index.html']) {
     const html = readDist(file);
     // Inline scripts left out: fragmentFocusScript, first in the body, has `<a` in its code (a loop over `a.length`).
@@ -441,7 +442,7 @@ test('every page opens on a skip link to #main, names its navs Ouro family, Prim
     assert.match(firstLink, /href="#main"/);
     assert.match(html, /<main id="main"/, `${file}: main carries the skip link's target`);
     const labels = [...html.matchAll(/<nav\b[^>]*aria-label="([^"]*)"/g)].map((m) => m[1]);
-    assert.deepEqual(labels, ['Ouro family', 'Primary', 'All sites'], `${file}: nav names`);
+    assert.deepEqual(labels, ['Ouro family', 'Primary', 'Sections', 'All sites'], `${file}: nav names`);
     assert.match(html, /<div class="family-bar-wrap"[^>]*>\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar shows at every width, a phone's too`);
     assert.doesNotMatch(html, /menu-family/, `${file}: the phone menu repeats no family link; the strip carries them`);
   }
@@ -629,7 +630,7 @@ test('approach page has no quotes of Ari and no labels (copy deck round 2)', () 
 
 test('approach page carries no source notes, comments or local paths', () => {
   const html = readDist('approach/index.html');
-  assert.doesNotMatch(html, /<!--/, 'No HTML comments on the approach page');
+  assert.doesNotMatch(html.replaceAll('<!--astro:end-->', ''), /<!--/, 'No HTML comments on the approach page');
   for (const pattern of [/Source:/, /\/Users\//, /~\//, /\.md:\d+/]) {
     assert.doesNotMatch(html, pattern, `Approach page leaks ${pattern}`);
   }

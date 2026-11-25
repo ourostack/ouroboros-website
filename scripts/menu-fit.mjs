@@ -1,4 +1,4 @@
-// Real-browser check that the phone menu shows all four of the site's
+// Real-browser check that the phone menu shows all five of the site's
 // sections (the family's sites are the strip above the bar) without scrolling on a 320x568
 // phone, each a 44px tap target (Ari's ruling, taste review r14, 2026-11-07:
 // the last two links hid below the fold with no cue). Also checks 390x844 and
@@ -62,7 +62,7 @@ for (const [width, height] of [[320, 568], [375, 667], [390, 844]]) {
     });
     await ctx.close();
     const at = `${width}x${height} ${page}${scrolled ? ' (scrolled)' : ''}`;
-    if (m.links.length !== 4) failures.push(`${at}: ${m.links.length} links, not four`);
+    if (m.links.length !== 5) failures.push(`${at}: ${m.links.length} links, not five`);
     if (Math.abs(m.top - m.navBottom) > 0.5) failures.push(`${at}: the panel starts at ${Math.round(m.top)}, not at the nav's foot at ${Math.round(m.navBottom)}`);
     // The open menu keeps its nav, and the close button in it, on the screen, however far the page had scrolled.
     if (m.toggle.top < -0.5 || m.toggle.bottom > m.vh + 0.5) failures.push(`${at}: the close button is at ${Math.round(m.toggle.top)}, off the screen`);

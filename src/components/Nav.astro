@@ -1,5 +1,6 @@
 ---
-import { navLinks } from '../data/site.mjs'
+import { navLinks, toolLinks } from '../data/site.mjs'
+import NavMenu from './NavMenu'
 import { Button } from './ouro/button/button'
 
 const currentPath = Astro.url.pathname
@@ -20,15 +21,8 @@ const isActive = (href: string) => href === active
         <span class="font-display text-xl xl:text-2xl">ouro</span>
       </a>
 
-      <div class="hidden lg:flex items-center gap-6 xl:gap-8">
-        {navLinks.map(link => (
-          <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined} class:list={[
-            'font-display text-lg xl:text-xl tracking-wide transition-colors duration-200',
-            isActive(link.href) ? 'text-scale' : 'text-bone/85 hover:text-scale'
-          ]}>
-            {link.label}
-          </a>
-        ))}
+      <div class="hidden lg:flex items-center">
+        <NavMenu client:load links={navLinks} tools={toolLinks} currentPath={currentPath} />
       </div>
 
       {/* On a phone the bar keeps the page's 24px gutter: the mark's left edge and the
@@ -64,6 +58,11 @@ const isActive = (href: string) => href === active
           {link.label}
         </a>
       ))}
+      {/* The Tools dropdown's phone form: one row to the page that lists every product. */}
+      <a href="/apps/" aria-current={currentPath.startsWith('/apps/') ? 'page' : undefined} class:list={[
+        'font-display text-3xl tracking-wide transition-colors duration-200',
+        currentPath.startsWith('/apps/') ? 'text-scale' : 'text-mist hover:text-scale'
+      ]}>Tools</a>
     </div>
   </div>
 </nav>
@@ -94,10 +93,10 @@ const isActive = (href: string) => href === active
      scroll stays the fallback for anything shorter. The family's sites are the
      strip above the bar (Layout.astro), on a phone too. */
   #mobile-menu .menu-links {
-    --menu-spare: calc(100dvh - var(--menu-top, 4rem) - 4 * 2.75rem);
+    --menu-spare: calc(100dvh - var(--menu-top, 4rem) - 5 * 2.75rem);
     --menu-pad: clamp(1rem, calc(var(--menu-spare) / 6), 3rem);
     padding-block: var(--menu-pad);
-    gap: clamp(0.125rem, calc((var(--menu-spare) - 2 * var(--menu-pad)) / 4), 1.5rem);
+    gap: clamp(0.125rem, calc((var(--menu-spare) - 2 * var(--menu-pad)) / 5), 1.5rem);
   }
   /* An inline-block, not a flex box, so a label keeps its spaces. */
   #mobile-menu .menu-links a { display: inline-block; padding-block: 0.25rem; min-height: 2.75rem; }

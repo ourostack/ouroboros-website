@@ -7,7 +7,7 @@ import test from 'node:test';
 // ourostack/.github (brand/family.json). When the network is reachable this
 // compares the bytes; offline it checks the ids and their order.
 const CANONICAL = 'https://raw.githubusercontent.com/ourostack/.github/main/brand/family.json';
-const ORDER = ['ouro', 'ouro-ui', 'ouro-md', 'desk', 'apps', 'ari', 'github'];
+const ORDER = ['ouro', 'ouro-ui', 'spoonjoy', 'ari', 'github'];
 const local = fs.readFileSync(new URL('../src/data/family.json', import.meta.url));
 
 test('the family list is the canonical one, byte for byte', async (t) => {
