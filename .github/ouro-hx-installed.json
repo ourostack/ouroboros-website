@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.561",
-  "tagCommit": "56a9bbf2801b9d62464e35f7a19ed58ce7cb2712",
+  "tag": "v1.3.562",
+  "tagCommit": "19d11e49e9a744edba0d977685e8c27bd356acc9",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -90,7 +90,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "52f1b6759d4ecf4d417a3b0d4b039bdd32e79374f19b6522219a337de1ede1ba",
+    "src/lib/ouro/dev.ts": "f3cff3ff284cb91197ca622eec1a9c81a16a16e64e62acee8223ad52f12f56ac",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
@@ -105,7 +105,7 @@
     "src/lib/ouro/router-link.ts": "b4ebc9021f70fff0bbab81f1caaba542aa8ae4b89bc6395950c8fcbd7cbef966",
     "src/lib/ouro/server-element.ts": "0d183afd9030b7fcead16078c7363ccef84af13fda8a4becfe1a201bd1b14eb9",
     "src/lib/ouro/squircle-capsules.ts": "41b0805f146f9cb63ed942994f3ba16a8ec83eff4d930bb02b8c08b481169312",
-    "src/lib/ouro/squircle-corners.ts": "afb0b83a10ab8075cd064c84949a85405cdcc1bf354052a636e1504cfde8b511",
+    "src/lib/ouro/squircle-corners.ts": "5ea4f1696d8feb3bcc9a87ea5132b85c5528d8b7f649529eaffde5d9b92b3444",
     "src/lib/ouro/stretched-link.ts": "c4346428583921ffb6671d3e1451c2c0f2309329b4b31ff398e9abf653a510a2",
     "src/lib/ouro/tones.ts": "22ef28371ff315f7ed8975d330036c073885e226856f7059e47c80d9fd06f72b",
     "src/lib/ouro/touch-target.tsx": "fd70ffb45a1627849eef2652c3513a35963dfd15b5a9896a010054f8352447fb",
