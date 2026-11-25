@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.560",
-  "tagCommit": "b018531113f40786a7bee7ccc8da77086f78d224",
+  "tag": "v1.3.561",
+  "tagCommit": "56a9bbf2801b9d62464e35f7a19ed58ce7cb2712",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -42,7 +42,7 @@
     "scripts/ouro/check/first-run.ts": "0f87e0ae7d50ec6e02bcfff52f9b842fcde15501054ad0ab8aa3a76cbc3bc7f0",
     "scripts/ouro/check/in-page.ts": "432568a1ad99213c21e120d09d2aa1e72880c43f65a46574a7d99cd9242451b3",
     "scripts/ouro/check/interaction-check.ts": "0260e8431821dd21522979b0198d3898e37024100fb4af8d3c36f3cae7917285",
-    "scripts/ouro/check/layout-check.ts": "248ea16547a067d505368cfb61d722cfceb6ca7631ba4edb63221ab4bdc33db3",
+    "scripts/ouro/check/layout-check.ts": "ed169e16525780f8133e5f33a5165c9957bf2e093af663452a47fda1f936f396",
     "scripts/ouro/check/measure.ts": "236fa1b3bbb3ebb172861ef185adb8cf45dba86da46891818f68690a6db0a650",
     "scripts/ouro/check/motion-check.ts": "3edb03043c6b449a3eaa23788f32a641bc8e17556d16e05e37df934d0f1647b5",
     "scripts/ouro/check/new-rules.json": "5bd41b3df42a4e3bd805a5221532f10a9eadebd37855d106b1fc6ae82f8d1427",
@@ -90,7 +90,7 @@
     "src/lib/ouro/class-name-check.ts": "600bc22afbe0b7dd47451277ad893ff0f240a2a1c76c42c8e7e9e36320515cfc",
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
-    "src/lib/ouro/dev.ts": "c2b19957c9ee8634be6bb61d18fb2c7a9c1ede63bd8467b6fd45e8ac7ecad1ac",
+    "src/lib/ouro/dev.ts": "52f1b6759d4ecf4d417a3b0d4b039bdd32e79374f19b6522219a337de1ede1ba",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
