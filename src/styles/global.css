@@ -271,6 +271,11 @@ html, body { overflow-x: clip; }
      surface is undergrowth, and headings take the display font. */
   --card: var(--color-deep);
   --card-foreground: var(--color-bone);
+  /* The Tools dropdown's panel and its hover rows (NavigationMenu). */
+  --popover: var(--color-deep);
+  --popover-foreground: var(--color-bone);
+  --accent: var(--color-undergrowth);
+  --accent-foreground: var(--color-bone);
   --secondary: var(--color-undergrowth);
   --secondary-foreground: var(--color-bone);
   --destructive: #ff6961;
@@ -362,6 +367,10 @@ html, body { overflow-x: clip; }
   --color-ring: var(--ring);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-destructive: var(--destructive);
