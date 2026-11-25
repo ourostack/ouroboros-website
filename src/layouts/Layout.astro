@@ -226,10 +226,10 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     {/* The first Tab stop: one Enter skips the family bar and the nav (Ouro
         HX's SkipLink; server HTML, a plain link to #main). */}
     <SkipLink />
-    {/* Below 40rem the bar gives way to the phone menu, which lists the same
-        seven sites, so a phone never shows a row of names cut mid-word and
-        keeps its first view for the page. The footer carries them on every page. */}
-    <div class="family-bar-wrap max-sm:hidden">
+    {/* The strip shows at every width, a phone's too: one row that scrolls sideways
+        above the bar, on the bar's own surface, and it scrolls away as the page
+        does while the nav holds the top. */}
+    <div class="family-bar-wrap">
       <FamilyBar links={family} current={familyId} className={familyBarAlign} />
     </div>
     <Nav><slot name="nav" slot="tools" /></Nav>

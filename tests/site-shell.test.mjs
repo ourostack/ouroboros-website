@@ -428,13 +428,11 @@ test('every page carries the family bar above the nav, this site marked', () => 
 });
 
 // The critics' pass (2026-11-09): one Tab and Enter skip the chrome; the
-// three navs carry the family's shared names; below 40rem the bar gives way
-// to the phone menu, whose family list sits under a heading, not a second
-// family landmark, with this site marked. Since Ouro UI v1.3.540 the bar's nav
+// three navs carry the family's shared names; the bar shows at every width and the phone menu
+// repeats none of its links. Since Ouro UI v1.3.540 the bar's nav
 // takes its name from its visible heading, "Ouro family", as the menu's does.
-test('every page opens on a skip link to #main, names its navs Ouro family, Primary and All sites, and hides the bar on a phone', () => {
-  const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
-  for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['apps/index.html', 'apps']]) {
+test('every page opens on a skip link to #main, names its navs Ouro family, Primary and All sites, and shows the bar on a phone', () => {
+  for (const file of ['index.html', 'lab/why/index.html', 'ouro-md/index.html', 'apps/index.html']) {
     const html = readDist(file);
     // Inline scripts left out: fragmentFocusScript, first in the body, has `<a` in its code (a loop over `a.length`).
     const body = html.slice(html.indexOf('<body')).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
@@ -444,14 +442,8 @@ test('every page opens on a skip link to #main, names its navs Ouro family, Prim
     assert.match(html, /<main id="main"/, `${file}: main carries the skip link's target`);
     const labels = [...html.matchAll(/<nav\b[^>]*aria-label="([^"]*)"/g)].map((m) => m[1]);
     assert.deepEqual(labels, ['Ouro family', 'Primary', 'All sites'], `${file}: nav names`);
-    assert.match(html, /<div class="family-bar-wrap max-sm:hidden"[^>]*>\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar hides below 40rem`);
-    const menu = html.match(/<div class="menu-family-group"[^>]*>[\s\S]*?<\/ul>/)?.[0];
-    assert.ok(menu, `${file}: no family list in the phone menu`);
-    assert.match(menu, /<p class="menu-family-heading" id="menu-family-heading"[^>]*>Ouro family<\/p>/);
-    assert.match(menu, /<ul class="menu-family" aria-labelledby="menu-family-heading"/);
-    assert.deepEqual([...menu.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]), family.map((l) => l.label));
-    const marked = [...menu.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
-    assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the menu marks ${current}`);
+    assert.match(html, /<div class="family-bar-wrap"[^>]*>\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar shows at every width, a phone's too`);
+    assert.doesNotMatch(html, /menu-family/, `${file}: the phone menu repeats no family link; the strip carries them`);
   }
   const css = fs.readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
   assert.match(css, /@layer base \{\s*:focus-visible \{/, 'the site focus ring sits in the base layer, under Ouro HX inset rings');

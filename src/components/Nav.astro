@@ -1,14 +1,11 @@
 ---
-import { navLinks, familyLinks, familyCurrent, localHref } from '../data/site.mjs'
+import { navLinks } from '../data/site.mjs'
 import { Button } from './ouro/button/button'
 
 const currentPath = Astro.url.pathname
 // The longest matching link is the active one, so /lab/story/ lights Story, not Lab too.
 const active = navLinks.map((l) => l.href).filter((href) => currentPath.startsWith(href)).sort((a, b) => b.length - a.length)[0]
 const isActive = (href: string) => href === active
-// The family links (src/data/family.json) carry the other sites; the phone
-// menu lists them too, under the site's own sections, the current one marked.
-const current = familyCurrent(currentPath)
 ---
 
 {/* Sticky under the family bar: the bar scrolls away, and the nav holds the top. */}
@@ -67,14 +64,6 @@ const current = familyCurrent(currentPath)
           {link.label}
         </a>
       ))}
-      <div class="menu-family-group">
-        <p class="menu-family-heading" id="menu-family-heading">Ouro family</p>
-        <ul class="menu-family" aria-labelledby="menu-family-heading">
-          {familyLinks.map((link) => (
-            <li><a href={localHref(link.href)} aria-current={link.id === current ? 'true' : undefined}>{link.label}</a></li>
-          ))}
-        </ul>
-      </div>
     </div>
   </div>
 </nav>
@@ -98,32 +87,20 @@ const current = familyCurrent(currentPath)
      outrun a short screen, and a swipe inside it never reaches the page
      (taste review r7). */
   #mobile-menu { top: var(--menu-top, 4rem); overflow-y: auto; overscroll-behavior: contain; }
-  /* Every link fits without scrolling down to a 320x568 phone (Ari's ruling,
-     taste review r14: the last two hid below the fold with no cue): the
-     site's four sections, then the family's seven sites under a small
-     heading in a two-column grid, four rows. Each link is a 44px tap target;
-     the space left over (the viewport less the panel's top, eight 2.75rem
-     rows and the heading's 1.75rem) goes to the
-     padding and the gaps, which tighten on short screens and open up on tall
-     ones. The panel's own scroll stays the fallback for anything shorter. */
+  /* Every link fits without scrolling down to a 320x568 phone: the site's four
+     sections, each a 44px tap target. The space left over (the viewport less
+     the panel's top and four 2.75rem rows) goes to the padding and the gaps,
+     which tighten on short screens and open up on tall ones. The panel's own
+     scroll stays the fallback for anything shorter. The family's sites are the
+     strip above the bar (Layout.astro), on a phone too. */
   #mobile-menu .menu-links {
-    --menu-spare: calc(100dvh - var(--menu-top, 4rem) - 8 * 2.75rem - 1.75rem);
-    --menu-pad: clamp(1rem, calc(var(--menu-spare) / 7), 3rem);
+    --menu-spare: calc(100dvh - var(--menu-top, 4rem) - 4 * 2.75rem);
+    --menu-pad: clamp(1rem, calc(var(--menu-spare) / 6), 3rem);
     padding-block: var(--menu-pad);
-    gap: clamp(0.125rem, calc((var(--menu-spare) - 2 * var(--menu-pad)) / 8), 1.5rem);
+    gap: clamp(0.125rem, calc((var(--menu-spare) - 2 * var(--menu-pad)) / 4), 1.5rem);
   }
   /* An inline-block, not a flex box, so a label keeps its spaces. */
   #mobile-menu .menu-links a { display: inline-block; padding-block: 0.25rem; min-height: 2.75rem; }
-  /* Below 40rem the family bar gives way to this list (Layout.astro), so it
-     is where a phone finds the other sites: a small heading on the hairline,
-     then the seven in the bar's own face and weight, a step larger. */
-  #mobile-menu .menu-family-group { width: 100%; margin-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); padding-top: clamp(0.25rem, calc(var(--menu-spare) / 10), 1.5rem); border-top: 1px solid color-mix(in srgb, var(--color-canopy) 45%, transparent); }
-  #mobile-menu .menu-family-heading { height: 1.75rem; margin: 0; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; line-height: 1.75rem; letter-spacing: 0.04em; color: var(--color-mist); }
-  #mobile-menu .menu-family { display: grid; grid-template-columns: repeat(2, minmax(0, 10rem)); justify-content: center; gap: 0 1.5rem; width: 100%; margin: 0; padding: 0; list-style: none; }
-  #mobile-menu .menu-family a { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0; font-family: var(--font-body); font-size: 1rem; font-weight: 400; color: var(--color-mist); text-decoration: none; }
-  #mobile-menu .menu-family a:hover { color: var(--color-scale); }
-  /* The site you are on: ink colour and a green underline, never colour alone. */
-  #mobile-menu .menu-family a[aria-current="true"] { color: var(--color-bone); text-decoration-line: underline; text-decoration-color: var(--color-scale); text-decoration-thickness: 2px; text-underline-offset: 0.4em; }
   :global(html.menu-open) { overflow: hidden; }
   .nav-glass::after {
     content: "";
