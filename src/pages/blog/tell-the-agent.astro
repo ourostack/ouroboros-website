@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import PostByline from '../../components/PostByline.astro'
+import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
+import { ogPathFor } from '../../data/og'
+
+// A short post on ourostack/ouroboros #1292 (0.1.0-alpha.1133) and #1296 (0.1.0-alpha.1135):
+// an Ouroboros agent's own errors, and a provider's refusals, go back to the agent, not the person.
+// Every claim here is from those two pull requests.
+const { title, description } = post('/blog/tell-the-agent/')
+const datePublished = '2026-11-16'
+const link = 'text-scale underline underline-offset-2 hover:text-glow transition-colors'
+const pr1292 = 'https://github.com/ourostack/ouroboros/pull/1292'
+const pr1296 = 'https://github.com/ourostack/ouroboros/pull/1296'
+const npm = 'https://www.npmjs.com/package/@ouro.bot/cli'
+---
+
+<Layout
+  title={`${title} | Ouro`}
+  description={description}
+  ogImage={ogPathFor('/blog/tell-the-agent')}
+  canonical="https://ouroboros.bot/blog/tell-the-agent/"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <meta name="author" content="Ari Mendelow" />
+    <meta name="keywords" content="AI agents, Ouroboros, agent harness, error recovery, tool calls, Ouro Butler" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
+      "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },
+      "dateCreated": datePublished,
+      "datePublished": datePublished,
+      "url": "https://ouroboros.bot/blog/tell-the-agent/"
+    })} />
+  </Fragment>
+
+  <PageHero eyebrow="Field note" title="Tell the agent, not the human">
+    <Fragment slot="description">
+      <p class="m-0">When a request breaks, an Ouroboros agent now hears why and gets another try in the same turn.</p>
+      <PostByline authors={["Ari Mendelow"]} published={datePublished} />
+    </Fragment>
+  </PageHero>
+
+  <section class="px-6 md:px-12 lg:px-16 pb-20 md:pb-28">
+    <div class="max-w-6xl mx-auto prose-ouro">
+
+<p>You ask your agent a question. Instead of an answer, you get a note: the provider failed, so please switch to another one and try again.</p>
+
+<p>Now you're doing your agent's plumbing.</p>
+
+<p>That happened to the Butler, the Ouroboros agent that looks after our home server, twice in one week. Each time, the provider wouldn't accept something in the agent's own history. Once it was a piece of reasoning carried over from an earlier turn. Once it was a tool call left without its result. Both times the provider refused the request on every retry, the turn ended, and the person who asked got the switch-provider note instead of an answer.</p>
+
+<p>Neither needed a person. Both could be put right without one.</p>
+
+<p>So I set a rule:</p>
+
+<blockquote><p>It should be impossible for an Ouro agent, Butler or not, to be unable to respond. Hit an error? Tell the agent and let it correct course. Never make the human do this for the agent.</p></blockquote>
+
+<h2>What changed</h2>
+
+<p>Two releases of the harness, now in npm's latest and running on the Butler:</p>
+
+<ul>
+  <li><strong>The agent's own mistakes come back to it.</strong> If it tries to finish before doing a required step, or finishes with arguments that don't parse, it gets a reply saying what was wrong, and it tries again. Before, either one could end the turn. (<a href={pr1292} class={link}>0.1.0-alpha.1133</a>)</li>
+  <li><strong>Every request is checked before it goes out.</strong> A tool call with no result gets an error result filled in, so a gap the runtime left can't sink a turn. (<a href={pr1292} class={link}>0.1.0-alpha.1133</a>)</li>
+  <li><strong>A refused request goes back to the agent.</strong> When the provider turns a request down, the runtime drops the reasoning carried over from earlier turns, closes any tool call left open, tells the agent what was refused, and tries once more in the same turn. Most of the time the agent then answers you itself. If the corrected request is refused too, the turn ends as it used to, with the note. (<a href={pr1296} class={link}>0.1.0-alpha.1135</a>)</li>
+</ul>
+
+<h2>What still reaches you</h2>
+
+<p>The things only a person can fix: a sign-in that has expired, a usage limit, a provider that's down. Those still come to you, because you're the one who can do something about them.</p>
+
+<p>Everything else is the agent's to sort out. Branches still fall on the line. The conductor just lifts them off.</p>
+
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 pt-12 md:pt-16 pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto lg:flex lg:items-baseline lg:justify-between lg:gap-12">
+      <p class="text-sm text-mist leading-relaxed">
+        Read the changes in <a href={pr1292} class={link}>ouroboros #1292</a> and <a href={pr1296} class={link}>#1296</a>, get the harness from <a href={npm} class={link}>npm</a>,
+        or meet <a href="/butler/" class={link}>Ouro Butler</a>.
+      </p>
+      <a href="/blog/" class="hit inline-block mt-8 lg:mt-0 shrink-0 text-sm text-shadow hover:text-mist transition-colors">&larr; Back to blog</a>
+    </div>
+  </section>
+</Layout>

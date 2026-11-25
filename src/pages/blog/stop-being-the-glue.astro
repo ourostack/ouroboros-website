@@ -2,11 +2,11 @@
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor } from '../../data/og'
 import GlueHourglass from '../../components/GlueHourglass.astro'
 
-const title = 'Stop being the glue between your agents and your work'
-const description = "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, carrying work by hand between our agents and the places it lives. Here's what changed."
+const { title, description } = post('/blog/stop-being-the-glue/')
 const datePublished = "2026-02-02"
 const dateModified = "2026-11-13"
 

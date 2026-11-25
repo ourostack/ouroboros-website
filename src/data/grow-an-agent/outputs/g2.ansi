@@ -1,0 +1,33 @@
+% node agent.ts
+You: Give yourself skills: instructions you pick up when a task needs them. Each skill gets its own folder inside a skills folder, holding a SKILL.md file that starts with the skill's name and one line on when to use it, then the instructions. When you start, read only those names and lines, so you know what you have; read a skill's full instructions only when a task calls for it. Write your first skill: how to add a new tool to yourself. Commit, and tell me when to restart.
+Pip: [2mI'm setting the skill files up with frontmatter for name and description, then having the startup step list each skill's SKILL.md and read its frontmatter so the path gets added to the instructions for read_file.
+
+I'm finishing the skill-file plan: the startup step reads each skill's frontmatter and adds the path to the instructions so the agent can call read_file on it. Then I'll write out the steps for adding a tool to agent.ts.
+
+[0m[shell]
+Pip: [2mThe comment about placement looks awkward now, since the instructions note sits above the skills block. I'll move the skills block up so it comes before that comment. I also want to check the skill-index logic on its own with a small standalone snippet, without running the full thing myself.
+
+[0mThe comments are in the wrong order, so I'll move the skills block above the instructions comment and test that the index builds correctly.
+[shell]
+Pip: [2mI spotted that the loop variable `name` inside the map shadows the outer `name`, which holds Pip. That could confuse readers, so I'll rename the inner one to `skillName`.
+
+[0m[shell]
+Pip: I have skills now, Ari.
+
+- **How they work:** each skill lives in `skills/<name>/SKILL.md`. The file starts with a short header holding its `name` and a `description` line saying when to use it, followed by the instructions. When I start, `agent.ts` reads only those two lines from each skill and adds them as a list at the end of my instructions. When a task calls for a skill, I open its full SKILL.md with `read_file`.
+- **First skill, `add-a-tool`:** how to give myself a new tool. I describe it with one line in `tools()`, then handle it with a branch in `useTool()` that always returns text. After that I check that the file parses, commit, and ask you to restart me.
+- **Checked:** `agent.ts` parses, and the skill-list code produces the right line for `add-a-tool` when run on its own. I haven't run myself with the change, so we'll see it work after the restart.
+- **Committed:** `f6b8bd3` "Add skills, and a first skill for adding a tool". Then `a546d1c` fixes a small readability problem: inside the skills list, a variable called `name` was hiding the `name` that holds "Pip".
+
+**Restart me now:** press Ctrl+C, then run `node agent.ts`. To try it, ask me to add a tool and watch whether I read the skill first.
+You:
+% node agent.ts
+You: what skills do you have?
+Pip: [2mThe system prompt now lists the skills, so the restart seems to have worked.
+
+[0mI have one skill so far:
+
+- **add-a-tool:** use it when you want me to be able to do something new, by giving myself a new tool in `agent.ts`. The full instructions are in `skills/add-a-tool/SKILL.md`.
+
+It's listed in my instructions this time, so the restart worked. I only see the name and when to use it. I'll read the full instructions when a task calls for them.
+You:[0m

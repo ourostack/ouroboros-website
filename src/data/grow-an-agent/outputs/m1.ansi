@@ -1,0 +1,4 @@
+% node agent.ts
+[2mI need a greeting of five words with no letter "e," so I'm checking candidates. "Hi! How are you doing?" fails because "are" contains an e. "Hi, how's your day going?" has five words and none contain an e, so it works.
+
+[0mHi, how's your day going?[0m

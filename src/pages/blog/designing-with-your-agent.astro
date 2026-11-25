@@ -2,10 +2,10 @@
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor } from '../../data/og'
 
-const title = 'The work spoke back'
-const description = 'The task scanner produced 184 false errors. Before patching the parser, we asked the agent living inside the system what was actually broken.'
+const { title, description } = post('/blog/designing-with-your-agent/')
 const datePublished = "2026-03-30"
 ---
 

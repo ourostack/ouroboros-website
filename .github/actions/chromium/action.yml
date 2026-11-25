@@ -1,0 +1,57 @@
+name: Chromium for the checks
+description: >-
+  Puts Playwright's Chromium and its Ubuntu packages on the runner without waiting on the Ubuntu mirror.
+  The packages come from a cache that .github/workflows/chromium-os-debs.yml fills, keyed on the runner
+  image and the Playwright version; on an exact hit they install with dpkg and nothing is downloaded. On
+  2026-11-19 archive.ubuntu.com served these 21.9 MB at 69 kB/s, and every check job hit its time limit
+  (ourostack/ouroboros-website#372).
+runs:
+  using: composite
+  steps:
+    # ImageOS and ImageVersion are the runner's own variables, which expressions can't read; chromium-os-debs.yml
+    # builds the same key.
+    - name: Read the cache key
+      id: key
+      shell: bash
+      run: |
+        echo "prefix=chromium-os-debs-$ImageOS-" >> "$GITHUB_OUTPUT"
+        echo "key=chromium-os-debs-$ImageOS-$ImageVersion-$(node -p "require('playwright-core/package.json').version")" >> "$GITHUB_OUTPUT"
+
+    - name: Cache Playwright's Chromium
+      id: browser
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+    - name: Install Chromium
+      if: steps.browser.outputs.cache-hit != 'true'
+      shell: bash
+      run: npx playwright install chromium
+
+    - name: Restore Chromium's Ubuntu packages
+      id: debs
+      uses: actions/cache/restore@v4
+      with:
+        path: ~/.cache/chromium-os-debs
+        key: ${{ steps.key.outputs.key }}
+        restore-keys: ${{ steps.key.outputs.prefix }}
+
+    # An exact hit holds every package this image lacks for this Playwright, so nothing is fetched.
+    - name: Install Chromium's Ubuntu packages from the cache
+      if: steps.debs.outputs.cache-hit == 'true'
+      shell: bash
+      run: |
+        shopt -s nullglob
+        debs=(~/.cache/chromium-os-debs/*.deb)
+        [ ${#debs[@]} -eq 0 ] || sudo dpkg -i "${debs[@]}"
+
+    # Another image or Playwright: hand apt whatever the cache had, and let it fetch only the rest.
+    - name: Install Chromium's Ubuntu packages
+      if: steps.debs.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        shopt -s nullglob
+        debs=(~/.cache/chromium-os-debs/*.deb)
+        [ ${#debs[@]} -eq 0 ] || sudo cp "${debs[@]}" /var/cache/apt/archives/
+        npx playwright install-deps chromium

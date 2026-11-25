@@ -81,7 +81,7 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
     'Grown inside it',
     // Ari, 2026-10-20: accurate statuses, and every entry has a link that looks like one.
     'Friends Experimental On npm, and used by Ouroboros every day Who an agent knows, and how far it trusts them. A personal agent needs that more than a coding agent does, so Friends began in Ouroboros. Now any harness can use it. Friends on GitHub ↗',
-    'Ouro Shepherd Use today Ships in Ouroboros, for cmux and Herdr; reply from any chat Keeps the agents in my terminals on task. When one stops before it needs to, Shepherd answers it where I can see it. How Shepherd decides ↗',
+    'Ouro Shepherd Experimental Watches, messages and archives the Copilot app’s sessions; terminals through Ouroboros Keeps the flock: the Copilot app’s sessions, as work. It knows which are busy and why, sends them a word, and tucks a finished one’s history away small. Next door, housesitter keeps the house. Ouro Shepherd →',
     'Ouro Butler Alpha Installs on Unraid 7.2 or newer with one script An Ouroboros agent that looks after a home server. When something your household counts on breaks, it fixes what it is allowed to and tells you the rest. Ouro Butler →',
   ]);
   // Each model's own verdict, from the published data, linked to its transcript.
@@ -92,9 +92,9 @@ test('homepage introduces Ouroboros, then shows that every frontier model picked
   assert.doesNotMatch(text, /four frontier models|four models/i);
   // Ari, 2026-10-20: the product is Ouro Butler; Mendelow Cloud Butler is only our install of it.
   assert.doesNotMatch(text, /Mendelow Cloud Butler/);
-  // Shepherd, Friends and the butler live inside Ouroboros, not as their own product cards.
+  // Shepherd, Friends and the butler grew inside Ouroboros; here they are its offspring, not product cards.
   for (const id of ['friends', 'shepherd', 'butler']) assert.match(section, new RegExp(`<li id="${id}"`));
-  for (const href of ['/lab/', 'https://github.com/ourostack/friends', 'https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md', '/butler/']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
+  for (const href of ['/lab/', 'https://github.com/ourostack/friends', '/shepherd/', '/butler/']) assert.ok(hrefsOf(section).includes(href), `Missing ${href}`);
   // The Butler became an installable alpha on 2026-10-29; the other entries keep their corrected labels.
   const butlerItem = section.match(/<li id="butler"[\s\S]*?<\/li>/)[0];
   assert.match(textOf(butlerItem), /Alpha Installs on Unraid 7\.2 or newer with one script/);
@@ -124,7 +124,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
   ]);
   assert.doesNotMatch(text, /Aronnax|Things I've built|tested in real browsers/);
   const tools = [...html.matchAll(/<article class="tool"[^>]*id="([^"]+)"/g)].map(([, id]) => id);
-  assert.deepEqual(tools, ['desk', 'ouro-md', 'ouro-ui', 'm365crawl', 'spoonjoy']);
+  assert.deepEqual(tools, ['ouro-ui', 'desk', 'ouro-md', 'm365crawl', 'spoonjoy']);
   for (const href of ['/ouro-md/', '/desk/', '/blog/what-is-agent-experience/', 'https://mendelow.me/#spoonjoy-story', 'https://spoonjoy.app', 'https://github.com/ourostack/m365crawl']) assert.ok(hrefsOf(html).includes(href), `Missing ${href}`);
   const outside = html.replace(/<article\b[^>]*id="m365crawl"[\s\S]*?<\/article>/, '');
   assert.doesNotMatch(outside, /Microsoft 365/, 'Microsoft 365 is named only in the m365crawl entry');
@@ -140,7 +140,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
     assert.doesNotMatch(video[0], /\bautoplay\b/);
   }
   assert.doesNotMatch(html, /ouro-md-typing-(light|dark)\.mp4/, 'The homepage shows only the agent-edit clip');
-  assert.match(html, /<button type="button" class="clip-toggle hit"[^>]*data-clip-toggle[^>]*>Pause<\/button>/);
+  assert.match(html, /<button\b(?=[^>]*data-clip-toggle)(?=[^>]*class="[^"]*\bclip-toggle\b)[^>]*>[\s\S]*?Pause[\s\S]*?<\/button>/);
 });
 
 test('no page ships a "Recording in progress" placeholder or a poster with no clip', () => {
@@ -218,8 +218,8 @@ test('homepage Desk playback renders its final frame without JS, shows scene 1 a
   // root misses ruling 8.5: a phone shows a shorter host, so the boot line never wraps.
   assert.match(scenes[0][4], /<span class="dp-line[^"]*" data-opening data-narrow[^>]*>Desk boot: ok \| host laptop\/ari<\/span>/);
   assert.match(playback[0], /<button\b[^>]*data-replay[^>]*hidden/, 'Replay appears only once the script runs');
-  assert.match(html, /Replay<\/button>/);
-  assert.match(playback[0], /<button\b[^>]*data-skip[^>]*hidden[^>]*>Skip<\/button>/, 'Skip shows only while it plays');
+  assert.match(playback[0], /<button\b[^>]*data-skip[^>]*hidden[^>]*>[\s\S]*?Skip[\s\S]*?<\/button>/, 'Skip shows only while it plays');
+  assert.match(html, /Replay[\s\S]*?<\/button>/);
   assert.match(html, /prefers-reduced-motion: reduce/);
   // Armed only by the module, so a failed load leaves the final frame; a click, Skip, or Enter, Space or Escape skips to the end.
   assert.doesNotMatch(html, /Arm the playback before first paint/);
@@ -356,25 +356,27 @@ test('homepage ends with ways in, by what the reader wants, each one link', () =
 
 test('homepage sections appear in reading order', () => {
   const text = homeText();
+  // The home catch-up (Ari, 2026-11-15, docs/home-catch-up.md): how I work first, then the
+  // tools as the proof, the factory, and the story of where it started, Ouroboros last.
   const order = [
     'How can humans and agents do more together?',
     "Hello!! I'm Ari, and that question is behind everything I build.",
-    "Ouroboros is the agent harness I built from scratch",
-    'Every frontier model we asked picked Ouroboros.',
-    'Grown inside it', 'Friends', 'Ouro Shepherd', 'Ouro Butler',
-    'Built by watching agents work',
-    "Desk keeps my agents' work in a Git repository",
-    'My agents write their plans and reports in Markdown.',
-    'Ouro HX is a React component library',
-    'm365crawl gives my agent one searchable archive',
-    "Spoonjoy is my recipe app, and where I work out",
     'When an agent gets it wrong, look at what you gave it.',
     'Act 1 Capability.', 'Act 2 Orientation.', 'Act 3 Work design.',
     'Failure modes I watch for',
     "What's been working",
+    'Built by watching agents work',
+    'Ouro UI is how a lesson in one of my apps reaches all of them.',
+    "Desk keeps my agents' work in a Git repository",
+    'My agents write their plans and reports in Markdown.',
+    'm365crawl gives my agent one searchable archive',
+    "Spoonjoy is my recipe app, and where I work out",
     'Software factories can learn from real ones.',
     "Lean's eight wastes, as they show up with agents",
     'It started with Slugger.',
+    "Ouroboros is the agent harness I built from scratch",
+    'Every frontier model we asked picked Ouroboros.',
+    'Grown inside it', 'Friends', 'Ouro Shepherd', 'Ouro Butler',
     'Start with what you need.',
   ];
   let at = -1;
@@ -415,8 +417,10 @@ test('every page carries the family bar above the nav, this site marked', () => 
     const bar = html.match(/<nav\b[^>]*data-ouro="family-bar"[\s\S]*?<\/nav>/)?.[0];
     assert.ok(bar, `${file}: no family bar`);
     assert.ok(html.indexOf(bar) < html.indexOf('id="main-nav"'), `${file}: the family bar sits above the nav`);
-    assert.deepEqual([...bar.matchAll(/<a\b[^>]*>([^<]*)<\/a>/g)].map((m) => m[1]), family.map((l) => l.label));
-    const marked = [...bar.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([^<]*)</g)].map((m) => m[1]);
+    // Each link opens on its TouchTarget span (Ouro UI v1.3.540), so a link's text is read without its tags.
+    const linkText = (m) => m[1].replace(/<[^>]*>/g, '');
+    assert.deepEqual([...bar.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)].map(linkText), family.map((l) => l.label));
+    const marked = [...bar.matchAll(/<a\b[^>]*aria-current="true"[^>]*>([\s\S]*?)<\/a>/g)].map(linkText);
     assert.deepEqual(marked, [family.find((l) => l.id === current).label], `${file}: the bar marks ${current}`);
     // The home page hydrates its Agent view switch; the bar is never inside an island.
     for (const [island] of html.matchAll(/<astro-island\b[\s\S]*?<\/astro-island>/g)) assert.ok(!island.includes('data-ouro="family-bar"'), `${file}: the family bar ships no client script`);
@@ -426,18 +430,20 @@ test('every page carries the family bar above the nav, this site marked', () => 
 // The critics' pass (2026-11-09): one Tab and Enter skip the chrome; the
 // three navs carry the family's shared names; below 40rem the bar gives way
 // to the phone menu, whose family list sits under a heading, not a second
-// "Sites" landmark, with this site marked.
-test('every page opens on a skip link to #main, names its navs Sites, Primary and All sites, and hides the bar on a phone', () => {
+// family landmark, with this site marked. Since Ouro UI v1.3.540 the bar's nav
+// takes its name from its visible heading, "Ouro family", as the menu's does.
+test('every page opens on a skip link to #main, names its navs Ouro family, Primary and All sites, and hides the bar on a phone', () => {
   const family = JSON.parse(fs.readFileSync(new URL('../src/data/family.json', import.meta.url), 'utf8')).links;
   for (const [file, current] of [['index.html', 'ouro'], ['lab/why/index.html', 'ouro'], ['ouro-md/index.html', 'ouro-md'], ['apps/index.html', 'apps']]) {
     const html = readDist(file);
-    const body = html.slice(html.indexOf('<body'));
+    // Inline scripts left out: fragmentFocusScript, first in the body, has `<a` in its code (a loop over `a.length`).
+    const body = html.slice(html.indexOf('<body')).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
     const firstLink = body.match(/<a\b[^>]*>/)[0];
     assert.match(firstLink, /data-ouro="skip-link"/, `${file}: the skip link is the first link`);
     assert.match(firstLink, /href="#main"/);
     assert.match(html, /<main id="main"/, `${file}: main carries the skip link's target`);
     const labels = [...html.matchAll(/<nav\b[^>]*aria-label="([^"]*)"/g)].map((m) => m[1]);
-    assert.deepEqual(labels, ['Sites', 'Primary', 'All sites'], `${file}: nav names`);
+    assert.deepEqual(labels, ['Ouro family', 'Primary', 'All sites'], `${file}: nav names`);
     assert.match(html, /<div class="family-bar-wrap max-sm:hidden"[^>]*>\s*<nav\b[^>]*data-ouro="family-bar"/, `${file}: the bar hides below 40rem`);
     const menu = html.match(/<div class="menu-family-group"[^>]*>[\s\S]*?<\/ul>/)?.[0];
     assert.ok(menu, `${file}: no family list in the phone menu`);
@@ -467,8 +473,10 @@ test('the nav repeats no family link on a wide screen, and is glass from the top
   assert.match(nav, /id="nav-bg" class="nav-glass"/);
   const navSrc = fs.readFileSync(new URL('../src/components/Nav.astro', import.meta.url), 'utf8');
   assert.match(navSrc, /\.nav-glass\s*\{[^}]*background:\s*color-mix\(in srgb, var\(--color-deep\) 9\d%/);
-  // The Agent view switch's empty track is transparent by design; the header is not.
-  assert.doesNotMatch(html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, ''), /bg-transparent/);
+  // The Agent view switch's empty track is transparent by design, and so is the family bar, which sits on the
+  // nav's glass (Ouro UI v1.3.540); the header is not.
+  const chrome = html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, '').replace(/<nav\b[^>]*data-ouro="family-bar"[\s\S]*?<\/nav>/g, '');
+  assert.doesNotMatch(chrome, /bg-transparent/);
 });
 
 test('no built page or agent file contains a deny-listed string', (t) => {

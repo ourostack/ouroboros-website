@@ -1,0 +1,16 @@
+% node agent.ts
+You: give me a short summary of AGENTS.md
+
+[read_file]
+AGENTS.md describes agent.ts, a tiny agent written from scratch so someone can learn how agents work by reading every line. Its rules:
+
+- **Keep it simple:** short, plain, script-style code with no clever tricks, extra layers or checks for things that won't happen.
+- **Layout:** put the main loop near the top, so readers see it before the code it relies on.
+- **TypeScript:** skip types unless Node needs them; `any` is fine.
+- **Helpers:** write one small helper only when the same pattern would appear three times.
+- **Comments:** add short comments where important things happen, saying what they do and why.
+- **Scope:** build only what's asked, with no extra files, tests or packages. The only dependency is `openai`.
+- **Running it:** `node agent.ts` should work on macOS, Linux and Windows (via WSL).
+- **Testing:** run code to check it works before saying it does. If the agent edits its own file, it shouldn't run a copy of itself. Instead it checks that the file still parses and says when to restart it.
+- **Commits:** commit each working step with a short message.
+You:[0m

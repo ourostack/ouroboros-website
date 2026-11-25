@@ -1,19 +1,19 @@
 "use client";
 
-import { useCallback, useRef, type HTMLAttributes, type JSX, type ReactNode, type Ref, type RefCallback } from "react";
+import { Fragment, useCallback, type HTMLAttributes, type JSX, type ReactNode, type Ref, type RefCallback } from "react";
 import { useAppearanceClassNameCheck } from "@/lib/ouro/class-name-check";
 import { cn } from "@/lib/ouro/cn";
-import { useMergedRef } from "@/lib/ouro/refs";
-import { scrollFadeClass, useScrollFade } from "@/lib/ouro/scroll-fade";
 import { useDevWarnings } from "@/lib/ouro/use-dev-messages";
 import { CopyButton } from "@/components/ouro/copy-button/copy-button";
 import { Emoji, type EmojiCatalogue } from "@/components/ouro/emoji/emoji";
 import { splitEmojiText } from "@/components/ouro/emoji/emoji-styles";
+import { ansiClassName, parseAnsi, stripAnsi } from "@/components/ouro/code-block/code-block-styles";
 
 /** The props CodeBlock adds to the `<figure>` attributes it passes through. */
 export interface CodeBlockOwnProps {
   /**
    * The code, as plain text. It shows exactly as given, whitespace and all, and is what the copy button copies.
+   * Terminal output with escape codes takes `language="ansi"`.
    *
    * @claim "It shows exactly as given, whitespace" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock > copies the code exactly with its copy button)
    * @claim "It shows exactly as given, whitespace" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock > shows the code as given on the muted surface in the monospace font, under a caption naming its language)
@@ -22,6 +22,15 @@ export interface CodeBlockOwnProps {
   /**
    * The language, shown in the block's caption when there is no `title` and set as
    * `data-language` on the block for a highlighter of your own: `language="bash"`.
+   *
+   * `language="ansi"` reads `code` as terminal output, such as `tmux capture-pane -e` gives:
+   * its escape codes style the text instead of showing. Bold, dim, italic, underline, strikethrough and
+   * the 16 basic and bright foreground colors show, in colors mixed from the theme so they keep
+   * their contrast in light and dark; dim text is the theme's muted text color. Every other escape
+   * code is dropped, and copying gives the text without them.
+   * @claim "its escape codes style the text instead of showing" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock terminal output > styles bold, dim, italic, underline, strikethrough and the basic and bright colors from SGR codes, and drops the codes)
+   * @claim "so they keep their contrast in light and dark" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock terminal output > keeps every color and dim at 4.5:1 on the block in light and dark, with dim text muted beside the rest)
+   * @claim "Every other escape code is dropped, and copying" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock terminal output > copies the output without its escape codes)
    * @claim "The language, shown in the block's" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock > captions with the title rather than the language)
    * @claim "The language, shown in the block's" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:fileLine(registry/ouro/components/ouro/code-block/code-block.test.tsx, /getAttribute\("data-language"\)\)\.toBe\("bash"\)/)
    */
@@ -89,7 +98,6 @@ function useScrollableCode(): RefCallback<HTMLPreElement> {
     observer.observe(element);
     observer.observe(element.firstElementChild!);
     element.addEventListener("blur", update);
-    update();
     return () => {
       observer.disconnect();
       element.removeEventListener("blur", update);
@@ -121,15 +129,35 @@ function CodeWithEmoji({ code, catalogue }: { code: string; catalogue: EmojiCata
 }
 
 /**
+ * Terminal output drawn from its SGR codes: each run of one style is a span with that style's
+ * classes, and its text goes through the emoji catalogue when there is one.
+ * @claim "each run of one style is a span" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock terminal output > styles bold, dim, italic, underline, strikethrough and the basic and bright colors from SGR codes, and drops the codes)
+ * @claim "its text goes through the emoji catalogue" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock terminal output > draws a catalogue's emoji inside styled output)
+ */
+function AnsiCode({ code, catalogue }: { code: string; catalogue: EmojiCatalogue | undefined }): ReactNode {
+  return parseAnsi(code).map((run, index) => {
+    const text = catalogue ? <CodeWithEmoji code={run.text} catalogue={catalogue} /> : run.text;
+    return run.style ? (
+      <span key={index} data-ouro-ansi="" className={ansiClassName(run.style)}>
+        {text}
+      </span>
+    ) : (
+      <Fragment key={index}>{text}</Fragment>
+    );
+  });
+}
+
+/**
  * Code or a command on a muted surface in the theme's monospace font, with a caption
  * and a button that copies it. The code shows exactly as given and scrolls sideways
- * rather than wrapping (unless `wrap`), fading out at the side where a long line goes on, and
+ * rather than wrapping (unless `wrap`), scrolling sideways where a long line goes on, and
  * the block becomes a tab stop while it overflows, so a keyboard can scroll it. Copying says
  * "Copied" to screen readers.
  *
- * It does not color the code; to highlight it, set colors on the `data-language` block
- * from a highlighter of your own, or pass highlighted code to your own `<pre>`. With
- * `catalogue`, the emoji characters in the code show as an image catalogue's pictures.
+ * It does not color code; to highlight it, set colors on the `data-language` block
+ * from a highlighter of your own, or pass highlighted code to your own `<pre>`. Terminal
+ * output is the exception: with `language="ansi"`, its escape codes color and dim it, on the
+ * server too. With `catalogue`, the emoji characters in the code show as an image catalogue's pictures.
  *
  * Use `Kbd` instead for a key or shortcut in a sentence, `<code>` for a short name in
  * running text, and `CopyButton` for one value without a block around it.
@@ -137,10 +165,12 @@ function CodeWithEmoji({ code, catalogue }: { code: string; catalogue: EmojiCata
  * @group Display
  * @see https://ui.ouroboros.bot/docs/code-block
  *
- * @claim "fading out at the side where a long line goes on" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock > fades out at the side where a long line goes on, with its focus ring outside the fade)
+ * @claim "on the server too" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock terminal output > renders the styled output to a string, with no escape codes in it)
+ * @claim "scrolling sideways where a long line goes on" registry/ouro/components/ouro/code-block/code-block.test.tsx verify:testExists(registry/ouro/components/ouro/code-block/code-block.test.tsx::CodeBlock > scrolls sideways where a long line goes on, with its focus ring on the block)
  * @example
  * <CodeBlock language="bash" code="npx shadcn@latest add button" />
  * <CodeBlock title="vite.config.ts" code={config} className="max-h-80" />
+ * <CodeBlock language="ansi" title="What I saw" code={capture} copy={false} wrap />
  */
 export function CodeBlock(props: CodeBlockProps): JSX.Element {
   const {
@@ -175,17 +205,17 @@ export function CodeBlock(props: CodeBlockProps): JSX.Element {
           lang !== undefined && ["lang is not a prop", `<CodeBlock language="${typeof lang === "string" ? lang : "tsx"}" />`],
           filename !== undefined && ["filename is not a prop", `<CodeBlock title="${typeof filename === "string" ? filename : "app.tsx"}" />`],
           showCopyButton !== undefined && ["showCopyButton is not a prop; the copy button shows by default", "<CodeBlock code={source} copy={false} />"],
+          language !== "ansi" && code.includes("\x1b[") && ["the code holds terminal escape codes, which show as raw characters", "<CodeBlock language=\"ansi\" code={output} />"],
         ]
       : /* istanbul ignore next @preserve -- production only */ undefined,
   );
-  const fadeRef = useRef<HTMLPreElement>(null);
-  useScrollFade(fadeRef);
-  const scrollable = useMergedRef(useScrollableCode(), fadeRef);
+  const scrollable = useScrollableCode();
+  const ansi = language === "ansi";
   const caption = title ?? language;
   const bar = caption != null || copy;
   // The focus ring is the figure's outline, not an element over the code: axe reads an element over
   // a line of text as hiding its background, so it could not judge the text's contrast and measured each
-  // line from a screenshot. The code's mask would also hide an outline on the code itself.
+  // line from a screenshot.
   // The caption and the copy button share the bar above the code as siblings in the grid: a
   // <figcaption> names the figure, so the button stays out of it.
   return (
@@ -195,7 +225,10 @@ export function CodeBlock(props: CodeBlockProps): JSX.Element {
       data-ouro="code-block"
       data-language={language}
       className={cn(
-        "[@layer_ouro-reset]:m-0 grid min-w-0 grid-cols-[minmax(0,1fr)_auto] overflow-hidden rounded-lg border border-solid border-border bg-muted text-foreground outline-ring outline-offset-2 has-[>[data-ouro-part=code]:focus-visible]:outline-2 has-[>[data-ouro-part=code]:focus-visible]:outline-solid",
+        // The figure doesn't clip what is in it (#2349): a squircle clip repaints the whole block as the code scrolls. The code
+        // area, the one part that runs edge to edge, rounds its own corners, inside a plain rectangular clip, which is cheap and
+        // which axe reads as the edge of the code's text, so it can measure that text's contrast without a screenshot.
+        "[@layer_ouro-reset]:m-0 grid min-w-0 grid-cols-[minmax(0,1fr)_auto] rounded-ouro-lg border border-solid border-border bg-muted text-foreground outline-ring outline-offset-2 has-[[data-ouro-part=code]:focus-visible]:outline-2 has-[[data-ouro-part=code]:focus-visible]:outline-solid",
         bar ? "grid-rows-[minmax(calc(var(--spacing)*11),auto)_minmax(0,1fr)]" : "grid-rows-[minmax(0,1fr)]",
         className,
       )}
@@ -212,7 +245,7 @@ export function CodeBlock(props: CodeBlockProps): JSX.Element {
         <CopyButton
           data-ouro-control="code-block"
           data-ouro-part="copy"
-          value={code}
+          value={ansi ? stripAnsi(code) : code}
           label={copyLabel}
           hideLabel
           variant="plain"
@@ -221,22 +254,23 @@ export function CodeBlock(props: CodeBlockProps): JSX.Element {
         />
       ) : null}
       {bar ? (
-        // The code's fade would fade a hairline drawn on the code, so it sits beside the code, under its transparent top border (#530).
+        // The hairline sits beside the code, under its transparent top border, so it spans the figure from border to border (#530).
         <span aria-hidden="true" data-slot="rule" className="pointer-events-none col-span-2 col-start-1 row-start-2 h-px self-start border-0 border-t border-solid border-border" />
       ) : null}
-      <pre
-        ref={scrollable}
-        data-ouro-control="code-block"
-        data-ouro-part="code"
-        className={cn(
-          "col-span-2 col-start-1 m-0 min-h-0 overflow-auto p-4 font-mono text-sm leading-6 outline-none",
-          scrollFadeClass,
-          bar ? "row-start-2 border-0 border-t border-solid border-transparent" : "row-start-1",
-          wrap ? "whitespace-pre-wrap break-words" : "whitespace-pre",
-        )}
-      >
-        <code className={cn("[font-family:inherit]", wrap ? "block" : "block w-max min-w-full")}>{catalogue ? <CodeWithEmoji code={code} catalogue={catalogue} /> : code}</code>
-      </pre>
+      <div data-slot="code-clip" className={cn("col-span-2 col-start-1 grid min-h-0 min-w-0 overflow-hidden", bar ? "row-start-2" : "row-start-1")}>
+        <pre
+          ref={scrollable}
+          data-ouro-control="code-block"
+          data-ouro-part="code"
+          className={cn(
+            "m-0 min-h-0 min-w-0 overflow-auto p-4 font-mono text-sm leading-6 outline-none",
+            bar ? "rounded-b-[calc(var(--radius-ouro-lg)-1px)] border-0 border-t border-solid border-transparent" : "rounded-[calc(var(--radius-ouro-lg)-1px)]",
+            wrap ? "whitespace-pre-wrap break-words" : "whitespace-pre",
+          )}
+        >
+          <code className={cn("[font-family:inherit]", wrap ? "block" : "block w-max min-w-full")}>{ansi ? <AnsiCode code={code} catalogue={catalogue} /> : catalogue ? <CodeWithEmoji code={code} catalogue={catalogue} /> : code}</code>
+        </pre>
+      </div>
     </figure>
   );
 }

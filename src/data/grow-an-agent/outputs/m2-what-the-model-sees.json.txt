@@ -1,0 +1,27 @@
+{
+  "model": "claude-opus-5.5",
+  "reasoning_effort": "low",
+  "max_tokens": 128000,
+  "messages": [
+    {
+      "role": "user",
+      "content": "my name is Ari"
+    },
+    {
+      "role": "assistant",
+      "content": "Nice to meet you, Ari! What can I help you with today?"
+    },
+    {
+      "role": "user",
+      "content": "what's my name?"
+    },
+    {
+      "role": "assistant",
+      "content": "Your name is Ari, as you told me just a moment ago.",
+      "reasoning_text": "Keeping it simple.\n\n",
+      "reasoning_opaque": "Zez9E4sdz5wQ+hB/PfHdZhUdcWdbngEnP5qVzHHg…"
+    },
+    …
+  ],
+  "stream": true
+}

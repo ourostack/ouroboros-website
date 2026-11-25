@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro'
 import PageHero from '../components/PageHero.astro'
 import { ogPathFor } from '../data/og'
 import { labelFor, entry } from '../data/readiness.mjs'
+import { Button } from '../components/ouro/button/button'
+import StoryScene from '../components/StoryScene.astro'
 
 // Ouro Butler: an Ouroboros agent that looks after a home server. Every claim here is
 // sourced from ourostack/ouroboros (deploy/unraid, its README and template) and the
@@ -67,6 +69,7 @@ const chat = [
           <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
         ))}
       </ul>
+      <p class="mt-8 text-lg text-mist leading-relaxed">Butler minds a home server. On an agents’ Mac, Housesitter and <a href="/shepherd/" class={link}>Ouro Shepherd</a> do the minding, and the Butler never touches either.</p>
     </div>
   </section>
 
@@ -82,6 +85,22 @@ const chat = [
         </ol>
         <figcaption class="chat-caption"><span class="caption-note">Dramatization</span> <span>Written from the replies the Butler is designed to give. Not a real conversation.</span></figcaption>
       </figure>
+    </div>
+  </section>
+
+  {/* ourostack/ouroboros #1292 (0.1.0-alpha.1133) and #1296 (0.1.0-alpha.1135): the Butler's own
+      errors and a provider's refusals go back to the Butler, which fixes its request in the same turn. */}
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="slips-heading">
+    <div class="max-w-6xl mx-auto">
+      <div class="split split-media">
+        <div class="split-head">
+          <h2 id="slips-heading" class="heading-section">It catches its own <span class="text-scale">slips</span></h2>
+          <p class="mt-4 text-lg text-mist leading-relaxed">A good butler doesn't wake you to say the lid slipped.</p>
+          <p class="mt-4 text-lg text-mist leading-relaxed">When the model provider turns a request down, or a tool call is left without its answer, the Butler is told what went wrong, the request is put right, and it tries again in the same reply. It used to leave you a note asking you to switch providers. Now that note is a last resort, and what comes to you is what needs a person: a sign-in, a usage limit, a provider that's down.</p>
+          <p class="mt-6 product-links"><a href="/blog/tell-the-agent/" class={link}>Why it works this way &rarr;</a></p>
+        </div>
+        <StoryScene scene="butler-steady" class="split-body" sizes="(min-width: 2000px) 47rem, (min-width: 1024px) 40rem, 100vw" />
+      </div>
     </div>
   </section>
 
@@ -107,7 +126,7 @@ const chat = [
       <pre id="butler-install" class="install"><code>curl -fsSLo /tmp/ouro-butler-install.sh {installer}
 bash /tmp/ouro-butler-install.sh</code></pre>
       {/* Every command block carries the shared Copy button (taste review r16). */}
-      <div class="mt-3"><button type="button" data-copy-target="butler-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button></div>
+      <div class="mt-3"><Button variant="outline" data-copy-target="butler-install" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button></div>
       <p class="mt-6 product-links"><a href={guide} class={link}>The full install guide &#8599;</a> <a href={repo} class={link}>The Butler's deployment files &#8599;</a> <a href="/lab/" class={link}>The Ouroboros harness &rarr;</a></p>
     </div>
   </section>
@@ -124,15 +143,15 @@ bash /tmp/ouro-butler-install.sh</code></pre>
   .chat { margin: 2rem 0 0; }
   .chat-lines { display: grid; gap: 0.75rem; }
   /* Chat bubbles size to their words, like a phone, up to most of the row. */
-  .chat-line { display: grid; gap: 0.25rem; width: fit-content; max-width: 85%; padding: 0.75rem 1rem; border-radius: 1rem; line-height: 1.5; }
+  .chat-line { display: grid; gap: 0.25rem; width: fit-content; max-width: 85%; padding: 0.75rem 1rem; border-radius: calc(1rem * var(--site-corner-fallback, 1)); line-height: 1.5; }
   .chat-you { justify-self: end; background: color-mix(in srgb, var(--color-scale) 16%, transparent); color: var(--color-bone); }
   .chat-butler { background: var(--color-deep); color: var(--color-bone); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); }
   .chat-who { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-scale); }
   /* Blocks, never a flex row: the Dramatization note sits on a line of its own
      at every width (Ari's ruling on taste review r20). */
   .chat-caption { display: block; margin-top: var(--caption-gap); font-size: 0.875rem; color: var(--color-mist); }
-  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 0.75rem; background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
+  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: calc(0.75rem * var(--site-corner-fallback, 1)); background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
   .safe { display: grid; gap: 0.9rem; margin-top: 1.5rem; }
   .safe li { position: relative; padding-left: 1.5rem; color: var(--color-mist); font-size: 1rem; line-height: 1.6; }
-  .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--color-scale); }
+  .safe li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 0.5rem; height: 0.5rem; border-radius: calc(50% * var(--site-corner-fallback, 1)); background: var(--color-scale); }
 </style>

@@ -2,11 +2,11 @@
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor } from '../../data/og'
 import { factoryUrl } from '../../data/principles.mjs'
 
-const title = 'Trust the Fucking Agent'
-const description = "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest."
+const { title, description } = post('/blog/trust-the-agent/')
 const datePublished = "2026-04-28"
 ---
 
@@ -19,11 +19,12 @@ const datePublished = "2026-04-28"
 >
   <Fragment slot="head">
     <meta name="author" content="Ari Mendelow" />
-    <meta name="keywords" content="AI agents, agent ergonomics, TTFA, agent experience, trust, autonomy, harness design" />
+    <meta name="keywords" content="Trust the Fucking Agent, AI agents, agent ergonomics, TTFA, agent experience, trust, autonomy, harness design" />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": title,
+      "name": title,
       "description": description,
       "author": { "@type": "Person", "name": "Ari Mendelow", "url": "https://linkedin.com/in/arimendelow" },
       "publisher": { "@type": "Organization", "name": "Ouro Labs", "url": "https://ouroboros.bot" },

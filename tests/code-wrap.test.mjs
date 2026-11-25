@@ -49,6 +49,9 @@ test('every URL and path is wrapped: prose, links, mono spans and preformatted t
   assert.equal(wrapCode('<pre>goose recipe deeplink x -p a=b</pre>'), '<pre>goose recipe deeplink x <span class="nobr">-p</span> a=b</pre>');
   // A character class with a hyphen in a quoted pattern never splits after the hyphen.
   assert.equal(wrapCode("<pre>grep -E '^[+-][^+-]' x</pre>"), "<pre>grep <span class=\"nobr\">-E</span> <span class=\"nobr\">'^[+-][^+-]'</span> x</pre>");
+  // A quoted flag, a word opening with two marks and a dash compound stay whole (site-checks on #357, the agent.ts listing and terminal outputs).
+  assert.equal(wrapCode('<pre>gh(&quot;api&quot;, &quot;--jq&quot;, x) [&quot;-Command&quot;] `--check` &quot;(PowerShell 7 (fine</pre>'), '<pre>gh(&quot;api&quot;, <span class="nobr">&quot;--jq&quot;,</span> x) <span class="nobr">[&quot;-Command&quot;]</span> <span class="nobr">`--check`</span> <span class="nobr">&quot;(PowerShell</span> 7 (fine</pre>');
+  assert.equal(wrapCode("<pre>I don't—nothing</pre>"), "<pre>I <span class=\"nobr\">don't—nothing</span></pre>");
   // Ordinary words, scripts, styles, attributes and the head stay as they are.
   const untouched = '<head><title>a/b/c/d/e/f/g</title></head><p title="https://x.io/a/b/c">explaining</p><script>if (a<b) x("https://x.io/a/b/c")</script>';
   assert.equal(wrapCode(untouched), untouched);

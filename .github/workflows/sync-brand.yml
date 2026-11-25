@@ -1,0 +1,138 @@
+name: Sync brand art
+
+# Keeps public/brand/storybook/ the same bytes as ourostack/.github's brand/ art
+# (scripts/sync-storybook.mjs --from-github), and brand-pin.json the commit they came from.
+# The brand audit checks the copies against that pinned commit, not against main, so a brand
+# merge on main does not turn site-checks red. When a brand merge changes a file this site
+# serves, this workflow opens a pull request with the new art and the new pin, runs site-checks
+# on it (which audits against the new pin), merges it when that passes, and runs site-checks
+# on main, which deploys.
+# It pushes, opens the pull request and merges as Ari's account (the BRAND_SYNC_TOKEN
+# secret, a token limited to this repository), not as github-actions[bot]: the bot's pull
+# request runs wait for a person's approval (action_required), which stalled every art merge.
+# A push made with that token starts site-checks on the pull request and on main by itself.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-brand
+  cancel-in-progress: false
+
+env:
+  GH_TOKEN: ${{ secrets.BRAND_SYNC_TOKEN }}
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.BRAND_SYNC_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Reading ourostack/.github uses this run's own token, not BRAND_SYNC_TOKEN: that token is
+      # limited to this repository, and from 21:22Z on 2026-11-17 GitHub answered it 403 for
+      # ourostack/.github's main, so every sync failed before it read any art.
+      - run: node scripts/sync-storybook.mjs --from-github main
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - id: changes
+        run: |
+          if [ -z "$(git status --porcelain -- public/brand/storybook)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # New art needs its scene paint redone (tests/storybook.test.mjs fails a stale one),
+      # and scripts/scene-paint.mjs reads the art with sharp.
+      - name: Repaint the scenes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npm ci
+          node scripts/scene-paint.mjs
+
+      - name: Open the pull request
+        id: pr
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          source scripts/gh-retry.sh
+          # The commit the sync just copied from, recorded in brand-pin.json; the audit checks against it.
+          brand=$(node scripts/brand-pin.mjs commit | cut -c1-7)
+          branch="brand-sync"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add public/brand/storybook src/data/scene-paint.json brand-pin.json
+          git commit -m "Sync the storybook art with ourostack/.github@$brand"
+          git push --force origin "$branch"
+          if [ -z "$(gh_retry gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
+            gh_retry gh pr create --base main --head "$branch" --title "Sync the storybook art with ourostack/.github@$brand" \
+              --body "A brand merge changed art this site serves. $GITHUB_WORKFLOW (run $GITHUB_RUN_ID) copied it byte for byte with scripts/sync-storybook.mjs, moved brand-pin.json to that commit, runs site-checks on this pull request (which audits the copies against the new pin), and merges and deploys it when site-checks passes."
+          else
+            gh_retry gh pr edit "$branch" --title "Sync the storybook art with ourostack/.github@$brand"
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for site-checks on it
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          SHA: ${{ steps.pr.outputs.sha }}
+          BRANCH: ${{ steps.pr.outputs.branch }}
+        run: |
+          source scripts/gh-retry.sh
+          find_run() { gh_retry gh run list --workflow site-checks.yml --commit "$SHA" --json databaseId --jq '.[0].databaseId'; }
+          run=
+          for _ in $(seq 30); do
+            run=$(find_run)
+            [ -n "$run" ] && break
+            sleep 10
+          done
+          # A push with this token normally starts site-checks by itself. When it did not, start it by hand
+          # rather than failing and leaving the pull request unchecked until a person looks.
+          if [ -z "$run" ]; then
+            echo "::warning::site-checks didn't start on $SHA; starting it."
+            gh_retry gh workflow run site-checks.yml --ref "$BRANCH"
+            for _ in $(seq 30); do
+              run=$(find_run)
+              [ -n "$run" ] && break
+              sleep 10
+            done
+          fi
+          [ -n "$run" ] || { echo "::error::site-checks didn't start on $SHA."; exit 1; }
+          echo "site-checks run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$run" >> "$GITHUB_STEP_SUMMARY"
+          # Poll with retries instead of gh run watch, which dies on the first rate-limit answer.
+          while :; do
+            state=$(gh_retry gh run view "$run" --json status,conclusion --jq '.status + " " + (.conclusion // "")')
+            case "$state" in
+              "completed success") break ;;
+              completed*) echo "::error::site-checks on the pull request ended: $state"; exit 1 ;;
+            esac
+            sleep 30
+          done
+
+      - name: Merge it
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          BRANCH: ${{ steps.pr.outputs.branch }}
+          SHA: ${{ steps.pr.outputs.sha }}
+        run: |
+          source scripts/gh-retry.sh
+          # An explicit message: the org ruleset rejects the default one when a commit carries an AI co-author line.
+          subject=$(gh_retry gh pr view "$BRANCH" --json title,number --jq '"\(.title) (#\(.number))"')
+          body=$(gh_retry gh pr view "$BRANCH" --json body --jq .body | tr -d '\r' | grep -v -i -E '^[[:space:]]*[A-Za-z-]+-by[[:space:]]*:.*(\[bot\]|(^|[^A-Za-z0-9])(copilot|claude|anthropic|openai|chatgpt|gpt|codex|gemini|cursor|devin|aider)([^A-Za-z]|$))' || true)
+          gh_retry gh pr merge "$BRANCH" --squash --delete-branch --match-head-commit "$SHA" --subject "$subject" --body "$body"

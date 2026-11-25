@@ -45,7 +45,7 @@ test('--shard takes k/n and nothing else', () => {
 });
 
 // A matrix that lists fewer shards than its --shard count would drop checks.
-for (const [job, flag] of [['pages', 'check:all -- --shard'], ['ouro-check', 'check.ts dist']]) {
+for (const [job, flag] of [['pages', 'check:all -- --shard'], ['ouro-check', 'node "$OURO_CHECK" dist']]) {
   test(`site-checks runs every ${job} shard`, () => {
     const body = workflow.split(/\n  (?=[a-z-]+:\n)/).find((b) => b.startsWith(`${job}:`));
     assert.ok(body, `no ${job} job in site-checks.yml`);
@@ -56,3 +56,19 @@ for (const [job, flag] of [['pages', 'check:all -- --shard'], ['ouro-check', 'ch
     assert.match(body, new RegExp(`${flag.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}.*\\$\\{\\{ matrix\\.shard \\}\\}/\\$SHARDS`));
   });
 }
+
+// Ouro Current sends ouro-current-full-run when a failing shard cancelled the
+// others on its update pull request (ourostack/ouro-ui scripts/current). The run
+// is on main, so only the Ouro check shards may run, on the commit it names.
+test('an ouro-current-full-run event runs only the Ouro check shards, on the commit it names, and names their artifacts by it', () => {
+  assert.match(workflow, /\n  repository_dispatch:\n    types: \[ouro-current-full-run\]\n/);
+  for (const name of ['tests', 'pages', 'site-checks']) {
+    const start = workflow.indexOf(`\n  ${name}:\n`);
+    assert.ok(start > 0, name);
+    assert.match(workflow.slice(start, start + 300), /\n    if: [^\n]*github\.event_name != 'repository_dispatch'/, `${name} does not run on a full run`);
+  }
+  const check = workflow.slice(workflow.indexOf('\n  ouro-check:\n'), workflow.indexOf('\n  site-checks:\n'));
+  assert.doesNotMatch(check.split('\n    steps:')[0], /repository_dispatch/, 'the Ouro check shards do run');
+  assert.match(check, /- uses: actions\/checkout@v4\n        with:\n          ref: \$\{\{ github\.event\.client_payload\.sha \|\| '' \}\}\n/);
+  assert.match(check, /name: ouro-check-\$\{\{ matrix\.shard \}\}-of-6\$\{\{ github\.event\.client_payload\.sha && format\('-full-\{0\}', github\.event\.client_payload\.sha\) \|\| '' \}\}\n/);
+});

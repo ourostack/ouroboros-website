@@ -1,0 +1,25 @@
+% node agent.ts
+You: Use your skill to give yourself a tool that tells you the current date and time. Commit, and tell me when to restart.
+Pip:
+[read_file]
+Pip: [2mI'm checking that new Date().toString() returns the local time with its timezone, and it does: the sample output shows the date, time, GMT offset, and zone name. That's a clean, plain result, so next I'll test the expression on its own.
+
+[0m[shell]
+Pip: [2mI'm checking the tool() call with empty inputs: no properties and no required fields, which is fine.
+
+[0mI used the add-a-tool skill to give myself a `current_time` tool.
+
+- **What I added:** one line in `tools()` describes it as "Get the current date and time, with the time zone." It takes no inputs. A new branch in `useTool()` returns `new Date().toString()`, with a comment explaining that the model has no clock of its own.
+- **Checked:** `agent.ts` parses, and running that same line on its own printed `Thu Nov 19 2026 12:57:44 GMT-0800 (Pacific Standard Time)`. I haven't run myself with the new tool.
+- **Committed:** `c6a9818` "Add a current_time tool"
+
+**Restart me now:** press Ctrl+C, then run `node agent.ts`. Then ask me what time it is, and you should see `[current_time]` print before I answer.
+You:
+% node agent.ts
+You: what time is it?
+Pip:
+[current_time]
+Pip: It's 12:58 PM Pacific Standard Time on Thursday, November 19, 2026.
+
+That came from the new `current_time` tool, so the restart worked. You should have seen `[current_time]` print just before this reply.
+You:[0m

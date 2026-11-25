@@ -4,16 +4,19 @@ name: site-checks
 # parallel jobs so the run is only as long as its longest share:
 #   - tests: npm test (the build and the node tests), then serves the build on
 #     127.0.0.1 the way the Worker does (scripts/serve-dist.mjs) and runs the
-#     brand audit (ourostack/.github brand/tools/audit.mjs --origin --dist).
+#     brand audit (ourostack/.github brand/tools/audit.mjs --origin --dist) from a
+#     checkout of the commit brand-pin.json records, so main's brand moving never
+#     turns this run red; the sync-brand workflow moves the pin with the art.
 #   - pages: every page check (npm run check:all) against the same build,
 #     split into four shards by measured time (scripts/check-shards.mjs).
-#   - ouro-check: Ouro check (lib/ouro/check, from Ouro UI) walks every page at
+#   - ouro-check: Ouro check (from Ouro UI, where .github/ouro-hx-installed.json puts it) walks every page at
 #     390x844, 1440x900 and 3840x2160 in light and dark, in six shards;
 #     ouro-check.json holds its waivers and budgets. Each shard first proves
-#     lib/ouro/check, and each file of the AX kit it runs on in lib/ouro/ax,
-#     is byte for byte Ouro UI's release at OURO_UI_TAG. Time to
-#     the largest content (LCP) is gated at a budget wide enough for the
-#     runners' noise; taste reviewers then judge only what a tool can't measure.
+#     Ouro check's folder, and each file of the AX kit it runs on,
+#     is byte for byte Ouro UI's release named by the tag in
+#     .github/ouro-hx-installed.json. Time to the largest content (LCP) is
+#     gated at a budget wide enough for the runners' noise; taste reviewers
+#     then judge only what a tool can't measure.
 # tests/check-shards.test.mjs fails when a matrix drops a shard.
 #
 # The last job is named site-checks so it stays the one required check on
@@ -26,6 +29,11 @@ name: site-checks
 # On a pull request a failed shard cancels its siblings; main always runs whole.
 # refresh-ouromd-release.yml dispatches it on the pull requests it opens, since
 # a pull request opened with a workflow's own token starts no pull_request run.
+# Ouro Current sends an ouro-current-full-run repository_dispatch event, with the
+# commit as client_payload.sha, when a failing shard cancelled the others on its
+# update pull request: only the Ouro check shards run, all of them, on that
+# commit, and their artifacts end in -full-<sha> so Ouro Current can find them
+# (the run itself is on main). No other job runs, so main's checks are untouched.
 #
 # It is also the only way production deploys (deploy.yml), on main only. On a
 # push, deploy-early goes at once when the proof job shows this exact tree
@@ -40,6 +48,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [ouro-current-full-run]
 
 # A newer push to a pull request cancels its older run. Runs not triggered by a pull request each
 # get their own group, so they are never cancelled.
@@ -50,20 +60,18 @@ concurrency:
 permissions:
   contents: read
 
-# The Ouro UI release this site's Ouro items come from. Reinstall them from a new
-# tag before changing it here.
-env:
-  OURO_UI_TAG: v1.3.99
-
 jobs:
   tests:
     name: tests and brand audit
+    if: github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
-    # About twice the usual 1.5 minutes, with room for a slow apt mirror.
+    # About twice the usual 1.5 minutes. Chromium's Ubuntu packages come from a cache (.github/actions/chromium).
     timeout-minutes: 5
     env:
       SITE_BASE: http://127.0.0.1:4321
       CHECK_LOGS: ${{ github.workspace }}/check-logs
+      # tests/brand-audit.test.mjs runs the audit from this checkout, at the pinned commit.
+      BRAND_DOTGITHUB: ${{ github.workspace }}/.brand-dotgithub
     steps:
       - uses: actions/checkout@v4
 
@@ -91,22 +99,25 @@ jobs:
           node-version: 22
           cache: npm
 
+      # The brand audit judges the site's copies against the ourostack/.github commit brand-pin.json
+      # records, not against main, so a brand merge on main cannot turn this job red. A missing or
+      # malformed pin fails here with the fix (scripts/brand-pin.mjs).
+      - name: Read the brand pin
+        id: pin
+        run: echo "commit=$(node scripts/brand-pin.mjs commit)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out ourostack/.github at the brand pin
+        uses: actions/checkout@v4
+        with:
+          repository: ourostack/.github
+          ref: ${{ steps.pin.outputs.commit }}
+          path: .brand-dotgithub
+          persist-credentials: false
+
       - run: npm ci
 
-      - name: Cache Playwright's Chromium
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install Chromium and its OS dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-
-      - name: Install Chromium's OS dependencies (browser cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+      - name: Chromium and its Ubuntu packages
+        uses: ./.github/actions/chromium
 
       - name: Build and node tests (npm test)
         id: test
@@ -124,14 +135,6 @@ jobs:
           nohup node scripts/serve-dist.mjs --port 4321 > "$CHECK_LOGS/serve-dist.log" 2>&1 &
           for _ in $(seq 1 50); do curl -fsS -o /dev/null "$SITE_BASE/" && exit 0; sleep 0.2; done
           echo "dist/ did not come up on $SITE_BASE" && exit 1
-
-      - name: Check out ourostack/.github main for the brand audit
-        uses: actions/checkout@v4
-        with:
-          repository: ourostack/.github
-          ref: main
-          path: .brand-dotgithub
-          persist-credentials: false
 
       - name: Brand audit against this build
         id: audit
@@ -166,6 +169,7 @@ jobs:
 
   pages:
     name: page checks ${{ matrix.shard }}/4
+    if: github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
     # About twice the usual 2.5 minutes. A hung check is killed after
     # CHECK_TIMEOUT (240 seconds) and named before this.
@@ -189,20 +193,8 @@ jobs:
 
       - run: npm ci
 
-      - name: Cache Playwright's Chromium
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install Chromium and its OS dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-
-      - name: Install Chromium's OS dependencies (browser cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+      - name: Chromium and its Ubuntu packages
+        uses: ./.github/actions/chromium
 
       - run: npm run build
 
@@ -245,6 +237,8 @@ jobs:
       SHARDS: 6
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.client_payload.sha || '' }}
 
       - uses: actions/setup-node@v4
         with:
@@ -253,20 +247,24 @@ jobs:
 
       - run: npm ci
 
-      - name: Cache Playwright's Chromium
-        id: playwright-cache
-        uses: actions/cache@v4
+      # A full run checks out an Ouro Current branch's commit, which may predate the action, so the action comes from
+      # this workflow's own commit.
+      - name: Check out this workflow's actions
+        uses: actions/checkout@v4
         with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          ref: ${{ github.sha }}
+          path: .ci
+          sparse-checkout: .github/actions/
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
 
-      - name: Install Chromium and its OS dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
+      - name: Chromium and its Ubuntu packages
+        uses: ./.ci/.github/actions/chromium
 
-      - name: Install Chromium's OS dependencies (browser cached)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium
+      # The Ouro UI release this site's Ouro items come from is the tag in their install record, which Ouro Current
+      # moves with the items. It is read here rather than written in this file, because an app may not write a workflow.
+      - name: Read the Ouro UI release from the install record
+        run: echo "OURO_UI_TAG=$(jq -er .tag .github/ouro-hx-installed.json)" >> "$GITHUB_ENV"
 
       - name: Check out Ouro check from Ouro UI ${{ env.OURO_UI_TAG }}
         uses: actions/checkout@v4
@@ -279,16 +277,20 @@ jobs:
             registry/ouro/ax
           persist-credentials: false
 
-      - name: lib/ouro/check and its AX kit are Ouro UI ${{ env.OURO_UI_TAG }}'s
+      # The install record says where Ouro check and the AX kit are, so a release that moves them (Ouro UI put Ouro
+      # check under scripts/ouro/ after v1.3.241) needs no change here.
+      - name: Ouro check and its AX kit are Ouro UI ${{ env.OURO_UI_TAG }}'s
         run: |
-          diff -r .ouro-ui/registry/ouro/check lib/ouro/check
-          for f in lib/ouro/ax/*.ts; do cmp ".ouro-ui/registry/ouro/ax/$(basename "$f")" "$f"; done
+          check="$(dirname "$(jq -er '.files | keys[] | select(endswith("/check/check.ts"))' .github/ouro-hx-installed.json)")"
+          echo "OURO_CHECK=$check/check.ts" >> "$GITHUB_ENV"
+          diff -r .ouro-ui/registry/ouro/check "$check"
+          jq -r '.files | keys[] | select(test("(^|/)ouro/ax/[^/]+$"))' .github/ouro-hx-installed.json | while read -r f; do cmp ".ouro-ui/registry/ouro/ax/$(basename "$f")" "$f"; done
 
       - run: npm run build
 
       # Exits 0 when clean and 3 on findings; each finding has a captioned close-up in findings/.
       - name: Ouro check, shard ${{ matrix.shard }} of 6
-        run: node lib/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check --shard "${{ matrix.shard }}/$SHARDS"
+        run: node "$OURO_CHECK" dist --sizes 390x844,1440x900,3840x2160 --out ouro-check --shard "${{ matrix.shard }}/$SHARDS"
 
       - name: Summary
         if: ${{ !cancelled() }}
@@ -298,7 +300,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: ouro-check-${{ matrix.shard }}-of-6
+          name: ouro-check-${{ matrix.shard }}-of-6${{ github.event.client_payload.sha && format('-full-{0}', github.event.client_payload.sha) || '' }}
           path: |
             ouro-check/report.json
             ouro-check/summary.md
@@ -308,7 +310,7 @@ jobs:
   site-checks:
     name: site-checks
     needs: [tests, pages, ouro-check]
-    if: always()
+    if: always() && github.event_name != 'repository_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions:

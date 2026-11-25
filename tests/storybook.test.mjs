@@ -86,7 +86,7 @@ test('every page opens on its scene: AVIF then WebP, the phone crop under 640px,
     // Both twins render lazy so the hidden one never loads; the Hero's inline script
     // makes the shown one eager before the parser reaches the next tag, and marks the
     // media data-loaded once it lands.
-    assert.match(html, /<\/picture><script>\(function\(s,u\)\{[\s\S]{0,300}g\.loading="eager"[\s\S]{0,120}setAttribute\("data-loaded",""\)[\s\S]{0,120}<\/script>/, `${page}: the shown twin is not made eager`);
+    assert.match(html, /<\/picture><script>\(function\(s,u(?:,d)?\)\{[\s\S]{0,700}g\.loading="eager"[\s\S]{0,120}setAttribute\("data-loaded",""\)[\s\S]{0,120}<\/script>/, `${page}: the shown twin is not made eager`);
   }
 });
 
@@ -113,7 +113,7 @@ test('a hero with a night version fetches only the art for the theme in use', ()
     // It must run: a bare object after a statement parses as a block and throws.
     assert.doesNotThrow(() => new vm.Script(preload.slice('<script>'.length, -'</script>'.length)), `${page}: the theme-aware preload does not parse`);
   }
-  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'apple-distribution-kit', 'ax-trail-map', 'butler', 'desk', 'factory', 'flow-review', 'friends', 'friends-relay', 'gatefold', 'glue-unstuck', 'housesitter', 'm365crawl', 'ouro-apps-site', 'ouro-md', 'ouro-native-apple-app-shell', 'ouro-ui-apple', 'ouro-ui-core', 'ouro-work', 'ouro-workbench', 'ouroboros', 'ouroboros-skills', 'ouroboros-website', 'ourostack', 'playwright-focus-proof', 'shepherd', 'workshop'], 'every night hero is listed');
+  assert.deepEqual(Object.keys(darkScenes).sort(), ['agent-workbench', 'airship', 'airship-line', 'airship-moored', 'apple-distribution-kit', 'ax-trail-map', 'butler', 'butler-steady', 'chart-room', 'desk', 'factory', 'flow-review', 'friends', 'friends-relay', 'garden-line', 'gatefold', 'glue-unstuck', 'housesitter', 'm365crawl', 'ouro-apps-site', 'ouro-md', 'ouro-native-apple-app-shell', 'ouro-ui-apple', 'ouro-ui-core', 'ouro-work', 'ouro-workbench', 'ouroboros', 'ouroboros-skills', 'ouroboros-website', 'ourostack', 'playwright-focus-proof', 'shepherd', 'slugger-balloon', 'workshop'], 'every night hero is listed');
 });
 
 test('a column hero\'s art is the guide\'s own master, upscaled and cropped, and is at least as wide as the column is drawn at 2x', () => {
@@ -155,6 +155,21 @@ test('scenes further down wait for the arrival, and no page shows one scene twic
   }
 });
 
+test('a scene down the page with a night version shows it in the dark theme', () => {
+  for (const [page, kind] of [['apps/index.html', 'inline'], ['blog/index.html', 'vignette'], ['index.html', 'inline']]) {
+    const html = readDist(page);
+    const blocks = [...html.matchAll(new RegExp(`<div class="story-scene story-${kind}[^"]*" data-brand-scene="([^"]+)"([^>]*)>[\\s\\S]*?</picture>`, 'g'))];
+    assert.ok(blocks.length, `${page} has ${kind} scenes`);
+    for (const [block, scene, attrs] of blocks) {
+      const night = darkScenes[scene];
+      if (!night) continue;
+      assert.match(attrs, new RegExp(`data-night-scene="${night}"`), `${page}: ${scene}`);
+      assert.match(block, new RegExp(`data-theme-art="dark"[^>]*data-srcset="[^"]*/${night}-`), `${page}: ${scene} has no night sources`);
+      assert.match(block, new RegExp(`data-theme-art="light"[^>]*data-srcset="[^"]*/${scene}-`), `${page}: ${scene} has no day sources`);
+    }
+  }
+});
+
 test('the products show their own scenes on the shelf and on the homepage', () => {
   const apps = readDist('apps/index.html');
   for (const id of ['ouroboros', 'shepherd', 'ouro-hx', 'desk', 'butler']) {
@@ -162,16 +177,18 @@ test('the products show their own scenes on the shelf and on the homepage', () =
   }
   assert.match(apps, /data-brand-scene="ouro-md"/);
   const home = readDist('index.html');
-  for (const scene of ['workshop', 'ouroboros', 'factory', meadowScene]) {
+  for (const scene of ['airship', 'chart-room', 'airship-line', 'slugger-balloon', 'airship-moored']) {
     assert.ok(new RegExp(`data-brand-scene="${scene}"`).test(home) || heroPictures(home)?.light.body.includes(`/headers/${scene}.webp"`), `the homepage shows ${scene}`);
   }
+  // The harness's scene is /lab's hero; the home page doesn't repeat it (docs/home-catch-up.md).
+  assert.doesNotMatch(home, /data-brand-scene="ouroboros"/);
 });
 
-test('the 404 finds Ouro off the trail, by the gate, with signposts home', () => {
+test('the 404 finds Ouro off the trail, by the rose arch, with signposts home', () => {
   const html = readDist('404.html');
   assert.match(html, /data-ouro="hero"[\s\S]*?<picture data-scheme="light"[\s\S]*?\/headers\/ouroboros-website\.webp"[\s\S]*?<picture data-scheme="dark"[\s\S]*?\/headers\/ouroboros-website-dark\.webp"/);
   assert.doesNotMatch(html, /story-meadow/);
-  assert.match(html, /garden gate/);
+  assert.match(html, /rose arch/);
   assert.match(html, /class="signpost/);
 });
 

@@ -88,13 +88,16 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   // On their title plates, like the butler's (2026-11-14 essay heroes).
   'ax-trail-map': [16, 30, 1194, 172],
   'glue-unstuck': [16, 30, 1194, 172],
+  'garden-line': [16, 30, 1194, 172],
   'homebrew-tap': [16, 30, 1194, 172],
   // On its title plate, like the butler's.
   'housesitter': [16, 30, 1194, 172],
-  'm365crawl': [820, 6, 1194, 196],
+  // On its title plate, like the butler's.
+  'm365crawl': [16, 30, 1194, 172],
   'ouro-apps-site': [560, 4, 1196, 166],
   'ouro-hx': [640, 6, 1194, 316],
-  'ouro-md': [390, 6, 1194, 190],
+  // On its title plate, like the butler's.
+  'ouro-md': [16, 30, 1194, 172],
   'ouro-native-apple-app-shell': [720, 6, 1194, 240],
   'ouro-ui-apple': [16, 30, 1194, 172],
   'ouro-ui-core': [16, 30, 1194, 172],
@@ -102,11 +105,13 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
   // On its title plate, like the butler's.
   'ouro-workbench': [16, 30, 1194, 172],
   'ouroboros': [680, 6, 1194, 180],
-  'ouroboros-skills': [830, 6, 1194, 240],
+  // On its title plate, like the butler's.
+  'ouroboros-skills': [16, 30, 1194, 172],
   'ouroboros-website': [770, 6, 1194, 196],
   'playwright-focus-proof': [16, 30, 1194, 172],
   'shepherd': [240, 6, 800, 250],
-  // On its title plate (230px tall: the 3:1 art is shorter at card width), the words centred down it.
+  // The airship and the workshop stand on their title plates (230px tall: the 3:1 art is shorter at card width), the words centred down it.
+  'airship': [16, 60, 1194, 222],
   'workshop': [16, 60, 1194, 222],
 }
 // A card can be set in a different framing of the same canonical art. The
@@ -115,7 +120,7 @@ const TITLE_ZONE: Record<string, [number, number, number, number]> = {
 // so the words get the wide sunset sky instead of a sliver.
 // Taste review r5 found three scenes whose cast is wider than any card-height
 // window: the canonical card crop cut the robot's head (Ouro UI for Apple), Ouro's
-// coil (the paint pots) and the person at her laptop (the focus proof). Those,
+// coil (the paint pots, since redrawn as the painter at the easel) and the person in the armchair (the focus proof). Those,
 // and the three below, stand on a title plate: the whole header, scaled to the
 // card's width, stands at the foot of the card at full strength, and above it
 // is a solid cream plate with a thin gold rule (src/og/frames.mjs, plateFrame),
@@ -137,6 +142,7 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   // The essay heroes' casts run wider than a card-height window.
   'ax-trail-map': { file: 'headers/ax-trail-map.webp', plate: true },
   'glue-unstuck': { file: 'headers/glue-unstuck.webp', plate: true },
+  'garden-line': { file: 'headers/garden-line.webp', plate: true },
   'homebrew-tap': { file: 'headers/homebrew-tap.webp', plate: true },
   // The workbench's purple hills left its titles at about 2.7:1 once no
   // scrim washed them (Clippy, 2026-11-09): the same plate.
@@ -149,10 +155,22 @@ const FRAME: Record<string, { file: string; left: number; height?: number } | Pl
   // The housesitter's chimney meets the top of its art too, and its only open sky sits
   // beside Ouro's lantern, too narrow for a title: the same plate.
   housesitter: { file: 'headers/housesitter.webp', plate: true },
-  // The workshop's roof beams run across the top of its art, and its cast
-  // spans the whole width, from Ouro's flower pot to the parcel robots: the
-  // same plate, so Ouro is still there to find on the home card.
+  // The reading lectern's loose pages fly through the top-left sky, so its
+  // old title zone set the words among them (render QA Q3): the same plate.
+  'ouro-md': { file: 'headers/ouro-md.webp', plate: true },
+  // The card catalogue and the scroll stacks were redrawn with Ouro standing
+  // tall in their skies, so their old title zones set the words over his head
+  // and tail (render QA, 2026-11-14): the same plate.
+  m365crawl: { file: 'headers/m365crawl.webp', plate: true },
+  'ouroboros-skills': { file: 'headers/ouroboros-skills.webp', plate: true },
+  // The workshop's cast stands tall in the middle of its art: the glass
+  // figure's head and Loop's antenna reach its very top, so the only sky for
+  // a title sits beside them, too narrow: the same plate, so all three, Ouro
+  // too, stay whole on the home card.
   workshop: { file: 'headers/workshop.webp', plate: true },
+  // The airship's envelope fills the top of its art and its cast spans the
+  // deck, so its only sky sits right of the bow, too narrow: the same plate.
+  airship: { file: 'headers/airship.webp', plate: true },
 }
 
 // Inner padding inside a zone, and the running head (mark, wordmark, tag) above the title.

@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro'
+import PageHero from '../components/PageHero.astro'
+import { ogPathFor } from '../data/og'
+import { labelFor, entry } from '../data/readiness.mjs'
+import { Button } from '../components/ouro/button/button'
+
+// Ouro Shepherd: keeps the GitHub Copilot app's sessions as work. Every claim here is sourced from
+// ourostack/shepherd (its README, llms.txt and the library's documented behaviour), and the terminal
+// paragraph from ourostack/ouroboros docs/shepherd-sense.md. Only what its README marks "here now" is listed as today.
+const title = 'Ouro Shepherd: your Copilot app’s sessions, kept as work | Ouro'
+const description = 'Ouro Shepherd keeps the GitHub Copilot app’s sessions as work: which are busy and why, how big each history has grown, messages, archives, resumes after a restart, quota and the sidebar. Experimental, and it runs always on a Mac.'
+const link = 'text-scale underline underline-offset-4 decoration-scale/40 hover:text-glow hover:decoration-current hover:decoration-2 transition-colors'
+const status = labelFor('shepherd')
+const statusDetail = entry('shepherd').detail
+const repo = 'https://github.com/ourostack/shepherd'
+const tryIt = 'npx github:ourostack/shepherd#v0.8.1 status'
+
+const here = [
+  ['Which sessions are busy, and why', 'Every local session on one line: busy or idle, and the reason.'],
+  ['How big each history is', 'How much each session’s history has grown, so the huge ones are easy to spot.'],
+  ['Sending a message', 'Sends a session a message, and says whether it was accepted, queued or failed.'],
+  ['Archiving', 'Archives a session, or its workspace with it. A worktree goes too unless you ask to keep it.'],
+  ['Compressing old history', 'Compresses an archived session’s history, never a live one. Restoring brings it back.'],
+  ['Resuming after a restart or crash', 'After a restart or crash, sends each session that was running one message to carry on.'],
+  ['The 500 MB cap', 'A history over 500 MB is held back and never sent, because the app loads all of it on resume.'],
+  ['Size watch and hand-off retirement', 'Archives sessions that were handed off or finished, and flags oversize histories so their sessions can hand off. Off until retire.json enables it.'],
+  ['Stuck resume', 'A session whose loop stopped with no next turn gets one message to carry on, at most three times a day. Off until stuck-resume.json enables it.'],
+  ['The six-hour health watch', 'Follows each session it resumed for six hours, asks a silent or stuck one again, and tells its agent by name only about one that stays broken.'],
+  ['Billing account and quota', 'Moves a project off a spent Copilot account, and messages the sessions that stopped mid-work. Off until quota.json enables it.'],
+  ['Sidebar tidy', 'Hides projects nobody is working in, and always shows the homes you list. Off until sidebar.json enables it.'],
+  ['Desk’s wakes', 'Delivers a wake from Desk to a session, the message sent because something outside the app is due. Off until wakes.json enables it.'],
+  ['Waiting-prompt notices', 'Says which sessions wait on a person, for an answer or a plan to approve. The agent that talks to you decides what reaches you.'],
+]
+const words = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty']
+const count = (n: number) => words[n] ?? String(n)
+const gated = here.filter(([, body]) => body.includes('Off until')).length
+
+const neighbours = [
+  ['Housesitter keeps the house', 'The Mac, and the GitHub Copilot app as a running process: awake, unlocked, restarted when it freezes, at a safe point it asks each session for through Shepherd, and Ouroboros brought back when it stops. Shepherd never quits or relaunches the app.'],
+  ['Shepherd keeps the flock', 'The app’s sessions, as work: which are busy, how big, messages, archives, resumes and quota. Its CLI does the same for agents.'],
+  ['Ouroboros is an agent, not their home', 'It reaches the app only through Shepherd’s CLI, hears its notices, and decides what reaches its person. Housesitter brings it back when it stops.'],
+  ['Butler minds a different house', 'An Ouroboros agent that looks after a home server, on Unraid and Telegram. It never touches the Mac or the app.'],
+]
+---
+
+<Layout title={title} description={description} ogImage={ogPathFor('/shepherd')} canonical="https://ouroboros.bot/shepherd/">
+  {/* The words sit above Shepherd's scene, never over it (Ouro HX Hero); the readiness tag and its detail are the eyebrow.
+      The primary action follows the lede inside the description, so on a phone it is the lede's next sibling. */}
+  <PageHero>
+    <span slot="eyebrow" class="flex flex-wrap items-center gap-x-3 gap-y-1"><span class={`tag ${status.tone}`}>{status.label}</span><span>{statusDetail}.</span></span>
+    <span slot="title" class="hero-mark-title"><img src="/brand/shepherd-render.webp" srcset="/brand/shepherd-render-128.webp 128w, /brand/shepherd-render-256.webp 256w" sizes="(min-width: 768px) 64px, 56px" width="64" height="64" alt="" class="mark-render" />Ouro Shepherd</span>
+    <Fragment slot="description">
+      <p class="product-lede" data-hero-lede>Shepherd keeps the flock: your GitHub Copilot app’s sessions, as work. It knows which ones are busy and why, sizes their histories, messages and archives them, and runs on the Mac all the time.</p>
+      <div class="mt-6 btn-row" data-primary-action>
+        <a href="#try" class="btn-primary">Try it</a>
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="here-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="here-heading" class="heading-section">What it does <span class="text-scale">today</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">{count(here.length).replace(/^./, (c) => c.toUpperCase())} duties are here now, in v0.8.1. {count(gated).replace(/^./, (c) => c.toUpperCase())} wait for a config file before they act, and each card says which.</p>
+      <ul class="does">
+        {here.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="always-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="always-heading" class="heading-section">Run it <span class="text-scale">always</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed"><code class="model-code">shepherd install</code> writes one launch agent, <code class="model-code">bot.ouro.shepherd</code>, loads it and keeps it alive. Every 60 seconds it runs <code class="model-code">shepherd watch</code>: one pass of the health watch, the quota balancer, the sidebar tidy, and the retirement, wake and stuck-resume duties its config enables, with no one at a terminal. <code class="model-code">shepherd install --dry-run</code> prints the launch agent and changes nothing.</p>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20" aria-labelledby="neighbours-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="neighbours-heading" class="heading-section">Its <span class="text-scale">neighbours</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Each one keeps a small, separate job. <a href="/housesitter/" class={link}>Housesitter</a> and <a href="/butler/" class={link}>Butler</a> have their own pages.</p>
+      <ul class="does">
+        {neighbours.map(([name, body]) => (
+          <li><h3 class="does-name">{name}</h3><p>{body}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-canopy/20 bg-deep/40" aria-labelledby="terminal-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="terminal-heading" class="heading-section">The terminal part, <span class="text-scale">in Ouroboros</span></h2>
+      <p class="mt-6 text-lg text-mist leading-relaxed">Shepherd began inside the Ouroboros harness, for coding agents in terminals (cmux and Herdr). When one hands control back too early, a cheap judge decides it should have gone on, and Shepherd answers it in the terminal. That part still ships in Ouroboros today, as an alpha. <a href="https://github.com/ourostack/ouroboros/blob/main/docs/shepherd-sense.md" class={link}>How Shepherd decides &#8599;</a></p>
+    </div>
+  </section>
+
+  <section id="try" class="px-6 md:px-12 lg:px-16 py-12 md:py-16 pb-20 border-t border-canopy/20 scroll-mt-16" aria-labelledby="try-heading">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="try-heading" class="heading-section">Try <span class="text-scale">it</span></h2>
+      <p class="mt-4 text-lg text-mist leading-relaxed">Needs Node 22.18 or newer. It prints one line per local session and changes nothing.</p>
+      <pre id="shepherd-try" class="install"><code>{tryIt}</code></pre>
+      {/* Every command block carries the shared Copy button (taste review r16). */}
+      <div class="mt-3"><Button variant="outline" data-copy-target="shepherd-try" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button></div>
+      <h3 class="does-name mt-10">For agents</h3>
+      <p class="mt-4 text-lg text-mist leading-relaxed">Plain ESM, no build step and no runtime dependencies. Every verb takes flags, or one JSON object on stdin with <code class="model-code">--input -</code>, and <code class="model-code">--json</code> prints one line of JSON. The contract is in the <a href={`${repo}#for-agents-the-cli-contract`} class={link}>README &#8599;</a>, and the library’s guide for agents is its <a href={`${repo}/blob/main/llms.txt`} class={link}>llms.txt</a>.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .does { display: grid; gap: 1.75rem 3rem; margin-top: 2rem; }
+  @media (min-width: 768px) { .does { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .does li { display: grid; align-content: start; gap: 0.4rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-mist); line-height: 1.6; font-size: 1rem; }
+  .does-name { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--color-bone); }
+  .install { margin-top: 1.25rem; padding: 1rem 1.25rem; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: calc(0.75rem * var(--site-corner-fallback, 1)); background: var(--color-deep); border: 1px solid color-mix(in srgb, var(--color-canopy) 60%, transparent); color: var(--color-bone); font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.7; }
+  @media (max-width: 479.98px) { .install { font-size: 0.75rem; } }
+</style>

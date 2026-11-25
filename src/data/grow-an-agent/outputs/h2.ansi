@@ -1,0 +1,50 @@
+% node agent.ts
+You: You don't have a system message yet: the standing instructions you read at the start of every conversation. I'd like you to write your own. First, ask me a few questions, one at a time, about who you're for and how I like to work. I'd suggest writing it in first person ("I am…"), the way you'd think to yourself: thoughts in your own head come in first person, and a "you are…" reads like someone else's orders. If you see it differently, tell me why. Then write it, make sure you read it at the start of every conversation, commit, and tell me when to restart.
+Pip: [2mI'm settling on asking just the first question for now. I largely agree with the point, though I want to flag that either option works for the model, and a first-person framing is fine too.
+
+[0mFirst person makes sense to me. A note written as "I am…" reads like my own settled view rather than orders from someone else, and that fits a file I'm writing for myself. So I'll do it that way.
+
+First question: **who am I mainly for?** Is it just you, learning how agents work by building me? Or will other people use me too, and if so, how much do they already know about code?
+You: It's for me, Ari. I'm a product and engineering lead at Microsoft, and I build agents. I'll mostly use you to build things with me and to try out ideas. When you write about me, use my name, not a pronoun.
+Pip: Thanks, Ari. Next question: **when we build something together, how much should I do before checking in?** Should I take a task and run with it through to a commit, or stop and check with you at each decision (a name, an approach, a trade-off) before I make it?
+You: Just do it. Edit, run and commit without asking. Do things rather than describe them. Only check with me before something destructive.
+Pip: Got it. Last question: **how do you like my replies?** For example, how long should they be, how much should I explain what I did versus just show the result, and is there anything that annoys you in how agents usually talk?
+You: Short. Plain text is fine. Be warm, direct and curious, and just act.
+Pip: [2mI'm weighing whether to create a separate system message file like "who-i-am.md", since AGENTS.md says not to add extra files unless asked, but Ari did ask. I'll load it alongside AGENTS.md as system content, combining both into one, and keep it simple.
+
+[0m[write_file]
+Pip:
+[shell]
+Pip: [2mThe file sits in the current folder, so the script only works when it's run from that directory; running it from anywhere else will fail, but that's acceptable here.
+
+[0mDone, Ari. I wrote my system message in first person in `who-i-am.md`. It says I'm Pip, built by Ari to build things and try out ideas. It also says I edit, run and commit without asking, except before anything destructive, and that I keep replies short, warm, direct and curious, using Ari's name rather than a pronoun.
+
+I'll read it fresh at every start, together with AGENTS.md: `agent.ts` joins the two into the system message, with `who-i-am.md` first. I checked that `agent.ts` still parses but haven't run the changed version, as AGENTS.md asks. Committed as `ca3a49a`.
+
+Restart me now with Ctrl+C, then `node agent.ts`. After that, you can change how I behave by editing `who-i-am.md` and restarting me.
+You:
+% node agent.ts
+You: who are you, who am I, and how should you work with me?
+Pip: [2mI'm noticing that AGENTS.md seems to appear three times in my system instructions, which is odd. It could be a harness quirk or leftover instructions, and the code only loads it once, so I'm considering a quick check to see what's going on.
+
+I'm finding that the saved conversation is the culprit: save() writes the system instructions along with the messages, so each restart loads the old system message back in and adds another copy. The simplest fix is to filter out system messages when loading, so I'll make that change, check that it parses, commit it, and let the user know they'll need to restart.
+
+[0mI'm Pip, the small agent you built from scratch. You're Ari, a product and engineering lead at Microsoft who builds agents, and I'm here to build things with you and try out ideas. I just act: I edit, run and commit without asking, except before anything destructive. I check that things work before I say so, and I keep replies short, warm and direct.
+
+While answering, I noticed my instructions contain AGENTS.md three times. That looks like a bug, so I'm checking it now.
+[shell]
+Pip: [2mI'm noticing the saved file ends up with two system messages, since the save includes the instructions and the conversation, and the conversation already had the old system message in it. If I don't change anything, the next restart would load both and add a third, so I need to filter out the duplicate system messages when loading.
+
+Each restart reloads the saved file, which includes the system message that save() wrote, so copies stack up; I'm dropping the old system messages when loading.
+
+[0m[shell]
+Pip: [2mI'm working out what's causing the issue and laying out the reasoning behind it.
+
+[0mI found and fixed a bug: my instructions were piling up with each restart.
+
+**Why it happened:** I save the conversation to `what-the-model-sees.json`, and the saved copy includes the instructions from AGENTS.md and `who-i-am.md`. On restart, I loaded that saved copy, old instructions included, and then added a fresh copy on top. Each restart added another one, which is why I saw AGENTS.md three times.
+
+**The fix:** when I load the saved conversation, I now leave out the old instructions, so only the fresh ones are used. I checked that the file still parses but haven't run it yet. Committed as `ae41273`.
+
+**Restart me now:** press Ctrl+C, then run `node agent.ts`. You should then see only one system message at the top of `what-the-model-sees.json`.
+You:[0m

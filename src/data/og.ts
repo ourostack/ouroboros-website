@@ -89,6 +89,12 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'A small KVM beside the Mac unlocks FileVault after a panic, power-cycles a hang, and messages you only when it needs you.',
     tag: 'housesitter',
   },
+  '/shepherd': {
+    title: 'Ouro Shepherd: your Copilot app’s sessions, kept as work.',
+    subtitle: 'It knows which sessions are busy and why, how big each history has grown, and can message or archive them.',
+    tag: 'Ouro Shepherd',
+    mark: 'shepherd',
+  },
   '/ouro-md': {
     title: 'Ouro MD: Markdown that renders as you type.',
     subtitle: 'A native Markdown editor for macOS 15 or later. Live updates, quiet marks where your agent changed things.',
@@ -146,6 +152,11 @@ export const pageOg: Record<string, OgEntry> = {
     subtitle: 'Agent Experience, persistent agents, and software designed for the agents working inside it.',
     tag: 'Blog',
   },
+  '/blog/tell-the-agent': {
+    title: 'Tell the agent, not the human.',
+    subtitle: 'When a request breaks, an Ouroboros agent now hears why and gets another try in the same turn.',
+    tag: 'Ouroboros',
+  },
   '/blog/trust-the-agent': {
     title: 'Trust the Fucking Agent.',
     subtitle: "We keep doing the agent's job along with our own. Bring judgment, and let the agent do the rest.",
@@ -190,10 +201,10 @@ export const pageOg: Record<string, OgEntry> = {
     title: 'Terms.',
     subtitle: 'The plain-language terms for this site and our open-source tools.',
   },
-  // The 404 shares its own card, the garden gate, not the home's (taste review r3).
+  // The 404 shares its own card, the rose arch, not the home's (taste review r3).
   '/404': {
     title: 'Lost in the coils.',
-    subtitle: 'Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it.',
+    subtitle: 'Ouro wandered off the glowing trail, out through the rose arch, and this page wandered off with it.',
   },
 
   // ── Each review transcript: its own card, titled with the page's own h1 (the

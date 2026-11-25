@@ -4,13 +4,15 @@ import Nav from '../components/Nav.astro'
 import Footer from '../components/Footer.astro'
 import { FamilyBar } from '../components/ouro/family-bar/family-bar'
 import { SkipLink } from '../components/ouro/skip-link/skip-link'
+import { fragmentFocusScript } from '../lib/ouro/fragment-focus-script'
 import { familyLinks, familyCurrent, localHref } from '../data/site.mjs'
 import { labStatusFor } from '../data/lab.mjs'
+import { twinFor } from '../data/agent-map.mjs'
 import PostEnd from '../components/PostEnd.astro'
 import { pageOg, routePathForSlug } from '../data/og'
 import StoryScene from '../components/StoryScene.astro'
 import { sceneFor, meadowScene, scenes, darkScenes, columnHeroes, columnHeroSrcset, COLUMN_HERO_MEDIA, wideSrcset } from '../data/scenes.mjs'
-import { usesPageHero, PAGE_HERO_SIZES } from '../data/page-hero.mjs'
+import { usesPageHero, heroSizesFor } from '../data/page-hero.mjs'
 
 interface Props {
   title: string
@@ -31,6 +33,8 @@ const {
   crumbs = [],
 } = Astro.props
 const lab = labStatusFor(Astro.url.pathname)
+// A page /llms.txt lists names its Markdown twin, and llms.txt, for an agent that reads the head.
+const twin = twinFor(Astro.url.pathname)
 // The card's alt text says what the generated card shows: its title, set in its scene.
 const ogSlug = ogImage.match(/\/og\/(og-[^/]+)\.jpg$/)?.[1]
 const ogEntry = ogSlug ? pageOg[routePathForSlug(ogSlug) ?? ''] : undefined
@@ -54,7 +58,7 @@ const heroNight = scene.hero ? darkScenes[scene.hero] : undefined
 // A page on Ouro HX's Hero (PageHero.astro, page-hero.mjs) draws its scene inside
 // the page's column, not full bleed, so its preloads take the column's sizes.
 const pageHero = Boolean(scene.hero) && usesPageHero(Astro.url.pathname)
-const heroSizes = pageHero ? PAGE_HERO_SIZES : '100vw'
+const heroSizes = pageHero ? heroSizesFor(Astro.url.pathname) : '100vw'
 // A column hero (columnHeroes) is drawn from its own 2:1 art from 1600px, so the
 // full-bleed preload stops at 1599px and the column art's takes over.
 const columnHero = !pageHero && scene.hero && columnHeroes[scene.hero]
@@ -193,6 +197,12 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={ogAlt} />
     <link rel="canonical" href={canonical} />
+    {twin && (
+      <>
+        <link rel="alternate" type="text/markdown" href={twin} title="This page as Markdown, for agents" />
+        <link rel="describedby" href="/llms.txt" />
+      </>
+    )}
     <slot name="head" />
 
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -205,6 +215,9 @@ const familyBarAlign = 'ps-[max(env(safe-area-inset-left,0px),calc(max(0px,(100%
     })} />
   </head>
   <body class="bg-void text-bone font-body antialiased">
+    {/* First in body, after every stylesheet: Safari keeps a person's focus on a page opened at a place on it
+        (/lab#install) as later stylesheets load (Ouro UI's fragmentFocusScript; Ouro check's fragment-focus rule). */}
+    <script is:inline set:html={fragmentFocusScript()}></script>
     {/* The ground is the body's own colour. No full-page gradient wash under
         it (taste review r16, 2026-11-07); ground bands tint sections. */}
     {/* Grain */}

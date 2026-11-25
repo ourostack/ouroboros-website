@@ -2,12 +2,12 @@
 import Layout from '../../layouts/Layout.astro'
 import PostByline from '../../components/PostByline.astro'
 import PageHero from '../../components/PageHero.astro'
+import { post } from '../../data/blog.mjs'
 import { ogPathFor, pageOg } from '../../data/og'
 import modelReviews from '../../data/model-reviews.json'
 import { getModelReviewClaims } from '../../lib/model-review-claims.mjs'
 
-const title = 'What is Agent Experience (AX)?'
-const description = 'Agent Experience is the design surface that appears when an agent has to stay oriented inside the system it inhabits.'
+const { title, description } = post('/blog/what-is-agent-experience/')
 
 const { claimSentence: calloutClaim } = getModelReviewClaims(modelReviews)
 const reviewedHarnessCount = modelReviews.harnesses.length

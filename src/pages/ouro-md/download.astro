@@ -5,6 +5,7 @@ import WorkshopVideo from '../../components/WorkshopVideo.astro'
 import { ogPathFor } from '../../data/og'
 import { ouroMdInstall } from '../../data/principles.mjs'
 import { ouroMdDownload } from '../../data/ouro-md-release.mjs'
+import { Button } from '../../components/ouro/button/button'
 
 // Ouro MD's download page. It moved here from ouro.bot/apps/ouro-md/ (Ari,
 // 2026-11-07: "move every surface to ouroboros.bot and have ouro.bot forward");
@@ -92,8 +93,8 @@ const app = {
       <figure class="product-figure min-w-0 split-body">
         {/* One shot per theme, both Ouro MD's own rendering of the same document. */}
         <div class="product-media media-shot dl-shot">
-          <picture class="theme-light-only"><img src="/images/workshop/ouro-md-editing.png" width="1720" height="1480" loading="lazy" decoding="async" alt="Ouro MD rendering a table with emoji status, a KaTeX equation, and a checkbox task list." /></picture>
-          <picture class="theme-dark-only"><img src="/images/workshop/ouro-md-editing-dark.png" width="1720" height="1495" loading="lazy" decoding="async" alt="Ouro MD rendering a table with emoji status, a KaTeX equation, and a checkbox task list." /></picture>
+          <picture class="theme-light-only"><img src="/images/workshop/ouro-md-editing.png" width="1720" height="1530" loading="lazy" decoding="async" alt="Ouro MD rendering a table with emoji status, a KaTeX equation, and a checkbox task list." /></picture>
+          <picture class="theme-dark-only"><img src="/images/workshop/ouro-md-editing-dark.png" width="1720" height="1530" loading="lazy" decoding="async" alt="Ouro MD rendering a table with emoji status, a KaTeX equation, and a checkbox task list." /></picture>
         </div>
       </figure>
     </div>
@@ -129,7 +130,7 @@ const app = {
       <div class="grid gap-2 content-start min-w-0 split-body">
         <pre id="ouro-md-install" class="agent-text">{ouroMdInstall}</pre>
         <div class="flex flex-wrap items-center gap-3">
-          <button type="button" data-copy-target="ouro-md-install" class="btn-ghost !py-2 text-sm"><span data-copy-label>Copy</span></button>
+          <Button variant="outline" data-copy-target="ouro-md-install" className="btn-ghost !h-auto !py-2 text-sm"><span data-copy-label>Copy</span></Button>
           <span class="text-sm text-mist">Also adds an <code class="font-mono">md</code> shell alias.</span>
         </div>
       </div>
@@ -172,14 +173,14 @@ const app = {
   @media (min-width: 768px) { .dl-h2 { font-size: 3.25rem; line-height: 1; } }
   .dl-trust { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-mist); }
   .dl-trust span { display: inline-flex; align-items: center; gap: 0.45rem; }
-  .dl-trust span::before { content: ""; width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--color-scale); }
+  .dl-trust span::before { content: ""; width: 0.35rem; height: 0.35rem; border-radius: calc(50% * var(--site-corner-fallback, 1)); background: var(--color-scale); }
   .dl-shot img { width: 100%; height: auto; }
   .dl-prose { color: var(--color-mist); }
   .dl-prose > p:not(.eyebrow) { font-size: 1.125rem; line-height: 1.7; }
   .dl-list { display: grid; gap: 0.5rem; margin-top: 0.5rem; font-size: 1rem; }
   .dl-list li { position: relative; padding-left: 1.25rem; }
-  .dl-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--color-scale); }
-  .dl-list code, .dl-features :global(code) { font-family: var(--font-mono); font-size: 0.875rem; white-space: nowrap; color: var(--color-bone); background: var(--color-undergrowth); padding: 0.1em 0.4em; border-radius: 0.25rem; }
+  .dl-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 0.4rem; height: 0.4rem; border-radius: calc(50% * var(--site-corner-fallback, 1)); background: var(--color-scale); }
+  .dl-list code, .dl-features :global(code) { font-family: var(--font-mono); font-size: 0.875rem; white-space: nowrap; color: var(--color-bone); background: var(--color-undergrowth); padding: 0.1em 0.4em; border-radius: calc(0.25rem * var(--site-corner-fallback, 1)); }
   .dl-head { margin-bottom: 2.5rem; }
   .dl-features { display: grid; gap: 2rem 3rem; }
   @media (min-width: 640px) { .dl-features { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

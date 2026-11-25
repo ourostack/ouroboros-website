@@ -1,0 +1,28 @@
+% node agent.ts
+You: my name is Ari
+
+Nice to meet you, Ari! What can I help you with today?
+You: what's my name?
+[2mKeeping it simple.
+
+[0mYour name is Ari, as you told me just a moment ago.
+You: give me a short summary of AGENTS.md
+[2mSince no file came through, I can't read the AGENTS.md itself, but I can still explain what one generally is.
+
+[0mI don't see an AGENTS.md file in our conversation, and I can't read files from your computer or repository. If you paste its contents here, I can summarize it.
+
+If you mean the convention in general: **AGENTS.md** is a Markdown file placed in a code repository to give AI coding agents instructions about the project. It's like a README written for AI assistants rather than humans. It typically includes:
+
+- **Setup and build commands**, such as how to install dependencies and run the project
+- **Testing instructions**, such as how to run tests and what must pass before committing
+- **Code style and conventions**, such as formatting rules, naming patterns, and preferred libraries
+- **Project structure**, meaning where key code lives and how it's organized
+- **Workflow rules**, such as PR guidelines, commit message format, and things to avoid
+
+Several AI coding tools support it, so a project can keep one set of agent instructions instead of separate config files for each tool.
+You:
+% node agent.ts
+You: what's my name?
+
+Your name is Ari.
+You:[0m

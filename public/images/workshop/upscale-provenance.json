@@ -155,63 +155,6 @@
    },
    "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 50a78d132c8a077d9744be941bb74b15d66cf3b0e1ed77ab2643f4c6e130e523",
    "ssim": 0.9933
-  },
-  "first-reply": {
-   "path": "/blog/build-ai-agent-from-scratch/first-reply.webp",
-   "source": {
-    "size": [
-     1600,
-     424
-    ],
-    "sha256": "192ac310dd6ac13dfff0016f2944e82583598074dc8d256907a793553374bc34"
-   },
-   "output": {
-    "size": [
-     3200,
-     848
-    ],
-    "sha256": "b6e1f7216d45254a602734691800a117dc0447321e8d252f2e2bfafd5360d983"
-   },
-   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 192ac310dd6ac13dfff0016f2944e82583598074dc8d256907a793553374bc34",
-   "ssim": 0.991
-  },
-  "what-the-model-sees": {
-   "path": "/blog/build-ai-agent-from-scratch/what-the-model-sees.webp",
-   "source": {
-    "size": [
-     1600,
-     1446
-    ],
-    "sha256": "c420a3906745ee0cfa1ea99f256e7b452dc00666fa9936370b45ac492b3d09a9"
-   },
-   "output": {
-    "size": [
-     3200,
-     2892
-    ],
-    "sha256": "048303cf4d6c747d6e4ea0e354d694ac660e7fdddfaad9a8502ba32863123660"
-   },
-   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from c420a3906745ee0cfa1ea99f256e7b452dc00666fa9936370b45ac492b3d09a9",
-   "ssim": 0.9885
-  },
-  "wren-after-restart": {
-   "path": "/blog/build-ai-agent-from-scratch/wren-after-restart.webp",
-   "source": {
-    "size": [
-     1600,
-     838
-    ],
-    "sha256": "4b8b34dbda13e56858ce581eec5194e707083f88bf5308898a4b9d4e44167c0f"
-   },
-   "output": {
-    "size": [
-     3200,
-     1676
-    ],
-    "sha256": "6dbc28097533978dca26ad359a223071924d576a59a079362bc3c7bcbd1bd626"
-   },
-   "upscaled": "upscaled 2x with Real-ESRGAN realesr-animevideov3-x2 from 4b8b34dbda13e56858ce581eec5194e707083f88bf5308898a4b9d4e44167c0f",
-   "ssim": 0.9817
   }
  }
 }

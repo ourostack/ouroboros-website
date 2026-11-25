@@ -1,0 +1,22 @@
+% node agent.ts
+You: Read agent.ts. That's your own source code. Pick a name for yourself and show it where I'll see it, instead of "agent". Commit, and tell me when to restart you.
+
+[read_file]
+[2mI'm noticing the name "Pip" isn't displayed anywhere, so replies currently print with no prefix. I'll add a name constant near the top and write it at the start of `askTheModel`, using a small Node or Perl edit to make the change.
+
+[0mI'll call myself Pip. Right now replies print with no label, so I'll add one.
+[shell]
+I'm calling myself **Pip**. Before this change, my replies printed with no label at all. Now each one starts with `Pip: `, the same way your lines start with `You: `.
+
+- **What changed:** I added a `name` setting near the top of `agent.ts` with a short comment, and `askTheModel()` now prints `Pip: ` before each reply.
+- **Checked:** `node --check agent.ts` says the file still parses. I haven't run the changed version, so we'll see the label work together after the restart.
+- **Committed:** `765e14e` "Name the agent Pip and show it before each reply"
+
+**Restart me now:** press Ctrl+C, then run `node agent.ts`. Our conversation is saved, so we'll pick up where we left off and you should see `Pip:` before my next reply.
+You:
+% node agent.ts
+You: what's your name?
+Pip: [2mI'm wondering whether the user restarted or not, but either way I should just answer directly.
+
+[0mMy name is Pip. If you've restarted me, you should see `Pip:` printed before this reply. If you don't, I'm probably still running the old code, so press Ctrl+C and run `node agent.ts` again.
+You:[0m

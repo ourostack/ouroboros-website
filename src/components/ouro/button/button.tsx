@@ -1,7 +1,7 @@
 "use client";
 
 import { Button as BaseButton } from "@base-ui/react/button";
-import { useEffect, useRef } from "react";
+import { Fragment, isValidElement, useEffect, useRef, useState } from "react";
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
@@ -14,10 +14,13 @@ import type {
   Ref,
   SVGProps,
 } from "react";
+import { Tooltip } from "@/components/ouro/tooltip/tooltip";
 import { announce } from "@/lib/ouro/announce";
 import { fontFor, radiusFor, sizeFor, toneFor } from "@/lib/ouro/appearance-hints";
 import { useAppearanceClassNameCheck } from "@/lib/ouro/class-name-check";
+import { capLabel } from "@/lib/ouro/cap-label";
 import { cn } from "@/lib/ouro/cn";
+import { useDisabledReason } from "@/lib/ouro/disabled-reason";
 import { holdPageAtPress } from "@/lib/ouro/page-scroll-hold";
 import { useMergedRef } from "@/lib/ouro/refs";
 import { RouterLink } from "@/lib/ouro/router-link";
@@ -56,7 +59,12 @@ export interface ButtonBaseProps {
     | undefined;
   /**
    * Visual weight: `solid` for the primary action, `soft` for secondary actions,
-   * `outline` for a quiet bordered control, `plain` for a borderless one.
+   * `outline` for a quiet bordered control, `plain` for a borderless one, and `glass` for a
+   * Liquid Glass capsule (a circle when it holds only an icon) that floats over
+   * content, such as a window toolbar's button. A glass button stays pressed while the popup it opens is open
+   * (`aria-expanded`), draws solid with a defined edge under reduced transparency or more contrast,
+   * and takes the tone's text colour. `size="sm"` makes a glass button the height of a macOS Tahoe window toolbar,
+   * a circle for an icon.
    * shadcn's `default` is `solid` (the default), `ghost` and `link` are `plain`, and
    * `destructive` and `secondary` are tones: `tone="destructive"`. Any other
    * string is a type error whose message names the fix.
@@ -69,6 +77,7 @@ export interface ButtonBaseProps {
     | "soft"
     | "outline"
     | "plain"
+    | "glass"
     | (string & { 'From shadcn? Use tone="destructive" or tone="secondary". default is "solid"; ghost and link are "plain"': never })
     | undefined;
   /**
@@ -77,8 +86,15 @@ export interface ButtonBaseProps {
    * such as Undo in a note: it takes the text's size, leaves the line's height as it was and
    * keeps a target at least 24px tall and wide (44px on a coarse pointer). shadcn's `default`
    * is `md`; for an icon-only button, pass the icon as children and an `aria-label`: Button sizes
-   * the icon as it sizes `startIcon`, unless the icon has a size class of its own. Any other
+   * the icon as it sizes `startIcon`, unless the icon has a size class of its own, and makes the
+   * button at least as wide as it is tall, so an icon's button is square (a circle where the theme's
+   * controls are capsules). Wider content keeps its width, and a picture whose `width` and `height` differ,
+   * such as a logo, keeps the label's padding. Any other
    * string is a type error whose message names the fix. @default "md"
+   * @claim "at least as wide as it is tall" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::icon-only size > is as wide as it is tall at size %s, with only an icon and a name)
+   * @claim "Wider content keeps its width" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::icon-only size > keeps an image child at its own width, and the button is never narrower than it is tall)
+   * @claim "Wider content keeps its width" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::icon-only size > keeps a wide element child at its full width under its aria-label)
+   * @claim "a picture whose `width` and `height` differ" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::icon-only size > keeps a label's padding around a wide picture such as a logo, and squares a square one or an icon)
    * @claim "are taller on phones" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::appearance > orders sizes sm < md < lg)
    * @claim "are taller on phones" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::className > lets the app's height and padding win at desktop widths too)
    * @claim "it takes the text's size" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::inline size > sits in a line of text at the text's size without moving the line, and keeps a 24px target)
@@ -108,7 +124,14 @@ export interface ButtonBaseProps {
   loadingLabel?: string | undefined;
   /** Icon before the label. Pass the component, not an element: `startIcon={PlusIcon}`. */
   startIcon?: ButtonIcon | undefined;
-  /** Icon after the label. Pass the component, not an element: `endIcon={ArrowRightIcon}`. */
+  /**
+   * Icon after the label. Pass the component, not an element: `endIcon={ArrowRightIcon}`. On a
+   * button wider than its label, such as one with `fullWidth`, it sits at the end and the label
+   * stays centred in the rest, or at the start with `className="justify-start"`.
+   *
+   * @claim "On a button wider than its label" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::button branch > puts an end icon at the inline end of a button wider than its label, %s)
+   * @claim "On a button wider than its label" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::button branch > keeps an app's justify-start on a wide button %s an end icon)
+   */
   endIcon?: ButtonIcon | undefined;
   /** The label. For an icon-only button, also pass `aria-label`. */
   children: ReactNode;
@@ -159,6 +182,8 @@ export type ButtonLinkProps = ButtonBaseProps &
     type?: never;
     /** A link cannot be disabled. Remove `href` to render a disabled button, or don't render the link. */
     disabled?: never;
+    /** Only a button takes a reason. Remove `href` to render a button, or don't render the link. */
+    disabledReason?: never;
     /** A dialog's default action is a button. Remove `href`: `<Button default onClick={start}>`. */
     default?: never;
     ref?: Ref<HTMLAnchorElement> | undefined;
@@ -177,6 +202,18 @@ export type ButtonButtonProps = ButtonBaseProps &
      * @claim "never submits a form by accident" registry/ouro/components/ouro/button/button.test.tsx verify:testExists(registry/ouro/components/ouro/button/button.test.tsx::button branch > renders a native button with type=button and data-ouro)
      */
     type?: "button" | "submit" | "reset" | (string & { 'Use "button", "submit" or "reset"; for looks use tone and variant': never }) | undefined;
+    /**
+     * Why the button can't be pressed now. Passing a reason turns the button off without
+     * removing it from the tab order: it takes `aria-disabled`, a press does nothing, keyboard
+     * focus still reaches it, and the reason shows as its tooltip on hover and focus and is read
+     * as its description. Plain `disabled` stays as it is, removed from the tab order and silent.
+     * Pass `undefined` while the button is available, so it keeps its place and focus as it turns
+     * off and on. Use it whenever a button is off and a person would ask why; a loading button
+     * needs no reason, since `loading` says what is happening.
+     * @example
+     * <Button disabledReason={cart.length === 0 ? "Add an item first" : undefined}>Check out</Button>
+     */
+    disabledReason?: string | undefined;
     /**
      * The dialog's default action, as on a Mac: Return presses it from anywhere in the dialog
      * around it, unless focus is in a multi-line field (where Command or Control Return presses
@@ -204,26 +241,33 @@ export type ButtonProps = ButtonLinkProps | ButtonButtonProps;
 
 // Class strings are literal so the app's Tailwind finds them when it compiles.
 const base =
-  "press relative box-border inline-flex shrink-0 items-center justify-center align-middle " +
-  "rounded-lg border border-solid font-medium whitespace-nowrap " +
+  "press relative isolate box-border inline-flex shrink-0 items-center justify-center align-middle " +
+  "rounded-ouro-control border border-solid font-medium whitespace-nowrap " +
+  // A plain button stays borderless at rest in forced colours too, matching a ghost action
+  // elsewhere; its focus-visible outline below still marks it.
+  "forced-colors:data-[variant=plain]:border-0 " +
   "no-underline select-none touch-manipulation [-webkit-tap-highlight-color:transparent] " +
   "outline-ring outline-offset-2 focus-visible:outline-2 focus-visible:outline-solid " +
   // A state layer in the text color: a light wash on hover, a deeper one while pressed.
   "before:pointer-events-none before:absolute before:-inset-px before:rounded-[inherit] before:[corner-shape:inherit] before:bg-current " +
   "before:opacity-0 before:transition-opacity before:duration-(--ouro-duration-fast) before:ease-[ease] " +
-  "not-data-disabled:not-active:pointer-fine:hover:before:opacity-8 not-data-disabled:active:before:opacity-14 " +
+  // Stryker disable next-line StringLiteral: a class string in a class position; test/state-hovers.test.tsx reads its tokens, outside this file's tests
+  "not-data-disabled:not-active:pointer-fine:hover:before:opacity-[var(--ouro-state-hover,8%)] not-data-disabled:active:before:opacity-[var(--ouro-state-pressed,14%)] " +
   // Where corner-shape is missing, the surface slot paints the background, border and state layer instead (see ouro-base.css).
-  "bg-(--ouro-bg) border-(--ouro-bd) [--ouro-sq-w:1px] [--ouro-sq-r:calc(var(--radius-lg)/var(--ouro-radius-scale,1))] " +
+  "bg-(--ouro-bg) border-(--ouro-bd) " +
   // Stryker disable next-line StringLiteral: a class string in a class position, which no test reads
-  "not-data-disabled:not-active:pointer-fine:hover:[--ouro-state:0.08] not-data-disabled:active:[--ouro-state:0.14] " +
+  "not-data-disabled:not-active:pointer-fine:hover:[--ouro-state:var(--ouro-state-hover,8%)] not-data-disabled:active:[--ouro-state:var(--ouro-state-pressed,14%)] " +
   // Press feedback: scale only when motion is allowed and the button is enabled.
   "motion-safe:not-data-disabled:active:scale-(--ouro-press-scale) " +
-  "disabled:cursor-not-allowed disabled:opacity-50 aria-busy:cursor-progress";
+  // `data-ouro-off` is set only when `disabledReason` turns the button off, so a loading button (also data-disabled) keeps its own look.
+  "disabled:cursor-not-allowed disabled:opacity-50 data-ouro-off:cursor-not-allowed data-ouro-off:opacity-50 aria-busy:cursor-progress";
 
 // Height and padding step down to desktop density at the `sm` breakpoint through two
 // variables, so the button has one unprefixed `h-*` and `px-*` class and the app's own
-// (`className="h-20"`) replaces it at every width.
-const density = "h-(--ouro-button-h) px-(--ouro-button-px)";
+// (`className="h-20"`) replaces it at every width. The height never falls below a 20px icon plus
+// 4px, so a compact `--spacing` cannot shrink it under its icon; the floor is part of the height
+// class, not a min-height, so an app's or a component's own `h-*` still sets a smaller button.
+const density = "h-[max(var(--ouro-button-h),var(--ouro-size-6))] px-(--ouro-button-px)";
 const sizes = {
   sm:
     `${density} gap-1.5 text-sm [--ouro-button-h:calc(var(--spacing)*9)] [--ouro-button-px:calc(var(--spacing)*3)] ` +
@@ -236,8 +280,20 @@ const sizes = {
     "sm:[--ouro-button-h:calc(var(--spacing)*11)]",
   // In a line of text, at the text's own size: the padding takes the box to 24px and more, and the
   // negative margin gives that back, so the line keeps its height and the label sits on its baseline.
-  inline: "h-auto min-w-6 px-1 py-[3px] -my-1 gap-1 rounded-md align-baseline text-[length:inherit] leading-[inherit]",
+  inline: "h-auto min-w-6 px-1 py-[3px] -my-1 gap-1 rounded-ouro-md align-baseline text-[length:inherit] leading-[inherit]",
 } as const;
+
+// Liquid Glass: the theme's glass tint over what is behind, blurred, with its rim as the border and a soft shadow, in a
+// capsule 40px tall (the capsule radius stops at half the height, so Ouro's squircle capsule, a circle for an icon). It stays pressed
+// while the popup it opened is open. Solid, with a defined edge, under reduced transparency or more contrast.
+const glass =
+  "[--ouro-glass-h:calc(var(--spacing)*10)] [--ouro-bd:var(--ouro-glass-rim)] [--ouro-bg:color-mix(in_oklab,var(--ouro-glass)_var(--ouro-glass-tint),transparent)] " +
+  "[--ouro-control-radius:9999px] [--ouro-control-corner-shape:superellipse(1.05)] " +
+  "[--ouro-button-h:var(--ouro-glass-h)] " +
+  "shadow-(--shadow-sm) backdrop-blur-xl aria-expanded:[--ouro-state:var(--ouro-state-pressed,14%)] aria-expanded:before:opacity-[var(--ouro-state-pressed,14%)] " +
+  // Stryker disable next-line StringLiteral: a test cannot emulate reduced transparency (Playwright has no option for it)
+  "[@media(prefers-reduced-transparency:reduce)]:[--ouro-bg:var(--ouro-glass-solid)] [@media(prefers-reduced-transparency:reduce)]:[--ouro-bd:var(--ouro-glass-edge)] [@media(prefers-reduced-transparency:reduce)]:backdrop-blur-none " +
+  "contrast-more:[--ouro-bg:var(--ouro-glass-solid)] contrast-more:[--ouro-bd:currentColor] contrast-more:backdrop-blur-none";
 
 // `soft` is the tone at low opacity behind text in the tone, the pattern shadcn uses for
 // destructive, with the text mixed 20% toward the foreground so it keeps 4.5:1 on the
@@ -257,7 +313,7 @@ const looks = {
       "not-data-disabled:active:[--ouro-bg:var(--ouro-action-active,var(--ouro-action,var(--primary)))] " +
       "data-disabled:[--ouro-bg:var(--ouro-action-disabled,var(--ouro-action,var(--primary)))] " +
       "data-disabled:text-(--ouro-action-disabled-foreground,var(--ouro-action-foreground,var(--primary-foreground))) " +
-      "disabled:opacity-(--ouro-action-disabled-opacity,0.5)",
+      "disabled:opacity-(--ouro-action-disabled-opacity,0.5) data-ouro-off:opacity-(--ouro-action-disabled-opacity,0.5)",
     secondary: "[--ouro-bd:transparent] [--ouro-bg:var(--secondary)] text-secondary-foreground",
     destructive: "[--ouro-bd:transparent] [--ouro-bg:var(--destructive)] text-destructive-foreground",
     success: "[--ouro-bd:transparent] [--ouro-bg:var(--success)] text-success-foreground",
@@ -284,6 +340,13 @@ const looks = {
     success: "[--ouro-bd:transparent] [--ouro-bg:transparent] text-success",
     warning: "[--ouro-bd:transparent] [--ouro-bg:transparent] text-warning",
   },
+  glass: {
+    primary: `${glass} text-primary`,
+    secondary: `${glass} text-foreground`,
+    destructive: `${glass} text-destructive`,
+    success: `${glass} text-success`,
+    warning: `${glass} text-warning`,
+  },
 } as const;
 
 const iconClass = "size-[1.25em] shrink-0";
@@ -291,6 +354,13 @@ const iconClass = "size-[1.25em] shrink-0";
 // An icon passed as children sizes like `startIcon`, unless it carries a size class of its own.
 const iconChildClass =
   "[&>[data-ouro-label]>svg:not([class*='size-'])]:size-[1.25em] [&>[data-ouro-label]>svg]:shrink-0";
+
+// An icon-only button drops the label's side padding and is at least as wide as it is tall: the height is a floor,
+// never a width, so an icon sits in a square and a child wider than the height keeps its width.
+// An icon-only button drops the label's side padding and is at least as wide as it is tall: the height is a floor,
+// never a width, so an icon sits in a square and a child wider than the height keeps its width. On a fine pointer the
+// square is at least the 24px floor, or the height when that is larger.
+const iconOnlyClass = "min-w-(--ouro-button-h) pointer-fine:min-w-[max(var(--ouro-button-h),var(--ouro-size-6))] [--ouro-button-px:0px] sm:[--ouro-button-px:0px]";
 
 const buttonTypes = ["button", "submit", "reset"] as const;
 
@@ -325,13 +395,18 @@ function sizeWarning(size: string): readonly [string, string] {
   return [`size="${size}" is not a size`, fix];
 }
 
-function Spinner(): JSX.Element {
+function Spinner({ fadeIn }: { fadeIn: boolean }): JSX.Element {
   return (
     <span
+      data-slot="button-spinner"
       aria-hidden="true"
-      className="absolute inset-0 flex items-center justify-center transition-opacity duration-(--ouro-duration-base) ease-(--ouro-ease-out) starting:opacity-0"
+      className={cn(
+        "absolute inset-0 flex items-center justify-center transition-opacity duration-(--ouro-duration-base) ease-(--ouro-ease-out)",
+        fadeIn && "starting:opacity-0",
+      )}
     >
       <svg
+        data-slot="button-spinner-icon"
         data-ouro-spinner=""
         viewBox="0 0 24 24"
         fill="none"
@@ -453,6 +528,16 @@ export function Button(props: ButtonProps): JSX.Element {
   // Speak the busy state when loading turns on. The shared region sits outside the
   // button, so the button's accessible name stays exactly its label.
   const wasLoading = useRef(loading);
+  // A button that mounts already loading draws its spinner on the first frame; it fades in only when loading turns on later.
+  const [mounted, setMounted] = useState(false);
+  useEffect(
+    () => {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMounted(true);
+    },
+    // Stryker disable next-line ArrayDeclaration: an effect that only sets a flag to true runs the same whatever its list holds.
+    [],
+  );
   useEffect(() => {
     if (loading && !wasLoading.current) announce(loadingLabel);
     wasLoading.current = loading;
@@ -466,7 +551,7 @@ export function Button(props: ButtonProps): JSX.Element {
   useEffect(() => {
     press.current = onClick;
   });
-  const pressable = isDefault && rest.href === undefined && !(rest as { disabled?: boolean }).disabled && !loading;
+  const pressable = isDefault && rest.href === undefined && !(rest as { disabled?: boolean }).disabled && !(rest as { disabledReason?: string }).disabledReason && !loading;
   useEffect(() => {
     const root = pressable ? own.current!.closest("[role=dialog],[role=alertdialog]") : null;
     if (!root) return undefined;
@@ -482,28 +567,44 @@ export function Button(props: ButtonProps): JSX.Element {
     return () => root.ownerDocument.removeEventListener("keydown", onKeyDown);
   }, [pressable]);
 
+  const reason = useDisabledReason(rest as { disabledReason?: string }, (rest as { "aria-describedby"?: string })["aria-describedby"]);
   const buttonRef = useMergedRef((rest as { ref?: Ref<HTMLElement> }).ref, own);
-  const classes = cn(base, iconChildClass, sizes[size], looks[variant][tone], fullWidth && "w-full", className);
+  // An icon-only button (one element as its whole label, named by aria-label or aria-labelledby) is at least as wide as
+  // it is tall, so an icon's button is square, as shadcn's icon size is, and a theme whose controls are capsules draws
+  // it as a circle. Its width is a floor, so content that is wider than the height keeps its width.
+  // A picture whose width and height differ, such as a logo, is not an icon: it keeps the label's padding.
+  const named = rest as { "aria-label"?: string; "aria-labelledby"?: string };
+  const iconOnly =
+    size !== "inline" &&
+    !StartIcon &&
+    !EndIcon &&
+    isValidElement<{ width?: unknown; height?: unknown }>(children) &&
+    children.type !== Fragment &&
+    !(children.type === "img" && children.props.width !== children.props.height) &&
+    Boolean(named["aria-label"] || named["aria-labelledby"]);
+  // Stryker disable next-line ConditionalExpression: the glass height variable is read only by the glass look, so setting it on another variant's small size changes nothing.
+  const classes = cn(base, iconChildClass, sizes[size], iconOnly && iconOnlyClass, looks[variant][tone], variant === "glass" && size === "sm" && "[--ouro-glass-h:calc(var(--spacing)*9)]", fullWidth && "w-full", className);
 
-  // The touch target comes first and the label is positioned, so the label paints above
+  // The touch target comes first and the label is its own stacking context, so the label paints above
   // the target: the target still enlarges the hit area, and nothing covers the text
-  // (axe can check its contrast).
+  // (axe can check its contrast). It is `isolate`, not `relative`, so it is no containing block
+  // for an app's absolutely placed children.
+  const fade = cn("isolate transition-opacity duration-(--ouro-duration-fast) ease-(--ouro-ease-out)", loading && "opacity-0");
   const content = (
     <>
       <TouchTarget />
-      <span data-ouro-surface="" aria-hidden="true" />
       <span
+        data-slot="button-label"
         data-ouro-label=""
-        className={cn(
-          "relative inline-flex items-center gap-[inherit] transition-opacity duration-(--ouro-duration-fast) ease-(--ouro-ease-out)",
-          loading && "opacity-0",
-        )}
+        // The label takes the room a wider button has, aligned as the button aligns it (centred, or the app's
+        // justify-start), so an end icon after it sits at the end.
+        className={cn("inline-flex grow items-center gap-[inherit] [justify-content:inherit]", fade)}
       >
         {StartIcon && <StartIcon aria-hidden="true" className={cn(iconClass, "-ms-0.5")} />}
-        {children}
-        {EndIcon && <EndIcon aria-hidden="true" className={cn(iconClass, "-me-0.5")} />}
+        {size === "inline" ? children : capLabel(children)}
       </span>
-      {loading && <Spinner />}
+      {EndIcon && <EndIcon aria-hidden="true" className={cn(iconClass, fade, "-me-0.5")} />}
+      {loading && <Spinner fadeIn={mounted} />}
     </>
   );
 
@@ -520,7 +621,6 @@ export function Button(props: ButtonProps): JSX.Element {
         onAuxClick={loading ? preventDefault : anchorProps.onAuxClick}
         className={classes}
         data-ouro="button"
-        data-ouro-squircle=""
         data-variant={variant}
         data-tone={tone}
         data-loading={loading ? "" : undefined}
@@ -534,7 +634,7 @@ export function Button(props: ButtonProps): JSX.Element {
   }
 
   // Stryker disable next-line StringLiteral: a type that is not a button type renders "button", so "" does too.
-  const { ref: _ref, disabled, type: typeProp = "button", ...buttonProps } = rest as Omit<ButtonButtonProps, keyof ButtonBaseProps>;
+  const { ref: _ref, disabled, disabledReason: _reason, type: typeProp = "button", ...buttonProps } = rest as Omit<ButtonButtonProps, keyof ButtonBaseProps>;
   // A button that opens a dialog (its own, or a component's trigger) holds the page from the press,
   // so a release during a smooth scroll lands on it and its click opens the dialog.
   const holdsPage =
@@ -552,27 +652,37 @@ export function Button(props: ButtonProps): JSX.Element {
       : {};
   // A type that is not a button type would submit forms (the browser's default), so it renders "button".
   const type = buttonTypes.includes(typeProp as (typeof buttonTypes)[number]) ? (typeProp as (typeof buttonTypes)[number]) : "button";
-  return (
+  const button = (
     <BaseButton
       data-ouro-control="button"
       data-ouro-part="root"
+      data-slot="button"
       {...buttonProps}
       {...holdsPage}
       ref={buttonRef}
       type={type}
-      disabled={Boolean(disabled || loading)}
-      focusableWhenDisabled={Boolean(loading && !disabled)}
+      disabled={Boolean(disabled || loading || reason.off)}
+      focusableWhenDisabled={Boolean(reason.off || (loading && !disabled))}
       className={classes}
       data-ouro="button"
-      data-ouro-squircle=""
       data-variant={variant}
       data-tone={tone}
       data-loading={loading ? "" : undefined}
+      data-ouro-off={reason.off ? "" : undefined}
       data-default={isDefault ? "" : undefined}
       aria-keyshortcuts={isDefault ? "Enter" : buttonProps["aria-keyshortcuts"]}
       aria-busy={loading || buttonProps["aria-busy"]}
+      aria-describedby={reason.describedBy}
     >
-      {content}
+      {reason.note ? (
+        <>
+          {content}
+          {reason.note}
+        </>
+      ) : (
+        content
+      )}
     </BaseButton>
   );
+  return reason.wrapped ? <Tooltip content={reason.reason}>{button}</Tooltip> : button;
 }

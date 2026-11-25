@@ -1,6 +1,6 @@
 <!-- ourostack:brand:start -->
 <p align="center">
-  <a href="https://github.com/ourostack"><img src="https://raw.githubusercontent.com/ourostack/.github/main/brand/headers/ouroboros-website.webp" alt="Ouro inside an open rose-arch garden gate beside a signpost, the trail leading to a desk, a lectern and a factory in the valley" width="100%"></a>
+  <a href="https://github.com/ourostack"><img src="https://raw.githubusercontent.com/ourostack/.github/main/brand/headers/ouroboros-website.webp" alt="Ouro inside an open rose arch beside a signpost, the trail leading to a desk, a lectern and a factory in the valley" width="100%"></a>
 </p>
 <!-- ourostack:brand:end -->
 
@@ -40,7 +40,7 @@ src/
   components/      # Nav, Footer, Lab heroes and docs shell
   data/            # OG manifest, readiness and Lab status, principles, model-review data
   layouts/         # Base HTML layout
-  pages/           # Routes: approach, brief, desk, ouro-md, blog/, lab/, privacy, terms, llms.txt (built from data/llms.txt and the family list)
+  pages/           # Routes: approach, brief, desk, ouro-md, blog/, lab/, privacy, terms (llms.txt, llms-full.txt and the Markdown twin of each page llms.txt lists are written after the build by lib/page-markdown.mjs and lib/llms.mjs; the brief's twin, public/brief.md, is written by hand)
   styles/          # Global CSS + Tailwind theme
   worker/          # Cloudflare Worker and the old-URL redirect map
 public/

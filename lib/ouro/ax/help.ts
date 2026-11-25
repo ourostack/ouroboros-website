@@ -4,8 +4,9 @@ export type { CommandManifest, OverviewOptions };
 // The export list comes first because the shadcn CLI drops comments before a file's
 // first statement, which would take the JSDoc below with it.
 
-import { argUsage, BUILTIN_FLAGS, flagsOf, flagUsage, inputSchema, invocation, usageOf, type Cli, type CommandDef, type JsonSchema } from "./command.ts";
+import { argUsage, BUILTIN_FLAGS, flagsOf, flagUsage, inputSchema, invocation, usageOf, type Cli, type CommandDef, type JsonSchema } from "./ax-command.ts";
 import { DRY_RUN_FLAG, WHY_FLAG } from "./effects.ts";
+import { shellWord } from "./problem.ts";
 import { voiceLines } from "./voice.ts";
 
 /**
@@ -48,13 +49,20 @@ interface OverviewOptions {
 
 const listed = (cli: Cli) => cli.commands.filter((c) => !c.hidden && c !== cli.defaultCommand);
 
-/** Commands of one effect, one per row: a multi-word command ("draft set") shows under its first word once. */
+/**
+ * Commands of one effect, one per row. A multi-word command ("draft set") shows under its first word once when the CLI
+ * gives that word a group summary, and by its whole name otherwise, so no row names a command that does not exist.
+ *
+ * @claim "by its whole name otherwise" registry/ouro/ax/help.test.mts verify:testExists(registry/ouro/ax/help.test.mts::a multi-word command with no group summary is listed by its whole name, never as its first word)
+ */
 function rows(cli: Cli, effect: "private" | "others"): { name: string; summary: string }[] {
   const out: { name: string; summary: string }[] = [];
   for (const c of listed(cli).filter((x) => x.effect === effect)) {
     const head = c.name.split(" ")[0]!;
-    if (out.some((r) => r.name === head)) continue;
-    out.push({ name: head, summary: cli.groups[head] ?? c.summary });
+    const group = cli.groups[head];
+    const name = group === undefined ? c.name : head;
+    if (out.some((r) => r.name === name)) continue;
+    out.push({ name, summary: group ?? c.summary });
   }
   return out;
 }
@@ -79,12 +87,16 @@ function renderOverview(cli: Cli, options: OverviewOptions = {}): string {
   const mine = rows(cli, "private");
   const theirs = rows(cli, "others");
   const pad = Math.max(...[...mine, ...theirs].map((r) => r.name.length)) + 2;
-  const line = (r: { name: string; summary: string }) => `  ${r.name.padEnd(pad)} ${r.summary}`;
+  // A summary longer than the line wraps under itself, so no overview line is wider than `width`.
+  const line = (r: { name: string; summary: string }) => {
+    const [first, ...more] = wrap(r.summary, pad + 3, pad + 3, width);
+    return [`  ${r.name.padEnd(pad)} ${first.slice(pad + 3)}`, ...more];
+  };
   const theirsOnly = Object.keys(cli.personOnly);
   const person = theirsOnly.length ? [...wrap(`Only the person does these, never you: ${theirsOnly.join(", ")}. Why and where: ${cli.name} help --json.`, 0, 0, width), ""] : [];
   const def = cli.defaultCommand;
   const defaultUnder = (effect: "private" | "others") => (def && !def.hidden && def.effect === effect ? defaultLines(cli, def, width) : []);
-  return [...cli.about, "", cli.headings.private, ...defaultUnder("private"), ...mine.map(line), "", `${cli.headings.others}${options.othersNote ?? ""}`, ...defaultUnder("others"), ...theirs.map(line), "", ...person, ...footer, ""].join("\n");
+  return [...cli.about, "", cli.headings.private, ...defaultUnder("private"), ...mine.flatMap(line), "", `${cli.headings.others}${options.othersNote ?? ""}`, ...defaultUnder("others"), ...theirs.flatMap(line), "", ...person, ...footer, ""].join("\n");
 }
 
 /** The default command's part of the overview: its usage and summary, then its arguments and flags with what they do. */
@@ -111,7 +123,7 @@ function columns(left: string, text: string, width: number): string[] {
 function flagLines(cli: Cli, cmd: CommandDef, width: number = DEFAULT_WIDTH): string[] {
   return Object.entries(flagsOf(cli, cmd))
     .filter(([name]) => !(name in BUILTIN_FLAGS) && !(name in cli.globalFlags))
-    .flatMap(([name, spec]) => columns(flagUsage(name, spec), `${spec.description}${spec.required ? (spec.unless === undefined ? " Required." : ` Required unless ${(typeof spec.unless === "string" ? [spec.unless] : spec.unless).map((u) => `--${u}`).join(" or ")}.`) : ""}${spec.repeat ? " Repeat it for each value." : ""}${spec.stdin ? ' "-" reads it from stdin.' : ""}`, width));
+    .flatMap(([name, spec]) => columns(flagUsage(name, spec), `${spec.description}${spec.default === undefined ? "" : ` (default: ${typeof spec.default === "string" ? shellWord(spec.default) : String(spec.default)})`}${spec.required ? (spec.unless === undefined ? " Required." : ` Required unless ${(typeof spec.unless === "string" ? [spec.unless] : spec.unless).map((u) => `--${u}`).join(" or ")}.`) : ""}${spec.repeat ? " Repeat it for each value." : ""}${spec.stdin ? ' "-" reads it from stdin.' : ""}`, width));
 }
 
 /** One line per argument: its usage on the left, what it is on the right. */
@@ -143,6 +155,7 @@ interface CommandManifest {
   aliases: readonly string[];
   effect: "private" | "others";
   whoSees: string;
+  protocol?: true;
   readOnly: boolean;
   needsWhy: boolean;
   /** Whether `--dry-run` previews it (an "others" command with a plan()). */
@@ -182,6 +195,7 @@ function commandManifest(cli: Cli, cmd: CommandDef): CommandManifest {
     output: cmd.output ?? null,
     examples: cmd.examples ?? [],
     hidden: cmd.hidden === true,
+    ...(cmd.protocol ? { protocol: true as const } : {}),
     ...(cmd.self ? { scope: "self" as const } : {}),
     ...(cmd === cli.defaultCommand ? { single: true as const } : {}),
   };

@@ -2,13 +2,16 @@
 
 import { Switch as BaseSwitch } from "@base-ui/react/switch";
 import type { JSX, ReactNode, Ref } from "react";
+import { cn } from "@/lib/ouro/cn";
 import { Field } from "@/components/ouro/field/field";
 import { contractWarnings } from "@/components/ouro/field/field-styles";
 import { devThrow } from "@/lib/ouro/dev";
 import { controlRef } from "@/lib/ouro/control-ref";
+import { useDisabledReason } from "@/lib/ouro/disabled-reason";
 import { TouchTarget } from "@/lib/ouro/touch-target";
 import { FieldOwnerContext, useField, type ReadonlyErrorMessages } from "@/lib/ouro/use-field";
 import { useDevWarnings } from "@/lib/ouro/use-dev-messages";
+import { Tooltip } from "@/components/ouro/tooltip/tooltip";
 import { thumbClass, trackClass } from "@/components/ouro/switch/switch-styles";
 
 /** Props for {@link Switch}. */
@@ -32,6 +35,16 @@ export interface SwitchProps {
   required?: boolean | undefined;
   /** Disables the switch and fades it. */
   disabled?: boolean | undefined;
+  /**
+   * Why the switch can't be changed now. Passing a reason turns it off without taking it out of the
+   * tab order: it gets `aria-disabled`, clicks and keys do nothing, focus still reaches it, and
+   * the reason shows as its tooltip on hover and focus and is read through `aria-describedby`.
+   * Pass `undefined` while it can be changed: it keeps its place and focus as it turns off and on.
+   * It wins over `disabled`. Use `disabled` alone when no reason is needed.
+   * @example
+   * <Switch label="Wi-Fi" disabledReason={locked ? "Ask an admin to unlock this" : undefined} />
+   */
+  disabledReason?: string | undefined;
   /** The form field name it submits under when on. */
   name?: string | undefined;
   /** What it submits when on (`on` without one). */
@@ -42,6 +55,12 @@ export interface SwitchProps {
   defaultChecked?: boolean | undefined;
   /** Called with the new state when it turns on or off. */
   onCheckedChange?: ((checked: boolean) => void) | undefined;
+  /**
+   * Ids of other elements that describe the switch, a hint elsewhere on the page. They join the
+   * switch's own description and error, each id once, and never replace them.
+   * @claim "They join the switch's own description" registry/ouro/components/ouro/switch/switch.test.tsx verify:testExists(registry/ouro/components/ouro/switch/switch.test.tsx::Switch in a row > merges a given aria-describedby with its own description, each id once, and passes an accessibility audit)
+   */
+  "aria-describedby"?: string | undefined;
   /** Shows the state but ignores clicks and keys, unlike `disabled`, which also fades it. */
   readOnly?: boolean | undefined;
   /**
@@ -49,7 +68,7 @@ export interface SwitchProps {
    * warn in development; style switches in your theme.
    */
   className?: string | undefined;
-  /** The track element, a `<span role="switch">`. */
+  /** The track element, a `<button role="switch">`, which the label names with `for`. */
   ref?: Ref<HTMLElement> | undefined;
 
   /** Not a prop. Ouro UI uses `onCheckedChange`, which gets the new state: `onCheckedChange={setOn}`. */
@@ -77,20 +96,35 @@ const owner = { name: "Switch", data: "switch", layout: "inline" } as const;
 /** Marks the hidden input Base UI submits the switch with. */
 const markInput = controlRef("switch", "hidden-input");
 
-/** The track and thumb, inside the Field: they take their name, description and error ids from the field. */
+/** Joins the ids of the given lists into one space-separated value, leaving out repeats and blanks. */
+function mergeIds(...lists: (string | undefined)[]): string | undefined {
+  // Stryker disable next-line Regex: the empty strings a looser split leaves are deleted on the next line
+  const ids = new Set(lists.join(" ").split(/\s+/));
+  ids.delete("");
+  return [...ids].join(" ") || undefined;
+}
+
 function SwitchTrack(props: {
   value: string | undefined;
   checked: boolean | undefined;
   defaultChecked: boolean | undefined;
   onCheckedChange: ((checked: boolean) => void) | undefined;
   readOnly: boolean | undefined;
+  describedBy: string | undefined;
+  disabledProps: { disabledReason?: string | undefined } | { [key: string]: never };
   ref: Ref<HTMLElement> | undefined;
 }): JSX.Element {
-  const { onCheckedChange, ...rest } = props;
+  const { onCheckedChange, describedBy, disabledProps, readOnly, ...rest } = props;
   const field = useField()!;
-  return (
+  const reason = useDisabledReason(disabledProps, mergeIds(field.describedBy, describedBy));
+  const track = (
     <BaseSwitch.Root
+      data-slot="switch"
       {...rest}
+      readOnly={readOnly || reason.off}
+      // A real button, so the label's `for` names it and not the hidden input: its label finds one control.
+      nativeButton
+      render={<button />}
       inputRef={markInput}
       data-ouro-control="switch"
       data-ouro-part="track"
@@ -98,14 +132,17 @@ function SwitchTrack(props: {
       required={field.required}
       // Set here, not left to Base UI's effects, so the server HTML names and describes the switch.
       aria-labelledby={field.labelId}
-      aria-describedby={field.describedBy}
+      aria-describedby={reason.describedBy}
+      {...(reason.off ? { "aria-readonly": undefined, "aria-disabled": true, "data-disabled": "" } : {})}
       aria-invalid={field.invalid || undefined}
       className={trackClass}
     >
       <TouchTarget />
-      <BaseSwitch.Thumb data-ouro-switch-thumb="" className={thumbClass} />
+      <BaseSwitch.Thumb data-slot="switch-thumb" data-ouro-switch-thumb="" className={thumbClass} />
+      {reason.note}
     </BaseSwitch.Root>
   );
+  return reason.wrapped ? <Tooltip content={reason.reason}>{track}</Tooltip> : track;
 }
 
 /**
@@ -138,6 +175,7 @@ export function Switch(props: SwitchProps): JSX.Element {
     defaultChecked,
     onCheckedChange,
     readOnly,
+    "aria-describedby": describedBy,
     className,
     ref,
     // Guard props (hint types), dropped here so they never reach the DOM.
@@ -184,11 +222,12 @@ export function Switch(props: SwitchProps): JSX.Element {
         description={description}
         error={error}
         required={required}
-        disabled={disabled}
+        disabled={disabled && !props.disabledReason}
         name={name}
-        className={className}
+        // A hidden label takes no room beside the track, so the gap that separated them goes too.
+        className={cn(hideLabel && "gap-x-0", className)}
       >
-        <SwitchTrack value={value} checked={checked} defaultChecked={defaultChecked} onCheckedChange={onCheckedChange} readOnly={readOnly} ref={ref} />
+        <SwitchTrack disabledProps={"disabledReason" in props ? { disabledReason: props.disabledReason } : {}} value={value} checked={checked} defaultChecked={defaultChecked} onCheckedChange={onCheckedChange} readOnly={readOnly} describedBy={describedBy} ref={ref} />
       </Field>
     </FieldOwnerContext.Provider>
   );

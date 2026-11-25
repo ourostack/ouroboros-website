@@ -1,0 +1,38 @@
+% node agent.ts
+[read_file] {"path": "AGENTS.md"}
+[2mI'm noting that I previously claimed I couldn't read files, but I actually can, so I should briefly correct that.
+
+[0mI was wrong earlier when I said I couldn't read your files. I do have file access, and I've now read AGENTS.md.
+
+**Summary:** This folder holds `agent.ts`, a tiny agent built from scratch to teach how agents work. Since a person will read every line, the rules are:
+
+- **Keep it simple:** short, plain, script-like code with no clever tricks, extra layers or needless checks.
+- **Loop first:** put the main loop near the top so readers see it before the helper code.
+- **Minimal types:** use TypeScript types only where Node needs them; `any` is fine.
+- **Helpers:** write a small helper only when the same pattern would appear three times.
+- **Comments:** add short comments wherever something important happens, saying what it does and why.
+- **No extras:** don't add files, tests or packages unless asked. The only package is `openai`.
+- **Runs with** `node agent.ts` on macOS, Linux and Windows inside WSL.
+- **Test before claiming it works.** If the agent edits its own code, it should only check that the file still parses, then say when to restart it.
+- **Commit** each working step with a short message.
+You: give me a short summary of AGENTS.md
+[2mThe user wants a shorter summary rather than a reread, so I'll keep this brief and work from what I already have.
+
+[0mAGENTS.md describes `agent.ts`, a small teaching agent that someone will read line by line. The rules for working on it:
+
+- Keep the code short and plain, with the main loop near the top.
+- Use few types, add a helper only when the same pattern appears three times, and comment the important parts.
+- Don't add extra files, tests or packages. `openai` is the only dependency.
+- It runs with `node agent.ts` on macOS, Linux and Windows inside WSL.
+- Test before saying it works. If the agent changes its own code, it should only check the file still parses, then ask for a restart.
+- Commit each working step with a short message.
+You: write a haiku to hello.txt
+
+[write_file] {"path": "hello.txt", "content": "A small loop wakes up,\nreads the words, calls on its tools,\nthen answers: hello.\n"}
+
+I wrote this haiku to `hello.txt`:
+
+> A small loop wakes up,
+> reads the words, calls on its tools,
+> then answers: hello.
+You:[0m

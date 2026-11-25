@@ -1,267 +1,327 @@
 {
   "agent-workbench": {
     "from": "headers/agent-workbench.webp",
-    "sha256": "132611abaa65907ed15ef003553b3f55c1dc8b403fb06926ae429f94219cee82",
-    "colour": "#f8b898"
+    "sha256": "31952a86f9907f4bab2e85dd3702da1e531801cf82d3d924e317d5283dc23e55",
+    "colour": "#a85828"
   },
   "agent-workbench-dark": {
     "from": "headers/agent-workbench-dark.webp",
-    "sha256": "cb0403e6512cefe805ff95802f63e129f06e57eb21ff8f2b76806b7e089d27f3",
-    "colour": "#1848a8"
+    "sha256": "4193ba4807881bd9b094cea9c16c82d7c4e39b94d7fab0ccbad80cc3463e9b29",
+    "colour": "#183878"
+  },
+  "airship": {
+    "from": "headers/airship.webp",
+    "sha256": "21c85b4a45ad71e362efce58443b065e7edc569c97f59b3786deb93f277db0e3",
+    "colour": "#f8e8e8"
+  },
+  "airship-dark": {
+    "from": "headers/airship-dark.webp",
+    "sha256": "af7cc0a908d8a3580042ab613f4aab4cba5bf55fca335d0b6ec4af8e0972974c",
+    "colour": "#082848"
+  },
+  "airship-line": {
+    "from": "headers/airship-line.webp",
+    "sha256": "6538ebb6f70fd5763f842584dd64abe1786d5fd99f5525d9b9ae1e61f183a015",
+    "colour": "#884818"
+  },
+  "airship-line-dark": {
+    "from": "headers/airship-line-dark.webp",
+    "sha256": "732a10960cf2de2b761c5511400589115a1f6c652c52055c5e2917ffe933900d",
+    "colour": "#481808"
+  },
+  "airship-moored": {
+    "from": "headers/airship-moored.webp",
+    "sha256": "b8cebcd1db006220dc378480fddde95ec46d1912c64d54c21aa4743425480b2f",
+    "colour": "#a8b8d8"
+  },
+  "airship-moored-dark": {
+    "from": "headers/airship-moored-dark.webp",
+    "sha256": "c052f996f4cda6dbfae730a7714a3af81975621fa45bfef669f6373e8562561b",
+    "colour": "#183868"
   },
   "apple-distribution-kit": {
     "from": "headers/apple-distribution-kit.webp",
-    "sha256": "421787a48e2584c1315e4fe79bb9123384f243bd0cd68ba9fc0dad0e2979479a",
+    "sha256": "b2b1e35114863152d17f7dfb9405cec2e8994844e850c185dbf5245323af21a6",
     "colour": "#f8b898"
   },
   "apple-distribution-kit-dark": {
     "from": "headers/apple-distribution-kit-dark.webp",
-    "sha256": "481b7dccde15de3f6b0c12a8698f5c1430b6440c6e06a39d12e81ad1ac7a478c",
-    "colour": "#183888"
+    "sha256": "1c6b75d72407ffa1b5d2acacfe5f40cbf8f64c41cf2869a8d7809ece6f021292",
+    "colour": "#182848"
   },
   "ax-trail-map": {
     "from": "headers/ax-trail-map.webp",
-    "sha256": "a43933968915a0077493ef3bdacf0d249b63aaf25af3ff330148fa79884659da",
+    "sha256": "a0a49754391e4ac5aeb21079e2bda5c10f337ed57e152c660c766cb27b222981",
     "colour": "#f8b898"
   },
   "ax-trail-map-dark": {
     "from": "headers/ax-trail-map-dark.webp",
-    "sha256": "76fd8bdecbfa0ce764b570d65d925840d0fe0ee8c4ae9b36d424abbeb11caedf",
-    "colour": "#082878"
+    "sha256": "9b1d1a563057dbda29422cfa14939b31b6ce7c67647e8c981e8cd714cf24f2f8",
+    "colour": "#081848"
   },
   "butler": {
     "from": "headers/butler.webp",
-    "sha256": "4c772e5bb3734fd7c644cde84f14e8acd2a9bfc10b56ed9812fb8ed6b6a705f2",
+    "sha256": "46c4727249e154c861e0950bc28551d3c284e552ec5559e7ef07b923326232c8",
     "colour": "#f8c888"
   },
   "butler-dark": {
     "from": "headers/butler-dark.webp",
-    "sha256": "c7f0f16c2828e03181da1ad8c0bd53ff2a15eb2993aa37177ee0c01704f53489",
-    "colour": "#183888"
+    "sha256": "59ad6a949be29f40cba7bf798ae1f67a28d2ac12f035cb3738fd585e9b468f4b",
+    "colour": "#080808"
+  },
+  "butler-steady": {
+    "from": "headers/butler-steady.webp",
+    "sha256": "cb678942139e602d6911dc380e5552d4812ca3ffbae69558b16f0c5bfb59d8bc",
+    "colour": "#c8a898"
+  },
+  "butler-steady-dark": {
+    "from": "headers/butler-steady-dark.webp",
+    "sha256": "b9456185cc71cf3a8733dc840b6493dc057e6d8480693f356f8ba7d43410f3b8",
+    "colour": "#282838"
+  },
+  "chart-room": {
+    "from": "headers/chart-room.webp",
+    "sha256": "a2a598d335f504d10a4efc09a63d80992c804e083962918a4930fa626cc2e100",
+    "colour": "#682808"
+  },
+  "chart-room-dark": {
+    "from": "headers/chart-room-dark.webp",
+    "sha256": "cc7e057ce6176194e8a04f5d72dd36235032b89b3c0a42dcafaf6df8451e2837",
+    "colour": "#180808"
   },
   "desk": {
     "from": "headers/desk.webp",
-    "sha256": "82ec9e59e2e8dc0bfbf118b240de865441bf00e3964161625ac82a21043c5b09",
-    "colour": "#f8b898"
+    "sha256": "171315ddd4d59f89cf8fe142d6d12b13c3e66f8432c75b9f601fb9b6b745cadf",
+    "colour": "#986848"
   },
   "desk-dark": {
     "from": "headers/desk-dark.webp",
-    "sha256": "fe082edcfda807ebb031d4329a33e16442e835b455d879e00d57bb1711b6cc8b",
-    "colour": "#082878"
+    "sha256": "4b2b7cdebd7481bb5760a1e759928eea40225c6e09acc16e2cc380eb721d5d5b",
+    "colour": "#181818"
   },
   "factory": {
     "from": "headers/factory.webp",
-    "sha256": "f81a20fa20f8c6cfa6f80d4540f7ad7db8f2920a821b4fc50fa20b6b27bed4c4",
+    "sha256": "33c4ae685f426d0197fa644f9e824dc12f2a3a870301b1a0f99c0984e010393c",
     "colour": "#f8b8a8"
   },
   "factory-dark": {
     "from": "headers/factory-dark.webp",
-    "sha256": "6ec431b7a2aa79a22c98a00d8a7c638d84b784b0cf37d42af8414314113a8040",
-    "colour": "#1848a8"
+    "sha256": "425a90b69be4362850ca7d6b735fefd23ceedc3c8825819567fd610aa56a5b3f",
+    "colour": "#081848"
   },
   "flow-review": {
     "from": "headers/flow-review.webp",
-    "sha256": "a6a6c4ac8b69b2d96935f5a931cf7e1db2d3c348ea75307faae0b84b6b838629",
-    "colour": "#f8b898"
+    "sha256": "69c975baaabd8dd0fac4dca3057f68af3bb354b3d7095163de99aa615ba7540c",
+    "colour": "#c8b8b8"
   },
   "flow-review-dark": {
     "from": "headers/flow-review-dark.webp",
-    "sha256": "2eb9140aa3d2dc0f9f70ef63f854580f09776c96bcb14587769ada4ffad9c840",
-    "colour": "#183888"
+    "sha256": "89abbac8be66d600a8326eb35dc51afc0d6b31ee90a135e1bafe5bbcf025f522",
+    "colour": "#080808"
   },
   "friends": {
     "from": "headers/friends.webp",
-    "sha256": "6464c49cf5ed6d6c76da735accb11eeae69baaa658d2b66b4f251c13ea4a04aa",
+    "sha256": "126e64b58e635a6f2821dd0c066ea83c260899753fda2a1259aa9e82105cfab4",
     "colour": "#f8b898"
   },
   "friends-dark": {
     "from": "headers/friends-dark.webp",
-    "sha256": "4106349831d931acf020e900368c1a5e3cb12a330d40cabb238ce80829970ae9",
-    "colour": "#082878"
+    "sha256": "15100601bd9329a5caaf5d3ff2fdf94e4a2ecc4327880e72c78e7723f2191217",
+    "colour": "#082868"
   },
   "friends-relay": {
     "from": "headers/friends-relay.webp",
-    "sha256": "ceaaf36e93d3227595467c7aac5366be2a9bb7e10bf622f398489c02ef4bbe43",
-    "colour": "#f8b898"
+    "sha256": "316fa20893f0d1ef6557a72feb5c2b78b293297f623d9dba2290695d4b50a46b",
+    "colour": "#f8e8d8"
   },
   "friends-relay-dark": {
     "from": "headers/friends-relay-dark.webp",
-    "sha256": "de289ba1db4f55c524f37de267ff8aa88187478247029789db3ec3ba07748450",
-    "colour": "#082868"
+    "sha256": "64f35abeb36852477e2878121bd17d75c0b37cf8b52901c6e0ced669855ce3a2",
+    "colour": "#080808"
+  },
+  "garden-line": {
+    "from": "headers/garden-line.webp",
+    "sha256": "54ea6f1bcb73503c7b21318855e669c11f65c95001662528ed3674e6d6f6e06d",
+    "colour": "#c8a878"
+  },
+  "garden-line-dark": {
+    "from": "headers/garden-line-dark.webp",
+    "sha256": "ccea0814446af4f9946c21d8c2d621d30ac759c9e47d0bdf9846969f0150c8ad",
+    "colour": "#081818"
   },
   "gatefold": {
     "from": "headers/gatefold.webp",
-    "sha256": "da7b8bd40fcd27d3579edf450715926825ed4a8df7c40e3333ea91aea107d7f4",
-    "colour": "#f8d8b8"
+    "sha256": "13ac4bd2539dad9466a5fc71f644e47023e00dbfcc63d949701bb39f12010ff3",
+    "colour": "#f8e8b8"
   },
   "gatefold-dark": {
     "from": "headers/gatefold-dark.webp",
-    "sha256": "904c26b0d9bb9a5c50fd20f28a311046bad865484e6cf3cc29e28f99598d0e21",
-    "colour": "#a898a8"
+    "sha256": "92c10341b4f64db7a472a9dc277f661406a1f3d5c5848cabc7ede4c9dd5ab1f3",
+    "colour": "#080808"
   },
   "glue-unstuck": {
     "from": "headers/glue-unstuck.webp",
-    "sha256": "0dd98b41b2bc12460e47a3b5195b13dd02c917b2f8e59a64aa9436a8eef72662",
-    "colour": "#f8c8a8"
+    "sha256": "8dbbf3945db6e5199265a1d3451cc0cb760877995f54aa3a25cfbe9a7b9342c9",
+    "colour": "#d8c8b8"
   },
   "glue-unstuck-dark": {
     "from": "headers/glue-unstuck-dark.webp",
-    "sha256": "26ed5094f25d5de5d0e3595ec0642cec7bf22075e222118c58b49e3ac6fec585",
-    "colour": "#082868"
+    "sha256": "8e3b50e6be7ab9a1bcce906b840307e8fdd9536d134837f2e21a1c815ad9b68d",
+    "colour": "#384878"
   },
   "housesitter": {
     "from": "headers/housesitter.webp",
-    "sha256": "4378e32293fb8f3950fe1c03815f70a8a4c1dfab5af1d319d27f64017da0e827",
+    "sha256": "68f2887533eb4f831403bae7f9883903bfb872f4163164e36da41a831c92125a",
     "colour": "#f8b8a8"
   },
   "housesitter-dark": {
     "from": "headers/housesitter-dark.webp",
-    "sha256": "715d3a46106b7f40e64ecc8d4e3c8861062b5723ef1fc94a1c00bc980cbaf1b9",
-    "colour": "#2858a8"
+    "sha256": "415683a7800304c9fbd8e1e7a1ecdcb47b115c323387d65cda84f1d0c3c0b0f4",
+    "colour": "#082858"
   },
   "m365crawl": {
     "from": "headers/m365crawl.webp",
-    "sha256": "3e97c03c12e1139e69e095021411093c6cf2cadaa1c57097dc9487a909e75dc1",
+    "sha256": "db997c4ad7240a393130ae8754133627c223fd858341b15df1bc5eee0f87fa67",
     "colour": "#180808"
   },
   "m365crawl-dark": {
     "from": "headers/m365crawl-dark.webp",
-    "sha256": "9cf4ca51bfdd0788f776c287af589cebf6aa2861faf8f9c2178f72512191ec1b",
-    "colour": "#180808"
+    "sha256": "368f68f0e378edcd8aa31b9b63fb43d9f1047b1f027702c67f8b6c9afa2c8604",
+    "colour": "#080808"
   },
   "ouro-apps-site": {
     "from": "headers/ouro-apps-site.webp",
-    "sha256": "1faa131c9c52227d4837deda984461eabcf3e0740e26083e2da8dfa45754d097",
+    "sha256": "cd7abadc06d467963641330c10dc84797aa8a1382dfeb1674039b9e0a594f1a8",
     "colour": "#f8b8a8"
   },
   "ouro-apps-site-dark": {
     "from": "headers/ouro-apps-site-dark.webp",
-    "sha256": "9b620374a25079c1d0eb839e9e534f35d4a2cf00cf9b89874685c46048645c55",
-    "colour": "#183888"
+    "sha256": "83255edce1a1a0c9df80d5ce3a480f0be556c161f5cff73a4185ed3dc9f626d3",
+    "colour": "#082858"
   },
   "ouro-hx": {
     "from": "headers/ouro-hx.webp",
-    "sha256": "e65a8db90a3292c632c1c35bcbbc9139edd256f6f1199a5a98107eb54ad368f1",
-    "colour": "#f8b8a8"
+    "sha256": "7ec588b0d9e89b68c974977102ff2ff68710ee272c6caa14c3cb25a4809680aa",
+    "colour": "#a86838"
   },
   "ouro-md": {
     "from": "headers/ouro-md.webp",
-    "sha256": "5eea5916c05cd4ab9bb234087f8470ea807ce18184888cfc699dccfb32c64b85",
-    "colour": "#f8b898"
+    "sha256": "1535408cc6e9024430d995432313568a2bc655ef62543b5599a0967c0f38c91a",
+    "colour": "#f8f8e8"
   },
   "ouro-md-dark": {
     "from": "headers/ouro-md-dark.webp",
-    "sha256": "29aa946bdce41a2795f0a25968a230e1e31fb68229f990d73ae14a5920164eff",
-    "colour": "#183888"
+    "sha256": "ba1de127b52702e20ad7fe48602b011c943b1ef25a02ec56f02bc55d275a7dbf",
+    "colour": "#181828"
   },
   "ouro-native-apple-app-shell": {
     "from": "headers/ouro-native-apple-app-shell.webp",
-    "sha256": "ec406f1ba00bee31aada0221a7e02d1dc632a84816be5da28689fd8a82824d43",
+    "sha256": "ed4bcf4faf5ef68ed7ab654b85c0224618c07de40190d6a58180be3b2d8f711b",
     "colour": "#f8b898"
   },
   "ouro-native-apple-app-shell-dark": {
     "from": "headers/ouro-native-apple-app-shell-dark.webp",
-    "sha256": "282e2c36503fe8dcc7451f8625384064fca33bf64e6a90781229ba5e36d631af",
-    "colour": "#183898"
+    "sha256": "fe14a2f133be001a53fb56b32ecb7a8e5bbd82c2f505435f1f88acd551465562",
+    "colour": "#082858"
   },
   "ouro-ui-apple": {
     "from": "headers/ouro-ui-apple.webp",
-    "sha256": "270082ebb2474c6eca32d7b4a92086bde33580a93412bc55886ec37fa1f6c596",
-    "colour": "#f8b898"
+    "sha256": "3aacf419714196de8b27e8938f78057ede6d2fec99ef7ac677137772657b24f3",
+    "colour": "#e8e8f8"
   },
   "ouro-ui-apple-dark": {
     "from": "headers/ouro-ui-apple-dark.webp",
-    "sha256": "211a892dc4cbb0f91f0666bdb447fde80f829834ea56bb9d24d9802c584819a1",
-    "colour": "#082868"
+    "sha256": "29cc5504d03606c48abdd12a325d47ef4a08506aafe8921487711dc67120ccc3",
+    "colour": "#081848"
   },
   "ouro-ui-core": {
     "from": "headers/ouro-ui-core.webp",
-    "sha256": "3c89c0b48b1e4384b8bbcfbc1593e288afbea8dbcea7aaec769997c383025d52",
-    "colour": "#f8b8a8"
+    "sha256": "df90f19da9da34986186ae7c89e3bab216090406521f6abab5373326c6a279a1",
+    "colour": "#d8c8c8"
   },
   "ouro-ui-core-dark": {
     "from": "headers/ouro-ui-core-dark.webp",
-    "sha256": "e2f22a004807b213ce1b3cdf232a8fe14290fc26db160fbd94894d0c59e7a596",
-    "colour": "#082878"
+    "sha256": "f01edc5dad84a97397c9fc19c3ab6e1dd0e9cd7565430963a1040f1d407c048d",
+    "colour": "#281818"
   },
   "ouro-work": {
     "from": "headers/ouro-work.webp",
-    "sha256": "a7295669f3acbe5918742fbaadba86b4a109cc40803c3fd04f2596c1f1f9baed",
+    "sha256": "973156888d15e50776c43a2e72310c2ef90ff0bbf174908bd3581d47fb46e3b2",
     "colour": "#f8b8a8"
   },
   "ouro-work-dark": {
     "from": "headers/ouro-work-dark.webp",
-    "sha256": "018d5f3e95b293b3069774fe0939c76d645013e85fc14f97d6811d4e07308a6f",
-    "colour": "#184898"
+    "sha256": "dc56986a54db90445f7b7f4bf5dbad2f7558c3223bda9338426e99453fe78ad2",
+    "colour": "#082858"
   },
   "ouro-workbench": {
     "from": "headers/ouro-workbench.webp",
-    "sha256": "d06d1538054f8cbaaf43adfc27b1c4e108f123e746ffc47b9896857b35435e49",
+    "sha256": "9503f776e152978be2f6ab43d35f84c63eb2e7127f40816301b5c27d54fa187c",
     "colour": "#180808"
   },
   "ouro-workbench-dark": {
     "from": "headers/ouro-workbench-dark.webp",
-    "sha256": "16ce2182fa7b10c61955b4d8a422af7ba57f3e412ef1e5a1f9feec855a7d1cd8",
+    "sha256": "befbe46b2ab02b9030891ed87001c66d0bff034aaa2ea8cae223cd04b3287edf",
     "colour": "#080808"
   },
   "ouroboros": {
     "from": "headers/ouroboros.webp",
-    "sha256": "457dc3f534cb5a63c3f981938a79910fd9421e46a5e17823798604e0b66af1e5",
-    "colour": "#f8b8a8"
+    "sha256": "f79f6622b65a973bab1921bafc8129a7b42e5ae4491591aa47ebd1be58215108",
+    "colour": "#98c8f8"
   },
   "ouroboros-dark": {
     "from": "headers/ouroboros-dark.webp",
-    "sha256": "ed9b3a1396fbdc660ef50fc9872802b7dff4ae7a05a3a50be148655a1945a9ea",
-    "colour": "#183878"
+    "sha256": "d2bc7ee39045a1dfe083d95d40e661e477755f561f5868dea4f7d498469393fc",
+    "colour": "#082858"
   },
   "ouroboros-skills": {
     "from": "headers/ouroboros-skills.webp",
-    "sha256": "1a840c76cded0153ec53d7425b0262f36c82d9418717fd4af92cf5d748d20080",
-    "colour": "#381808"
+    "sha256": "bd44d40f49e6c6ea86cb41e36ef09d89d092cc24059245cde3dbf3843b1652f1",
+    "colour": "#b88858"
   },
   "ouroboros-skills-dark": {
     "from": "headers/ouroboros-skills-dark.webp",
-    "sha256": "8fa7d2392a78f40c4babe38dce9706c7d7dd4e7cb385782d7b94064b0094476b",
-    "colour": "#180808"
+    "sha256": "613ae99bb2a9c1ab60bbda29e57f780f08ae0c8224e5b742390cee6893a83aca",
+    "colour": "#080808"
   },
   "ouroboros-website": {
     "from": "headers/ouroboros-website.webp",
-    "sha256": "4429a072b5acff63c47e3e309e64f56641e4ae8d5318619b29b0e94b0825c2dc",
+    "sha256": "d2234bc9733ea800fe9496368641a02cc7ff5f236928546c42bbed0fe5fe972a",
     "colour": "#f8b8a8"
   },
   "ouroboros-website-dark": {
     "from": "headers/ouroboros-website-dark.webp",
-    "sha256": "2c86ac5d369710bd7a76b42ea738f6d5c66139a4065fc2c9d959a13eaab9f3a8",
+    "sha256": "4a861a92d13bd8e204e9566b787cb09ce0e4a908ea5989b622cf877fb04d0213",
     "colour": "#080808"
   },
   "playwright-focus-proof": {
     "from": "headers/playwright-focus-proof.webp",
-    "sha256": "b13887e66eacb73ad761eb2fb52313191f4cd4b3fd377ae771f3bf8feb02ecd7",
-    "colour": "#f8b898"
+    "sha256": "cae1d8319298466b480b6e6fb8a9b8073308d451087543b232f1fac1fb531716",
+    "colour": "#785848"
   },
   "playwright-focus-proof-dark": {
     "from": "headers/playwright-focus-proof-dark.webp",
-    "sha256": "a9c33363717c293cc43be217a1e201526891e1a8abc611f64de812f62f35152b",
-    "colour": "#082888"
+    "sha256": "4004f0238d2b33721558a9130efbeecd1d7a0e5c85098153369a3fc0dfd7edc7",
+    "colour": "#082858"
   },
   "shepherd": {
     "from": "headers/shepherd.webp",
-    "sha256": "09e52a12b3d89e3674174f5e24d1cf8acb9f40096222296028b962e7702d2b0f",
+    "sha256": "fda0ea1f029d4c099c848d833546c01f882ab3b71c77b9e05cf4356fdc19d323",
     "colour": "#f8c898"
   },
   "shepherd-dark": {
     "from": "headers/shepherd-dark.webp",
-    "sha256": "d4520bd0b60f45717980a6ad653a471decd57c126182c4c9e903e63b86960f32",
-    "colour": "#183888"
+    "sha256": "08929da14ea99dbab47f74848afd8d9dcd9e998b8d1d0f2bafde7627b902b1e2",
+    "colour": "#082858"
   },
-  "workshop": {
-    "from": "headers/workshop.webp",
-    "sha256": "e594b225425c1ae46897ade456c3f96df93b2b9ac8389fdf44fcea95f0ec6e56",
-    "colour": "#a85828"
+  "slugger-balloon": {
+    "from": "headers/slugger-balloon.webp",
+    "sha256": "9fea926d9b941124a1e2413a9c23c3f00856ae7d26c69625fb7fbcdd49187333",
+    "colour": "#88b8e8"
   },
-  "workshop-dark": {
-    "from": "headers/workshop-dark.webp",
-    "sha256": "1be4971acb218da7b2282c4081db56f38ed9301f17789a2f5058d0c2bfd1e024",
-    "colour": "#282828"
+  "slugger-balloon-dark": {
+    "from": "headers/slugger-balloon-dark.webp",
+    "sha256": "e0cf96c50b6ce7d89a1a1260825366535139307f11586fea0e211c370a790ebc",
+    "colour": "#081828"
   }
 }

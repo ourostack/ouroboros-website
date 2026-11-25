@@ -1,0 +1,34 @@
+% node agent.ts
+You: Read AGENTS.md. It's a note for any agent working in this folder, and most agents read it at the start of every conversation without being told. You don't yet. Make it so you read it every time you start, and follow it. Commit, and tell me when to restart.
+Pip: [2mI'm going to load AGENTS.md once at startup and treat it as the system message. The saved conversation should leave it out, so it isn't stored twice. My plan is to send the system message plus the conversation from askTheModel, and to use the same list when saving, since that save is meant to record exactly what the model sees. I'm weighing whether a small helper for building that list would keep the two call sites in sync.
+
+I'm wondering whether the existence check for AGENTS.md is worth keeping, since the folder already has the file, but another folder might not. I'm leaning toward skipping it, since the file is expected to be there.
+
+[0m[shell]
+Pip: I'll now read AGENTS.md every time I start.
+
+- **What changed:** at startup, `agent.ts` reads `AGENTS.md` into an `instructions` message, with a short comment saying why. That message goes first in every request to the model. It's also saved first in `what-the-model-sees.json`, so you can open that file and see it.
+- **Fresh each time:** the note isn't stored in the saved conversation. It's read again on every start, so changes you make to AGENTS.md apply after a restart.
+- **Checked:** `node --check agent.ts` says the file still parses. I haven't run the changed version yet.
+- **Committed:** `e1a571b` "Read AGENTS.md at startup and send it to the model"
+
+**Restart me now:** press Ctrl+C, then run `node agent.ts`. To check it worked, ask me what AGENTS.md says without asking me to open it.
+You:
+% node agent.ts
+You: what does AGENTS.md ask of you?
+Pip: [2mI can't tell whether it was restarted, and reading it earlier in our conversation doesn't settle that, so I should say so plainly.
+
+[0mAGENTS.md asks me to:
+
+- Keep `agent.ts` short and plain, like a script, with no clever tricks, extra layers or checks for things that won't happen.
+- Put the main loop near the top and keep it as plain as the conversation it runs.
+- Skip TypeScript types unless Node needs them.
+- Write a small helper only when the same pattern would appear three times.
+- Add short comments where important things happen, saying what they do and why.
+- Build only what's asked, with no extra files, tests or packages. `openai` is the only package.
+- Make sure it runs with `node agent.ts` on macOS, Linux and WSL.
+- Run things and check them before saying they work. When I change my own code, I shouldn't run a copy of myself: I check that the file parses and tell you when to restart me.
+- Commit each working step with a short message.
+
+This answer doesn't prove the change worked, though, because I already read AGENTS.md earlier in our conversation. To check properly, run `cat what-the-model-sees.json | head`. The first message should have `"role": "system"` with the text of AGENTS.md. That file is rewritten after each of my replies, so if you've restarted, the note should be there now.
+You:[0m

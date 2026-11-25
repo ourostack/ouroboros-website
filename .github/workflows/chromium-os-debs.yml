@@ -1,0 +1,72 @@
+name: chromium-os-debs
+
+# Fills the cache that .github/actions/chromium installs Chromium's Ubuntu packages from, so no check job waits on
+# the Ubuntu mirror (ourostack/ouroboros-website#372). It runs beside site-checks, never in its way: a slow mirror
+# makes only this job slow. It does nothing when the cache already holds this image and Playwright version. The
+# schedule catches new runner images; a pull request that changes this file or the action warms its own cache.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - .github/workflows/chromium-os-debs.yml
+      - .github/actions/chromium/**
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  warm:
+    runs-on: ubuntu-latest
+    # The packages are about 22 MB; at the 69 kB/s seen on 2026-11-19 that is 5.5 minutes.
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Read the cache key
+        id: key
+        run: echo "key=chromium-os-debs-$ImageOS-$ImageVersion-$(node -p "require('playwright-core/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Look up the cache
+        id: lookup
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/chromium-os-debs
+          key: ${{ steps.key.outputs.key }}
+          lookup-only: true
+
+      # apt-get clean first, so the folder holds only what this image lacks; any other .deb could downgrade a package
+      # when the check jobs install the folder with dpkg.
+      - name: Download Chromium's Ubuntu packages
+        if: steps.lookup.outputs.cache-hit != 'true'
+        run: |
+          echo 'APT::Keep-Downloaded-Packages "true"; Binary::apt::APT::Keep-Downloaded-Packages "true";' | sudo tee /etc/apt/apt.conf.d/99keep-debs
+          sudo rm -f /etc/apt/apt.conf.d/docker-clean
+          sudo apt-get clean
+          npx playwright install-deps chromium
+          mkdir -p ~/.cache/chromium-os-debs
+          shopt -s nullglob
+          debs=(/var/cache/apt/archives/*.deb)
+          [ ${#debs[@]} -eq 0 ] || cp "${debs[@]}" ~/.cache/chromium-os-debs/
+          echo "${#debs[@]} packages for ${{ steps.key.outputs.key }}" > ~/.cache/chromium-os-debs/README
+          cat ~/.cache/chromium-os-debs/README; ls -l ~/.cache/chromium-os-debs
+
+      - name: Save the cache
+        if: steps.lookup.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/chromium-os-debs
+          key: ${{ steps.key.outputs.key }}

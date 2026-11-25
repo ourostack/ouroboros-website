@@ -1,0 +1,130 @@
+[
+  {
+    "rule": "off-theme",
+    "summary": "A colour, radius, shadow or font written past the theme where the theme has a token for it; each finding names the token to use."
+  },
+  {
+    "rule": "off-scale",
+    "summary": "Spacing (a margin, padding or gap) off the theme's spacing scale; each finding names the step to use."
+  },
+  {
+    "rule": "linked-card-dead-zone",
+    "summary": "A card or row that is one link where a click at some spot on it opens nothing, as when the page positions a part of it and the link's layer stops there."
+  },
+  {
+    "rule": "reveal-reflow",
+    "summary": "A card whose hover or keyboard focus reveals a part and moves the card's own box or anything around it."
+  },
+  {
+    "rule": "blank-pane",
+    "summary": "The pane a person looks at (the open modal dialog, else the main landmark) draws nothing to read, nothing to press and no named progress."
+  },
+  {
+    "rule": "dismissable-step",
+    "summary": "A modal dialog a person can put away over a page that would strand them: blank behind it, or signed out with no way to sign in."
+  },
+  {
+    "rule": "signed-out-empty",
+    "summary": "A page marked signed out (data-ouro-session) that shows the empty state a signed-in person would see, such as All caught up."
+  },
+  {
+    "rule": "giant-text",
+    "summary": "Running text drawn too large to read: the size most of a page's running text is drawn at is over 24px, as when an app grows its root type with the screen."
+  },
+  {
+    "rule": "fragment-focus",
+    "summary": "A page with stylesheets and no fragmentFocusScript after them, where Safari takes focus as later stylesheets load on the page opened at a place on it."
+  },
+  {
+    "rule": "narrow-text",
+    "summary": "Prose that wraps at a reading measure well under the column it sits in, held by a max-width; the fix is to let text use its column, or declare the measure in ouro-check.json."
+  },
+  {
+    "rule": "popup-first-frame",
+    "summary": "A popup drawn, on a frame after it opens, somewhere other than where it settles, as one measured against the viewport and drawn inside a layer further down the page is; the fix is to place it where it settles from its first frame (position: fixed)."
+  },
+  {
+    "rule": "squircle-missing",
+    "summary": "In an engine without corner-shape (an app's WKWebView), a drawn surface rounded under half its size by a plain circular radius, not clipped to a squircle; the fix is to add squircleCorners() to the build's PostCSS plugins, or clip the surface to a squircle with clip-path. Run it with --engine webkit."
+  },
+  {
+    "rule": "doubled-line",
+    "summary": "Two dividing lines side by side where one would separate, such as a list's last row's border against its card's; each finding names both elements."
+  },
+  {
+    "rule": "count-badge",
+    "summary": "A count badge on an icon that is clipped by a box around it, whose numerals sit off its middle, or that sits at another offset from its icon than the page's other badges."
+  },
+  {
+    "rule": "pointer-not-control",
+    "summary": "A pointer cursor on an element that is no control and holds none: a person expects a press to do something, and a keyboard can't reach it."
+  },
+  {
+    "rule": "near-miss",
+    "summary": "Two separate surfaces, or a surface and the edge of the one it sits in, that are neither touching nor at least the minimum gap (--ouro-gap-min) apart."
+  },
+  {
+    "rule": "jump",
+    "summary": "A box that moves in a transition but whose edge, in one frame at 60 fps, moves half its travel or more; the fix is to ease the whole move on one easing and duration. Run in Chromium or WebKit."
+  },
+  {
+    "rule": "backtrack",
+    "summary": "A box that goes back before it arrives in a transition, by more than 10% of its travel; the fix is to move each edge one way to where it ends."
+  },
+  {
+    "rule": "sibling-reflow",
+    "summary": "A box next to a moving one that changes place or size on the frames of its transition; the fix is to animate transform or opacity and leave the neighbours' layout alone."
+  },
+  {
+    "rule": "text-rewrap",
+    "summary": "Text that wraps to a different number of lines while a transition runs; the fix is to hold the text's width through the move."
+  },
+  {
+    "rule": "pop-in",
+    "summary": "A text, or a box over 100 square pixels, that goes from invisible to visible, or back, in one frame inside a transition; the fix is to fade or grow it on the transition that moves its box."
+  },
+  {
+    "rule": "overshoot",
+    "summary": "A box whose edge passes where it ends by more than 2 pixels in a transition, as a max-width that animates to a cap does; the fix is to animate transform."
+  },
+  {
+    "rule": "off-curve",
+    "summary": "A box with a two-keyframe transition whose edge strays more than 2 pixels from its own easing curve, as one a script or observer resizes every frame does; the fix is to let the transition move it."
+  },
+  {
+    "rule": "opacity-step",
+    "summary": "A box or text whose opacity changes more than 0.1 beyond its own easing in one frame of a transition; the fix is to fade it over the whole transition."
+  },
+  {
+    "rule": "label-clip",
+    "summary": "Text cut off by its own clipping box mid-transition that fits at the end; the fix is to size the box to the text or reveal both together."
+  },
+  {
+    "rule": "dropped-frames",
+    "summary": "A press after which one frame took over 50 ms (the jank rule's budget is 250 ms); the fix is to keep the handler to a few milliseconds."
+  },
+  {
+    "rule": "off-centre-text",
+    "summary": "One line of words in a control (a button, a field's value or placeholder, an editor, or a bare text area inside its frame) whose cap height sits off the control's middle, as a composer's placeholder pushed low by a bottom-aligned row does."
+  },
+  {
+    "rule": "empty-panel",
+    "summary": "An open panel that isn't modal (a menu, a popover, or a data-ouro-panel) 120px or taller where under 60% of its inside has text, a control or a picture within 24px, as a wide panel with its links in one narrow column is."
+  },
+  {
+    "rule": "wrapped-short-line",
+    "summary": "In an open panel, words of 60 characters or fewer that wrap on a screen 1024px wide or wider (24 below it), as a one-line description in a narrow column does."
+  },
+  {
+    "rule": "boxed-blurb",
+    "summary": "In an open panel, a rounded box with a fill or a border on every side that holds words and nothing to press: a decorative card in a menu."
+  },
+  {
+    "rule": "panel-off-screen",
+    "summary": "An open panel whose bottom passes the bottom of the screen with nothing to scroll it into view; the fix is to cap its height and let its inside scroll."
+  },
+  {
+    "rule": "panel-clip",
+    "summary": "In a panel a press opens, words cut off by the box around them that hides its overflow; an ellipsis, a line clamp and a folded box pass."
+  }
+]

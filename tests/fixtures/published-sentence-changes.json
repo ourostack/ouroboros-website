@@ -50,8 +50,8 @@
  {
   "page": "blog",
   "was": "Ari Mendelow Essays Trust the Fucking Agent Agents have all the agency.",
-  "now": "Ari Mendelow Essays Trust the Fucking Agent We keep doing the agent's job along with our own.",
-  "why": "essays deck: the new dek on the blog index"
+  "now": "Trust the Fucking Agent We keep doing the agent's job along with our own.",
+  "why": "essays deck: the new dek on the blog index; since 2026-11-16 \"Tell the agent, not the human\" stands first under Essays, so the heading no longer runs into this dek"
  },
  {
   "page": "blog",
@@ -104,8 +104,8 @@
  {
   "page": "blog",
   "was": "Ari Mendelow Stop being the glue We were promised an intelligent assistant.",
-  "now": "Ari Mendelow Stop being the glue We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots.",
-  "why": "approved antithesis rewrite"
+  "now": "Ari Mendelow Stop being the glue between your agents and your work We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots.",
+  "why": "approved antithesis rewrite; the index then took the post's own title from src/data/blog.mjs (Ari, 2026-11-16: llms.txt and the index name each post as its page does), and the November update (2026-11-14) gave the post its title between your agents and your work"
  },
  {
   "page": "blog",
@@ -3710,7 +3710,7 @@
  {
   "page": "404 attributes",
   "was": "How do you effectively collaborate with agents? Here's how I believe it works, what I use to support it, and what you can try.",
-  "now": "Ouro wandered off the glowing trail, out through the garden gate, and this page wandered off with it.",
+  "now": "Ouro wandered off the glowing trail, out through the rose arch, and this page wandered off with it.",
   "why": "Ari, 2026-10-16: the homepage h1 becomes the question his work answers, \"How can humans and agents do more together?\", and the greeting points at it instead of repeating it; then taste review r3 (2026-11-06): the 404 gets its own share card and description, a line already on the page, instead of the homepage's"
  },
  {
@@ -5710,5 +5710,11 @@
   "was": "Today: You Are The Glue Azure DevOps Notebook LM GitHub Copilot &UpDownArrow; &UpDownArrow; &UpDownArrow; YOU (the glue) &UpDownArrow; &UpDownArrow; &UpDownArrow; ChatGPT Claude Perplexity VS Code M365 Copilot Teams Outlook That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task.",
   "now": "Today: You Are The Glue That all changed when Peter Steinberger wanted to be able to WhatsApp his computer to see how Claude Code was doing on a long-running task.",
   "why": "2026-11-14: the glue diagram is redrawn as an open SVG with every tool's line running through you (Ari: \"you can absolutely update the graphics / charts on there\"); the tool names sit in the drawing and the title becomes its caption"
+ },
+ {
+  "page": "blog",
+  "was": "Ari Mendelow & Slugger What is Agent Experience?",
+  "now": "Ari Mendelow & Slugger What is Agent Experience (AX)?",
+  "why": "the index takes the post's own title from src/data/blog.mjs (Ari, 2026-11-16: llms.txt and the index name each post as its page does)"
  }
 ]

@@ -78,10 +78,10 @@ test('no desktop hero crops more than 20% of its scene at 1024, 1440 or 1920', (
 
 // Every hero ends on a hard edge at its picture's foot (Ari, 2026-11-08: no
 // picture fades to nothing; his ruling on taste review r15: no hero box runs
-// past its art). No mask on the box or the image, the gold trail closes the
-// edge, and the drift zooms about the box's foot, so it never carries a foot
+// past its art). No mask on the box or the image, a still hairline closes the
+// edge (no line of light: ourostack/.github agents/art-one-universe.md), and the drift zooms about the box's foot, so it never carries a foot
 // out of the box.
-test('every hero ends on a hard edge, closed by the trail, with no fade', () => {
+test('every hero ends on a hard edge, closed by a hairline, with no fade', () => {
   // Every rule for the selector, joined.
   const block = (selector) => {
     const bodies = [];
@@ -93,9 +93,11 @@ test('every hero ends on a hard edge, closed by the trail, with no fade', () => 
   for (const selector of ['.story-hero', '.story-hero::after', '.story-meadow', '.story-meadow::before']) {
     assert.doesNotMatch(block(selector), /mask/, `${selector} carries a mask`);
   }
-  assert.match(css, /\.story-hero\[data-trail-below\]::after \{ top: calc\(100% - 6px\); \}/);
-  assert.match(block('.story-hero::after'), /top: calc\(100% - 18px\);[\s\S]*background: var\(--trail-path\)/);
-  assert.match(block('.story-meadow::before'), /background: var\(--trail-path\)/);
+  assert.match(block('.story-hero::after'), /top: 100%; height: 1px;[\s\S]*background: var\(--divider\);/);
+  assert.match(block('.story-meadow::before'), /top: -1px; height: 1px;[\s\S]*background: var\(--divider\);/);
+  assert.match(block('main > section.border-t::before, .divider-top::before'), /height: 1px;[\s\S]*background: var\(--divider\);/);
+  // No glowing trail anywhere: no drawn line image, glow or breathing animation.
+  assert.doesNotMatch(css, /--trail-path|trail-breathe/);
   assert.match(css, /\.story-hero img \{ transform-origin: 58% 100%; animation: story-drift/);
   assert.match(css, /@keyframes story-drift \{ from \{[^}]*\} to \{ transform: scale\(1\.02\)/);
   // Words no longer rise into the picture.
@@ -124,8 +126,8 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
     const frame = heroFrame(scene, { product: sceneFor(routeOfFile(file)).product });
     assert.equal(y, frame.y / 100, `${file}: --hero-y is not heroFrame()'s`);
     const below = new RegExp(`data-brand-scene="${scene}"(?: data-night-scene="[^"]+")? data-trail-below`).test(html);
-    assert.equal(below, frame.trailBelow, `${file}: the trail ${frame.trailBelow ? 'must hang below' : 'sits on'} the edge`);
-    if (below) assert.ok(1 - castFoot[scene] < FOOT_ROOM && y === 1, `${file}: only a cast on the art's own foot hangs the trail below`);
+    assert.equal(below, frame.trailBelow, `${file}: data-trail-below ${frame.trailBelow ? 'missing' : 'set'} for this cast`);
+    if (below) assert.ok(1 - castFoot[scene] < FOOT_ROOM && y === 1, `${file}: only a cast on the art's own foot is marked data-trail-below`);
     const [top] = heroFocus[scene] ?? [0.2];
     const cap = /story-hero-content/.test(cls) ? contentCap : heroCap;
     for (const [w, h] of viewports) {
@@ -149,10 +151,11 @@ test('every hero keeps its whole cast inside the box at 1024, 1280, 1440 and 192
 test('the cast\'s foot counts every character, not only Ouro', () => {
   // Taste review r11: round 10 had counted the picnic robots' seats on
   // /brief/ and /lab/why/, not their shoes. The shoes
-  // reach 97% of the art, and so does the sneaker under the armchair.
+  // reach 97% of the art. The train carriage's glass person (brand #208) has
+  // sneakers at y 550 of the 576 px header.
   assert.ok(castFoot.friends >= 0.97, `friends castFoot ${castFoot.friends}`);
-  assert.ok(castFoot['playwright-focus-proof'] >= 0.97);
-  assert.ok(castFoot['ouroboros-skills'] >= 0.84, 'the reading robot\'s feet');
+  assert.ok(castFoot['playwright-focus-proof'] >= 0.95, 'the sneakers in the train');
+  assert.ok(castFoot['ouroboros-skills'] >= 0.7, 'the kitchen robots\' feet');
   assert.ok(castFoot.shepherd >= 0.935, 'the big sheep\'s hooves');
 });
 
@@ -164,8 +167,8 @@ test('the cast\'s foot counts every character, not only Ouro', () => {
 // cast's place across the crop (phoneCastX) is its place on the screen.
 test('every scene keeps its cast at least 16px clear of both sides on a phone', async () => {
   const { phoneCastX, PHONE_EDGE, usedScenes, phoneArtEdge } = await import('../src/data/scenes.mjs');
-  // The one named exemption: the art itself cuts the home scene's fence sheep.
-  assert.deepEqual(Object.keys(phoneArtEdge), ['ourostack']);
+  // No named exemptions since the ourostack re-set (2026-11-17), which no longer cuts a character at the art's edge.
+  assert.deepEqual(Object.keys(phoneArtEdge), []);
   const close = [];
   for (const scene of usedScenes()) {
     const cast = phoneCastX[scene];

@@ -24,6 +24,8 @@ test('normal logo placements use the approved rich renders, not the old vector m
     if (/http-equiv="refresh"/.test(html)) continue;
     assert.match(html, /rel="icon"[^>]*href="\/brand\/ouro\.svg"/);
   }
+  // The retired flat marks (a closed ring, off canon) are gone from the site, not just unlinked.
+  for (const mark of ['ouro-badge', 'ouro-silhouette', 'ouro-character']) assert.ok(!distExists(`brand/${mark}.svg`), `brand/${mark}.svg still ships`);
 });
 
 test('HD logo exports ship responsive lossless images and one small-use SVG per mark', () => {
@@ -38,8 +40,12 @@ test('HD logo exports ship responsive lossless images and one small-use SVG per 
       assert.notEqual(bytes.readUInt32LE(21) & 0x10000000, 0, `${file} has alpha`);
     }
     const svg = fs.readFileSync(path.join(distDir, `brand/${mark}.svg`), 'utf8');
+    assert.doesNotMatch(svg, /<image\b/, `${mark}.svg embeds no raster`);
+    // Ouro's favicon is drawn in brand/ with a small-size variant and a dark-scheme tweak;
+    // storybook.test.mjs pins its bytes to brand provenance, so only other marks stay one path.
+    if (mark === 'ouro') continue;
     assert.equal((svg.match(/<path\b/g) || []).length, 1);
-    assert.doesNotMatch(svg, /<(?:circle|ellipse|image|mask|clipPath)\b/);
+    assert.doesNotMatch(svg, /<(?:circle|ellipse|mask|clipPath)\b/);
   }
 });
 

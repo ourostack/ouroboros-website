@@ -36,7 +36,7 @@ import { ogPathFor } from '../../../data/og'
     <div>
       <h2 class="heading-sub mb-4">Task cards</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
-        <p>A task card is a markdown file with YAML frontmatter that declares <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">kind: task</code>. That declaration is the signal. Everything else in the task directory &mdash; planning docs, doing docs, unit files, artifacts &mdash; is support material that the scanner may list for context, and it parses only task cards.</p>
+        <p>A task card is a markdown file with YAML frontmatter that declares <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">kind: task</code>. That declaration is the signal. Everything else in the task directory &mdash; planning docs, doing docs, unit files, artifacts &mdash; is support material that the scanner may list for context, and it parses only task cards.</p>
         <p>Cards carry status, priority, dependencies, ownership, timestamps, and pointers. They're the source of truth that the board reads from.</p>
       </div>
     </div>
@@ -45,8 +45,8 @@ import { ogPathFor } from '../../../data/og'
       <h2 class="heading-sub mb-4">Collections</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
         <p>Tasks live in two collections, each representing a different work rhythm:</p>
-        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">one-shots/</code> &mdash; bounded work with a clear finish line. Fix a bug, write a feature, review a PR. When it's done or canceled, it archives.</p>
-        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">ongoing/</code> &mdash; standing responsibilities with no single finish line. Maintenance, recurring audits, open-ended projects. These stay active and spawn one-shots as needed.</p>
+        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">one-shots/</code> &mdash; bounded work with a clear finish line. Fix a bug, write a feature, review a PR. When it's done or canceled, it archives.</p>
+        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">ongoing/</code> &mdash; standing responsibilities with no single finish line. Maintenance, recurring audits, open-ended projects. These stay active and spawn one-shots as needed.</p>
       </div>
     </div>
 
@@ -65,7 +65,7 @@ import { ogPathFor } from '../../../data/og'
         <div>
           <p class="text-scale mb-2">Card only &mdash; small bounded task</p>
           <p class="text-mist mb-2 italic">A single card titled "fix login timeout on slow connections" with status: processing and a short body describing the change. No work directory needed.</p>
-          <div class="text-mist bg-undergrowth/20 rounded-lg px-4 py-3 border border-canopy/30 whitespace-pre overflow-x-auto max-w-full text-xs">---
+          <div class="text-mist bg-undergrowth/20 rounded-site-lg px-4 py-3 border border-canopy/30 whitespace-pre overflow-x-auto max-w-full text-xs">---
 kind: task
 type: one-shot
 title: fix login timeout on slow connections
@@ -125,7 +125,7 @@ Timeout is 5s, should be 15s for mobile.</div>
     <div>
       <h2 class="heading-sub mb-4">Lifecycle</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
-        <p>A common path is <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">drafting</code> &rarr; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">processing</code> &rarr; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">validating</code> &rarr; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">done</code>, with <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">paused</code>, <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">blocked</code>, <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">collaborating</code>, or <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">cancelled</code> available when the work requires it. Both <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">done</code> and <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">cancelled</code> are terminal &mdash; the card and its work directory archive together.</p>
+        <p>A common path is <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">drafting</code> &rarr; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">processing</code> &rarr; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">validating</code> &rarr; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">done</code>, with <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">paused</code>, <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">blocked</code>, <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">collaborating</code>, or <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">cancelled</code> available when the work requires it. Both <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">done</code> and <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">cancelled</code> are terminal &mdash; the card and its work directory archive together.</p>
       </div>
     </div>
 
@@ -134,18 +134,18 @@ Timeout is 5s, should be 15s for mobile.</div>
       <div class="text-sm text-mist leading-relaxed space-y-4">
         <p>The board is a summary. Task cards are the source of truth. The board exists so the agent can quickly answer: what am I holding, what state is it in, and is the task system itself healthy?</p>
         <p>It stays compact because prompt budget matters &mdash; the board needs to orient the agent without eating context that should go to the actual work.</p>
-        <div class="font-mono text-xs text-mist bg-undergrowth/20 rounded-lg px-4 py-3 border border-canopy/30">
+        <div class="font-mono text-xs text-mist bg-undergrowth/20 rounded-site-lg px-4 py-3 border border-canopy/30">
           [Tasks] drafting:2 processing:3 blocked:1<br/>
           &nbsp;processing: auth-fix, api-refactor, docs-update<br/>
           &nbsp;blocked: deploy-pipeline<br/>
           &nbsp;health: clean
         </div>
-        <p>Terminal tasks &mdash; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">done</code> and <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">cancelled</code> &mdash; are hidden from active counts. They still exist in archive, but they don't clutter the view.</p>
+        <p>Terminal tasks &mdash; <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">done</code> and <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">cancelled</code> &mdash; are hidden from active counts. They still exist in archive, but they don't clutter the view.</p>
         <p>When issues exist, the health line splits them by urgency:</p>
-        <div class="font-mono text-xs text-mist bg-undergrowth/20 rounded-lg px-4 py-3 border border-canopy/30">
+        <div class="font-mono text-xs text-mist bg-undergrowth/20 rounded-site-lg px-4 py-3 border border-canopy/30">
           &nbsp;health: 1 live, 10 migration
         </div>
-        <p><strong class="font-semibold">Live issues</strong> are problems affecting current operation &mdash; a task card with invalid schema, a broken dependency link. <strong class="font-semibold">Migration issues</strong> are historical or structural cleanup discovered during import or evolution &mdash; legacy cards missing the <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">kind</code> field, old support docs still at the collection root.</p>
+        <p><strong class="font-semibold">Live issues</strong> are problems affecting current operation &mdash; a task card with invalid schema, a broken dependency link. <strong class="font-semibold">Migration issues</strong> are historical or structural cleanup discovered during import or evolution &mdash; legacy cards missing the <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">kind</code> field, old support docs still at the collection root.</p>
         <p>That distinction matches real triage.</p>
       </div>
     </div>
@@ -153,8 +153,8 @@ Timeout is 5s, should be 15s for mobile.</div>
     <div>
       <h2 class="heading-sub mb-4">Self-repair</h2>
       <div class="text-sm text-mist leading-relaxed space-y-4">
-        <p>Both the agent and the operator can inspect and act on task-system problems. The agent can initiate checks during its own work, and the operator can request them via <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">ouro task fix</code>. Every issue the scanner finds has a typed code, a proposed fix, and a confidence level. Safe fixes can always be previewed before applying.</p>
-        <div class="font-mono text-xs text-mist bg-undergrowth/20 rounded-lg px-4 py-3 border border-canopy/30 space-y-1">
+        <p>Both the agent and the operator can inspect and act on task-system problems. The agent can initiate checks during its own work, and the operator can request them via <code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">ouro task fix</code>. Every issue the scanner finds has a typed code, a proposed fix, and a confidence level. Safe fixes can always be previewed before applying.</p>
+        <div class="font-mono text-xs text-mist bg-undergrowth/20 rounded-site-lg px-4 py-3 border border-canopy/30 space-y-1">
           <span class="text-scale">$</span> ouro task fix<br/>
           fix plan: 2 safe, 1 review<br/>
           <br/>
@@ -165,7 +165,7 @@ Timeout is 5s, should be 15s for mobile.</div>
           review:<br/>
           &nbsp;&nbsp;org-collection-root-clutter: one-shots &mdash; 12 support docs at root
         </div>
-        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded text-xs">ouro task fix --safe</code> applies all deterministic, reversible fixes. Ambiguous issues are inspected one at a time &mdash; the agent sees the problem, the options, and decides.</p>
+        <p><code class="text-bone/80 bg-undergrowth/30 px-1.5 py-0.5 rounded-site-sm text-xs">ouro task fix --safe</code> applies all deterministic, reversible fixes. Ambiguous issues are inspected one at a time &mdash; the agent sees the problem, the options, and decides.</p>
         <p>Not every irregularity is urgent, and not every issue should be auto-fixed. If a problem is surfaced as a fixable issue, the agent can inspect the proposed repair before applying it. The tooling supports triage, and it never rewrites anything unattended.</p>
       </div>
     </div>
