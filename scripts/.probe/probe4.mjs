@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ ignoreDefaultArgs: ['--enable-features=CDPScreenshotNewSurface'] });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'light', reducedMotion: 'reduce', deviceScaleFactor: 1 });
+const p = await ctx.newPage();
+await p.goto(process.argv[2], { waitUntil: 'load' });
+await p.evaluate(() => { window.__log = []; const m = document.querySelector('.story-meadow'); addEventListener('resize', () => window.__log.push(['resize', innerHeight, Math.round(m.getBoundingClientRect().top + scrollY)])); new ResizeObserver(() => window.__log.push(['ro', innerHeight, Math.round(m.getBoundingClientRect().top + scrollY)])).observe(document.documentElement); });
+await p.waitForTimeout(300);
+await p.evaluate(() => window.__log.length = 0);
+await p.screenshot({ fullPage: true, clip: { x: 2, y: 32000, width: 12, height: 5000 } });
+await p.waitForTimeout(300);
+console.log(JSON.stringify(await p.evaluate(() => window.__log)));
+await browser.close();
