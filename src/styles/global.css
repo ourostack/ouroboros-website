@@ -636,6 +636,12 @@ html, body { overflow-x: clip; }
 }
 /* The family bar's strip keeps the site's body font. */
 [data-ouro="family-bar"], [data-ouro="family-footer"] { font-family: var(--font-body); }
+/* The strip and the nav are one surface: the nav's own paper (Nav.astro's
+   .nav-glass over the page ground), with the one hairline under both. */
+.family-bar-wrap { background: var(--card); }
+/* Above the sticky nav (z-40), so a link's 44px target, which runs past the 32px
+   strip on a coarse pointer, still takes a finger on the nav's top edge. */
+.family-bar-wrap { position: relative; z-index: 41; }
 
 /* ── Reading order: every section reads top to bottom ──
    A section's heading sits directly above its body at every width, and the
