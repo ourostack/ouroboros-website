@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.592",
-  "tagCommit": "3bf0f85bb595e079f0e5b78dbb40d13011d06034",
+  "tag": "v1.3.593",
+  "tagCommit": "90076554c3c1c9cc3ac756d45768a5fdd7ebb667",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -23,7 +23,7 @@
     "scripts/ouro/check/check-register.ts": "b400a00a53aab44d51c4eaa605e41bba6f5aa5d4b4b6345ba03b240494e25a34",
     "scripts/ouro/check/check.ts": "e9b1a5a2126ff2ffc37346a3bab16d32fab5947ef2c85033921a615d91dd0cf7",
     "scripts/ouro/check/decision-check.ts": "b076156e74229b97d6e3d89926fabef086159c54f6685652ff585935147e939a",
-    "scripts/ouro/check/design-check.ts": "93e6c9bd12bf7fef1e74d9e8a199d7dfe3ff1289d6a630bc727f4fcd6567b9f6",
+    "scripts/ouro/check/design-check.ts": "08c3b0c7626338cef7fd3b9df154f4292fcf55b5c56fb9ab7ad81ac3e8747d90",
     "scripts/ouro/check/fade-check.ts": "915e4643d68eaac8dd331bed03e2af5cb5e6ba7e9df3f591b042ece4bd13ad6f",
     "scripts/ouro/check/fades.ts": "a3f0f241c46f7a3e507e55ba5c229e130846ce246261568ff5e204e685091500",
     "scripts/ouro/check/first-run-ax-tree.swift": "39a97d6549a9fdae2595f4d06f0706a391f913e2dbefdaed24483b24f08569ed",
@@ -97,7 +97,7 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "bfb4d3cf6704b88edd45de32a058ce0f761bb6713ca10860158d95ff1a482f06",
+    "src/lib/ouro/dev.ts": "337b88162ad54ba4313f45d06806bd311b69ae36f1154c309441309fc910a22c",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
