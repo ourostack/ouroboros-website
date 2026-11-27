@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.602",
-  "tagCommit": "4bc6af543392f4819095114b4cd9650bf88d2fc3",
+  "tag": "v1.3.603",
+  "tagCommit": "e3673664ce472a7639ec518bebd84208de34f827",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -51,7 +51,7 @@
     "scripts/ouro/check/popup-check.ts": "bcea26ad9a5e36e63e2da3288459dc7cc401cc76d1060e8414dc347ce58dd844",
     "scripts/ouro/check/reach-check.ts": "dfc1188dab0b2aab9e9f1123ec7d113418a2c89fd0309d8cc2ce73e428a307a1",
     "scripts/ouro/check/run.kit.mts": "4487637511d50a710ff37d6ce6592be452a63a05b40f514b76ca6968c2b2b533",
-    "scripts/ouro/check/run.ts": "3d18bb29faa970d2452e85861c6fd6c529033e10b0e0721ed996e80d6c00c59b",
+    "scripts/ouro/check/run.ts": "4e8ed9a9a38e52f6799d49b6552ad1ccb6198817050285b8898308efb08f7891",
     "scripts/ouro/check/serve.ts": "eaf5b495eb10615a73d5e3f7f2cc3caa52ed3f527a6124c510d704c8855eceb3",
     "scripts/ouro/check/size-check.ts": "a2ed6e07d3c8faf34dc4e816e2aa1ef929a1355a7f1469e2f4f4676abbc3e275",
     "scripts/ouro/check/text-check.ts": "6bfeddf9f3669a6d741f10baf62d94c0be80db620a4d55163187312c57df8934",
@@ -97,7 +97,7 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "7f1137b355493041dfc5b25dcb77b89ed7072a2b7062779bf65ff719b227bf85",
+    "src/lib/ouro/dev.ts": "bb83bdb2869e3a795eb1f3a9009b2ebe35b30d606d4348cecaae354fb9a3a04c",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
