@@ -119,6 +119,7 @@ test('homepage tools pair media and prose, each with one strong visual and its l
     'My agents write their plans and reports in Markdown. Ouro MD is a Mac editor made for reading them: it renders as you type, and marks exactly what changed when an agent edits.',
     'The doctor, giving an archive its checkup.',
     'm365crawl gives my agent one searchable archive of my Teams chats, Outlook mail, and meetings, so it can find the conversation and walk into the meeting prepared, without me pasting a thing.',
+    "m365crawl is in maintenance mode now, because something new is on its way. I can't say what yet. Until it lands, m365crawl keeps working.",
     'My mushroom risotto in Spoonjoy, one tap from cook mode.',
     "Spoonjoy is my recipe app, and where I work out what an app's interface is for once an agent is in the loop. The easy things stay in the app. Writing up a recipe or importing one from a messy webpage goes to an agent that uses the same operations the app does. Eventually, the app will draw its own interface for everything in between.",
     'Desk →', 'Ouro MD →', 'm365crawl on GitHub ↗', 'Spoonjoy, from the start ↗', 'spoonjoy.app ↗',
