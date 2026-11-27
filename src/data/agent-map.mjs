@@ -38,7 +38,7 @@ export const tools = [
     note: 'The kit for every interface you build: Ouro HX, components for the screens people use, and Ouro AX, the doors agents use (CLIs, APIs, MCP servers, App Intents and more), on the web, Apple, Windows and Android. A lesson one app teaches goes into the kit, and every app picks it up in its next pull request. With its showcase (https://ui.ouroboros.bot/voyage/) and how to install it, and Ouro AX at https://ui.ouroboros.bot/ax/.',
   },
   { name: 'The factory', href: 'https://ourostack.github.io/factory/llms.txt', readiness: 'factory', note: 'Our public record of how agent work actually goes.' },
-  { name: 'm365crawl', href: 'https://github.com/ourostack/m365crawl', note: 'A local, searchable archive of Teams chats, Outlook mail, and meetings for an agent.' },
+  { name: 'm365crawl', href: 'https://github.com/ourostack/m365crawl', note: 'A local, searchable archive of Teams chats, Outlook mail, and meetings for an agent. In maintenance mode while something new takes shape; it keeps working.' },
   { name: 'Spoonjoy', href: 'https://spoonjoy.app/llms.txt', note: 'A recipe app an agent can drive through its MCP server.' },
 ]
 
