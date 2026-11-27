@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.626",
-  "tagCommit": "25410fde22b8731ae1fb919d461e080e2555b3e2",
+  "tag": "v1.3.627",
+  "tagCommit": "45283a090a9d4802778d4878cc97ffe3479f4633",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -97,7 +97,7 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "ab181977c5f8b6d41f93df45353f99fefac563e523038dd91272f6986ad2e960",
+    "src/lib/ouro/dev.ts": "19d9c91fa511da7b594e0bf54a652b240489fa505d09eeef7b5cf156d48bca7c",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
@@ -118,7 +118,7 @@
     "src/lib/ouro/squircle-corners.ts": "e8ecadb7f46f85139bd3e8c83ae94981f14129d0618f4abecf6d670cd77551fb",
     "src/lib/ouro/stretched-link.ts": "c4346428583921ffb6671d3e1451c2c0f2309329b4b31ff398e9abf653a510a2",
     "src/lib/ouro/tones.ts": "22ef28371ff315f7ed8975d330036c073885e226856f7059e47c80d9fd06f72b",
-    "src/lib/ouro/touch-target.tsx": "fd70ffb45a1627849eef2652c3513a35963dfd15b5a9896a010054f8352447fb",
+    "src/lib/ouro/touch-target.tsx": "93a8102dced5eaab7205beecc80489b658284177794c74c66a1c4069fe2ae7fd",
     "src/lib/ouro/use-backdrop-anchor.ts": "ccddf5e08193737597a6b111d875ec19e30db6a6c6afcd280b9aeaef31bec51a",
     "src/lib/ouro/use-dev-messages.ts": "c4ee9471b23df236296d3ebe5ec802e75ee509602d0e40e60224ef9781ff09d4",
     "src/lib/ouro/use-field.ts": "aca4c649a25516345d0d6358e2209c342134fe7b5207d336720a03076c3edab1",
