@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.603",
-  "tagCommit": "e3673664ce472a7639ec518bebd84208de34f827",
+  "tag": "v1.3.604",
+  "tagCommit": "3287ffbfb79e3fa15fbd6e0519a7c3eb16ec2ea3",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -97,11 +97,11 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "bb83bdb2869e3a795eb1f3a9009b2ebe35b30d606d4348cecaae354fb9a3a04c",
+    "src/lib/ouro/dev.ts": "c375f8ec0f3a510a43f96b892a6f872c5d9799a6decfaa05babae8d5a224403e",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
-    "src/lib/ouro/focus-handoff.ts": "6fd083c7a3eb65f7c0995dba603538adaad7c311448f266abf765ff9468f9337",
+    "src/lib/ouro/focus-handoff.ts": "afdb2b4c72bfe9ec78ba9cb6e064d56c668c07222d7cacad26076107227fc3aa",
     "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
     "src/lib/ouro/last-input.ts": "ccec4ba056e7319ba335c837e6207842f3de6934c1fa9568fb4b0c2eafc70e8e",
     "src/lib/ouro/open-mode.ts": "f39f0c2c5f38b3a5ae17c4e17bcf92b28871ee4a5a376314bd92ea5e8a1a1d36",
