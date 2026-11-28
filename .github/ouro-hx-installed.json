@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.646",
-  "tagCommit": "200c640747e21f4a15c2c3c2c508b9c1890f12b7",
+  "tag": "v1.3.647",
+  "tagCommit": "8fa8f79e9d966be677bc3e195d800f7573a5d977",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -42,7 +42,7 @@
     "scripts/ouro/check/first-run.ts": "0f87e0ae7d50ec6e02bcfff52f9b842fcde15501054ad0ab8aa3a76cbc3bc7f0",
     "scripts/ouro/check/in-page.ts": "432568a1ad99213c21e120d09d2aa1e72880c43f65a46574a7d99cd9242451b3",
     "scripts/ouro/check/interaction-check.ts": "0260e8431821dd21522979b0198d3898e37024100fb4af8d3c36f3cae7917285",
-    "scripts/ouro/check/layout-check.ts": "9b38635225bb30786d92d4e64ed540c219fe8d55c939cc08cb29272c49b36344",
+    "scripts/ouro/check/layout-check.ts": "529c333444e31e732695e23aff947a3e0f0fd6b9409075debd2f2dc7f04981c3",
     "scripts/ouro/check/measure.ts": "9a3ddf19a874e0e20a36579bfbfd58b905a8a6fd7f68efdb6dce62e32b8925df",
     "scripts/ouro/check/motion-check.ts": "3edb03043c6b449a3eaa23788f32a641bc8e17556d16e05e37df934d0f1647b5",
     "scripts/ouro/check/new-rules.json": "9fd1914a81b73ea8d33a3098df33926cf59de538046d0053393a0d7fe4069c65",
@@ -97,7 +97,7 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "019bff0b785c13fd8bfb625cdfd586e39e0d8120ff991551bf20edda757a613b",
+    "src/lib/ouro/dev.ts": "7e299df77cf0e1b095e914a18c2261aae06ef36dfc9eebfe3ad64cd77b663da7",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
