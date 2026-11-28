@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.659",
-  "tagCommit": "b19c823784077cfa42294fa1afba30500487761d",
+  "tag": "v1.3.660",
+  "tagCommit": "f80fe00c491e3562d30a5128d56a7838992f1227",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -46,7 +46,7 @@
     "scripts/ouro/check/measure.ts": "9a3ddf19a874e0e20a36579bfbfd58b905a8a6fd7f68efdb6dce62e32b8925df",
     "scripts/ouro/check/motion-check.ts": "3edb03043c6b449a3eaa23788f32a641bc8e17556d16e05e37df934d0f1647b5",
     "scripts/ouro/check/new-rules.json": "9fd1914a81b73ea8d33a3098df33926cf59de538046d0053393a0d7fe4069c65",
-    "scripts/ouro/check/overlap-check.ts": "b66f44b2a9e11cb51f41d0e21980931aa3a9864bd0da71623249c3f2d3e4a1ee",
+    "scripts/ouro/check/overlap-check.ts": "0f619f98aa27dcd7ca402c90e88fccd47903aa78d624a54f2d84e7232d79513c",
     "scripts/ouro/check/panel-check.ts": "e82087fbdb352c8d1c323cb0b28a8952ef372d86d292db5fe7103559148ddd9e",
     "scripts/ouro/check/popup-check.ts": "bcea26ad9a5e36e63e2da3288459dc7cc401cc76d1060e8414dc347ce58dd844",
     "scripts/ouro/check/reach-check.ts": "dfc1188dab0b2aab9e9f1123ec7d113418a2c89fd0309d8cc2ce73e428a307a1",
@@ -97,7 +97,7 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "23b5f759fe1f728eff6494a78f9adb92baaa9960e11f18dc0b99345e8cec2ac6",
+    "src/lib/ouro/dev.ts": "18f1d606cd55e0c3e4f7099ed4e745986e54a983dbe31849916a6be80c9d587b",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
