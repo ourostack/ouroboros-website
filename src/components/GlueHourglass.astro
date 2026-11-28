@@ -1,0 +1,119 @@
+---
+// The two diagrams in "Stop being the glue", drawn as a before-and-after pair around one idea:
+// the glue sits between your agents and the places your work lives.
+// Before: agents above, places below, and every bit of work goes through you at the neck,
+// copied out of a place and pasted into an agent, then back again.
+// After: you plan with one agent, and it reaches every place itself.
+// Two layouts, so labels never shrink on a phone.
+interface Props {
+  centre: 'you' | 'agent';
+  label: string;
+  caption: string;
+  id: string;
+}
+const { centre, label, caption, id } = Astro.props;
+const agent = centre === 'agent';
+
+const agents = ['ChatGPT', 'Claude', 'GitHub Copilot', 'M365 Copilot', 'Perplexity'];
+const places = ['Azure DevOps', 'Teams', 'Outlook', 'SharePoint', 'GitHub'];
+
+type Chip = { name: string; x: number; y: number; w: number };
+type View = {
+  kind: 'wide' | 'narrow'; w: number; h: number; neck: [number, number]; r: number; font: number;
+  top: Chip[]; bottom: Chip[]; topLabel: [number, number]; bottomLabel: [number, number]; you: [number, number];
+};
+
+const chipWidth = (name: string, font: number) => Math.round(name.length * font * 0.56 + font * 1.9);
+const row = (names: string[], xs: number[], y: number, font: number) => names.map((name, i) => ({ name, x: xs[i], y, w: chipWidth(name, font) }));
+
+const views: View[] = [
+  {
+    kind: 'wide', w: 860, h: 460, neck: [430, 236], r: 44, font: 14,
+    top: row(agents, [110, 270, 430, 590, 750], 52, 14),
+    bottom: row(places, [110, 270, 430, 590, 750], 418, 14),
+    topLabel: [430, 14], bottomLabel: [430, 456], you: [430, 72],
+  },
+  {
+    kind: 'narrow', w: 360, h: 600, neck: [180, 300], r: 36, font: 12,
+    top: [...row([agents[0], agents[2], agents[4]], [62, 180, 296], 46, 12), ...row([agents[1], agents[3]], [122, 240], 90, 12)],
+    bottom: [...row([places[1], places[3]], [122, 240], 510, 12), ...row([places[0], places[2], places[4]], [62, 180, 296], 554, 12)],
+    topLabel: [180, 12], bottomLabel: [180, 594], you: [180, 76],
+  },
+];
+
+// Each strand bends from its chip into the neck, so together they draw the hourglass.
+const strand = (v: View, c: Chip) => {
+  const [nx, ny] = v.neck;
+  const fromTop = c.y < ny;
+  const yChip = c.y + (fromTop ? 15 : -15);
+  const yNeck = ny + (fromTop ? -v.r : v.r);
+  const bend = ny + (fromTop ? -v.r * 2.2 : v.r * 2.2);
+  return `M ${c.x} ${yChip} C ${c.x} ${(yChip + bend) / 2}, ${nx} ${bend}, ${nx} ${yNeck}`;
+};
+// After: the agent's own lines reach straight down to every place.
+const reach = (v: View, c: Chip) => {
+  const [nx, ny] = v.neck;
+  const y1 = ny + v.r;
+  const y2 = c.y - 15;
+  return `M ${nx} ${y1} C ${nx} ${y1 + (y2 - y1) * 0.55}, ${c.x} ${y1 + (y2 - y1) * 0.45}, ${c.x} ${y2}`;
+};
+---
+<figure class:list={['glue-figure not-prose my-14', agent && 'glue-figure--after']} aria-labelledby={`${id}-caption`}>
+  {views.map((v) => (
+    <svg class:list={['glue-diagram', `glue-diagram--${v.kind}`]} viewBox={`0 0 ${v.w} ${v.h}`} role="img" aria-label={label}>
+      <defs>
+        <linearGradient id={`${id}-${v.kind}-trail`} gradientUnits="userSpaceOnUse" x1="0" y1={v.neck[1]} x2="0" y2={v.h}>
+          <stop offset="0" stop-color="var(--color-scale)" />
+          <stop offset="1" stop-color="var(--trail-glow)" />
+        </linearGradient>
+        <marker id={`${id}-${v.kind}-arrow`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M1 1 L8 5 L1 9" class="hg-arrowhead" />
+        </marker>
+        <clipPath id={`${id}-${v.kind}-disc`}><circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} /></clipPath>
+      </defs>
+
+      {!agent && (
+        <>
+          <text x={v.topLabel[0]} y={v.topLabel[1]} class="hg-row" text-anchor="middle" dominant-baseline="middle">Your agents</text>
+          <g class="hg-strands">{[...v.top, ...v.bottom].map((c) => <path d={strand(v, c)} />)}</g>
+          {v.top.map((c) => (
+            <g class="hg-chip hg-chip--agent">
+              <rect x={c.x - c.w / 2} y={c.y - 15} width={c.w} height="30" rx="15" />
+              <text x={c.x} y={c.y + 1} text-anchor="middle" dominant-baseline="middle" style={`font-size:${v.font}px`}>{c.name}</text>
+            </g>
+          ))}
+          <circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} class="hg-you" />
+          <text x={v.neck[0]} y={v.neck[1] - 6} class="hg-name" text-anchor="middle" dominant-baseline="middle">You</text>
+          <text x={v.neck[0]} y={v.neck[1] + 15} class="hg-note" text-anchor="middle" dominant-baseline="middle">(the glue)</text>
+          <text x={v.neck[0] + v.r + 12} y={v.neck[1] - 12} class="hg-verb" dominant-baseline="middle">copy</text>
+          <text x={v.neck[0] + v.r + 12} y={v.neck[1] + 12} class="hg-verb" dominant-baseline="middle">paste</text>
+        </>
+      )}
+
+      {agent && (
+        <>
+          <g class="hg-reach" stroke={`url(#${id}-${v.kind}-trail)`}>{v.bottom.map((c) => <path d={reach(v, c)} marker-end={`url(#${id}-${v.kind}-arrow)`} />)}</g>
+          <circle cx={v.you[0]} cy={v.you[1]} r="30" class="hg-you hg-you--free" />
+          <text x={v.you[0]} y={v.you[1] + 1} class="hg-name" text-anchor="middle" dominant-baseline="middle">You</text>
+          <path d={`M ${v.you[0] - 12} ${v.you[1] + 30} C ${v.you[0] - 40} ${(v.you[1] + v.neck[1]) / 2}, ${v.neck[0] - 40} ${(v.you[1] + v.neck[1]) / 2}, ${v.neck[0] - 12} ${v.neck[1] - v.r - 4}`} class="hg-loop" marker-end={`url(#${id}-${v.kind}-arrow)`} />
+          <path d={`M ${v.neck[0] + 12} ${v.neck[1] - v.r - 4} C ${v.neck[0] + 40} ${(v.you[1] + v.neck[1]) / 2}, ${v.you[0] + 40} ${(v.you[1] + v.neck[1]) / 2}, ${v.you[0] + 12} ${v.you[1] + 30}`} class="hg-loop" marker-end={`url(#${id}-${v.kind}-arrow)`} />
+          <text x={v.neck[0] - 50} y={(v.you[1] + v.neck[1]) / 2} class="hg-verb" text-anchor="end" dominant-baseline="middle">plan together</text>
+          <text x={v.neck[0] + 50} y={(v.you[1] + v.neck[1]) / 2} class="hg-verb" dominant-baseline="middle">results</text>
+          <image href="/brand/storybook/icons/ouro-192.png" x={v.neck[0] - v.r} y={v.neck[1] - v.r} width={v.r * 2} height={v.r * 2} clip-path={`url(#${id}-${v.kind}-disc)`} />
+          <circle cx={v.neck[0]} cy={v.neck[1]} r={v.r} class="hg-agent" />
+          <text x={v.neck[0] + v.r + 12} y={v.neck[1] - 10} class="hg-name" dominant-baseline="middle">Your agent</text>
+          <text x={v.neck[0] + v.r + 12} y={v.neck[1] + 16} class="hg-verb" dominant-baseline="middle">{v.kind === 'wide' ? 'goes in and does the work' : 'does the work'}</text>
+        </>
+      )}
+
+      {v.bottom.map((c) => (
+        <g class="hg-chip hg-chip--place">
+          <rect x={c.x - c.w / 2} y={c.y - 15} width={c.w} height="30" rx="6" />
+          <text x={c.x} y={c.y + 1} text-anchor="middle" dominant-baseline="middle" style={`font-size:${v.font}px`}>{c.name}</text>
+        </g>
+      ))}
+      <text x={v.bottomLabel[0]} y={v.bottomLabel[1]} class="hg-row" text-anchor="middle" dominant-baseline="middle">Where your work lives</text>
+    </svg>
+  ))}
+  <figcaption id={`${id}-caption`} class="glue-caption">{caption}</figcaption>
+</figure>

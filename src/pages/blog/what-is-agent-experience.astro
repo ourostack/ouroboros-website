@@ -13,7 +13,7 @@ const { claimSentence: calloutClaim } = getModelReviewClaims(modelReviews)
 const reviewedHarnessCount = modelReviews.harnesses.length
 const reviewsTitle = pageOg['/lab/model-reviews'].title
 const datePublished = "2026-03-08"
-const dateModified = "2026-10-15"
+const dateModified = "2026-11-13"
 ---
 
 <Layout
@@ -43,7 +43,7 @@ const dateModified = "2026-10-15"
     <Fragment slot="title"><span class="t-ph">What is</span> <span class="t-ph">Agent Experience?</span></Fragment>
     <Fragment slot="description">
       <p class="m-0">The moment an agent has to stay oriented inside a system across time, memory, and interruptions, the agent becomes a user too. UX now holds two experiences. HX. <span class="font-display text-scale">AX</span>.</p>
-      <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} />
+      <PostByline authors={["Ari Mendelow"]} published={datePublished} updated={dateModified} updatedHref="#eight-months-on" />
     </Fragment>
   </PageHero>
 
@@ -53,9 +53,9 @@ const dateModified = "2026-10-15"
 
       <blockquote class="border-l-[3px] border-fang/40 pl-6 my-10 not-prose">
         <p class="font-display text-3xl leading-snug text-bone">
-          "I spent more time trying to get my agents back on track than we actually spent working."
+          “I spent more time trying to get my agents back on track than we actually spent working.”
         </p>
-        <p class="mt-4 text-sm leading-7 text-mist">
+        <p class="mt-4 text-base leading-7 text-mist">
           If that line feels familiar, you have already felt bad AX. You just did not have a name for it yet.
         </p>
       </blockquote>
@@ -111,6 +111,20 @@ const dateModified = "2026-10-15"
       <p>If you are debugging an agent and you keep finding yourself restating identity, restitching context, reminding it who humans are, or rebuilding the work after every interruption, you have an AX problem.</p>
 
       <p>The discipline is still young, and the need is already here. Long-lived agents force the question. Once an agent has to inhabit a system over time, the shape of that system starts mattering from the inside.</p>
+
+      <h2 id="eight-months-on">Eight months on</h2>
+
+      <p>I wrote this in March, six weeks into working with <a href="https://openclaw.ai">OpenClaw</a>. Since then, AX has gone from a word I had to explain to one Microsoft explains for me. In October it published <a href="https://developer.microsoft.com/blog/what-is-agent-experience-ax/">a post with this essay's title</a>, and a <a href="https://microsoft.github.io/agent-experience/">practitioner playbook</a> whose first line I'd sign: "Every coding agent best practice is a guess until you measure it." It joins <a href="https://biilmann.blog/articles/one-year-of-ax/">Mathias Biilmann's writing on AX</a> and the community at <a href="https://agentexperience.ax/">agentexperience.ax</a>.</p>
+
+      <p>Microsoft comes in through one door, the agent as a visitor. Its definition is "the experience AI agents have when discovering, choosing, and using your technology." An agent shows up, uses your API or CLI for one job, and leaves.</p>
+
+      <p>This essay came in through the other door, the agent as an inhabitant. It lives in the system, loses its bearings at every reset, and has to find them again. Every inhabitant is a visitor too, dozens of times a day, so it carries both problems at once. I believe that's the side of AX long-lived agents can't dodge.</p>
+
+      <p>I didn't stop at the harness. I took AX into the tools. Ouro UI is now about building interfaces with and for agents, in two halves. <strong><a href="https://ui.ouroboros.bot/">Ouro HX</a></strong> is for the screens people use, built so an agent can make them well. <strong><a href="https://ui.ouroboros.bot/ax/">Ouro AX</a></strong> is for the surfaces agents use: command lines, HTTP APIs, MCP servers.</p>
+
+      <p>Ouro AX also put this essay's idea to the test. Rules written from good principles <a href="https://github.com/ourostack/ouro-ui/blob/main/docs/decisions/2026-10-30-ouro-ax.md">changed no task outcome</a>. Two rules written from the agents' actual wrong turns took the same five tasks, run twice each, from 5 passes in 10 to 10 in 10. Design from the inside: watch where the agent gets lost, and fix that.</p>
+
+      <p>UX still holds two experiences. I'm building for both.</p>
     </div>
   </section>
 

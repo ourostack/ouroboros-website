@@ -994,7 +994,7 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 }
 
 /* ── Prose ── */
-.prose-ouro p {
+.prose-ouro p:not(blockquote.not-prose p) {
   color: var(--color-mist);
   font-size: 1.125rem;
   line-height: 1.85;
@@ -1057,7 +1057,9 @@ a.underline:hover { text-decoration-color: currentColor; text-decoration-thickne
 /* A filled button inside prose keeps its own text colour, not the link green. */
 .prose-ouro a.bg-bone,
 .prose-ouro a.bg-bone:hover { color: var(--color-void); text-decoration: none; }
-.prose-ouro blockquote {
+/* A blockquote marked not-prose is a pull quote that sets its own type, so
+   neither this rule nor the paragraph rule above may restyle it. */
+.prose-ouro blockquote:not(.not-prose) {
   border-left: 2px solid var(--color-canopy);
   padding-left: 1.25rem;
   margin: 1.5rem 0;
@@ -1502,9 +1504,14 @@ main > section.border-t::before, .divider-top::before {
   background: var(--divider);
 }
 
-/* A note beside the essay: open on the page, set off by a quiet rule, no box. */
-.post-note { position: relative; padding: 0.25rem 0 0.25rem 1.4rem; }
-.post-note::before { content: ""; position: absolute; left: 0; top: 0.2rem; bottom: 0.2rem; width: 3px; border-radius: calc(1.5px * var(--site-corner-fallback, 1)); /* half the 3px width, what a 3px radius clamps to anyway; at 0.7 the ends are not round caps */ background: var(--color-amber); }
+/* A note beside the essay: open on the page between two hairlines, in body
+   type a step smaller, never a box and never a glowing bar (Ari, 2026-11-14:
+   "the yellow bar thing is so ugly and the text sizing is just weird"). */
+.post-note { padding: 1.25rem 0; border-block: 1px solid color-mix(in srgb, var(--color-canopy) 30%, transparent); }
+.prose-ouro .post-note p:not(blockquote.not-prose p) { font-size: 1rem; line-height: 1.8; }
+.prose-ouro .post-note p:last-child { margin-bottom: 0; }
+/* Opening an essay, the hero above already sets it off: only the hairline below. */
+.post-note:first-child { border-top: 0; padding-top: 0; }
 
 /* An open definition list (the agent bundle's folders): a name and what it
    holds, on hairlines, never a box (taste review r3, 2026-11-06). */
@@ -1603,3 +1610,31 @@ main > section.border-t::before, .divider-top::before {
   --ouro-bd: var(--ring);
   border-color: var(--ring);
 }
+
+/* The before-and-after hourglass in "Stop being the glue" (GlueHourglass.astro). Tools are
+   chips because each is a separate thing; a narrow layout on phones keeps labels at body size. */
+.glue-figure { margin-inline: auto; width: min(100%, 50rem); }
+.glue-diagram { display: block; width: 100%; height: auto; overflow: visible; }
+.glue-diagram--narrow { width: min(100%, 24rem); margin-inline: auto; }
+.glue-diagram--wide { display: none; }
+@media (min-width: 40rem) {
+  .glue-diagram--wide { display: block; }
+  .glue-diagram--narrow { display: none; }
+}
+.hg-strands path { fill: none; stroke: var(--trail-glow); stroke-width: 1.6; stroke-dasharray: 3 5; stroke-linecap: round; opacity: 0.9; }
+.hg-chip rect { fill: var(--background); stroke: color-mix(in srgb, var(--color-mist) 45%, transparent); stroke-width: 1; }
+.hg-chip--place rect { fill: color-mix(in srgb, var(--color-scale) 8%, var(--background)); stroke: color-mix(in srgb, var(--color-scale) 45%, transparent); }
+.hg-row { fill: var(--color-shadow); font-family: var(--font-body); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+.hg-reach path { fill: none; stroke-width: 2.4; stroke-linecap: round; }
+.hg-chip text { fill: var(--color-mist); font-family: var(--font-body); }
+.hg-you { fill: color-mix(in srgb, var(--trail-glow) 16%, var(--background)); stroke: var(--trail-glow); stroke-width: 3; }
+.hg-you--free { fill: var(--background); stroke: var(--color-scale); stroke-width: 1.6; }
+.hg-agent { fill: none; stroke: var(--color-scale); stroke-width: 2; }
+.hg-name { fill: var(--color-bone); font-family: var(--font-display); font-size: 22px; }
+.hg-note { fill: var(--color-mist); font-family: var(--font-body); font-size: 12px; }
+.hg-verb { fill: var(--color-shadow); font-family: var(--font-body); font-size: 14px; letter-spacing: 0.02em; }
+.hg-loop { fill: none; stroke: var(--color-scale); stroke-width: 2; stroke-linecap: round; }
+.hg-arrowhead { fill: none; stroke: var(--color-scale); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.glue-diagram--narrow .hg-name { font-size: 19px; }
+.glue-diagram--narrow .hg-verb { font-size: 13px; }
+.glue-caption { margin-top: 1.25rem; text-align: center; text-wrap: balance; font-family: var(--font-display); font-size: 1.375rem; color: var(--color-bone); }

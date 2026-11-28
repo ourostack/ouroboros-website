@@ -47,9 +47,9 @@ export const posts = [
   },
   {
     route: '/blog/stop-being-the-glue/',
-    title: 'Stop being the glue between your agents',
-    description: "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, copy-pasting between tools. Here's what changed.",
-    dek: 'We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. How I stopped copy-pasting between my agents and started collaborating.',
+    title: 'Stop being the glue between your agents and your work',
+    description: "We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. We became the glue, carrying work by hand between our agents and the places it lives. Here's what changed.",
+    dek: 'We were promised an intelligent assistant, and we got a fragmentation of semi-intelligent bots. How I stopped carrying work between my agents and the places it lives.',
     author: 'Ari Mendelow',
   },
   {
