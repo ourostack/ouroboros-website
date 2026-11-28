@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.662",
-  "tagCommit": "17f3bfc3fe8336f42ea8634325816bfc3dbec186",
+  "tag": "v1.3.663",
+  "tagCommit": "ef7a78b3130303cfc65bfb3d34ac46ca4875ca3f",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -43,7 +43,7 @@
     "scripts/ouro/check/in-page.ts": "432568a1ad99213c21e120d09d2aa1e72880c43f65a46574a7d99cd9242451b3",
     "scripts/ouro/check/interaction-check.ts": "0260e8431821dd21522979b0198d3898e37024100fb4af8d3c36f3cae7917285",
     "scripts/ouro/check/layout-check.ts": "529c333444e31e732695e23aff947a3e0f0fd6b9409075debd2f2dc7f04981c3",
-    "scripts/ouro/check/measure.ts": "9a3ddf19a874e0e20a36579bfbfd58b905a8a6fd7f68efdb6dce62e32b8925df",
+    "scripts/ouro/check/measure.ts": "d55b087eb8627e2cadd096fdbf839de21117dbe032cd3826fb8e8be50cc40b27",
     "scripts/ouro/check/motion-check.ts": "3edb03043c6b449a3eaa23788f32a641bc8e17556d16e05e37df934d0f1647b5",
     "scripts/ouro/check/new-rules.json": "73c2b98b3353b05a7d17663cf0d17d9a46f2994b175b43f98dbbefbda91871ef",
     "scripts/ouro/check/overlap-check.ts": "0f619f98aa27dcd7ca402c90e88fccd47903aa78d624a54f2d84e7232d79513c",
@@ -97,7 +97,7 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "7e9fae58bb619342241efc4de77249cf8e7dc035186e7ebe0365830d074eb561",
+    "src/lib/ouro/dev.ts": "93906b35c3c0d1e7ceb8d3940242eb992de3899a6a9e93d03496e12205cac0f4",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
