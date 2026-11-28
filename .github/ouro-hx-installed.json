@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.651",
-  "tagCommit": "3a736d9f020961fef6867558bb7d6d3592b06147",
+  "tag": "v1.3.652",
+  "tagCommit": "99833af08aa0940a66242d485a9b8d61d908b565",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -97,7 +97,7 @@
     "src/lib/ouro/cn.ts": "47724274087b49701850e2a0caad8fbbbb28619e005f68c820ae958e0d7f6818",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "7065c1e6d45f38263d83425173bde8563492e7294ae88f73d7235672acb2a05d",
+    "src/lib/ouro/dev.ts": "a97dfadbf9794cf8fd810d6ea06fc74be47731b3c031c9635c22be432e0e93c5",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
@@ -115,7 +115,8 @@
     "src/lib/ouro/router-link.ts": "b4ebc9021f70fff0bbab81f1caaba542aa8ae4b89bc6395950c8fcbd7cbef966",
     "src/lib/ouro/server-element.ts": "0d183afd9030b7fcead16078c7363ccef84af13fda8a4becfe1a201bd1b14eb9",
     "src/lib/ouro/squircle-capsules.ts": "86c73f7b29ae565e7f3f5b2c10fba83a34aa5042b6e5794b06076162ffacd45e",
-    "src/lib/ouro/squircle-corners.ts": "e8ecadb7f46f85139bd3e8c83ae94981f14129d0618f4abecf6d670cd77551fb",
+    "src/lib/ouro/squircle-corners.ts": "c2d89e7845e6f302e5fa69dcb0a1e84d8df06b6771a966e7b4e580980a02b66b",
+    "src/lib/ouro/squircle-curve.ts": "ac35ca0507b67fbc1e143c16bd3364573260c932f4d2c713e5649161763de1e6",
     "src/lib/ouro/stretched-link.ts": "c4346428583921ffb6671d3e1451c2c0f2309329b4b31ff398e9abf653a510a2",
     "src/lib/ouro/tones.ts": "22ef28371ff315f7ed8975d330036c073885e226856f7059e47c80d9fd06f72b",
     "src/lib/ouro/touch-target.tsx": "93a8102dced5eaab7205beecc80489b658284177794c74c66a1c4069fe2ae7fd",
